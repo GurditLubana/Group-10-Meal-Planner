@@ -11,4 +11,8 @@ public class MealDiary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_diary);
     }
+
+    private void getData() {
+
+    }
 }
