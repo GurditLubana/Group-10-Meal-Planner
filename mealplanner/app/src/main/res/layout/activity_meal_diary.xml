@@ -7,19 +7,36 @@
     android:layout_height="match_parent"
     tools:context=".MealDiary">
 
+    <androidx.fragment.app.FragmentContainerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fragment_container_view"
+        android:name="com.teamten.mealplanner.HeaderFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#45424E"
-        tools:layout_editor_absoluteX="241dp"
-        tools:layout_editor_absoluteY="342dp">
+        android:layout_height="0dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp"
+        android:background="?colorPrimaryVariant"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="vertical"
             android:paddingLeft="20dp"
-            android:paddingTop="75dp"
             android:paddingRight="20dp"
             android:paddingBottom="50dp">
 
@@ -28,7 +45,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="15dp"
                 android:minHeight="100dp"
-                app:cardBackgroundColor="#80CBC4"
+                app:cardBackgroundColor="?colorSecondaryVariant"
                 app:cardCornerRadius="40dp">
 
                 <LinearLayout
@@ -73,7 +90,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="15dp"
                 android:minHeight="100dp"
-                app:cardBackgroundColor="#80CBC4"
+                app:cardBackgroundColor="?colorSecondaryVariant"
                 app:cardCornerRadius="40dp">
 
                 <LinearLayout
@@ -120,7 +137,7 @@
                 android:layout_marginRight="170dp"
                 android:layout_marginBottom="15dp"
                 android:minHeight="100dp"
-                app:cardBackgroundColor="#1F868A"
+                app:cardBackgroundColor="?colorSecondary"
                 app:cardCornerRadius="40dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -132,12 +149,12 @@
                         android:id="@+id/imageView4"
                         android:layout_width="116dp"
                         android:layout_height="88dp"
-                        app:tint="#76FF03"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@android:drawable/ic_menu_add" />
+                        app:srcCompat="@android:drawable/ic_menu_add"
+                        app:tint="#138000" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
@@ -147,7 +164,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="15dp"
                 android:minHeight="100dp"
-                app:cardBackgroundColor="#1F868A"
+                app:cardBackgroundColor="?colorSecondary"
                 app:cardCornerRadius="40dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -160,27 +177,40 @@
                         android:id="@+id/imageView5"
                         android:layout_width="262dp"
                         android:layout_height="74dp"
-                        app:tint="#FFFFFF"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/imageView6"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@android:drawable/ic_menu_edit" />
+                        app:srcCompat="@android:drawable/ic_menu_edit"
+                        app:tint="?colorSecondaryVariant" />
 
                     <ImageView
                         android:id="@+id/imageView6"
                         android:layout_width="272dp"
                         android:layout_height="73dp"
-                        app:tint="#FF0031"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/imageView5"
                         app:layout_constraintTop_toTopOf="@+id/imageView5"
-                        app:srcCompat="@android:drawable/ic_delete" />
+                        app:srcCompat="@android:drawable/ic_delete"
+                        app:tint="#FF0031" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </ScrollView>
+
+    <androidx.fragment.app.FragmentContainerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fragment_container_view2"
+        android:name="com.teamten.mealplanner.FooterFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
