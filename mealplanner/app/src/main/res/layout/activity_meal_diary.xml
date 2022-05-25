@@ -32,6 +32,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginBottom="100dp"
         android:background="?colorPrimaryVariant"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

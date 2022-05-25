@@ -13,6 +13,8 @@ public class MealDiary extends AppCompatActivity {
     }
 
     private void getData() {
+        String[] data = {"one"};
+        MealCustomAdapter mealCustomAdapter = new MealCustomAdapter(data);
 
     }
 }
