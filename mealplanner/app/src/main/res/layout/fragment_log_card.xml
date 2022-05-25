@@ -8,6 +8,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.cardview.widget.CardView
+        android:id="@+id/btnMealLog"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:minHeight="100dp"
@@ -19,7 +20,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/itemImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
@@ -85,7 +86,7 @@
                 android:text="food item name"
                 android:textAlignment="viewStart"
                 android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/itemImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

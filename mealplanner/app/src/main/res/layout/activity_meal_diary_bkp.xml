@@ -174,11 +174,11 @@
                     android:minHeight="100dp">
 
                     <ImageView
-                        android:id="@+id/imageView5"
+                        android:id="@+id/btnModifyMeal"
                         android:layout_width="262dp"
                         android:layout_height="74dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView6"
+                        app:layout_constraintEnd_toStartOf="@+id/btnDeleteMeal"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -186,13 +186,13 @@
                         app:tint="@color/black" />
 
                     <ImageView
-                        android:id="@+id/imageView6"
+                        android:id="@+id/btnDeleteMeal"
                         android:layout_width="272dp"
                         android:layout_height="73dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/imageView5"
-                        app:layout_constraintTop_toTopOf="@+id/imageView5"
+                        app:layout_constraintStart_toEndOf="@+id/btnModifyMeal"
+                        app:layout_constraintTop_toTopOf="@+id/btnModifyMeal"
                         app:srcCompat="@drawable/baseline_delete_forever_black_36"
                         app:tint="#FF0031" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
