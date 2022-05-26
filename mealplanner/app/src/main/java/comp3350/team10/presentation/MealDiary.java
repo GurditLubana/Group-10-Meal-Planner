@@ -1,7 +1,7 @@
-package com.teamten.mealplanner;
+package comp3350.team10.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import comp3350.team10.R;
 import android.os.Bundle;
 
 public class MealDiary extends AppCompatActivity {

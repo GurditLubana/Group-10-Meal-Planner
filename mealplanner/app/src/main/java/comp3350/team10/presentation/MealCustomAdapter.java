@@ -1,9 +1,9 @@
-package com.teamten.mealplanner;
+package comp3350.team10.presentation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import comp3350.team10.R;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.recyclerview.widget.RecyclerView;
 

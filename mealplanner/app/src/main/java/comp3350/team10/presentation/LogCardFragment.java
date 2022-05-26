@@ -1,7 +1,7 @@
-package com.teamten.mealplanner;
+package comp3350.team10.presentation;
 
 import android.os.Bundle;
-
+import comp3350.team10.R;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
