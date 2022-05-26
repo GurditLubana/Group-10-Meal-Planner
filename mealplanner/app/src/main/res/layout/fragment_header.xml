@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:background="?colorPrimary"
-    tools:context=".HeaderFragment">
+    tools:context="comp3350.team10.presentation.HeaderFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

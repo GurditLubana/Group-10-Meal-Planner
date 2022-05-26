@@ -5,11 +5,11 @@
     android:id="@+id/mealDiary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MealDiary">
+    tools:context="comp3350.team10.presentation.MealDiary">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
-        android:name="com.teamten.mealplanner.HeaderFragment"
+        android:name="comp3350.team10.presentation.HeaderFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -212,7 +212,7 @@
     <androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/fragment_container_view2"
-        android:name="com.teamten.mealplanner.FooterFragment"
+        android:name="comp3350.team10.presentation.FooterFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
