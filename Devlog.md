@@ -197,6 +197,20 @@ Estimate:
   Actual:  
      Dev:  
      
+##### Task 19
+   Title: Recipe book stub drinks data  
+    Desc: Implement stub database for recipe book  
+Estimate: 
+  Actual:  
+     Dev:  
+     
+##### Task 20
+   Title: Recipe book detailed view  
+    Desc: Implement drink slider 
+Estimate: 
+  Actual:  
+     Dev:  
+
 ### Big story 2 : Progress tracking  
 As a user I would like to be able to set calorie goals and see my progress towards those goals.  
 Priority - High                                                        Cost - 6 days   
