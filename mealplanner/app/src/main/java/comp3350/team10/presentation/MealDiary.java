@@ -7,7 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import comp3350.team10.R;
 import android.os.Bundle;
 
+import java.util.LinkedList;
+
 public class MealDiary extends AppCompatActivity {
+
+    private LinkedList data;
+    private MealCustomAdapter mealCustomAdapter;
+    private RecyclerView mealRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,10 +23,11 @@ public class MealDiary extends AppCompatActivity {
     }
 
     private void getData() {
-        String[] data = {"one"};
-        MealCustomAdapter mealCustomAdapter = new MealCustomAdapter(data);
-        RecyclerView rv = (RecyclerView) findViewById(R.id.mealRecyclerView);
-        rv.setAdapter(mealCustomAdapter);
-        rv.setLayoutManager(new LinearLayoutManager(this));
+        //String[] data = {"one"};
+        data = new LinkedList();
+        mealCustomAdapter = new MealCustomAdapter(data);
+        mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
+        mealRecyclerView.setAdapter(mealCustomAdapter);
+        mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

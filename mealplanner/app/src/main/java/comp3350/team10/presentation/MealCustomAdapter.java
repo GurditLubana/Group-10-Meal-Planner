@@ -1,16 +1,20 @@
 package comp3350.team10.presentation;
+import comp3350.team10.objects.*;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import comp3350.team10.R;
+import comp3350.team10.objects.DiaryItem;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.LinkedList;
+
 public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.ViewHolder> {
-    private String[] localDataSet;
+    private LinkedList<ListItem> localDataSet;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -40,7 +44,7 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView.
      */
-    public MealCustomAdapter(String[] dataSet) {
+    public MealCustomAdapter(LinkedList<ListItem> dataSet) {
         localDataSet = dataSet;
     }
 
