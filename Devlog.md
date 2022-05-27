@@ -260,21 +260,21 @@ current, past, or future meal schedule and the expected calories for any plan I 
 Priority – High                                                        Cost - 6 days   
 
 
-#### Task 1
+#### Task 01
    Title: Show Current Date being viewed
     Desc: Add date box in appbar for Meal diary with arrows  
 Estimate: 
   Actual: 
      Dev: 
 
-#### Task 2
+#### Task 02
    Title: Date selector
     Desc: When date is clicked show a month modal to allow date selection  
 Estimate: 
   Actual: 
      Dev: 
 
-#### Task 1
+#### Task 03
    Title: Show Current Date being viewed
     Desc: Add date box in appbar for Meal diary  
 Estimate: 
@@ -288,7 +288,7 @@ As a user I would like to be able invite my friends, compare progress and
 share meal plans on social media.
 Priority – High                                                        Cost - 6 days   
 
-#### Task 1
+#### Task 01
    Title: Social UI  
     Desc: Build UI for social page
 Estimate:
