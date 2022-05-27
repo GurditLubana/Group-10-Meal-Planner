@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    tools:context="comp3350.team10.presentation.AddLogFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btnAddMeal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="96dp"
+        android:layout_marginEnd="96dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:minWidth="200dp"
+        android:minHeight="100dp"
+        app:cardBackgroundColor="?colorSecondary"
+        app:cardCornerRadius="40dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="100dp">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="116dp"
+                android:layout_height="88dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/baseline_add_circle_outline_black_36"
+                app:tint="#138000" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

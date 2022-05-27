@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="?colorPrimary"
+    tools:context="comp3350.team10.presentation.NavigationFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/dailyNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?colorSecondary"
+            android:minWidth="80dp"
+            android:minHeight="60dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/baseline_today_black_36"
+            android:tint="?colorOnSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/mealDiaryNav"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/mealDiaryNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?colorSecondary"
+            android:minWidth="80dp"
+            android:minHeight="60dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/baseline_restaurant_black_36"
+            android:tint="?colorOnSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/recipeBookNav"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/dailyNav"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/recipeBookNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?colorSecondary"
+            android:minWidth="80dp"
+            android:minHeight="60dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/baseline_menu_book_black_36"
+            android:tint="?colorOnSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/chartsNav"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/mealDiaryNav"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/chartsNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?colorSecondary"
+            android:minWidth="80dp"
+            android:minHeight="60dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/baseline_show_chart_black_36"
+            android:tint="?colorOnSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/socialNav"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/recipeBookNav"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/socialNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?colorSecondary"
+            android:minWidth="80dp"
+            android:minHeight="60dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/baseline_people_black_36"
+            android:tint="?colorOnSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/chartsNav"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
