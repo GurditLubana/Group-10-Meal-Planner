@@ -65,13 +65,151 @@ Adding meals and editing meals
 As a user I would like to be able to add meals to the planner and recipe collection    
 with the ability to update the plan with the actual meals that I ended up eating.  
 Priority – High                                                        Cost - 6 days   
-#### Task 1
-   Title:
-    Desc:
-Estimate:
-  Actual:
-     Dev:
 
+#### Detailed story
+Meal plans  
+As a user I would like to be able to view my current meal plan, preview or set  
+upcoming plans and view any previous plans for reference.  
+Priority – High                                                        Cost - 4 days
+##### Task 01
+   Title: Meal diary UI  
+    Desc: Build meal diary UI  
+Estimate:   
+  Actual:  
+     Dev: Josef   
+
+##### Task 02
+   Title: Appbar
+    Desc: Build Appbar UI
+Estimate: 
+  Actual:  
+     Dev:  
+
+##### Task 03
+   Title: Navbar - fragment
+    Desc: Build Navbar reusable UI fragment
+Estimate: 
+  Actual:  
+     Dev: Josef   
+     
+##### Task 04
+   Title: Material Icons
+    Desc: Add relevant material design icons to proj
+Estimate: 1hr  
+  Actual: 1hr  
+     Dev: Josef 
+     
+##### Task 05
+   Title: Meal Diary Log container
+    Desc: Implement RecyclerView for dynamic loading of entry fragments
+Estimate: 
+  Actual:  
+     Dev:  
+     
+##### Task 06
+   Title: Meal Diary log entries
+    Desc: Build reusable Card fragment to show meal information
+Estimate: 
+  Actual:  
+     Dev:  
+     
+##### Task 07
+   Title: Meal Diary Log modification
+    Desc: Build reusable Card fragment to show entry modification options
+Estimate: 
+  Actual:  
+     Dev:  
+     
+##### Task 08
+   Title: Meal Diary entry editor
+    Desc: Build Modal for data modification
+Estimate: 
+  Actual:  
+     Dev:  
+     
+##### Task 09
+   Title: Meal Diary Add entry button
+    Desc: Build reusable Card fragment for adding meals
+Estimate: 
+  Actual:  
+     Dev:  
+     
+##### Task 10
+   Title: Meal Diary Logic
+    Desc: Build Business logic for pulling data from db 
+Estimate: 
+  Actual:  
+     Dev:  
+     
+##### Task 11
+   Title: Navbar - click listeners
+    Desc: Implement click listeners to launch activities
+Estimate: 
+  Actual:  
+     Dev:  
+     
+##### Task 12
+   Title: Meal diary stub data
+    Desc: Implement stub database for meal diary
+Estimate: 
+  Actual:  
+     Dev:  
+     
+##### Task 13
+   Title: Recipe book UI
+    Desc: Build Recipe book UI with recyclerview, search bar, tabs, add button
+Estimate: 
+  Actual:  
+     Dev:  
+     
+##### Task 14
+   Title: Recipe book entries
+    Desc: Build reusable card fragments to show available food
+Estimate: 
+  Actual:  
+     Dev:  
+     
+##### Task 15
+   Title: Recipe book entries context UI
+    Desc: Build reusable card fragments to show options when entry is clicked
+Estimate: 
+  Actual:  
+     Dev:  
+     
+##### Task 16
+   Title: Recipe book more info
+    Desc: Build detailed meal information page
+Estimate: 
+  Actual:  
+     Dev:  
+     
+##### Task 17
+   Title: Recipe book business logic
+    Desc: Build Business logic for pulling data from db
+Estimate: 
+  Actual:  
+     Dev:  
+     
+##### Task 18
+   Title: Recipe book stub data
+    Desc: Implement stub database for recipe book
+Estimate: 
+  Actual:  
+     Dev:  
+     
+##### Task 19
+   Title:  
+    Desc:  
+Estimate:  
+  Actual:  
+     Dev:  
+     
+##### Task 20
+   Title:  
+    Desc:  
+Estimate:  
+  Actual:  
+     Dev:  
 ### Big story 2 : Progress tracking  
 As a user I would like to be able to set calorie goals and see my progress towards those goals.  
 Priority - High                                                        Cost - 6 days   
