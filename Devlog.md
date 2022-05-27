@@ -8,3 +8,15 @@ Joseffus Santos - umsant28@myumanitoba.ca
 Manraj Singh – singhm53@myumanitoba.ca
 Zhihou Zhou- zhouz2@myumanitoba.ca
 
+## Meetings
+
+
+
+
+## Dev tasks
+
+
+
+
+
+## Dev Log
