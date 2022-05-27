@@ -4,6 +4,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import comp3350.team10.R;
+
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,16 +17,19 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
      * (custom ViewHolder).
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final FragmentContainerView fragmentView;
+        //private final FragmentContainerView fragmentView;
+        private final CardView fragmentView;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
 
-            fragmentView = (FragmentContainerView) view.findViewById(R.id.btnMealLog);
+            //fragmentView = (FragmentContainerView) view.findViewById(R.id.btnMealLog);
+            fragmentView = (CardView) view.findViewById(R.id.btnMealLog);
         }
 
-        public FragmentContainerView getFragmentView() {
+        //public FragmentContainerView getFragmentView() {
+        public CardView getView() {
             return fragmentView;
         }
     }
@@ -56,11 +61,13 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         //viewHolder.getFragmentView().setText(localDataSet[position]);
+        viewHolder.getView();
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return localDataSet.length;
+        //return localDataSet.length;
+        return 1;
     }
 }
