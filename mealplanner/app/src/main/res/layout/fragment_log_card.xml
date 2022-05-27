@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="130dp"
     tools:context="comp3350.team10.presentation.LogCardFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -11,6 +11,10 @@
         android:id="@+id/btnMealLog"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
         android:minHeight="100dp"
         app:cardBackgroundColor="?colorSecondaryVariant"
         app:cardCornerRadius="40dp">
@@ -23,7 +27,7 @@
                 android:id="@+id/itemImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="64dp"
                 android:layout_weight="0.25"
                 android:minWidth="80dp"
                 android:minHeight="80dp"
@@ -36,11 +40,13 @@
                 android:id="@+id/itemQtyBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="215dp"
                 android:layout_weight="0.2"
                 android:text="0000"
                 android:textAlignment="center"
                 android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="@+id/itemNameBox"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/itemNameBox" />
 
             <TextView
@@ -51,6 +57,7 @@
                 android:text=" cups"
                 android:textAlignment="center"
                 android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/itemQtyBox"
                 app:layout_constraintTop_toBottomOf="@+id/itemNameBox" />
 
@@ -61,31 +68,36 @@
                 android:layout_weight="0.2"
                 android:text="0300"
                 android:textAlignment="center"
-                android:textSize="24sp"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView9"
-                app:layout_constraintTop_toBottomOf="@+id/itemNameBox" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
                 android:layout_weight="0.2"
                 android:text=" cals"
                 android:textAlignment="center"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="@+id/itemNameBox"
-                app:layout_constraintTop_toBottomOf="@+id/itemNameBox" />
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/itemNameBox"
-                android:layout_width="237dp"
+                android:layout_width="230dp"
                 android:layout_height="32dp"
-                android:layout_marginStart="14dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="0.70"
                 android:text="food item name"
-                android:textAlignment="viewStart"
-                android:textSize="14sp"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.024"
                 app:layout_constraintStart_toEndOf="@+id/itemImage"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -68,6 +68,6 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
     @Override
     public int getItemCount() {
         //return localDataSet.length;
-        return 1;
+        return 8;
     }
 }
