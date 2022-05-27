@@ -170,8 +170,8 @@ Estimate:
      Dev:  
      
 ##### Task 15
-   Title: Recipe book entries context UI
-    Desc: Build reusable card fragments to show options when entry is clicked
+   Title: Recipe book entries context UI  
+    Desc: Build reusable card fragments to show options when entry is clicked  
 Estimate: 
   Actual:  
      Dev:  
@@ -184,41 +184,58 @@ Estimate:
      Dev:  
      
 ##### Task 17
-   Title: Recipe book business logic
-    Desc: Build Business logic for pulling data from db
+   Title: Recipe book business logic  
+    Desc: Build Business logic for pulling data from db  
 Estimate: 
   Actual:  
      Dev:  
      
 ##### Task 18
-   Title: Recipe book stub data
-    Desc: Implement stub database for recipe book
+   Title: Recipe book stub data  
+    Desc: Implement stub database for recipe book  
 Estimate: 
   Actual:  
      Dev:  
      
-##### Task 19
-   Title:  
-    Desc:  
+### Big story 2 : Progress tracking  
+As a user I would like to be able to set calorie goals and see my progress towards those goals.  
+Priority - High                                                        Cost - 6 days   
+
+##### Task 01
+   Title: progress bar  
+    Desc: Build reusable progressbar fragment  
 Estimate:  
   Actual:  
      Dev:  
      
-##### Task 20
-   Title:  
-    Desc:  
+##### Task 02
+   Title: progress bar logic   
+    Desc: implement business logic to get/ calculate current progress
 Estimate:  
   Actual:  
      Dev:  
-### Big story 2 : Progress tracking  
-As a user I would like to be able to set calorie goals and see my progress towards those goals.  
-Priority - High                                                        Cost - 6 days   
-#### Task 1
-   Title:
-    Desc:
-Estimate:
-  Actual:
-     Dev:
+
+##### Task 03
+   Title: progress bar on click   
+    Desc: implement click listener and modal to modify goal and recalc progress if necessary
+Estimate:  
+  Actual:  
+     Dev:  
+
+##### Task 04
+   Title: Charts 
+    Desc: Build charts page UI
+Estimate:  
+  Actual:  
+     Dev:  
+
+##### Task 05
+   Title: Charts business logic   
+    Desc: implement business logic to pull data and calculate stats
+Estimate:  
+  Actual:  
+     Dev:  
+
 
 
 
@@ -230,11 +247,25 @@ Priority – High                                                        Cost - 
 
 
 #### Task 1
-   Title:
-    Desc:
-Estimate:
-  Actual:
-     Dev:
+   Title: Show Current Date being viewed
+    Desc: Add date box in appbar for Meal diary with arrows  
+Estimate: 
+  Actual: 
+     Dev: 
+
+#### Task 2
+   Title: Date selector
+    Desc: When date is clicked show a month modal to allow date selection  
+Estimate: 
+  Actual: 
+     Dev: 
+
+#### Task 1
+   Title: Show Current Date being viewed
+    Desc: Add date box in appbar for Meal diary  
+Estimate: 
+  Actual: 
+     Dev: 
 
 
 
@@ -244,8 +275,8 @@ share meal plans on social media.
 Priority – High                                                        Cost - 6 days   
 
 #### Task 1
-   Title:
-    Desc:
+   Title: Social UI  
+    Desc: Build UI for social page
 Estimate:
   Actual:
      Dev:
