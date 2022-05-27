@@ -1,60 +1,60 @@
 # Best-3350-Group-Project
 
-# Team 10
-## Group members
-Dane Wanke - wanked@myumanitoba.ca
-Gurdit Singh- singhg78@myumanitoba.ca
-Joseffus Santos - umsant28@myumanitoba.ca
-Manraj Singh – singhm53@myumanitoba.ca
-Zhihou Zhou- zhouz2@myumanitoba.ca
+# Team 10  
+## Group members  
+Dane Wanke - wanked@myumanitoba.ca  
+Gurdit Singh- singhg78@myumanitoba.ca  
+Joseffus Santos - umsant28@myumanitoba.ca  
+Manraj Singh – singhm53@myumanitoba.ca  
+Zhihou Zhou- zhouz2@myumanitoba.ca  
 
-## Meetings
-### 2022 May 19
-Attendees:
+## Meetings  
+### 2022 May 19  
+Attendees:  
 - Gurdit
 - Manraj
 - Dane
 - Joseffus
 - Zhou
 
-    Topic: When to meet for iter0 / availability
- Decision: May 19
-Rationale: Availability
+    Topic: When to meet for iter0 / availability  
+ Decision: May 19  
+Rationale: Availability  
 
-### 2022 May 19
-Attendees:
+### 2022 May 19  
+Attendees:  
 - Gurdit
 - Manraj
 - Dane
 - Joseffus
 
-    Topic: Iter0
- Decision:
-Rationale:
+    Topic: Iter0  
+ Decision:  
+Rationale:  
 
-    Topic: Iter0
- Decision:
-Rationale:
-### 2022 May 21
-Attendees:
+    Topic: Iter0  
+ Decision:  
+Rationale:  
+### 2022 May 21  
+Attendees:  
 - Gurdit
 - Joseffus
 - Dane
 
-    Topic: Iter0
- Decision:
-Rationale:
+    Topic: Iter0  
+ Decision:  
+Rationale:  
 
 ### 2022 May 23
-Attendees:
+Attendees:  
 - Dane
 - Josef
 - Manraj
 - Zhou
 
-    Topic: iter1 UI
- Decision:
-Rationale:
+    Topic: iter1 UI  
+ Decision:  
+Rationale:  
 
 
 
@@ -66,45 +66,88 @@ As a user I would like to be able to add meals to the planner and recipe collect
 with the ability to update the plan with the actual meals that I ended up eating.  
 Priority – High                                                        Cost - 6 days   
 
-#### Detailed story
-Meal plans  
+#### Detailed story  
+Meal plans   
 As a user I would like to be able to view my current meal plan, preview or set  
 upcoming plans and view any previous plans for reference.  
-Priority – High                                                        Cost - 4 days
-##### Task 01
+Priority – High                                                        Cost - 4 days  
+
+##### Task 00  
+   Title: Onboarding 
+    Desc: set up git, android studio, clone repo, compile main branch 
+Estimate: 1hr  
+  Actual: 1hr  
+     Dev: Josef  
+
+##### Task 00  
+   Title: Onboarding 
+    Desc: set up git, android studio, clone repo, compile main branch 
+Estimate: 1hr  
+  Actual:     
+     Dev: Dane    
+
+##### Task 00  
+   Title: Onboarding 
+    Desc: set up git, android studio, clone repo, compile main branch 
+Estimate: 1hr  
+  Actual:   
+     Dev: Gurdit  
+
+##### Task 00  
+   Title: Onboarding 
+    Desc: set up git, android studio, clone repo, compile main branch 
+Estimate: 1hr  
+  Actual:     
+     Dev: Manraj  
+
+##### Task 00  
+   Title: Onboarding 
+    Desc: set up git, android studio, clone repo, compile main branch 
+Estimate: 1hr  
+  Actual:   
+     Dev: Zhou  
+   
+##### Task 000  
+   Title: Three layer architecture
+    Desc: Modify project structure to meet 3 layer architecture requirement 
+Estimate: 1hr  
+  Actual: 1hr  
+     Dev: Josef  
+
+##### Task 01  
    Title: Meal diary UI  
     Desc: Build meal diary UI  
 Estimate:   
-  Actual:  
+  Actual:   
      Dev: Josef   
 
-##### Task 02
-   Title: Appbar
-    Desc: Build Appbar UI
-Estimate: 
+##### Task 02  
+   Title: Appbar  
+    Desc: Build Appbar UI  
+Estimate:  
   Actual:  
      Dev:  
 
 ##### Task 03
-   Title: Navbar - fragment
-    Desc: Build Navbar reusable UI fragment
-Estimate: 
-  Actual:  
+   Title: Navbar - fragment  
+    Desc: Build Navbar reusable UI fragment  
+Estimate: 4hr  
+  Actual: 2hr  
      Dev: Josef   
      
 ##### Task 04
-   Title: Material Icons
-    Desc: Add relevant material design icons to proj
+   Title: Material Icons  
+    Desc: Add relevant material design icons to proj  
 Estimate: 1hr  
   Actual: 1hr  
-     Dev: Josef 
+     Dev: Josef  
      
 ##### Task 05
    Title: Meal Diary Log container
     Desc: Implement RecyclerView for dynamic loading of entry fragments
-Estimate: 
-  Actual:  
-     Dev:  
+Estimate: 4hrs  
+  Actual: 6hrs  
+     Dev: Josef  
      
 ##### Task 06
    Title: Meal Diary log entries
