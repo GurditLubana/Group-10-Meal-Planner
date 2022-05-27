@@ -10,7 +10,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
-        android:name="comp3350.team10.presentation.HeaderFragment"
+        android:name="comp3350.team10.presentation.DailyProgressFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,9 +31,8 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <androidx.fragment.app.FragmentContainerView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/fragment_container_view2"
-        android:name="comp3350.team10.presentation.FooterFragment"
+        android:name="comp3350.team10.presentation.NavigationFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

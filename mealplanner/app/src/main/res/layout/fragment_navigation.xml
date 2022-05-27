@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:background="?colorSecondaryVariant"
-    tools:context="comp3350.team10.presentation.FooterFragment">
+    android:background="?colorPrimary"
+    tools:context="comp3350.team10.presentation.NavigationFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/dailyNav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="?colorSecondary"
@@ -24,13 +24,13 @@
             android:src="@drawable/baseline_today_black_36"
             android:tint="?colorOnSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+            app:layout_constraintEnd_toStartOf="@+id/mealDiaryNav"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/mealDiaryNav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="?colorSecondary"
@@ -41,13 +41,13 @@
             android:src="@drawable/baseline_restaurant_black_36"
             android:tint="?colorOnSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton3"
+            app:layout_constraintEnd_toStartOf="@+id/recipeBookNav"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imageButton"
+            app:layout_constraintStart_toEndOf="@+id/dailyNav"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/recipeBookNav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="?colorSecondary"
@@ -58,13 +58,13 @@
             android:src="@drawable/baseline_menu_book_black_36"
             android:tint="?colorOnSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton4"
+            app:layout_constraintEnd_toStartOf="@+id/chartsNav"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imageButton2"
+            app:layout_constraintStart_toEndOf="@+id/mealDiaryNav"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/imageButton4"
+            android:id="@+id/chartsNav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="?colorSecondary"
@@ -75,13 +75,13 @@
             android:src="@drawable/baseline_show_chart_black_36"
             android:tint="?colorOnSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton5"
+            app:layout_constraintEnd_toStartOf="@+id/socialNav"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imageButton3"
+            app:layout_constraintStart_toEndOf="@+id/recipeBookNav"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/imageButton5"
+            android:id="@+id/socialNav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="?colorSecondary"
@@ -94,7 +94,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imageButton4"
+            app:layout_constraintStart_toEndOf="@+id/chartsNav"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
