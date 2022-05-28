@@ -1,6 +1,9 @@
 package comp3350.team10.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,7 +12,7 @@ import android.os.Bundle;
 
 import java.util.LinkedList;
 
-public class MealDiary extends AppCompatActivity {
+public class MealDiary extends AppCompatActivity implements FragToParent {
 
     private LinkedList data;
     private MealCustomAdapter mealCustomAdapter;
@@ -29,5 +32,14 @@ public class MealDiary extends AppCompatActivity {
         mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
         mealRecyclerView.setAdapter(mealCustomAdapter);
         mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void showContextUI(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();;
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(mContainerId, fragment, fragment.toString());
+        fragmentTransaction.addToBackStack(fragment.toString());
+        fragmentTransaction.commit();
     }
 }
