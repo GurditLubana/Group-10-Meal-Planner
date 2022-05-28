@@ -8,10 +8,13 @@ import comp3350.team10.R;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 /**
@@ -67,23 +70,26 @@ public class LogCardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_log_card, container, false);
-        CardView mealButton;
+        return inflater.inflate(R.layout.fragment_log_card, container, false);
+        /*CardView contextUIButton;
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_navigation, container, false);
+        View view = inflater.inflate(R.layout.fragment_log_card, container, false);
 
-        mealButton = (CardView) view.findViewById(R.id.btnMealLog);
+        contextUIButton = (CardView) view.findViewById(R.id.btnMealLog);
 
-        mealButton.setOnClickListener(new View.OnClickListener()
+        //mealButton.setOnClickListener(new View.OnClickListener()
+        contextUIButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
-                Fragment contextUIfragment = new ModifyLogFragment();
-                parentComm.showContextUI(contextUIfragment);
+                Fragment childFragment = new ModifyLogFragment();
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.replace(R.id.contextUI, childFragment).commit();
+                System.out.println("clicked");
             }
         });
-        return view;
+        return view;*/
     }
 
     @Override
@@ -99,4 +105,11 @@ public class LogCardFragment extends Fragment {
                     + " must implement OnHeadlineSelectedListener");
         }
     }
+
+    /*@Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        Fragment childFragment = new ModifyLogFragment();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.contextUI, childFragment).commit();
+    }*/
 }

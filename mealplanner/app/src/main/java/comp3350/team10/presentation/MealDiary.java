@@ -8,13 +8,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import comp3350.team10.R;
+import comp3350.team10.objects.ListItem;
+
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.LinkedList;
 
 public class MealDiary extends AppCompatActivity implements FragToParent {
 
-    private LinkedList data;
+    private LinkedList<ListItem> data;
     private MealCustomAdapter mealCustomAdapter;
     private RecyclerView mealRecyclerView;
 
@@ -35,11 +38,25 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
     }
 
     @Override
-    public void showContextUI(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();;
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(mContainerId, fragment, fragment.toString());
-        fragmentTransaction.addToBackStack(fragment.toString());
-        fragmentTransaction.commit();
+    public void showContextUI(int pos) {
+
+        View view = mealRecyclerView.getLayoutManager().findViewByPosition(pos);
+        Fragment childFragment = new ModifyLogFragment();
+        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.contextUI, childFragment);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        System.out.println("clicked " + " " + pos);
     }
+
+    @Override
+    public void navClick(){};
+
+    @Override
+    public void hideContextUI(Fragment fragment){};
+
+    @Override
+    public void setData(View view){};
 }
