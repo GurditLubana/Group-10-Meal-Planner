@@ -343,3 +343,9 @@ Estimate:
 
 
 ## Dev Log
+
+
+### 2022-05-28
+     Dev: Josef
+Duration: 4hrs
+    Task: Create FragToParent interface for passing clicks/data between fragment and parent activity
