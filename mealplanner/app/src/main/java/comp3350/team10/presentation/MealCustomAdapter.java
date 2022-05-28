@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+import comp3350.team10.objects.*;
 
 import java.util.LinkedList;
 
@@ -23,6 +24,13 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
     private LinkedList<ListItem> localDataSet;
     private int selectedPos = RecyclerView.NO_POSITION;
     private FragToParent parentComm;
+
+    @Override
+    public int getItemViewType(int pos)
+    {
+        return localDataSet.get(pos).getFragmentType().ordinal();
+        //return 0;
+    }
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
@@ -62,9 +70,18 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.fragment_log_card, viewGroup, false);
+        View view;
 
+        switch(viewType) {
+            case 0:
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_log_card, viewGroup, false);
+                break;
+            case 1:
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_modify_log, viewGroup, false);
+                break;
+            default:
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_add_log, viewGroup, false);
+        }
         return new ViewHolder(view);
     }
 
@@ -110,6 +127,7 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
     @Override
     public int getItemCount() {
         //return localDataSet.length;
-        return 8;
+        //return 8;
+        return localDataSet.size();
     }
 }

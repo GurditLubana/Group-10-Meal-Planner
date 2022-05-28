@@ -29,4 +29,9 @@ public class DiaryItem implements ListItem{
         quantity = qty;
         myImage = loc;
     }
+
+    @Override
+    public FragmentType getFragmentType() {
+        return fragType;
+    }
 }

@@ -6,14 +6,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import comp3350.team10.R;
-import comp3350.team10.objects.ListItem;
-
 import android.os.Bundle;
 import android.view.View;
 
+import comp3350.team10.R;
+import comp3350.team10.objects.*;
+import comp3350.team10.business.*;
+import comp3350.team10.persistence.*;
+
 import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class MealDiary extends AppCompatActivity implements FragToParent {
 
@@ -29,8 +31,11 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
     }
 
     private void getData() {
-        //String[] data = {"one"};
+        DataAccessStub db = new DataAccessStub();
+        db.open("someDB");
+        ArrayList<DiaryItem> dbFetch = db.getToday();
         data = new LinkedList();
+        data.addAll(dbFetch);
         mealCustomAdapter = new MealCustomAdapter(data);
         mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
         mealRecyclerView.setAdapter(mealCustomAdapter);
@@ -41,13 +46,13 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
     public void showContextUI(int pos) {
 
         View view = mealRecyclerView.getLayoutManager().findViewByPosition(pos);
-        Fragment childFragment = new ModifyLogFragment();
-        AppCompatActivity activity = (AppCompatActivity) view.getContext();
-        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.contextUI, childFragment);
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.addToBackStack(null);
-        transaction.commit();
+//        Fragment childFragment = new ModifyLogFragment();
+//        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+//        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+//        transaction.add(R.id.contextUI, childFragment);
+//        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//        transaction.addToBackStack(null);
+//        transaction.commit();
         System.out.println("clicked " + " " + pos);
     }
 
