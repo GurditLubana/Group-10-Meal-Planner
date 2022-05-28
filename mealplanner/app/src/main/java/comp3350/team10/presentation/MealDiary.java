@@ -53,6 +53,10 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
 //        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 //        transaction.addToBackStack(null);
 //        transaction.commit();
+        mealRecyclerView.removeViewAt(pos);
+        mealCustomAdapter.notifyItemRemoved(pos);
+        mealCustomAdapter.notifyItemRangeChanged(pos, data.size());
+        mealCustomAdapter.notifyDataSetChanged();
         System.out.println("clicked " + " " + pos);
     }
 

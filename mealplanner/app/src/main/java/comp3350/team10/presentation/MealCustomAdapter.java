@@ -24,6 +24,7 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
     private LinkedList<ListItem> localDataSet;
     private int selectedPos = RecyclerView.NO_POSITION;
     private FragToParent parentComm;
+    private ListItem saved;
 
     @Override
     public int getItemViewType(int pos)
@@ -100,10 +101,22 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
             public void onClick(View view){
                 selectedPos = position;
                 Context context = view.getContext();
+
+                if(localDataSet.get(position).getFragmentType() == ListItem.FragmentType.diaryEntry) {
+                    saved = localDataSet.remove(position);
+                    localDataSet.add(position, new DiaryItem(0, ListItem.FragmentType.diaryModify, "null", 00, ListItem.Unit.g, 0, "noIcon"));
+                }
+                else
+                {
+                    localDataSet.remove(position);
+                    localDataSet.add(position, saved);
+                }
+
                 if(context != null) {
                     parentComm = (FragToParent) context;
                     parentComm.showContextUI(selectedPos);
                 }
+
                 //View view = getLayoutManager().findViewByPosition(position);
                 //view.setSelected();
                 /*Fragment childFragment = new ModifyLogFragment();
