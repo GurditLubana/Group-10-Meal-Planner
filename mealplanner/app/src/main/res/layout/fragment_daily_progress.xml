@@ -103,10 +103,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:text="Calories"
             android:textColor="#FFFFFF"
-            android:textSize="24sp"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/progressBar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

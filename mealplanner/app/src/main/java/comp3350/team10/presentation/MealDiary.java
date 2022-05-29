@@ -1,10 +1,12 @@
 package comp3350.team10.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
@@ -27,6 +29,11 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_diary);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("MealPlanner");
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setElevation(0);
         getData();
     }
 
