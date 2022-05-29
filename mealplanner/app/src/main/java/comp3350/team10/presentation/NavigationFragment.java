@@ -88,6 +88,7 @@ public class NavigationFragment extends Fragment {
             public void onClick(View v)
             {
                 Intent intent = new Intent(getActivity(), MealDiary.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
             }
         });
