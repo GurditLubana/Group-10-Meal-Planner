@@ -13,7 +13,7 @@ import comp3350.team10.objects.DiaryItem;
 
 import java.util.LinkedList;
 
-public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.ViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private LinkedList<ListItem> localDataSet;          // the list Recyclerview renders
     private int selectedPos = RecyclerView.NO_POSITION; // tracks the last clicked item
     private FragToParent parentComm;                    // lets us pass data from fragments to the parent activity
@@ -65,7 +65,7 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
      * @param dataSet LinkedList<ListItem> containing the data to populate views to be used
      *                by RecyclerView.
      */
-    public MealCustomAdapter(LinkedList<ListItem> dataSet) {
+    public RecyclerViewAdapter(LinkedList<ListItem> dataSet) {
         localDataSet = dataSet;
     }
 

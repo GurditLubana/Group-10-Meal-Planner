@@ -2,8 +2,6 @@ package comp3350.team10.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,7 +10,6 @@ import android.view.View;
 
 import comp3350.team10.R;
 import comp3350.team10.objects.*;
-import comp3350.team10.business.*;
 import comp3350.team10.persistence.*;
 
 import java.util.LinkedList;
@@ -21,7 +18,7 @@ import java.util.ArrayList;
 public class MealDiary extends AppCompatActivity implements FragToParent {
 
     private LinkedList<ListItem> data;
-    private MealCustomAdapter mealCustomAdapter;
+    private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView mealRecyclerView;
     private ListItem saved;
     private int savedPos;
@@ -39,9 +36,9 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
         ArrayList<DiaryItem> dbFetch = db.getToday();
         data = new LinkedList();
         data.addAll(dbFetch);
-        mealCustomAdapter = new MealCustomAdapter(data);
+        recyclerViewAdapter = new RecyclerViewAdapter(data);
         mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
-        mealRecyclerView.setAdapter(mealCustomAdapter);
+        mealRecyclerView.setAdapter(recyclerViewAdapter);
         mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
@@ -62,9 +59,9 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
             saved = null;
         }
         //mealRecyclerView.removeViewAt(pos);
-        mealCustomAdapter.notifyItemRemoved(pos);
-        mealCustomAdapter.notifyItemRangeChanged(pos, data.size());
-        mealCustomAdapter.notifyDataSetChanged();
+        recyclerViewAdapter.notifyItemRemoved(pos);
+        recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
+        recyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
