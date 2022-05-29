@@ -71,25 +71,7 @@ public class LogCardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_log_card, container, false);
-        /*CardView contextUIButton;
 
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_log_card, container, false);
-
-        contextUIButton = (CardView) view.findViewById(R.id.btnMealLog);
-
-        //mealButton.setOnClickListener(new View.OnClickListener()
-        contextUIButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                Fragment childFragment = new ModifyLogFragment();
-                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(R.id.contextUI, childFragment).commit();
-                System.out.println("clicked");
-            }
-        });
-        return view;*/
     }
 
     @Override
@@ -106,10 +88,5 @@ public class LogCardFragment extends Fragment {
         }
     }
 
-    /*@Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        Fragment childFragment = new ModifyLogFragment();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.contextUI, childFragment).commit();
-    }*/
+
 }

@@ -2,6 +2,7 @@ package comp3350.team10.persistence;
 
 import comp3350.team10.application.Main;
 import comp3350.team10.objects.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,18 +15,15 @@ public class DataAccessStub {
     //private ArrayList<Course> courses;
     //private ArrayList<SC> scs;
 
-    public DataAccessStub(String dbName)
-    {
+    public DataAccessStub(String dbName) {
         this.dbName = dbName;
     }
 
-    public DataAccessStub()
-    {
+    public DataAccessStub() {
         this(Main.dbName);
     }
 
-    public void open(String dbName)
-    {
+    public void open(String dbName) {
         DiaryItem mealEntry;
         //Course course;
         //SC mySC;
@@ -68,16 +66,14 @@ public class DataAccessStub {
 //        mySC = new SC("200", "COMP3380", "Selma Bouvier", "Databases", "B");
 //        scs.add(mySC);
 
-        System.out.println("Opened " +dbType +" database " +dbName);
+        System.out.println("Opened " + dbType + " database " + dbName);
     }
 
-    public void close()
-    {
-        System.out.println("Closed " +dbType +" database " +dbName);
+    public void close() {
+        System.out.println("Closed " + dbType + " database " + dbName);
     }
 
-    public ArrayList<DiaryItem> getToday()
-    {
+    public ArrayList<DiaryItem> getToday() {
         return currentFoodLog;
     }
 //

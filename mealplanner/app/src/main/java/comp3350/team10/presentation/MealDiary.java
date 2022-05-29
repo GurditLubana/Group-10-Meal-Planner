@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.view.View;
 
@@ -22,6 +23,8 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
     private LinkedList<ListItem> data;
     private MealCustomAdapter mealCustomAdapter;
     private RecyclerView mealRecyclerView;
+    private ListItem saved;
+    private int savedPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +47,18 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
 
     @Override
     public void showContextUI(int pos) {
-
-        View view = mealRecyclerView.getLayoutManager().findViewByPosition(pos);
-//        Fragment childFragment = new ModifyLogFragment();
-//        AppCompatActivity activity = (AppCompatActivity) view.getContext();
-//        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-//        transaction.add(R.id.contextUI, childFragment);
-//        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//        transaction.addToBackStack(null);
-//        transaction.commit();
+        if (pos != savedPos) {
+            data.remove(savedPos);
+            data.add(savedPos, saved);
+        }
+        if (data.get(pos).getFragmentType() == ListItem.FragmentType.diaryEntry) {
+            saved = data.remove(pos);
+            savedPos = pos;
+            data.add(pos, new DiaryItem(0, ListItem.FragmentType.diaryModify, "null", 00, ListItem.Unit.g, 0, "noIcon"));
+        } else {
+            data.remove(pos);
+            data.add(pos, saved);
+        }
         mealRecyclerView.removeViewAt(pos);
         mealCustomAdapter.notifyItemRemoved(pos);
         mealCustomAdapter.notifyItemRangeChanged(pos, data.size());
@@ -61,11 +67,20 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
     }
 
     @Override
-    public void navClick(){};
+    public void navClick() {
+    }
+
+    ;
 
     @Override
-    public void hideContextUI(Fragment fragment){};
+    public void hideContextUI(Fragment fragment) {
+    }
+
+    ;
 
     @Override
-    public void setData(View view){};
+    public void setData(View view) {
+    }
+
+    ;
 }
