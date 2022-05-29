@@ -34,4 +34,20 @@ public class DiaryItem implements ListItem{
     public FragmentType getFragmentType() {
         return fragType;
     }
+
+    public String getName(){
+        return name;
+    }
+
+    public int getCalories() {
+        return calories;
+    }
+
+    public Unit getUnit(){
+        return unit;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
 }

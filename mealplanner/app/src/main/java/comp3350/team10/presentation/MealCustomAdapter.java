@@ -96,6 +96,14 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
         //viewHolder.getView();
         //viewHolder.getView().setId(View.generateViewId());
 
+        if(viewHolder.getItemViewType() == 0)
+        {
+            ((TextView)viewHolder.getView().findViewById(R.id.itemNameBox)).setText(((DiaryItem)localDataSet.get(position)).getName());
+            ((TextView)viewHolder.getView().findViewById(R.id.itemQtyBox)).setText( String.format("%3d",((DiaryItem)localDataSet.get(position)).getQuantity()) );
+            ((TextView)viewHolder.getView().findViewById(R.id.itemUnitBox)).setText(((DiaryItem)localDataSet.get(position)).getUnit().name());
+            ((TextView)viewHolder.getView().findViewById(R.id.itemCalsBox)).setText( String.format("%3d",((DiaryItem)localDataSet.get(position)).getCalories()) );
+        }
+
         viewHolder.getView().setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){

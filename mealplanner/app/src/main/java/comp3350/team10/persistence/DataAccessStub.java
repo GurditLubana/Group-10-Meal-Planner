@@ -39,9 +39,9 @@ public class DataAccessStub {
         currentFoodLog.add(mealEntry);
         mealEntry = new DiaryItem(103, ListItem.FragmentType.diaryEntry, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
         currentFoodLog.add(mealEntry);
-        mealEntry = new DiaryItem(103, ListItem.FragmentType.diaryModify, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
-        currentFoodLog.add(mealEntry);
-        mealEntry = new DiaryItem(103, ListItem.FragmentType.diaryAdd, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
+        //mealEntry = new DiaryItem(103, ListItem.FragmentType.diaryModify, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
+        //currentFoodLog.add(mealEntry);
+        mealEntry = new DiaryItem(104, ListItem.FragmentType.diaryAdd, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
         currentFoodLog.add(mealEntry);
 
 //        courses = new ArrayList<Course>();
