@@ -47,7 +47,8 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
 
     @Override
     public void showContextUI(int pos) {
-        if (pos != savedPos) {
+        System.out.println("clicked " + " " + pos);
+        if (pos != savedPos && saved != null) {
             data.remove(savedPos);
             data.add(savedPos, saved);
         }
@@ -58,12 +59,12 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
         } else {
             data.remove(pos);
             data.add(pos, saved);
+            saved = null;
         }
-        mealRecyclerView.removeViewAt(pos);
+        //mealRecyclerView.removeViewAt(pos);
         mealCustomAdapter.notifyItemRemoved(pos);
         mealCustomAdapter.notifyItemRangeChanged(pos, data.size());
         mealCustomAdapter.notifyDataSetChanged();
-        System.out.println("clicked " + " " + pos);
     }
 
     @Override

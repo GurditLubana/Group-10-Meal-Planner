@@ -90,41 +90,6 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_add_log, viewGroup, false);
         }
         viewHolder = new ViewHolder(view);
-
-        switch (viewType) {
-            case 0:
-                viewHolder.getView().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        selectedPos = viewHolder.getAbsoluteAdapterPosition();
-                        Context context = view.getContext();
-
-                        if (context != null) {
-                            parentComm = (FragToParent) context;
-                            parentComm.showContextUI(selectedPos);
-                        }
-
-                    }
-                });
-                break;
-            case 1:
-                viewHolder.getView().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        selectedPos = viewHolder.getAbsoluteAdapterPosition();
-                        Context context = view.getContext();
-
-                        if (context != null) {
-                            parentComm = (FragToParent) context;
-                            parentComm.showContextUI(selectedPos);
-                        }
-
-                    }
-                });
-                break;
-            default:
-                //view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_add_log, viewGroup, false);
-        }
         return viewHolder;
     }
 
@@ -145,42 +110,18 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
             ((TextView) viewHolder.getView().findViewById(R.id.itemCalsBox)).setText(String.format("%3d", ((DiaryItem) localDataSet.get(position)).getCalories()));
         }
 
-        /*viewHolder.getView().setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                selectedPos = position;
-                Context context = view.getContext();
-
-                if(context != null) {
-                    parentComm = (FragToParent) context;
-                    parentComm.showContextUI(selectedPos);
-                }
-
-            }
-        });*/
-        /*switch(viewHolder.getItemViewType()) {
+        switch (viewHolder.getItemViewType()) {
             case 0:
-                viewHolder.getView().setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View view){
-                        selectedPos = position;
-                        Context context = view.getContext();
-
-                        if(context != null) {
-                            parentComm = (FragToParent) context;
-                            parentComm.showContextUI(selectedPos);
-                        }
-
-                    }
-                });
+                setDiaryEntryListeners(viewHolder);
                 break;
             case 1:
-                //view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_modify_log, viewGroup, false);
+                setDiaryContextListeners(viewHolder);
                 break;
+            case 2:
+                setDiaryAddListeners(viewHolder);
             default:
                 //view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_add_log, viewGroup, false);
-        }*/
-
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -189,5 +130,76 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
         //return localDataSet.length;
         //return 8;
         return localDataSet.size();
+    }
+
+    private void setDiaryEntryListeners(ViewHolder viewHolder){
+        viewHolder.getView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedPos = viewHolder.getAbsoluteAdapterPosition();
+                //selectedPos = position;
+                Context context = view.getContext();
+
+                if (context != null) {
+                    parentComm = (FragToParent) context;
+                    parentComm.showContextUI(selectedPos);
+                }
+
+            }
+        });
+    }
+
+    private void setDiaryContextListeners(ViewHolder viewHolder){
+        viewHolder.getView().findViewById(R.id.btnBackMealLog).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedPos = viewHolder.getAbsoluteAdapterPosition();
+                Context context = view.getContext();
+
+                if (context != null) {
+                    parentComm = (FragToParent) context;
+                    parentComm.showContextUI(selectedPos);
+                }
+            }
+        });
+        viewHolder.getView().findViewById(R.id.btnDeleteMeal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedPos = viewHolder.getAbsoluteAdapterPosition();
+                Context context = view.getContext();
+
+                if (context != null) {
+                    //parentComm = (FragToParent) context;
+                    //parentComm.showContextUI(selectedPos);
+                }
+            }
+        });
+        viewHolder.getView().findViewById(R.id.btnModifyMeal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedPos = viewHolder.getAbsoluteAdapterPosition();
+                Context context = view.getContext();
+
+                if (context != null) {
+                    //parentComm = (FragToParent) context;
+                    //parentComm.showContextUI(selectedPos);
+                }
+            }
+        });
+    }
+
+    private void setDiaryAddListeners(ViewHolder viewHolder){
+        viewHolder.getView().findViewById(R.id.btnAddMeal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedPos = viewHolder.getAbsoluteAdapterPosition();
+                Context context = view.getContext();
+
+                if (context != null) {
+                    //parentComm = (FragToParent) context;
+                    //parentComm.showContextUI(selectedPos);
+                }
+            }
+        });
     }
 }

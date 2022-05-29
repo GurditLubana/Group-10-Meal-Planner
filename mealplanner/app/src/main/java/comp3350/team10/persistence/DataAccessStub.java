@@ -37,9 +37,17 @@ public class DataAccessStub {
         currentFoodLog.add(mealEntry);
         mealEntry = new DiaryItem(103, ListItem.FragmentType.diaryEntry, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
         currentFoodLog.add(mealEntry);
+        mealEntry = new DiaryItem(104, ListItem.FragmentType.diaryEntry, "Banana", 100, ListItem.Unit.g, 50, "myIcon");
+        currentFoodLog.add(mealEntry);
+        mealEntry = new DiaryItem(105, ListItem.FragmentType.diaryEntry, "Salad", 50, ListItem.Unit.g, 50, "myIcon");
+        currentFoodLog.add(mealEntry);
+        mealEntry = new DiaryItem(106, ListItem.FragmentType.diaryEntry, "Hamburglar", 700, ListItem.Unit.g, 400, "myIcon");
+        currentFoodLog.add(mealEntry);
+        mealEntry = new DiaryItem(107, ListItem.FragmentType.diaryEntry, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
+        currentFoodLog.add(mealEntry);
         //mealEntry = new DiaryItem(103, ListItem.FragmentType.diaryModify, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
         //currentFoodLog.add(mealEntry);
-        mealEntry = new DiaryItem(104, ListItem.FragmentType.diaryAdd, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
+        mealEntry = new DiaryItem(108, ListItem.FragmentType.diaryAdd, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
         currentFoodLog.add(mealEntry);
 
 //        courses = new ArrayList<Course>();
