@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame_container"
     android:layout_width="match_parent"
     android:layout_height="130dp"
     tools:context="comp3350.team10.presentation.AddLogFragment">
@@ -11,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="96dp"
-        android:layout_marginEnd="96dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="96dp"
         android:layout_marginBottom="10dp"
         android:minWidth="200dp"
         android:minHeight="100dp"

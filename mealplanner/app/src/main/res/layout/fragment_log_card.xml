@@ -2,11 +2,19 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame_container"
     android:layout_width="match_parent"
     android:layout_height="130dp"
+    android:clickable="false"
     tools:context="comp3350.team10.presentation.LogCardFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/contextUI"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/btnMealLog"
         android:layout_width="match_parent"
@@ -15,6 +23,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
+        android:clickable="false"
         android:minHeight="100dp"
         app:cardBackgroundColor="?colorSecondaryVariant"
         app:cardCornerRadius="40dp">
@@ -29,12 +38,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="64dp"
                 android:layout_weight="0.25"
+                android:adjustViewBounds="true"
+                android:maxWidth="80dp"
+                android:maxHeight="80dp"
                 android:minWidth="80dp"
                 android:minHeight="80dp"
+                android:scaleType="centerInside"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_menu_gallery" />
+                app:srcCompat="@drawable/ic_eggplant" />
 
             <TextView
                 android:id="@+id/itemQtyBox"

@@ -2,8 +2,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame_container"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="150dp"
     android:background="?colorPrimary"
     tools:context="comp3350.team10.presentation.DailyProgressFragment">
 
@@ -14,44 +15,164 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/dateProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cals"
-            android:textColor="#FB8C00"
+            android:layout_marginBottom="8dp"
+            android:text="May 69"
+            android:textColor="#FFFFFF"
             android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView3"
-            app:layout_constraintStart_toStartOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintBottom_toTopOf="@+id/progressBar"
+            app:layout_constraintEnd_toEndOf="@+id/progressBar"
+            app:layout_constraintStart_toStartOf="@+id/progressBar" />
+
+        <TextView
+            android:id="@+id/netProgress"
+            android:layout_width="149dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="1000"
+            android:textAlignment="center"
+            android:textColor="#81C784"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/exerciseProgress" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Net"
+            android:textColor="#B1B1B1"
+            app:layout_constraintBottom_toTopOf="@+id/netProgress"
+            app:layout_constraintEnd_toEndOf="@+id/netProgress"
+            app:layout_constraintStart_toStartOf="@+id/netProgress" />
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="99dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="1500"
+            android:text="Exercise"
+            android:textColor="#B1B1B1"
+            app:layout_constraintBottom_toTopOf="@+id/exerciseProgress"
+            app:layout_constraintEnd_toEndOf="@+id/exerciseProgress"
+            app:layout_constraintStart_toStartOf="@+id/exerciseProgress" />
+
+        <TextView
+            android:id="@+id/exerciseProgress"
+            android:layout_width="149dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="200"
             android:textAlignment="center"
-            android:textColor="#FB8C00"
+            android:textColor="#FFFFFF"
             android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/netProgress"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/foodProgress" />
+
+        <TextView
+            android:id="@+id/foodProgress"
+            android:layout_width="149dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="1200"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/exerciseProgress"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/goalGoal" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Food"
+            android:textColor="#B1B1B1"
+            app:layout_constraintBottom_toTopOf="@+id/foodProgress"
+            app:layout_constraintEnd_toEndOf="@+id/foodProgress"
+            app:layout_constraintStart_toStartOf="@+id/foodProgress" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="8dp"
+            android:text="Calories"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/progressBar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/goalGoal"
+            android:layout_width="148dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="1500"
+            android:textAlignment="center"
+            android:textColor="#FFB74D"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/foodProgress"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="128dp"
             android:max="100"
             android:progress="28"
-            android:scaleX="8"
+            android:progressTint="#B5DFB7"
+            android:scaleX="11"
             android:scaleY="4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.654"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.365" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Budget"
+            android:textColor="#B1B1B1"
+            app:layout_constraintBottom_toTopOf="@+id/goalGoal"
+            app:layout_constraintEnd_toEndOf="@+id/goalGoal"
+            app:layout_constraintStart_toStartOf="@+id/goalGoal" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="1dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/baseline_arrow_left_white_48"
+            app:layout_constraintBottom_toTopOf="@+id/progressBar"
+            app:layout_constraintEnd_toStartOf="@+id/dateProgress" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="3dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/baseline_arrow_right_white_48"
+            app:layout_constraintBottom_toTopOf="@+id/progressBar"
+            app:layout_constraintStart_toEndOf="@+id/dateProgress" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
