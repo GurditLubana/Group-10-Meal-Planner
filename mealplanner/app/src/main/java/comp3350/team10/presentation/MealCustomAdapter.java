@@ -1,34 +1,31 @@
 package comp3350.team10.presentation;
 
-import comp3350.team10.objects.*;
-
+import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
+import comp3350.team10.objects.*;
 import comp3350.team10.R;
 import comp3350.team10.objects.DiaryItem;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
-
-import comp3350.team10.objects.*;
 
 import java.util.LinkedList;
 
 public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.ViewHolder> {
-    private LinkedList<ListItem> localDataSet;
-    private int selectedPos = RecyclerView.NO_POSITION;
-    private FragToParent parentComm;
-    private ListItem saved;
+    private LinkedList<ListItem> localDataSet;          // the list Recyclerview renders
+    private int selectedPos = RecyclerView.NO_POSITION; // tracks the last clicked item
+    private FragToParent parentComm;                    // lets us pass data from fragments to the parent activity
+    private ListItem saved;                             // var to save a meal entry when we show context UI
 
+    /**
+     * getItemViewType
+     * get the layout/fragment we want to use for a particular list item
+     * required to show different layouts inside recyclerview
+     * @param pos - position of data in the dataset
+     * @return int - the numeric value of the Fragment type enum of the ListItem class
+     */
     @Override
     public int getItemViewType(int pos) {
         return localDataSet.get(pos).getFragmentType().ordinal();
@@ -36,6 +33,7 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
     }
 
     /**
+     * TODO maybe we want a generic view inside every fragment frame layout so it's less awkward
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
@@ -52,7 +50,6 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
             //fragmentView = (CardView) view.findViewById(R.id.btnMealLog);
             fragmentView = (FrameLayout) view.findViewById(R.id.frame_container);
 
-
         }
 
         //public FragmentContainerView getFragmentView() {
@@ -65,13 +62,20 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
     /**
      * Initialize the dataset of the Adapter.
      *
-     * @param dataSet String[] containing the data to populate views to be used
+     * @param dataSet LinkedList<ListItem> containing the data to populate views to be used
      *                by RecyclerView.
      */
     public MealCustomAdapter(LinkedList<ListItem> dataSet) {
         localDataSet = dataSet;
     }
 
+    /**
+     * Method where we assign the layout of a ViewHolder being created based on the Fragment Type enum
+     * assigned to the ListItem object being "rendered"
+     * @param viewGroup
+     * @param viewType - the int returned by getItemViewType(int)
+     * @return ViewHolder
+     */
     // Create new views (invoked by the layout manager)
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -93,6 +97,12 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
         return viewHolder;
     }
 
+    /**
+     * Here we set the data of a fragment being created and set onclick listeners based on the Fragment Type enum
+     * assigned to the ListItem object being "rendered"
+     * @param viewHolder
+     * @param position
+     */
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
@@ -103,15 +113,9 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
         //viewHolder.getView();
         //viewHolder.getView().setId(View.generateViewId());
 
-        if (viewHolder.getItemViewType() == 0) {
-            ((TextView) viewHolder.getView().findViewById(R.id.itemNameBox)).setText(((DiaryItem) localDataSet.get(position)).getName());
-            ((TextView) viewHolder.getView().findViewById(R.id.itemQtyBox)).setText(String.format("%3d", ((DiaryItem) localDataSet.get(position)).getQuantity()));
-            ((TextView) viewHolder.getView().findViewById(R.id.itemUnitBox)).setText(((DiaryItem) localDataSet.get(position)).getUnit().name());
-            ((TextView) viewHolder.getView().findViewById(R.id.itemCalsBox)).setText(String.format("%3d", ((DiaryItem) localDataSet.get(position)).getCalories()));
-        }
-
         switch (viewHolder.getItemViewType()) {
             case 0:
+                setDiaryEntryData(viewHolder, position);
                 setDiaryEntryListeners(viewHolder);
                 break;
             case 1:
@@ -132,6 +136,15 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
         return localDataSet.size();
     }
 
+    //set the data of a meal entry fragment
+    private void setDiaryEntryData(ViewHolder viewHolder, final int position){
+        ((TextView) viewHolder.getView().findViewById(R.id.itemNameBox)).setText(((DiaryItem) localDataSet.get(position)).getName());
+        ((TextView) viewHolder.getView().findViewById(R.id.itemQtyBox)).setText(String.format("%3d", ((DiaryItem) localDataSet.get(position)).getQuantity()));
+        ((TextView) viewHolder.getView().findViewById(R.id.itemUnitBox)).setText(((DiaryItem) localDataSet.get(position)).getUnit().name());
+        ((TextView) viewHolder.getView().findViewById(R.id.itemCalsBox)).setText(String.format("%3d", ((DiaryItem) localDataSet.get(position)).getCalories()));
+    }
+
+    //meal log card fragment click listeners
     private void setDiaryEntryListeners(ViewHolder viewHolder){
         viewHolder.getView().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +162,7 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
         });
     }
 
+    //modify meal fragment click listeners
     private void setDiaryContextListeners(ViewHolder viewHolder){
         viewHolder.getView().findViewById(R.id.btnBackMealLog).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +202,7 @@ public class MealCustomAdapter extends RecyclerView.Adapter<MealCustomAdapter.Vi
         });
     }
 
+    //add meal entry fragment click listener
     private void setDiaryAddListeners(ViewHolder viewHolder){
         viewHolder.getView().findViewById(R.id.btnAddMeal).setOnClickListener(new View.OnClickListener() {
             @Override
