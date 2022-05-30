@@ -2,25 +2,26 @@ package comp3350.team10.objects;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.LinkedList;
 
 public class MealDiaryLiveData extends ViewModel {
 
     // Create a LiveData with a String
-    private MutableLiveData<Date> activityDate;
+    private MutableLiveData<Calendar> activityDate;
     private MutableLiveData<LinkedList<DiaryItem>> mealsOnDate;
 
-    public MutableLiveData<Date> getActivityDate() {
+    public MutableLiveData<Calendar> getActivityDate() {
         if (activityDate == null) {
-            activityDate = new MutableLiveData<Date>();
+            activityDate = new MutableLiveData<Calendar>();
         }
         return activityDate;
     }
 
-    public void setActivityDate(Date newDate) {
+    public void setActivityDate(Calendar newDate) {
         if (activityDate == null) {
-            activityDate = new MutableLiveData<Date>();
+            activityDate = new MutableLiveData<Calendar>();
             activityDate.setValue(newDate);
         }
     }

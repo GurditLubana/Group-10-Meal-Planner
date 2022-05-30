@@ -35,6 +35,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
     private MaterialDatePicker datePicker;
     private SimpleDateFormat mon ;
     private SimpleDateFormat day ;
+    private MealDiaryLiveData mealDiaryData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
         toolbar.setElevation(0);
         mon = new SimpleDateFormat("MMM");
         day = new SimpleDateFormat("dd");
+        mealDiaryData = new MealDiaryLiveData();
         getData();
     }
 
