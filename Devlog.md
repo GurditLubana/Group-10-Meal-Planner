@@ -117,16 +117,16 @@ Estimate: 1hr
 ##### Task 01  
    Title: Meal diary UI  
     Desc: Build meal diary UI  
-Estimate:   
-  Actual:   
+Estimate: 4hrs  
+  Actual: 6hrs  
      Dev: Josef   
 
 ##### Task 02  
-   Title: Appbar  
+   Title: Appbar   
     Desc: Build Appbar UI  
-Estimate:  
-  Actual:  
-     Dev:  
+Estimate: 4hrs  
+  Actual: 4hrs  
+     Dev: Josef   
 
 ##### Task 03
    Title: Navbar - fragment  
@@ -143,25 +143,25 @@ Estimate: 1hr
      Dev: Josef  
      
 ##### Task 05
-   Title: Meal Diary Log container
-    Desc: Implement RecyclerView for dynamic loading of entry fragments
+   Title: Meal Diary Log container  
+    Desc: Implement RecyclerView for dynamic loading of entry fragments  
 Estimate: 4hrs  
   Actual: 6hrs  
      Dev: Josef  
      
 ##### Task 06
-   Title: Meal Diary log entries
-    Desc: Build reusable Card fragment to show meal information
-Estimate: 
-  Actual:  
-     Dev:  
+   Title: Meal Diary log entries  
+    Desc: Build reusable Card fragment to show meal information  
+Estimate: 4hrs  
+  Actual: 4hrs   
+     Dev: Josef   
      
 ##### Task 07
-   Title: Meal Diary Log modification
-    Desc: Build reusable Card fragment to show entry modification options
-Estimate: 
-  Actual:  
-     Dev:  
+   Title: Meal Diary Log modification  
+    Desc: Build reusable Card fragment to show entry modification options  
+Estimate: 2hrs  
+  Actual: 2hrs  
+     Dev: Josef   
      
 ##### Task 08
    Title: Meal Diary entry editor
@@ -171,25 +171,25 @@ Estimate:
      Dev:  
      
 ##### Task 09
-   Title: Meal Diary Add entry button
-    Desc: Build reusable Card fragment for adding meals
-Estimate: 
-  Actual:  
-     Dev:  
+   Title: Meal Diary Add entry button  
+    Desc: Build reusable Card fragment for adding meals  
+Estimate: 1hr  
+  Actual: 1hr   
+     Dev: Josef   
      
 ##### Task 10
    Title: Meal Diary Logic
     Desc: Build Business logic for pulling data from db 
-Estimate: 
+Estimate: 8hrs
   Actual:  
-     Dev:  
+     Dev: Josef 
      
 ##### Task 11
-   Title: Navbar - click listeners
-    Desc: Implement click listeners to launch activities
-Estimate: 
-  Actual:  
-     Dev:  
+   Title: Navbar - click listeners  
+    Desc: Implement click listeners to launch activities  
+Estimate: 2hrs  
+  Actual: 2hrs  
+     Dev: Josef   
      
 ##### Task 12
    Title: Meal diary stub data
@@ -260,24 +260,24 @@ Priority - High                                                        Cost - 6 
 
 ##### Task 01
    Title: progress bar  
-    Desc: Build reusable progressbar fragment  
-Estimate:  
-  Actual:  
-     Dev:  
+    Desc: Build reusable progressbar fragment   
+Estimate: 4hrs   
+  Actual: 6hrs  
+     Dev: Josef   
      
 ##### Task 02
    Title: progress bar logic   
-    Desc: implement business logic to get/ calculate current progress
-Estimate:  
-  Actual:  
-     Dev:  
+    Desc: implement business logic to get/ calculate current progress  
+Estimate: 4hrs  
+  Actual:   
+     Dev: Josef   
 
 ##### Task 03
    Title: progress bar on click   
     Desc: implement click listener and modal to modify goal and recalc progress if necessary
-Estimate:  
+Estimate: 4hrs   
   Actual:  
-     Dev:  
+     Dev: Josef   
 
 ##### Task 04
    Title: Charts 
@@ -311,11 +311,11 @@ Estimate:
      Dev: 
 
 #### Task 02
-   Title: Date selector
+   Title: Date selector  
     Desc: When date is clicked show a month modal to allow date selection  
-Estimate: 
-  Actual: 
-     Dev: 
+Estimate: 2hrs  
+  Actual: 2hrs  
+     Dev: Josef  
 
 #### Task 03
    Title: Show Current Date being viewed
@@ -323,6 +323,13 @@ Estimate:
 Estimate: 
   Actual: 
      Dev: 
+
+#### Task 04
+   Title: Date selector   
+    Desc: When a new date is selected request LiveData update   
+Estimate:    
+  Actual:  
+     Dev: Josef  
 
 
 
