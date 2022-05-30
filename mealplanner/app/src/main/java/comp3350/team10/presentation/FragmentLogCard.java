@@ -1,28 +1,21 @@
 package comp3350.team10.presentation;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import comp3350.team10.R;
 
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LogCardFragment#newInstance} factory method to
+ * Use the {@link FragmentLogCard#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LogCardFragment extends Fragment {
+public class FragmentLogCard extends Fragment {
 
     private FragToParent parentComm;
 
@@ -35,7 +28,7 @@ public class LogCardFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public LogCardFragment() {
+    public FragmentLogCard() {
         // Required empty public constructor
     }
 
@@ -48,8 +41,8 @@ public class LogCardFragment extends Fragment {
      * @return A new instance of fragment LogCardFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LogCardFragment newInstance(String param1, String param2) {
-        LogCardFragment fragment = new LogCardFragment();
+    public static FragmentLogCard newInstance(String param1, String param2) {
+        FragmentLogCard fragment = new FragmentLogCard();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
