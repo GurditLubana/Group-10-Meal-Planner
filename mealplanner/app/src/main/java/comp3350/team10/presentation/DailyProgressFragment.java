@@ -1,5 +1,7 @@
 package comp3350.team10.presentation;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import comp3350.team10.R;
 import androidx.fragment.app.Fragment;
@@ -7,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +18,7 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class DailyProgressFragment extends Fragment {
+    FragToParent send;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +64,72 @@ public class DailyProgressFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_daily_progress, container, false);
+        //return inflater.inflate(R.layout.fragment_daily_progress, container, false);
+        TextView dateProgress;
+        ImageButton prevDateProgress;
+        ImageButton nextDateProgress;
+        TextView goalGoal;
+
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_daily_progress, container, false);
+
+        dateProgress = (TextView) view.findViewById(R.id.dateProgress);
+        prevDateProgress = (ImageButton) view.findViewById(R.id.prevDateProgress);
+        nextDateProgress = (ImageButton) view.findViewById(R.id.nextDateProgress);
+        goalGoal = (TextView) view.findViewById(R.id.goalGoal);
+
+        dateProgress.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Context context = view.getContext();
+
+                if (context != null) {
+                    send = (FragToParent) context;
+                    send.selectDate();
+                }
+            }
+        });
+        prevDateProgress.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Context context = view.getContext();
+
+                if (context != null) {
+                    send = (FragToParent) context;
+                    send.prevDate();
+                }
+            }
+        });
+        nextDateProgress.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Context context = view.getContext();
+
+                if (context != null) {
+                    send = (FragToParent) context;
+                    send.nextDate();
+                }
+            }
+        });
+        goalGoal.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Context context = view.getContext();
+
+                if (context != null) {
+                    send = (FragToParent) context;
+                    send.setGoal();
+                }
+            }
+        });
+        return view;
     }
 }

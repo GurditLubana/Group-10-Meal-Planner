@@ -6,14 +6,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+
+import com.google.android.material.datepicker.*;
 
 import comp3350.team10.R;
 import comp3350.team10.objects.*;
 import comp3350.team10.persistence.*;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.ArrayList;
 
@@ -24,13 +28,16 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
     private RecyclerView mealRecyclerView;
     private ListItem saved;
     private int savedPos;
+    private Calendar date;
+    private MaterialDatePicker datePicker;
+    int Year, Month, Day ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_diary);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setActionBar(toolbar);
         toolbar.setTitle("MealPlanner");
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setElevation(0);
@@ -75,17 +82,45 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
     public void navClick() {
     }
 
-    ;
-
     @Override
     public void hideContextUI(Fragment fragment) {
     }
-
-    ;
 
     @Override
     public void setData(View view) {
     }
 
-    ;
+    @Override
+    public void selectDate(){
+        datePicker = MaterialDatePicker.Builder
+                .datePicker()
+                .setTitleText("Select date")
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build();
+        datePicker.show(getSupportFragmentManager(), "MATERIAL_DATE_PICKER");
+        datePicker.addOnPositiveButtonClickListener(
+                new MaterialPickerOnPositiveButtonClickListener() {
+                    @Override
+                    public void onPositiveButtonClick(Object selection) {
+                        // now update the selected date preview
+                        //mShowSelectedDateText.setText("Selected Date is : " + materialDatePicker.getHeaderText());
+                        // handle date selection
+                    }
+                });
+    }
+
+    @Override
+    public void prevDate(){
+
+    }
+
+    @Override
+    public void nextDate(){
+
+    }
+
+    @Override
+    public void setGoal(){
+
+    }
 }
