@@ -1,30 +1,19 @@
 package comp3350.team10.presentation;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import comp3350.team10.R;
-
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LogCardFragment#newInstance} factory method to
+ * Use the {@link FragmentModifyLog#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LogCardFragment extends Fragment {
-
-    private FragToParent parentComm;
+public class FragmentModifyLog extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +24,7 @@ public class LogCardFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public LogCardFragment() {
+    public FragmentModifyLog() {
         // Required empty public constructor
     }
 
@@ -45,11 +34,11 @@ public class LogCardFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment LogCardFragment.
+     * @return A new instance of fragment ModifyLogFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LogCardFragment newInstance(String param1, String param2) {
-        LogCardFragment fragment = new LogCardFragment();
+    public static FragmentModifyLog newInstance(String param1, String param2) {
+        FragmentModifyLog fragment = new FragmentModifyLog();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -70,23 +59,6 @@ public class LogCardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_log_card, container, false);
-
+        return inflater.inflate(R.layout.fragment_modify_log, container, false);
     }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            parentComm = (FragToParent) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
-    }
-
-
 }

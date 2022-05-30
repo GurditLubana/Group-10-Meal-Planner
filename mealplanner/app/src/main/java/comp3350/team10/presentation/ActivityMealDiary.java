@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.datepicker.*;
 
@@ -17,11 +18,13 @@ import comp3350.team10.R;
 import comp3350.team10.objects.*;
 import comp3350.team10.persistence.*;
 
-import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
-public class MealDiary extends AppCompatActivity implements FragToParent {
+public class ActivityMealDiary extends AppCompatActivity implements FragToParent {
 
     private LinkedList<ListItem> data;
     private RecyclerViewAdapter recyclerViewAdapter;
@@ -30,7 +33,8 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
     private int savedPos;
     private Calendar date;
     private MaterialDatePicker datePicker;
-    int Year, Month, Day ;
+    private SimpleDateFormat mon ;
+    private SimpleDateFormat day ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
         toolbar.setTitle("MealPlanner");
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setElevation(0);
+        mon = new SimpleDateFormat("MMM");
+        day = new SimpleDateFormat("dd");
         getData();
     }
 
@@ -54,6 +60,10 @@ public class MealDiary extends AppCompatActivity implements FragToParent {
         mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
         mealRecyclerView.setAdapter(recyclerViewAdapter);
         mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //date = Calendar.getInstance();
+        //View view = findViewById(R.id.dateProgress);
+        //((TextView) view).setText(mon.format(new Date()) + " " + day.format(new Date()));
     }
 
     @Override

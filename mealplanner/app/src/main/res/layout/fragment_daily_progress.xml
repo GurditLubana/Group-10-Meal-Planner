@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:background="?colorPrimary"
-    tools:context="comp3350.team10.presentation.DailyProgressFragment">
+    tools:context="comp3350.team10.presentation.FragmentDailyProgress">
 
     <!-- TODO: Update blank fragment layout -->
 

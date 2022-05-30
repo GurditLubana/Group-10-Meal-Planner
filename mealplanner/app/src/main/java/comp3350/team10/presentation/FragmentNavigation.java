@@ -12,10 +12,10 @@ import android.widget.ImageButton;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link NavigationFragment#newInstance} factory method to
+ * Use the {@link FragmentNavigation#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NavigationFragment extends Fragment {
+public class FragmentNavigation extends Fragment {
 
     private FragToParent parentComm;
 
@@ -28,7 +28,7 @@ public class NavigationFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public NavigationFragment() {
+    public FragmentNavigation() {
         // Required empty public constructor
     }
 
@@ -41,8 +41,8 @@ public class NavigationFragment extends Fragment {
      * @return A new instance of fragment FooterFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NavigationFragment newInstance(String param1, String param2) {
-        NavigationFragment fragment = new NavigationFragment();
+    public static FragmentNavigation newInstance(String param1, String param2) {
+        FragmentNavigation fragment = new FragmentNavigation();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -87,7 +87,7 @@ public class NavigationFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(getActivity(), MealDiary.class);
+                Intent intent = new Intent(getActivity(), ActivityMealDiary.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
             }

@@ -1,7 +1,6 @@
 package comp3350.team10.presentation;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import comp3350.team10.R;
 import androidx.fragment.app.Fragment;
@@ -14,10 +13,10 @@ import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link DailyProgressFragment#newInstance} factory method to
+ * Use the {@link FragmentDailyProgress#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DailyProgressFragment extends Fragment {
+public class FragmentDailyProgress extends Fragment {
     FragToParent send;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -29,7 +28,7 @@ public class DailyProgressFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public DailyProgressFragment() {
+    public FragmentDailyProgress() {
         // Required empty public constructor
     }
 
@@ -42,8 +41,8 @@ public class DailyProgressFragment extends Fragment {
      * @return A new instance of fragment HeaderFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DailyProgressFragment newInstance(String param1, String param2) {
-        DailyProgressFragment fragment = new DailyProgressFragment();
+    public static FragmentDailyProgress newInstance(String param1, String param2) {
+        FragmentDailyProgress fragment = new FragmentDailyProgress();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,18 +64,19 @@ public class DailyProgressFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_daily_progress, container, false);
-        TextView dateProgress;
-        ImageButton prevDateProgress;
-        ImageButton nextDateProgress;
-        TextView goalGoal;
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_progress, container, false);
+        setClickListeners(view);
+        setObservers(view);
 
-        dateProgress = (TextView) view.findViewById(R.id.dateProgress);
-        prevDateProgress = (ImageButton) view.findViewById(R.id.prevDateProgress);
-        nextDateProgress = (ImageButton) view.findViewById(R.id.nextDateProgress);
-        goalGoal = (TextView) view.findViewById(R.id.goalGoal);
+        return view;
+    }
+
+    private void setClickListeners(View view){
+        TextView dateProgress = (TextView) view.findViewById(R.id.dateProgress);
+        ImageButton prevDateProgress = (ImageButton) view.findViewById(R.id.prevDateProgress);
+        ImageButton nextDateProgress = (ImageButton) view.findViewById(R.id.nextDateProgress);
+        TextView goalGoal = (TextView) view.findViewById(R.id.goalGoal);
 
         dateProgress.setOnClickListener(new View.OnClickListener()
         {
@@ -130,6 +130,13 @@ public class DailyProgressFragment extends Fragment {
                 }
             }
         });
-        return view;
+    }
+
+    private void setObservers(View view){
+
+    }
+
+    public void update(){
+
     }
 }
