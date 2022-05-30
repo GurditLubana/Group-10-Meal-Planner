@@ -118,6 +118,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
                     public void onPositiveButtonClick(Object selection) {
                         Calendar selectedDate = Calendar.getInstance();
                         selectedDate.setTimeInMillis((Long) selection);
+                        selectedDate.add(Calendar.DAY_OF_YEAR, 1);
                         mealDiaryData.setActivityDate(selectedDate);
                     }
                 });
