@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:background="?colorPrimary"
-    tools:context="comp3350.team10.presentation.DailyProgressFragment">
+    tools:context="comp3350.team10.presentation.FragmentDailyProgress">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -152,7 +152,7 @@
             app:layout_constraintStart_toStartOf="@+id/goalGoal" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/prevDateProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
@@ -163,7 +163,7 @@
             app:layout_constraintEnd_toStartOf="@+id/dateProgress" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/nextDateProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"

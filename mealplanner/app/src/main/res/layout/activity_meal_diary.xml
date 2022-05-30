@@ -5,7 +5,7 @@
     android:id="@+id/mealDiary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="comp3350.team10.presentation.MealDiary">
+    tools:context="comp3350.team10.presentation.ActivityMealDiary">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -27,7 +27,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
-        android:name="comp3350.team10.presentation.DailyProgressFragment"
+        android:name="comp3350.team10.presentation.FragmentDailyProgress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="?android:attr/actionBarSize"
@@ -48,7 +48,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view2"
-        android:name="comp3350.team10.presentation.NavigationFragment"
+        android:name="comp3350.team10.presentation.FragmentNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

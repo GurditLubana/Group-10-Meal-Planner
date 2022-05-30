@@ -5,7 +5,7 @@
     android:id="@+id/frame_container"
     android:layout_width="match_parent"
     android:layout_height="130dp"
-    tools:context="comp3350.team10.presentation.AddLogFragment">
+    tools:context="comp3350.team10.presentation.FragmentAddLog">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/btnAddMeal"

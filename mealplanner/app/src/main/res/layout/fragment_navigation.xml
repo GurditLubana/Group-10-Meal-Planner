@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:background="?colorPrimary"
-    tools:context="comp3350.team10.presentation.NavigationFragment">
+    tools:context="comp3350.team10.presentation.FragmentNavigation">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
