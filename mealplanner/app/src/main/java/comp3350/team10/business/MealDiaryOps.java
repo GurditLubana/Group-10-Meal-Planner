@@ -42,5 +42,6 @@ public class MealDiaryOps {
 
     public void setDataDate(Calendar newDate){
         dataDate = newDate;
+        mealDiaryLiveData.setActivityDate(newDate);
     }
 }

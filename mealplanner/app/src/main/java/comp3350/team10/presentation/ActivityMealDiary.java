@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.google.android.material.datepicker.*;
 
 import comp3350.team10.R;
+import comp3350.team10.business.MealDiaryOps;
 import comp3350.team10.objects.*;
 import comp3350.team10.persistence.*;
 
@@ -38,6 +39,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
     private SimpleDateFormat mon ;
     private SimpleDateFormat day ;
     private MealDiaryLiveData mealDiaryData;
+    private MealDiaryOps opexec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
         mon = new SimpleDateFormat("MMM");
         day = new SimpleDateFormat("dd");
         mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class);
+        opexec = new MealDiaryOps(mealDiaryData);
         getData();
     }
 
@@ -119,7 +122,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
                         Calendar selectedDate = Calendar.getInstance();
                         selectedDate.setTimeInMillis((Long) selection);
                         selectedDate.add(Calendar.DAY_OF_YEAR, 1);
-                        mealDiaryData.setActivityDate(selectedDate);
+                        //mealDiaryData.setActivityDate(selectedDate);
+                        opexec.setDataDate(selectedDate);
                     }
                 });
 
