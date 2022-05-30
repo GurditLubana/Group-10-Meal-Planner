@@ -3,13 +3,20 @@ package comp3350.team10.presentation;
 import android.content.Context;
 import android.os.Bundle;
 import comp3350.team10.R;
+import comp3350.team10.objects.MealDiaryLiveData;
+
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +25,9 @@ import android.widget.TextView;
  */
 public class FragmentDailyProgress extends Fragment {
     FragToParent send;
+    MealDiaryLiveData mealDiaryLiveData;
+    private SimpleDateFormat mon ;
+    private SimpleDateFormat day ;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,6 +67,8 @@ public class FragmentDailyProgress extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        mon = new SimpleDateFormat("MMM");
+        day = new SimpleDateFormat("dd");
     }
 
     @Override
@@ -67,6 +79,8 @@ public class FragmentDailyProgress extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_progress, container, false);
         setClickListeners(view);
+
+        mealDiaryLiveData = new ViewModelProvider(requireActivity()).get(MealDiaryLiveData.class);
         setObservers(view);
 
         return view;
@@ -133,7 +147,12 @@ public class FragmentDailyProgress extends Fragment {
     }
 
     private void setObservers(View view){
-
+        mealDiaryLiveData.getActivityDate().observe(getViewLifecycleOwner(), new Observer<Calendar>() {
+            @Override
+            public void onChanged(Calendar calendar) {
+                ((TextView) view.findViewById(R.id.dateProgress)).setText(mon.format(calendar.getTime()) + " " + day.format(calendar.getTime()));
+            }
+        });
     }
 
     public void update(){

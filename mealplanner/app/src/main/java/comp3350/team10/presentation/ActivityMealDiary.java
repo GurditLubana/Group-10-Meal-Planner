@@ -3,6 +3,7 @@ package comp3350.team10.presentation;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToParent {
 
@@ -48,7 +50,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
         toolbar.setElevation(0);
         mon = new SimpleDateFormat("MMM");
         day = new SimpleDateFormat("dd");
-        mealDiaryData = new MealDiaryLiveData();
+        mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class);
         getData();
     }
 
@@ -114,11 +116,12 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
                 new MaterialPickerOnPositiveButtonClickListener() {
                     @Override
                     public void onPositiveButtonClick(Object selection) {
-                        // now update the selected date preview
-                        //mShowSelectedDateText.setText("Selected Date is : " + materialDatePicker.getHeaderText());
-                        // handle date selection
+                        Calendar selectedDate = Calendar.getInstance();
+                        selectedDate.setTimeInMillis((Long) selection);
+                        mealDiaryData.setActivityDate(selectedDate);
                     }
                 });
+
     }
 
     @Override

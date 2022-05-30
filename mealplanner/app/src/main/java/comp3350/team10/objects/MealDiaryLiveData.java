@@ -22,8 +22,8 @@ public class MealDiaryLiveData extends ViewModel {
     public void setActivityDate(Calendar newDate) {
         if (activityDate == null) {
             activityDate = new MutableLiveData<Calendar>();
-            activityDate.setValue(newDate);
         }
+        activityDate.setValue(newDate);
     }
 
     public MutableLiveData<LinkedList<DiaryItem>> getMealsOnDate() {
