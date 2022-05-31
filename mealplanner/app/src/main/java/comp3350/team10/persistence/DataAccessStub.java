@@ -2,7 +2,7 @@ package comp3350.team10.persistence;
 
 import comp3350.team10.application.Main;
 import comp3350.team10.objects.*;
-
+import comp3350.team10.R;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class DataAccessStub {
     private String dbType = "stub";
 
     private ArrayList<DiaryItem> currentFoodLog;
-    private ArrayList<DiaryItem> recipeTest;
+    private ArrayList recipeTest;
     //private ArrayList<Course> courses;
     //private ArrayList<SC> scs;
 
@@ -26,7 +26,7 @@ public class DataAccessStub {
 
     public void open(String dbName) {
         DiaryItem mealEntry;
-        DiaryItem recipeEntry;
+        RecipeBookItem recipeEntry;
         //Course course;
         //SC mySC;
 
@@ -52,16 +52,16 @@ public class DataAccessStub {
         mealEntry = new DiaryItem(108, ListItem.FragmentType.diaryAdd, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
         currentFoodLog.add(mealEntry);
 
-        recipeTest = new ArrayList<DiaryItem>();
-        recipeEntry = new DiaryItem(100, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, "myIcon");
+        recipeTest = new ArrayList<RecipeBookItem>();
+        recipeEntry = new RecipeBookItem(100, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, R.drawable.food);
         recipeTest.add(recipeEntry);
-        recipeEntry = new DiaryItem(101, ListItem.FragmentType.recipe, "Salad", 50, ListItem.Unit.g, 50, "myIcon");
+        recipeEntry = new RecipeBookItem(101, ListItem.FragmentType.recipe, "Salad", 50, ListItem.Unit.g, 50, R.drawable.food2);
         recipeTest.add(recipeEntry);
-        recipeEntry = new DiaryItem(102, ListItem.FragmentType.recipe, "Hamburglar", 700, ListItem.Unit.g, 400, "myIcon");
+        recipeEntry = new RecipeBookItem(102, ListItem.FragmentType.recipe, "Hamburglar", 700, ListItem.Unit.g, 400, R.drawable.food3);
         recipeTest.add(recipeEntry);
-        recipeEntry = new DiaryItem(103, ListItem.FragmentType.recipe, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
+        recipeEntry = new RecipeBookItem(103, ListItem.FragmentType.recipe, "Notfries", 500, ListItem.Unit.g, 30, R.drawable.food4);
         recipeTest.add(recipeEntry);
-        recipeEntry = new DiaryItem(104, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, "myIcon");
+        recipeEntry = new RecipeBookItem(104, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, R.drawable.drinks);
         recipeTest.add(recipeEntry);
 
 

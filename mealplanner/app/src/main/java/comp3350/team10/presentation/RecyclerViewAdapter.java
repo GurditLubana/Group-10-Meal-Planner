@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import comp3350.team10.objects.*;
 import comp3350.team10.R;
@@ -131,6 +132,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             case 2:
                 setDiaryAddListeners(viewHolder);
                 break;
+            case 3:
+                setRecipeData(viewHolder, position);
+                break;
             default:
                 //view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_add_log, viewGroup, false);
         }
@@ -224,5 +228,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             }
         });
+    }
+
+    private void setRecipeData(ViewHolder viewHolder, int position){
+        ((ImageView) viewHolder.getView().findViewById(R.id.mealImage)).setImageResource(((RecipeBookItem) localDataSet.get(position)).getImage());
     }
 }
