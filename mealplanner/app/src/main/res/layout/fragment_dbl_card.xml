@@ -20,8 +20,8 @@
         android:maxWidth="140dp"
         android:minWidth="140dp"
         android:minHeight="200dp"
-        app:cardBackgroundColor="?colorSecondary"
-        app:cardCornerRadius="40dp">
+        app:cardBackgroundColor="?colorSecondaryVariant"
+        app:cardCornerRadius="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -43,6 +43,7 @@
                 android:layout_width="224dp"
                 android:layout_height="62dp"
                 android:text="Carrot soup  \n       some text about food"
+                android:textColor="#FFFFFF"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/mealImage"
                 app:layout_constraintHorizontal_bias="0.6"
@@ -52,19 +53,22 @@
             <TextView
                 android:id="@+id/mealCals"
                 android:layout_width="76dp"
-                android:layout_height="26dp"
+                android:layout_height="30dp"
                 android:text="0000"
                 android:textAlignment="textEnd"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@+id/mealDesc"
+                app:layout_constraintHorizontal_bias="0.69"
                 app:layout_constraintStart_toStartOf="@+id/mealDesc"
                 app:layout_constraintTop_toBottomOf="@+id/mealDesc" />
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="54dp"
-                android:layout_height="25dp"
+                android:layout_height="30dp"
                 android:text=" Cals"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/mealCals"
                 app:layout_constraintStart_toEndOf="@+id/mealCals"
