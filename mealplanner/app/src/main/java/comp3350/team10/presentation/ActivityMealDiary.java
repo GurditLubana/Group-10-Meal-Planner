@@ -34,10 +34,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
     private int savedPos;
     private Calendar date;
     private MaterialDatePicker datePicker;
-    private SimpleDateFormat mon;
-    private SimpleDateFormat day;
     private MealDiaryLiveData mealDiaryData;
-    private MealDiaryOps opexec;
+    private MealDiaryOps opExec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +46,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
         toolbar.setTitle("MealPlanner");
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setElevation(0);
-        mon = new SimpleDateFormat("MMM");
-        day = new SimpleDateFormat("dd");
         mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class);
-        opexec = new MealDiaryOps(mealDiaryData);
+        opExec = new MealDiaryOps(mealDiaryData);
         getData();
     }
 
@@ -65,10 +61,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
         mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
         mealRecyclerView.setAdapter(recyclerViewAdapter);
         mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        //date = Calendar.getInstance();
-        //View view = findViewById(R.id.dateProgress);
-        //((TextView) view).setText(mon.format(new Date()) + " " + day.format(new Date()));
     }
 
     @Override
@@ -95,14 +87,17 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
 
     @Override
     public void navClick() {
+
     }
 
     @Override
     public void hideContextUI(Fragment fragment) {
+
     }
 
     @Override
     public void setData(View view) {
+
     }
 
     @Override
@@ -120,8 +115,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
                         Calendar selectedDate = Calendar.getInstance();
                         selectedDate.setTimeInMillis((Long) selection);
                         selectedDate.add(Calendar.DAY_OF_YEAR, 1);
-                        //mealDiaryData.setActivityDate(selectedDate);
-                        opexec.setDataDate(selectedDate);
+                        opExec.setDataDate(selectedDate);
                     }
                 });
 

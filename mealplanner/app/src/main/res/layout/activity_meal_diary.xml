@@ -47,7 +47,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container_view2"
+        android:id="@+id/fragment_container_nav"
         android:name="comp3350.team10.presentation.FragmentNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

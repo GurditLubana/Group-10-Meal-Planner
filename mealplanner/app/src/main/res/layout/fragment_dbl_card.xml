@@ -5,33 +5,76 @@
     android:id="@+id/frame_container"
     android:layout_width="300dp"
     android:layout_height="300dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="10dp"
+    android:minWidth="300dp"
+    android:minHeight="300dp"
     tools:context=".presentation.FragmentDblCard">
 
     <!-- TODO: Update blank fragment layout -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:maxWidth="140dp"
+        android:minWidth="140dp"
+        android:minHeight="200dp"
+        app:cardBackgroundColor="?colorSecondary"
+        app:cardCornerRadius="40dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:maxWidth="140dp"
-            android:minWidth="140dp"
-            android:minHeight="200dp"
-            app:cardBackgroundColor="?colorSecondaryVariant"
-            app:cardCornerRadius="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/mealImage"
+                android:layout_width="220dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerInside"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <TextView
+                android:id="@+id/mealDesc"
+                android:layout_width="224dp"
+                android:layout_height="62dp"
+                android:text="Carrot soup  \n       some text about food"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/mealImage"
+                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintStart_toStartOf="@+id/mealImage"
+                app:layout_constraintTop_toBottomOf="@+id/mealImage" />
+
+            <TextView
+                android:id="@+id/mealCals"
+                android:layout_width="76dp"
+                android:layout_height="26dp"
+                android:text="0000"
+                android:textAlignment="textEnd"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/mealDesc"
+                app:layout_constraintStart_toStartOf="@+id/mealDesc"
+                app:layout_constraintTop_toBottomOf="@+id/mealDesc" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="54dp"
+                android:layout_height="25dp"
+                android:text=" Cals"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/mealCals"
+                app:layout_constraintStart_toEndOf="@+id/mealCals"
+                app:layout_constraintTop_toTopOf="@+id/mealCals"
+                app:layout_constraintVertical_bias="0.0" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </FrameLayout>

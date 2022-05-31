@@ -12,6 +12,7 @@ public class DataAccessStub {
     private String dbType = "stub";
 
     private ArrayList<DiaryItem> currentFoodLog;
+    private ArrayList<DiaryItem> recipeTest;
     //private ArrayList<Course> courses;
     //private ArrayList<SC> scs;
 
@@ -25,6 +26,7 @@ public class DataAccessStub {
 
     public void open(String dbName) {
         DiaryItem mealEntry;
+        DiaryItem recipeEntry;
         //Course course;
         //SC mySC;
 
@@ -49,6 +51,19 @@ public class DataAccessStub {
         //currentFoodLog.add(mealEntry);
         mealEntry = new DiaryItem(108, ListItem.FragmentType.diaryAdd, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
         currentFoodLog.add(mealEntry);
+
+        recipeTest = new ArrayList<DiaryItem>();
+        recipeEntry = new DiaryItem(100, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, "myIcon");
+        recipeTest.add(recipeEntry);
+        recipeEntry = new DiaryItem(101, ListItem.FragmentType.recipe, "Salad", 50, ListItem.Unit.g, 50, "myIcon");
+        recipeTest.add(recipeEntry);
+        recipeEntry = new DiaryItem(102, ListItem.FragmentType.recipe, "Hamburglar", 700, ListItem.Unit.g, 400, "myIcon");
+        recipeTest.add(recipeEntry);
+        recipeEntry = new DiaryItem(103, ListItem.FragmentType.recipe, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
+        recipeTest.add(recipeEntry);
+        recipeEntry = new DiaryItem(104, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, "myIcon");
+        recipeTest.add(recipeEntry);
+
 
 //        courses = new ArrayList<Course>();
 //        course = new Course("COMP3010", "Distributed Computing");
@@ -83,6 +98,9 @@ public class DataAccessStub {
 
     public ArrayList<DiaryItem> getToday() {
         return currentFoodLog;
+    }
+    public ArrayList<DiaryItem> getRecipe() {
+        return recipeTest;
     }
 //
 //    public ArrayList<Student> getStudentRandom(Student currentStudent)

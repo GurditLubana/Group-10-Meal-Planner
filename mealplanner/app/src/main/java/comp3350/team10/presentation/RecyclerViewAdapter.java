@@ -90,8 +90,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             case 1:
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_modify_log, viewGroup, false);
                 break;
-            default:
+            case 2:
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_add_log, viewGroup, false);
+                break;
+            case 3:
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_dbl_card, viewGroup, false);
+                break;
+            default:
+                view = null;
+                break;
         }
         viewHolder = new ViewHolder(view);
         return viewHolder;
@@ -123,6 +130,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 break;
             case 2:
                 setDiaryAddListeners(viewHolder);
+                break;
             default:
                 //view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_add_log, viewGroup, false);
         }

@@ -14,22 +14,26 @@ import java.text.SimpleDateFormat;
 public class MealDiaryOps {
     MealDiaryLiveData mealDiaryLiveData;
     Calendar dataDate;
+    DataAccessStub db;
 
     public MealDiaryOps(MealDiaryLiveData mealDiaryLiveData){
         this.mealDiaryLiveData = mealDiaryLiveData;
         this.dataDate = Calendar.getInstance();
+        init();
     }
 
     public void init(){
-        DataAccessStub db = new DataAccessStub();
+        db = new DataAccessStub();
         db.open("someDB");
         ArrayList<DiaryItem> dbFetch = db.getToday();
 
         mealDiaryLiveData.getActivityDate().setValue(dataDate);
     }
 
-    public void getData(){
-
+    public LinkedList getData(){
+        LinkedList<DiaryItem> myList = new LinkedList<DiaryItem>();
+        myList.addAll(db.getRecipe());
+        return myList;
     }
 
     public void nextDate(){

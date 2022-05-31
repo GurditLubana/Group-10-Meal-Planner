@@ -65,7 +65,7 @@
         app:layout_constraintEnd_toStartOf="@+id/button7" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container_view2"
+        android:id="@+id/fragment_container_nav"
         android:name="comp3350.team10.presentation.NavigationFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
