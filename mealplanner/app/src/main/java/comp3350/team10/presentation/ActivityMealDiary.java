@@ -24,8 +24,6 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToParent {
 

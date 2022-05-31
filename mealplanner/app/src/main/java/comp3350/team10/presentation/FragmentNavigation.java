@@ -92,6 +92,17 @@ public class FragmentNavigation extends Fragment {
                 startActivity(intent);
             }
         });
+
+        recipeButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getActivity(), ActivityRecipeBook.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 }
