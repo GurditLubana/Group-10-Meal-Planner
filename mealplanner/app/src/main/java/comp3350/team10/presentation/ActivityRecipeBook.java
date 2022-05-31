@@ -5,6 +5,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TableLayout;
+
+import com.google.android.material.tabs.TabLayout;
 
 import comp3350.team10.R;
 import comp3350.team10.business.MealDiaryOps;
@@ -27,5 +31,29 @@ public class ActivityRecipeBook extends AppCompatActivity {
         toolbar.setTitle("MealPlanner");
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setElevation(0);
+        TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayout);
+        setTabListeners(tabLayout);
     }
+
+    private void setTabListeners(TabLayout tabLayout){
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                //tab.getPosition();
+                //pull data based on tab
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+
 }

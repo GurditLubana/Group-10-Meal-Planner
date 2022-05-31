@@ -34,8 +34,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
     private int savedPos;
     private Calendar date;
     private MaterialDatePicker datePicker;
-    private SimpleDateFormat mon ;
-    private SimpleDateFormat day ;
+    private SimpleDateFormat mon;
+    private SimpleDateFormat day;
     private MealDiaryLiveData mealDiaryData;
     private MealDiaryOps opexec;
 

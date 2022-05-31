@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         app:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -47,7 +48,8 @@
                 android:submitBackground="@android:drawable/ic_menu_send"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
             </SearchView>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -58,6 +60,7 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?colorPrimary"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
         app:tabIndicatorColor="@android:color/holo_orange_light"
         app:tabSelectedTextColor="@android:color/holo_orange_light"
@@ -65,25 +68,28 @@
         tools:layout_editor_absoluteX="0dp">
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/Tab1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Food" />
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/Tab2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Meal" />
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/Tab3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Drink" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabItem"
+            android:id="@+id/Tab4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recent" />
+            android:text="Custom" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView
