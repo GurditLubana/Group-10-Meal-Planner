@@ -12,8 +12,10 @@ public class DataAccessStub {
     private String dbType = "stub";
 
     private ArrayList<DiaryItem> currentFoodLog;
-    //private ArrayList<Course> courses;
-    //private ArrayList<SC> scs;
+    private ArrayList<Routine> routines;
+    private ArrayList<Food> food;
+    private ArrayList<Meal> meal;
+    private ArrayList<Drink> drink;
 
     public DataAccessStub(String dbName) {
         this.dbName = dbName;
@@ -24,10 +26,9 @@ public class DataAccessStub {
     }
 
     public void open(String dbName) {
+        
+        //Meal entries
         DiaryItem mealEntry;
-        //Course course;
-        //SC mySC;
-
         currentFoodLog = new ArrayList<DiaryItem>();
         mealEntry = new DiaryItem(100, ListItem.FragmentType.diaryEntry, "Banana", 100, ListItem.Unit.g, 50, "myIcon");
         currentFoodLog.add(mealEntry);
@@ -50,29 +51,42 @@ public class DataAccessStub {
         mealEntry = new DiaryItem(108, ListItem.FragmentType.diaryAdd, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
         currentFoodLog.add(mealEntry);
 
-//        courses = new ArrayList<Course>();
-//        course = new Course("COMP3010", "Distributed Computing");
-//        courses.add(course);
-//        course = new Course("COMP3020", "Human-Computer Interaction");
-//        courses.add(course);
-//        course = new Course("COMP3350", "Software Development");
-//        courses.add(course);
-//        course = new Course("COMP3380", "Databases");
-//        courses.add(course);
-//
-//        scs = new ArrayList<SC>();
-//        mySC = new SC("100", "COMP3010", "Gary Chalmers", "Distributed Computing", "C+");
-//        scs.add(mySC);
-//        mySC = new SC("200", "COMP3010", "Selma Bouvier", "Distributed Computing", "A+");
-//        scs.add(mySC);
-//        mySC = new SC("100", "COMP3350", "Gary Chalmers", "Software Development", "A");
-//        scs.add(mySC);
-//        mySC = new SC("300", "COMP3350", "Arnie Pye", "Software Development", "B");
-//        scs.add(mySC);
-//        mySC = new SC("100", "COMP3380", "Gary Chalmers", "Databases", "A");
-//        scs.add(mySC);
-//        mySC = new SC("200", "COMP3380", "Selma Bouvier", "Databases", "B");
-//        scs.add(mySC);
+
+        //Workouts
+        routines = new ArrayList<Routine>();
+        Exercise[] chestExercises = new Exercise[] {
+            new Exercise("Incline dumbell press", "Put the bench at 45 degrees", 9, 3, 5),
+            new Exercise("Lat pull down", "Lead with elbows and go slow", 9, 3, 4),
+            new Exercise("Benchpress", "ego lifting is bad", 9, 3, 8),
+            new Exercise("Bent over rows", "keep that back flat", 8, 3, 4),
+            new Exercise("Chest fly", "Move arms accross chest, dont go too low", 9, 3, 3)
+        };
+
+        Exercise[] armExercises = new Exercise[] {
+            new Exercise("Dumbbell waiter curls", "keep those elbows in", 8, 4, 5),
+            new Exercise("Cable tricep pulldowns", "focus on pushing with triceps", 8, 4, 4),
+            new Exercise("Cheat curls", "dont go toooo crazy", 6, 4, 5),
+            new Exercise("Banded tricep extensions", "use a close grip", 12, 3, 4),
+            new Exercise("Dumbell curls", "keep those elbows in", 8, 4, 5)
+        };
+
+        Exercise[] legExercises = new Exercise[] {
+            new Exercise("Leg press", "focus on pressing into the machine/ground", 16, 3, 7),
+            new Exercise("Fire hydrants", "keep your knee in", 20, 3, 7),
+            new Exercise("Squat", "focus on pressing into the machine/ground", 16, 3, 8),
+            new Exercise("Donkey kicks", "try to point your toes and get them up", 20, 3, 7),
+            new Exercise("Calf extensions", "you still need to be able to walk to get home", 12, 3, 8)
+        };
+
+        Exercise cardio = new Exercise("Eliptical", "its better to sprint for a little than walk for awhile", 20, 3, 100);
+        Exercuse rest = new Exercise("Rest", "take a break you deserve it... hopefully", 0, 0, 0);
+
+        routines.add(new Routine("build muscle", new Workout[] {chestExercises, armExercises, legExercises, rest, chestExercises, legExercises, rest}));
+        routines.add(new Routine("lose weight", new Workout[] {cardio, cardio, cardio, cardio, cardio, cardio, cardio}));
+        routines.add(new Routine("tone", new Workout[] {chestExercises, cardio, armExercises, cardio, legExercises, cardio, rest}));
+
+        
+
 
         System.out.println("Opened " + dbType + " database " + dbName);
     }
