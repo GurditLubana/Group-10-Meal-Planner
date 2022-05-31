@@ -13,9 +13,10 @@ public class DataAccessStub {
 
     private ArrayList<DiaryItem> currentFoodLog;
     private ArrayList<Routine> routines;
+    private ArrayList<Drink> drink;
     private ArrayList<Food> food;
     private ArrayList<Meal> meal;
-    private ArrayList<Drink> drink;
+    
 
     public DataAccessStub(String dbName) {
         this.dbName = dbName;
@@ -86,6 +87,151 @@ public class DataAccessStub {
         routines.add(new Routine("tone", new Workout[] {chestExercises, cardio, armExercises, cardio, legExercises, cardio, rest}));
 
         
+        //Create Drinks
+        drink.add(new Drink("Mojito", "myIcon", 150, new String[] {"GET", "GOOD"}, 
+            new DrinkIngredient[] {
+                new DrinkIngredient("White Rum", 1.5, "oz", false, true),
+                new DrinkIngredient("Sugar", 2, "TBSP", false, false),
+                new DrinkIngredient("Mint", 8, "leaves", false, false),
+                new DrinkIngredient("Lime", 1/2, "lime", false, false),
+                new DrinkIngredient("Club soda", 0, "fill", true, false),
+            },
+            new String[] {"Muddle"})
+        );
+        
+        drink.add(new Drink("Mai-tai", "myIcon", 150, new String[] {"GET", "GOOD"},
+            new DrinkIngredient[] {
+                new DrinkIngredient("Coconut Malibu", 1.5, "oz", true, false),
+                new DrinkIngredient("Rum", 1.5, "oz", true, false),
+                new DrinkIngredient("Pineapple juice", 3, "oz", true, false),
+                new DrinkIngredient("Orange juice", 2, "oz", true, false),
+                new DrinkIngredient("Grenadine", 1, "dash", false, false),
+            },
+            new String[] {"Shake", "Strain"})
+        );
+
+        drink.add(new Drink("Red Headed \"friend\"", "myIcon", 150, new String[] {"GET", "GOOD"},
+            new DrinkIngredient[] {
+                new DrinkIngredient("Jagermeister", 1, "oz", false, true),
+                new DrinkIngredient("Cranberry juice", 1, "oz", true, false),
+                new DrinkIngredient("Peach Schnapps", 1, "oz", false, true),
+            },
+            new String[] {"Shake", "Strain"})
+        );
+
+        drink.add(new Drink("Fun On The Beach", "myIcon", 150, new String[] {"GET", "GOOD"},
+            new DrinkIngredient[] {
+                new DrinkIngredient("Vodka", 1.5, "oz", false, true),
+                new DrinkIngredient("Peach Schnapps", 0.5, "oz", false, true),
+                new DrinkIngredient("Chamboard", 1/2, "oz", false, true),
+                new DrinkIngredient("Orange juice", 1.5, "oz", true, false),
+                new DrinkIngredient("Cranberry juice", 1.5, "oz", true, false),
+            },
+            new String[] {"Shake", "Strain"})
+        );
+
+        drink.add(new Drink("Non Alcoholic Moscow Mule", "myIcon", 150, new String[] {"GET", "GOOD"},
+            new DrinkIngredient[] {
+                new DrinkIngredient("Lime juice", 1, "TBSP", false, false),
+                new DrinkIngredient("Ginger beer", 4, "oz", false, false),
+                new DrinkIngredient("Club soda", 0, "fill", false, false),
+                new DrinkIngredient("Mint", 8, "leaves", false, false),
+            },
+            new String[] {"Muddle"})
+        );
+
+        drink.add(new Drink("Blue Hawaiian", "myIcon", 150, new String[] {"GET", "GOOD"},
+            new DrinkIngredient[] {
+                new DrinkIngredient("Pineapple juice", 2, "oz", true, false),
+                new DrinkIngredient("Light rum", 1, "oz", false, true),
+                new DrinkIngredient("Blue Curacao", 1, "oz", false, true),
+                new DrinkIngredient("Coconut Malibu", 1, "oz", false, true),
+            },
+            new String[] {"Shake", "Strain"})
+        );
+
+        drink.add(new Drink("French Martini", "myIcon", 150, new String[] {"GET", "GOOD"},
+            new DrinkIngredient[] {
+                new DrinkIngredient("Pineapple juice", 3, "oz", true, false),
+                new DrinkIngredient("Chamboard", 1, "oz", false, true),
+            },
+            new String[] {"Shake", "Strain"})
+        );
+
+        drink.add(new Drink("Non Alcoholic Mojito", "myIcon", 150, new String[] {"GET", "GOOD"},
+            new DrinkIngredient[] {
+                new DrinkIngredient("Sugar", 2, "TBSP", false, false),
+                new DrinkIngredient("Mint", 8, "leaves", false, false),
+                new DrinkIngredient("Lime", 1/2, "lime", false, false),
+                new DrinkIngredient("Club soda", 0, "fill", false, false),
+            },
+            new String[] {"Muddle"})
+        );
+
+        //adding food
+        food.add(new Food("apple", "myIcon"));
+        food.add(new Food("pear", "myIcon"));
+        food.add(new Food("cracker", "myIcon"));
+        food.add(new Food("grain of rice", "myIcon"));
+        food.add(new Food("walnut", "myIcon"));
+        food.add(new Food("molasse", "myIcon"));
+        food.add(new Food("cereal", "myIcon"));
+        food.add(new Food("nutella", "myIcon"));
+        food.add(new Food("steak", "myIcon"));
+
+
+        //adding meals
+        meal.add("soup", "myIcon", new MealIngredient[] {
+            new MealIngredient(new Food("broth", "myIcon"), 2),
+            new MealIngredient(new Food("onion", "myIcon"), 3),
+            new MealIngredient(new Food("brocoli", "myIcon"), 2)
+        }, new String[] {"Get", "Good"});
+
+        meal.add("salad", "myIcon", new MealIngredient[] {
+            new MealIngredient(new Food("lettuce", "myIcon"), 3),
+            new MealIngredient(new Food("tomato", "myIcon"), 3),
+            new MealIngredient(new Food("onion", "myIcon"), 3)
+        }, new String[] {"Get", "Good"});
+
+        meal.add("yogurt parfait", "myIcon", new MealIngredient[] {
+            new MealIngredient(new Food("yogurt", "myIcon"), 3),
+            new MealIngredient(new Food("oats", "myIcon"), 3),
+            new MealIngredient(new Food("Stawberry", "myIcon"), 3)
+        }, new String[] {"Get", "Good"});
+
+        meal.add("smoothie", "myIcon", new MealIngredient[] {
+            new MealIngredient(new Food("milk", "myIcon"), 3),
+            new MealIngredient(new Food("oats", "myIcon"), 3),
+            new MealIngredient(new Food("banana", "myIcon"), 3)
+        }, new String[] {"Get", "Good"});
+
+        meal.add("rice pilaf", "myIcon", new MealIngredient[] {
+            new MealIngredient(new Food("cucumber", "myIcon"), 3),
+            new MealIngredient(new Food("rice", "myIcon"), 3),
+            new MealIngredient(new Food("bread", "myIcon"), 3)
+        }, new String[] {"Get", "Good"});
+
+        meal.add("sushi", "myIcon", new MealIngredient[] {
+            new MealIngredient(new Food("rice", "myIcon"), 100),
+            new MealIngredient(new Food("cream cheese", "myIcon"), 3),
+            new MealIngredient(new Food("nori", "myIcon"), 6)
+        }, new String[] {"Get", "Good"});
+
+        meal.add("wrap", "myIcon", new MealIngredient[] {
+            new MealIngredient(new Food("steak", "myIcon"), 3),
+            new MealIngredient(new Food("pesto", "myIcon"), 2),
+            new MealIngredient(new Food("lettuce", "myIcon"), 5)
+        }, new String[] {"Get", "Good"});
+
+        meal.add("shrimp tacos", "myIcon", new MealIngredient[] {
+            new MealIngredient(new Food("shrimp", "myIcon"), 15),
+            new MealIngredient(new Food("taco shell", "myIcon"), 3),
+            new MealIngredient(new Food("cheese", "myIcon"), 3),
+            new MealIngredient(new Food("lettuce", "myIcon"), 5)
+        }, new String[] {"Get", "Good"});
+
+
+
 
 
         System.out.println("Opened " + dbType + " database " + dbName);
