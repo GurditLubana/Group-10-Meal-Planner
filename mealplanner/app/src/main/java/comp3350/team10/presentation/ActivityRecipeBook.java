@@ -80,6 +80,11 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToParen
         mealRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
     }
 
+    @Override
+    public LinkedList<ListItem> getList() {
+        return data;
+    }
+
     public void navClick(){
 
     }

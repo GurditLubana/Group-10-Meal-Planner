@@ -16,7 +16,8 @@ public class RecipeBookItem implements ListItem{
     public RecipeBookItem(){
 
     }
-    public RecipeBookItem(int ky, FragmentType ft, String nm, int cals, Unit un, int qty, int loc){
+
+    public RecipeBookItem(int ky, FragmentType ft, String nm, int cals, Unit un, int qty, int loc) {
         key = ky;
         fragType = ft;
         name = nm;
@@ -25,12 +26,13 @@ public class RecipeBookItem implements ListItem{
         quantity = qty;
         myImage = loc;
     }
+
     @Override
     public FragmentType getFragmentType() {
         return fragType;
     }
 
-    public int getImage(){
+    public int getImage() {
         return myImage;
     }
 }

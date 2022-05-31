@@ -4,6 +4,10 @@ import android.view.View;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.LinkedList;
+
+import comp3350.team10.objects.ListItem;
+
 public interface FragToParent {
     public void navClick();
     public void showContextUI(int pos);
@@ -13,4 +17,5 @@ public interface FragToParent {
     public void prevDate();
     public void nextDate();
     public void setGoal();
+    public LinkedList<ListItem> getList();
 }
