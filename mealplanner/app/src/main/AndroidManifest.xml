@@ -13,8 +13,9 @@
             android:name=".presentation.ActivityViewEdible"
             android:exported="false"
             android:label="@string/title_activity_view_edible"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.MealPlanner.NoActionBar" />
-        <activity android:name=".presentation.ActivityRecipeBook" />
+        <activity android:name=".presentation.ActivityRecipeBook"/>
         <activity android:name=".presentation.ActivityMealDiary">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

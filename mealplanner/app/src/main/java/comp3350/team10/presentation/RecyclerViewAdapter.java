@@ -3,6 +3,7 @@ package comp3350.team10.presentation;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -275,15 +276,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         viewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { //need to pass tab information, and edible
-                System.out.println("viewing????");
-                Intent myIntent = new Intent(view.getContext(), ActivityViewEdible.class);
-                //myIntent.putExtra("key", value); //Optional parameters
-                view.getContext().startActivity(myIntent);
-                //change fragment to be that recipe
-                //go to the fragment of that item view
-                //Intent intent = new Intent(getActivity(), ActivityMealDiary.class);
-                //intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                //startActivity(intent);
+                Intent intent = new Intent(view.getContext(), ActivityViewEdible.class);
+                String currActivityName = view.getContext().getClass().getName();
+
+                intent.putExtra(ActivityViewEdible.RETURN_ACTIVITY_NAME, currActivityName);
+                //intent.putExtra("edibleItem", (Parcelable)localDataSet.get(position));
+
+                view.getContext().startActivity(intent);
             }
         });
     }
