@@ -26,12 +26,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ActivityRecipeBook extends AppCompatActivity implements FragToParent {
-
     private LinkedList<ListItem> data;
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView mealRecyclerView;
     private MealDiaryLiveData mealDiaryData; //replace later
     private MealDiaryOps opExec;             //replace later
+    private ListItem saved;
+    private int savedPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToParen
     }
 
     private void init(){
-
         mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class);
         opExec = new MealDiaryOps(mealDiaryData);
         data = opExec.getData();
@@ -80,10 +80,31 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToParen
         mealRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
     }
 
-    public void navClick(){
-
+    @Override
+    public void showContextUI(int pos) { //do a thing here to take an object as well?
+        System.out.println("clicked " + " " + pos);
+        System.out.println("Size: " + data.size());
+        System.out.println("Position: " + pos);
+        if (pos != savedPos && saved != null) {
+            data.remove(savedPos);
+            data.add(savedPos, saved);
+        }
+        if (data.get(pos).getFragmentType() == ListItem.FragmentType.recipe) {
+            saved = data.remove(pos);
+            savedPos = pos;
+            data.add(pos, new DiaryItem(0, ListItem.FragmentType.cardSelection, "null", 00, ListItem.Unit.g, 0, "noIcon"));
+        } else {
+            data.remove(pos);
+            data.add(pos, saved);
+            saved = null;
+        }
+        //mealRecyclerView.removeViewAt(pos);
+        recyclerViewAdapter.notifyItemRemoved(pos);
+        recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
+        recyclerViewAdapter.notifyDataSetChanged();
     }
-    public void showContextUI(int pos){
+
+    public void navClick(){
 
     }
     public void hideContextUI(Fragment fragment){
@@ -105,4 +126,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToParen
 
     }
 
+    public void addDiaryItem(DiaryItem item) {
+        System.out.println("calling the addDiary thing");
+        opExec.addToDiary(item);
+    }
 }

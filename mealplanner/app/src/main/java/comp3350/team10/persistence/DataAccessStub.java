@@ -11,7 +11,7 @@ public class DataAccessStub {
     private String dbName;
     private String dbType = "stub";
 
-    private ArrayList<DiaryItem> currentFoodLog;
+    private ArrayList<DiaryItem> currentFoodLog; //These are non persistant
     private ArrayList recipeTest;
     //private ArrayList<Course> courses;
     //private ArrayList<SC> scs;
@@ -101,6 +101,11 @@ public class DataAccessStub {
     }
     public ArrayList<DiaryItem> getRecipe() {
         return recipeTest;
+    }
+    public void addRecipeToLog(DiaryItem item) { //Needs date added to this later, only adds to current
+        System.out.println("Before: " + currentFoodLog.size());
+        currentFoodLog.add(item);
+        System.out.println("After: " + currentFoodLog.size());
     }
 //
 //    public ArrayList<Student> getStudentRandom(Student currentStudent)

@@ -2,9 +2,11 @@ package comp3350.team10.presentation;
 
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,7 +32,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public int getItemViewType(int pos) {
         return localDataSet.get(pos).getFragmentType().ordinal();
-        //return 0;
     }
 
     /**
@@ -97,6 +98,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             case 3:
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_dbl_card, viewGroup, false);
                 break;
+            case 4:    //add thing to make it show this card/buttons thingy add enum
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_on_card_selection, viewGroup, false);
+                break;
             default:
                 view = null;
                 break;
@@ -134,6 +138,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 break;
             case 3:
                 setRecipeData(viewHolder, position);
+                setCardListeners(viewHolder, position);
+                break;//viewHolder, position
+            case 4:
+                setCardSelectionListeners(viewHolder, position);
                 break;
             default:
                 //view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_add_log, viewGroup, false);
@@ -143,8 +151,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        //return localDataSet.length;
-        //return 8;
         return localDataSet.size();
     }
 
@@ -168,8 +174,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 if (context != null) {
                     parentComm = (FragToParent) context;
                     parentComm.showContextUI(selectedPos);
-                }
+                } //
 
+            }
+        });
+    }
+
+    //modify card type to be of type card select
+    private void setCardListeners(ViewHolder viewHolder, int position) {
+        viewHolder.getView().findViewById(R.id.cardView2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { //localDataSet.get(position)
+                Context context = view.getContext();
+
+                System.out.println("...");
+                if (context != null) {
+                    parentComm = (FragToParent) context;
+                    parentComm.showContextUI(position);
+                }
             }
         });
     }
@@ -232,5 +254,34 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private void setRecipeData(ViewHolder viewHolder, int position){
         ((ImageView) viewHolder.getView().findViewById(R.id.mealImage)).setImageResource(((RecipeBookItem) localDataSet.get(position)).getImage());
+    }
+    private void setCardSelectionListeners(ViewHolder viewHolder, int position) {
+        Button viewButton = (Button)viewHolder.getView().findViewById(R.id.viewBtn);
+        Button addButton = (Button)viewHolder.getView().findViewById(R.id.addToPlannerBtn);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("adding?????");
+                Context context = view.getContext();
+
+                if (context != null) {
+                    parentComm = (FragToParent)context;
+                    parentComm.addDiaryItem((DiaryItem)localDataSet.get(position));
+                }
+            }
+        });
+
+        viewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("viewing????");
+                //change fragment to be that recipe
+                //go to the fragment of that item view
+                //Intent intent = new Intent(getActivity(), ActivityMealDiary.class);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                //startActivity(intent);
+            }
+        });
     }
 }

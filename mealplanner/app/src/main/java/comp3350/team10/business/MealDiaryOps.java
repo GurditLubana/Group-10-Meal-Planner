@@ -33,7 +33,13 @@ public class MealDiaryOps {
     public LinkedList getData(){
         LinkedList<DiaryItem> myList = new LinkedList<DiaryItem>();
         myList.addAll(db.getRecipe());
+
         return myList;
+    }
+
+    public void addToDiary(DiaryItem item) {
+        db.addRecipeToLog(item);
+        init();
     }
 
     public void nextDate(){

@@ -63,7 +63,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
         mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    @Override
+    //@Override
     public void showContextUI(int pos) {
         System.out.println("clicked " + " " + pos);
         if (pos != savedPos && saved != null) {
@@ -102,6 +102,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
 
     @Override
     public void selectDate(){
+        System.out.println("test");
         datePicker = MaterialDatePicker.Builder
                 .datePicker()
                 .setTitleText("Select date")
@@ -133,6 +134,11 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
 
     @Override
     public void setGoal(){
+
+    }
+
+    @Override
+    public void addDiaryItem(DiaryItem item) {
 
     }
 }

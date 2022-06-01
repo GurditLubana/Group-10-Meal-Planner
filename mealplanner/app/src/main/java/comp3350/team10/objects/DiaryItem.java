@@ -35,6 +35,10 @@ public class DiaryItem implements ListItem{
         return fragType;
     }
 
+    public void setFragmentType(FragmentType newType) {
+        fragType = newType;
+    }
+
     public String getName(){
         return name;
     }

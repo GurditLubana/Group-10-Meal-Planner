@@ -30,6 +30,10 @@ public class RecipeBookItem implements ListItem{
         return fragType;
     }
 
+    public void setFragmentType(FragmentType newType) {
+        fragType = newType;
+    }
+
     public int getImage(){
         return myImage;
     }
