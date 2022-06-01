@@ -1,14 +1,16 @@
+package comp3350.team10.objects;
+
 public class DrinkIngredient extends Ingredient {
     private String name;
     private boolean alcoholic;
     private boolean replacement;
 
-    public DrinkIngredient(float quantity, String units, String name, boolean alcoholic, boolean replacement) {
+    public DrinkIngredient(String name, double quantity, String units,  boolean replacement, boolean alcoholic) {
         super(quantity, units);
         
         this.name = name;
-        this.alcoholic = alcoholic;
         this.replacement = replacement;
+        this.alcoholic = alcoholic;
     }
 
 

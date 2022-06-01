@@ -18,6 +18,13 @@ public class DiaryItem implements ListItem {
         this.key = key;
     }
 
+    public DiaryItem(FragmentType type, Edible item, Date date, int key) {
+        this.fragType = type;
+        this.item = item;
+        this.date = date;
+        this.key = key;
+    }
+
     public DiaryItem() {
         this.fragType = FragmentType.diaryEntry;
         this.item = new Food("some food", "imgPath"); //defaults Josef had <3 so I dont mess with your stuff

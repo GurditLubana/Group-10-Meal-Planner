@@ -1,17 +1,19 @@
+package comp3350.team10.objects;
+
 public abstract class Ingredient {
-    private float quantity;
+    private double quantity;
     private String units;
     
-    public Ingredient(float quantity, String units) {
+    public Ingredient(double quantity, String units) {
         this.quantity = quantity;
         this.units = units;
     }
 
-    public void changeQty(float newQty) {
+    public void changeQty(double newQty) {
         this.quantity = newQty;
     }
 
-    public float getQty() {
+    public double getQty() {
         return this.quantity;
     } 
 

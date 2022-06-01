@@ -9,7 +9,7 @@ public class Workout { //put into array based on what day they go on
         this.complete = false;
     }
 
-    public modifyComplete(boolean newVal) {
+    public void modifyComplete(boolean newVal) {
         this.complete = newVal;
     }
 

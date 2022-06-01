@@ -7,10 +7,11 @@ public class Drink extends PreparedItem {
     public Drink(String name, String path, String[] instructions, DrinkIngredient[] ingredients) {
         super(name, path, CALORIES_PER_DRINK, instructions);
         this.ingredients = ingredients;
+        System.out.println("after drink constructor");
     }
 
 
-    public int getIngredients() {
+    public DrinkIngredient[] getIngredients() {
         return this.ingredients;
     }
 

@@ -1,3 +1,5 @@
+package comp3350.team10.objects;
+
 public abstract class Edible {
     private int calories;
     private String name;
@@ -7,6 +9,7 @@ public abstract class Edible {
         this.calories = 0;
         this.name = name;
         this.path = path;  
+        System.out.println("After edible constructor");
     }
 
 

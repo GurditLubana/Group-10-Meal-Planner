@@ -16,7 +16,7 @@ public class Routine {
     }
 
     public Workout getTodaysWorkout() {
-        String currDay = LocalDate.now().getDayOfWeek().getValue();
+        int currDay = LocalDate.now().getDayOfWeek().getValue();
 
         return dailyWorkouts[currDay];
     }
