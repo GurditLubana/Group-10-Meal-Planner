@@ -92,7 +92,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToParen
         if (data.get(pos).getFragmentType() == ListItem.FragmentType.recipe) {
             saved = data.remove(pos);
             savedPos = pos;
-            data.add(pos, new DiaryItem(0, ListItem.FragmentType.cardSelection, "null", 00, ListItem.Unit.g, 0, "noIcon"));
+            data.add(pos, new DiaryItem(ListItem.FragmentType.cardSelection, null, null, 0));
         } else {
             data.remove(pos);
             data.add(pos, saved);
