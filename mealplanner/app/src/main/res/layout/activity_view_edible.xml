@@ -17,10 +17,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView4"
+        android:name="comp3350.team10.presentation.FragmentAlcoholSlider"
+        android:layout_width="210dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/instructScroll"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.833" />
+
     <ScrollView
         android:id="@+id/makeupScrll"
         android:layout_width="179dp"
         android:layout_height="332dp"
+        android:layout_marginStart="15dp"
         android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/instructScroll"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +44,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
     </ScrollView>
 
     <ScrollView
@@ -48,31 +74,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
     </ScrollView>
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="192dp"
-        android:layout_height="242dp"
-        android:layout_marginEnd="200dp"
+        android:layout_width="204dp"
+        android:layout_height="241dp"
+        android:layout_marginStart="5dp"
         app:layout_constraintBottom_toTopOf="@+id/instructScroll"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView4"
-        android:name="comp3350.team10.presentation.FragmentAlcoholSlider"
-        android:layout_width="207dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="200dp"
-        app:layout_constraintBottom_toTopOf="@+id/instructScroll"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.833" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
