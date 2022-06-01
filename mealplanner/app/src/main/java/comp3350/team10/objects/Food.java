@@ -1,23 +1,27 @@
 package comp3350.team10.objects;
 import java.lang.Math;
 
-public class Food {
+public class Food extends Edible {
     private static int CALORIE_RANGE = 300;
     private static int MIN_CALORIES = 25;
-    private String name;
-	private String path;
-	private int calories;
 	private Macros macros;
 
     public Food(String name, String path, int calories) {
-        this(name, path);
-        this.calories = calories;
+        super(name, path);
+        
+        super.modifyCalories(calories);
+        this.macros = new Macros();
     }
 
     public Food(String name, String path) {
-        this.name = name;
-        this.path = path;
+        super(name, path);
+        
+        int randomCalories = (int)(Math.random() * CALORIE_RANGE) + MIN_CALORIES;
+        super.modifyCalories(randomCalories);
         this.macros = new Macros();
-        this.calories = (int)(Math.random() * CALORIE_RANGE) + MIN_CALORIES;
+    }
+
+    public Macros getMacros() {
+        return this.macros;
     }
 }

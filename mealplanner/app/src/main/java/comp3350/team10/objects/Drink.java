@@ -1,37 +1,24 @@
 package comp3350.team10.objects;
 
-public class Drink {
-    private int calories;
-    private String name;
-    private String path;
-    private String[] instructions;
+public class Drink extends PreparedItem {
+    private static int CALORIES_PER_DRINK = 250;
     private DrinkIngredient[] ingredients;
 
-    public Drink(String name, String path, int calories, String[] instructions, DrinkIngredient[] ingredients) {
-        this.name = name;
-        this.path = path;
-        this.calories = calories;
-        this.instructions = instructions;
+    public Drink(String name, String path, String[] instructions, DrinkIngredient[] ingredients) {
+        super(name, path, CALORIES_PER_DRINK, instructions);
         this.ingredients = ingredients;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public int getCalories() {
-        return this.calories;
-    }
-
-    public int getInstructions() {
-        return this.instructions;
-    }
 
     public int getIngredients() {
         return this.ingredients;
     }
 
-    public void flexIngredients(float alcoholLvl) {
+    public void changeIngredients(DrinkIngredient[] newIngredients) {
+        this.ingredients = newIngredients;
+    }
+
+    public void flexIngredients(float prefAlcoholQty) {
         //calculate alcohol lvls removed from each drink
         //distribute this to all replacements
     }

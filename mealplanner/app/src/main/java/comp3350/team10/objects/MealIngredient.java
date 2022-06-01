@@ -1,19 +1,14 @@
-package comp3350.team10.objects;
+public class MealIngredient extends Ingredient{
+    private Food foods;
 
-public class MealIngredient {
-    private Food Food;
-    private float quantity;
-
-    public MealIngredient(Food food, float quantity) {
+    public MealIngredient(float quantity, String units, Food food) {
+        super(quantity, units);
+        
         this.food = food;
-        this.quanity = quantity;
     }
 
-    public void removeIngredient() {
 
-    }
-
-    public void modIngredientQty() {
-
+    public Food getFood() {
+        return this.food;
     }
 }

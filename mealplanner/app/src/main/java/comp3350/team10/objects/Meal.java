@@ -1,15 +1,18 @@
 package comp3350.team10.objects;
 
-public class Meal {
-    private String name;
-    private String path;
-    private MealIngredients[] ingredients;
-    private String[] instructions;
+public class Meal extends PreparedItem {
+    private MealIngredient[] ingredients;
 
-    public Meal(String name, String path, MealIngredients[] ingredients, String[] instructions) {
-        this.name = name;
-        this.path = path;
+    public Meal(String name, String path, int calories, String[] instructions, MealIngredient[] ingredients) {
+        super(name, path, calories, instructions);
         this.ingredients = ingredients;
-        this.instructions = instructions;
+    }
+
+    public MealIngredient[] getIngredients() {
+        return ingredients;
+    }
+
+    public void changeIngredients(MealIngredient[] newIngredients) {
+        this.ingredients = newIngredients;
     }
 }

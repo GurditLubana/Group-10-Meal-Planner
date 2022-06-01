@@ -8,7 +8,7 @@ public class Macros {
     private int protein;
     private int fat;
 
-    public Macros() {
+    public Macros() {   //generate random amounts of macros
         this.carbs = (int)(Math.random() * MACRO_RANGE) + MIN_MACRO;
         this.protein = (int)(Math.random() * MACRO_RANGE) + MIN_MACRO;
         this.fat = (int)(Math.random() * MACRO_RANGE) + MIN_MACRO;
@@ -20,10 +20,10 @@ public class Macros {
     }
 
     public int getProtein() {
-        return this.getProtein();
+        return this.protein;
     }
 
     public int getFat() {
-        return this.getFat();
+        return this.fat;
     }
 }
