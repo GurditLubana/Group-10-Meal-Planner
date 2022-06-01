@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MealPlanner">
-        <activity android:name=".presentation.ActivityRecipeBook"></activity>
+        <activity
+            android:name=".presentation.ActivityViewEdible"
+            android:exported="false"
+            android:label="@string/title_activity_view_edible"
+            android:theme="@style/Theme.MealPlanner.NoActionBar" />
+        <activity android:name=".presentation.ActivityRecipeBook" />
         <activity android:name=".presentation.ActivityMealDiary">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

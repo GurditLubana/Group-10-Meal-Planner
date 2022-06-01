@@ -274,8 +274,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         viewButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) { //need to pass tab information, and edible
                 System.out.println("viewing????");
+                Intent myIntent = new Intent(view.getContext(), ActivityViewEdible.class);
+                //myIntent.putExtra("key", value); //Optional parameters
+                view.getContext().startActivity(myIntent);
                 //change fragment to be that recipe
                 //go to the fragment of that item view
                 //Intent intent = new Intent(getActivity(), ActivityMealDiary.class);
