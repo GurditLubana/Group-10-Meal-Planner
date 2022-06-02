@@ -250,6 +250,7 @@ public class DataAccessStub {
     public ArrayList<DiaryItem> getToday() {
         return currentFoodLog;
     }
+    
     public LinkedList<ListItem> getRecipe(int edibleType) {   //String currTab
         System.out.println("this is good");
         LinkedList<ListItem> currEdibles = new LinkedList<ListItem>();
