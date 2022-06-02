@@ -110,4 +110,14 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         //get data then send to opExec maybe do validation here or in dialog
     }
 
+    @Override
+    public void removeItem(int pos){
+        if(data.size() > 0){
+            data.remove(pos);
+            recyclerViewAdapter.notifyItemRemoved(pos);
+            recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
+            recyclerViewAdapter.notifyDataSetChanged();
+        }
+    }
+
 }
