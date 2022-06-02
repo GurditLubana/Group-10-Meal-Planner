@@ -105,8 +105,4 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     }
 
-    @Override
-    public void addDiaryItem(DiaryItem item) {
-
-    }
 }

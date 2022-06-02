@@ -22,10 +22,6 @@ public class DataAccessStub {
     private ArrayList<Food> food;
     private ArrayList<Meal> meal;
 
-    private String dbType = "stub";
-    private String dbName;
-
-
     public DataAccessStub(String dbName) {
         this.dbName = dbName;
     }
@@ -62,17 +58,17 @@ public class DataAccessStub {
         //mealEntry = new DiaryItem(103, ListItem.FragmentType.diaryModify, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
         //currentFoodLog.add(mealEntry);    //this is something Josef was doing before dont wana mess with it
 
-        recipeTest = new ArrayList<RecipeBookItem>();
-        recipeEntry = new RecipeBookItem(100, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, R.drawable.food);
-        recipeTest.add(recipeEntry);
-        recipeEntry = new RecipeBookItem(101, ListItem.FragmentType.recipe, "Salad", 50, ListItem.Unit.g, 50, R.drawable.food2);
-        recipeTest.add(recipeEntry);
-        recipeEntry = new RecipeBookItem(102, ListItem.FragmentType.recipe, "Hamburglar", 700, ListItem.Unit.g, 400, R.drawable.food3);
-        recipeTest.add(recipeEntry);
-        recipeEntry = new RecipeBookItem(103, ListItem.FragmentType.recipe, "Notfries", 500, ListItem.Unit.g, 30, R.drawable.food4);
-        recipeTest.add(recipeEntry);
-        recipeEntry = new RecipeBookItem(104, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, R.drawable.drinks);
-        recipeTest.add(recipeEntry);
+//        recipeTest = new ArrayList<RecipeBookItem>();
+//        recipeEntry = new RecipeBookItem(100, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, R.drawable.food);
+//        recipeTest.add(recipeEntry);
+//        recipeEntry = new RecipeBookItem(101, ListItem.FragmentType.recipe, "Salad", 50, ListItem.Unit.g, 50, R.drawable.food2);
+//        recipeTest.add(recipeEntry);
+//        recipeEntry = new RecipeBookItem(102, ListItem.FragmentType.recipe, "Hamburglar", 700, ListItem.Unit.g, 400, R.drawable.food3);
+//        recipeTest.add(recipeEntry);
+//        recipeEntry = new RecipeBookItem(103, ListItem.FragmentType.recipe, "Notfries", 500, ListItem.Unit.g, 30, R.drawable.food4);
+//        recipeTest.add(recipeEntry);
+//        recipeEntry = new RecipeBookItem(104, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, R.drawable.drinks);
+//        recipeTest.add(recipeEntry);
 
 
 //        courses = new ArrayList<Course>();

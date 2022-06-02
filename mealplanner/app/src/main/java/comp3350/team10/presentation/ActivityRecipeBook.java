@@ -125,4 +125,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToParen
         System.out.println("calling the addDiary thing");
         diaryOpExec.addToDiary(item);
     }
+
+    public LinkedList getList(){
+        return null;
+    }
 }
