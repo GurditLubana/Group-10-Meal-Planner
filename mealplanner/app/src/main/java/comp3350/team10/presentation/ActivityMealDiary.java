@@ -97,12 +97,17 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     @Override
-    public void prevDate(){};
+    public void prevDate(){
+        opExec.prevDate();
+    };
     @Override
-    public void nextDate(){};
+    public void nextDate(){
+        opExec.nextDate();
+    };
     @Override
     public void setGoal(){
-
+        //launch goal input dialog
+        //get data then send to opExec maybe do validation here or in dialog
     }
 
 }

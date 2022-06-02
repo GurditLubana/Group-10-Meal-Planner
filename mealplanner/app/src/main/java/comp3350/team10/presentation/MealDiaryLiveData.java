@@ -22,6 +22,13 @@ public class MealDiaryLiveData extends ViewModel {
         return activityDate;
     }
 
+    public MutableLiveData<LinkedList<ListItem>> getMealsOnDate() {
+        if(mealsOnDate == null ){
+            mealsOnDate = new MutableLiveData<LinkedList<ListItem>>();
+        }
+        return mealsOnDate;
+    }
+
     public void setActivityDate(Calendar newDate) {
         if (activityDate == null) {
             activityDate = new MutableLiveData<Calendar>();
@@ -29,12 +36,7 @@ public class MealDiaryLiveData extends ViewModel {
         activityDate.setValue(newDate);
     }
 
-    public MutableLiveData<LinkedList<ListItem>> getMealsOnDate() {
-        if(mealsOnDate == null ){
-            mealsOnDate = new MutableLiveData<LinkedList<ListItem>>();
-        }
-        return mealsOnDate;
-    }
+
 
     public void setMealsOnDate(LinkedList<ListItem> newData) {
         mealsOnDate.setValue(newData);

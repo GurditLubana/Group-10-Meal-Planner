@@ -27,7 +27,7 @@ public class DiaryItem implements ListItem {
 
     public DiaryItem() {
         this.fragType = FragmentType.diaryEntry;
-        this.item = new Food("some food", "imgPath"); //defaults Josef had <3 so I dont mess with your stuff
+        //this.item = new Food("some food", "); //defaults Josef had <3 so I dont mess with your stuff
         this.date = calendar.getTime(); //give todays date
         this.key = 0;
     }
@@ -47,5 +47,13 @@ public class DiaryItem implements ListItem {
 
     public int getKey() {
         return this.key;
+    }
+
+    public Unit getBaseUnit(){
+        return null;
+    }
+
+    public int getQuantity(){
+        return 0;
     }
 }

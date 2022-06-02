@@ -4,8 +4,8 @@ public class Drink extends PreparedItem {
     private static int CALORIES_PER_DRINK = 250;
     private DrinkIngredient[] ingredients;
 
-    public Drink(String name, String path, String[] instructions, DrinkIngredient[] ingredients) {
-        super(name, path, CALORIES_PER_DRINK, instructions);
+    public Drink(String name, int iconPath, String[] instructions, DrinkIngredient[] ingredients, FragmentType type, Unit baseUnit, int quantity) {
+        super(name, iconPath, CALORIES_PER_DRINK, instructions, type, baseUnit, quantity);
         this.ingredients = ingredients;
         System.out.println("after drink constructor");
     }

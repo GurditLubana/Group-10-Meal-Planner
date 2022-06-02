@@ -11,9 +11,12 @@ import java.util.Calendar;
 //import java.time.LocalDate;
 
 public class MealDiaryOps {
-    MealDiaryLiveData mealDiaryLiveData;
-    Calendar dataDate;
-    DataAccessStub db;
+    private MealDiaryLiveData mealDiaryLiveData;
+    private Calendar dataDate;
+    private DataAccessStub db;
+    private LinkedList<ListItem> todayFoodList;
+    private int calorieGoal;
+    private boolean dataReady;
 
     public MealDiaryOps(MealDiaryLiveData mealDiaryLiveData){
         this.mealDiaryLiveData = mealDiaryLiveData;
@@ -25,7 +28,7 @@ public class MealDiaryOps {
         db = new DataAccessStub();
         db.open("someDB");
         ArrayList<ListItem> dbFetch = db.getToday();
-        LinkedList<ListItem> todayFoodList = new LinkedList<ListItem>();
+        todayFoodList = new LinkedList<ListItem>();
         todayFoodList.addAll(dbFetch);
 
         mealDiaryLiveData.getActivityDate().setValue(dataDate);
@@ -55,5 +58,22 @@ public class MealDiaryOps {
     public void setDataDate(Calendar newDate){
         dataDate = newDate;
         mealDiaryLiveData.setActivityDate(newDate);
+    }
+
+    public void setGoal(int newGoal){
+        if(newGoal >= 0 && newGoal <= 9999)
+        {
+            calorieGoal = newGoal;
+        }
+    }
+
+    public LinkedList<ListItem> getList() {
+        return todayFoodList;
+    }
+
+    private void updateProgress(){
+        // recalculate progress
+        // push to live data
+        //
     }
 }

@@ -7,6 +7,7 @@ public class RecipeBookItem implements ListItem{
     private FragmentType fragType;  //How it should appear on recycler views
     private Edible item;            //The item's class reference (drink, meal or food)
     private int key;                //database key
+    private Unit unit;
 
     private int image;  //this is getting deleted in the future???
 
@@ -15,6 +16,7 @@ public class RecipeBookItem implements ListItem{
         this.image = image;
         this.item = item;
         this.key = key;
+        this.unit = Unit.serving;
     }
 
     @Override
@@ -28,5 +30,13 @@ public class RecipeBookItem implements ListItem{
 
     public Edible getFood() {
         return this.item;
+    }
+
+    public Unit getBaseUnit(){
+        return this.unit;
+    }
+
+    public int getQuantity(){
+        return 1;
     }
 }
