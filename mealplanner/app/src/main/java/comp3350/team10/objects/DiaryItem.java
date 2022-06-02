@@ -1,33 +1,35 @@
 package comp3350.team10.objects;
 
-public class DiaryItem implements ListItem{
+import java.util.Calendar;
+import java.util.Date;
 
-    private int key;
-    private FragmentType fragType;
-    private String name;
-    private int calories;
-    private Unit unit;
-    private int quantity;
-    private String myImage;
+public class DiaryItem implements ListItem {
+    private static Calendar calendar = Calendar.getInstance();
+    private FragmentType fragType;  //How it should appear on recycler views
+    private Edible item;            //The item's class reference (drink, meal or food) 
+    private Date date;              //The date the meal should appear on
+    private int key;                //database key
 
-    public DiaryItem(){
-        key = 0;
-        fragType = FragmentType.diaryEntry;
-        name = "some food";
-        calories = 5;
-        unit = Unit.g;
-        quantity = 50;
-        myImage = "imgPath";
+
+    public DiaryItem(Edible item, Date date, int key) {
+        this.fragType = FragmentType.diaryEntry;
+        this.item = item;
+        this.date = date;
+        this.key = key;
     }
 
-    public DiaryItem(int ky, FragmentType ft, String nm, int cals, Unit un, int qty, String loc){
-        key = ky;
-        fragType = ft;
-        name = nm;
-        calories = cals;
-        unit = un;
-        quantity = qty;
-        myImage = loc;
+    public DiaryItem(FragmentType type, Edible item, Date date, int key) {
+        this.fragType = type;
+        this.item = item;
+        this.date = date;
+        this.key = key;
+    }
+
+    public DiaryItem() {
+        this.fragType = FragmentType.diaryEntry;
+        this.item = new Food("some food", "imgPath"); //defaults Josef had <3 so I dont mess with your stuff
+        this.date = calendar.getTime(); //give todays date
+        this.key = 0;
     }
 
     @Override
@@ -35,19 +37,15 @@ public class DiaryItem implements ListItem{
         return fragType;
     }
 
-    public String getName(){
-        return name;
+    public Edible getItem() {
+        return this.item;
     }
 
-    public int getCalories() {
-        return calories;
+    public Date getDate() {
+        return this.date;
     }
 
-    public Unit getUnit(){
-        return unit;
-    }
-
-    public int getQuantity() {
-        return quantity;
+    public int getKey() {
+        return this.key;
     }
 }

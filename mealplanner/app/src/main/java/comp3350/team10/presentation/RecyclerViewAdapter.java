@@ -150,10 +150,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     //set the data of a meal entry fragment
     private void setDiaryEntryData(ViewHolder viewHolder, final int position){
-        ((TextView) viewHolder.getView().findViewById(R.id.itemNameBox)).setText(((DiaryItem) localDataSet.get(position)).getName());
-        ((TextView) viewHolder.getView().findViewById(R.id.itemQtyBox)).setText(String.format("%3d", ((DiaryItem) localDataSet.get(position)).getQuantity()));
-        ((TextView) viewHolder.getView().findViewById(R.id.itemUnitBox)).setText(((DiaryItem) localDataSet.get(position)).getUnit().name());
-        ((TextView) viewHolder.getView().findViewById(R.id.itemCalsBox)).setText(String.format("%3d", ((DiaryItem) localDataSet.get(position)).getCalories()));
+        ((TextView) viewHolder.getView().findViewById(R.id.itemNameBox)).setText(((DiaryItem) localDataSet.get(position)).getItem().getName()); //had two take two lines below out to make it work
+        //((TextView) viewHolder.getView().findViewById(R.id.itemQtyBox)).setText(String.format("%3d", ((DiaryItem) localDataSet.get(position)).getQuantity()));
+        //((TextView) viewHolder.getView().findViewById(R.id.itemUnitBox)).setText(((DiaryItem) localDataSet.get(position)).getUnit().name());
+        ((TextView) viewHolder.getView().findViewById(R.id.itemCalsBox)).setText(String.format("%3d", ((DiaryItem) localDataSet.get(position)).getItem().getCalories()));
     }
 
     //meal log card fragment click listeners

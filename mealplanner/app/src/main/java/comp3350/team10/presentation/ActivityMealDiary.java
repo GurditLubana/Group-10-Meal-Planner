@@ -54,9 +54,12 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
     private void getData() {
         DataAccessStub db = new DataAccessStub();
         db.open("someDB");
+        System.out.println("getting data????");
         ArrayList<DiaryItem> dbFetch = db.getToday();
+        System.out.println("Length: " + dbFetch.size() + "\n");
         data = new LinkedList();
         data.addAll(dbFetch);
+        System.out.println("brokenn");
         recyclerViewAdapter = new RecyclerViewAdapter(data);
         mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
         mealRecyclerView.setAdapter(recyclerViewAdapter);
@@ -73,7 +76,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
         if (data.get(pos).getFragmentType() == ListItem.FragmentType.diaryEntry) {
             saved = data.remove(pos);
             savedPos = pos;
-            data.add(pos, new DiaryItem(0, ListItem.FragmentType.diaryModify, "null", 00, ListItem.Unit.g, 0, "noIcon"));
+            data.add(pos, new DiaryItem(ListItem.FragmentType.diaryModify, null, null, 0));
         } else {
             data.remove(pos);
             data.add(pos, saved);
