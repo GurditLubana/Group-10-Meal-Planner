@@ -14,10 +14,8 @@ import com.google.android.material.datepicker.*;
 import comp3350.team10.R;
 import comp3350.team10.business.MealDiaryOps;
 import comp3350.team10.objects.*;
-import comp3350.team10.persistence.*;
 
 import java.util.LinkedList;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToMealDiary {
@@ -25,9 +23,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     private LinkedList<ListItem> data;
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView mealRecyclerView;
-    private ListItem saved;
-    private int savedPos;
-    private Calendar date;
+    private ListItem savedItem;
+    private int savedItemPosition;
     private MaterialDatePicker datePicker;
     private MealDiaryLiveData mealDiaryData;
     private MealDiaryOps opExec;
@@ -44,19 +41,11 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class);
         opExec = new MealDiaryOps(mealDiaryData);
         data = mealDiaryData.getMealsOnDate().getValue();
-        getData();
+        initRecyclerView();
     }
 
-    private void getData() {
-//        DataAccessStub db = new DataAccessStub();
-//        db.open("someDB");
-//        System.out.println("getting data????");
-//        ArrayList<DiaryItem> dbFetch = db.getToday();
-//        System.out.println("Length: " + dbFetch.size() + "\n");
-//        data = new LinkedList();
-//        data.addAll(dbFetch);
-//        System.out.println("brokenn");
-        //recyclerViewAdapter = new RecyclerViewAdapter(mealDiaryData.getMealsOnDate().getValue());
+    private void initRecyclerView() {
+
         recyclerViewAdapter = new RecyclerViewAdapter(data);
         mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
         mealRecyclerView.setAdapter(recyclerViewAdapter);
@@ -66,18 +55,18 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     @Override
     public void showContextUI(int pos) {
         System.out.println("clicked " + " " + pos);
-        if (pos != savedPos && saved != null) {
-            data.remove(savedPos);
-            data.add(savedPos, saved);
+        if (pos != savedItemPosition && savedItem != null) {
+            data.remove(savedItemPosition);
+            data.add(savedItemPosition, savedItem);
         }
         if (data.get(pos).getFragmentType() == ListItem.FragmentType.diaryEntry) {
-            saved = data.remove(pos);
-            savedPos = pos;
+            savedItem = data.remove(pos);
+            savedItemPosition = pos;
             data.add(pos, new DiaryItem(ListItem.FragmentType.diaryModify, null, null, 0));
         } else {
             data.remove(pos);
-            data.add(pos, saved);
-            saved = null;
+            data.add(pos, savedItem);
+            savedItem = null;
         }
         //mealRecyclerView.removeViewAt(pos);
         recyclerViewAdapter.notifyItemRemoved(pos);
