@@ -4,6 +4,9 @@ import android.view.View;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.LinkedList;
+
+import comp3350.team10.objects.ListItem;
 import comp3350.team10.objects.DiaryItem;
 
 public interface FragToParent {
@@ -16,4 +19,5 @@ public interface FragToParent {
     public void nextDate();
     public void setGoal();
     public void addDiaryItem(DiaryItem item);
+    public LinkedList<ListItem> getList();
 }

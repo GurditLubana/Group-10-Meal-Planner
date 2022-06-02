@@ -5,7 +5,7 @@ import comp3350.team10.R;
 
 public class RecipeBookItem implements ListItem{
     private FragmentType fragType;  //How it should appear on recycler views
-    private Edible item;            //The item's class reference (drink, meal or food) 
+    private Edible item;            //The item's class reference (drink, meal or food)
     private int key;                //database key
 
     private int image;  //this is getting deleted in the future???

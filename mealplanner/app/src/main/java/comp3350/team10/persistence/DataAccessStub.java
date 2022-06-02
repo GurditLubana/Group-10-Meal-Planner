@@ -10,7 +10,13 @@ import java.util.List;
 
 
 public class DataAccessStub {
-    private ArrayList<DiaryItem> currentFoodLog;
+    private String dbName;
+    private String dbType = "stub";
+
+    private ArrayList<ListItem> currentFoodLog;
+    private ArrayList recipeTest;
+    //private ArrayList<Course> courses;
+    //private ArrayList<SC> scs;
     private ArrayList<Routine> routines;
     private ArrayList<Drink> drink;
     private ArrayList<Food> food;
@@ -18,7 +24,7 @@ public class DataAccessStub {
 
     private String dbType = "stub";
     private String dbName;
-    
+
 
     public DataAccessStub(String dbName) {
         this.dbName = dbName;
@@ -29,9 +35,18 @@ public class DataAccessStub {
     }
 
     public void open(String dbName) {
-        Calendar calendar = Calendar.getInstance();
+        DiaryItem mealEntry;
+        RecipeBookItem recipeEntry;
+        //Course course;
+        //SC mySC;
 
-        currentFoodLog = new ArrayList<DiaryItem>();
+        System.out.println("before calandar");
+        Calendar calendar = Calendar.getInstance();
+        System.out.println("after calandar");
+        System.out.println("TIME: " + calendar.getTime());
+
+        //Meal entries
+        currentFoodLog = new ArrayList<ListItem>();
         currentFoodLog.add(new DiaryItem(new Food("Banana", "myIcon", 100), calendar.getTime(), 100));
         currentFoodLog.add(new DiaryItem(new Food("Salad", "myIcon", 50), calendar.getTime(), 101));
         currentFoodLog.add(new DiaryItem(new Food("Hamburglar", "myIcon", 150), calendar.getTime(), 102));
@@ -46,6 +61,43 @@ public class DataAccessStub {
         System.out.println("added: " + currentFoodLog.size());
         //mealEntry = new DiaryItem(103, ListItem.FragmentType.diaryModify, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
         //currentFoodLog.add(mealEntry);    //this is something Josef was doing before dont wana mess with it
+
+        recipeTest = new ArrayList<RecipeBookItem>();
+        recipeEntry = new RecipeBookItem(100, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, R.drawable.food);
+        recipeTest.add(recipeEntry);
+        recipeEntry = new RecipeBookItem(101, ListItem.FragmentType.recipe, "Salad", 50, ListItem.Unit.g, 50, R.drawable.food2);
+        recipeTest.add(recipeEntry);
+        recipeEntry = new RecipeBookItem(102, ListItem.FragmentType.recipe, "Hamburglar", 700, ListItem.Unit.g, 400, R.drawable.food3);
+        recipeTest.add(recipeEntry);
+        recipeEntry = new RecipeBookItem(103, ListItem.FragmentType.recipe, "Notfries", 500, ListItem.Unit.g, 30, R.drawable.food4);
+        recipeTest.add(recipeEntry);
+        recipeEntry = new RecipeBookItem(104, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, R.drawable.drinks);
+        recipeTest.add(recipeEntry);
+
+
+//        courses = new ArrayList<Course>();
+//        course = new Course("COMP3010", "Distributed Computing");
+//        courses.add(course);
+//        course = new Course("COMP3020", "Human-Computer Interaction");
+//        courses.add(course);
+//        course = new Course("COMP3350", "Software Development");
+//        courses.add(course);
+//        course = new Course("COMP3380", "Databases");
+//        courses.add(course);
+//
+//        scs = new ArrayList<SC>();
+//        mySC = new SC("100", "COMP3010", "Gary Chalmers", "Distributed Computing", "C+");
+//        scs.add(mySC);
+//        mySC = new SC("200", "COMP3010", "Selma Bouvier", "Distributed Computing", "A+");
+//        scs.add(mySC);
+//        mySC = new SC("100", "COMP3350", "Gary Chalmers", "Software Development", "A");
+//        scs.add(mySC);
+//        mySC = new SC("300", "COMP3350", "Arnie Pye", "Software Development", "B");
+//        scs.add(mySC);
+//        mySC = new SC("100", "COMP3380", "Gary Chalmers", "Databases", "A");
+//        scs.add(mySC);
+//        mySC = new SC("200", "COMP3380", "Selma Bouvier", "Databases", "B");
+//        scs.add(mySC);
 
         //Workouts
         routines = new ArrayList<Routine>();
@@ -86,10 +138,10 @@ public class DataAccessStub {
         routines.add(new Routine("tone", new Workout[] {chestWorkout, cardio, armWorkout, cardio, legWorkout, cardio, rest}));
 
         System.out.println("added workouts...");
-        
+
         //Create Drinks
         drink = new ArrayList<Drink>();
-        drink.add(new Drink("Mojito", "myIcon", new String[] {"GET", "GOOD"}, 
+        drink.add(new Drink("Mojito", "myIcon", new String[] {"GET", "GOOD"},
             new DrinkIngredient[] {
                 new DrinkIngredient("White Rum", 1.5, "oz", false, true),
                 new DrinkIngredient("Sugar", 2, "TBSP", false, false),
@@ -100,7 +152,7 @@ public class DataAccessStub {
         ));
 
         System.out.println("added first drink...");
-        
+
         drink.add(new Drink("Mai-tai", "myIcon", new String[] {"GET", "GOOD"},
             new DrinkIngredient[] {
                 new DrinkIngredient("Coconut Malibu", 1.5, "oz", true, false),
@@ -247,14 +299,14 @@ public class DataAccessStub {
         System.out.println("Closed " + dbType + " database " + dbName);
     }
 
-    public ArrayList<DiaryItem> getToday() {
+    public ArrayList<ListItem> getToday() {
         return currentFoodLog;
     }
-    
+
     public LinkedList<ListItem> getRecipe(int edibleType) {   //String currTab
         System.out.println("this is good");
         LinkedList<ListItem> currEdibles = new LinkedList<ListItem>();
-        
+
         if(edibleType == 0) {   //food tab send cachedFood
             for(int i = 0; i < food.size(); i++) {//food.get(i) - RecipeBookItem needs Edible item, int image, int key
                 currEdibles.add(new RecipeBookItem(food.get(i), R.drawable.food, i)); //i is not a unique key
