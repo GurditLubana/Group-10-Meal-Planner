@@ -1,5 +1,7 @@
 package comp3350.team10.business;
 
+import org.w3c.dom.Node;
+
 import comp3350.team10.objects.*;
 import comp3350.team10.persistence.DataAccessStub;
 import comp3350.team10.presentation.MealDiaryLiveData;
@@ -79,6 +81,11 @@ public class MealDiaryOps {
     }
 
     private void CalculateCalories(){
-        //for(int i = 0; i < )
+        calorieGoal = 0;
+        if(todayFoodList != null) {
+            for (int i = 0; i < todayFoodList.size(); i++) {
+                calorieGoal += ((Food) todayFoodList.get(i)).getCalories();
+            }
+        }
     }
 }
