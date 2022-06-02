@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -111,13 +112,36 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     @Override
+    public void setExercise(){
+        //launch exercise input dialog
+        //get data then send to opExec maybe do validation here or in dialog
+    }
+
+    @Override
     public void removeItem(int pos){
         if(data.size() > 0){
             data.remove(pos);
             recyclerViewAdapter.notifyItemRemoved(pos);
             recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
             recyclerViewAdapter.notifyDataSetChanged();
+
+            //send remove command to ops
         }
+    }
+
+    @Override
+    public void editItem(int pos){
+        //launch dialog
+        //send data to ops
+    }
+
+    @Override
+    public void addEntry(int pos){
+        //launch recipebook
+        //send data to ops
+        Intent intent = new Intent(this, ActivityRecipeBook.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
     }
 
 }

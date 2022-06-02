@@ -236,8 +236,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Context context = view.getContext();
 
                 if (context != null) {
-                    //parentComm = (FragToParent) context;
-                    //parentComm.showContextUI(selectedPos);
+                    sendToMealDiary = (FragToMealDiary) context;
+                    sendToMealDiary.editItem(selectedPos);
                 }
             }
         });
@@ -252,8 +252,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Context context = view.getContext();
 
                 if (context != null) {
-                    //parentComm = (FragToParent) context;
-                    //parentComm.showContextUI(selectedPos);
+                    sendToMealDiary = (FragToMealDiary) context;
+                    sendToMealDiary.addEntry(selectedPos);
                 }
             }
         });
