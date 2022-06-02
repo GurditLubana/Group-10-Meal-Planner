@@ -62,22 +62,16 @@ public class FragmentMealDiaryEdit extends DialogFragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_meal_diary_edit, container, false);
-    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//
-//        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_meal_diary_edit, null);
-//        builder.setView(view);
-//
-//        return builder.create();
-        return new MyDialog(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_meal_diary_edit, null);
+        builder.setView(view);
+
+        return builder.create();
     }
 
     public static String TAG = "PurchaseConfirmationDialog";

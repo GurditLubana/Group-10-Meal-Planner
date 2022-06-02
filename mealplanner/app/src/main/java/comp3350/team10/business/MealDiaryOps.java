@@ -79,6 +79,6 @@ public class MealDiaryOps {
     }
 
     private void CalculateCalories(){
-        for(int i = 0; i < )
+        //for(int i = 0; i < )
     }
 }
