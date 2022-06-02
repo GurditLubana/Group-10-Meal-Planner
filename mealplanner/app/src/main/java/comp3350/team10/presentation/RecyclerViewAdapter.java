@@ -72,6 +72,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         localDataSet = dataSet;
     }
 
+    public void changeData(LinkedList<ListItem> newData) {
+        localDataSet = newData;
+        this.notifyDataSetChanged();
+    }
+
     /**
      * Method where we assign the layout of a ViewHolder being created based on the Fragment Type enum
      * assigned to the ListItem object being "rendered"

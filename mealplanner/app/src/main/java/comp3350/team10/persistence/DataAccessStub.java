@@ -5,22 +5,19 @@ import comp3350.team10.objects.*;
 import comp3350.team10.R;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 
 public class DataAccessStub {
-    private String dbName;
-    private String dbType = "stub";
-
-
     private ArrayList<DiaryItem> currentFoodLog;
     private ArrayList<Routine> routines;
     private ArrayList<Drink> drink;
     private ArrayList<Food> food;
     private ArrayList<Meal> meal;
-    private ArrayList cachedFood = new ArrayList();
-    private ArrayList cachedMeal = new ArrayList();
-    private ArrayList cachedDrink = new ArrayList();
+
+    private String dbType = "stub";
+    private String dbName;
     
 
     public DataAccessStub(String dbName) {
@@ -33,7 +30,6 @@ public class DataAccessStub {
 
     public void open(String dbName) {
         Calendar calendar = Calendar.getInstance();
-        RecipeBookItem recipeEntry;
 
         currentFoodLog = new ArrayList<DiaryItem>();
         currentFoodLog.add(new DiaryItem(new Food("Banana", "myIcon", 100), calendar.getTime(), 100));
@@ -236,17 +232,11 @@ public class DataAccessStub {
 
 
         //caches database recipes into memory
-        for(int i = 0; i < food.size(); i++) {//food.get(i) - RecipeBookItem needs Edible item, int image, int key
-            cachedFood.add(new RecipeBookItem(food.get(i), R.drawable.food, i)); //i is not a unique key
-        }
 
-        for(int i = 0; i < meal.size(); i++) {
-            cachedMeal.add(new RecipeBookItem(meal.get(i), R.drawable.food, i));
-        }
 
-        for(int i = 0; i < drink.size(); i++) {
-            cachedDrink.add(new RecipeBookItem(drink.get(i), R.drawable.food, i));
-        }
+
+
+
 
         System.out.println("Cached recipes");
 
@@ -260,18 +250,29 @@ public class DataAccessStub {
     public ArrayList<DiaryItem> getToday() {
         return currentFoodLog;
     }
-    public ArrayList getRecipe() {   //String currTab
-        return cachedFood;
-        // if() {
+    public LinkedList<ListItem> getRecipe(int edibleType) {   //String currTab
+        System.out.println("this is good");
+        LinkedList<ListItem> currEdibles = new LinkedList<ListItem>();
+        
+        if(edibleType == 0) {   //food tab send cachedFood
+            for(int i = 0; i < food.size(); i++) {//food.get(i) - RecipeBookItem needs Edible item, int image, int key
+                currEdibles.add(new RecipeBookItem(food.get(i), R.drawable.food, i)); //i is not a unique key
+            }
+        }
+        else if(edibleType == 1) {  //meal tab send cachedMeal
+            for(int i = 0; i < drink.size(); i++) {
+                currEdibles.add(new RecipeBookItem(drink.get(i), R.drawable.food2, i));
+            }
+        }
+        else if(edibleType == 2) {  //drink tab send cachedDrink
+            for(int i = 0; i < meal.size(); i++) {
+                currEdibles.add(new RecipeBookItem(meal.get(i), R.drawable.food3, i));
+            }
+        }
 
-        // }
-        // else if() {
+        System.out.println("exiting getRecipe...");
 
-        // }
-        // else {
-
-        // }
-        //return recipeTest;
+        return currEdibles;
     }
 
     public void addRecipeToLog(DiaryItem item) { //Needs date added to this later, only adds to current

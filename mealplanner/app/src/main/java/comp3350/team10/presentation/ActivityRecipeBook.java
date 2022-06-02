@@ -17,6 +17,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import comp3350.team10.R;
 import comp3350.team10.business.MealDiaryOps;
+import comp3350.team10.business.RecipeBookOps;
 import comp3350.team10.objects.*;
 import comp3350.team10.persistence.*;
 
@@ -26,11 +27,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ActivityRecipeBook extends AppCompatActivity implements FragToParent {
-    private LinkedList<ListItem> data;
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView mealRecyclerView;
-    private MealDiaryLiveData mealDiaryData; //replace later
-    private MealDiaryOps opExec;             //replace later
+    private LinkedList<ListItem> data;
+    private RecipeBookOps opExec = new RecipeBookOps();
+    private MealDiaryOps diaryOpExec;
     private ListItem saved;
     private int savedPos;
 
@@ -52,12 +53,9 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToParen
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                System.out.println("selected");
-                System.out.println("selected: " + tab);
-                //tab.getPosition();
-                //pull data based on tab
-                //recently used first, will update on search
+            public void onTabSelected(TabLayout.Tab tab) { //tab.getPosition() tab 0 = food, 1 = meal, 2 = drink
+                data = opExec.getData(tab.getPosition());
+                recyclerViewAdapter.changeData(data);
             }
 
             @Override
@@ -75,11 +73,13 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToParen
     }
 
     private void init(){
-        mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class);
-        opExec = new MealDiaryOps(mealDiaryData);
-        data = opExec.getData();    //gets recipe data from db
+        MealDiaryLiveData mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class); //????
+        diaryOpExec = new MealDiaryOps(mealDiaryData);  //this is why its not working its cause there is 2 instances
+        System.out.println("are we crashing here?");
+        data = opExec.getData(0);    //gets recipe data from db
+        System.out.println("after");
         recyclerViewAdapter = new RecyclerViewAdapter(data);
-        mealRecyclerView = (RecyclerView) findViewById(R.id.recipeRecyclerView);
+        mealRecyclerView = (RecyclerView)findViewById(R.id.recipeRecyclerView);
         mealRecyclerView.setAdapter(recyclerViewAdapter);
         mealRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
     }
@@ -129,6 +129,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToParen
 
     public void addDiaryItem(DiaryItem item) {
         System.out.println("calling the addDiary thing");
-        opExec.addToDiary(item);
+        diaryOpExec.addToDiary(item);
     }
 }

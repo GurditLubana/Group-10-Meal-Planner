@@ -30,12 +30,12 @@ public class MealDiaryOps {
         mealDiaryLiveData.getActivityDate().setValue(dataDate);
     }
 
-    public LinkedList getData(){
-        LinkedList<DiaryItem> myList = new LinkedList<DiaryItem>();
-        myList.addAll(db.getRecipe());
+    // public LinkedList getData(){
+    //     LinkedList<DiaryItem> myList = new LinkedList<DiaryItem>();
+    //     myList.addAll(db.getRecipe());
 
-        return myList;
-    }
+    //     return myList;
+    // }
 
     public void addToDiary(DiaryItem item) {
         db.addRecipeToLog(item);

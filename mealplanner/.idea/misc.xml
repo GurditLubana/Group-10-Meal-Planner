@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/activity_meal_diary.xml" value="0.23007246376811594" />
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/activity_recipe_book.xml" value="0.23007246376811594" />
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/activity_view_edible.xml" value="0.264" />
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/content_activity_view_edible.xml" value="0.23007246376811594" />
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_add_log.xml" value="0.11302083333333333" />
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_alcohol_slider.xml" value="0.4" />
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_daily_progress.xml" value="0.11302083333333333" />
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_dbl_card.xml" value="0.2" />
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_drink_slider.xml" value="0.264" />
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_first.xml" value="0.23007246376811594" />
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_log_card.xml" value="0.11302083333333333" />
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_modify_log.xml" value="0.23007246376811594" />
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_navigation.xml" value="0.15715579710144928" />
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_on_card_selection.xml" value="0.264" />
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_on_select_choices.xml" value="0.15715579710144928" />
+        <entry key="..\:/Programming/Eat-Dicks/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_second.xml" value="0.23007246376811594" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

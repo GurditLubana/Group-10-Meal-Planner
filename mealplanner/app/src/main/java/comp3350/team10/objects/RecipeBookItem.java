@@ -25,4 +25,8 @@ public class RecipeBookItem implements ListItem{
     public int getImage(){
         return image;
     }
+
+    public Edible getFood() {
+        return this.item;
+    }
 }
