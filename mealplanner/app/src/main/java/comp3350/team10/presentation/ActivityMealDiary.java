@@ -109,6 +109,10 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     public void setGoal(){
         //launch goal input dialog
         //get data then send to opExec maybe do validation here or in dialog
+        new FragmentMealDiaryEdit().show(
+                getSupportFragmentManager(), FragmentMealDiaryEdit.TAG
+        );
+
     }
 
     @Override

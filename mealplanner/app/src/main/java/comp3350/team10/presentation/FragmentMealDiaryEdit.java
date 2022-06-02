@@ -1,7 +1,12 @@
 package comp3350.team10.presentation;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -15,7 +20,7 @@ import comp3350.team10.R;
  * Use the {@link FragmentMealDiaryEdit#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentMealDiaryEdit extends Fragment {
+public class FragmentMealDiaryEdit extends DialogFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,4 +68,17 @@ public class FragmentMealDiaryEdit extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_meal_diary_edit, container, false);
     }
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//
+//        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_meal_diary_edit, null);
+//        builder.setView(view);
+//
+//        return builder.create();
+        return new MyDialog(getActivity());
+    }
+
+    public static String TAG = "PurchaseConfirmationDialog";
 }

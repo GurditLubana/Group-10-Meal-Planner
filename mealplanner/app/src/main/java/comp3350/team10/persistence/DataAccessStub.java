@@ -204,55 +204,55 @@ public class DataAccessStub {
 //        System.out.println("Added food");
 //
 //        //adding meals
-        meal = new ArrayList<Meal>();
-        meal.add(new Meal("soup", "myIcon", 100, new MealIngredient[] {
-            new MealIngredient(5, "cups", new Food("broth", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("onion", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("brocoli", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
-        }, new String[] {"Get", "Good"}));
-
-        meal.add(new Meal("salad", "myIcon", 100, new MealIngredient[] {
-            new MealIngredient(5, "cups", new Food("lettuce", "myIcon")),
-            new MealIngredient(5, "cups", new Food("tomato", "myIcon")),
-            new MealIngredient(5, "cups", new Food("onion", "myIcon"))
-        }, new String[] {"Get", "Good"}));
-
-        meal.add(new Meal("yogurt parfait", "myIcon", 100, new MealIngredient[] {
-            new MealIngredient(5, "cups", new Food("yogurt", "myIcon")),
-            new MealIngredient(5, "cups", new Food("oats", "myIcon")),
-            new MealIngredient(5, "cups", new Food("Stawberry", "myIcon"))
-        }, new String[] {"Get", "Good"}));
-
-        meal.add(new Meal("smoothie", "myIcon", 100, new MealIngredient[] {
-            new MealIngredient(5, "cups", new Food("milk", "myIcon")),
-            new MealIngredient(5, "cups", new Food("oats", "myIcon")),
-            new MealIngredient(5, "cups", new Food("banana", "myIcon"))
-        }, new String[] {"Get", "Good"}));
-
-        meal.add(new Meal("rice pilaf", "myIcon", 100, new MealIngredient[] {
-            new MealIngredient(5, "cups", new Food("cucumber", "myIcon")),
-            new MealIngredient(5, "cups", new Food("rice", "myIcon")),
-            new MealIngredient(5, "cups", new Food("bread", "myIcon"))
-        }, new String[] {"Get", "Good"}));
-
-        meal.add(new Meal("sushi", "myIcon", 100, new MealIngredient[] {
-            new MealIngredient(5, "cups", new Food("rice", "myIcon")),
-            new MealIngredient(5, "cups", new Food("cream cheese", "myIcon")),
-            new MealIngredient(5, "cups", new Food("nori", "myIcon"))
-        }, new String[] {"Get", "Good"}));
-
-        meal.add(new Meal("wrap", "myIcon", 100, new MealIngredient[] {
-            new MealIngredient(5, "cups", new Food("steak", "myIcon")),
-            new MealIngredient(5, "cups", new Food("pesto", "myIcon")),
-            new MealIngredient(5, "cups", new Food("lettuce", "myIcon"))
-        }, new String[] {"Get", "Good"}));
-
-        meal.add(new Meal("shrimp tacos", "myIcon", 100, new MealIngredient[] {
-            new MealIngredient(5, "cups", new Food("shrimp", "myIcon")),
-            new MealIngredient(5, "cups", new Food("taco shell", "myIcon")),
-            new MealIngredient(5, "cups", new Food("cheese", "myIcon")),
-            new MealIngredient(5, "cups", new Food("lettuce", "myIcon"))
-        }, new String[] {"Get", "Good"}));
+//        meal = new ArrayList<Meal>();
+//        meal.add(new Meal("soup", "myIcon", 100, new MealIngredient[] {
+//            new MealIngredient(5, "cups", new Food("broth", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+//            new MealIngredient(5, "cups", new Food("onion", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+//            new MealIngredient(5, "cups", new Food("brocoli", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
+//        }, new String[] {"Get", "Good"}));
+//
+//        meal.add(new Meal("salad", "myIcon", 100, new MealIngredient[] {
+//            new MealIngredient(5, "cups", new Food("lettuce", "myIcon")),
+//            new MealIngredient(5, "cups", new Food("tomato", "myIcon")),
+//            new MealIngredient(5, "cups", new Food("onion", "myIcon"))
+//        }, new String[] {"Get", "Good"}));
+//
+//        meal.add(new Meal("yogurt parfait", "myIcon", 100, new MealIngredient[] {
+//            new MealIngredient(5, "cups", new Food("yogurt", "myIcon")),
+//            new MealIngredient(5, "cups", new Food("oats", "myIcon")),
+//            new MealIngredient(5, "cups", new Food("Stawberry", "myIcon"))
+//        }, new String[] {"Get", "Good"}));
+//
+//        meal.add(new Meal("smoothie", "myIcon", 100, new MealIngredient[] {
+//            new MealIngredient(5, "cups", new Food("milk", "myIcon")),
+//            new MealIngredient(5, "cups", new Food("oats", "myIcon")),
+//            new MealIngredient(5, "cups", new Food("banana", "myIcon"))
+//        }, new String[] {"Get", "Good"}));
+//
+//        meal.add(new Meal("rice pilaf", "myIcon", 100, new MealIngredient[] {
+//            new MealIngredient(5, "cups", new Food("cucumber", "myIcon")),
+//            new MealIngredient(5, "cups", new Food("rice", "myIcon")),
+//            new MealIngredient(5, "cups", new Food("bread", "myIcon"))
+//        }, new String[] {"Get", "Good"}));
+//
+//        meal.add(new Meal("sushi", "myIcon", 100, new MealIngredient[] {
+//            new MealIngredient(5, "cups", new Food("rice", "myIcon")),
+//            new MealIngredient(5, "cups", new Food("cream cheese", "myIcon")),
+//            new MealIngredient(5, "cups", new Food("nori", "myIcon"))
+//        }, new String[] {"Get", "Good"}));
+//
+//        meal.add(new Meal("wrap", "myIcon", 100, new MealIngredient[] {
+//            new MealIngredient(5, "cups", new Food("steak", "myIcon")),
+//            new MealIngredient(5, "cups", new Food("pesto", "myIcon")),
+//            new MealIngredient(5, "cups", new Food("lettuce", "myIcon"))
+//        }, new String[] {"Get", "Good"}));
+//
+//        meal.add(new Meal("shrimp tacos", "myIcon", 100, new MealIngredient[] {
+//            new MealIngredient(5, "cups", new Food("shrimp", "myIcon")),
+//            new MealIngredient(5, "cups", new Food("taco shell", "myIcon")),
+//            new MealIngredient(5, "cups", new Food("cheese", "myIcon")),
+//            new MealIngredient(5, "cups", new Food("lettuce", "myIcon"))
+//        }, new String[] {"Get", "Good"}));
 //        System.out.println("Added meals");
 
 

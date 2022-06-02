@@ -17,6 +17,7 @@ public class MealDiaryOps {
     private LinkedList<ListItem> todayFoodList;
     private int calorieGoal;
     private boolean dataReady;
+    private int TotalCalories;
 
     public MealDiaryOps(MealDiaryLiveData mealDiaryLiveData){
         this.mealDiaryLiveData = mealDiaryLiveData;
@@ -75,5 +76,9 @@ public class MealDiaryOps {
         // recalculate progress
         // push to live data
         //
+    }
+
+    private void CalculateCalories(){
+        for(int i = 0; i < )
     }
 }
