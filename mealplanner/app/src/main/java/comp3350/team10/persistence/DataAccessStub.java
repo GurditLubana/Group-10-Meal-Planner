@@ -203,56 +203,56 @@ public class DataAccessStub {
 //
 //        System.out.println("Added food");
 //
-//        //adding meals
-//        meal = new ArrayList<Meal>();
-//        meal.add(new Meal("soup", "myIcon", 100, new MealIngredient[] {
-//            new MealIngredient(5, "cups", new Food("broth", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-//            new MealIngredient(5, "cups", new Food("onion", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-//            new MealIngredient(5, "cups", new Food("brocoli", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
-//        }, new String[] {"Get", "Good"}));
-//
-//        meal.add(new Meal("salad", "myIcon", 100, new MealIngredient[] {
-//            new MealIngredient(5, "cups", new Food("lettuce", "myIcon")),
-//            new MealIngredient(5, "cups", new Food("tomato", "myIcon")),
-//            new MealIngredient(5, "cups", new Food("onion", "myIcon"))
-//        }, new String[] {"Get", "Good"}));
-//
-//        meal.add(new Meal("yogurt parfait", "myIcon", 100, new MealIngredient[] {
-//            new MealIngredient(5, "cups", new Food("yogurt", "myIcon")),
-//            new MealIngredient(5, "cups", new Food("oats", "myIcon")),
-//            new MealIngredient(5, "cups", new Food("Stawberry", "myIcon"))
-//        }, new String[] {"Get", "Good"}));
-//
-//        meal.add(new Meal("smoothie", "myIcon", 100, new MealIngredient[] {
-//            new MealIngredient(5, "cups", new Food("milk", "myIcon")),
-//            new MealIngredient(5, "cups", new Food("oats", "myIcon")),
-//            new MealIngredient(5, "cups", new Food("banana", "myIcon"))
-//        }, new String[] {"Get", "Good"}));
-//
-//        meal.add(new Meal("rice pilaf", "myIcon", 100, new MealIngredient[] {
-//            new MealIngredient(5, "cups", new Food("cucumber", "myIcon")),
-//            new MealIngredient(5, "cups", new Food("rice", "myIcon")),
-//            new MealIngredient(5, "cups", new Food("bread", "myIcon"))
-//        }, new String[] {"Get", "Good"}));
-//
-//        meal.add(new Meal("sushi", "myIcon", 100, new MealIngredient[] {
-//            new MealIngredient(5, "cups", new Food("rice", "myIcon")),
-//            new MealIngredient(5, "cups", new Food("cream cheese", "myIcon")),
-//            new MealIngredient(5, "cups", new Food("nori", "myIcon"))
-//        }, new String[] {"Get", "Good"}));
-//
-//        meal.add(new Meal("wrap", "myIcon", 100, new MealIngredient[] {
-//            new MealIngredient(5, "cups", new Food("steak", "myIcon")),
-//            new MealIngredient(5, "cups", new Food("pesto", "myIcon")),
-//            new MealIngredient(5, "cups", new Food("lettuce", "myIcon"))
-//        }, new String[] {"Get", "Good"}));
-//
-//        meal.add(new Meal("shrimp tacos", "myIcon", 100, new MealIngredient[] {
-//            new MealIngredient(5, "cups", new Food("shrimp", "myIcon")),
-//            new MealIngredient(5, "cups", new Food("taco shell", "myIcon")),
-//            new MealIngredient(5, "cups", new Food("cheese", "myIcon")),
-//            new MealIngredient(5, "cups", new Food("lettuce", "myIcon"))
-//        }, new String[] {"Get", "Good"}));
+        //adding meals
+        meal = new ArrayList<Meal>();
+        meal.add(new Meal("soup", R.drawable.food4, 100, new MealIngredient[] {
+            new MealIngredient(5, "cups", new Food("broth", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("onion", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("brocoli", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
+        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1 ));
+
+        meal.add(new Meal("salad", R.drawable.food, 100, new MealIngredient[] {
+            new MealIngredient(5, "cups", new Food("lettuce", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("tomato", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("onion", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
+        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1));
+
+        meal.add(new Meal("yogurt parfait", R.drawable.food2, 100, new MealIngredient[] {
+            new MealIngredient(5, "cups", new Food("yogurt", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("oats", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("Stawberry", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
+        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1));
+
+        meal.add(new Meal("smoothie", R.drawable.food3, 100, new MealIngredient[] {
+            new MealIngredient(5, "cups", new Food("milk", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("oats", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("banana", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
+        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1));
+
+        meal.add(new Meal("rice pilaf", R.drawable.food, 100, new MealIngredient[] {
+            new MealIngredient(5, "cups", new Food("cucumber", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("rice", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("bread", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
+        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1));
+
+        meal.add(new Meal("sushi", R.drawable.food4, 100, new MealIngredient[] {
+            new MealIngredient(5, "cups", new Food("rice", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("cream cheese", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("nori", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
+        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1));
+
+        meal.add(new Meal("wrap", R.drawable.food2, 100, new MealIngredient[] {
+            new MealIngredient(5, "cups", new Food("steak", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("pesto", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("lettuce", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
+        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1));
+
+        meal.add(new Meal("shrimp tacos", R.drawable.food, 100, new MealIngredient[] {
+            new MealIngredient(5, "cups", new Food("shrimp", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("taco shell", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("cheese", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
+            new MealIngredient(5, "cups", new Food("lettuce", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
+        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1));
 //        System.out.println("Added meals");
 
 
