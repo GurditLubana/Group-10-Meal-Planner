@@ -2,12 +2,11 @@ package comp3350.team10.business;
 
 import comp3350.team10.objects.*;
 import comp3350.team10.persistence.DataAccessStub;
+import comp3350.team10.presentation.MealDiaryLiveData;
 
-import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.text.SimpleDateFormat;
 //import java.util.Date;
 //import java.time.LocalDate;
 
@@ -25,9 +24,12 @@ public class MealDiaryOps {
     public void init(){
         db = new DataAccessStub();
         db.open("someDB");
-        ArrayList<DiaryItem> dbFetch = db.getToday();
+        ArrayList<ListItem> dbFetch = db.getToday();
+        LinkedList<ListItem> todayFoodList = new LinkedList<ListItem>();
+        todayFoodList.addAll(dbFetch);
 
         mealDiaryLiveData.getActivityDate().setValue(dataDate);
+        mealDiaryLiveData.getMealsOnDate().setValue(todayFoodList);
     }
 
     public LinkedList getData(){

@@ -18,6 +18,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private LinkedList<ListItem> localDataSet;          // the list Recyclerview renders
     private int selectedPos = RecyclerView.NO_POSITION; // tracks the last clicked item
     private FragToParent parentComm;                    // lets us pass data from fragments to the parent activity
+    private FragToMealDiary sendToMealDiary;
     private ListItem saved;                             // var to save a meal entry when we show context UI
 
     /**
@@ -166,10 +167,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Context context = view.getContext();
 
                 if (context != null) {
-                    parentComm = (FragToParent) context;
-                    parentComm.showContextUI(selectedPos);
+                    sendToMealDiary = (FragToMealDiary) context;
+                    sendToMealDiary.showContextUI(selectedPos);
                 }
-
             }
         });
     }
@@ -183,8 +183,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Context context = view.getContext();
 
                 if (context != null) {
-                    parentComm = (FragToParent) context;
-                    parentComm.showContextUI(selectedPos);
+                    sendToMealDiary = (FragToMealDiary) context;
+                    sendToMealDiary.showContextUI(selectedPos);
                 }
             }
         });

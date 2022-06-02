@@ -12,7 +12,7 @@ public class DataAccessStub {
     private String dbName;
     private String dbType = "stub";
 
-    private ArrayList<DiaryItem> currentFoodLog;
+    private ArrayList<ListItem> currentFoodLog;
     private ArrayList recipeTest;
     //private ArrayList<Course> courses;
     //private ArrayList<SC> scs;
@@ -42,7 +42,7 @@ public class DataAccessStub {
         System.out.println("TIME: " + calendar.getTime());
 
         //Meal entries
-        currentFoodLog = new ArrayList<DiaryItem>();
+        currentFoodLog = new ArrayList<ListItem>();
         currentFoodLog.add(new DiaryItem(new Food("Banana", "myIcon", 100), calendar.getTime(), 100));
         currentFoodLog.add(new DiaryItem(new Food("Salad", "myIcon", 50), calendar.getTime(), 101));
         currentFoodLog.add(new DiaryItem(new Food("Hamburglar", "myIcon", 150), calendar.getTime(), 102));
@@ -286,7 +286,7 @@ public class DataAccessStub {
         System.out.println("Closed " + dbType + " database " + dbName);
     }
 
-    public ArrayList<DiaryItem> getToday() {
+    public ArrayList<ListItem> getToday() {
         return currentFoodLog;
     }
     public ArrayList<DiaryItem> getRecipe() {

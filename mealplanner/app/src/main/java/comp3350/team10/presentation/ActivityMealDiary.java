@@ -2,16 +2,12 @@ package comp3350.team10.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
 
 import com.google.android.material.datepicker.*;
 
@@ -22,10 +18,9 @@ import comp3350.team10.persistence.*;
 
 import java.util.LinkedList;
 import java.util.ArrayList;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class ActivityMealDiary extends AppCompatActivity implements FragToParent {
+public class ActivityMealDiary extends AppCompatActivity implements FragToMealDiary {
 
     private LinkedList<ListItem> data;
     private RecyclerViewAdapter recyclerViewAdapter;
@@ -48,18 +43,20 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
         toolbar.setElevation(0);
         mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class);
         opExec = new MealDiaryOps(mealDiaryData);
+        data = mealDiaryData.getMealsOnDate().getValue();
         getData();
     }
 
     private void getData() {
-        DataAccessStub db = new DataAccessStub();
-        db.open("someDB");
-        System.out.println("getting data????");
-        ArrayList<DiaryItem> dbFetch = db.getToday();
-        System.out.println("Length: " + dbFetch.size() + "\n");
-        data = new LinkedList();
-        data.addAll(dbFetch);
-        System.out.println("brokenn");
+//        DataAccessStub db = new DataAccessStub();
+//        db.open("someDB");
+//        System.out.println("getting data????");
+//        ArrayList<DiaryItem> dbFetch = db.getToday();
+//        System.out.println("Length: " + dbFetch.size() + "\n");
+//        data = new LinkedList();
+//        data.addAll(dbFetch);
+//        System.out.println("brokenn");
+        //recyclerViewAdapter = new RecyclerViewAdapter(mealDiaryData.getMealsOnDate().getValue());
         recyclerViewAdapter = new RecyclerViewAdapter(data);
         mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
         mealRecyclerView.setAdapter(recyclerViewAdapter);
@@ -89,21 +86,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
     }
 
     @Override
-    public void navClick() {
-
-    }
-
-    @Override
-    public void hideContextUI(Fragment fragment) {
-
-    }
-
-    @Override
-    public void setData(View view) {
-
-    }
-
-    @Override
     public void selectDate(){
         datePicker = MaterialDatePicker.Builder
                 .datePicker()
@@ -125,17 +107,9 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToParent
     }
 
     @Override
-    public void prevDate(){
-
-    }
-
+    public void prevDate(){};
     @Override
-    public void nextDate(){
-
-    }
-
+    public void nextDate(){};
     @Override
-    public void setGoal(){
-
-    }
+    public void setGoal(){};
 }

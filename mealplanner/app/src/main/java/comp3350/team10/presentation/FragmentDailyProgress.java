@@ -3,7 +3,6 @@ package comp3350.team10.presentation;
 import android.content.Context;
 import android.os.Bundle;
 import comp3350.team10.R;
-import comp3350.team10.objects.MealDiaryLiveData;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -24,7 +23,7 @@ import java.util.Calendar;
  * create an instance of this fragment.
  */
 public class FragmentDailyProgress extends Fragment {
-    FragToParent send;
+    FragToMealDiary send;
     MealDiaryLiveData mealDiaryLiveData;
     private SimpleDateFormat mon ;
     private SimpleDateFormat day ;
@@ -100,7 +99,7 @@ public class FragmentDailyProgress extends Fragment {
                 Context context = view.getContext();
 
                 if (context != null) {
-                    send = (FragToParent) context;
+                    send = (FragToMealDiary) context;
                     send.selectDate();
                 }
             }
@@ -113,7 +112,7 @@ public class FragmentDailyProgress extends Fragment {
                 Context context = view.getContext();
 
                 if (context != null) {
-                    send = (FragToParent) context;
+                    send = (FragToMealDiary) context;
                     send.prevDate();
                 }
             }
@@ -126,7 +125,7 @@ public class FragmentDailyProgress extends Fragment {
                 Context context = view.getContext();
 
                 if (context != null) {
-                    send = (FragToParent) context;
+                    send = (FragToMealDiary) context;
                     send.nextDate();
                 }
             }
@@ -139,7 +138,7 @@ public class FragmentDailyProgress extends Fragment {
                 Context context = view.getContext();
 
                 if (context != null) {
-                    send = (FragToParent) context;
+                    send = (FragToMealDiary) context;
                     send.setGoal();
                 }
             }
