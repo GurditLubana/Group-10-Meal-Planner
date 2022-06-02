@@ -53,6 +53,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToParen
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                System.out.println("selected");
+                System.out.println("selected: " + tab);
                 //tab.getPosition();
                 //pull data based on tab
                 //recently used first, will update on search
@@ -60,12 +62,14 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToParen
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                System.out.println("unselected");
+                System.out.println("selected: " + tab);
             }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+            public void onTabReselected(TabLayout.Tab tab) {    //this can probably be removed?
+                System.out.println("reselected");
+                System.out.println("selected: " + tab);
             }
         });
     }
@@ -73,7 +77,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToParen
     private void init(){
         mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class);
         opExec = new MealDiaryOps(mealDiaryData);
-        data = opExec.getData();
+        data = opExec.getData();    //gets recipe data from db
         recyclerViewAdapter = new RecyclerViewAdapter(data);
         mealRecyclerView = (RecyclerView) findViewById(R.id.recipeRecyclerView);
         mealRecyclerView.setAdapter(recyclerViewAdapter);
@@ -82,9 +86,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToParen
 
     @Override
     public void showContextUI(int pos) { //do a thing here to take an object as well?
-        System.out.println("clicked " + " " + pos);
-        System.out.println("Size: " + data.size());
-        System.out.println("Position: " + pos);
         if (pos != savedPos && saved != null) {
             data.remove(savedPos);
             data.add(savedPos, saved);

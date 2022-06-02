@@ -96,7 +96,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             case 2:
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_add_log, viewGroup, false);
                 break;
-            case 3:
+            case 3: //creates cards
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_dbl_card, viewGroup, false);
                 break;
             case 4:    //add thing to make it show this card/buttons thingy add enum
@@ -138,7 +138,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 setDiaryAddListeners(viewHolder);
                 break;
             case 3:
-                setRecipeData(viewHolder, position);
+                setRecipeData(viewHolder, position);    //this is what puts information into dbl cards
                 setCardListeners(viewHolder, position);
                 break;//viewHolder, position
             case 4:

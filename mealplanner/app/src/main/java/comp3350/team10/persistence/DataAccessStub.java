@@ -14,11 +14,13 @@ public class DataAccessStub {
 
 
     private ArrayList<DiaryItem> currentFoodLog;
-    private ArrayList recipeTest;
     private ArrayList<Routine> routines;
     private ArrayList<Drink> drink;
     private ArrayList<Food> food;
     private ArrayList<Meal> meal;
+    private ArrayList cachedFood = new ArrayList();
+    private ArrayList cachedMeal = new ArrayList();
+    private ArrayList cachedDrink = new ArrayList();
     
 
     public DataAccessStub(String dbName) {
@@ -48,18 +50,6 @@ public class DataAccessStub {
         System.out.println("added: " + currentFoodLog.size());
         //mealEntry = new DiaryItem(103, ListItem.FragmentType.diaryModify, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
         //currentFoodLog.add(mealEntry);    //this is something Josef was doing before dont wana mess with it
-
-        recipeTest = new ArrayList<RecipeBookItem>();
-        recipeEntry = new RecipeBookItem(100, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, R.drawable.food);
-        recipeTest.add(recipeEntry);
-        recipeEntry = new RecipeBookItem(101, ListItem.FragmentType.recipe, "Salad", 50, ListItem.Unit.g, 50, R.drawable.food2);
-        recipeTest.add(recipeEntry);
-        recipeEntry = new RecipeBookItem(102, ListItem.FragmentType.recipe, "Hamburglar", 700, ListItem.Unit.g, 400, R.drawable.food3);
-        recipeTest.add(recipeEntry);
-        recipeEntry = new RecipeBookItem(103, ListItem.FragmentType.recipe, "Notfries", 500, ListItem.Unit.g, 30, R.drawable.food4);
-        recipeTest.add(recipeEntry);
-        recipeEntry = new RecipeBookItem(104, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, R.drawable.drinks);
-        recipeTest.add(recipeEntry);
 
         //Workouts
         routines = new ArrayList<Routine>();
@@ -242,8 +232,23 @@ public class DataAccessStub {
             new MealIngredient(5, "cups", new Food("cheese", "myIcon")),
             new MealIngredient(5, "cups", new Food("lettuce", "myIcon"))
         }, new String[] {"Get", "Good"}));
-
         System.out.println("Added meals");
+
+
+        //caches database recipes into memory
+        for(int i = 0; i < food.size(); i++) {//food.get(i) - RecipeBookItem needs Edible item, int image, int key
+            cachedFood.add(new RecipeBookItem(food.get(i), R.drawable.food, i)); //i is not a unique key
+        }
+
+        for(int i = 0; i < meal.size(); i++) {
+            cachedMeal.add(new RecipeBookItem(meal.get(i), R.drawable.food, i));
+        }
+
+        for(int i = 0; i < drink.size(); i++) {
+            cachedDrink.add(new RecipeBookItem(drink.get(i), R.drawable.food, i));
+        }
+
+        System.out.println("Cached recipes");
 
         System.out.println("Opened " + dbType + " database " + dbName);
     }
@@ -255,9 +260,20 @@ public class DataAccessStub {
     public ArrayList<DiaryItem> getToday() {
         return currentFoodLog;
     }
-    public ArrayList<DiaryItem> getRecipe() {
-        return recipeTest;
-}
+    public ArrayList getRecipe() {   //String currTab
+        return cachedFood;
+        // if() {
+
+        // }
+        // else if() {
+
+        // }
+        // else {
+
+        // }
+        //return recipeTest;
+    }
+
     public void addRecipeToLog(DiaryItem item) { //Needs date added to this later, only adds to current
         System.out.println("Before: " + currentFoodLog.size());
         currentFoodLog.add(item);

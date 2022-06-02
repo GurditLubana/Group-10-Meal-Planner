@@ -4,37 +4,25 @@ import android.content.res.Resources;
 import comp3350.team10.R;
 
 public class RecipeBookItem implements ListItem{
+    private FragmentType fragType;  //How it should appear on recycler views
+    private Edible item;            //The item's class reference (drink, meal or food) 
+    private int key;                //database key
 
-    private int key;
-    private FragmentType fragType;
-    private String name;
-    private int calories;
-    private Unit unit;
-    private int quantity;
-    private int myImage;
+    private int image;  //this is getting deleted in the future???
 
-    public RecipeBookItem(){
-
+    public RecipeBookItem(Edible item, int image, int key) { //this needs to be refactored
+        this.fragType = ListItem.FragmentType.recipe;
+        this.image = image;
+        this.item = item;
+        this.key = key;
     }
-    public RecipeBookItem(int ky, FragmentType ft, String nm, int cals, Unit un, int qty, int loc){
-        key = ky;
-        fragType = ft;
-        name = nm;
-        calories = cals;
-        unit = un;
-        quantity = qty;
-        myImage = loc;
-    }
+
     @Override
     public FragmentType getFragmentType() {
         return fragType;
     }
 
-    public void setFragmentType(FragmentType newType) {
-        fragType = newType;
-    }
-
     public int getImage(){
-        return myImage;
+        return image;
     }
 }
