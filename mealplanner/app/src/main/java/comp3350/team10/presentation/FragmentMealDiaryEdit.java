@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import comp3350.team10.R;
 
@@ -74,5 +75,14 @@ public class FragmentMealDiaryEdit extends DialogFragment {
         return builder.create();
     }
 
-    public static String TAG = "PurchaseConfirmationDialog";
+    public static String TAG = "EditMealEntryDialog";
+
+    private void setFieldDefaults(View view){
+
+    }
+
+    private void setOnClickListeners(View view){
+        Button btnOk = (Button) view.findViewById(R.id.btnOK);
+        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+    }
 }
