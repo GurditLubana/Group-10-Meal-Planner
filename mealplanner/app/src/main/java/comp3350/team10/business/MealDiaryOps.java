@@ -8,25 +8,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MealDiaryOps {
-    private Calendar listDate;
-    private DataAccessStub db;
-    private LinkedList<ListItem> todayFoodList;
-    private Integer calorieGoal;
-    private Integer calorieConsumed;
-    private Integer calorieExercise;
-    private Integer calorieNet;
-    private Integer progressBar;
-    private Integer progressExcess;
-    private boolean dataReady;
+    private LinkedList<ListItem> todayFoodList = new LinkedList<ListItem>();
+    private Integer calorieConsumed = -1;
+    private Integer calorieExercise = -1;
+    private Integer progressExcess = -1;
+    private Integer progressBar = -1;
+    private Integer calorieGoal = -1;
+    private Integer calorieNet = -1;
+    private DataAccessStub db = new DataAccessStub();
+    private Calendar listDate = Calendar.getInstance();;
+    private boolean dataReady = false;
 
     public MealDiaryOps() {
-        dataReady = false;
-        this.listDate = Calendar.getInstance();
-        calorieGoal = new Integer(-1);
-        calorieConsumed = new Integer(-1);
-        calorieExercise = new Integer(0);
-        calorieNet = new Integer(-1);
-        db = new DataAccessStub();
         db.open("someDB");
         pullDBdata();
         updateProgress();
@@ -35,7 +28,6 @@ public class MealDiaryOps {
 
     private void pullDBdata() {
         ArrayList<ListItem> dbFetch = db.getFoodLog(listDate);
-        todayFoodList = new LinkedList<ListItem>();
         todayFoodList.addAll(dbFetch);
         calorieGoal = db.getCalorieGoal();
     }
@@ -75,10 +67,19 @@ public class MealDiaryOps {
     public boolean isDataReady() {
         return dataReady;
     }
-
-    public void setGoal(int newGoal) {
-        if (newGoal >= 0 && newGoal <= 9999) {
+    
+    public void setCalorieGoal(Integer newGoal) {
+        if (newGoal != null && newGoal >= 0 && newGoal <= 9999) {
             calorieGoal = newGoal;
+        }
+    }
+
+    public void setCalorieExercise(Integer newExercise) {
+        if (calorieExercise == null) {
+            calorieExercise = new Integer(-1);
+        }
+        if (newExercise != null && newExercise >= 0 && newExercise <= 9999) {
+            calorieExercise = newExercise;
         }
     }
 
@@ -115,24 +116,6 @@ public class MealDiaryOps {
             todayFoodList = newList;
             updateProgress();
             //push to db after
-        }
-    }
-
-    public void setCalorieGoal(Integer newGoal) {
-        if (calorieGoal == null) {
-            calorieGoal = new Integer(-1);
-        }
-        if (newGoal != null && newGoal >= 0 && newGoal <= 9999) {
-            calorieGoal = newGoal;
-        }
-    }
-
-    public void setCalorieExercise(Integer newExercise) {
-        if (calorieExercise == null) {
-            calorieExercise = new Integer(-1);
-        }
-        if (newExercise != null && newExercise >= 0 && newExercise <= 9999) {
-            calorieExercise = newExercise;
         }
     }
 
