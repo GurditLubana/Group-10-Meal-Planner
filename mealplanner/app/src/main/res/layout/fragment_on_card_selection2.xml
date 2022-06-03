@@ -20,7 +20,7 @@
         android:maxWidth="140dp"
         android:minWidth="140dp"
         android:minHeight="200dp"
-        app:cardBackgroundColor="?colorSecondaryVariant"
+        app:cardBackgroundColor="?colorSecondary"
         app:cardCornerRadius="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +36,6 @@
                 android:scaleY="1.5"
                 android:src="@drawable/baseline_arrow_back_black_48"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btnDeleteMeal"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -47,13 +46,13 @@
                 android:layout_width="116dp"
                 android:layout_height="88dp"
                 android:src="@android:drawable/ic_menu_view"
-                app:tint="#000000"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/addToPlannerBtn"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.75" />
+                app:layout_constraintVertical_bias="0.75"
+                app:tint="#000000" />
 
             <ImageView
                 android:id="@+id/addToPlannerBtn"
