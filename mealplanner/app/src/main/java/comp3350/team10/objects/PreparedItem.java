@@ -6,10 +6,10 @@ public abstract class PreparedItem extends Edible {
     public PreparedItem(String name, int iconPath, int calories, String[] instructions, FragmentType type, Unit baseUnit, int quantity) {
         super(name, iconPath, type, baseUnit, quantity);
 
-        System.out.println("before modifying cals");
+        //System.out.println("before modifying cals");
         super.modifyCalories(calories);
         this.instructions = instructions;
-        System.out.println("after prepared constructor");
+        //System.out.println("after prepared constructor");
     }
 
 
