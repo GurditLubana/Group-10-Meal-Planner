@@ -175,9 +175,11 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     public void addEntry(int pos) {
         //launch recipebook
         //send data to ops
-        Intent intent = new Intent(this, ActivityRecipeBook.class);
+        int value = 1000;
+        Intent intent = new Intent(getApplicationContext(), ActivityRecipeBook.class);
+        intent.putExtra("Name", value);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startActivity(intent);
+        //registerForActivityResult(intent, value);
     }
 
     public void updateLiveData() {
@@ -195,6 +197,12 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             recyclerViewAdapter.changeData(data);
             recyclerViewAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // TODO Auto-generated method stub
     }
 
 }
