@@ -35,8 +35,10 @@ public class DataAccessStub {
     public void open(String dbName) {
         DiaryItem mealEntry;
         RecipeBookItem recipeEntry;
+        int caloriesRandom = 0;
         calorieGoal = 1700;
         exerciseGoal = 200;
+
 
         //System.out.println("before calandar"); //bruh
         Calendar calendar = Calendar.getInstance();
@@ -45,33 +47,22 @@ public class DataAccessStub {
 
         //Meal entries
         dailyFoodLog = new ArrayList<ListItem>();
-        dailyFoodLog.add(new Food("Banana", R.drawable.banana, 100,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 100 ));
-        dailyFoodLog.add(new Food("Burger", R.drawable.burger, 800,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 500));
-        dailyFoodLog.add(new Food("Bologna", R.drawable.bologna, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 150));
-        dailyFoodLog.add(new Food("Berry", R.drawable.berry, 10,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20));
-        dailyFoodLog.add(new Food("Burrito", R.drawable.burrito, 300,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 400));
-        dailyFoodLog.add(new Food("Bean", R.drawable.bean, 30,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 5));
-        dailyFoodLog.add(new Food("Broccoli", R.drawable.broccoli, 20,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 120));
-        dailyFoodLog.add(new Food("Biscotti", R.drawable.biscotti, 110,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20));
-        dailyFoodLog.add(new Food("Bun", R.drawable.bun, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 200));
-        dailyFoodLog.add(new Food("Risotto", R.drawable.risotto, 100,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 100 ));
-        dailyFoodLog.add(new Food("Ham", R.drawable.ham, 800,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 500));
-        dailyFoodLog.add(new Food("Pizza", R.drawable.pizza, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 150));
-        dailyFoodLog.add(new Food("Steak", R.drawable.steak, 10,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20));
-        dailyFoodLog.add(new Food("Potatoes", R.drawable.potatoes, 300,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 400));
-        dailyFoodLog.add(new Food("Carrot", R.drawable.carrot, 30,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 5));
-        dailyFoodLog.add(new Food("Bell Pepper", R.drawable.food, 0,ListItem.FragmentType.diaryAdd, ListItem.Unit.g, 100));
-//        recipeTest = new ArrayList<RecipeBookItem>();
-//        recipeEntry = new RecipeBookItem(100, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, R.drawable.food);
-//        recipeTest.add(recipeEntry);
-//        recipeEntry = new RecipeBookItem(101, ListItem.FragmentType.recipe, "Salad", 50, ListItem.Unit.g, 50, R.drawable.food2);
-//        recipeTest.add(recipeEntry);
-//        recipeEntry = new RecipeBookItem(102, ListItem.FragmentType.recipe, "Hamburglar", 700, ListItem.Unit.g, 400, R.drawable.food3);
-//        recipeTest.add(recipeEntry);
-//        recipeEntry = new RecipeBookItem(103, ListItem.FragmentType.recipe, "Notfries", 500, ListItem.Unit.g, 30, R.drawable.food4);
-//        recipeTest.add(recipeEntry);
-//        recipeEntry = new RecipeBookItem(104, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, R.drawable.drinks);
-//        recipeTest.add(recipeEntry);
+        dailyFoodLog.add(new Food("Banana", R.drawable.banana, 100,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 100, 1 ));
+        dailyFoodLog.add(new Food("Burger", R.drawable.burger, 800,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 500, 2));
+        dailyFoodLog.add(new Food("Bologna", R.drawable.bologna, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 150, 3));
+        dailyFoodLog.add(new Food("Berry", R.drawable.berry, 10,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20, 4));
+        dailyFoodLog.add(new Food("Burrito", R.drawable.burrito, 300,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 400, 5));
+        dailyFoodLog.add(new Food("Bean", R.drawable.bean, 30,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 5, 6));
+        dailyFoodLog.add(new Food("Broccoli", R.drawable.broccoli, 20,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 120, 7));
+        dailyFoodLog.add(new Food("Biscotti", R.drawable.biscotti, 110,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20, 8));
+        dailyFoodLog.add(new Food("Bun", R.drawable.bun, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 200, 9));
+        dailyFoodLog.add(new Food("Risotto", R.drawable.risotto, 100,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 100 , 10));
+        dailyFoodLog.add(new Food("Ham", R.drawable.ham, 800,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 500, 11));
+        dailyFoodLog.add(new Food("Pizza", R.drawable.pizza, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 150, 12));
+        dailyFoodLog.add(new Food("Steak", R.drawable.steak, 10,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20, 13));
+        dailyFoodLog.add(new Food("Potatoes", R.drawable.potatoes, 300,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 400, 14));
+        dailyFoodLog.add(new Food("Carrot", R.drawable.carrot, 30,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 5, 15));
+        dailyFoodLog.add(new Food("Bell Pepper", R.drawable.food, 0,ListItem.FragmentType.diaryAdd, ListItem.Unit.g, 100, 0));
 
         //Workouts
         routines = new ArrayList<Routine>();
@@ -115,145 +106,152 @@ public class DataAccessStub {
 
         //Create Drinks
         drink = new ArrayList<Drink>();
-        drink.add(new Drink("Mojito", R.drawable.food, new String[] {"GET", "GOOD"},
+        caloriesRandom = ThreadLocalRandom.current().nextInt(250,450);
+        drink.add(new Drink("Mojito", R.drawable.food, caloriesRandom, new String[] {"GET", "GOOD"},
             new DrinkIngredient[] {
                 new DrinkIngredient("White Rum", 1.5, "oz", false, true),
                 new DrinkIngredient("Sugar", 2, "TBSP", false, false),
                 new DrinkIngredient("Mint", 8, "leaves", false, false),
                 new DrinkIngredient("Lime", 1.2, "lime", false, false),
                 new DrinkIngredient("Club soda", 0, "fill", true, false),
-            }, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1
+            }, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 16
         ));
 
-        System.out.println("added first drink...");
-
-        drink.add(new Drink("Mai-tai", R.drawable.food2, new String[] {"GET", "GOOD"},
+        //System.out.println("added first drink...");
+        caloriesRandom = ThreadLocalRandom.current().nextInt(250,450);
+        drink.add(new Drink("Mai-tai", R.drawable.food2, caloriesRandom, new String[] {"GET", "GOOD"},
             new DrinkIngredient[] {
                 new DrinkIngredient("Coconut Malibu", 1.5, "oz", true, false),
                 new DrinkIngredient("Rum", 1.5, "oz", true, false),
                 new DrinkIngredient("Pineapple juice", 3, "oz", true, false),
                 new DrinkIngredient("Orange juice", 2, "oz", true, false),
                 new DrinkIngredient("Grenadine", 1, "dash", false, false),
-            }, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1
+            }, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 17
         ));
 
-        drink.add(new Drink("Red Headed \"friend\"", R.drawable.food3, new String[] {"GET", "GOOD"},
+        caloriesRandom = ThreadLocalRandom.current().nextInt(250,450);
+        drink.add(new Drink("Red Headed \"friend\"", R.drawable.food3, caloriesRandom, new String[] {"GET", "GOOD"},
             new DrinkIngredient[] {
                 new DrinkIngredient("Jagermeister", 1, "oz", false, true),
                 new DrinkIngredient("Cranberry juice", 1, "oz", true, false),
                 new DrinkIngredient("Peach Schnapps", 1, "oz", false, true),
-            }, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1
+            }, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 18
         ));
 
-        drink.add(new Drink("Fun On The Beach", R.drawable.food4, new String[] {"GET", "GOOD"},
+        caloriesRandom = ThreadLocalRandom.current().nextInt(250,450);
+        drink.add(new Drink("Fun On The Beach", R.drawable.food4, caloriesRandom, new String[] {"GET", "GOOD"},
             new DrinkIngredient[] {
                 new DrinkIngredient("Vodka", 1.5, "oz", false, true),
                 new DrinkIngredient("Peach Schnapps", 0.5, "oz", false, true),
                 new DrinkIngredient("Chamboard", 1/2, "oz", false, true),
                 new DrinkIngredient("Orange juice", 1.5, "oz", true, false),
                 new DrinkIngredient("Cranberry juice", 1.5, "oz", true, false),
-            }, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1
+            }, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 19
         ));
 
-        drink.add(new Drink("Non Alcoholic Moscow Mule", R.drawable.food, new String[] {"GET", "GOOD"},
+        caloriesRandom = ThreadLocalRandom.current().nextInt(250,450);
+        drink.add(new Drink("Non Alcoholic Moscow Mule", R.drawable.food, caloriesRandom, new String[] {"GET", "GOOD"},
             new DrinkIngredient[] {
                 new DrinkIngredient("Lime juice", 1, "TBSP", false, false),
                 new DrinkIngredient("Ginger beer", 4, "oz", false, false),
                 new DrinkIngredient("Club soda", 0, "fill", false, false),
                 new DrinkIngredient("Mint", 8, "leaves", false, false),
-            }, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1
+            }, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 20
         ));
 
-        drink.add(new Drink("Blue Hawaiian", R.drawable.food2, new String[] {"GET", "GOOD"},
+        caloriesRandom = ThreadLocalRandom.current().nextInt(250,450);
+        drink.add(new Drink("Blue Hawaiian", R.drawable.food2, caloriesRandom, new String[] {"GET", "GOOD"},
             new DrinkIngredient[] {
                 new DrinkIngredient("Pineapple juice", 2, "oz", true, false),
                 new DrinkIngredient("Light rum", 1, "oz", false, true),
                 new DrinkIngredient("Blue Curacao", 1, "oz", false, true),
                 new DrinkIngredient("Coconut Malibu", 1, "oz", false, true),
-            }, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1
+            }, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 21
         ));
 
-        drink.add(new Drink("French Martini", R.drawable.food3, new String[] {"GET", "GOOD"},
+        caloriesRandom = ThreadLocalRandom.current().nextInt(250,450);
+        drink.add(new Drink("French Martini", R.drawable.food3, caloriesRandom, new String[] {"GET", "GOOD"},
             new DrinkIngredient[] {
                 new DrinkIngredient("Pineapple juice", 3, "oz", true, false),
                 new DrinkIngredient("Chamboard", 1, "oz", false, true),
-            }, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1
+            }, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 22
         ));
 
-        drink.add(new Drink("Non Alcoholic Mojito", R.drawable.food4, new String[] {"GET", "GOOD"},
+        caloriesRandom = ThreadLocalRandom.current().nextInt(250,450);
+        drink.add(new Drink("Non Alcoholic Mojito", R.drawable.food4, caloriesRandom, new String[] {"GET", "GOOD"},
             new DrinkIngredient[] {
                 new DrinkIngredient("Sugar", 2, "TBSP", false, false),
                 new DrinkIngredient("Mint", 8, "leaves", false, false),
                 new DrinkIngredient("Lime", 1/2, "lime", false, false),
                 new DrinkIngredient("Club soda", 0, "fill", false, false),
-            }, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1
+            }, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 23
         ));
 
 //        System.out.println("added drinks...");
 //
         food = new ArrayList<Food>();
-        food.add(new Food("apple", R.drawable.food, 20, ListItem.FragmentType.recipe, ListItem.Unit.g, 50));
-        food.add(new Food("pear", R.drawable.food2, 20, ListItem.FragmentType.recipe, ListItem.Unit.g, 50));
-        food.add(new Food("cracker", R.drawable.food3, 20, ListItem.FragmentType.recipe, ListItem.Unit.g, 50));
-        food.add(new Food("grain of rice", R.drawable.food4, 20, ListItem.FragmentType.recipe, ListItem.Unit.g, 50));
-        food.add(new Food("walnut", R.drawable.food, 20, ListItem.FragmentType.recipe, ListItem.Unit.g, 50));
-        food.add(new Food("molasse", R.drawable.food2, 20, ListItem.FragmentType.recipe, ListItem.Unit.g, 50));
-        food.add(new Food("cereal", R.drawable.food3, 20, ListItem.FragmentType.recipe, ListItem.Unit.g, 50));
-        food.add(new Food("nutella", R.drawable.food4, 20, ListItem.FragmentType.recipe, ListItem.Unit.g, 50));
-        food.add(new Food("steak", R.drawable.food, 20, ListItem.FragmentType.recipe, ListItem.Unit.g, 50));
+        food.add(new Food("apple", R.drawable.apple, 20, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 24));
+        food.add(new Food("pear", R.drawable.pear, 50, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 25));
+        food.add(new Food("cracker", R.drawable.cracker, 10, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 26));
+        food.add(new Food("grain of rice", R.drawable.rice, 5, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 27));
+        food.add(new Food("walnut", R.drawable.walnut, 25, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 28));
+        food.add(new Food("molasse", R.drawable.food2, 200, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 29));
+        food.add(new Food("cereal", R.drawable.cereal, 260, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 30));
+        food.add(new Food("nutella", R.drawable.nutella, 460, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 31));
+        food.add(new Food("steak", R.drawable.steak, 600, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 32));
 //
 //        System.out.println("Added food");
 //
         //adding meals
         meal = new ArrayList<Meal>();
-        meal.add(new Meal("soup", R.drawable.food4, 100, new MealIngredient[] {
-            new MealIngredient(5, "cups", new Food("broth", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("onion", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("brocoli", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
-        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1 ));
+        meal.add(new Meal("soup", R.drawable.soup, 270, new MealIngredient[] {
+            new MealIngredient(5, "cups", new Food("broth", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 33)),
+            new MealIngredient(5, "cups", new Food("onion", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 34)),
+            new MealIngredient(5, "cups", new Food("brocoli", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 35))
+        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1 , 36));
 
-        meal.add(new Meal("salad", R.drawable.food, 100, new MealIngredient[] {
-            new MealIngredient(5, "cups", new Food("lettuce", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("tomato", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("onion", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
-        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1));
+        meal.add(new Meal("salad", R.drawable.salad, 150, new MealIngredient[] {
+            new MealIngredient(5, "cups", new Food("lettuce", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 37)),
+            new MealIngredient(5, "cups", new Food("tomato", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 38)),
+            new MealIngredient(5, "cups", new Food("onion", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 39))
+        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 40));
 
-        meal.add(new Meal("yogurt parfait", R.drawable.food2, 100, new MealIngredient[] {
-            new MealIngredient(5, "cups", new Food("yogurt", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("oats", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("Stawberry", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
-        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1));
+        meal.add(new Meal("yogurt parfait", R.drawable.parfait, 175, new MealIngredient[] {
+            new MealIngredient(5, "cups", new Food("yogurt", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 41)),
+            new MealIngredient(5, "cups", new Food("oats", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 42)),
+            new MealIngredient(5, "cups", new Food("Stawberry", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 43))
+        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 44));
 
-        meal.add(new Meal("smoothie", R.drawable.food3, 100, new MealIngredient[] {
-            new MealIngredient(5, "cups", new Food("milk", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("oats", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("banana", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
-        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1));
+        meal.add(new Meal("smoothie", R.drawable.food3, 500, new MealIngredient[] {
+            new MealIngredient(5, "cups", new Food("milk", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 45)),
+            new MealIngredient(5, "cups", new Food("oats", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 46)),
+            new MealIngredient(5, "cups", new Food("banana", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 47))
+        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 48));
 
-        meal.add(new Meal("rice pilaf", R.drawable.food, 100, new MealIngredient[] {
-            new MealIngredient(5, "cups", new Food("cucumber", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("rice", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("bread", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
-        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1));
+        meal.add(new Meal("rice pilaf", R.drawable.food, 420, new MealIngredient[] {
+            new MealIngredient(5, "cups", new Food("cucumber", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 49)),
+            new MealIngredient(5, "cups", new Food("rice", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 50)),
+            new MealIngredient(5, "cups", new Food("bread", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 51))
+        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 52));
 
-        meal.add(new Meal("sushi", R.drawable.food4, 100, new MealIngredient[] {
-            new MealIngredient(5, "cups", new Food("rice", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("cream cheese", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("nori", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
-        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1));
+        meal.add(new Meal("sushi", R.drawable.food4, 320, new MealIngredient[] {
+            new MealIngredient(5, "cups", new Food("rice", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 53)),
+            new MealIngredient(5, "cups", new Food("cream cheese", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 54)),
+            new MealIngredient(5, "cups", new Food("nori", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 55))
+        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 56));
 
-        meal.add(new Meal("wrap", R.drawable.food2, 100, new MealIngredient[] {
-            new MealIngredient(5, "cups", new Food("steak", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("pesto", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("lettuce", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
-        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1));
+        meal.add(new Meal("wrap", R.drawable.food2, 200, new MealIngredient[] {
+            new MealIngredient(5, "cups", new Food("steak", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 57)),
+            new MealIngredient(5, "cups", new Food("pesto", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 58)),
+            new MealIngredient(5, "cups", new Food("lettuce", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 59))
+        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 60));
 
-        meal.add(new Meal("shrimp tacos", R.drawable.food, 100, new MealIngredient[] {
-            new MealIngredient(5, "cups", new Food("shrimp", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("taco shell", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("cheese", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10)),
-            new MealIngredient(5, "cups", new Food("lettuce", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10))
-        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1));
+        meal.add(new Meal("shrimp tacos", R.drawable.food, 160, new MealIngredient[] {
+            new MealIngredient(5, "cups", new Food("shrimp", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 61)),
+            new MealIngredient(5, "cups", new Food("taco shell", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 62)),
+            new MealIngredient(5, "cups", new Food("cheese", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 63)),
+            new MealIngredient(5, "cups", new Food("lettuce", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 64))
+        }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 65));
 //        System.out.println("Added meals");
 
 
@@ -317,12 +315,12 @@ public class DataAccessStub {
                 currEdibles.add(new RecipeBookItem(food.get(i), R.drawable.food, i)); //i is not a unique key
             }
         }
-        else if(edibleType == 1) {  //meal tab send cachedMeal
+        else if(edibleType == 2) {  //meal tab send cachedMeal
             for(int i = 0; i < drink.size(); i++) {
                 currEdibles.add(new RecipeBookItem(drink.get(i), R.drawable.food2, i));
             }
         }
-        else if(edibleType == 2) {  //drink tab send cachedDrink
+        else if(edibleType == 1) {  //drink tab send cachedDrink
             for(int i = 0; i < meal.size(); i++) {
                 currEdibles.add(new RecipeBookItem(meal.get(i), R.drawable.food3, i));
             }
