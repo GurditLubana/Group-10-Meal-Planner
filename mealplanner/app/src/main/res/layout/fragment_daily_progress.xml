@@ -27,7 +27,7 @@
             app:layout_constraintStart_toStartOf="@+id/progressBar" />
 
         <TextView
-            android:id="@+id/netProgress"
+            android:id="@+id/netCalories"
             android:layout_width="149dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -46,9 +46,9 @@
             android:layout_height="wrap_content"
             android:text="Net"
             android:textColor="#B1B1B1"
-            app:layout_constraintBottom_toTopOf="@+id/netProgress"
-            app:layout_constraintEnd_toEndOf="@+id/netProgress"
-            app:layout_constraintStart_toStartOf="@+id/netProgress" />
+            app:layout_constraintBottom_toTopOf="@+id/netCalories"
+            app:layout_constraintEnd_toEndOf="@+id/netCalories"
+            app:layout_constraintStart_toStartOf="@+id/netCalories" />
 
         <TextView
             android:id="@+id/textView3"
@@ -70,12 +70,12 @@
             android:textColor="#FFFFFF"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/netProgress"
+            app:layout_constraintEnd_toStartOf="@+id/netCalories"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/foodProgress" />
+            app:layout_constraintStart_toEndOf="@+id/foodConsumed" />
 
         <TextView
-            android:id="@+id/foodProgress"
+            android:id="@+id/foodConsumed"
             android:layout_width="149dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -86,7 +86,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/exerciseProgress"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/goalGoal" />
+            app:layout_constraintStart_toEndOf="@+id/goalCalorie" />
 
         <TextView
             android:id="@+id/textView2"
@@ -94,9 +94,9 @@
             android:layout_height="wrap_content"
             android:text="Food"
             android:textColor="#B1B1B1"
-            app:layout_constraintBottom_toTopOf="@+id/foodProgress"
-            app:layout_constraintEnd_toEndOf="@+id/foodProgress"
-            app:layout_constraintStart_toStartOf="@+id/foodProgress" />
+            app:layout_constraintBottom_toTopOf="@+id/foodConsumed"
+            app:layout_constraintEnd_toEndOf="@+id/foodConsumed"
+            app:layout_constraintStart_toStartOf="@+id/foodConsumed" />
 
         <TextView
             android:id="@+id/textView6"
@@ -112,7 +112,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/goalGoal"
+            android:id="@+id/goalCalorie"
             android:layout_width="148dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -121,7 +121,7 @@
             android:textColor="#FFB74D"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/foodProgress"
+            app:layout_constraintEnd_toStartOf="@+id/foodConsumed"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -130,8 +130,8 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="28"
+            android:max="125"
+            android:progress="100"
             android:progressTint="#B5DFB7"
             android:scaleX="11"
             android:scaleY="4"
@@ -147,9 +147,9 @@
             android:layout_height="wrap_content"
             android:text="Budget"
             android:textColor="#B1B1B1"
-            app:layout_constraintBottom_toTopOf="@+id/goalGoal"
-            app:layout_constraintEnd_toEndOf="@+id/goalGoal"
-            app:layout_constraintStart_toStartOf="@+id/goalGoal" />
+            app:layout_constraintBottom_toTopOf="@+id/goalCalorie"
+            app:layout_constraintEnd_toEndOf="@+id/goalCalorie"
+            app:layout_constraintStart_toStartOf="@+id/goalCalorie" />
 
         <ImageButton
             android:id="@+id/prevDateProgress"
@@ -172,6 +172,19 @@
             android:src="@drawable/baseline_arrow_right_white_48"
             app:layout_constraintBottom_toTopOf="@+id/progressBar"
             app:layout_constraintStart_toEndOf="@+id/dateProgress" />
+
+        <ProgressBar
+            android:id="@+id/progressExcess"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="105dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="36dp"
+            android:progressTint="#FF0000"
+            android:scaleY="4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.363" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

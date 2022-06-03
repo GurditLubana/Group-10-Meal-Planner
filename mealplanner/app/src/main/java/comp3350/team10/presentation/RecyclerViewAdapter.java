@@ -21,6 +21,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private LinkedList<ListItem> localDataSet;          // the list Recyclerview renders
     private int selectedPos = RecyclerView.NO_POSITION; // tracks the last clicked item
     private FragToParent parentComm;                    // lets us pass data from fragments to the parent activity
+    private FragToRecipeBook sendToRecipeBook;
     private FragToMealDiary sendToMealDiary;
     private ListItem saved;                             // var to save a meal entry when we show context UI
 
@@ -163,10 +164,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     //set the data of a meal entry fragment
     private void setDiaryEntryData(ViewHolder viewHolder, final int position){
-        ((TextView) viewHolder.getView().findViewById(R.id.itemNameBox)).setText(((DiaryItem) localDataSet.get(position)).getItem().getName()); //had two take two lines below out to make it work
-        //((TextView) viewHolder.getView().findViewById(R.id.itemQtyBox)).setText(String.format("%3d", ((DiaryItem) localDataSet.get(position)).getQuantity()));
-        //((TextView) viewHolder.getView().findViewById(R.id.itemUnitBox)).setText(((DiaryItem) localDataSet.get(position)).getUnit().name());
-        ((TextView) viewHolder.getView().findViewById(R.id.itemCalsBox)).setText(String.format("%3d", ((DiaryItem) localDataSet.get(position)).getItem().getCalories()));
+        ((TextView) viewHolder.getView().findViewById(R.id.itemNameBox)).setText(((Edible) localDataSet.get(position)).getName()); //had two take two lines below out to make it work
+        ((TextView) viewHolder.getView().findViewById(R.id.itemQtyBox)).setText(String.format("%3d", ((Edible) localDataSet.get(position)).getQuantity()));
+        ((TextView) viewHolder.getView().findViewById(R.id.itemUnitBox)).setText(((Edible) localDataSet.get(position)).getBaseUnit().name());
+        ((TextView) viewHolder.getView().findViewById(R.id.itemCalsBox)).setText(String.format("%3d", ((Edible) localDataSet.get(position)).getCalories()));
+        ((ImageView) viewHolder.getView().findViewById(R.id.itemImage)).setImageResource(((Edible) localDataSet.get(position)).getIconPath());
     }
 
     //meal log card fragment click listeners
@@ -195,8 +197,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 System.out.println("...");
                 if (context != null) {
-                    parentComm = (FragToParent) context;
-                    parentComm.showContextUI(position);
+                    sendToRecipeBook = (FragToRecipeBook) context;
+                    sendToRecipeBook.showContextUI(position);
                 }
             }
         });
@@ -223,8 +225,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Context context = view.getContext();
 
                 if (context != null) {
-                    //parentComm = (FragToParent) context;
-                    //parentComm.showContextUI(selectedPos);
+                    sendToMealDiary = (FragToMealDiary) context;
+                    sendToMealDiary.removeItem(selectedPos);
                 }
             }
         });
@@ -235,8 +237,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Context context = view.getContext();
 
                 if (context != null) {
-                    //parentComm = (FragToParent) context;
-                    //parentComm.showContextUI(selectedPos);
+                    sendToMealDiary = (FragToMealDiary) context;
+                    sendToMealDiary.editItem(selectedPos);
                 }
             }
         });
@@ -251,8 +253,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Context context = view.getContext();
 
                 if (context != null) {
-                    //parentComm = (FragToParent) context;
-                    //parentComm.showContextUI(selectedPos);
+                    sendToMealDiary = (FragToMealDiary) context;
+                    sendToMealDiary.addEntry(selectedPos);
                 }
             }
         });

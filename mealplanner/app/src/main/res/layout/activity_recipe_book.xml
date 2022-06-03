@@ -85,11 +85,6 @@
             android:layout_height="wrap_content"
             android:text="Drink" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/Tab4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Custom" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView

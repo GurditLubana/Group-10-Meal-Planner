@@ -87,9 +87,13 @@ public class FragmentNavigation extends Fragment {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(getActivity(), ActivityMealDiary.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                startActivity(intent);
+                // prevent creating new activity when button pressed while in MealDiary
+                if (getActivity() != null && !(getActivity() instanceof ActivityMealDiary)) {
+                    Intent intent = new Intent(getActivity().getApplicationContext(), ActivityMealDiary.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -98,9 +102,11 @@ public class FragmentNavigation extends Fragment {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(getActivity(), ActivityRecipeBook.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                startActivity(intent);
+                if (getActivity() != null && !(getActivity() instanceof ActivityRecipeBook)) {
+                    Intent intent = new Intent(getActivity(), ActivityRecipeBook.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    startActivity(intent);
+                }
             }
         });
         return view;

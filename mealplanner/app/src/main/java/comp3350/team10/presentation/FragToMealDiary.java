@@ -5,5 +5,9 @@ public interface FragToMealDiary {
     public void selectDate();
     public void prevDate();
     public void nextDate();
-    public void setGoal();
+    public void showGoalEntryDialog();
+    public void removeItem(int pos);
+    public void editItem(int pos);
+    public void showExerciseEntryDialog();
+    public void addEntry(int pos);
 }

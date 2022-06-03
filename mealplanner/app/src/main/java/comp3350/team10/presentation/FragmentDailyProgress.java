@@ -1,6 +1,7 @@
 package comp3350.team10.presentation;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import comp3350.team10.R;
 
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -89,7 +91,8 @@ public class FragmentDailyProgress extends Fragment {
         TextView dateProgress = (TextView) view.findViewById(R.id.dateProgress);
         ImageButton prevDateProgress = (ImageButton) view.findViewById(R.id.prevDateProgress);
         ImageButton nextDateProgress = (ImageButton) view.findViewById(R.id.nextDateProgress);
-        TextView goalGoal = (TextView) view.findViewById(R.id.goalGoal);
+        TextView goalCalorie = (TextView) view.findViewById(R.id.goalCalorie);
+        TextView exerciseProgress = (TextView) view.findViewById(R.id.exerciseProgress);
 
         dateProgress.setOnClickListener(new View.OnClickListener()
         {
@@ -130,7 +133,7 @@ public class FragmentDailyProgress extends Fragment {
                 }
             }
         });
-        goalGoal.setOnClickListener(new View.OnClickListener()
+        goalCalorie.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -139,7 +142,20 @@ public class FragmentDailyProgress extends Fragment {
 
                 if (context != null) {
                     send = (FragToMealDiary) context;
-                    send.setGoal();
+                    send.showGoalEntryDialog();
+                }
+            }
+        });
+        exerciseProgress.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Context context = view.getContext();
+
+                if (context != null) {
+                    send = (FragToMealDiary) context;
+                    send.showExerciseEntryDialog();
                 }
             }
         });
@@ -152,9 +168,49 @@ public class FragmentDailyProgress extends Fragment {
                 ((TextView) view.findViewById(R.id.dateProgress)).setText(mon.format(calendar.getTime()) + " " + day.format(calendar.getTime()));
             }
         });
+        mealDiaryLiveData.getGoalCalories().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer goalCalories) {
+                ((TextView) view.findViewById(R.id.goalCalorie)).setText(goalCalories.toString());
+            }
+        });
+        mealDiaryLiveData.getConsumedCalories().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer foodConsumed) {
+                ((TextView) view.findViewById(R.id.foodConsumed)).setText(foodConsumed.toString());
+            }
+        });
+        mealDiaryLiveData.getExerciselCalories().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer exerciseCalories) {
+                ((TextView) view.findViewById(R.id.exerciseProgress)).setText(exerciseCalories.toString());
+            }
+        });
+        mealDiaryLiveData.getNetCalories().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer netCalories) {
+                ((TextView) view.findViewById(R.id.netCalories)).setText(String.valueOf(Math.abs(netCalories.intValue())));
+                if(netCalories < 0) {
+                    ((TextView) view.findViewById(R.id.netCalories)).setTextColor(Color.RED);
+                }
+                else {
+                    ((TextView) view.findViewById(R.id.netCalories)).setTextColor(Color.parseColor("#81C784"));
+                }
+            }
+        });
+        mealDiaryLiveData.getProgressBar().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer progressBar) {
+                ((ProgressBar) view.findViewById(R.id.progressBar)).setProgress(progressBar);
+            }
+        });
+        mealDiaryLiveData.getProgressExcess().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer progressExcess) {
+                ((ProgressBar) view.findViewById(R.id.progressExcess)).setProgress(progressExcess);
+            }
+        });
     }
 
-    public void update(){
 
-    }
 }

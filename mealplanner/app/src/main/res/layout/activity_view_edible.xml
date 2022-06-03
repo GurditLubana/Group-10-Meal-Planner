@@ -98,6 +98,6 @@
         app:layout_constraintBottom_toTopOf="@+id/instructScroll"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/banana" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
