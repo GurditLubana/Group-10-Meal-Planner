@@ -166,9 +166,9 @@ Estimate: 2hrs
 ##### Task 08
    Title: Meal Diary entry editor
     Desc: Build Modal for data modification
-Estimate: 
+Estimate: 4hrs
   Actual:  
-     Dev:  
+     Dev: Manraj  
      
 ##### Task 09
    Title: Meal Diary Add entry button  
@@ -178,11 +178,11 @@ Estimate: 1hr
      Dev: Josef   
      
 ##### Task 10
-   Title: Meal Diary Logic
-    Desc: Build Business logic for pulling data from db 
-Estimate: 8hrs
-  Actual:  
-     Dev: Josef 
+   Title: Meal Diary Logic  
+    Desc: Build Business logic for pulling data from db  
+Estimate: 8hrs  
+  Actual: 10hrs  
+     Dev: Josef  
      
 ##### Task 11
    Title: Navbar - click listeners  
@@ -192,67 +192,67 @@ Estimate: 2hrs
      Dev: Josef   
      
 ##### Task 12
-   Title: Meal diary stub data
-    Desc: Implement stub database for meal diary
-Estimate: 
-  Actual:  
-     Dev:  
+   Title: Meal diary stub data  
+    Desc: Implement stub database for meal diary  
+Estimate: 2hrs  
+  Actual: 2hrs   
+     Dev: Josef   
      
 ##### Task 13
-   Title: Recipe book UI
-    Desc: Build Recipe book UI with recyclerview, search bar, tabs, add button
-Estimate: 
-  Actual:  
-     Dev:  
+   Title: Recipe book UI  
+    Desc: Build Recipe book UI with recyclerview, search bar, tabs, add button  
+Estimate: 4 days  
+  Actual: 6 days   
+     Dev: Dane, Gurdit, Josef  
      
 ##### Task 14
    Title: Recipe book entries
-    Desc: Build reusable card fragments to show available food
-Estimate: 
-  Actual:  
-     Dev:  
+    Desc: Build reusable card fragments to show available food  
+Estimate: 2hrs  
+  Actual: 6hrs   
+     Dev: Gurdit, Josef  
      
 ##### Task 15
    Title: Recipe book entries context UI  
     Desc: Build reusable card fragments to show options when entry is clicked  
-Estimate: 
+Estimate: 2hrs  
   Actual:  
-     Dev:  
+     Dev: Dane   
      
 ##### Task 16
    Title: Recipe book more info
     Desc: Build detailed meal information page
-Estimate: 
-  Actual:  
-     Dev:  
+Estimate: 4hrs  
+  Actual:   
+     Dev: Gurdit, Dane, Josef 
      
 ##### Task 17
    Title: Recipe book business logic  
     Desc: Build Business logic for pulling data from db  
 Estimate: 
   Actual:  
-     Dev:  
+     Dev: Dane, Josef  
      
 ##### Task 18
    Title: Recipe book stub data  
     Desc: Implement stub database for recipe book  
 Estimate: 
   Actual:  
-     Dev:  
+     Dev: Dane Josef 
      
 ##### Task 19
    Title: Recipe book stub drinks data  
     Desc: Implement stub database for recipe book  
 Estimate: 
   Actual:  
-     Dev:  
+     Dev: Dane 
      
 ##### Task 20
    Title: Recipe book detailed view  
     Desc: Implement drink slider 
 Estimate: 
   Actual:  
-     Dev:  
+     Dev: Dane 
 
 ### Big story 2 : Progress tracking  
 As a user I would like to be able to set calorie goals and see my progress towards those goals.  
@@ -306,9 +306,9 @@ Priority – High                                                        Cost - 
 #### Task 01
    Title: Show Current Date being viewed
     Desc: Add date box in appbar for Meal diary with arrows  
-Estimate: 
-  Actual: 
-     Dev: 
+Estimate: 4hrs
+  Actual: 4hrs
+     Dev: Josef 
 
 #### Task 02
    Title: Date selector  
@@ -320,15 +320,15 @@ Estimate: 2hrs
 #### Task 03
    Title: Show Current Date being viewed
     Desc: Add date box in appbar for Meal diary  
-Estimate: 
-  Actual: 
-     Dev: 
+Estimate: 4hrs
+  Actual: 4hrs
+     Dev: Josef
 
 #### Task 04
    Title: Date selector   
     Desc: When a new date is selected request LiveData update   
-Estimate:    
-  Actual:  
+Estimate: 4hrs   
+  Actual: 4hrs 
      Dev: Josef  
 
 
@@ -343,7 +343,7 @@ Priority – High                                                        Cost - 
     Desc: Build UI for social page
 Estimate:
   Actual:
-     Dev:
+     Dev: Gurdit
 
 
 
