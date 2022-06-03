@@ -16,7 +16,8 @@
             android:launchMode="singleTask"
             android:theme="@style/Theme.MealPlanner.NoActionBar" />
         <activity android:name=".presentation.ActivityRecipeBook"/>
-        <activity android:name=".presentation.ActivityMealDiary">
+        <activity android:name=".presentation.ActivityMealDiary"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
