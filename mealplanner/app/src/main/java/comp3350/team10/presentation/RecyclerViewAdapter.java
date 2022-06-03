@@ -261,7 +261,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     private void setRecipeData(ViewHolder viewHolder, int position){
-        ((ImageView) viewHolder.getView().findViewById(R.id.mealImage)).setImageResource(((RecipeBookItem) localDataSet.get(position)).getImage());
+        ((ImageView) viewHolder.getView().findViewById(R.id.mealImage)).setImageResource(((Edible)((RecipeBookItem) localDataSet.get(position)).getFood()).getIconPath());
+        ((TextView) viewHolder.getView().findViewById(R.id.mealDesc)).setText(((Edible)((RecipeBookItem) localDataSet.get(position)).getFood()).getName());
+        ((TextView) viewHolder.getView().findViewById(R.id.mealCals)).setText(Integer.toString(((Edible)((RecipeBookItem) localDataSet.get(position)).getFood()).getCalories()));
     }
     private void setCardSelectionListeners(ViewHolder viewHolder, int position) {
         Button viewButton = (Button)viewHolder.getView().findViewById(R.id.viewBtn);
