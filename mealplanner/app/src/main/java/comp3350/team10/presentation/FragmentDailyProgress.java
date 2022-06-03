@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -195,6 +196,18 @@ public class FragmentDailyProgress extends Fragment {
                 else {
                     ((TextView) view.findViewById(R.id.netCalories)).setTextColor(Color.parseColor("#81C784"));
                 }
+            }
+        });
+        mealDiaryLiveData.getProgressBar().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer progressBar) {
+                ((ProgressBar) view.findViewById(R.id.progressBar)).setProgress(progressBar);
+            }
+        });
+        mealDiaryLiveData.getProgressExcess().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer progressExcess) {
+                ((ProgressBar) view.findViewById(R.id.progressExcess)).setProgress(progressExcess);
             }
         });
     }

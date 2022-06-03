@@ -154,6 +154,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     public void removeItem(int pos) {
         if (data.size() > 0) {
             data.remove(pos);
+            savedItem = null;
             recyclerViewAdapter.notifyItemRemoved(pos);
             recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
             recyclerViewAdapter.notifyDataSetChanged();
@@ -186,6 +187,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             mealDiaryData.getConsumedCalories().setValue(opExec.getCalorieConsumed());
             mealDiaryData.getExerciselCalories().setValue(opExec.getCalorieExercise());
             mealDiaryData.getNetCalories().setValue(opExec.getCalorieNet());
+            mealDiaryData.getProgressBar().setValue(opExec.getProgressBar());
+            mealDiaryData.getProgressExcess().setValue(opExec.getProgressExcess());
         }
         if (recyclerViewAdapter != null) {
             recyclerViewAdapter.changeData(data);

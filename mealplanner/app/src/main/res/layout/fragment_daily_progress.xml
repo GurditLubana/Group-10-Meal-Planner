@@ -130,8 +130,8 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="28"
+            android:max="125"
+            android:progress="100"
             android:progressTint="#B5DFB7"
             android:scaleX="11"
             android:scaleY="4"
@@ -172,6 +172,19 @@
             android:src="@drawable/baseline_arrow_right_white_48"
             app:layout_constraintBottom_toTopOf="@+id/progressBar"
             app:layout_constraintStart_toEndOf="@+id/dateProgress" />
+
+        <ProgressBar
+            android:id="@+id/progressExcess"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="105dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="36dp"
+            android:progressTint="#FF0000"
+            android:scaleY="4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.363" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

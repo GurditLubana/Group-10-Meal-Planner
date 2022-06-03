@@ -18,6 +18,8 @@ public class MealDiaryLiveData extends ViewModel {
     private MutableLiveData<Integer> consumedCalories;
     private MutableLiveData<Integer> exerciselCalories;
     private MutableLiveData<Integer> netCalories;
+    private MutableLiveData<Integer> progressBar;
+    private MutableLiveData<Integer> progressExcess;
 
     public MutableLiveData<Calendar> getActivityDate() {
         if (activityDate == null) {
@@ -59,6 +61,21 @@ public class MealDiaryLiveData extends ViewModel {
             netCalories = new MutableLiveData<Integer>(69);
         }
         return netCalories;
+    }
+
+    public MutableLiveData<Integer> getProgressBar(){
+        if(progressBar == null){
+            progressBar = new MutableLiveData<Integer>(0);
+        }
+        return progressBar;
+    }
+
+    public MutableLiveData<Integer> getProgressExcess(){
+        if(progressExcess == null){
+            progressExcess = new MutableLiveData<Integer>(0);
+        }
+        return progressExcess;
+
     }
 
     // Rest of the ViewModel...
