@@ -31,7 +31,7 @@ import java.util.Calendar;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToMealDiary {
 
-    private RecyclerViewAdapter recyclerViewAdapter;
+    private RVAMealDiary recyclerViewAdapter;
     private RecyclerView mealRecyclerView;
     private LinkedList<ListItem> data;
     private ListItem savedItem;
@@ -66,7 +66,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     private void initRecyclerView() {
         if (data != null) {
-            recyclerViewAdapter = new RecyclerViewAdapter(data);
+            recyclerViewAdapter = new RVAMealDiary(data);
             mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
             mealRecyclerView.setAdapter(recyclerViewAdapter);
             mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));

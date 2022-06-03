@@ -23,7 +23,7 @@ import comp3350.team10.objects.*;
 import java.util.LinkedList;
 
 public class ActivityRecipeBook extends AppCompatActivity implements FragToRecipeBook {
-    private RecyclerViewAdapter recyclerViewAdapter; // handles card layouts and card button listeners
+    private RVARecipeBook recyclerViewAdapter;        // handles card layouts and card button listeners
     private RecyclerView recipeRecyclerView;         // handles showing card lists
     private LinkedList<ListItem> data;               // our list of data
     private RecipeBookOps opExec;                    // business class to handle calculations and db operations
@@ -59,7 +59,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     private void initRecyclerView() {
         if (this.data != null) {
-            this.recyclerViewAdapter = new RecyclerViewAdapter(data);
+            this.recyclerViewAdapter = new RVARecipeBook(data);
             this.recipeRecyclerView = (RecyclerView) findViewById(R.id.recipeRecyclerView);
             this.recipeRecyclerView.setAdapter(recyclerViewAdapter);
             this.recipeRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
