@@ -184,7 +184,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     public void addEntry(int pos) {
         //launch recipebook use ActivityResultLauncher to allow data passing
         Intent intent = new Intent(this, ActivityRecipeBook.class);
-        intent.putExtra("FoodItem", 1);
+        int dbkey = 0;
+        intent.putExtra("DBKEY", dbkey);
         pickMeal.launch(intent);
     }
 
@@ -215,7 +216,10 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         // There are no request codes
                         Intent data = result.getData();
-                        System.out.println("We got back: " + data.getExtras().getInt("FoodItem"));
+                        int dbkey = data.getExtras().getInt("DBKEY");
+                        System.out.println("We got back: " + dbkey);
+                        opExec.addByKey(dbkey);
+                        updateLiveData();
                     }
                 }
             });

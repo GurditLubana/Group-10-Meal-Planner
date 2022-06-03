@@ -48,4 +48,12 @@ public abstract class Edible implements ListItem{
     public int getQuantity(){
         return quantity;
     }
+
+    public int getDbkey() {
+        return dbkey;
+    }
+
+    public void setFragmentType(FragmentType fragmentType){
+        this.fragmentType = fragmentType;
+    }
 }

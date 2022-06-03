@@ -141,7 +141,11 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     @Override
     public void addFoodEntry(int pos){
         Intent intent = new Intent();
-        intent.putExtra("FoodItem", pos); //
+        int dbkey = -1;
+        if(saved != null) {
+            dbkey = ((RecipeBookItem) saved).getItem().getDbkey();
+        }
+        intent.putExtra("DBKEY", dbkey); //
         setResult(RESULT_OK, intent);
         finish();
     };

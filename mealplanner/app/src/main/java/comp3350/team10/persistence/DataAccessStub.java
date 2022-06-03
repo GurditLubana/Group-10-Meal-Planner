@@ -33,8 +33,6 @@ public class DataAccessStub {
     }
 
     public void open(String dbName) {
-        DiaryItem mealEntry;
-        RecipeBookItem recipeEntry;
         int caloriesRandom = 0;
         calorieGoal = 1700;
         exerciseGoal = 200;
@@ -331,7 +329,7 @@ public class DataAccessStub {
         return currEdibles;
     }
 
-    public void addRecipeToLog(DiaryItem item) { //Needs date added to this later, only adds to current
+    public void addRecipeToLog(Edible item) { //Needs date added to this later, only adds to current
         System.out.println("Before: " + dailyFoodLog.size());
         dailyFoodLog.add(item);
         System.out.println("After: " + dailyFoodLog.size());

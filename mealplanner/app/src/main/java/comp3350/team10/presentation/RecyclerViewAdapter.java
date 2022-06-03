@@ -276,7 +276,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Context context = view.getContext();
 
                 if (context != null) {
-                    sendToRecipeBook = (FragToRecipeBook)context;
+                    sendToRecipeBook = (FragToRecipeBook) context;
                     sendToRecipeBook.addFoodEntry(position);
                     //parentComm.addDiaryItem((DiaryItem)localDataSet.get(position));
                 }

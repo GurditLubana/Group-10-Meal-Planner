@@ -40,7 +40,7 @@ public class MealDiaryOps {
         calorieGoal = db.getCalorieGoal();
     }
 
-    public void addToDiary(DiaryItem item) {
+    public void addToDiary(Edible item) {
         db.addRecipeToLog(item);
     }
 
@@ -159,12 +159,36 @@ public class MealDiaryOps {
         if (todayFoodList != null) {
             calorieConsumed = 0;
             for (int i = 0; i < todayFoodList.size(); i++) {
-                calorieConsumed += ((Food) todayFoodList.get(i)).getCalories();
+                calorieConsumed += ((Edible) todayFoodList.get(i)).getCalories();
             }
         }
     }
 
     private void netCalories() {
         calorieNet = calorieGoal - (calorieConsumed - calorieExercise);
+    }
+
+    public void addByKey(int dbkey){
+        Boolean found = false;
+        LinkedList currList = null;
+        Edible tempEdible = null;
+        ListItem newItem = null;
+
+        for(int i =0; i <3 && !found; i++){
+            currList = db.getRecipe(i);
+
+            for(int x = 0; x < currList.size() && !found; x++){
+                if(((Edible) ((RecipeBookItem) currList.get(x)).getItem()).getDbkey() == dbkey){
+                    found = true;
+                    tempEdible = (Edible) ((RecipeBookItem) currList.get(x)).getItem();
+                    tempEdible.setFragmentType(ListItem.FragmentType.diaryEntry);
+                    newItem = tempEdible;
+                }
+            }
+        }
+        if(newItem != null){
+            todayFoodList.add(todayFoodList.size()-1, newItem);
+        }
+        updateProgress();
     }
 }
