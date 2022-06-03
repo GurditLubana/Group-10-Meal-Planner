@@ -2,9 +2,7 @@ package comp3350.team10.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Color;
@@ -13,48 +11,36 @@ import android.os.Bundle;
 import com.google.android.material.tabs.TabLayout;
 
 import comp3350.team10.R;
-import comp3350.team10.business.MealDiaryOps;
 import comp3350.team10.business.RecipeBookOps;
 import comp3350.team10.objects.*;
 
 import java.util.LinkedList;
 
 public class ActivityRecipeBook extends AppCompatActivity implements FragToRecipeBook {
-    private RecyclerViewAdapter recyclerViewAdapter;
-    private RecyclerView recipeRecyclerView;
-    private LinkedList<ListItem> data;
-    private RecipeBookOps opExec = new RecipeBookOps();
-    private ListItem saved;
-    private int savedPos;
-    private Toolbar toolbar;
+    private RecyclerViewAdapter recyclerViewAdapter; // handles card layouts and card button listeners
+    private RecyclerView recipeRecyclerView;         // handles showing card lists
+    private LinkedList<ListItem> data;               // our list of data
+    private RecipeBookOps opExec;                    // business class to handle calculations and db operations
+    private ListItem saved;                          // variable to store items from the list to show context UI cards
+    private int savedPos;                            // position in the list of the saved variable
+    private Toolbar toolbar;                         // our app toolbar
 
     @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_recipe_book);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        //setActionBar(toolbar);
-//        toolbar.setTitle("MealPlanner");
-//        toolbar.setTitleTextColor(Color.WHITE);
-//        toolbar.setElevation(0);
-//        setTabListeners();
-//        init();
-//    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_book);
         initToolbar();
-        opExec = new RecipeBookOps();
+        this.opExec = new RecipeBookOps();
         initLiveData();
         initRecyclerView();
         setTabListeners();
     }
 
     private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("MealPlanner");
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setElevation(0);
+        this.toolbar = (Toolbar) findViewById(R.id.toolbar);
+        this.toolbar.setTitle("MealPlanner");
+        this.toolbar.setTitleTextColor(Color.WHITE);
+        this.toolbar.setElevation(0);
     }
 
     private void initLiveData() {
@@ -62,15 +48,15 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         if (opExec.isDataReady()) {
             updateLiveData();
         }*/
-        data = opExec.getData(0);
+        this.data = this.opExec.getData(0);
     }
 
     private void initRecyclerView() {
-        if (data != null) {
-            recyclerViewAdapter = new RecyclerViewAdapter(data);
-            recipeRecyclerView = (RecyclerView) findViewById(R.id.recipeRecyclerView);
-            recipeRecyclerView.setAdapter(recyclerViewAdapter);
-            recipeRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        if (this.data != null) {
+            this.recyclerViewAdapter = new RecyclerViewAdapter(data);
+            this.recipeRecyclerView = (RecyclerView) findViewById(R.id.recipeRecyclerView);
+            this.recipeRecyclerView.setAdapter(recyclerViewAdapter);
+            this.recipeRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         } else {
             //throw new Exception("Meal Diary Linked list empty");
         }
@@ -99,37 +85,25 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         });
     }
 
-//    private void init(){
-//        MealDiaryLiveData mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class); //????
-//        //diaryOpExec = new MealDiaryOps(mealDiaryData);  //this is why its not working its cause there is 2 instances
-//        System.out.println("are we crashing here?");
-//        data = opExec.getData(0);    //gets recipe data from db
-//        System.out.println("after");
-//        recyclerViewAdapter = new RecyclerViewAdapter(data);
-//        recipeRecyclerView = (RecyclerView)findViewById(R.id.recipeRecyclerView);
-//        recipeRecyclerView.setAdapter(recyclerViewAdapter);
-//        recipeRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
-//    }
-
     @Override
     public void showContextUI(int pos) { //do a thing here to take an object as well?
-        if (pos != savedPos && saved != null) {
-            data.remove(savedPos);
-            data.add(savedPos, saved);
+        if (pos != this.savedPos && this.saved != null) {
+            this.data.remove(this.savedPos);
+            this.data.add(this.savedPos, this.saved);
         }
-        if (data.get(pos).getFragmentType() == ListItem.FragmentType.recipe) {
-            saved = data.remove(pos);
-            savedPos = pos;
-            data.add(pos, new DiaryItem(ListItem.FragmentType.cardSelection, null, null, 0));
+        if (this.data.get(pos).getFragmentType() == ListItem.FragmentType.recipe) {
+            this.saved = this.data.remove(pos);
+            this.savedPos = pos;
+            this.data.add(pos, new DiaryItem(ListItem.FragmentType.cardSelection, null, null, 0));
         } else {
-            data.remove(pos);
-            data.add(pos, saved);
-            saved = null;
+            this.data.remove(pos);
+            this.data.add(pos, this.saved);
+            this.saved = null;
         }
         //mealRecyclerView.removeViewAt(pos);
-        recyclerViewAdapter.notifyItemRemoved(pos);
-        recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
-        recyclerViewAdapter.notifyDataSetChanged();
+        this.recyclerViewAdapter.notifyItemRemoved(pos);
+        this.recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
+        this.recyclerViewAdapter.notifyDataSetChanged();
     }
 
 
