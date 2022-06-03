@@ -272,12 +272,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("adding?????");
+                //System.out.println("adding?????");
                 Context context = view.getContext();
 
                 if (context != null) {
-                    parentComm = (FragToParent)context;
-                    parentComm.addDiaryItem((DiaryItem)localDataSet.get(position));
+                    sendToRecipeBook = (FragToRecipeBook) context;
+                    sendToRecipeBook.addFoodEntry(position);
+                    //parentComm.addDiaryItem((DiaryItem)localDataSet.get(position));
                 }
             }
         });

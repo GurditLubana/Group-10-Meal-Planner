@@ -1,11 +1,20 @@
 package comp3350.team10.presentation;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -173,13 +182,11 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public void addEntry(int pos) {
-        //launch recipebook
-        //send data to ops
-        int value = 1000;
-        Intent intent = new Intent(getApplicationContext(), ActivityRecipeBook.class);
-        intent.putExtra("Name", value);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        //registerForActivityResult(intent, value);
+        //launch recipebook use ActivityResultLauncher to allow data passing
+        Intent intent = new Intent(this, ActivityRecipeBook.class);
+        int dbkey = 0;
+        intent.putExtra("DBKEY", dbkey);
+        pickMeal.launch(intent);
     }
 
     public void updateLiveData() {
@@ -199,10 +206,23 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        // TODO Auto-generated method stub
-    }
+    // GetContent creates an ActivityResultLauncher<String> to allow you to pass
+    // in the mime type you'd like to allow the user to select
+    ActivityResultLauncher<Intent> pickMeal = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // There are no request codes
+                        Intent data = result.getData();
+                        int dbkey = data.getExtras().getInt("DBKEY");
+                        System.out.println("We got back: " + dbkey);
+                        opExec.addByKey(dbkey);
+                        updateLiveData();
+                    }
+                }
+            });
+
 
 }

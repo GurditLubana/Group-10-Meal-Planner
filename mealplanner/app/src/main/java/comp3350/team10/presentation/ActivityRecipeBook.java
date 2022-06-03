@@ -1,10 +1,16 @@
 package comp3350.team10.presentation;
 
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -105,6 +111,18 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
         this.recyclerViewAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void addFoodEntry(int pos){
+        Intent intent = new Intent();
+        int dbkey = -1;
+        if(saved != null) {
+            dbkey = ((RecipeBookItem) saved).getItem().getDbkey();
+        }
+        intent.putExtra("DBKEY", dbkey); //
+        setResult(RESULT_OK, intent);
+        finish();
+    };
 
 
 }
