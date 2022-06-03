@@ -5,18 +5,18 @@ import comp3350.team10.objects.*;
 import comp3350.team10.R;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class DataAccessStub {
     private String dbName;
     private String dbType = "stub";
 
-    private ArrayList<ListItem> currentFoodLog;
+    private ArrayList<ListItem> dailyFoodLog;
+    private ArrayList<ListItem> secondDailyFoodLog;
     private ArrayList recipeTest;
-    //private ArrayList<Course> courses;
-    //private ArrayList<SC> scs;
     private ArrayList<Routine> routines;
     private ArrayList<Drink> drink;
     private ArrayList<Food> food;
@@ -44,22 +44,23 @@ public class DataAccessStub {
         //System.out.println("TIME: " + calendar.getTime());
 
         //Meal entries
-        currentFoodLog = new ArrayList<ListItem>();
-        currentFoodLog.add(new Food("Banana", R.drawable.food, 100,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 100 ));
-        currentFoodLog.add(new Food("Burger", R.drawable.food2, 800,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 500));
-        currentFoodLog.add(new Food("Bologna", R.drawable.food3, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 150));
-        currentFoodLog.add(new Food("Berry", R.drawable.food4, 10,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20));
-        currentFoodLog.add(new Food("Burrito", R.drawable.food, 300,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 400));
-        currentFoodLog.add(new Food("Bean", R.drawable.food2, 30,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 5));
-        currentFoodLog.add(new Food("Broccoli", R.drawable.food3, 20,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 120));
-        currentFoodLog.add(new Food("Biscotti", R.drawable.food4, 110,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20));
-        currentFoodLog.add(new Food("Bun", R.drawable.food, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 200));
-        currentFoodLog.add(new Food("Bell Pepper", R.drawable.food, 5,ListItem.FragmentType.diaryAdd, ListItem.Unit.g, 100));
-        //currentFoodLog.add(new Food("Salad", "myIcon", 100));
-        //System.out.println("added: " + currentFoodLog.size());
-        //mealEntry = new DiaryItem(103, ListItem.FragmentType.diaryModify, "Notfries", 500, ListItem.Unit.g, 30, "myIcon");
-        //currentFoodLog.add(mealEntry);    //this is something Josef was doing before dont wana mess with it
-
+        dailyFoodLog = new ArrayList<ListItem>();
+        dailyFoodLog.add(new Food("Banana", R.drawable.banana, 100,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 100 ));
+        dailyFoodLog.add(new Food("Burger", R.drawable.burger, 800,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 500));
+        dailyFoodLog.add(new Food("Bologna", R.drawable.bologna, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 150));
+        dailyFoodLog.add(new Food("Berry", R.drawable.berry, 10,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20));
+        dailyFoodLog.add(new Food("Burrito", R.drawable.burrito, 300,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 400));
+        dailyFoodLog.add(new Food("Bean", R.drawable.bean, 30,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 5));
+        dailyFoodLog.add(new Food("Broccoli", R.drawable.broccoli, 20,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 120));
+        dailyFoodLog.add(new Food("Biscotti", R.drawable.biscotti, 110,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20));
+        dailyFoodLog.add(new Food("Bun", R.drawable.bun, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 200));
+        dailyFoodLog.add(new Food("Risotto", R.drawable.risotto, 100,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 100 ));
+        dailyFoodLog.add(new Food("Ham", R.drawable.ham, 800,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 500));
+        dailyFoodLog.add(new Food("Pizza", R.drawable.pizza, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 150));
+        dailyFoodLog.add(new Food("Steak", R.drawable.steak, 10,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20));
+        dailyFoodLog.add(new Food("Potatoes", R.drawable.potatoes, 300,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 400));
+        dailyFoodLog.add(new Food("Carrot", R.drawable.carrot, 30,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 5));
+        dailyFoodLog.add(new Food("Bell Pepper", R.drawable.food, 0,ListItem.FragmentType.diaryAdd, ListItem.Unit.g, 100));
 //        recipeTest = new ArrayList<RecipeBookItem>();
 //        recipeEntry = new RecipeBookItem(100, ListItem.FragmentType.recipe, "Banana", 100, ListItem.Unit.g, 50, R.drawable.food);
 //        recipeTest.add(recipeEntry);
@@ -289,8 +290,22 @@ public class DataAccessStub {
         }
     }
 
-    public ArrayList<ListItem> getToday() {
-        return currentFoodLog;
+    public ArrayList<ListItem> getFoodLog(Calendar date){
+        int count = 0;
+        int index = 0;
+        ArrayList<ListItem> temp = new ArrayList<ListItem>();
+
+        if(dailyFoodLog != null){
+            temp.addAll(dailyFoodLog);
+            Collections.shuffle(temp.subList(0,14));
+            count = ThreadLocalRandom.current().nextInt(6, 14);
+            for (int i = 0; i < count; i++)
+            {
+                index = ThreadLocalRandom.current().nextInt(0, temp.size()-1);
+                temp.remove(index);
+            }
+        }
+        return temp;
     }
 
     public LinkedList<ListItem> getRecipe(int edibleType) {   //String currTab
@@ -319,9 +334,9 @@ public class DataAccessStub {
     }
 
     public void addRecipeToLog(DiaryItem item) { //Needs date added to this later, only adds to current
-        System.out.println("Before: " + currentFoodLog.size());
-        currentFoodLog.add(item);
-        System.out.println("After: " + currentFoodLog.size());
+        System.out.println("Before: " + dailyFoodLog.size());
+        dailyFoodLog.add(item);
+        System.out.println("After: " + dailyFoodLog.size());
     }
 
 }

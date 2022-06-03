@@ -21,39 +21,50 @@ import java.util.Calendar;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToMealDiary {
 
-    private LinkedList<ListItem> data;
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView mealRecyclerView;
+    private LinkedList<ListItem> data;
     private ListItem savedItem;
     private int savedItemPosition;
-    private MaterialDatePicker datePicker;
     private MealDiaryLiveData mealDiaryData;
     private MealDiaryOps opExec;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_diary);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setActionBar(toolbar);
-        toolbar.setTitle("MealPlanner");
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setElevation(0);
-        mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class);
-        opExec = new MealDiaryOps(mealDiaryData);
-        data = mealDiaryData.getMealsOnDate().getValue();
+        initToolbar();
+        opExec = new MealDiaryOps();
+        initLiveData();
         initRecyclerView();
     }
 
-    private void initRecyclerView() {
-
-        recyclerViewAdapter = new RecyclerViewAdapter(data);
-        mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
-        mealRecyclerView.setAdapter(recyclerViewAdapter);
-        mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    private void initToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("MealPlanner");
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setElevation(0);
     }
 
-    //@Override
+    private void initLiveData() {
+        mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class);
+        if (opExec.isDataReady()) {
+            updateLiveData();
+        }
+    }
+
+    private void initRecyclerView() {
+        if (data != null) {
+            recyclerViewAdapter = new RecyclerViewAdapter(data);
+            mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
+            mealRecyclerView.setAdapter(recyclerViewAdapter);
+            mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        } else {
+            //throw new Exception("Meal Diary Linked list empty");
+        }
+    }
+
     public void showContextUI(int pos) {
         System.out.println("clicked " + " " + pos);
         if (pos != savedItemPosition && savedItem != null) {
@@ -69,15 +80,16 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             data.add(pos, savedItem);
             savedItem = null;
         }
-        //mealRecyclerView.removeViewAt(pos);
         recyclerViewAdapter.notifyItemRemoved(pos);
         recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
         recyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void selectDate(){
-        System.out.println("test");
+    public void selectDate() {
+
+        MaterialDatePicker datePicker;
+
         datePicker = MaterialDatePicker.Builder
                 .datePicker()
                 .setTitleText("Select date")
@@ -91,22 +103,36 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                         Calendar selectedDate = Calendar.getInstance();
                         selectedDate.setTimeInMillis((Long) selection);
                         selectedDate.add(Calendar.DAY_OF_YEAR, 1);
-                        opExec.setDataDate(selectedDate);
+                        opExec.setListDate(selectedDate);
+                        while (!opExec.isDataReady()) {
+                        }
+                        updateLiveData();
                     }
                 });
-
     }
 
     @Override
-    public void prevDate(){
+    public void prevDate() {
         opExec.prevDate();
-    };
+        while (!opExec.isDataReady()) {
+        }
+        updateLiveData();
+    }
+
+    ;
+
     @Override
-    public void nextDate(){
+    public void nextDate() {
         opExec.nextDate();
-    };
+        while (!opExec.isDataReady()) {
+        }
+        updateLiveData();
+    }
+
+    ;
+
     @Override
-    public void setGoal(){
+    public void showGoalEntryDialog() {
         //launch goal input dialog
         //get data then send to opExec maybe do validation here or in dialog
         new FragmentMealDiaryEdit().show(
@@ -116,36 +142,55 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     @Override
-    public void setExercise(){
+    public void showExerciseEntryDialog() {
         //launch exercise input dialog
         //get data then send to opExec maybe do validation here or in dialog
+        while (!opExec.isDataReady()) {
+        }
+        updateLiveData();
     }
 
     @Override
-    public void removeItem(int pos){
-        if(data.size() > 0){
+    public void removeItem(int pos) {
+        if (data.size() > 0) {
             data.remove(pos);
             recyclerViewAdapter.notifyItemRemoved(pos);
             recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
             recyclerViewAdapter.notifyDataSetChanged();
-
+            opExec.updateList(data);
+            updateLiveData();
             //send remove command to ops
         }
     }
 
     @Override
-    public void editItem(int pos){
+    public void editItem(int pos) {
         //launch dialog
         //send data to ops
     }
 
     @Override
-    public void addEntry(int pos){
+    public void addEntry(int pos) {
         //launch recipebook
         //send data to ops
         Intent intent = new Intent(this, ActivityRecipeBook.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
+    }
+
+    public void updateLiveData() {
+        if (mealDiaryData != null && opExec != null && opExec.isDataReady()) {
+            data = opExec.getList();
+            mealDiaryData.getActivityDate().setValue(opExec.getListDate());
+            mealDiaryData.getGoalCalories().setValue(opExec.getCalorieGoal());
+            mealDiaryData.getConsumedCalories().setValue(opExec.getCalorieConsumed());
+            mealDiaryData.getExerciselCalories().setValue(opExec.getCalorieExercise());
+            mealDiaryData.getNetCalories().setValue(opExec.getCalorieNet());
+        }
+        if (recyclerViewAdapter != null) {
+            recyclerViewAdapter.changeData(data);
+            recyclerViewAdapter.notifyDataSetChanged();
+        }
     }
 
 }

@@ -1,10 +1,7 @@
 package comp3350.team10.business;
 
-import org.w3c.dom.Node;
-
 import comp3350.team10.objects.*;
 import comp3350.team10.persistence.DataAccessStub;
-import comp3350.team10.presentation.MealDiaryLiveData;
 
 import java.util.LinkedList;
 import java.util.ArrayList;
@@ -13,54 +10,71 @@ import java.util.Calendar;
 //import java.time.LocalDate;
 
 public class MealDiaryOps {
-    private MealDiaryLiveData mealDiaryLiveData;
-    private Calendar dataDate;
+    private Calendar listDate;
     private DataAccessStub db;
     private LinkedList<ListItem> todayFoodList;
-    private int calorieGoal;
+    private Integer calorieGoal;
+    private Integer calorieConsumed;
+    private Integer calorieExercise;
+    private Integer calorieNet;
     private boolean dataReady;
-    private int TotalCalories;
 
-    public MealDiaryOps(MealDiaryLiveData mealDiaryLiveData){
-        this.mealDiaryLiveData = mealDiaryLiveData;
-        this.dataDate = Calendar.getInstance();
-        init();
-    }
-
-    public void init(){
+    public MealDiaryOps(){
+        dataReady = false;
+        this.listDate = Calendar.getInstance();
+        calorieGoal = new Integer(-1);
+        calorieConsumed = new Integer(-1);
+        calorieExercise = new Integer(0);
+        calorieNet = new Integer(-1);
         db = new DataAccessStub();
         db.open("someDB");
-        ArrayList<ListItem> dbFetch = db.getToday();
-        todayFoodList = new LinkedList<ListItem>();
-        todayFoodList.addAll(dbFetch);
-
-        mealDiaryLiveData.getActivityDate().setValue(dataDate);
-        mealDiaryLiveData.getMealsOnDate().setValue(todayFoodList);
+        pullDBdata();
+        updateProgress();
+        dataReady = true;
     }
 
-    // public LinkedList getData(){
-    //     LinkedList<DiaryItem> myList = new LinkedList<DiaryItem>();
-    //     myList.addAll(db.getRecipe());
-
-    //     return myList;
-    // }
+    private void pullDBdata(){
+        ArrayList<ListItem> dbFetch = db.getFoodLog(listDate);
+        todayFoodList = new LinkedList<ListItem>();
+        todayFoodList.addAll(dbFetch);
+        calorieGoal = db.getCalorieGoal();
+    }
 
     public void addToDiary(DiaryItem item) {
         db.addRecipeToLog(item);
-        init();
     }
 
     public void nextDate(){
-        dataDate.add(Calendar.DAY_OF_YEAR, 1);
+        dataReady = false;
+        listDate.add(Calendar.DAY_OF_YEAR, 1);
+        pullDBdata();
+        updateProgress();
+        dataReady = true;
     }
 
     public void prevDate(){
-        dataDate.add(Calendar.DAY_OF_YEAR, -1);
+        dataReady = false;
+        listDate.add(Calendar.DAY_OF_YEAR, -1);
+        pullDBdata();
+        updateProgress();
+        dataReady = true;
     }
 
-    public void setDataDate(Calendar newDate){
-        dataDate = newDate;
-        mealDiaryLiveData.setActivityDate(newDate);
+    public void setListDate(Calendar newDate){
+        dataReady = false;
+        listDate = newDate;
+        pullDBdata();
+        updateProgress();
+        dataReady = true;
+    }
+
+
+    public Calendar getListDate(){
+        return listDate;
+    }
+
+    public boolean isDataReady(){
+        return dataReady;
     }
 
     public void setGoal(int newGoal){
@@ -70,22 +84,65 @@ public class MealDiaryOps {
         }
     }
 
+    public Integer getCalorieGoal(){
+        return calorieGoal;
+    }
+
+    public Integer getCalorieConsumed(){
+        return calorieConsumed;
+    }
+
+    public Integer getCalorieExercise(){
+        return calorieExercise;
+    }
+
+    public Integer getCalorieNet(){
+        return calorieNet;
+    }
+
     public LinkedList<ListItem> getList() {
         return todayFoodList;
     }
 
-    private void updateProgress(){
-        // recalculate progress
-        // push to live data
-        //
+    public void updateList(LinkedList<ListItem> newList){
+        if(newList != null){
+            todayFoodList = newList;
+            updateProgress();
+            //push to db after
+        }
     }
 
-    private void CalculateCalories(){
-        calorieGoal = 0;
+    public void setCalorieGoal(Integer newGoal){
+        if(calorieGoal == null){
+            calorieGoal = new Integer(-1);
+        }
+        if(newGoal != null && newGoal >= 0 && newGoal <=9999) {
+            calorieGoal = newGoal;
+        }
+    }
+
+    public void setCalorieExercise(Integer newExercise){
+        if(calorieExercise == null){
+            calorieExercise = new Integer(-1);
+        }
+        if(newExercise != null && newExercise >= 0 && newExercise <=9999) {
+            calorieExercise = newExercise;
+        }
+    }
+    private void updateProgress(){
+        sumCalories();
+        netCalories();
+    }
+
+    private void sumCalories(){
         if(todayFoodList != null) {
+            calorieConsumed = 0;
             for (int i = 0; i < todayFoodList.size(); i++) {
-                calorieGoal += ((Food) todayFoodList.get(i)).getCalories();
+                calorieConsumed += ((Food) todayFoodList.get(i)).getCalories();
             }
         }
+    }
+    private void netCalories(){
+        calorieNet = calorieGoal - (calorieConsumed - calorieExercise);
     }
 }

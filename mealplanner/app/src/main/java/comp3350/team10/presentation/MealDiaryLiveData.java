@@ -14,6 +14,10 @@ public class MealDiaryLiveData extends ViewModel {
     // Create a LiveData with a String
     private MutableLiveData<Calendar> activityDate;
     private MutableLiveData<LinkedList<ListItem>> mealsOnDate;
+    private MutableLiveData<Integer> goalCalories;
+    private MutableLiveData<Integer> consumedCalories;
+    private MutableLiveData<Integer> exerciselCalories;
+    private MutableLiveData<Integer> netCalories;
 
     public MutableLiveData<Calendar> getActivityDate() {
         if (activityDate == null) {
@@ -24,22 +28,37 @@ public class MealDiaryLiveData extends ViewModel {
 
     public MutableLiveData<LinkedList<ListItem>> getMealsOnDate() {
         if(mealsOnDate == null ){
-            mealsOnDate = new MutableLiveData<LinkedList<ListItem>>();
+            mealsOnDate = new MutableLiveData<LinkedList<ListItem>>(new LinkedList<ListItem>());
         }
         return mealsOnDate;
     }
 
-    public void setActivityDate(Calendar newDate) {
-        if (activityDate == null) {
-            activityDate = new MutableLiveData<Calendar>();
+    public MutableLiveData<Integer> getGoalCalories() {
+        if(goalCalories == null){
+            goalCalories = new MutableLiveData<Integer>(1500);
         }
-        activityDate.setValue(newDate);
+        return goalCalories;
     }
 
+    public MutableLiveData<Integer> getConsumedCalories() {
+        if(consumedCalories == null){
+            consumedCalories = new MutableLiveData<Integer>(1000);
+        }
+        return consumedCalories;
+    }
 
+    public MutableLiveData<Integer> getExerciselCalories() {
+        if(exerciselCalories == null){
+            exerciselCalories = new MutableLiveData<Integer>(200);
+        }
+        return exerciselCalories;
+    }
 
-    public void setMealsOnDate(LinkedList<ListItem> newData) {
-        mealsOnDate.setValue(newData);
+    public MutableLiveData<Integer> getNetCalories() {
+        if(netCalories == null){
+            netCalories = new MutableLiveData<Integer>(69);
+        }
+        return netCalories;
     }
 
     // Rest of the ViewModel...

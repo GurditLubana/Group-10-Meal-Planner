@@ -68,7 +68,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToParen
 
     private void init(){
         MealDiaryLiveData mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class); //????
-        diaryOpExec = new MealDiaryOps(mealDiaryData);  //this is why its not working its cause there is 2 instances
+        //diaryOpExec = new MealDiaryOps(mealDiaryData);  //this is why its not working its cause there is 2 instances
         System.out.println("are we crashing here?");
         data = opExec.getData(0);    //gets recipe data from db
         System.out.println("after");

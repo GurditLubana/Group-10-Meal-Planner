@@ -23,8 +23,8 @@ public abstract class Edible implements ListItem{
         this.calories += amount;
     }
 
-    public int getCalories() {
-        return this.calories;
+    public Integer getCalories() {
+        return new Integer(this.calories);
     }
 
     public String getName() {
