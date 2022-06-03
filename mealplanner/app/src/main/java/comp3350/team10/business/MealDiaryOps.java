@@ -67,7 +67,7 @@ public class MealDiaryOps {
     public boolean isDataReady() {
         return dataReady;
     }
-    
+
     public void setCalorieGoal(Integer newGoal) {
         if (newGoal != null && newGoal >= 0 && newGoal <= 9999) {
             calorieGoal = newGoal;
