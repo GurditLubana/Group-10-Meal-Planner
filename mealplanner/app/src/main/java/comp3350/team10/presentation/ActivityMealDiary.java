@@ -81,14 +81,16 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             data.remove(savedItemPosition);
             data.add(savedItemPosition, savedItem);
         }
-        if (data.get(pos).getFragmentType() == ListItem.FragmentType.diaryEntry) {
-            savedItem = data.remove(pos);
-            savedItemPosition = pos;
-            data.add(pos, new DiaryItem(ListItem.FragmentType.diaryModify, null, null, 0));
-        } else {
-            data.remove(pos);
-            data.add(pos, savedItem);
-            savedItem = null;
+        if(pos >= 0) {
+            if (data.get(pos).getFragmentType() == ListItem.FragmentType.diaryEntry) {
+                savedItem = data.remove(pos);
+                savedItemPosition = pos;
+                data.add(pos, new DiaryItem(ListItem.FragmentType.diaryModify, null, null, 0));
+            } else {
+                data.remove(pos);
+                data.add(pos, savedItem);
+                savedItem = null;
+            }
         }
         recyclerViewAdapter.notifyItemRemoved(pos);
         recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
@@ -174,8 +176,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public void editItem(int pos) {
-        //launch dialog
-        //send data to ops
+        //launch dialog fragment
         new FragmentMealDiaryEdit().show(
                 getSupportFragmentManager(), FragmentMealDiaryEdit.TAG
         );
@@ -205,6 +206,26 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             recyclerViewAdapter.changeData(data);
             recyclerViewAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public String getEntryQty(){
+        return String.valueOf(savedItem.getQuantity());
+    }
+
+    @Override
+    public ListItem.Unit getEntryUnit(){
+        return savedItem.getBaseUnit();
+    }
+
+    @Override
+    public void setEntryQty(Integer amount, String unit){
+        //TODO call the unit converter first
+        ((Edible) savedItem).setQuantity(amount);
+        ((Edible) savedItem).setBaseUnit(ListItem.Unit.valueOf(unit));
+        showContextUI(-1);
+        opExec.updateList(data);
+        updateLiveData();
     }
 
     // GetContent creates an ActivityResultLauncher<String> to allow you to pass

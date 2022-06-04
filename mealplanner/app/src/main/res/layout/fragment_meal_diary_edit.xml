@@ -64,10 +64,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editTextNumber"
+                android:id="@+id/inputQty"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="72dp"
+                android:layout_marginStart="76dp"
                 android:inputType="number"
                 android:text="Amount"
                 android:textAlignment="textEnd"
@@ -75,21 +75,15 @@
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dialogTitle"
-                app:layout_constraintVertical_bias="0.533" />
+                app:layout_constraintVertical_bias="0.531" />
 
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView2"
+            <Spinner
+                android:id="@+id/inputUnit"
                 android:layout_width="120dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="8dp"
-                android:dropDownHeight="wrap_content"
-                android:dropDownSelector="?colorSecondaryVariant"
-                android:text="oz"
-                android:textAlignment="center"
-                android:textColor="?colorOnPrimary"
-                app:layout_constraintBottom_toBottomOf="@+id/editTextNumber"
-                app:layout_constraintStart_toEndOf="@+id/editTextNumber"
-                app:layout_constraintTop_toTopOf="@+id/editTextNumber" />
+                app:layout_constraintBottom_toBottomOf="@+id/inputQty"
+                app:layout_constraintStart_toEndOf="@+id/inputQty"
+                app:layout_constraintTop_toTopOf="@+id/inputQty" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

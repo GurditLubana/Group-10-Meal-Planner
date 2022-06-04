@@ -2,6 +2,8 @@ package comp3350.team10.presentation;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,9 +14,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import comp3350.team10.R;
+import comp3350.team10.objects.ListItem;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +28,7 @@ import comp3350.team10.R;
  * create an instance of this fragment.
  */
 public class FragmentMealDiaryEdit extends DialogFragment {
+    FragToMealDiary send;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,17 +79,79 @@ public class FragmentMealDiaryEdit extends DialogFragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_meal_diary_edit, null);
         builder.setView(view);
 
+        setFieldDefaults(view);
+        setOnClickListeners(view);
+
         return builder.create();
     }
 
     public static String TAG = "EditMealEntryDialog";
 
     private void setFieldDefaults(View view){
+        ListItem.Unit unit = ListItem.Unit.serving;
+        ArrayAdapter<String> adapter = null;
+        Context context = view.getContext();
+        Spinner inputSpinner = null;
+        EditText entryBox = null;
+        String quantity = "null";
+        int size = ListItem.Unit.values().length;
+        String[] items = new String[size];
 
+        for(int i = 0; i < size; i++){
+            items[i] = ListItem.Unit.values()[i].name();
+        }
+
+        adapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, items);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        if (context != null) {
+            send = (FragToMealDiary) context;
+            quantity = send.getEntryQty();
+            unit = send.getEntryUnit();
+            entryBox = (EditText) view.findViewById(R.id.inputQty);
+            entryBox.setText(quantity);
+
+            inputSpinner = (Spinner) view.findViewById(R.id.inputUnit);
+            inputSpinner.setAdapter(adapter);
+            inputSpinner.setSelection(adapter.getPosition(unit.name()));
+
+        }
     }
 
     private void setOnClickListeners(View view){
         Button btnOk = (Button) view.findViewById(R.id.btnOK);
         Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+
+        btnOk.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                EditText entryBox = (EditText) view.findViewById(R.id.inputQty);
+                Integer value = Integer.parseInt(entryBox.getText().toString());
+                Spinner inputSpinner = (Spinner) view.findViewById(R.id.inputUnit);
+                Context context = view.getContext();
+                if(value < 0 || value > 9999){
+                    entryBox.setError("Invalid input must be between 0 and 9999 inclusive");
+                }
+                else {
+
+                    if (context != null) {
+                        send = (FragToMealDiary) context;
+                        send.setEntryQty(value, (String) inputSpinner.getSelectedItem());
+                        dismiss();
+                    }
+                }
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                dismiss();
+            }
+        });
     }
 }

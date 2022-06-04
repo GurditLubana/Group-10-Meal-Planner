@@ -25,10 +25,10 @@ import java.util.Calendar;
  * create an instance of this fragment.
  */
 public class FragmentDailyProgress extends Fragment {
-    FragToMealDiary send;
     MealDiaryLiveData mealDiaryLiveData;
     private SimpleDateFormat mon ;
     private SimpleDateFormat day ;
+    FragToMealDiary send;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,9 +75,6 @@ public class FragmentDailyProgress extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_daily_progress, container, false);
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_daily_progress, container, false);
         setClickListeners(view);
 
@@ -88,11 +85,11 @@ public class FragmentDailyProgress extends Fragment {
     }
 
     private void setClickListeners(View view){
-        TextView dateProgress = (TextView) view.findViewById(R.id.dateProgress);
         ImageButton prevDateProgress = (ImageButton) view.findViewById(R.id.prevDateProgress);
         ImageButton nextDateProgress = (ImageButton) view.findViewById(R.id.nextDateProgress);
-        TextView goalCalorie = (TextView) view.findViewById(R.id.goalCalorie);
         TextView exerciseProgress = (TextView) view.findViewById(R.id.exerciseProgress);
+        TextView dateProgress = (TextView) view.findViewById(R.id.dateProgress);
+        TextView goalCalorie = (TextView) view.findViewById(R.id.goalCalorie);
 
         dateProgress.setOnClickListener(new View.OnClickListener()
         {
