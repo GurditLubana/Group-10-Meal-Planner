@@ -47,7 +47,7 @@ public class MealDiaryOps {
         ArrayList<ListItem> dbFetch = db.getFoodList(listDate);
         todayFoodList = new LinkedList<ListItem>(dbFetch);
         calorieGoal = db.getCalorieGoal();
-        calorieExercise = 0; //fetch from db
+        calorieExercise = db.getExerciseActual();
     }
 
     public void addToDiary(Edible item) {
