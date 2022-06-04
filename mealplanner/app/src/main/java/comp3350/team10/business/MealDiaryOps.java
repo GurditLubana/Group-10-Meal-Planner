@@ -3,7 +3,6 @@ package comp3350.team10.business;
 import comp3350.team10.objects.*;
 import comp3350.team10.persistence.DataAccessStub;
 
-import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,7 +10,7 @@ import java.util.Calendar;
 public class MealDiaryOps {
     private Integer MAX_PROGRESS = 100;
     private Integer GOAL_LIMIT = 9999;
-    private Integer MAX_EXCESS = 25;
+    private Integer MAX_EXCESS = 100;
     private Integer DATE_LIMIT = 2;
     private Integer INCREMENT = 1;
     private Integer DEFAULT = -1;
@@ -45,8 +44,8 @@ public class MealDiaryOps {
     }
 
     private void pullDBdata() {
-        ArrayList<ListItem> dbFetch = db.getFoodLog(listDate);
-        todayFoodList.addAll(dbFetch);
+        ArrayList<ListItem> dbFetch = db.getFoodList(listDate);
+        todayFoodList = new LinkedList<ListItem>(dbFetch);
         calorieGoal = db.getCalorieGoal();
         calorieExercise = 0; //fetch from db
     }
@@ -56,36 +55,35 @@ public class MealDiaryOps {
     }
 
     public void nextDate() {
-        dataReady = false;
         listDate.add(Calendar.DAY_OF_YEAR, INCREMENT);
-        pullDBdata();
-        updateProgress();
-        dataReady = true;
+        dateChangedUpdateList();
     }
 
     public void prevDate() {
-        dataReady = false;
         listDate.add(Calendar.DAY_OF_YEAR, -INCREMENT);
-        pullDBdata();
-        updateProgress();
-        dataReady = true;
+        dateChangedUpdateList();
     }
 
     public void setListDate(Calendar newDate) {
         int diff = listDate.get(Calendar.YEAR) - newDate.get(Calendar.YEAR);
         if(diff <= DATE_LIMIT && diff >= -DATE_LIMIT) {
-            dataReady = false;
             listDate = newDate;
-            pullDBdata();
-            updateProgress();
-            dataReady = true;
+            dateChangedUpdateList();
         }
+    }
+
+    private void dateChangedUpdateList(){
+        dataReady = false;
+        db.updateSelectedFoodLogFoodList(new ArrayList<>(todayFoodList));
+        pullDBdata();
+        updateProgress();
+        dataReady = true;
     }
 
     public void setCalorieGoal(Integer newGoal) {
         if (newGoal != null && newGoal >= 0 && newGoal <= GOAL_LIMIT) {
             calorieGoal = newGoal;
-            //push to db
+            db.setCalorieGoal(newGoal);
             updateProgress();
         }
     }
@@ -93,7 +91,7 @@ public class MealDiaryOps {
     public void setCalorieExercise(Integer newExercise) {
         if (newExercise != null && newExercise >= 0 && newExercise <= GOAL_LIMIT) {
             calorieExercise = newExercise;
-            //push to db
+            db.setExerciseActual(newExercise);
             updateProgress();
         }
     }
@@ -101,8 +99,8 @@ public class MealDiaryOps {
     public void updateList(LinkedList<ListItem> newList) {
         if (newList != null) {
             todayFoodList = newList;
+            db.updateSelectedFoodLogFoodList(new ArrayList<>(newList));
             updateProgress();
-            //push to db after
         }
     }
 

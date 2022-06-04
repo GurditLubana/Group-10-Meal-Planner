@@ -173,7 +173,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             recyclerViewAdapter.notifyDataSetChanged();
             opExec.updateList(data);
             updateLiveData();
-            //send remove command to ops
         }
     }
 
@@ -181,8 +180,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     public void addEntry(int pos) {
         //launch recipebook use ActivityResultLauncher to allow data passing
         Intent intent = new Intent(this, ActivityRecipeBook.class);
-        int dbkey = 0;
-        intent.putExtra("DBKEY", dbkey);
+        //use this if need to pass information to activity being launched
+        //intent.putExtra("DBKEY", 0);
         pickMeal.launch(intent);
     }
 
@@ -205,12 +204,12 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public String getEntryQty(){
-        return String.valueOf(savedItem.getQuantity());
+        return String.valueOf(((Edible) savedItem).getQuantity());
     }
 
     @Override
     public ListItem.Unit getEntryUnit(){
-        return savedItem.getBaseUnit();
+        return ((Edible) savedItem).getBaseUnit();
     }
 
     @Override
