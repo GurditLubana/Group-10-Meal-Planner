@@ -15,4 +15,8 @@ public interface FragToMealDiary {
     public String getEntryQty();
     public ListItem.Unit getEntryUnit();
     public void setEntryQty(Integer amount, String unit);
+    public String getExerciseCalories();
+    public void setExerciseCalories(Integer value);
+    public String getGoalCalories();
+    public void setGoalCalories(Integer value);
 }

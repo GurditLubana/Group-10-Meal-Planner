@@ -131,8 +131,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         updateLiveData();
     }
 
-    ;
-
     @Override
     public void nextDate() {
         opExec.nextDate();
@@ -141,23 +139,28 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         updateLiveData();
     }
 
-    ;
+    @Override
+    public void editItem(int pos) {
+        //launch dialog fragment
+        new FragmentMealDiaryEdit().show(
+                getSupportFragmentManager(), FragmentMealDiaryEdit.TAG
+        );
+    }
 
     @Override
     public void showGoalEntryDialog() {
-        //launch goal input dialog
-        //get data then send to opExec maybe do validation here or in dialog
-
-
+        //launch dialog fragment
+        new FragmentGoalEntry().show(
+                getSupportFragmentManager(), FragmentGoalEntry.TAG
+        );
     }
 
     @Override
     public void showExerciseEntryDialog() {
-        //launch exercise input dialog
-        //get data then send to opExec maybe do validation here or in dialog
-        while (!opExec.isDataReady()) {
-        }
-        updateLiveData();
+        //launch dialog fragment
+        new FragmentExerciseEntry().show(
+                getSupportFragmentManager(), FragmentExerciseEntry.TAG
+        );
     }
 
     @Override
@@ -172,14 +175,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             updateLiveData();
             //send remove command to ops
         }
-    }
-
-    @Override
-    public void editItem(int pos) {
-        //launch dialog fragment
-        new FragmentMealDiaryEdit().show(
-                getSupportFragmentManager(), FragmentMealDiaryEdit.TAG
-        );
     }
 
     @Override
@@ -225,6 +220,28 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         ((Edible) savedItem).setBaseUnit(ListItem.Unit.valueOf(unit));
         showContextUI(-1);
         opExec.updateList(data);
+        updateLiveData();
+    }
+
+    @Override
+    public String getExerciseCalories(){
+        return opExec.getCalorieExercise().toString();
+    }
+
+    @Override
+    public void setExerciseCalories(Integer value){
+        opExec.setCalorieExercise(value);
+        updateLiveData();
+    }
+
+    @Override
+    public String getGoalCalories(){
+        return opExec.getCalorieGoal().toString();
+    }
+
+    @Override
+    public void setGoalCalories(Integer value){
+        opExec.setCalorieGoal(value);
         updateLiveData();
     }
 

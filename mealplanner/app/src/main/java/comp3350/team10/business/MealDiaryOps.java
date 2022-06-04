@@ -86,6 +86,7 @@ public class MealDiaryOps {
         if (newGoal != null && newGoal >= 0 && newGoal <= GOAL_LIMIT) {
             calorieGoal = newGoal;
             //push to db
+            updateProgress();
         }
     }
 
@@ -93,6 +94,7 @@ public class MealDiaryOps {
         if (newExercise != null && newExercise >= 0 && newExercise <= GOAL_LIMIT) {
             calorieExercise = newExercise;
             //push to db
+            updateProgress();
         }
     }
 
