@@ -14,10 +14,10 @@ public class DataAccessStub {
     private String dbName;
     private String dbType = "stub";
 
-    private ArrayList<ArrayList<ListItem>> dbFoodLog = new ArrayList<ArrayList<ListItem>>();
     private ArrayList<ListItem> secondDailyFoodLog = new ArrayList<ListItem>();
     private ArrayList<ListItem> dailyFoodLog = new ArrayList<ListItem>();
     private ArrayList<Routine> routines = new ArrayList<Routine>();
+    private ArrayList<ArrayList> dbFoodLog = new ArrayList<>();
     private ArrayList<Drink> drink = new ArrayList<Drink>();
     private ArrayList<Food> food = new ArrayList<Food>();
     private ArrayList<Meal> meal = new ArrayList<Meal>();
@@ -76,9 +76,17 @@ public class DataAccessStub {
 
     public ArrayList<ListItem> getFoodLog(Calendar date){
         ArrayList<ListItem> temp = new ArrayList<ListItem>();
+        ArrayList<ListItem> dbEntry = null;
+        int currDay = calendar.DAY_OF_YEAR;
+        int requestDay = date.DAY_OF_YEAR;
+        int currYear = calendar.YEAR;
+        int requestYear = date.YEAR;
         int count = 0;
         int index = 0;
 
+        if(dbFoodLog.size() > 0) {
+
+        }
         if(dailyFoodLog != null){
             temp.addAll(dailyFoodLog);
             Collections.shuffle(temp.subList(0,14));
@@ -90,6 +98,12 @@ public class DataAccessStub {
             }
         }
         return temp;
+    }
+
+    private ArrayList<ListItem> randomLog(Calendar date){
+        ArrayList<ListItem> result = null;
+
+        return result;
     }
 
     public LinkedList<ListItem> getRecipe(int edibleType) {   //String currTab

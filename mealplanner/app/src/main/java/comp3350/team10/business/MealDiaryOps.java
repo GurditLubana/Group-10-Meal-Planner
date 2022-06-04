@@ -30,6 +30,7 @@ public class MealDiaryOps {
         ArrayList<ListItem> dbFetch = db.getFoodLog(listDate);
         todayFoodList.addAll(dbFetch);
         calorieGoal = db.getCalorieGoal();
+        calorieExercise = 0; //fetch from db
     }
 
     public void addToDiary(Edible item) {
