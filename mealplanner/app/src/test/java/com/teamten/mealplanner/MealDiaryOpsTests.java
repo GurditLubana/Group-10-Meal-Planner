@@ -5,13 +5,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Calendar;
-
 import comp3350.team10.business.MealDiaryOps;
 
-
-
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -75,6 +72,78 @@ public class MealDiaryOpsTests {
         @Test
         void initial_list(){
             assertTrue(ops.getList() != null);
+        }
+    }
+
+    @Nested
+    @DisplayName("Date traversal")
+    class date {
+        MealDiaryOps ops;
+        Calendar currDate;
+
+        @BeforeEach
+        void setup() {
+            ops = new MealDiaryOps();
+            currDate = (Calendar) ops.getListDate().clone();
+        }
+
+        @Test
+        @DisplayName("prevDate Should Decrement Date by 1")
+        void prev(){
+            long diff = 0;
+            for(int i = 1; i < 6; i++) {
+                ops.prevDate();
+                diff = ChronoUnit.DAYS.between(currDate.toInstant(), ops.getListDate().toInstant());
+                assertEquals(diff, -i);
+            }
+        }
+
+        @Test
+        @DisplayName("nextDate Should Increment Date by 1")
+        void next(){
+            long diff = 0;
+            for(int i = 1; i < 6; i++) {
+                ops.nextDate();
+                diff = ChronoUnit.DAYS.between(currDate.toInstant(), ops.getListDate().toInstant());
+                assertEquals(diff, i);
+            }
+        }
+
+        @Test
+        @DisplayName("prevDate nextDate can return to a previous date")
+        void prevnext(){
+            long diff = 0;
+            for(int i = 1; i < 6; i++) {
+                ops.prevDate();
+                diff = ChronoUnit.DAYS.between(currDate.toInstant(), ops.getListDate().toInstant());
+                assertEquals(diff, -i);
+            }
+            for(int i = 4; i > 0; i--) {
+                ops.nextDate();
+                diff = ChronoUnit.DAYS.between(currDate.toInstant(), ops.getListDate().toInstant());
+                assertEquals(diff, -i);
+            }
+
+        }
+        @Test
+        @DisplayName("we should be able to set a date within 2 years")
+        void anydate(){
+            long diff = 0;
+            Calendar newDate = Calendar.getInstance();
+            Calendar testDate = Calendar.getInstance();
+            newDate.set(2020, 12, 1);
+            testDate.set(2020, 12, 1);
+            diff = ChronoUnit.DAYS.between(currDate.toInstant(), ops.getListDate().toInstant());
+            assertEquals(diff, 0);
+
+            ops.setListDate(newDate);
+            diff = ChronoUnit.DAYS.between(testDate.toInstant(), ops.getListDate().toInstant());
+            assertEquals(diff, 0);
+
+            newDate.set(2024, 4, 1);
+            testDate.set(2024, 4, 1);
+            diff = ChronoUnit.DAYS.between(testDate.toInstant(), ops.getListDate().toInstant());
+            assertEquals(diff, 0);
         }
     }
 
