@@ -3,6 +3,8 @@ package comp3350.team10.business;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.Food;
 import comp3350.team10.objects.ListItem;
 import comp3350.team10.objects.RecipeBookItem;
 import comp3350.team10.persistence.DataAccessStub;
@@ -48,4 +50,26 @@ public class RecipeBookOps {
         System.out.println("returning data");
         return data;
     }
+
+    public void insertItem(int specDataSet, Food item)
+    {
+        if(specDataSet == FOOD_TAB) {
+
+            db.insertItem(0,item);
+        }
+        else if(specDataSet == MEAL_TAB) {
+
+            this.meals.add(item);
+
+        }
+        else if(specDataSet == DRINK_TAB) {
+
+            this.drinks.add(item);
+
+
+        }
+
+    }
+
+
 }

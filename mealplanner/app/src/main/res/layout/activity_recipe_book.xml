@@ -41,6 +41,7 @@
             android:layout_height="match_parent">
 
             <SearchView
+
                 android:id="@+id/searchView"
                 android:layout_width="400dp"
                 android:layout_height="50dp"
@@ -95,9 +96,10 @@
         android:background="?colorPrimaryVariant"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_nav"
@@ -107,5 +109,66 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+       />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/openButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:clickable="true"
+        app:fabCustomSize="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.853"
+        app:rippleColor="@color/purple_200"
+        android:backgroundTint="@color/teal_200"
+        app:maxImageSize="@dimen/fab_margin"
+
+
+        app:srcCompat="@drawable/ic_open" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="invisible"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.719"
+        app:fabCustomSize="100dp"
+        app:rippleColor="@color/purple_200"
+        android:backgroundTint="@color/teal_200"
+        app:maxImageSize="@dimen/fab_margin"
+        app:srcCompat="@drawable/ic_add" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/editButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:backgroundTint="@color/teal_200"
+        android:scaleType="center"
+        android:visibility="invisible"
+        app:fabCustomSize="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.586"
+        app:maxImageSize="@dimen/fab_margin"
+        app:rippleColor="@color/purple_200"
+        app:srcCompat="@drawable/ic_edit">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

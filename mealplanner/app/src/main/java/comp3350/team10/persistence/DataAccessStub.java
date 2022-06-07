@@ -1,6 +1,13 @@
 package comp3350.team10.persistence;
 
+import android.content.Intent;
+import android.view.View;
+import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import comp3350.team10.application.Main;
+import comp3350.team10.presentation.AddRecipe;
 import comp3350.team10.objects.*;
 import comp3350.team10.R;
 import java.util.ArrayList;
@@ -10,7 +17,7 @@ import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
 
-public class DataAccessStub {
+public class DataAccessStub  {
     private String dbName;
     private String dbType = "stub";
 
@@ -23,6 +30,8 @@ public class DataAccessStub {
     private ArrayList<Meal> meal;
     private int calorieGoal;
     private int exerciseGoal;
+
+
 
     public DataAccessStub(String dbName) {
         this.dbName = dbName;
@@ -190,7 +199,7 @@ public class DataAccessStub {
 //        System.out.println("added drinks...");
 //
         food = new ArrayList<Food>();
-        food.add(new Food("apple", R.drawable.apple, 20, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 24));
+       //food.add(new Food("apple", R.drawable.apple, 20, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 24));
         food.add(new Food("pear", R.drawable.pear, 50, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 25));
         food.add(new Food("cracker", R.drawable.cracker, 10, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 26));
         food.add(new Food("grain of rice", R.drawable.rice, 5, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 27));
@@ -260,6 +269,9 @@ public class DataAccessStub {
         //System.out.println("Cached recipes");
 
         //System.out.println("Opened " + dbType + " database " + dbName);
+
+
+
     }
 
     public void close() {
@@ -331,10 +343,40 @@ public class DataAccessStub {
         return currEdibles;
     }
 
+
+    public void insertItem(int specDataSet, Food item)
+    {
+        if(specDataSet == 0) {
+
+
+            food.add(new Food("apple", R.drawable.apple, 20, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 24));
+            System.out.println("Hello world");
+//            food.add((Food) item);
+        }
+//        else if(specDataSet == 1) {
+
+//
+//            meal.add((Meal) item);
+//
+//        }
+//        else if(specDataSet == 2) {
+//
+//            drink.add((Drink) item);
+//
+//
+//        }
+
+    }
+
+
     public void addRecipeToLog(DiaryItem item) { //Needs date added to this later, only adds to current
         System.out.println("Before: " + dailyFoodLog.size());
         dailyFoodLog.add(item);
         System.out.println("After: " + dailyFoodLog.size());
+
     }
+
+
+
 
 }
