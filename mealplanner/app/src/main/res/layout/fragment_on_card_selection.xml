@@ -20,7 +20,7 @@
         android:maxWidth="140dp"
         android:minWidth="140dp"
         android:minHeight="200dp"
-        app:cardBackgroundColor="?colorSecondaryVariant"
+        app:cardBackgroundColor="?colorSecondary"
         app:cardCornerRadius="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

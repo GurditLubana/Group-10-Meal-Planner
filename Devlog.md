@@ -56,6 +56,27 @@ Attendees:
  Decision:  
 Rationale:  
 
+### 2022 Jun 02
+Attendees:  
+- Dane
+- Josef
+- Manraj
+- Zhou
+- Gurdit
+
+    Topic: iter1 requirements, coding standard  
+ Decision:  
+Rationale:  
+
+### 2022 Jun 02
+Attendees:  
+- Josef
+- Manraj
+
+    Topic: Working meeting Dialog Fragments  
+ Decision:  
+Rationale:  
+
 
 
 ## Dev tasks  
@@ -224,35 +245,65 @@ Estimate: 2hrs
     Desc: Build detailed meal information page
 Estimate: 4hrs  
   Actual:   
-     Dev: Gurdit, Dane, Josef 
+     Dev: Gurdit, Dane, Josef  
      
 ##### Task 17
    Title: Recipe book business logic  
     Desc: Build Business logic for pulling data from db  
-Estimate: 
-  Actual:  
+Estimate: 8hrs   
+  Actual: 16hrs   
      Dev: Dane, Josef  
      
 ##### Task 18
    Title: Recipe book stub data  
     Desc: Implement stub database for recipe book  
-Estimate: 
-  Actual:  
-     Dev: Dane Josef 
+Estimate: 4hrs  
+  Actual: 12hrs   
+     Dev: Dane Josef  
      
 ##### Task 19
    Title: Recipe book stub drinks data  
     Desc: Implement stub database for recipe book  
 Estimate: 
   Actual:  
-     Dev: Dane 
-     
+     Dev: Dane  
+
 ##### Task 20
    Title: Recipe book detailed view  
-    Desc: Implement drink slider 
-Estimate: 
+    Desc: UI prototype layout  
+Estimate: 4hrs   
+  Actual:   
+     Dev: Gurdit  
+
+##### Task 21
+   Title: Recipe book detailed view   
+    Desc: UI elements recyclerview   
+Estimate: 4hrs  
   Actual:  
-     Dev: Dane 
+     Dev: Gurdit  
+     
+##### Task 22
+   Title: Recipe book detailed view   
+    Desc: Implement drink slider  
+Estimate: 4hrs  
+  Actual:  
+     Dev: Dane  
+     
+##### Task 23
+   Title: Stub db  
+    Desc: Implement daily food log db stub data and accessors  
+Estimate: 4hrs  
+  Actual: 8hrs   
+     Dev: Josef  
+     
+##### Task 24
+   Title: MealDiaryOps Unit testing  
+    Desc: Implement class unit testing
+Estimate: 8hrs  
+  Actual:    
+     Dev: Josef
+
+
 
 ### Big story 2 : Progress tracking  
 As a user I would like to be able to set calorie goals and see my progress towards those goals.  
@@ -269,81 +320,86 @@ Estimate: 4hrs
    Title: progress bar logic   
     Desc: implement business logic to get/ calculate current progress  
 Estimate: 4hrs  
-  Actual:   
-     Dev: Josef   
+  Actual: 8hrs    
+     Dev: Josef    
 
 ##### Task 03
    Title: progress bar on click   
-    Desc: implement click listener and modal to modify goal and recalc progress if necessary
+    Desc: implement click listener and modal to modify goal and recalc progress if necessary  
 Estimate: 4hrs   
-  Actual:  
-     Dev: Josef   
+  Actual: 8hrs   
+     Dev: Josef    
 
 ##### Task 04
-   Title: Charts 
-    Desc: Build charts page UI
+   Title: Charts   
+    Desc: Build charts page UI  
 Estimate:  
   Actual:  
      Dev:  
 
 ##### Task 05
    Title: Charts business logic   
-    Desc: implement business logic to pull data and calculate stats
+    Desc: implement business logic to pull data and calculate stats  
 Estimate:  
   Actual:  
      Dev:  
 
 
-
-
-
 ### Big story 3 : Viewing the meal plan  
-As a user I would like to be able to view my meal plan to see an overview of my  
-current, past, or future meal schedule and the expected calories for any plan I am viewing.  
-Priority – High                                                        Cost - 6 days   
+As a user I would like to be able to view my meal plan to see an overview of my   
+current, past, or future meal schedule and the expected calories for any plan I am viewing.   
+Priority – High                                                        Cost - 6 days    
 
 
 #### Task 01
-   Title: Show Current Date being viewed
-    Desc: Add date box in appbar for Meal diary with arrows  
-Estimate: 4hrs
-  Actual: 4hrs
-     Dev: Josef 
+   Title: Show Current Date being viewed   
+    Desc: Add date box in appbar for Meal diary with arrows    
+Estimate: 4hrs  
+  Actual: 4hrs   
+     Dev: Josef  
 
 #### Task 02
-   Title: Date selector  
-    Desc: When date is clicked show a month modal to allow date selection  
-Estimate: 2hrs  
-  Actual: 2hrs  
-     Dev: Josef  
+   Title: Date selector   
+    Desc: When date is clicked show a month modal to allow date selection    
+Estimate: 2hrs    
+  Actual: 4hrs   
+     Dev: Josef    
 
 #### Task 03
-   Title: Show Current Date being viewed
-    Desc: Add date box in appbar for Meal diary  
-Estimate: 4hrs
-  Actual: 4hrs
-     Dev: Josef
+   Title: Show Current Date being viewed   
+    Desc: Add date box in appbar for Meal diary    
+Estimate: 4hrs   
+  Actual: 4hrs   
+     Dev: Josef  
 
 #### Task 04
-   Title: Date selector   
+   Title: Date selection   
     Desc: When a new date is selected request LiveData update   
-Estimate: 4hrs   
-  Actual: 4hrs 
-     Dev: Josef  
+Estimate: 4hrs    
+  Actual: 4hrs   
+     Dev: Josef   
+
+#### Task 05
+   Title: Date selector buttons  
+    Desc: Left right buttons to traverse dates  
+Estimate: 4hrs    
+  Actual: 4hrs  
+     Dev: Josef   
+
 
 
 
 ### Big story 4 : Social Media
 As a user I would like to be able invite my friends, compare progress and  
-share meal plans on social media.
+share meal plans on social media.  
 Priority – High                                                        Cost - 6 days   
 
 #### Task 01
-   Title: Social UI  
-    Desc: Build UI for social page
-Estimate:
-  Actual:
-     Dev: Gurdit
+   Title: Social UI   
+    Desc: Build UI for social page  
+Estimate:  
+  Actual:  
+     Dev: Gurdit  
 
 
 
@@ -352,7 +408,134 @@ Estimate:
 ## Dev Log
 
 
+### 2022-05-22
+     Dev: Josef   
+Duration: 1hrs  
+    Task:  
+    - Empty Android project Added to repo   
+
+### 2022-05-23
+     Dev: Josef   
+Duration: 4hrs  
+    Task:  
+    - Fixed build.gradle issues to work with sdk 29 compiler and sdk23 minimum target version   
+    - Created Meal Diary Activity  
+    - Implemented launching of an activity from another screen via button click  
+
+### 2022-05-24
+     Dev: Josef   
+Duration: 4hrs  
+    Task:  
+    - Header Footer fragments use theme colors  
+    - Switched progress bar fragment from relative layout to constraint layout  
+    - Added material UI icons to project  
+    - Experiment with fragments as Meal diary entries in a RecyclerView  
+    - Meal Diary entry log fragment UI layout updated   
+    - Meal Diary modification context fragment UI layout updated   
+
+### 2022-05-26
+     Dev: Josef   
+Duration: 8hrs  
+    Task:  
+    - Updated project folders to match class example  
+    - Added required import statements to match new folder structure  
+    - Working proof of concept card fragments for recyclerview     
+    - Meal Diary entry log fragment UI layout updated  
+    - Meal Diary modification context fragment UI layout updated  
+    - recycler view adapter will now use a linkedlist instead of a string array  
+    - Navigation Fragment buttons now have click listener stubs  
+    
+### 2022-05-27
+     Dev: Josef   
+Duration: 2hrs  
+    Task:  
+    - DevLog updated    
+
 ### 2022-05-28
-     Dev: Josef
-Duration: 4hrs
-    Task: Create FragToParent interface for passing clicks/data between fragment and parent activity
+     Dev: Josef   
+Duration: 8hrs  
+    Task:  
+    - DevLog Updated  
+    - prototype stub data for meal diary  
+    - Implemented recycler view adapter that can handle multiple card layouts     
+    - Implemented showing a context UIO when a  meal diary entry is clicked  
+    - Meal Diary entry logs now shows stub data  
+    - Eggplant placeholder  
+    - Bug Fix - only one entry should be allowed to have a context UI open  
+    - Bug Fix - clicking a meal entry after scrolling would cause an app crash  
+    - Bug Fix - clicking any entry that isn't the first entry on diary load causes an app crash  
+    - recycler view adapter code cleanup
+
+### 2022-05-29
+     Dev: Josef   
+Duration: 2hrs  
+    Task:  
+    - Create FragToParent interface for passing clicks/data between fragment and parent activity   
+    - Added material date picker dialog on click of Meal Diary Date  
+    - added icons of food  
+    - added material design icons for UI navigation and context menus  
+
+### 2022-05-30
+     Dev: Josef  
+Duration: 8hrs   
+    Tasks:  
+    - Android mutable Live Data objects to allow observer pattern updating of UI components  
+    - Incorporated elements from Gurdit recipe book and detailed view design into the project  
+    - Fixed bug Material date picker sends date off by one  
+    - Created square card UI for recyclerview grid layout  
+    - Created Recipe detailed view based on Gurdit's design  
+    - tab click listener stub method  
+    - ActivityMealDiary uses MealDiaryOps to interact with MealDiaryLiveData  
+    - ActivityMealDiary FragmentDailyProgress observes MealDiaryLiveData and updates its textview  
+    - Devlog updated  
+    - Refactored file names so they are organized by function  
+
+### 2022-06-01
+     Dev: Josef  
+Duration: 1hrs   
+    Tasks:  
+    - Refactor, moved live data with Android dependency to persistence package   
+    - created a listening interface for Meal diary to get data from fragments  
+    - created separate FragToMealDiary interface  
+
+### 2022-06-02
+     Dev: Josef, Manraj  
+Duration: 6hrs   
+    Tasks:   
+    - Completed Dialog fragment for calorie goal entry    
+    - Crude history retention of default day meal log  
+    - The progress bar itself will update when the items in the diary changes  
+    - ProgressBar fragment arrows now increment/decrement by one day  
+    - Pulled Manraj Branch into Meal Diary to use dialog fragment  
+    - Added more stub data to stub db  
+    - Implemented functionality for the delete ison in the meal Diary  
+
+### 2022-06-03
+     Dev: Josef  
+Duration: 8hrs  
+    Tasks:  
+    - Created Unit tests for MealDiaryOps   
+    - Implemented adding of meal entries in the diary via dd button   
+    - Implemented displaying data of pulled recipebook items in the UI   
+    - DB stuff refactoring to work with meal diary, icons, dbkeys  
+    - Created UI meal diary dialog   
+    - Separated recycler view adapter for Meal Diary and Recipe Book   
+    - created alternate card context UI for recipebook   
+    - Activity exit listener and integer passing between activities   
+
+### 2022-06-04
+     Dev: Josef  
+Duration: 8hrs  
+    Tasks:  
+    - Created Unit test for MealDiaryOps  
+    - Refactored database stub  
+    - Add dbFoodLog to story user daily meal entries  
+    - Added ond db open dbFoodlog generation functions  
+    - Added dbFoodlog getter setter methods  
+    - Added shuffling of recipebook items  
+    - Added persistence within session of user logging activities  
+    - Implemented Progress fragment input dialogs  
+    - Implemented meal entry edit input dialog   
+    - Redesigned alternate recipe book card context UI
+
+
