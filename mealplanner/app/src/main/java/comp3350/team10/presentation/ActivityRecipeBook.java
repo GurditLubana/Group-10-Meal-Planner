@@ -193,6 +193,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                 currTab = tab.getPosition();
                 data = opExec.getData(tab.getPosition());
 
+                System.out.println("********************** " + data.size());
                 recyclerViewAdapter.changeData(data);
             }
 
@@ -261,8 +262,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                 Food food = new Food(fName,R.drawable.apple, 4, ListItem.FragmentType.recipe, ListItem.Unit.g, 69, 24);
 
                 RecipeBookItem r = new RecipeBookItem(food, R.drawable.apple, 3);
-                data.add(0,r);
-//                opExec.insertItem(0,food);
+//                data.add(0,r);
+                opExec.insertItem(0,food);
                 recyclerViewAdapter.notifyItemInserted(0);
                 recyclerViewAdapter.notifyItemRangeChanged(0, data.size());
                 recyclerViewAdapter.notifyDataSetChanged();
