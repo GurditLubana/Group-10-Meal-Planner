@@ -75,7 +75,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         initRecyclerView();
         setTabListeners();
         executeFab();// make floating action button work.
-        addItemToRecipe();
+
     }
 
 
@@ -113,7 +113,9 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                 if(currTab == 0) //food tab
                 {
                     Intent i = new Intent(ActivityRecipeBook.this, AddRecipe.class);
+                    addItemToRecipe();
                     startActivity(i);
+
                 }
                 else if(currTab == 1)
                 {
@@ -180,6 +182,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
             recipeRecyclerView = (RecyclerView) findViewById(R.id.recipeRecyclerView);
             recipeRecyclerView.setAdapter(recyclerViewAdapter);
             recipeRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
+
         } else {
             //throw new Exception("Meal Diary Linked list empty");
         }
@@ -192,6 +195,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
             public void onTabSelected(TabLayout.Tab tab) { //tab.getPosition() tab 0 = food, 1 = meal, 2 = drink
                 currTab = tab.getPosition();
                 data = opExec.getData(tab.getPosition());
+
 
                 System.out.println("********************** " + data.size());
                 recyclerViewAdapter.changeData(data);
@@ -264,6 +268,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                 RecipeBookItem r = new RecipeBookItem(food, R.drawable.apple, 3);
 //                data.add(0,r);
                 opExec.insertItem(0,food);
+
                 recyclerViewAdapter.notifyItemInserted(0);
                 recyclerViewAdapter.notifyItemRangeChanged(0, data.size());
                 recyclerViewAdapter.notifyDataSetChanged();
@@ -273,11 +278,11 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
             }
 
         }
-        else if(currTab == 2) // still needs to complete
-        {
-            Intent intent = getIntent();
-            fName = intent.getStringExtra(Edible);
-            fCalories = intent.getIntExtra(Calories,0);
+//        else if(currTab == 2) // still needs to complete
+//        {
+//            Intent intent = getIntent();
+//            fName = intent.getStringExtra(Edible);
+//            fCalories = intent.getIntExtra(Calories,0);
 //            fQuantity = i.getIntExtra(Quantity,0);
 //            if(fName != null) {
 //                Food food = new Food(fName, 0, fCalories, ListItem.FragmentType.recipe, ListItem.Unit.g, fQuantity, 24);
@@ -286,7 +291,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 //                recyclerViewAdapter.notifyItemInserted(0);
 //                fName = null;
 //            }
-        }
+//        }
     }
 
     public void addFoodEntry(int pos){

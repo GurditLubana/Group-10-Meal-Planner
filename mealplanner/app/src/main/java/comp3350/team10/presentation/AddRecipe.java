@@ -70,10 +70,11 @@ public class AddRecipe extends AppCompatActivity {
         intent.putExtra(ActivityRecipeBook.Calories,calories);
         intent.putExtra(ActivityRecipeBook.Quantity,quantity);
 
-        setResult(RESULT_OK, intent);
-        finish();
-
-       startActivity(intent);
+//        setResult(RESULT_OK, intent);
+//        finish();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
 
     }
 

@@ -104,7 +104,8 @@ public class FragmentNavigation extends Fragment {
             {
                 if (getActivity() != null && !(getActivity() instanceof ActivityRecipeBook)) {
                     Intent intent = new Intent(getActivity(), ActivityRecipeBook.class);
-                  intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
             }
