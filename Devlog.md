@@ -403,7 +403,14 @@ Estimate:
 
 
 
+## Bugs
 
+### Bug 01
+   Title: Persistence across activities  
+    Desc:   
+Estimate:  
+  Actual:   
+     Dev:  
 
 ## Dev Log
 
