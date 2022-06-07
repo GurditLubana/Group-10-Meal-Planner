@@ -48,4 +48,36 @@ public abstract class Edible implements ListItem{
     public int getQuantity(){
         return quantity;
     }
+
+    public int getDbkey() {
+        return dbkey;
+    }
+
+    public void setFragmentType(FragmentType fragmentType){
+        this.fragmentType = fragmentType;
+    }
+
+    public void setCalories(Integer newCalories){
+        this.calories = newCalories;
+    }
+
+    public void setBaseUnit(Unit baseUnit) {
+        this.baseUnit = baseUnit;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setDbkey(int dbkey) {
+        this.dbkey = dbkey;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIconPath(int iconPath) {
+        this.iconPath = iconPath;
+    }
 }

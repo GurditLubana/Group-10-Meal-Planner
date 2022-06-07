@@ -39,4 +39,8 @@ public class RecipeBookItem implements ListItem{
     public int getQuantity(){
         return 1;
     }
+
+    public Edible getItem() {
+        return item;
+    }
 }
