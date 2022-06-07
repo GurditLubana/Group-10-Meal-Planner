@@ -112,9 +112,12 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
                 if(currTab == 0) //food tab
                 {
-                    Intent i = new Intent(ActivityRecipeBook.this, AddRecipe.class);
-                    addItemToRecipe();
-                    startActivity(i);
+                    //Intent i = new Intent(ActivityRecipeBook.this, AddRecipe.class);
+                    //addItemToRecipe();
+                    //startActivity(i);
+                    new AddRecipe().show(
+                            getSupportFragmentManager(), AddRecipe.TAG
+                    );
 
                 }
                 else if(currTab == 1)
@@ -266,7 +269,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                 Food food = new Food(fName,R.drawable.apple, 4, ListItem.FragmentType.recipe, ListItem.Unit.g, 69, 24);
 
                 RecipeBookItem r = new RecipeBookItem(food, R.drawable.apple, 3);
-//                data.add(0,r);
+                data.add(0,r);
                 opExec.insertItem(0,food);
 
                 recyclerViewAdapter.notifyItemInserted(0);
