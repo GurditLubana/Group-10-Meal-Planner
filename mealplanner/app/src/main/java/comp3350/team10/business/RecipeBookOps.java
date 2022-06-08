@@ -3,6 +3,7 @@ package comp3350.team10.business;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
@@ -68,6 +69,7 @@ public class RecipeBookOps {
     public void addDrink(String name, int iconPath, int cals, String[] instructions, DrinkIngredient[] ingredients, ListItem.Unit baseUnit, int quantity){
         Edible newDrink = new Drink(name, iconPath, cals, instructions, ingredients, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey());
         db.addDrinkToRecipeBook(newDrink);
+
     }
 
 

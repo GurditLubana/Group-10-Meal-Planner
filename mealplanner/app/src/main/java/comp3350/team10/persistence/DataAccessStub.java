@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
 
-public class DataAccessStub {
+public class DataAccessStub  {
     private String dbName;
     private String dbType = "stub";
 
@@ -25,6 +25,8 @@ public class DataAccessStub {
     private Integer selectedDate = null;
     private Integer currKey = 1;
 
+
+
     public DataAccessStub(String dbName) {
         this.dbName = dbName;
     }
@@ -34,7 +36,15 @@ public class DataAccessStub {
     }
 
     public void open(String dbName) {
+        DiaryItem mealEntry;
+        RecipeBookItem recipeEntry;
+        int caloriesRandom = 0;
 
+
+        //System.out.println("before calandar"); //bruh
+        Calendar calendar = Calendar.getInstance();
+        //System.out.println("after calandar");
+        //System.out.println("TIME: " + calendar.getTime());
         loadExercises();
         loadRecipeDrinks();
         loadRecipeFood();
@@ -46,6 +56,9 @@ public class DataAccessStub {
         //caches database recipes into memory
         //System.out.println("Cached recipes");
         //System.out.println("Opened " + dbType + " database " + dbName);
+
+
+
     }
 
     public void close() {
@@ -193,6 +206,34 @@ public class DataAccessStub {
         }
         return result;
     }
+
+
+    public void insertItem(int specDataSet, Food item)
+    {
+        if(specDataSet == 0) {
+
+
+            dbRecipeFood.add(new Food("apple", R.drawable.apple, 20, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 24));
+            System.out.println("Hello world");
+//            food.add((Food) item);
+        }
+//        else if(specDataSet == 1) {
+
+//
+//            meal.add((Meal) item);
+//
+//        }
+//        else if(specDataSet == 2) {
+//
+//            drink.add((Drink) item);
+//
+//
+//        }
+
+    }
+
+
+
 
     public void addRecipeToLog(Edible item) { //Needs date added to this later, only adds to current
 //        System.out.println("Before: " + dailyFoodLog.size());
@@ -485,5 +526,8 @@ public class DataAccessStub {
         }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, getNextKey()));
         //System.out.println("Added meals");
     }
+
+
+
 
 }
