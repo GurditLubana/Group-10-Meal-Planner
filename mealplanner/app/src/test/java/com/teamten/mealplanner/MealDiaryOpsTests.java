@@ -6,9 +6,12 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import comp3350.team10.business.MealDiaryOps;
+import comp3350.team10.objects.Edible;
+import comp3350.team10.persistence.DataAccessStub;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
+import java.util.LinkedList;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -78,12 +81,14 @@ public class MealDiaryOpsTests {
     @Nested
     @DisplayName("Date traversal")
     class date {
+        DataAccessStub db;
         MealDiaryOps ops;
         Calendar currDate;
 
         @BeforeEach
         void setup() {
-            ops = new MealDiaryOps();
+            db = new DataAccessStub();
+            ops = new MealDiaryOps(db);
             currDate = (Calendar) ops.getListDate().clone();
         }
 
@@ -127,7 +132,7 @@ public class MealDiaryOpsTests {
         }
         @Test
         @DisplayName("we should be able to set a date within 2 years")
-        void anydate(){
+        void anyDate(){
             long diff = 0;
             Calendar newDate = Calendar.getInstance();
             Calendar testDate = Calendar.getInstance();
@@ -145,6 +150,72 @@ public class MealDiaryOpsTests {
             diff = ChronoUnit.DAYS.between(testDate.toInstant(), ops.getListDate().toInstant());
             assertEquals(diff, 0);
         }
+
+        @Test
+        @DisplayName("Switching dates results in updated food log")
+        void newDate(){
+            boolean identical = true;
+            LinkedList testList = null;
+            LinkedList todayList = ops.getList();
+            Calendar newDate = Calendar.getInstance();
+            newDate.set(Calendar.DAY_OF_YEAR, newDate.get(Calendar.DAY_OF_YEAR)-1);
+            ops.setListDate(newDate);
+            testList = ops.getList();
+
+            if(todayList.size() != testList.size()){
+                identical = false;
+            }
+            if(identical){
+                for(int i = 0 ; i < testList.size() && identical; i++){
+                    if(((Edible) testList.get(i)).getDbkey() != ((Edible) todayList.get(i)).getDbkey()){
+                        identical = false;
+                    }
+                }
+            }
+            assertTrue(!identical);
+        }
+    }
+
+    @Nested
+    @DisplayName("Setting Goals")
+    class goals{
+        DataAccessStub db;
+        MealDiaryOps ops;
+        Calendar currDate;
+
+        @BeforeEach
+        void setup() {
+            db = new DataAccessStub();
+            ops = new MealDiaryOps(db);
+            currDate = (Calendar) ops.getListDate().clone();
+        }
+
+        @Test
+        @DisplayName("Can set new calorie goal")
+        void canSetCal() {
+
+        }
+
+        @Test
+        @DisplayName("Can input new actual exercise calories")
+        void canSetExcAct() {
+
+        }
+
+        @Test
+        @DisplayName("Set new calorie goal causes progress update")
+        void setCalUpdates() {
+
+        }
+
+        @Test
+        @DisplayName("Set new actual exercise calories causes progress update")
+        void setExcActUpdates() {
+
+        }
+
+
+
     }
 
 

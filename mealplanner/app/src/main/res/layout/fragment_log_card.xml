@@ -113,7 +113,10 @@
                 android:layout_width="250dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="12dp"
+
+                android:layout_marginTop="16dp"
+
+
                 android:layout_weight="0.70"
                 android:text="food item name"
                 android:textAlignment="viewStart"

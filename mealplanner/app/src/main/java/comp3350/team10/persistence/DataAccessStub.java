@@ -78,6 +78,10 @@ public class DataAccessStub {
         selectedFoodLog.setExcActual(exerciseActual);
     }
 
+    public int getExerciseActual(){
+        return selectedFoodLog.getExcActual();
+    }
+
     public ArrayList<ListItem> getFoodList(Calendar date){
         ArrayList<ListItem> result = null;
 
