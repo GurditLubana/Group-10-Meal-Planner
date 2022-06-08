@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import comp3350.team10.business.MealDiaryOps;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.persistence.DataAccessStub;
+import comp3350.team10.persistence.SharedDB;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
@@ -27,7 +28,8 @@ public class MealDiaryOpsTests {
 
         @BeforeEach
         void setup() {
-            ops = new MealDiaryOps();
+            SharedDB.start("test");
+            ops = new MealDiaryOps(SharedDB.getSharedDB());
         }
 
         @Test
@@ -87,7 +89,9 @@ public class MealDiaryOpsTests {
 
         @BeforeEach
         void setup() {
-            db = new DataAccessStub();
+            SharedDB.start("test");
+            //db = new DataAccessStub();
+            db =SharedDB.getSharedDB();
             ops = new MealDiaryOps(db);
             currDate = (Calendar) ops.getListDate().clone();
         }
@@ -185,7 +189,9 @@ public class MealDiaryOpsTests {
 
         @BeforeEach
         void setup() {
-            db = new DataAccessStub();
+            SharedDB.start("test");
+            //db = new DataAccessStub();
+            db =SharedDB.getSharedDB();
             ops = new MealDiaryOps(db);
             currDate = (Calendar) ops.getListDate().clone();
         }
