@@ -25,6 +25,7 @@ import com.google.android.material.datepicker.*;
 import comp3350.team10.R;
 import comp3350.team10.business.MealDiaryOps;
 import comp3350.team10.objects.*;
+import comp3350.team10.persistence.SharedDB;
 
 import java.util.LinkedList;
 import java.util.Calendar;
@@ -45,7 +46,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_diary);
         initToolbar();
-        opExec = new MealDiaryOps();
+        SharedDB.start("EaTen");
+        opExec = new MealDiaryOps(SharedDB.getSharedDB());
         initLiveData();
         initRecyclerView();
     }
