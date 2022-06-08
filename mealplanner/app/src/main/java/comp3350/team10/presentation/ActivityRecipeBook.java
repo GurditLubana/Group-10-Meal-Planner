@@ -225,45 +225,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private void addItemToRecipe()
     {
 
-        if(currTab == 0)
-        {
-            System.out.println("The size is   ---------------" + data.size());
-            Intent intent = getIntent();
-            fName = intent.getStringExtra(Edible);
-            fCalories = intent.getIntExtra(Calories,0);
-            fQuantity = intent.getIntExtra(Quantity,0);
-            if(fName != null)
-            {
-//                Food food = new Food(fName,R.drawable.apple, fCalories, ListItem.FragmentType.recipe, ListItem.Unit.g, fQuantity, 24);
-                Food food = new Food(fName,R.drawable.apple, 4, ListItem.FragmentType.recipe, ListItem.Unit.g, 69, 24);
-
-                RecipeBookItem r = new RecipeBookItem(food, R.drawable.apple, 3);
-                data.add(0,r);
-                opExec.insertItem(0,food);
-
-                recyclerViewAdapter.notifyItemInserted(0);
-                recyclerViewAdapter.notifyItemRangeChanged(0, data.size());
-                recyclerViewAdapter.notifyDataSetChanged();
-                fName= null;
-
-                //fName = null;
-            }
-
-        }
-//        else if(currTab == 2) // still needs to complete
-//        {
-//            Intent intent = getIntent();
-//            fName = intent.getStringExtra(Edible);
-//            fCalories = intent.getIntExtra(Calories,0);
-//            fQuantity = i.getIntExtra(Quantity,0);
-//            if(fName != null) {
-//                Food food = new Food(fName, 0, fCalories, ListItem.FragmentType.recipe, ListItem.Unit.g, fQuantity, 24);
-//                RecipeBookItem r = new RecipeBookItem(food, R.drawable.apple, 3);
-//                data.add(0, r);
-//                recyclerViewAdapter.notifyItemInserted(0);
-//                fName = null;
-//            }
-//        }
     }
 
     
