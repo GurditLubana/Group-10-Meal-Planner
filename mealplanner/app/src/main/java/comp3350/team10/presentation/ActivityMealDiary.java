@@ -81,14 +81,16 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             data.remove(savedItemPosition);
             data.add(savedItemPosition, savedItem);
         }
-        if (data.get(pos).getFragmentType() == ListItem.FragmentType.diaryEntry) {
-            savedItem = data.remove(pos);
-            savedItemPosition = pos;
-            data.add(pos, new DiaryItem(ListItem.FragmentType.diaryModify, null, null, 0));
-        } else {
-            data.remove(pos);
-            data.add(pos, savedItem);
-            savedItem = null;
+        if(pos >= 0) {
+            if (data.get(pos).getFragmentType() == ListItem.FragmentType.diaryEntry) {
+                savedItem = data.remove(pos);
+                savedItemPosition = pos;
+                data.add(pos, new DiaryItem(ListItem.FragmentType.diaryModify, null, null, 0));
+            } else {
+                data.remove(pos);
+                data.add(pos, savedItem);
+                savedItem = null;
+            }
         }
         recyclerViewAdapter.notifyItemRemoved(pos);
         recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
@@ -129,8 +131,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         updateLiveData();
     }
 
-    ;
-
     @Override
     public void nextDate() {
         opExec.nextDate();
@@ -139,23 +139,28 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         updateLiveData();
     }
 
-    ;
+    @Override
+    public void editItem(int pos) {
+        //launch dialog fragment
+        new FragmentMealDiaryEdit().show(
+                getSupportFragmentManager(), FragmentMealDiaryEdit.TAG
+        );
+    }
 
     @Override
     public void showGoalEntryDialog() {
-        //launch goal input dialog
-        //get data then send to opExec maybe do validation here or in dialog
-
-
+        //launch dialog fragment
+        new FragmentGoalEntry().show(
+                getSupportFragmentManager(), FragmentGoalEntry.TAG
+        );
     }
 
     @Override
     public void showExerciseEntryDialog() {
-        //launch exercise input dialog
-        //get data then send to opExec maybe do validation here or in dialog
-        while (!opExec.isDataReady()) {
-        }
-        updateLiveData();
+        //launch dialog fragment
+        new FragmentExerciseEntry().show(
+                getSupportFragmentManager(), FragmentExerciseEntry.TAG
+        );
     }
 
     @Override
@@ -168,25 +173,15 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             recyclerViewAdapter.notifyDataSetChanged();
             opExec.updateList(data);
             updateLiveData();
-            //send remove command to ops
         }
-    }
-
-    @Override
-    public void editItem(int pos) {
-        //launch dialog
-        //send data to ops
-        new FragmentMealDiaryEdit().show(
-                getSupportFragmentManager(), FragmentMealDiaryEdit.TAG
-        );
     }
 
     @Override
     public void addEntry(int pos) {
         //launch recipebook use ActivityResultLauncher to allow data passing
         Intent intent = new Intent(this, ActivityRecipeBook.class);
-        int dbkey = 0;
-        intent.putExtra("DBKEY", dbkey);
+        //use this if need to pass information to activity being launched
+        //intent.putExtra("DBKEY", 0);
         pickMeal.launch(intent);
     }
 
@@ -205,6 +200,48 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             recyclerViewAdapter.changeData(data);
             recyclerViewAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public String getEntryQty(){
+        return String.valueOf(((Edible) savedItem).getQuantity());
+    }
+
+    @Override
+    public ListItem.Unit getEntryUnit(){
+        return ((Edible) savedItem).getBaseUnit();
+    }
+
+    @Override
+    public void setEntryQty(Integer amount, String unit){
+        //TODO call the unit converter first
+        ((Edible) savedItem).setQuantity(amount);
+        ((Edible) savedItem).setBaseUnit(ListItem.Unit.valueOf(unit));
+        showContextUI(-1);
+        opExec.updateList(data);
+        updateLiveData();
+    }
+
+    @Override
+    public String getExerciseCalories(){
+        return opExec.getCalorieExercise().toString();
+    }
+
+    @Override
+    public void setExerciseCalories(Integer value){
+        opExec.setCalorieExercise(value);
+        updateLiveData();
+    }
+
+    @Override
+    public String getGoalCalories(){
+        return opExec.getCalorieGoal().toString();
+    }
+
+    @Override
+    public void setGoalCalories(Integer value){
+        opExec.setCalorieGoal(value);
+        updateLiveData();
     }
 
     // GetContent creates an ActivityResultLauncher<String> to allow you to pass

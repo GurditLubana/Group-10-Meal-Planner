@@ -6,6 +6,7 @@ import comp3350.team10.R;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -14,16 +15,14 @@ public class DataAccessStub {
     private String dbName;
     private String dbType = "stub";
 
-    private ArrayList<ListItem> secondDailyFoodLog = new ArrayList<ListItem>();
-    private ArrayList<ListItem> dailyFoodLog = new ArrayList<ListItem>();
-    private ArrayList<Routine> routines = new ArrayList<Routine>();
-    private ArrayList<ArrayList> dbFoodLog = new ArrayList<>();
-    private ArrayList<Drink> drink = new ArrayList<Drink>();
-    private ArrayList<Food> food = new ArrayList<Food>();
-    private ArrayList<Meal> meal = new ArrayList<Meal>();
-    Calendar calendar = Calendar.getInstance();
-    private int exerciseGoal = 0;
-    private int calorieGoal = 0;
+    private ArrayList<DailyLog> dbFoodLog = new ArrayList<>();           // database of daily food logs DailyLog methods represent db operations
+    private ArrayList<Routine> dbRoutines = new ArrayList<Routine>();
+    private ArrayList<Drink> dbRecipeDrink = new ArrayList<Drink>();                 // db of drinks
+    private ArrayList<Food> dbRecipeFood = new ArrayList<Food>();                   // db of food items
+    private ArrayList<Meal> dbRecipeMeal = new ArrayList<Meal>();                   // db of meals with multiple food items
+    Calendar calendar = Calendar.getInstance();                          // today's date
+    private DailyLog selectedFoodLog = null;       // single food log from the db of food logs
+    private Integer selectedDate;
 
     public DataAccessStub(String dbName) {
         this.dbName = dbName;
@@ -35,15 +34,14 @@ public class DataAccessStub {
 
     public void open(String dbName) {
 
-        calorieGoal = 1700;
-        exerciseGoal = 200;
-
-        loadFoodlog();
         loadExercises();
         loadRecipeDrinks();
         loadRecipeFood();
         loadRecipeMeals();
+        loadFoodlog();
 
+        selectedDate = calendarToInt(calendar);
+        selectedFoodLog = setSelectedFoodLog(selectedDate);
         //caches database recipes into memory
         //System.out.println("Cached recipes");
         //System.out.println("Opened " + dbType + " database " + dbName);
@@ -53,56 +51,87 @@ public class DataAccessStub {
     }
 
     public int getCalorieGoal(){
-        return calorieGoal;
+        return selectedFoodLog.getCalGoal();
     }
 
     public void setCalorieGoal(int goal){
         if(goal >= 0 && goal <= 9999)
         {
-            calorieGoal = goal;
+            selectedFoodLog.setCalGoal(goal);
+            updateFoodLogDB();
         }
     }
 
     public int getExerciseGoal(){
-        return exerciseGoal;
+        return selectedFoodLog.getExcGoal();
     }
 
     public void setExerciseGoal(int goal){
         if(goal >= 0 && goal <= 9999)
         {
-            exerciseGoal = goal;
+            selectedFoodLog.setExcGoal(goal);
+            updateFoodLogDB();
         }
     }
 
-    public ArrayList<ListItem> getFoodLog(Calendar date){
-        ArrayList<ListItem> temp = new ArrayList<ListItem>();
-        ArrayList<ListItem> dbEntry = null;
-        int currDay = calendar.DAY_OF_YEAR;
-        int requestDay = date.DAY_OF_YEAR;
-        int currYear = calendar.YEAR;
-        int requestYear = date.YEAR;
-        int count = 0;
-        int index = 0;
-
-        if(dbFoodLog.size() > 0) {
-
-        }
-        if(dailyFoodLog != null){
-            temp.addAll(dailyFoodLog);
-            Collections.shuffle(temp.subList(0,14));
-            count = ThreadLocalRandom.current().nextInt(6, 14);
-            for (int i = 0; i < count; i++)
-            {
-                index = ThreadLocalRandom.current().nextInt(0, temp.size()-1);
-                temp.remove(index);
-            }
-        }
-        return temp;
+    public void setExerciseActual(int exerciseActual){
+        selectedFoodLog.setExcActual(exerciseActual);
     }
 
-    private ArrayList<ListItem> randomLog(Calendar date){
+    public ArrayList<ListItem> getFoodList(Calendar date){
         ArrayList<ListItem> result = null;
 
+        if(selectedDate.intValue() != calendarToInt(date).intValue()) {
+            selectedFoodLog = setSelectedFoodLog(calendarToInt(date));
+            selectedDate = calendarToInt(date);
+        }
+        return selectedFoodLog.getFoodList();
+    }
+
+    public void updateSelectedFoodLogFoodList(ArrayList<ListItem> newList){
+        if(newList != null){
+            selectedFoodLog.setFoodList(newList);
+            updateFoodLogDB();
+        }
+    }
+
+    private Integer calendarToInt(Calendar date){
+        String stringDate = String.valueOf(date.get(Calendar.YEAR)) + String.valueOf(date.get(Calendar.DAY_OF_YEAR));
+        return Integer.parseInt(stringDate);
+    }
+
+    private DailyLog setSelectedFoodLog(Integer date){
+
+        DailyLog result = new DailyLog(date, 1500, 0, 0, emptyLog());
+        int position = getFoodLogDBIndex(date);
+
+        if(position == -1){
+            dbFoodLog.add(result);
+        }
+        else{
+            result = dbFoodLog.get(position);
+        }
+        sortDBFoodLog();
+        return result;
+    }
+
+    private void updateFoodLogDB(){ // not necessary for java, but necessary for actual db
+        int position = getFoodLogDBIndex(selectedDate);
+        dbFoodLog.remove(position);
+        dbFoodLog.add(selectedFoodLog);
+    }
+
+    private int getFoodLogDBIndex(Integer date){
+        boolean found = false;
+        int result = -1;
+        if(dbFoodLog.size() > 0){
+            for(int i = 0; i < dbFoodLog.size() && !found; i++){
+                if(date.intValue() == dbFoodLog.get(i).getDate().intValue()){
+                    found = true;
+                    result = i;
+                }
+            }
+        }
         return result;
     }
 
@@ -111,55 +140,104 @@ public class DataAccessStub {
         //System.out.println("this is good");
 
         if(edibleType == 0) {   //food tab send cachedFood
-            for(int i = 0; i < food.size(); i++) {//food.get(i) - RecipeBookItem needs Edible item, int image, int key
-                currEdibles.add(new RecipeBookItem(food.get(i), R.drawable.food, i)); //i is not a unique key
+            for(int i = 0; i < dbRecipeFood.size(); i++) {//food.get(i) - RecipeBookItem needs Edible item, int image, int key
+                currEdibles.add(new RecipeBookItem(dbRecipeFood.get(i), R.drawable.food, i)); //i is not a unique key
             }
         }
         else if(edibleType == 2) {  //meal tab send cachedMeal
-            for(int i = 0; i < drink.size(); i++) {
-                currEdibles.add(new RecipeBookItem(drink.get(i), R.drawable.food2, i));
+            for(int i = 0; i < dbRecipeDrink.size(); i++) {
+                currEdibles.add(new RecipeBookItem(dbRecipeDrink.get(i), R.drawable.food2, i));
             }
         }
         else if(edibleType == 1) {  //drink tab send cachedDrink
-            for(int i = 0; i < meal.size(); i++) {
-                currEdibles.add(new RecipeBookItem(meal.get(i), R.drawable.food3, i));
+            for(int i = 0; i < dbRecipeMeal.size(); i++) {
+                currEdibles.add(new RecipeBookItem(dbRecipeMeal.get(i), R.drawable.food3, i));
             }
         }
-
+        Collections.shuffle(currEdibles);
         //System.out.println("exiting getRecipe...");
         return currEdibles;
     }
 
     public void addRecipeToLog(Edible item) { //Needs date added to this later, only adds to current
-        System.out.println("Before: " + dailyFoodLog.size());
-        dailyFoodLog.add(item);
-        System.out.println("After: " + dailyFoodLog.size());
+//        System.out.println("Before: " + dailyFoodLog.size());
+//        dailyFoodLog.add(item);
+//        System.out.println("After: " + dailyFoodLog.size());
     }
 
     private void loadFoodlog() {
-        //Meal entries
-        dailyFoodLog = new ArrayList<ListItem>();
-        dailyFoodLog.add(new Food("Banana", R.drawable.banana, 100,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 100, 1 ));
-        dailyFoodLog.add(new Food("Burger", R.drawable.burger, 800,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 500, 2));
-        dailyFoodLog.add(new Food("Bologna", R.drawable.bologna, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 150, 3));
-        dailyFoodLog.add(new Food("Berry", R.drawable.berry, 10,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20, 4));
-        dailyFoodLog.add(new Food("Burrito", R.drawable.burrito, 300,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 400, 5));
-        dailyFoodLog.add(new Food("Bean", R.drawable.bean, 30,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 5, 6));
-        dailyFoodLog.add(new Food("Broccoli", R.drawable.broccoli, 20,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 120, 7));
-        dailyFoodLog.add(new Food("Biscotti", R.drawable.biscotti, 110,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20, 8));
-        dailyFoodLog.add(new Food("Bun", R.drawable.bun, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 200, 9));
-        dailyFoodLog.add(new Food("Risotto", R.drawable.risotto, 100,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 100 , 10));
-        dailyFoodLog.add(new Food("Ham", R.drawable.ham, 800,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 500, 11));
-        dailyFoodLog.add(new Food("Pizza", R.drawable.pizza, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 150, 12));
-        dailyFoodLog.add(new Food("Steak", R.drawable.steak, 10,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20, 13));
-        dailyFoodLog.add(new Food("Potatoes", R.drawable.potatoes, 300,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 400, 14));
-        dailyFoodLog.add(new Food("Carrot", R.drawable.carrot, 30,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 5, 15));
-        dailyFoodLog.add(new Food("Bell Pepper", R.drawable.food, 0,ListItem.FragmentType.diaryAdd, ListItem.Unit.g, 100, 0));
+        DailyLog log;
+        Integer today = calendarToInt(calendar);
+        dbFoodLog = new ArrayList<DailyLog>(); // key = yyyyddd integer , Calorie goal, Exercise goal, actual exercise, Foodlog
+
+        log = new DailyLog(today, 1500, 300, 0, randomLog());
+        dbFoodLog.add(log);
+        log = new DailyLog(today - 1, 1700, 300, 200, randomLog());
+        dbFoodLog.add(log);
+        log = new DailyLog(today - 2, 1600, 300, 120, randomLog());
+        dbFoodLog.add(log);
+        log = new DailyLog(today - 3, 1300, 300, 30, randomLog());
+        dbFoodLog.add(log);
+        log = new DailyLog(today - 4, 1800, 300, 300, randomLog());
+        dbFoodLog.add(log);
+        log = new DailyLog(today - 5, 1500, 300, 100, randomLog());
+        dbFoodLog.add(log);
+        log = new DailyLog(today - 6, 1600, 300, 300, randomLog());
+        dbFoodLog.add(log);
+        log = new DailyLog(today + 1, 1600, 300, 400, randomLog());
+        dbFoodLog.add(log);
+        sortDBFoodLog();
+    }
+
+    private void sortDBFoodLog(){
+        Collections.sort(dbFoodLog, new Comparator<DailyLog>() {
+            @Override
+            public int compare(DailyLog left, DailyLog right) {
+                int result = 0;
+
+                if(left.getDate() < right.getDate()){
+                    result = -1;
+                }
+                else if (left.getDate() < right.getDate()){
+                    result = 1;
+                }
+                return result;
+            }
+        });
+    }
+
+    private ArrayList<ListItem> randomLog() {
+        ArrayList<ListItem> result = new ArrayList<ListItem>();
+        int randomCount = 0;
+        int randomIndex = 0;
+
+        if(dbRecipeFood != null){
+            result.addAll(dbRecipeFood);
+            Collections.shuffle(result.subList(0,14));
+            randomCount = ThreadLocalRandom.current().nextInt(result.size() / 2, result.size());
+
+            for (int i = 0; i < randomCount; i++)
+            {
+                randomIndex = ThreadLocalRandom.current().nextInt(0, result.size()-1);
+                result.remove(randomIndex);
+            }
+        }
+        for(int i = 0; i < result.size(); i++){
+            ((Edible) result.get(i)).setFragmentType(ListItem.FragmentType.diaryEntry);
+        }
+        result.addAll(emptyLog());
+        return result;
+    }
+
+    private ArrayList<ListItem> emptyLog() {
+        ArrayList<ListItem> result = new ArrayList<ListItem>();
+        result.add(new Food(null, -1, 0,ListItem.FragmentType.diaryAdd, null, -1, -1));
+        return result;
     }
 
     private void loadExercises() {
         //Workouts
-        routines = new ArrayList<Routine>();
+        dbRoutines = new ArrayList<Routine>();
         Workout chestWorkout = new Workout(new Exercise[] {
                 new Exercise("Incline dumbell press", "Put the bench at 45 degrees", 9, 3, 5),
                 new Exercise("Lat pull down", "Lead with elbows and go slow", 9, 3, 4),
@@ -192,9 +270,9 @@ public class DataAccessStub {
                 new Exercise("Rest", "take a break you deserve it... hopefully", 0, 0, 0)
         });
 
-        routines.add(new Routine("build muscle", new Workout[] {chestWorkout, armWorkout, legWorkout, rest, chestWorkout, legWorkout, rest}));
-        routines.add(new Routine("lose weight", new Workout[] {cardio, cardio, cardio, cardio, cardio, cardio, cardio}));
-        routines.add(new Routine("tone", new Workout[] {chestWorkout, cardio, armWorkout, cardio, legWorkout, cardio, rest}));
+        dbRoutines.add(new Routine("build muscle", new Workout[] {chestWorkout, armWorkout, legWorkout, rest, chestWorkout, legWorkout, rest}));
+        dbRoutines.add(new Routine("lose weight", new Workout[] {cardio, cardio, cardio, cardio, cardio, cardio, cardio}));
+        dbRoutines.add(new Routine("tone", new Workout[] {chestWorkout, cardio, armWorkout, cardio, legWorkout, cardio, rest}));
 
         //System.out.println("added workouts...");
     }
@@ -202,9 +280,9 @@ public class DataAccessStub {
     private void loadRecipeDrinks() {
         int caloriesRandom = 0;
         //Create Drinks
-        drink = new ArrayList<Drink>();
+        dbRecipeDrink = new ArrayList<Drink>();
         caloriesRandom = ThreadLocalRandom.current().nextInt(250,450);
-        drink.add(new Drink("Mojito", R.drawable.food, caloriesRandom, new String[] {"GET", "GOOD"},
+        dbRecipeDrink.add(new Drink("Mojito", R.drawable.food, caloriesRandom, new String[] {"GET", "GOOD"},
                 new DrinkIngredient[] {
                         new DrinkIngredient("White Rum", 1.5, "oz", false, true),
                         new DrinkIngredient("Sugar", 2, "TBSP", false, false),
@@ -216,7 +294,7 @@ public class DataAccessStub {
 
         //System.out.println("added first drink...");
         caloriesRandom = ThreadLocalRandom.current().nextInt(250,450);
-        drink.add(new Drink("Mai-tai", R.drawable.food2, caloriesRandom, new String[] {"GET", "GOOD"},
+        dbRecipeDrink.add(new Drink("Mai-tai", R.drawable.food2, caloriesRandom, new String[] {"GET", "GOOD"},
                 new DrinkIngredient[] {
                         new DrinkIngredient("Coconut Malibu", 1.5, "oz", true, false),
                         new DrinkIngredient("Rum", 1.5, "oz", true, false),
@@ -227,7 +305,7 @@ public class DataAccessStub {
         ));
 
         caloriesRandom = ThreadLocalRandom.current().nextInt(250,450);
-        drink.add(new Drink("Red Headed \"friend\"", R.drawable.food3, caloriesRandom, new String[] {"GET", "GOOD"},
+        dbRecipeDrink.add(new Drink("Red Headed \"friend\"", R.drawable.food3, caloriesRandom, new String[] {"GET", "GOOD"},
                 new DrinkIngredient[] {
                         new DrinkIngredient("Jagermeister", 1, "oz", false, true),
                         new DrinkIngredient("Cranberry juice", 1, "oz", true, false),
@@ -236,7 +314,7 @@ public class DataAccessStub {
         ));
 
         caloriesRandom = ThreadLocalRandom.current().nextInt(250,450);
-        drink.add(new Drink("Fun On The Beach", R.drawable.food4, caloriesRandom, new String[] {"GET", "GOOD"},
+        dbRecipeDrink.add(new Drink("Fun On The Beach", R.drawable.food4, caloriesRandom, new String[] {"GET", "GOOD"},
                 new DrinkIngredient[] {
                         new DrinkIngredient("Vodka", 1.5, "oz", false, true),
                         new DrinkIngredient("Peach Schnapps", 0.5, "oz", false, true),
@@ -247,7 +325,7 @@ public class DataAccessStub {
         ));
 
         caloriesRandom = ThreadLocalRandom.current().nextInt(250,450);
-        drink.add(new Drink("Non Alcoholic Moscow Mule", R.drawable.food, caloriesRandom, new String[] {"GET", "GOOD"},
+        dbRecipeDrink.add(new Drink("Non Alcoholic Moscow Mule", R.drawable.food, caloriesRandom, new String[] {"GET", "GOOD"},
                 new DrinkIngredient[] {
                         new DrinkIngredient("Lime juice", 1, "TBSP", false, false),
                         new DrinkIngredient("Ginger beer", 4, "oz", false, false),
@@ -257,7 +335,7 @@ public class DataAccessStub {
         ));
 
         caloriesRandom = ThreadLocalRandom.current().nextInt(250,450);
-        drink.add(new Drink("Blue Hawaiian", R.drawable.food2, caloriesRandom, new String[] {"GET", "GOOD"},
+        dbRecipeDrink.add(new Drink("Blue Hawaiian", R.drawable.food2, caloriesRandom, new String[] {"GET", "GOOD"},
                 new DrinkIngredient[] {
                         new DrinkIngredient("Pineapple juice", 2, "oz", true, false),
                         new DrinkIngredient("Light rum", 1, "oz", false, true),
@@ -267,7 +345,7 @@ public class DataAccessStub {
         ));
 
         caloriesRandom = ThreadLocalRandom.current().nextInt(250,450);
-        drink.add(new Drink("French Martini", R.drawable.food3, caloriesRandom, new String[] {"GET", "GOOD"},
+        dbRecipeDrink.add(new Drink("French Martini", R.drawable.food3, caloriesRandom, new String[] {"GET", "GOOD"},
                 new DrinkIngredient[] {
                         new DrinkIngredient("Pineapple juice", 3, "oz", true, false),
                         new DrinkIngredient("Chamboard", 1, "oz", false, true),
@@ -275,7 +353,7 @@ public class DataAccessStub {
         ));
 
         caloriesRandom = ThreadLocalRandom.current().nextInt(250,450);
-        drink.add(new Drink("Non Alcoholic Mojito", R.drawable.food4, caloriesRandom, new String[] {"GET", "GOOD"},
+        dbRecipeDrink.add(new Drink("Non Alcoholic Mojito", R.drawable.food4, caloriesRandom, new String[] {"GET", "GOOD"},
                 new DrinkIngredient[] {
                         new DrinkIngredient("Sugar", 2, "TBSP", false, false),
                         new DrinkIngredient("Mint", 8, "leaves", false, false),
@@ -288,64 +366,79 @@ public class DataAccessStub {
 
     private void loadRecipeFood(){
         //
-        food = new ArrayList<Food>();
-        food.add(new Food("apple", R.drawable.apple, 20, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 24));
-        food.add(new Food("pear", R.drawable.pear, 50, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 25));
-        food.add(new Food("cracker", R.drawable.cracker, 10, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 26));
-        food.add(new Food("grain of rice", R.drawable.rice, 5, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 27));
-        food.add(new Food("walnut", R.drawable.walnut, 25, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 28));
-        food.add(new Food("molasse", R.drawable.food2, 200, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 29));
-        food.add(new Food("cereal", R.drawable.cereal, 260, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 30));
-        food.add(new Food("nutella", R.drawable.nutella, 460, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 31));
-        food.add(new Food("steak", R.drawable.steak, 600, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 32));
+        dbRecipeFood = new ArrayList<Food>();
+        dbRecipeFood.add(new Food("apple", R.drawable.apple, 20, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 24));
+        dbRecipeFood.add(new Food("pear", R.drawable.pear, 50, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 25));
+        dbRecipeFood.add(new Food("cracker", R.drawable.cracker, 10, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 26));
+        dbRecipeFood.add(new Food("grain of rice", R.drawable.rice, 5, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 27));
+        dbRecipeFood.add(new Food("walnut", R.drawable.walnut, 25, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 28));
+        dbRecipeFood.add(new Food("molasse", R.drawable.food2, 200, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 29));
+        dbRecipeFood.add(new Food("cereal", R.drawable.cereal, 260, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 30));
+        dbRecipeFood.add(new Food("nutella", R.drawable.nutella, 460, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 31));
+        dbRecipeFood.add(new Food("steak", R.drawable.steak, 600, ListItem.FragmentType.recipe, ListItem.Unit.g, 50, 32));
+        dbRecipeFood.add(new Food("Banana", R.drawable.banana, 100,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 100, 1 ));
+        dbRecipeFood.add(new Food("Burger", R.drawable.burger, 800,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 500, 2));
+        dbRecipeFood.add(new Food("Bologna", R.drawable.bologna, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 150, 3));
+        dbRecipeFood.add(new Food("Berry", R.drawable.berry, 10,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20, 4));
+        dbRecipeFood.add(new Food("Burrito", R.drawable.burrito, 300,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 400, 5));
+        dbRecipeFood.add(new Food("Bean", R.drawable.bean, 30,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 5, 6));
+        dbRecipeFood.add(new Food("Broccoli", R.drawable.broccoli, 20,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 120, 7));
+        dbRecipeFood.add(new Food("Biscotti", R.drawable.biscotti, 110,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20, 8));
+        dbRecipeFood.add(new Food("Bun", R.drawable.bun, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 200, 9));
+        dbRecipeFood.add(new Food("Risotto", R.drawable.risotto, 100,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 100 , 10));
+        dbRecipeFood.add(new Food("Ham", R.drawable.ham, 800,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 500, 11));
+        dbRecipeFood.add(new Food("Pizza", R.drawable.pizza, 200,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 150, 12));
+        dbRecipeFood.add(new Food("Steak", R.drawable.steak, 10,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 20, 13));
+        dbRecipeFood.add(new Food("Potatoes", R.drawable.potatoes, 300,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 400, 14));
+        dbRecipeFood.add(new Food("Carrot", R.drawable.carrot, 30,ListItem.FragmentType.diaryEntry, ListItem.Unit.g, 5, 15));
     }
 
     private void loadRecipeMeals(){
         //adding meals
-        meal = new ArrayList<Meal>();
-        meal.add(new Meal("soup", R.drawable.soup, 270, new MealIngredient[] {
+        dbRecipeMeal = new ArrayList<Meal>();
+        dbRecipeMeal.add(new Meal("soup", R.drawable.soup, 270, new MealIngredient[] {
                 new MealIngredient(5, "cups", new Food("broth", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 33)),
                 new MealIngredient(5, "cups", new Food("onion", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 34)),
                 new MealIngredient(5, "cups", new Food("brocoli", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 35))
         }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1 , 36));
 
-        meal.add(new Meal("salad", R.drawable.salad, 150, new MealIngredient[] {
+        dbRecipeMeal.add(new Meal("salad", R.drawable.salad, 150, new MealIngredient[] {
                 new MealIngredient(5, "cups", new Food("lettuce", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 37)),
                 new MealIngredient(5, "cups", new Food("tomato", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 38)),
                 new MealIngredient(5, "cups", new Food("onion", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 39))
         }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 40));
 
-        meal.add(new Meal("yogurt parfait", R.drawable.parfait, 175, new MealIngredient[] {
+        dbRecipeMeal.add(new Meal("yogurt parfait", R.drawable.parfait, 175, new MealIngredient[] {
                 new MealIngredient(5, "cups", new Food("yogurt", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 41)),
                 new MealIngredient(5, "cups", new Food("oats", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 42)),
                 new MealIngredient(5, "cups", new Food("Stawberry", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 43))
         }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 44));
 
-        meal.add(new Meal("smoothie", R.drawable.food3, 500, new MealIngredient[] {
+        dbRecipeMeal.add(new Meal("smoothie", R.drawable.food3, 500, new MealIngredient[] {
                 new MealIngredient(5, "cups", new Food("milk", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 45)),
                 new MealIngredient(5, "cups", new Food("oats", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 46)),
                 new MealIngredient(5, "cups", new Food("banana", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 47))
         }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 48));
 
-        meal.add(new Meal("rice pilaf", R.drawable.food, 420, new MealIngredient[] {
+        dbRecipeMeal.add(new Meal("rice pilaf", R.drawable.food, 420, new MealIngredient[] {
                 new MealIngredient(5, "cups", new Food("cucumber", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 49)),
                 new MealIngredient(5, "cups", new Food("rice", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 50)),
                 new MealIngredient(5, "cups", new Food("bread", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 51))
         }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 52));
 
-        meal.add(new Meal("sushi", R.drawable.food4, 320, new MealIngredient[] {
+        dbRecipeMeal.add(new Meal("sushi", R.drawable.food4, 320, new MealIngredient[] {
                 new MealIngredient(5, "cups", new Food("rice", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 53)),
                 new MealIngredient(5, "cups", new Food("cream cheese", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 54)),
                 new MealIngredient(5, "cups", new Food("nori", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 55))
         }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 56));
 
-        meal.add(new Meal("wrap", R.drawable.food2, 200, new MealIngredient[] {
+        dbRecipeMeal.add(new Meal("wrap", R.drawable.food2, 200, new MealIngredient[] {
                 new MealIngredient(5, "cups", new Food("steak", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 57)),
                 new MealIngredient(5, "cups", new Food("pesto", R.drawable.food2, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 58)),
                 new MealIngredient(5, "cups", new Food("lettuce", R.drawable.food3, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 59))
         }, new String[] {"Get", "Good"}, ListItem.FragmentType.recipe, ListItem.Unit.serving, 1, 60));
 
-        meal.add(new Meal("shrimp tacos", R.drawable.food, 160, new MealIngredient[] {
+        dbRecipeMeal.add(new Meal("shrimp tacos", R.drawable.food, 160, new MealIngredient[] {
                 new MealIngredient(5, "cups", new Food("shrimp", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 61)),
                 new MealIngredient(5, "cups", new Food("taco shell", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 62)),
                 new MealIngredient(5, "cups", new Food("cheese", R.drawable.food, 10, ListItem.FragmentType.noType, ListItem.Unit.g, 10, 63)),

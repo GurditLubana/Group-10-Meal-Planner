@@ -1,5 +1,7 @@
 package comp3350.team10.presentation;
 
+import comp3350.team10.objects.ListItem;
+
 public interface FragToMealDiary {
     public void showContextUI(int pos);
     public void selectDate();
@@ -10,4 +12,11 @@ public interface FragToMealDiary {
     public void editItem(int pos);
     public void showExerciseEntryDialog();
     public void addEntry(int pos);
+    public String getEntryQty();
+    public ListItem.Unit getEntryUnit();
+    public void setEntryQty(Integer amount, String unit);
+    public String getExerciseCalories();
+    public void setExerciseCalories(Integer value);
+    public String getGoalCalories();
+    public void setGoalCalories(Integer value);
 }

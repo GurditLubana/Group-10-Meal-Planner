@@ -8,15 +8,22 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MealDiaryOps {
+    private Integer MAX_PROGRESS = 100;
+    private Integer GOAL_LIMIT = 9999;
+    private Integer MAX_EXCESS = 100;
+    private Integer DATE_LIMIT = 2;
+    private Integer INCREMENT = 1;
+    private Integer DEFAULT = -1;
+
     private LinkedList<ListItem> todayFoodList = new LinkedList<ListItem>();
-    private Integer calorieConsumed = -1;
-    private Integer calorieExercise = -1;
-    private Integer progressExcess = -1;
-    private Integer progressBar = -1;
-    private Integer calorieGoal = -1;
-    private Integer calorieNet = -1;
+    private Calendar listDate = Calendar.getInstance();
     private DataAccessStub db = new DataAccessStub();
-    private Calendar listDate = Calendar.getInstance();;
+    private Integer calorieConsumed = DEFAULT;
+    private Integer calorieExercise = DEFAULT;
+    private Integer progressExcess = DEFAULT;
+    private Integer progressBar = DEFAULT;
+    private Integer calorieGoal = DEFAULT;
+    private Integer calorieNet = DEFAULT;
     private boolean dataReady = false;
 
     public MealDiaryOps() {
@@ -26,9 +33,19 @@ public class MealDiaryOps {
         dataReady = true;
     }
 
+    public MealDiaryOps(DataAccessStub db) { //dependency injectable constructor
+        if(db != null) {
+            this.db = db;
+            this.db.open("someDB");
+            pullDBdata();
+            updateProgress();
+            dataReady = true;
+        }
+    }
+
     private void pullDBdata() {
-        ArrayList<ListItem> dbFetch = db.getFoodLog(listDate);
-        todayFoodList.addAll(dbFetch);
+        ArrayList<ListItem> dbFetch = db.getFoodList(listDate);
+        todayFoodList = new LinkedList<ListItem>(dbFetch);
         calorieGoal = db.getCalorieGoal();
         calorieExercise = 0; //fetch from db
     }
@@ -38,27 +55,53 @@ public class MealDiaryOps {
     }
 
     public void nextDate() {
-        dataReady = false;
-        listDate.add(Calendar.DAY_OF_YEAR, 1);
-        pullDBdata();
-        updateProgress();
-        dataReady = true;
+        listDate.add(Calendar.DAY_OF_YEAR, INCREMENT);
+        dateChangedUpdateList();
     }
 
     public void prevDate() {
+        listDate.add(Calendar.DAY_OF_YEAR, -INCREMENT);
+        dateChangedUpdateList();
+    }
+
+    public void setListDate(Calendar newDate) {
+        int diff = listDate.get(Calendar.YEAR) - newDate.get(Calendar.YEAR);
+        if(diff <= DATE_LIMIT && diff >= -DATE_LIMIT) {
+            listDate = newDate;
+            dateChangedUpdateList();
+        }
+    }
+
+    private void dateChangedUpdateList(){
         dataReady = false;
-        listDate.add(Calendar.DAY_OF_YEAR, -1);
+        db.updateSelectedFoodLogFoodList(new ArrayList<>(todayFoodList));
         pullDBdata();
         updateProgress();
         dataReady = true;
     }
 
-    public void setListDate(Calendar newDate) {
-        dataReady = false;
-        listDate = newDate;
-        pullDBdata();
-        updateProgress();
-        dataReady = true;
+    public void setCalorieGoal(Integer newGoal) {
+        if (newGoal != null && newGoal >= 0 && newGoal <= GOAL_LIMIT) {
+            calorieGoal = newGoal;
+            db.setCalorieGoal(newGoal);
+            updateProgress();
+        }
+    }
+
+    public void setCalorieExercise(Integer newExercise) {
+        if (newExercise != null && newExercise >= 0 && newExercise <= GOAL_LIMIT) {
+            calorieExercise = newExercise;
+            db.setExerciseActual(newExercise);
+            updateProgress();
+        }
+    }
+
+    public void updateList(LinkedList<ListItem> newList) {
+        if (newList != null) {
+            todayFoodList = newList;
+            db.updateSelectedFoodLogFoodList(new ArrayList<>(newList));
+            updateProgress();
+        }
     }
 
     public Calendar getListDate() {
@@ -67,21 +110,6 @@ public class MealDiaryOps {
 
     public boolean isDataReady() {
         return dataReady;
-    }
-
-    public void setCalorieGoal(Integer newGoal) {
-        if (newGoal != null && newGoal >= 0 && newGoal <= 9999) {
-            calorieGoal = newGoal;
-        }
-    }
-
-    public void setCalorieExercise(Integer newExercise) {
-        if (calorieExercise == null) {
-            calorieExercise = new Integer(-1);
-        }
-        if (newExercise != null && newExercise >= 0 && newExercise <= 9999) {
-            calorieExercise = newExercise;
-        }
     }
 
     public Integer getCalorieGoal() {
@@ -112,14 +140,6 @@ public class MealDiaryOps {
         return todayFoodList;
     }
 
-    public void updateList(LinkedList<ListItem> newList) {
-        if (newList != null) {
-            todayFoodList = newList;
-            updateProgress();
-            //push to db after
-        }
-    }
-
     private void updateProgress() {
         sumCalories();
         netCalories();
@@ -129,12 +149,12 @@ public class MealDiaryOps {
     private void calcProgress() {
         if (calorieNet > 0) {
             progressExcess = 0;
-            progressBar = (calorieGoal - calorieNet) * 100 / calorieGoal;
+            progressBar = (calorieGoal - calorieNet) * MAX_PROGRESS / calorieGoal;
         } else {
-            progressBar = 100;
-            progressExcess = -calorieNet * 100 / calorieGoal;
-            if(progressExcess > 25){
-                progressExcess = 25;
+            progressBar = MAX_PROGRESS;
+            progressExcess = -calorieNet * MAX_PROGRESS / calorieGoal;
+            if(progressExcess > MAX_EXCESS){
+                progressExcess = MAX_EXCESS;
             }
         }
     }
