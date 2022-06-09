@@ -4,11 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Calendar;
 
 import comp3350.team10.business.MealDiaryOps;
+import comp3350.team10.business.RecipeBookOps;
 import comp3350.team10.persistence.DataAccessStub;
 import comp3350.team10.persistence.SharedDB;
 
@@ -22,23 +22,26 @@ public class RecipeBookOpsTests {
 
     @Nested
     @DisplayName("Database is shared between recipebook and mealdiary")
-    class someClass{
+    class dbInstanceSharing{
         DataAccessStub db;
-        MealDiaryOps ops;
+        MealDiaryOps mealDiaryOps;
+        RecipeBookOps recipeBookOps;
         Calendar currDate;
 
         @BeforeEach
         void setup() {
             SharedDB.start("test");
             //db = new DataAccessStub();
-            db =SharedDB.getSharedDB();
-            ops = new MealDiaryOps(db);
-            currDate = (Calendar) ops.getListDate().clone();
+            db = SharedDB.getSharedDB();
+            mealDiaryOps = new MealDiaryOps(db);
+            recipeBookOps = new RecipeBookOps(db);
+            currDate = (Calendar) mealDiaryOps.getListDate().clone();
         }
 
         @Test
-        @DisplayName("s")
-        void someTest(){
+        @DisplayName("Item added in recipebook ops shows up in mealdiary")
+        void test1(){
+            
         }
     }
 
