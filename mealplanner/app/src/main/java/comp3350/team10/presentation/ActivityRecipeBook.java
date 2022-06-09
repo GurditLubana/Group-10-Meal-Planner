@@ -25,18 +25,12 @@ import comp3350.team10.R;
 import comp3350.team10.business.RecipeBookOps;
 
 import comp3350.team10.objects.*;
+import comp3350.team10.persistence.SharedDB;
 
 import java.util.LinkedList;
 
 public class ActivityRecipeBook extends AppCompatActivity implements FragToRecipeBook {
 
-    //private RecyclerViewAdapter recyclerViewAdapter;
-    //private RecyclerView recipeRecyclerView;
-    //private static LinkedList<ListItem> data;
-    //private RecipeBookOps opExec = new RecipeBookOps();
-    //private ListItem saved;
-    // private int savedPos;
-    // private Toolbar toolbar;
     private FloatingActionButton openFab, editFab, addFab;
     private Animation fabOpen, fabClose, rotateForward, rotateBackward;
     private boolean isOpen = false;
@@ -63,7 +57,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_book);
         initToolbar();
-        this.opExec = new RecipeBookOps();
         initLiveData();
         initRecyclerView();
         setTabListeners();
@@ -105,9 +98,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
                 if(currTab == 0) //food tab
                 {
-                    //Intent i = new Intent(ActivityRecipeBook.this, AddRecipe.class);
-                    //addItemToRecipe();
-                    //startActivity(i);
                     new AddRecipe().show(
                             getSupportFragmentManager(), AddRecipe.TAG
                     );
@@ -164,11 +154,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     private void initLiveData() {
-        /*mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class);
-        if (opExec.isDataReady()) {
-            updateLiveData();
-        }*/
-        this.data = this.opExec.getData(0);
+        this.opExec = new RecipeBookOps(SharedDB.getSharedDB());
+        data = opExec.getFoodRecipes();
     }
 
     private void initRecyclerView() {
@@ -177,8 +164,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
             this.recipeRecyclerView = (RecyclerView) findViewById(R.id.recipeRecyclerView);
             this.recipeRecyclerView.setAdapter(recyclerViewAdapter);
             this.recipeRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
-        } else {
-            //throw new Exception("Meal Diary Linked list empty");
         }
     }
     private void setTabListeners(){
@@ -187,12 +172,17 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) { //tab.getPosition() tab 0 = food, 1 = meal, 2 = drink
-                currTab = tab.getPosition();
-                data = opExec.getData(tab.getPosition());
 
-
-                System.out.println("********************** " + data.size());
-                recyclerViewAdapter.changeData(data);
+                if(tab.getPosition() == 0){
+                    data = opExec.getFoodRecipes();
+                }
+                else if(tab.getPosition() == 1){
+                    data = opExec.getMealRecipes();
+                }
+                else{
+                    data = opExec.getDrinkRecipes();
+                }
+                updateRVA();
             }
 
             @Override
@@ -217,10 +207,10 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
             this.data.remove(this.savedPos);
             this.data.add(this.savedPos, this.saved);
         }
-        if (this.data.get(pos).getFragmentType() == ListItem.FragmentType.recipe) {
+        if (this.data.get(pos).getFragmentType() != ListItem.FragmentType.cardSelection) {
             this.saved = this.data.remove(pos);
             this.savedPos = pos;
-            this.data.add(pos, new DiaryItem(ListItem.FragmentType.cardSelection, null, null, 0));
+            this.data.add(pos, new Food("",0,0,ListItem.FragmentType.cardSelection, null, 0, 0));
         } else {
             this.data.remove(pos);
             this.data.add(pos, this.saved);
@@ -235,61 +225,50 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private void addItemToRecipe()
     {
 
-        if(currTab == 0)
-        {
-            System.out.println("The size is   ---------------" + data.size());
-            Intent intent = getIntent();
-            fName = intent.getStringExtra(Edible);
-            fCalories = intent.getIntExtra(Calories,0);
-            fQuantity = intent.getIntExtra(Quantity,0);
-            if(fName != null)
-            {
-//                Food food = new Food(fName,R.drawable.apple, fCalories, ListItem.FragmentType.recipe, ListItem.Unit.g, fQuantity, 24);
-                Food food = new Food(fName,R.drawable.apple, 4, ListItem.FragmentType.recipe, ListItem.Unit.g, 69, 24);
-
-                RecipeBookItem r = new RecipeBookItem(food, R.drawable.apple, 3);
-                data.add(0,r);
-                opExec.insertItem(0,food);
-
-                recyclerViewAdapter.notifyItemInserted(0);
-                recyclerViewAdapter.notifyItemRangeChanged(0, data.size());
-                recyclerViewAdapter.notifyDataSetChanged();
-                fName= null;
-
-                //fName = null;
-            }
-
-        }
-//        else if(currTab == 2) // still needs to complete
-//        {
-//            Intent intent = getIntent();
-//            fName = intent.getStringExtra(Edible);
-//            fCalories = intent.getIntExtra(Calories,0);
-//            fQuantity = i.getIntExtra(Quantity,0);
-//            if(fName != null) {
-//                Food food = new Food(fName, 0, fCalories, ListItem.FragmentType.recipe, ListItem.Unit.g, fQuantity, 24);
-//                RecipeBookItem r = new RecipeBookItem(food, R.drawable.apple, 3);
-//                data.add(0, r);
-//                recyclerViewAdapter.notifyItemInserted(0);
-//                fName = null;
-//            }
-//        }
     }
 
     
     @Override
-    public void addFoodEntry(int pos){
+    public void addToMealDiary(int pos){
         Intent intent = new Intent();
         int dbkey = -1;
         if(saved != null) {
-            dbkey = ((RecipeBookItem) saved).getItem().getDbkey();
+            dbkey =  ((Edible) saved).getDbkey();
         }
         intent.putExtra("DBKEY", dbkey); //
         setResult(RESULT_OK, intent);
         finish();
     };
 
+    private void updateRVA(){
+        if (recyclerViewAdapter != null) {
+            recyclerViewAdapter.changeData(data);
+            recyclerViewAdapter.notifyDataSetChanged();
+        }
+    }
 
+    @Override
+    public void addDrink() {  //change this to correct signature
+        // do input validation then pass to ops
+        //opExec.addDrink(); //add appropriate objects here
+        data = opExec.getDrinkRecipes();
+        updateRVA();
+    }
 
+    @Override
+    public void addFood(String name, int iconPath, int calories, ListItem.Unit baseUnit, int quantity) { //change this to correct signature
+        // do input validation then pass to ops
+        opExec.addFood(name, iconPath, calories, baseUnit, quantity);
+        data = opExec.getFoodRecipes();
+        updateRVA();
+    }
+
+    @Override
+    public void addMeal() { //change this to correct signature
+        // do input validation then pass to ops
+        //opExec.addMeal(); //add appropriate objects here
+        data = opExec.getMealRecipes();
+        updateRVA();
+    }
 
 }

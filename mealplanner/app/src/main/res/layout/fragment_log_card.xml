@@ -76,7 +76,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/itemNameBox"
-                app:layout_constraintVertical_bias="0.625" />
+                app:layout_constraintVertical_bias="0.555" />
 
             <TextView
                 android:id="@+id/itemCalsBox"
@@ -113,7 +113,10 @@
                 android:layout_width="250dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="30dp"
+
                 android:layout_marginTop="16dp"
+
+
                 android:layout_weight="0.70"
                 android:text="food item name"
                 android:textAlignment="viewStart"

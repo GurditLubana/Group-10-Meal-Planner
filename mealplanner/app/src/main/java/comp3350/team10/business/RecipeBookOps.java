@@ -3,71 +3,72 @@ package comp3350.team10.business;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+
+import comp3350.team10.objects.Drink;
+import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Food;
 import comp3350.team10.objects.ListItem;
+import comp3350.team10.objects.Meal;
+import comp3350.team10.objects.MealIngredient;
 import comp3350.team10.objects.RecipeBookItem;
 import comp3350.team10.persistence.DataAccessStub;
 
 public class RecipeBookOps {
-    private static final int FOOD_TAB = 0;
-    private static final int MEAL_TAB = 1;
-    private static final int DRINK_TAB = 2;
+    public enum RecipeBook {FOOD,DRINKS,MEALS};
 
-    private LinkedList<ListItem> foods = new LinkedList<ListItem>();
-    private LinkedList<ListItem> meals = new LinkedList<ListItem>();
-    private LinkedList<ListItem> drinks = new LinkedList<ListItem>();
-    private DataAccessStub db = new DataAccessStub();
+    private LinkedList<ListItem> selectedList = null;
+    private RecipeBook selectedType = RecipeBook.FOOD;
+    private DataAccessStub db = null;
 
-
-    public LinkedList<ListItem> getData(int specDataSet) {
-        System.out.println("inside getData");
-        LinkedList<ListItem> data = null;
-        db.open("someDB");
-        
-        if(specDataSet == FOOD_TAB) {
-            if(this.foods.size() == 0) {
-                this.foods = db.getRecipe(specDataSet);
-            }
-
-            data = this.foods;
-        }
-        else if(specDataSet == MEAL_TAB) {
-            if(this.meals.size() == 0) {
-                this.meals = db.getRecipe(specDataSet);
-            }
-
-            data = this.meals;
-        }
-        else if(specDataSet == DRINK_TAB) {
-            if(this.drinks.size() == 0) {
-                this.drinks = db.getRecipe(specDataSet);
-            }
-
-            data = this.drinks;
-        }
-
-        System.out.println("returning data");
-        return data;
+    public RecipeBookOps(DataAccessStub db){
+        this.db = db;
+        pullDBdata();
     }
 
-    public void insertItem(int specDataSet, Food item)
-    {
-        if(specDataSet == FOOD_TAB) {
-
-            db.insertItem(0,item);
+    private void pullDBdata(){
+        if(selectedType == RecipeBook.FOOD){
+            selectedList = db.getRecipes(RecipeBook.FOOD.name());
         }
-        else if(specDataSet == MEAL_TAB) {
-
-            this.meals.add(item);
-
+        else if(selectedType == RecipeBook.MEALS){
+            selectedList = db.getRecipes(RecipeBook.MEALS.name());
         }
-        else if(specDataSet == DRINK_TAB) {
-
-            this.drinks.add(item);
-
-
+        else{
+            selectedList = db.getRecipes(RecipeBook.DRINKS.name());
         }
+    }
+
+    public LinkedList<ListItem> getFoodRecipes(){
+        selectedType = RecipeBook.FOOD;
+        pullDBdata();
+        return selectedList;
+    }
+
+    public LinkedList<ListItem> getDrinkRecipes(){
+        selectedType = RecipeBook.DRINKS;
+        pullDBdata();
+        return selectedList;
+    }
+
+    public LinkedList<ListItem> getMealRecipes(){
+        selectedType = RecipeBook.MEALS;
+        pullDBdata();
+        return selectedList;
+    }
+
+    public void addFood(String name, int iconPath, int calories, ListItem.Unit baseUnit, int quantity){ //
+        Edible newFood = new Food(name, iconPath, calories, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey());
+        db.addFoodToRecipeBook(newFood);
+    }
+
+    public void addMeal(String name, int iconPath, int calories, MealIngredient[] ingredients, String[] instructions, ListItem.Unit baseUnit, int quantity){
+        Edible newMeal = new Meal(name, iconPath, calories, ingredients, instructions, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey());
+        db.addMealToRecipeBook(newMeal);
+    }
+
+    public void addDrink(String name, int iconPath, int cals, String[] instructions, DrinkIngredient[] ingredients, ListItem.Unit baseUnit, int quantity){
+        Edible newDrink = new Drink(name, iconPath, cals, instructions, ingredients, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey());
+        db.addDrinkToRecipeBook(newDrink);
 
     }
 

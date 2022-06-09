@@ -3,7 +3,6 @@ package comp3350.team10.presentation;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,7 +104,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_dbl_card, viewGroup, false);
                 break;
             case 4:    //add thing to make it show this card/buttons thingy add enum
-                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_on_card_selection, viewGroup, false);
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_on_card_selection2, viewGroup, false);
                 break;
             default:
                 view = null;
@@ -275,7 +274,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 if (context != null) {
                     sendToRecipeBook = (FragToRecipeBook) context;
-                    sendToRecipeBook.addFoodEntry(position);
+                    sendToRecipeBook.addToMealDiary(position);
                     //parentComm.addDiaryItem((DiaryItem)localDataSet.get(position));
                 }
             }

@@ -87,15 +87,11 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
         ViewHolder viewHolder;
 
         switch (viewType) {
-            case 3: //creates cards
-                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_dbl_card, viewGroup, false);
-                break;
             case 4:    //add thing to make it show this card/buttons thingy add enum
-                //view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_on_card_selection2, viewGroup, false);
-                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_on_card_selection, viewGroup, false);
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_on_card_selection2, viewGroup, false);
                 break;
             default:
-                view = null;
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_dbl_card, viewGroup, false);
                 break;
         }
         viewHolder = new ViewHolder(view);
@@ -113,15 +109,12 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
         switch (viewHolder.getItemViewType()) {
-            case 3:
-                setRecipeData(viewHolder, position);    //this is what puts information into dbl cards
-                setCardListeners(viewHolder, position);
-                break;//viewHolder, position
             case 4:
                 setCardSelectionListeners(viewHolder, position);
                 break;
             default:
-                //view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_add_log, viewGroup, false);
+                setRecipeData(viewHolder, position);    //this is what puts information into dbl cards
+                setCardListeners(viewHolder, position);
         }
     }
 
@@ -152,19 +145,16 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
         TextView textDesc = (TextView) viewHolder.getView().findViewById(R.id.mealDesc);
         TextView mealCalories = (TextView) viewHolder.getView().findViewById(R.id.mealCals);
 
-        Edible currentFood = (Edible)((RecipeBookItem) localDataSet.get(position)).getFood();
+        Edible currentFood = (Edible) localDataSet.get(position);
 
         itemImage.setImageResource(currentFood.getIconPath());
         textDesc.setText(currentFood.getName());
         mealCalories.setText(Integer.toString(currentFood.getCalories()));
     }
     private void setCardSelectionListeners(ViewHolder viewHolder, int position) {
-        /*ImageButton viewButton = (ImageButton) viewHolder.getView().findViewById(R.id.viewBtn2);
-        ImageButton addButton = (ImageButton) viewHolder.getView().findViewById(R.id.addToPlannerBtn2);
-        ImageButton backButton = (ImageButton) viewHolder.getView().findViewById(R.id.btnBackRecipe);*/
-        Button viewButton = (Button) viewHolder.getView().findViewById(R.id.viewBtn);
-        Button addButton = (Button) viewHolder.getView().findViewById(R.id.addToPlannerBtn);
-
+        Button viewButton = (Button) viewHolder.getView().findViewById(R.id.viewBtn2);
+        Button addButton = (Button) viewHolder.getView().findViewById(R.id.addToPlannerBtn2);
+        Button backButton = (Button) viewHolder.getView().findViewById(R.id.btnBackRecipe);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,12 +163,12 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
 
                 if (context != null) {
                     sendToRecipeBook = (FragToRecipeBook) context;
-                    sendToRecipeBook.addFoodEntry(position);
+                    sendToRecipeBook.addToMealDiary(position);
                 }
             }
         });
 
-        /*backButton.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectedPos = viewHolder.getAbsoluteAdapterPosition();
@@ -189,17 +179,18 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
                     sendToRecipeBook.showContextUI(selectedPos);
                 }
             }
-        });*/
+        });
+
         viewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { //need to pass tab information, and edible
-                Intent intent = new Intent(view.getContext(), ActivityViewEdible.class);
-                String currActivityName = view.getContext().getClass().getName();
-
-                intent.putExtra(ActivityViewEdible.RETURN_ACTIVITY_NAME, currActivityName);
-                //intent.putExtra("edibleItem", (Parcelable)localDataSet.get(position));
-
-                view.getContext().startActivity(intent);
+//                Intent intent = new Intent(view.getContext(), ActivityViewEdible.class);
+//                String currActivityName = view.getContext().getClass().getName();
+//
+//                intent.putExtra(ActivityViewEdible.RETURN_ACTIVITY_NAME, currActivityName);
+//                //intent.putExtra("edibleItem", (Parcelable)localDataSet.get(position));
+//
+//                view.getContext().startActivity(intent);
             }
         });
     }

@@ -27,7 +27,7 @@ public class MealDiaryOps {
     private boolean dataReady = false;
 
     public MealDiaryOps() {
-        db.open("someDB");
+        //db.open("someDB");
         pullDBdata();
         updateProgress();
         dataReady = true;
@@ -36,7 +36,7 @@ public class MealDiaryOps {
     public MealDiaryOps(DataAccessStub db) { //dependency injectable constructor
         if(db != null) {
             this.db = db;
-            this.db.open("someDB");
+            //this.db.open("someDB");
             pullDBdata();
             updateProgress();
             dataReady = true;
@@ -173,23 +173,14 @@ public class MealDiaryOps {
     }
 
     public void addByKey(int dbkey){
-        Boolean found = false;
-        LinkedList currList = null;
-        Edible tempEdible = null;
+        Edible tempEdible = db.findEdibleByKey(dbkey);
         ListItem newItem = null;
 
-        for(int i =0; i <3 && !found; i++){
-            currList = db.getRecipe(i);
-
-            for(int x = 0; x < currList.size() && !found; x++){
-                if(((Edible) ((RecipeBookItem) currList.get(x)).getItem()).getDbkey() == dbkey){
-                    found = true;
-                    tempEdible = (Edible) ((RecipeBookItem) currList.get(x)).getItem();
-                    tempEdible.setFragmentType(ListItem.FragmentType.diaryEntry);
-                    newItem = tempEdible;
-                }
-            }
+        if(tempEdible != null){
+            tempEdible.setFragmentType(ListItem.FragmentType.diaryEntry);
+            newItem = tempEdible;
         }
+
         if(newItem != null){
             todayFoodList.add(todayFoodList.size()-1, newItem);
         }
