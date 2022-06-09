@@ -224,5 +224,26 @@ public class MealDiaryOpsTests {
 
     }
 
+    @Nested
+    @DisplayName("Something")
+    class someClass{
+        DataAccessStub db;
+        MealDiaryOps ops;
+        Calendar currDate;
+
+        @BeforeEach
+        void setup() {
+            SharedDB.start("test");
+            //db = new DataAccessStub();
+            db =SharedDB.getSharedDB();
+            ops = new MealDiaryOps(db);
+            currDate = (Calendar) ops.getListDate().clone();
+        }
+
+        @Test
+        @DisplayName("s")
+        void someTest(){
+        }
+    }
 
 }
