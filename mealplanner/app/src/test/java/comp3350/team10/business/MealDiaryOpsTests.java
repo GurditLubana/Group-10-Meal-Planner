@@ -1,4 +1,4 @@
-package com.teamten.mealplanner;
+package comp3350.team10.business;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
