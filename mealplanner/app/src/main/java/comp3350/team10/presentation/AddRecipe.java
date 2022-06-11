@@ -7,6 +7,7 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
@@ -33,7 +34,7 @@ import comp3350.team10.persistence.DataAccessStub;
 public class AddRecipe extends DialogFragment {
 
     private EditText foodNameText,caloriesText,quantityText;
-    private Button addBtn;
+    private Button addBtn, cancelButton;
     private String foodName;
     private EditText imageView;
     private int calories;
@@ -96,55 +97,50 @@ public class AddRecipe extends DialogFragment {
         caloriesText = view.findViewById(R.id.foodCalories);
         quantityText = view.findViewById(R.id.foodQnty);
         addBtn = view.findViewById(R.id.addItem);
+        cancelButton = view.findViewById(R.id.cancelTask);
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                sendData();
+                sendData(view);
+
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getContext(), ActivityRecipeBook.class );
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
 
             }
         });
         return builder.create();
     }
 
-    public static String TAG = "AddRecipe";
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_add_recipe);
-//
-//        foodNameText = findViewById(R.id.foodTitle);
-//        imageView  = findViewById(R.id.imagePath);
-//        caloriesText = findViewById(R.id.foodCalories);
-//        quantityText = findViewById(R.id.foodQnty);
-//        addBtn = findViewById(R.id.addItem);
-//
-//        addBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                sendData();
-//
-//            }
-//        });
-//
-//
-//    }
 
-    private void sendData()
+
+    public static String TAG = "AddRecipe";
+
+
+    private void sendData(View view)
     {
 
         foodName = foodNameText.getText().toString().trim();
         calories = Integer.parseInt(caloriesText.getText().toString().trim());
         quantity = Integer.parseInt(quantityText.getText().toString().trim());
         Intent intent = new Intent(getContext(), ActivityRecipeBook.class );
-        intent.putExtra(ActivityRecipeBook.Edible, foodName);
-        intent.putExtra(ActivityRecipeBook.Calories,calories);
-        intent.putExtra(ActivityRecipeBook.Quantity,quantity);
+        Context context = view.getContext();
 
-//        setResult(RESULT_OK, intent);
-//        finish();
+        if (context != null) {
+            send = (FragToRecipeBook) context;
+            send.addFood(foodName, R.drawable.ic_eggplant,calories,ListItem.Unit.g,quantity);
+        }
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
