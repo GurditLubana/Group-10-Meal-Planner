@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 public class MealDiaryOps {
     private final static Integer MAX_PROGRESS = 100;    //Scales the progress bar (percentage)
-    private final static Integer GOAL_LIMIT = 9999;     //The highest number of calories a user should aim for
+    public final static Integer GOAL_LIMIT = 9999;     //The highest number of calories a user should aim for
     private final static Integer MAX_EXCESS = 100;      //How many calories a user can exceed their goal by
     private final static Integer DATE_LIMIT = 2;        //Limits the quantity of data saved by years
     private final static Integer INCREMENT = 1;         //Directional arrow increments
@@ -18,7 +18,6 @@ public class MealDiaryOps {
     private LinkedList<Edible> todayFoodList; //The food in the planner for the given day
     private Calendar listDate;                  //The date the planner is set to
     private DataAccessStub db;                  //Accesses the database
-    private boolean dataReady;                  //Represents whether data was read from the database
 
     //Progress bar variables
     private Integer calorieConsumed;            //Represents the number of calories currently consumed
@@ -32,7 +31,6 @@ public class MealDiaryOps {
         this.todayFoodList = new LinkedList<Edible>();
         this.listDate = Calendar.getInstance();
         this.db = new DataAccessStub();
-        this.dataReady = false;
 
         this.calorieConsumed = -1;
         this.calorieExercise = -1;
@@ -43,7 +41,6 @@ public class MealDiaryOps {
         
         this.pullDBdata();
         this.updateProgress();
-        this.dataReady = true;
     }
 
     //dependency injectable constructor
@@ -52,7 +49,6 @@ public class MealDiaryOps {
             this.db = db;
             this.pullDBdata();
             this.updateProgress();
-            this.dataReady = true;
         }
     }
 
@@ -87,12 +83,10 @@ public class MealDiaryOps {
     }
 
     private void dateChangedUpdateList(){
-        this.dataReady = false;
         db.updateSelectedFoodLogFoodList(new ArrayList<Edible>(this.todayFoodList));
         
         this.pullDBdata();
         this.updateProgress();
-        this.dataReady = true;
     }
 
     public void setCalorieGoal(Integer newGoal) {
@@ -121,10 +115,6 @@ public class MealDiaryOps {
 
     public Calendar getListDate() {
         return this.listDate;
-    }
-
-    public boolean isDataReady() {
-        return this.dataReady;
     }
 
     public Integer getCalorieGoal() {
