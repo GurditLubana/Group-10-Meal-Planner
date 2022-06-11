@@ -9,8 +9,8 @@
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="450dp"
+        android:layout_height="300dp"
         app:cardBackgroundColor="?colorSecondaryVariant"
         app:cardCornerRadius="0dp">
 
@@ -72,6 +72,7 @@
                 android:text="Amount"
                 android:textAlignment="textEnd"
                 android:textColor="?colorOnPrimary"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dialogTitle"
@@ -79,7 +80,7 @@
 
             <Spinner
                 android:id="@+id/inputUnit"
-                android:layout_width="120dp"
+                android:layout_width="130dp"
                 android:layout_height="50dp"
                 app:layout_constraintBottom_toBottomOf="@+id/inputQty"
                 app:layout_constraintStart_toEndOf="@+id/inputQty"

@@ -101,7 +101,7 @@ public class FragmentMealDiaryEdit extends DialogFragment {
             items[i] = ListItem.Unit.values()[i].name();
         }
 
-        adapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, items);
+        adapter = new ArrayAdapter<String>(getActivity().getBaseContext(), R.layout.spinner_unit_items, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         if (context != null) {
@@ -114,7 +114,6 @@ public class FragmentMealDiaryEdit extends DialogFragment {
             inputSpinner = (Spinner) view.findViewById(R.id.inputUnit);
             inputSpinner.setAdapter(adapter);
             inputSpinner.setSelection(adapter.getPosition(unit.name()));
-
         }
     }
 
