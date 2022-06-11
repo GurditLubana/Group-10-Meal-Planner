@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -41,6 +43,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private String fName ;
     private int fCalories;
     private int fQuantity;
+    FragToRecipeBook send;
 
 
 
@@ -61,6 +64,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         initRecyclerView();
         setTabListeners();
         executeFab();// make floating action button work.
+
+
 
     }
 
@@ -100,6 +105,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                 {
                     new AddRecipe().show(
                             getSupportFragmentManager(), AddRecipe.TAG
+
                     );
 
                 }
@@ -175,6 +181,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
                 if(tab.getPosition() == 0){
                     data = opExec.getFoodRecipes();
+
                 }
                 else if(tab.getPosition() == 1){
                     data = opExec.getMealRecipes();
