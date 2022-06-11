@@ -131,10 +131,10 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     {
         if(isOpen){
             openFab.startAnimation(rotateForward);
-            editFab.startAnimation(fabClose);
+//            editFab.startAnimation(fabClose);
             addFab.startAnimation(fabClose);
             addFab.setClickable(false);
-            editFab.setClickable(false);
+//            editFab.setClickable(false);
             isOpen = false;
 
         }
@@ -142,10 +142,11 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         else
         {
             openFab.startAnimation(rotateBackward);
-            editFab.startAnimation(fabOpen);
+//            editFab.startAnimation(fabOpen);
             addFab.startAnimation(fabOpen);
             addFab.setClickable(true);
-            editFab.setClickable(true);
+
+//            editFab.setClickable(true);
             isOpen = true;
 
         }
