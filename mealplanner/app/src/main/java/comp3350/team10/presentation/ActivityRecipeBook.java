@@ -109,17 +109,21 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                     );
 
                 }
+
                 else if(currTab == 1)
                 {
-                    Intent i = new Intent(ActivityRecipeBook.this, AddMeals.class);
+                    Intent i = new Intent(ActivityRecipeBook.this, AddDrinks.class);
                     startActivity(i);
                 }
 
                 else if(currTab == 2)
                 {
-                    Intent i = new Intent(ActivityRecipeBook.this, AddDrinks.class);
-                    startActivity(i);
+                    new AddDrinks().show(
+                            getSupportFragmentManager(), AddDrinks.TAG
+
+                    );
                 }
+
                 else{animateButton();}
             }
         });
@@ -179,12 +183,11 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) { //tab.getPosition() tab 0 = food, 1 = meal, 2 = drink
-
-                if(tab.getPosition() == 0){
+                currTab = tab.getPosition();
+                if(currTab == 0){
                     data = opExec.getFoodRecipes();
-
                 }
-                else if(tab.getPosition() == 1){
+                else if(currTab == 1){
                     data = opExec.getMealRecipes();
                 }
                 else{
@@ -256,9 +259,10 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     @Override
-    public void addDrink() {  //change this to correct signature
+    public void addDrink(String name, int iconPath, int calories, DrinkIngredient[] ingredients, String [] instructions, ListItem.Unit baseUnit, int quantity) {
         // do input validation then pass to ops
-        //opExec.addDrink(); //add appropriate objects here
+
+        opExec.addDrink(name,iconPath,calories,instructions,ingredients,baseUnit,quantity); //add appropriate objects here
         data = opExec.getDrinkRecipes();
         updateRVA();
     }

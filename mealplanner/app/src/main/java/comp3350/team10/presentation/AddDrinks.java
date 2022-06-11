@@ -15,17 +15,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import comp3350.team10.R;
+import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.ListItem;
 
 
 public class AddDrinks extends DialogFragment {
 
-    private EditText drinkNameText,caloriesText,quantityText;
+    private EditText drinkNameText,caloriesText,quantityText,instructions, ingredients;
     private Button addBtn2, cancelButton2;
     private String drinkName;
     private EditText imageView;
-    private int calories;
-    private int quantity;
+    private int calories,quantity;
+    private DrinkIngredient[] ingredientsArray;
     private ImageView image;
     private FragToRecipeBook sendInput;
 
@@ -78,6 +79,12 @@ public class AddDrinks extends DialogFragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.activity_add_drinks, null);
         builder.setView(view);
 
+        drinkNameText = view.findViewById(R.id.drinksTitle);
+        imageView  = view.findViewById(R.id.drinksImagePath);
+        caloriesText = view.findViewById(R.id.drinksCalories);
+        quantityText = view.findViewById(R.id.drinksQnty);
+        instructions = view.findViewById(R.id.drinkInstructions);
+        ingredients = view.findViewById(R.id.drinkIngred);
 
 
         addBtn2 = view.findViewById(R.id.addItem2);
@@ -96,10 +103,7 @@ public class AddDrinks extends DialogFragment {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getContext(), ActivityRecipeBook.class );
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                dismiss();
             }
         });
 
@@ -112,11 +116,9 @@ public class AddDrinks extends DialogFragment {
 
     private void sendData(View view)
     {
-        drinkNameText = view.findViewById(R.id.foodTitle);
-        imageView  = view.findViewById(R.id.imagePath);
-        caloriesText = view.findViewById(R.id.foodCalories);
-        quantityText = view.findViewById(R.id.foodQnty);
 
+        String [] dInstruct = instructions.getText().toString().split("\n");
+        String[] dIngredients = ingredients.getText().toString().split(",");
         drinkName = drinkNameText.getText().toString().trim();
         calories = Integer.parseInt(caloriesText.getText().toString().trim());
         quantity = Integer.parseInt(quantityText.getText().toString().trim());
@@ -125,11 +127,10 @@ public class AddDrinks extends DialogFragment {
 
         if (context != null) {
             sendInput = (FragToRecipeBook) context;
-            sendInput.addFood(drinkName, R.drawable.ic_eggplant,calories,ListItem.Unit.ml,quantity);
+            sendInput.addDrink(drinkName, R.drawable.ic_eggplant,calories,ingredientsArray, dInstruct,ListItem.Unit.ml,quantity);
         }
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+
+        dismiss();
 
     }
 

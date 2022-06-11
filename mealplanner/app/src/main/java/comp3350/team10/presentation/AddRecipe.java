@@ -113,12 +113,7 @@ public class AddRecipe extends DialogFragment {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getContext(), ActivityRecipeBook.class );
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-
-
+                dismiss();
             }
         });
         return builder.create();
@@ -145,9 +140,7 @@ public class AddRecipe extends DialogFragment {
                 send = (FragToRecipeBook) context;
                 send.addFood(foodName, R.drawable.ic_eggplant,calories,ListItem.Unit.g,quantity);
             }
-            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            dismiss();
         }
 
     }

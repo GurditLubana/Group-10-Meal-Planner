@@ -13,6 +13,14 @@ public class DrinkIngredient extends Ingredient {
         this.alcoholic = alcoholic;
     }
 
+    public DrinkIngredient(String name, double quantity, String units) {
+        super(quantity, units);
+
+        this.name = name;
+        this.replacement = false;
+        this.alcoholic = false;
+    }
+
 
     public String getName() {
         return this.name;
