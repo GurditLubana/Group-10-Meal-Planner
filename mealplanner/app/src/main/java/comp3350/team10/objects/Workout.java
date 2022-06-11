@@ -1,8 +1,8 @@
 package comp3350.team10.objects;
 
-public class Workout { //put into array based on what day they go on
-    private boolean complete;
-    private Exercise[] exercises;
+public class Workout {
+    private boolean complete;       //Represents whether the workout was completed by the user
+    private Exercise[] exercises;   //Represents the exercises for a given workout
 
     public Workout(Exercise[] exercises) {
         this.exercises = exercises;
@@ -25,5 +25,13 @@ public class Workout { //put into array based on what day they go on
         }
 
         return totalCalories;
+    }
+
+    public void modCompletionStatus(boolean newStatus) {
+        this.complete = newStatus;
+    }
+
+    public boolean getCompletionStatus() {
+        return this.complete;
     }
 }

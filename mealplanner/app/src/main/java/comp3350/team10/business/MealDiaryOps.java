@@ -1,10 +1,11 @@
 package comp3350.team10.business;
+
 import comp3350.team10.objects.*;
 import comp3350.team10.persistence.DataAccessStub;
 
-import java.util.LinkedList;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class MealDiaryOps {
     private final static Integer MAX_PROGRESS = 100;    //Scales the progress bar (percentage)
@@ -77,7 +78,7 @@ public class MealDiaryOps {
     }
 
     public void setListDate(Calendar newDate) {
-        int diff = listDate.get(Calendar.YEAR) - newDate.get(Calendar.YEAR);
+        Integer diff = listDate.get(Calendar.YEAR) - newDate.get(Calendar.YEAR);
         
         if(diff <= DATE_LIMIT && diff >= -DATE_LIMIT) { //if within 2 years
             this.listDate = newDate;
