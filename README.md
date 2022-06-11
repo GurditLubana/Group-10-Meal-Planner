@@ -1,4 +1,4 @@
-# Best-3350-Group-Project
+# Comp 3350 Team 10
 
 # Contents
 [Team 10](#group-members)
@@ -30,10 +30,10 @@ The team dev log is kept as an md file in the github repository
 ## Business
 Business classes handle program logic and calculations related to their activities.  
 ### Meal Diary Ops
-The meal diary ops class handles logic and operations related to the main app activity which is the logging of a users meals. This class handles the retrieval of meal logs from a database based on the date the user wants to view. This class also handles the addition of new entries into the daily log and the database.  
+The meal diary ops class handles logic and operations related to the main app activity which is the logging of a users meals. This class handles requesting of meal logs from persistence classes based on the date the user wants to view. This class sends new entries to persistence classes for addition into the daily log and the database.  
   
 ### Recipe Book Ops
-This class handles operations related to the app recipe book. This class handles the retrieval of food, drink, and meal recipe lists from the database. This class also handles the addition of new food, drink, and meal recipes added by users.  
+This class handles operations related to the app recipe book. This class handles requesting of food, drink, and meal recipe lists from persistence classes. This class sends new entries to persistence classes for addition into food, drink, and meal recipes databases.  
 
 ### Unit Converter
 This class handles unit conversions for meal diary entries.  
@@ -48,13 +48,13 @@ This is an Abstract class at the top of the heirarchy of food items. This class 
 
 ### 
 ## Persistence
-Desc  
+Persistence classes interact directly with databases and is used as an interface by business classes to retrieve and store information.  
 ### DataAccessStub
 Desc  
 ### SharedDB
 Desc  
 ## Presentation
-The presentat 
+Presentation classes handle all UI activities. Drawing new elements on the screen, displaying new information, accepting user entries, handling of user gestures, etc.
 
 ### Activity Meal Diary
 Desc  
@@ -85,8 +85,4 @@ The main page of the Meal Planner application display's the food items that the 
 Our team used Android Studio Chipmunk 2021.2.1 Patch 1 for development. We tested our code both on a Nexus 7 device and several Android virtual devices created in Android studio. Android virtual devices used, had SDK 23 and SDK 29 for debugging.  
 
 
-Write a readme.txt or readme.md file that describes the contents of your electronic submission. Include the project title and names of all team members. Identify the packages and major source code files. Include a URL to your Github private repo. Describe where/how your log is kept. Provide an overview of the major implemented features and where to find them in the GUI.  
-In the readme, clearly describe which Android systems your app was tested on, including emulator and hardware. Describe exactly the environment(s) used, to ensure the markers can replicate an environment and avoid unexpected results. Remember that regardless of the hardware, it must run on the emulator with system image 6.0 (Marshmallow, API level 23).  
-Sketch out the overall architecture of your system broadly. Include a copy of the sketch with your submission. You can either draw it on paper and include a scan (or a very readable photo), or draw in software using a tablet or drawing tools. Submit it as a png, jpg, or pdf.  
-The developer log will contain entries that belong to the entire team, and those made by individual team members. It will contain information about the entire project, such as developer tasks and their assignments, and records of team meetings and participation. It will also contain individual entries by team members of their work sessions, detailing the amount of time actually spent on tasks. Note that while these log entries may correspond to events in the version control history, the log will still be kept separately from that record.  
-It will also describe outstanding bugs and their fixes, and design decisions and rationale. You may choose to use a tool for keeping your log, or a document in the version control system, or a separate shared document (like a Google doc). Whichever tool you choose, you must export it to a text file log.txt and submit it as part of your iteration.  
+
