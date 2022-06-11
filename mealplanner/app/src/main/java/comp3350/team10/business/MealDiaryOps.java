@@ -1,5 +1,7 @@
 package comp3350.team10.business;
 
+import androidx.annotation.NonNull;
+
 import comp3350.team10.objects.*;
 import comp3350.team10.persistence.DataAccessStub;
 
@@ -13,7 +15,7 @@ public class MealDiaryOps {
     private Integer MAX_EXCESS = 100;
     private Integer DATE_LIMIT = 2;
     private Integer INCREMENT = 1;
-    private Integer DEFAULT = -1;
+    private Integer DEFAULT = 0;
 
     private LinkedList<ListItem> todayFoodList = new LinkedList<ListItem>();
     private Calendar listDate = Calendar.getInstance();
@@ -27,7 +29,6 @@ public class MealDiaryOps {
     private boolean dataReady = false;
 
     public MealDiaryOps() {
-        //db.open("someDB");
         pullDBdata();
         updateProgress();
         dataReady = true;
@@ -36,7 +37,6 @@ public class MealDiaryOps {
     public MealDiaryOps(DataAccessStub db) { //dependency injectable constructor
         if(db != null) {
             this.db = db;
-            //this.db.open("someDB");
             pullDBdata();
             updateProgress();
             dataReady = true;
@@ -147,7 +147,7 @@ public class MealDiaryOps {
     }
 
     private void calcProgress() {
-        if (calorieNet > 0) {
+        if (calorieNet >= 0) {
             progressExcess = 0;
             progressBar = (calorieGoal - calorieNet) * MAX_PROGRESS / calorieGoal;
         } else {
@@ -156,6 +156,9 @@ public class MealDiaryOps {
             if(progressExcess > MAX_EXCESS){
                 progressExcess = MAX_EXCESS;
             }
+        }
+        if(progressBar < 0){
+            progressBar = 0;
         }
     }
 

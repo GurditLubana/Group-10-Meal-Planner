@@ -1,14 +1,14 @@
 package comp3350.team10.business;
 
-import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import comp3350.team10.business.MealDiaryOps;
-import comp3350.team10.objects.Edible;
 import comp3350.team10.persistence.DataAccessStub;
+import comp3350.team10.business.MealDiaryOps;
 import comp3350.team10.persistence.SharedDB;
+import comp3350.team10.objects.Edible;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
@@ -69,9 +69,9 @@ public class MealDiaryOpsTests {
         }
 
         @Test
-        void progress_exercise(){
+        void progress_excess(){
             assertTrue(ops.getProgressExcess() >= 0 );
-            assertTrue(ops.getProgressExcess() <= 25 );
+            assertTrue(ops.getProgressExcess() <= 100 );
         }
 
         @Test
@@ -90,7 +90,6 @@ public class MealDiaryOpsTests {
         @BeforeEach
         void setup() {
             SharedDB.start("test");
-            //db = new DataAccessStub();
             db =SharedDB.getSharedDB();
             ops = new MealDiaryOps(db);
             currDate = (Calendar) ops.getListDate().clone();
@@ -190,7 +189,6 @@ public class MealDiaryOpsTests {
         @BeforeEach
         void setup() {
             SharedDB.start("test");
-            //db = new DataAccessStub();
             db =SharedDB.getSharedDB();
             ops = new MealDiaryOps(db);
             currDate = (Calendar) ops.getListDate().clone();
@@ -199,34 +197,79 @@ public class MealDiaryOpsTests {
         @Test
         @DisplayName("Can set new calorie goal")
         void canSetCal() {
-
+            ops.setCalorieGoal(500);
+            assertEquals(500, ops.getCalorieGoal());
         }
 
         @Test
         @DisplayName("Can input new actual exercise calories")
         void canSetExcAct() {
-
+            ops.setCalorieExercise(200);
+            assertEquals(200, ops.getCalorieExercise());
         }
 
         @Test
         @DisplayName("Set new calorie goal causes progress update")
         void setCalUpdates() {
+            Integer prevProgress = ops.getProgressBar();
+            Integer newProgress = 0;
+            Integer prevGoal = ops.getCalorieGoal();
 
+            if(prevProgress < 99) {
+                ops.setCalorieGoal(prevGoal + 1000);
+                newProgress = ops.getProgressBar();
+            }
+            else {
+                prevProgress = ops.getProgressExcess();
+                ops.setCalorieGoal(prevGoal + 1000);
+                newProgress = ops.getProgressExcess();
+            }
+            assertNotEquals(prevProgress, newProgress);
         }
 
         @Test
         @DisplayName("Set new actual exercise calories causes progress update")
         void setExcActUpdates() {
+            Integer prevProgress = ops.getProgressBar();
+            Integer newProgress = 0;
 
+            if(prevProgress < 100) {
+                ops.setCalorieExercise(1000);
+                newProgress = ops.getProgressBar();
+            }
+            else {
+                prevProgress = ops.getProgressExcess();
+                ops.setCalorieExercise(1000);
+                newProgress = ops.getProgressExcess();
+            }
+            assertNotEquals(prevProgress, newProgress);
         }
-
-
-
     }
 
     @Nested
-    @DisplayName("Something")
-    class someClass{
+    @DisplayName("Tests that should fail")
+    class testShouldfail{
+        DataAccessStub db;
+        MealDiaryOps ops;
+        Calendar currDate;
+
+        @BeforeEach
+        void setup() {
+            SharedDB.start("test");
+            db =SharedDB.getSharedDB();
+            ops = new MealDiaryOps(db);
+            currDate = (Calendar) ops.getListDate().clone();
+        }
+
+        @Test
+        @DisplayName("s")
+        void someTest(){
+        }
+    }
+
+    @Nested
+    @DisplayName("Something2")
+    class someClass2{
         DataAccessStub db;
         MealDiaryOps ops;
         Calendar currDate;
@@ -245,5 +288,4 @@ public class MealDiaryOpsTests {
         void someTest(){
         }
     }
-
 }
