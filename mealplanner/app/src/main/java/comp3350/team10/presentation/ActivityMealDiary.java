@@ -24,6 +24,7 @@ import com.google.android.material.datepicker.*;
 
 import comp3350.team10.R;
 import comp3350.team10.business.MealDiaryOps;
+import comp3350.team10.business.UnitConverter;
 import comp3350.team10.objects.*;
 import comp3350.team10.persistence.SharedDB;
 
@@ -216,9 +217,16 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public void setEntryQty(Integer amount, String unit){
-        //TODO call the unit converter first
-        ((Edible) savedItem).setQuantity(amount);
-        ((Edible) savedItem).setBaseUnit(ListItem.Unit.valueOf(unit));
+        Edible selectedItem = null;
+        UnitConverter converter = null;
+
+        if(savedItem instanceof Edible) {
+            selectedItem = (Edible) savedItem;
+            converter = new UnitConverter(selectedItem.getBaseUnit(), selectedItem.getQuantity(), selectedItem.getCalories());
+            selectedItem.setQuantity(amount);
+            selectedItem.setBaseUnit(ListItem.Unit.valueOf(unit));
+            selectedItem.setCalories(converter.getCalories(selectedItem.getBaseUnit(), selectedItem.getQuantity()));
+        }
         showContextUI(-1);
         opExec.updateList(data);
         updateLiveData();

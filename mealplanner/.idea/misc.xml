@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/3350/Best-3350-Group-Project/mealplanner/app/src/main/res/layout/fragment_exercise_entry.xml" value="0.35989583333333336" />
+        <entry key="..\:/3350/Best-3350-Group-Project/mealplanner/app/src/main/res/layout/fragment_goal_entry.xml" value="0.35989583333333336" />
         <entry key="..\:/Users/gurdi/Documents/GitHub/Eat-Dix-1/mealplanner/app/src/main/res/drawable/ic_open.xml" value="0.1595" />
         <entry key="..\:/Users/gurdi/Documents/GitHub/Eat-Dix-1/mealplanner/app/src/main/res/drawable/ic_open_buttons.xml" value="0.1595" />
         <entry key="..\:/Users/gurdi/Documents/GitHub/Eat-Dix-1/mealplanner/app/src/main/res/layout/activity_add_drinks.xml" value="0.25" />
@@ -27,7 +29,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
