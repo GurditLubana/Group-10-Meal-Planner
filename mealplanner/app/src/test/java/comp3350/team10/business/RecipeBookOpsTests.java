@@ -21,7 +21,7 @@ import comp3350.team10.persistence.SharedDB;
 public class RecipeBookOpsTests {
 
     @Nested
-    @DisplayName("Database is shared between recipebook and mealdiary")
+    @DisplayName("Tests that should pass")
     class dbInstanceSharing{
         DataAccessStub db;
         MealDiaryOps mealDiaryOps;
@@ -45,5 +45,27 @@ public class RecipeBookOpsTests {
         }
     }
 
+    @Nested
+    @DisplayName("Tests that should fail")
+    class testShouldfail{
+        DataAccessStub db;
+        MealDiaryOps ops;
+        Calendar currDate;
 
+        @BeforeEach
+        void setup() {
+            SharedDB.start("test");
+            db =SharedDB.getSharedDB();
+            ops = new MealDiaryOps(db);
+            currDate = (Calendar) ops.getListDate().clone();
+        }
+
+        @Test
+        @DisplayName("Dates that more than 2 years older than current date")
+        void someTest(){
+            Calendar badDate = Calendar.getInstance();
+            badDate.set(Calendar.YEAR, badDate.get(Calendar.YEAR) -3);
+            ops.setListDate(badDate);
+        }
+    }
 }

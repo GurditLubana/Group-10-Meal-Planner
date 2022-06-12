@@ -262,8 +262,11 @@ public class MealDiaryOpsTests {
         }
 
         @Test
-        @DisplayName("s")
+        @DisplayName("Dates that more than 2 years older than current date")
         void someTest(){
+            Calendar badDate = Calendar.getInstance();
+            badDate.set(Calendar.YEAR, badDate.get(Calendar.YEAR) -3);
+            ops.setListDate(badDate);
         }
     }
 
@@ -286,6 +289,7 @@ public class MealDiaryOpsTests {
         @Test
         @DisplayName("s")
         void someTest(){
+
         }
     }
 }
