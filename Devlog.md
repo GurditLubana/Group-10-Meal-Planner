@@ -6,461 +6,463 @@ Gurdit Singh- singhg78@myumanitoba.ca
 Joseffus Santos - umsant28@myumanitoba.ca  
 Manraj Singh – singhm53@myumanitoba.ca  
 Zhihou Zhou- zhouz2@myumanitoba.ca  
+<br>
+<br>
+## Meetings
+---
+### 2022 May 12
+    Attendees:  
+    - Gurdit
+    - Dane
+    - Joseffus
+    - Zhou
 
-## Meetings  
+    Topic: Meet and greet, initial planning and communication styles
+    -----
+    Decisions: Main form of communication will be discord  
+    -----
+    Rationale: Communication and introductions 
+<br>
+
 ### 2022 May 19  
-Attendees:  
-- Gurdit
-- Manraj
-- Dane
-- Joseffus
-- Zhou
+    Attendees:  
+    - Gurdit
+    - Manraj
+    - Dane
+    - Joseffus
+    - Zhou
 
-    Topic: When to meet for iter0 / availability  
- Decision: May 19  
-Rationale: Availability  
+    Topic: iter0 availability, project organization and goals 
+    -----
+    Decision: Our next meeting will be on May 19 (later in the day) and we would use github to stay organized
+    -----  
+    Rationale: Availability  
+<br>
 
 ### 2022 May 19  
-Attendees:  
-- Gurdit
-- Manraj
-- Dane
-- Joseffus
+    Attendees:  
+    - Gurdit
+    - Manraj
+    - Dane
+    - Joseffus
 
-    Topic: Iter0  
- Decision:  
-Rationale:  
+    Topic: Iter0 progress, app features (both little and small)
+    -----
+    Decision: We decided on the mealPlanner idea and what we wanted our app to do
+    -----
+    Rationale: Iter0 progress
+<br>
 
-    Topic: Iter0  
- Decision:  
-Rationale:  
 ### 2022 May 21  
-Attendees:  
-- Gurdit
-- Joseffus
-- Dane
+    Attendees:  
+    - Gurdit
+    - Joseffus
+    - Dane
 
-    Topic: Iter0  
- Decision:  
-Rationale:  
+    Topic: Iter0 refinment: vision and more detailed functionality
+    Decision: shared vision of the meal planner
+    Rationale: Iter0 refinement  
+<br>
 
 ### 2022 May 23
-Attendees:  
-- Dane
-- Josef
-- Manraj
-- Zhou
+    Attendees:  
+    - Dane
+    - Josef
+    - Manraj
+    - Zhou
 
-    Topic: iter1 UI  
- Decision:  
-Rationale:  
-
-### 2022 Jun 02
-Attendees:  
-- Dane
-- Josef
-- Manraj
-- Zhou
-- Gurdit
-
-    Topic: iter1 requirements, coding standard  
- Decision:  
-Rationale:  
+    Topic: UI design and rationalizing, Iter0 refinement, dev environment and production software.  Josef also showcased his work
+    -----
+    Decision: Please see supportingDocs/May23/UI design
+    -----
+    Rationale: Iter0 refinement and UI design
+<br>
 
 ### 2022 Jun 02
-Attendees:  
-- Josef
-- Manraj
+    Attendees:  
+    - Dane
+    - Josef
+    - Manraj
+    - Zhou
+    - Gurdit
 
-    Topic: Working meeting Dialog Fragments  
- Decision:  
-Rationale:  
+    Topic: Iter1 requirements and coding standard 
+    -----
+    Decision: Project coding standard will immitate Dane's code style
+    -----
+    Rationale: Iter1 requirements  
+<br>
+
+### 2022 Jun 02
+    Attendees:  
+    - Josef
+    - Manraj
+
+    Topic: Dialog Fragments  
+    Rationale: Hack meeting
+<br>
 
 ### 2022 Jun 07
-Attendees:  
-- Josef
-- Manraj
+    Attendees:  
+    - Josef
+    - Manraj
 
-    Topic: Working meeting Dialog Fragments  
- Decision:  
-Rationale:  
+    Topic: Dialog Fragments
+    Rationale: Hack meeting
+<br>
 
 ### 2022 Jun 09
-Attendees:  
-- Josef
-- Manraj
+    Attendees:  
+    - Josef
+    - Manraj
 
-    Topic: Working meeting Dialog Fragments  
- Decision:  
-Rationale:  
+    Topic: Dialog Fragments  
+    Rationale: Hack meeting
+<br>
 
 ### 2022 Jun 11
-Attendees:  
-- Dane  
-- Josef  
-- Manraj  
-- Gurdit  
-- Zhao  
+    Attendees:  
+    - Dane  
+    - Josef  
+    - Manraj  
+    - Gurdit  
+    - Zhao  
 
-    Topic: Working meeting Dialog Fragments  
- Decision:  
-Rationale:  
+    Topic: Iter1 requirements compared to our existing codebase, refactoring, testing and data sanitizing 
+    ----- 
+    Decision: What needs further work and work distribution
+    -----
+    Rationale: Hack meeting and Iter1 progress
+---
+<br>
+<br>
 
-### 2022 Jun 14
-Attendees:  
-- Dane  
-- Josef  
-- Manraj  
-- Gurdit  
-- Zhao  
+# Dev tasks 
+## Big story 1 : Adding and editing meals  
 
-    Topic: Working meeting Dialog Fragments  
- Decision:  
-Rationale:  
+As a user I would like to be able to add meals to the planner and recipe collection with the ability to update the plan with the actual meals that I ended up eating.  
+   - Priority - High 
+   - Cost - 6 days   
+<br>
+### Detailed story  
+Meal plans: As a user I would like to be able to view my current meal plan, preview or set upcoming plans and view any previous plans for reference.  
+Priority – High
+<br>
+Cost - 4 days 
+<br>
+<br> 
 
-### 2022 Jun 16
-Attendees:  
-- Dane  
-- Josef  
-- Manraj  
-- Gurdit  
-- Zhao  
-
-    Topic: Working meeting Dialog Fragments  
- Decision:  
-Rationale:  
-
-
-
-
-
-
-
-
-## Dev tasks  
-
-### Big story 1 : Adding meals editing meals  
-Adding meals and editing meals  
-As a user I would like to be able to add meals to the planner and recipe collection    
-with the ability to update the plan with the actual meals that I ended up eating.  
-Priority – High                                                        Cost - 6 days   
-
-#### Detailed story  
-Meal plans   
-As a user I would like to be able to view my current meal plan, preview or set  
-upcoming plans and view any previous plans for reference.  
-Priority – High                                                        Cost - 4 days  
-
-##### Task 00  
+- ##### Task 00  
    Title: Onboarding 
     Desc: set up git, android studio, clone repo, compile main branch 
 Estimate: 1hr  
   Actual: 1hr  
      Dev: Josef  
 
-##### Task 00  
+- ##### Task 00  
    Title: Onboarding 
     Desc: set up git, android studio, clone repo, compile main branch 
 Estimate: 1hr  
   Actual: 1hr     
      Dev: Dane    
 
-##### Task 00  
+- ##### Task 00  
    Title: Onboarding 
     Desc: set up git, android studio, clone repo, compile main branch 
 Estimate: 1hr  
   Actual: 1hr   
      Dev: Gurdit  
 
-##### Task 00  
+- ##### Task 00  
    Title: Onboarding 
     Desc: set up git, android studio, clone repo, compile main branch 
 Estimate: 1hr  
   Actual: 1hr     
      Dev: Manraj  
 
-##### Task 00  
+- ##### Task 00  
    Title: Onboarding 
     Desc: set up git, android studio, clone repo, compile main branch 
 Estimate: 1hr  
   Actual: 1hr  
      Dev: Zhou  
    
-##### Task 000  
+- ##### Task 000  
    Title: Three layer architecture
     Desc: Modify project structure to meet 3 layer architecture requirement 
 Estimate: 1hr  
   Actual: 1hr  
      Dev: Josef  
 
-##### Task 01  
+- ##### Task 01  
    Title: Meal diary UI  
     Desc: Build meal diary UI  
 Estimate: 4hrs  
   Actual: 6hrs  
      Dev: Josef   
 
-##### Task 02  
+- ##### Task 02  
    Title: Appbar   
     Desc: Build Appbar UI  
 Estimate: 4hrs  
   Actual: 4hrs  
      Dev: Josef   
 
-##### Task 03
+- ##### Task 03
    Title: Navbar - fragment  
     Desc: Build Navbar reusable UI fragment  
 Estimate: 4hr  
   Actual: 2hr  
      Dev: Josef   
      
-##### Task 04
+- ##### Task 04
    Title: Material Icons  
     Desc: Add relevant material design icons to proj  
 Estimate: 1hr  
   Actual: 1hr  
      Dev: Josef  
      
-##### Task 05
+- ##### Task 05
    Title: Meal Diary Log container  
     Desc: Implement RecyclerView for dynamic loading of entry fragments  
 Estimate: 4hrs  
   Actual: 6hrs  
      Dev: Josef  
      
-##### Task 06
+- ##### Task 06
    Title: Meal Diary log entries  
     Desc: Build reusable Card fragment to show meal information  
 Estimate: 4hrs  
   Actual: 4hrs   
      Dev: Josef   
      
-##### Task 07
+- ##### Task 07
    Title: Meal Diary Log modification  
     Desc: Build reusable Card fragment to show entry modification options  
 Estimate: 2hrs  
   Actual: 2hrs  
      Dev: Josef   
      
-##### Task 08
+- ##### Task 08
    Title: Meal Diary entry editor
     Desc: Build Modal for data modification
 Estimate: 4hrs
   Actual: 2days 
      Dev: Manraj  
      
-##### Task 09
+- ##### Task 09
    Title: Meal Diary Add entry button  
     Desc: Build reusable Card fragment for adding meals  
 Estimate: 1hr  
   Actual: 1hr   
      Dev: Josef   
      
-##### Task 10
+- ##### Task 10
    Title: Meal Diary Logic  
     Desc: Build Business logic for pulling data from db  
 Estimate: 8hrs  
   Actual: 10hrs  
      Dev: Josef  
      
-##### Task 11
+- ##### Task 11
    Title: Navbar - click listeners  
     Desc: Implement click listeners to launch activities  
 Estimate: 2hrs  
   Actual: 2hrs  
      Dev: Josef   
      
-##### Task 12
+- ##### Task 12
    Title: Meal diary stub data  
     Desc: Implement stub database for meal diary  
 Estimate: 2hrs  
   Actual: 2hrs   
      Dev: Josef   
      
-##### Task 13
+- ##### Task 13
    Title: Recipe book UI  
     Desc: Build Recipe book UI with recyclerview, search bar, tabs, add button  
 Estimate: 4days  
   Actual: 6days   
      Dev: Dane, Gurdit, Josef  
      
-##### Task 14
+- ##### Task 14
    Title: Recipe book entries
     Desc: Build reusable card fragments to show available food  
 Estimate: 2hrs  
   Actual: 6hrs   
      Dev: Gurdit, Josef  
      
-##### Task 15
+- ##### Task 15
    Title: Recipe book entries context UI  
     Desc: Build reusable card fragments to show options when entry is clicked  
 Estimate: 2hrs  
   Actual: 2hrs 
      Dev: Dane   
      
-##### Task 16
+- ##### Task 16
    Title: Recipe book more info
     Desc: Build detailed meal information page
 Estimate: 4hrs  
   Actual:   
      Dev: Gurdit, Dane, Josef  
      
-##### Task 17
+- ##### Task 17
    Title: Recipe book business logic  
     Desc: Build Business logic for pulling data from db  
 Estimate: 8hrs   
   Actual: 16hrs   
      Dev: Dane, Josef  
      
-##### Task 18
+- ##### Task 18
    Title: Recipe book stub data  
     Desc: Implement stub database for recipe book  
 Estimate: 4hrs  
   Actual: 12hrs   
      Dev: Dane Josef  
      
-##### Task 19
+- ##### Task 19
    Title: Recipe book stub drinks data  
     Desc: Implement stub database for recipe book  
 Estimate: 8hrs
   Actual: 8hrs 
      Dev: Dane  
 
-##### Task 20
+- ##### Task 20
    Title: Recipe book detailed view  
     Desc: UI prototype layout  
 Estimate: 4hrs   
   Actual: 4hrs  
      Dev: Gurdit  
 
-##### Task 21
+- ##### Task 21
    Title: Recipe book detailed view   
     Desc: UI elements recyclerview   
 Estimate: 4hrs  
   Actual: Incomplete  
      Dev: Gurdit  
      
-##### Task 22
+- ##### Task 22
    Title: Recipe book detailed view   
     Desc: Implement drink slider  
 Estimate: 4hrs  
   Actual: Incomplete 
      Dev: Dane  
      
-##### Task 23
+- ##### Task 23
    Title: Stub db  
     Desc: Implement daily food log db stub data and accessors  
 Estimate: 4hrs  
   Actual: 8hrs   
      Dev: Josef  
      
-##### Task 24
+- ##### Task 24
    Title: MealDiaryOps Unit testing  
     Desc: Implement class unit testing
 Estimate: 8hrs  
   Actual: 16hrs   
      Dev: Josef
-
-
-
-### Big story 2 : Progress tracking  
+<br>
+<br>
+---
+## Big story 2 : Progress tracking  
 As a user I would like to be able to set calorie goals and see my progress towards those goals.  
-Priority - High                                                        Cost - 6 days   
-
-##### Task 01
+- Priority - High
+- Cost - 6 days   
+<br>
+- ##### Task 01
    Title: progress bar  
     Desc: Build reusable progressbar fragment   
 Estimate: 4hrs   
   Actual: 6hrs  
      Dev: Josef   
      
-##### Task 02
+- ##### Task 02
    Title: progress bar logic   
     Desc: implement business logic to get/ calculate current progress  
 Estimate: 4hrs  
   Actual: 8hrs    
      Dev: Josef    
 
-##### Task 03
+- ##### Task 03
    Title: progress bar on click   
     Desc: implement click listener and modal to modify goal and recalc progress if necessary  
 Estimate: 4hrs   
   Actual: 8hrs   
      Dev: Josef    
 
-##### Task 04
+- ##### Task 04
    Title: Charts   
     Desc: Build charts page UI  
 Estimate:  
   Actual:  
      Dev:  
 
-##### Task 05
+- ##### Task 05
    Title: Charts business logic   
     Desc: implement business logic to pull data and calculate stats  
 Estimate:  
   Actual:  
      Dev:  
-
-
-### Big story 3 : Viewing the meal plan  
+<br>
+---
+## Big story 3 : Viewing the meal plan  
 As a user I would like to be able to view my meal plan to see an overview of my   
 current, past, or future meal schedule and the expected calories for any plan I am viewing.   
-Priority – High                                                        Cost - 6 days    
-
-
-#### Task 01
+- Priority – High
+- Cost - 6 days    
+<br>
+- #### Task 01
    Title: Show Current Date being viewed   
     Desc: Add date box in appbar for Meal diary with arrows    
 Estimate: 4hrs  
   Actual: 4hrs   
      Dev: Josef  
 
-#### Task 02
+- #### Task 02
    Title: Date selector   
     Desc: When date is clicked show a month modal to allow date selection    
 Estimate: 2hrs    
   Actual: 4hrs   
      Dev: Josef    
 
-#### Task 03
+- #### Task 03
    Title: Show Current Date being viewed   
     Desc: Add date box in appbar for Meal diary    
 Estimate: 4hrs   
   Actual: 4hrs   
      Dev: Josef  
 
-#### Task 04
+- #### Task 04
    Title: Date selection   
     Desc: When a new date is selected request LiveData update   
 Estimate: 4hrs    
   Actual: 4hrs   
      Dev: Josef   
 
-#### Task 05
+- #### Task 05
    Title: Date selector buttons  
     Desc: Left right buttons to traverse dates  
 Estimate: 4hrs    
   Actual: 4hrs  
      Dev: Josef   
-
-
-
-
-### Big story 4 : Social Media
+<br>
+<br>
+---
+## Big story 4 : Social Media
 As a user I would like to be able invite my friends, compare progress and  
 share meal plans on social media.  
-Priority – High                                                        Cost - 6 days   
-
-#### Task 01
+- Priority – High
+- Cost - 6 days   
+<br>
+- #### Task 01
    Title: Social UI   
     Desc: Build UI for social page  
 Estimate:  
   Actual:  
      Dev: Gurdit  
-
-
-
+<br>
+<br>
+---
 ## Bugs
 
 ### Bug 01
@@ -468,10 +470,20 @@ Estimate:
     Desc:   
 Estimate:  
   Actual:   
-     Dev:  
+     Dev: 
+
+<br>
+
+---
 
 ## Dev Log
 
+
+### 2022-05-22
+     Dev: Dane   
+Duration: 5mins  
+    Task:  
+   - Creating github page, invited group and initial commit
 
 ### 2022-05-22
      Dev: Josef   
@@ -555,16 +567,61 @@ Duration: 8hrs
     - Devlog updated  
     - Refactored file names so they are organized by function  
 
+### 2022-05-30
+     Dev: Dane   
+Duration: 10hrs  
+    Task:  
+   - Set up test environment (C drive wass full had to troubleshoot why the emulator would not run)
+   - Had an issue where branches were not loading from git (learnt what fetch does)
+   - Created Version 1 of object structure (see additionalDocs/May30/objectStructure.pdf)
+   - Talked with Josef about system requirements
+   - Researched general android studio knowledge and terminology
+   
+### 2022-05-31
+     Dev: Dane   
+Duration: 13hrs  
+    Task:  
+   - Studied the code base and its operation (focus on recycleView and parentToFrag)
+   - Implemented cardOnClick interface
+   - Implemented cardOnClick method to override card UI
+   - Implemented add (data would immediately be overriden though - this is a bug we will need to fix)
+   - Created viewEdibleAcitivity UI (had a bug where relative layout was not displaying text, learnt about autoconnection to parent feature)
+   - Bug: slider is near impossible to access
+
+
 ### 2022-06-01
      Dev: Josef  
 Duration: 1hrs   
     Tasks:  
-    - Refactor, moved live data with Android dependency to persistence package   
-    - created a listening interface for Meal diary to get data from fragments  
-    - created separate FragToMealDiary interface  
+   - Refactor, moved live data with Android dependency to persistence package   
+   - created a listening interface for Meal diary to get data from fragments  
+   - created separate FragToMealDiary interface  
+
+### 2022-06-01
+     Dev: Dane  
+Duration: 15hrs   
+    Tasks:  
+   - Created and edited a video for team to watch if they were having trouble understanding our current codebase (please see additionalDocs/June1/video.txt)
+   - Improved slider accessability and functionality in ViewEdibleActivity UI
+   - Setup back button for viewEdibleActivity (returns to original activity that called it not hardcoded for other use)
+   - Refactored objects
+   - Corrected bugs in previous mock data setup
+   - Merged datastub branch into main
+   - Updated main into realCardSelection branch
+   - Created RecipeBookOps and added primitive data caching
+   - Fixed a bug where RecipeBookActivity was relying on the mealDiaryOps for a similar functionality (did not make sense)
+   - Implemented tabs on ActivityRecipeBook now different tabs pull different information but only if not cached in mealDiaryOps
+   - Addressed an issue where database.open() was not being called properly (calls to database were made when it was not yet setup)
+   - Refactored card and RecipeBookOps code
+   - Discussed with Josef the practically of a "custom" tab
+   - Merged actualCardSelection into main
+   - Created sprint tasks for Iter1
+
 
 ### 2022-06-02
-     Dev: Josef, Manraj  
+     Dev: 
+      - Josef
+      - Manraj  
 Duration: 6hrs   
     Tasks:   
     - Completed Dialog fragment for calorie goal entry    
@@ -574,6 +631,12 @@ Duration: 6hrs
     - Pulled Manraj Branch into Meal Diary to use dialog fragment  
     - Added more stub data to stub db  
     - Implemented functionality for the delete ison in the meal Diary  
+
+### 2022-06-02
+     Dev: Dane 
+Duration: 1hr   
+    Tasks:   
+   - Broke down task list from git dev tasks
 
 ### 2022-06-03
      Dev: Josef  
@@ -625,3 +688,15 @@ Duration: 8hrs
    - Readme write up
    - devlog write up
 
+### 2022-06-11
+     Dev: Dane
+Duration: 6hrs
+   Tasks:
+   - More refactoring
+   - Merged refactored code into main
+   - Fixed bug where Edible ID's were not getting updated properly
+   - Prettified Devlog
+   - Updated group meeting information
+   - Entered personal dev history for May 19, 31 and July 1 and 2 
+   - Added additionalDocs
+   - Bug: need to change the cardOnSelect UI, we do not want to add items from this menu anymore
