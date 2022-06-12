@@ -41,18 +41,18 @@ This class handles unit conversions for meal diary entries.
 ## Objects  
 Object classes are objects that are shared by Business, Presentation, and Persistence classes.    
 ### ListItem
-This class is an interface of thing required for objects to be displayed in the different app screens. The app uses views that rely on lists of items.
+This class is an interface of thing required for objects to be displayed in the different app screens. The app uses views that rely on lists of items.  
 
 ### Edible
-This is an Abstract class at the top of the heirarchy of food items. This class defines essential attributes and methods that all fod items should have.
+This is an Abstract class at the top of the heirarchy of food items. This class defines essential attributes and methods that all fod items should have.  
 
 ### 
 ## Persistence
 Persistence classes interact directly with databases and is used as an interface by business classes to retrieve and store information.  
 ### DataAccessStub
-Desc  
+This class provides methods that allow the retrieval and storage of data into a database.    
 ### SharedDB
-Desc  
+This is a static class that allows the sharing of in memory data storage accross activities.    
 ## Presentation
 Presentation classes handle all UI activities. Drawing new elements on the screen, displaying new information, accepting user entries, handling of user gestures, etc.  
 
@@ -60,13 +60,13 @@ Presentation classes handle all UI activities. Drawing new elements on the scree
 This class handles the UI for the meal diary activity. This is the User interface for logging food consumed. This activity shows a users daily progress at glance and allows the user add their days exercise activity.  
 
 ### Activity Recipe Book
-This class handles the UI for the Recipe Book  
+This class handles the UI for the Recipe Book.    
 
 ### FragToMealDiary
-This is an interface of methods that allow fragments that comprise the meal diary to send and recieve infromation from the parent activity  
+This is an interface of methods that allow fragments that comprise the meal diary to send and recieve infromation from the parent activity.    
 
 ### FragToRecipeBook
-This is an interface of methods that allow fragments that comprise the recipe book to send and recieve infromation from the parent activity  
+This is an interface of methods that allow fragments that comprise the recipe book to send and recieve infromation from the parent activity.  
 
 ### RVAMealDiary
 This is a recycler view adapter for the meal diary activity. This adapter handles the display of different fragment layouts in a recycler view.  
@@ -76,6 +76,9 @@ This is a recycler view adapter for the recipe book activity. This adapter handl
 
 ### MealDiaryLiveData
 This is a class that allows the use of the observer design pattern in Android Activities. UI elements can be set to observe this class for changes and allow all observers to update their own elements when this class is updated.  
+
+### Fragments
+Fragments are reusable UI components that perform specific functions in activities. The most important example is the navigation fragment which is shared across all activities.  
 
 # Feature List
 The main page of the Meal Planner application display's the food items that the user plans to consume on a specific Day. The bar depicts the Calorie goal for the day, the number of calories consumed via Food, calories burnt via Exercise, and the net calories that can make. The user can set the Calorie goal for the day, and calories burnt in the exercise routine and will be able to track the progress made. The user can edit the list of Food items that need to be consumed. They can add Food items, Meals, and Drinks to the Food list along with the amount that they are consuming for each item. Also, we can remove the items on the list to cut off the unnecessary calorie intake. The user can set the Calorie goal for the day and will be able to track the number of calories that can still be consumed to reach the target. Moreover, users are able to change the amount of each item they did intake. The users can also add new food recipes. They can 
