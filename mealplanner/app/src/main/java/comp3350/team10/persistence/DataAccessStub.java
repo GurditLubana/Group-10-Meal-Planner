@@ -3,6 +3,7 @@ package comp3350.team10.persistence;
 import comp3350.team10.objects.*;
 import comp3350.team10.R;
 import comp3350.team10.business.MealDiaryOps;
+import comp3350.team10.persistence.DailyLog;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.Collections;
@@ -12,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class DataAccessStub {
+    private final static int GOAL_LIMIT = 9999;
+    private static enum DATA_TYPES {FOOD, MEAL, DRINK}
+
     //Database and app management variables
     private DailyLog selectedFoodLog;       //Currently selected food log
     private Integer selectedDate;           //Currently selected date
@@ -22,7 +26,7 @@ public class DataAccessStub {
     private String dbType = "stub";         //Type of database
     private String dbName;                  //Name of database
 
-    private ArrayList<DailyLog> dbFoodLog;      //Food log
+    private ArrayList<comp3350.team10.persistence.DailyLog> dbFoodLog;      //Food log
     private ArrayList<Routine> dbRoutines;      //Routines
     private ArrayList<Edible> dbRecipeDrink;    //Drink recipes
     private ArrayList<Edible> dbRecipeFood;     //Food
@@ -71,7 +75,7 @@ public class DataAccessStub {
     }
 
     public void setCalorieGoal(int goal) {
-        if(goal >= 0 && goal <= MealDiaryOps.GOAL_LIMIT) {
+        if(goal >= 0 && goal <= GOAL_LIMIT) {
             selectedFoodLog.setCalGoal(goal);
             this.updateFoodLogDB();
         }
@@ -82,7 +86,7 @@ public class DataAccessStub {
     }
 
     public void setExerciseGoal(int goal) {
-        if(goal >= 0 && goal <= 9999) {
+        if(goal >= 0 && goal <= GOAL_LIMIT) {
             selectedFoodLog.setExcGoal(goal);
             this.updateFoodLogDB();
         }
@@ -116,8 +120,8 @@ public class DataAccessStub {
         return Integer.parseInt(String.valueOf(date.get(Calendar.YEAR)) + String.valueOf(date.get(Calendar.DAY_OF_YEAR)));
     }
 
-    private DailyLog setSelectedFoodLog(Integer date) {
-        DailyLog result = new DailyLog(date, 1500, 0, 0, emptyLog());
+    private comp3350.team10.persistence.DailyLog setSelectedFoodLog(Integer date) {
+        comp3350.team10.persistence.DailyLog result = new comp3350.team10.persistence.DailyLog(date, 1500, 0, 0, emptyLog());
         int position = this.getFoodLogDBIndex(date);
 
         if(position == -1) {
@@ -225,24 +229,24 @@ public class DataAccessStub {
 
     private void loadFoodlog() {
         Integer today = calendarToInt(calendar);
-        this.dbFoodLog = new ArrayList<DailyLog>(); // key = yyyyddd integer , Calorie goal, Exercise goal, actual exercise, Foodlog
+        this.dbFoodLog = new ArrayList<comp3350.team10.persistence.DailyLog>(); // key = yyyyddd integer , Calorie goal, Exercise goal, actual exercise, Foodlog
 
-        this.dbFoodLog.add(new DailyLog(today, 1500, 300, 0, randomLog()));
-        this.dbFoodLog.add(new DailyLog(today - 1, 1700, 300, 200, randomLog()));
-        this.dbFoodLog.add(new DailyLog(today - 2, 1600, 300, 120, randomLog()));
-        this.dbFoodLog.add(new DailyLog(today - 3, 1300, 300, 30, randomLog()));
-        this.dbFoodLog.add(new DailyLog(today - 4, 1800, 300, 300, randomLog()));
-        this.dbFoodLog.add(new DailyLog(today - 5, 1500, 300, 100, randomLog()));
-        this.dbFoodLog.add(new DailyLog(today - 6, 1600, 300, 300, randomLog()));
-        this.dbFoodLog.add(new DailyLog(today + 1, 1600, 300, 400, randomLog()));
+        this.dbFoodLog.add(new comp3350.team10.persistence.DailyLog(today, 1500, 300, 0, randomLog()));
+        this.dbFoodLog.add(new comp3350.team10.persistence.DailyLog(today - 1, 1700, 300, 200, randomLog()));
+        this.dbFoodLog.add(new comp3350.team10.persistence.DailyLog(today - 2, 1600, 300, 120, randomLog()));
+        this.dbFoodLog.add(new comp3350.team10.persistence.DailyLog(today - 3, 1300, 300, 30, randomLog()));
+        this.dbFoodLog.add(new comp3350.team10.persistence.DailyLog(today - 4, 1800, 300, 300, randomLog()));
+        this.dbFoodLog.add(new comp3350.team10.persistence.DailyLog(today - 5, 1500, 300, 100, randomLog()));
+        this.dbFoodLog.add(new comp3350.team10.persistence.DailyLog(today - 6, 1600, 300, 300, randomLog()));
+        this.dbFoodLog.add(new comp3350.team10.persistence.DailyLog(today + 1, 1600, 300, 400, randomLog()));
 
         this.sortDBFoodLog();
     }
 
     private void sortDBFoodLog() {
-        Collections.sort(dbFoodLog, new Comparator<DailyLog>() {
+        Collections.sort(dbFoodLog, new Comparator<comp3350.team10.persistence.DailyLog>() {
             @Override
-            public int compare(DailyLog left, DailyLog right) {
+            public int compare(comp3350.team10.persistence.DailyLog left, comp3350.team10.persistence.DailyLog right) {
                 int result = 0;
 
                 if(left.getDate() < right.getDate()) {
@@ -256,7 +260,7 @@ public class DataAccessStub {
         });
     }
 
-    private ArrayList<ListItem> randomLog() {
+    private ArrayList<Edible> randomLog() {
         ArrayList<Edible> result = new ArrayList<Edible>();
         int randomCount = 0;
         int randomIndex = 0;

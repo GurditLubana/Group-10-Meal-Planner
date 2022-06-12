@@ -1,5 +1,7 @@
 package comp3350.team10.objects;
 
+import android.widget.ListView;
+
 import java.lang.Math;
 
 public class Food extends Edible {
@@ -8,7 +10,7 @@ public class Food extends Edible {
 	
     private Macros macros;                  //The macros for a the given food
 
-    public Food(String name, int iconPath, int calories, FragmentType type, Unit baseUnit, int quantity, int dbkey) {
+    public Food(String name, int iconPath, int calories, ListItem.FragmentType type, ListItem.Unit baseUnit, int quantity, int dbkey) {
         super(name, iconPath, type, baseUnit, quantity, dbkey);
         
         super.modifyCalories(calories);
@@ -16,7 +18,7 @@ public class Food extends Edible {
     }
 
     public Food(String name, int iconPath) {
-        super(name, iconPath, FragmentType.noType, Unit.serving, 1, 0);
+        super(name, iconPath, ListItem.FragmentType.noType, ListItem.Unit.serving, 1, 0);
         
         int randomCalories = (int)(Math.random() * CALORIE_RANGE) + MIN_CALORIES;   //Generates random calories
         super.modifyCalories(randomCalories);

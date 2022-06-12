@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.ListItem;
 
 public class DailyLog { //Sort of like the user's logs from the database

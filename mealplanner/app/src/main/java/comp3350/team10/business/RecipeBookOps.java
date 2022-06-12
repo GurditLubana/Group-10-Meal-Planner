@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class RecipeBookOps {
-    private final static enum RecipeBook {FOOD, DRINKS, MEALS}; //Possible Edible type views
+    private static enum RecipeBook {FOOD, DRINKS, MEALS}; //Possible Edible type views
 
     private LinkedList<Edible> selectedList;    //The recipes availible for the current view
     private RecipeBook selectedType;            //The selected Edible type view (see enum on line 18)

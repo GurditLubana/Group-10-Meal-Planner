@@ -2,12 +2,12 @@ package comp3350.team10.persistence;
 
 public class SharedDB {
     private static DataAccessStub db = null;    //Represents whether or not the database has already been accessed or not
-    // private static String dbName;    //The name of the given database
+    public static String dbName;               //The name of the given database
 
     public static void start(String dbname) {
         if(db == null){
             db = new DataAccessStub();
-            // SharedDB.dbName = dbname;
+            SharedDB.dbName = dbname;
             db.open(dbname);
         }
     }

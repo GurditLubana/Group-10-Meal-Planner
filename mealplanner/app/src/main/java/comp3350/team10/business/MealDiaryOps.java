@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 public class MealDiaryOps {
     private final static Integer MAX_PROGRESS = 100;    //Scales the progress bar (percentage)
-    public final static Integer GOAL_LIMIT = 9999;     //The highest number of calories a user should aim for
+    private final static Integer GOAL_LIMIT = 9999;     //The highest number of calories a user should aim for
     private final static Integer MAX_EXCESS = 100;      //How many calories a user can exceed their goal by
     private final static Integer DATE_LIMIT = 2;        //Limits the quantity of data saved by years
     private final static Integer INCREMENT = 1;         //Directional arrow increments
@@ -45,7 +45,16 @@ public class MealDiaryOps {
 
     //dependency injectable constructor
     public MealDiaryOps(DataAccessStub db) { 
-        if(this.db != null) {
+        this.listDate = Calendar.getInstance();
+        
+        this.calorieConsumed = -1;
+        this.calorieExercise = -1;
+        this.progressExcess = -1;
+        this.progressBar = -1;
+        this.calorieGoal = -1;
+        this.calorieNet = -1;
+        
+        if(db != null) {
             this.db = db;
             this.pullDBdata();
             this.updateProgress();
@@ -57,10 +66,6 @@ public class MealDiaryOps {
         this.todayFoodList = new LinkedList<Edible>(db.getFoodList(listDate));
         this.calorieExercise = db.getExerciseActual();
         this.calorieGoal = db.getCalorieGoal();
-    }
-
-    public void addToDiary(Edible item) {
-        db.addRecipeToLog(item);
     }
 
     public void nextDate() {
@@ -141,7 +146,7 @@ public class MealDiaryOps {
         return this.progressExcess;
     }
 
-    public LinkedList<ListItem> getList() {
+    public LinkedList<Edible> getList() {
         return this.todayFoodList;
     }
 
@@ -187,11 +192,8 @@ public class MealDiaryOps {
         Edible newItem = null;
 
         if(tempEdible != null){
-            newItem = tempEdible.setFragmentType(ListItem.FragmentType.diaryEntry);
-        }
-
-        if(newItem != null){
-            this.todayFoodList.add(this.todayFoodList.size() - 1, newItem);
+            tempEdible.setFragmentType(ListItem.FragmentType.diaryEntry);
+            this.todayFoodList.add(this.todayFoodList.size() - 1, tempEdible);
         }
 
         this.updateProgress();
