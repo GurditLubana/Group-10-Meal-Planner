@@ -162,7 +162,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     public void addEntry(int pos) { //launch recipebook use ActivityResultLauncher to allow data passing
         Intent intent = new Intent(this, ActivityRecipeBook.class);
         //use this if need to pass information to activity being launched
-        //intent.putExtra("DBKEY", 0);
+        intent.putExtra("DBKEY", data.get(pos).getDbkey());
+        System.out.println("sending: " + data.get(pos).getDbkey());
         pickMeal.launch(intent);
     }
 
@@ -206,7 +207,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             selectedItem.setBaseUnit(ListItem.Unit.valueOf(unit));
             selectedItem.setCalories(converter.getCalories(selectedItem.getBaseUnit(), selectedItem.getQuantity()));
         }
-        
+
         this.showContextUI(-1);
         opExec.updateList(data);
         this.updateLiveData();

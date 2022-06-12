@@ -194,7 +194,6 @@ public class MealDiaryOps {
 
     public void addByKey(int dbkey){
         Edible tempEdible = db.findEdibleByKey(dbkey);
-        Edible newItem = null;
 
         if(tempEdible != null){
             tempEdible.setFragmentType(ListItem.FragmentType.diaryEntry);

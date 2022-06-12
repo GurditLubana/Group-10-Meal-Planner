@@ -196,24 +196,21 @@ public class DataAccessStub {
     }
 
     public Edible findEdibleByKey(int key) {
-        boolean found = false;
         Edible result = null;
+        System.out.println("key: " +key);
 
-        for(int i = 0; i < dbRecipeFood.size() && !found; i++) {
+        for(int i = 0; i < dbRecipeFood.size() && result == null; i++) {
             if(dbRecipeFood.get(i).getDbkey() == key) {
-                found = true;
                 result = dbRecipeFood.get(i);
             }
         }
-        for(int i = 0; i < dbRecipeMeal.size() && !found; i++) {
+        for(int i = 0; i < dbRecipeMeal.size() && result == null; i++) {
             if(dbRecipeFood.get(i).getDbkey() == key) {
-                found = true;
                 result = dbRecipeMeal.get(i);
             }
         }
-        for(int i = 0; i < dbRecipeDrink.size() && !found; i++) {
+        for(int i = 0; i < dbRecipeDrink.size() && result == null; i++) {
             if(dbRecipeFood.get(i).getDbkey() == key) {
-                found = true;
                 result = dbRecipeDrink.get(i);
             }
         }
@@ -224,7 +221,9 @@ public class DataAccessStub {
     public Integer getNextKey() {
         Integer result = currKey.intValue();
 
-        return ++result;
+        currKey += 1;
+
+        return result;
     }
 
     private void loadFoodlog() {
