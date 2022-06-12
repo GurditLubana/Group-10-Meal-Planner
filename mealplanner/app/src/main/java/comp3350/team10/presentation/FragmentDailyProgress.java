@@ -1,14 +1,13 @@
 package comp3350.team10.presentation;
 
+import comp3350.team10.R;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import comp3350.team10.R;
-
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,62 +18,32 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentDailyProgress#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FragmentDailyProgress extends Fragment {
     MealDiaryLiveData mealDiaryLiveData;
     private SimpleDateFormat mon ;
     private SimpleDateFormat day ;
     FragToMealDiary send;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    public FragmentDailyProgress() {}  //Required empty public constructor
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    public FragmentDailyProgress() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HeaderFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentDailyProgress newInstance(String param1, String param2) {
+    public static FragmentDailyProgress newInstance() {
         FragmentDailyProgress fragment = new FragmentDailyProgress();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-        mon = new SimpleDateFormat("MMM");
-        day = new SimpleDateFormat("dd");
+        this.mon = new SimpleDateFormat("MMM");
+        this.day = new SimpleDateFormat("dd");
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_daily_progress, container, false);
         setClickListeners(view);
 
@@ -91,66 +60,60 @@ public class FragmentDailyProgress extends Fragment {
         TextView dateProgress = (TextView) view.findViewById(R.id.dateProgress);
         TextView goalCalorie = (TextView) view.findViewById(R.id.goalCalorie);
 
-        dateProgress.setOnClickListener(new View.OnClickListener()
-        {
+        dateProgress.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Context context = view.getContext();
 
-                if (context != null) {
+                if(context != null) {
                     send = (FragToMealDiary) context;
                     send.selectDate();
                 }
             }
         });
-        prevDateProgress.setOnClickListener(new View.OnClickListener()
-        {
+
+        prevDateProgress.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Context context = view.getContext();
 
-                if (context != null) {
+                if(context != null) {
                     send = (FragToMealDiary) context;
                     send.prevDate();
                 }
             }
         });
-        nextDateProgress.setOnClickListener(new View.OnClickListener()
-        {
+
+        nextDateProgress.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Context context = view.getContext();
 
-                if (context != null) {
+                if(context != null) {
                     send = (FragToMealDiary) context;
                     send.nextDate();
                 }
             }
         });
-        goalCalorie.setOnClickListener(new View.OnClickListener()
-        {
+
+        goalCalorie.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Context context = view.getContext();
 
-                if (context != null) {
+                if(context != null) {
                     send = (FragToMealDiary) context;
                     send.showGoalEntryDialog();
                 }
             }
         });
-        exerciseProgress.setOnClickListener(new View.OnClickListener()
-        {
+
+        exerciseProgress.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Context context = view.getContext();
 
-                if (context != null) {
+                if(context != null) {
                     send = (FragToMealDiary) context;
                     send.showExerciseEntryDialog();
                 }
@@ -158,35 +121,40 @@ public class FragmentDailyProgress extends Fragment {
         });
     }
 
-    private void setObservers(View view){
+    private void setObservers(View view) {
         mealDiaryLiveData.getActivityDate().observe(getViewLifecycleOwner(), new Observer<Calendar>() {
             @Override
             public void onChanged(Calendar calendar) {
                 ((TextView) view.findViewById(R.id.dateProgress)).setText(mon.format(calendar.getTime()) + " " + day.format(calendar.getTime()));
             }
         });
+
         mealDiaryLiveData.getGoalCalories().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer goalCalories) {
                 ((TextView) view.findViewById(R.id.goalCalorie)).setText(goalCalories.toString());
             }
         });
+
         mealDiaryLiveData.getConsumedCalories().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer foodConsumed) {
                 ((TextView) view.findViewById(R.id.foodConsumed)).setText(foodConsumed.toString());
             }
         });
+
         mealDiaryLiveData.getExerciselCalories().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer exerciseCalories) {
                 ((TextView) view.findViewById(R.id.exerciseProgress)).setText(exerciseCalories.toString());
             }
         });
+
         mealDiaryLiveData.getNetCalories().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer netCalories) {
                 ((TextView) view.findViewById(R.id.netCalories)).setText(String.valueOf(Math.abs(netCalories.intValue())));
+                
                 if(netCalories < 0) {
                     ((TextView) view.findViewById(R.id.netCalories)).setTextColor(Color.RED);
                 }
@@ -195,12 +163,14 @@ public class FragmentDailyProgress extends Fragment {
                 }
             }
         });
+
         mealDiaryLiveData.getProgressBar().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer progressBar) {
                 ((ProgressBar) view.findViewById(R.id.progressBar)).setProgress(progressBar);
             }
         });
+
         mealDiaryLiveData.getProgressExcess().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer progressExcess) {
@@ -208,6 +178,4 @@ public class FragmentDailyProgress extends Fragment {
             }
         });
     }
-
-
 }

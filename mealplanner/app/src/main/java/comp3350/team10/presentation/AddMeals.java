@@ -1,10 +1,9 @@
 package comp3350.team10.presentation;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-
 import comp3350.team10.R;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
 
 public class AddMeals extends AppCompatActivity {
 

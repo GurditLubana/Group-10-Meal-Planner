@@ -1,5 +1,11 @@
 package comp3350.team10.presentation;
 
+import comp3350.team10.R;
+import comp3350.team10.business.MealDiaryOps;
+import comp3350.team10.business.UnitConverter;
+import comp3350.team10.objects.*;
+import comp3350.team10.persistence.SharedDB;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -12,45 +18,40 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageButton;
-
 import com.google.android.material.datepicker.*;
-
-import comp3350.team10.R;
-import comp3350.team10.business.MealDiaryOps;
-import comp3350.team10.business.UnitConverter;
-import comp3350.team10.objects.*;
-import comp3350.team10.persistence.SharedDB;
 
 import java.util.LinkedList;
 import java.util.Calendar;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToMealDiary {
+    private static enum EDIBLES_TYPES {FOOD, MEAL, DRINK}
+    private RVAMealDiary recyclerViewAdapter;   //Houses the logic for a recycle view with diary entries
+    private MealDiaryLiveData mealDiaryData;    //Enables persistant data
+    private RecyclerView mealRecyclerView;      //Houses a recycle view for diary entries
+    private MealDiaryOps opExec;                //Buisness logic for MealDiary
+    private Toolbar toolbar;                    //Progress bar
 
-    private RVAMealDiary recyclerViewAdapter;
-    private RecyclerView mealRecyclerView;
-    private LinkedList<ListItem> data;
-    private ListItem savedItem;
-    private int savedItemPosition;
-    private MealDiaryLiveData mealDiaryData;
-    private MealDiaryOps opExec;
-    private Toolbar toolbar;
+    private LinkedList<Edible> data;            //The data for the diary entries
+    private int savedItemPosi;                  //Saves the position of an item for temporary removal
+    private Edible savedItem;                   //Saves the item for temporary removal
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_meal_diary);
-        initToolbar();
         SharedDB.start("EaTen");
+        this.initToolbar();
         opExec = new MealDiaryOps(SharedDB.getSharedDB());
-        initLiveData();
-        initRecyclerView();
+        this.initLiveData();
+        this.initRecyclerView();
     }
 
     private void initToolbar() {
@@ -62,126 +63,103 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     private void initLiveData() {
         mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class);
-        if (opExec.isDataReady()) {
-            updateLiveData();
-        }
+        updateLiveData();
     }
 
     private void initRecyclerView() {
-        if (data != null) {
+        if(data != null) {
             recyclerViewAdapter = new RVAMealDiary(data);
             mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
             mealRecyclerView.setAdapter(recyclerViewAdapter);
             mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        } else {
-            //throw new Exception("Meal Diary Linked list empty");
         }
     }
 
-    public void showContextUI(int pos) {
-        System.out.println("clicked " + " " + pos);
-        if (pos != savedItemPosition && savedItem != null) {
-            data.remove(savedItemPosition);
-            data.add(savedItemPosition, savedItem);
+    public void showContextUI(int posi) {
+        if(posi != savedItemPosi && savedItem != null) {
+            data.remove(savedItemPosi);
+            data.add(savedItemPosi, savedItem);
         }
-        if(pos >= 0) {
-            if (data.get(pos).getFragmentType() == ListItem.FragmentType.diaryEntry) {
-                savedItem = data.remove(pos);
-                savedItemPosition = pos;
-                data.add(pos, new DiaryItem(ListItem.FragmentType.diaryModify, null, null, 0));
-            } else {
-                data.remove(pos);
-                data.add(pos, savedItem);
+
+        if(posi >= 0) {
+            if (data.get(posi).getFragmentType() == ListItem.FragmentType.diaryEntry) {
+                savedItem = data.remove(posi);
+                savedItemPosi = posi;
+                data.add(posi, new Edible(ListItem.FragmentType.diaryModify));
+            } 
+            else {
+                data.remove(posi);
+                data.add(posi, savedItem);
                 savedItem = null;
             }
         }
-        recyclerViewAdapter.notifyItemRemoved(pos);
-        recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
+
+        recyclerViewAdapter.notifyItemRemoved(posi);
+        recyclerViewAdapter.notifyItemRangeChanged(posi, data.size());
         recyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void selectDate() {
-
-        MaterialDatePicker datePicker;
-
-        datePicker = MaterialDatePicker.Builder
-                .datePicker()
-                .setTitleText("Select date")
-                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                .build();
+        MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker().setTitleText("Select date")
+            .setSelection(MaterialDatePicker.todayInUtcMilliseconds()).build();
         datePicker.show(getSupportFragmentManager(), "MATERIAL_DATE_PICKER");
         datePicker.addOnPositiveButtonClickListener(
-                new MaterialPickerOnPositiveButtonClickListener() {
-                    @Override
-                    public void onPositiveButtonClick(Object selection) {
-                        Calendar selectedDate = Calendar.getInstance();
-                        selectedDate.setTimeInMillis((Long) selection);
-                        selectedDate.add(Calendar.DAY_OF_YEAR, 1);
-                        opExec.setListDate(selectedDate);
-                        while (!opExec.isDataReady()) {
-                        }
-                        updateLiveData();
-                    }
-                });
+            new MaterialPickerOnPositiveButtonClickListener() {
+                @Override
+                public void onPositiveButtonClick(Object selection) {
+                    Calendar selectedDate = Calendar.getInstance();
+                    selectedDate.setTimeInMillis((Long) selection);
+                    selectedDate.add(Calendar.DAY_OF_YEAR, 1);
+                    opExec.setListDate(selectedDate);
+                    updateLiveData();
+                }
+            }
+        );
     }
 
     @Override
     public void prevDate() {
         opExec.prevDate();
-        while (!opExec.isDataReady()) {
-        }
         updateLiveData();
     }
 
     @Override
     public void nextDate() {
         opExec.nextDate();
-        while (!opExec.isDataReady()) {
-        }
         updateLiveData();
     }
 
     @Override
-    public void editItem(int pos) {
-        //launch dialog fragment
-        new FragmentMealDiaryEdit().show(
-                getSupportFragmentManager(), FragmentMealDiaryEdit.TAG
-        );
+    public void editItem(int pos) { //launch dialog fragment
+        new FragmentMealDiaryEdit().show(getSupportFragmentManager(), FragmentMealDiaryEdit.TAG);
     }
 
     @Override
-    public void showGoalEntryDialog() {
-        //launch dialog fragment
-        new FragmentGoalEntry().show(
-                getSupportFragmentManager(), FragmentGoalEntry.TAG
-        );
+    public void showGoalEntryDialog() { //launch dialog fragment
+        new FragmentGoalEntry().show(getSupportFragmentManager(), FragmentGoalEntry.TAG);
     }
 
     @Override
-    public void showExerciseEntryDialog() {
-        //launch dialog fragment
-        new FragmentExerciseEntry().show(
-                getSupportFragmentManager(), FragmentExerciseEntry.TAG
-        );
+    public void showExerciseEntryDialog() { //launch dialog fragment
+        new FragmentExerciseEntry().show(getSupportFragmentManager(), FragmentExerciseEntry.TAG);
     }
 
     @Override
     public void removeItem(int pos) {
-        if (data.size() > 0) {
+        if(data.size() > 0) {
             data.remove(pos);
             savedItem = null;
             recyclerViewAdapter.notifyItemRemoved(pos);
             recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
             recyclerViewAdapter.notifyDataSetChanged();
             opExec.updateList(data);
-            updateLiveData();
+            this.updateLiveData();
         }
     }
 
     @Override
-    public void addEntry(int pos) {
-        //launch recipebook use ActivityResultLauncher to allow data passing
+    public void addEntry(int pos) { //launch recipebook use ActivityResultLauncher to allow data passing
         Intent intent = new Intent(this, ActivityRecipeBook.class);
         //use this if need to pass information to activity being launched
         //intent.putExtra("DBKEY", 0);
@@ -189,7 +167,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     public void updateLiveData() {
-        if (mealDiaryData != null && opExec != null && opExec.isDataReady()) {
+        if (mealDiaryData != null && opExec != null) {
             data = opExec.getList();
             mealDiaryData.getActivityDate().setValue(opExec.getListDate());
             mealDiaryData.getGoalCalories().setValue(opExec.getCalorieGoal());
@@ -199,6 +177,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             mealDiaryData.getProgressBar().setValue(opExec.getProgressBar());
             mealDiaryData.getProgressExcess().setValue(opExec.getProgressExcess());
         }
+        
         if (recyclerViewAdapter != null) {
             recyclerViewAdapter.changeData(data);
             recyclerViewAdapter.notifyDataSetChanged();
@@ -207,12 +186,12 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public String getEntryQty(){
-        return String.valueOf(((Edible) savedItem).getQuantity());
+        return String.valueOf(savedItem.getQuantity());
     }
 
     @Override
     public ListItem.Unit getEntryUnit(){
-        return ((Edible) savedItem).getBaseUnit();
+        return savedItem.getBaseUnit();
     }
 
     @Override
@@ -227,9 +206,10 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             selectedItem.setBaseUnit(ListItem.Unit.valueOf(unit));
             selectedItem.setCalories(converter.getCalories(selectedItem.getBaseUnit(), selectedItem.getQuantity()));
         }
-        showContextUI(-1);
+        
+        this.showContextUI(-1);
         opExec.updateList(data);
-        updateLiveData();
+        this.updateLiveData();
     }
 
     @Override
@@ -240,7 +220,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     @Override
     public void setExerciseCalories(Integer value){
         opExec.setCalorieExercise(value);
-        updateLiveData();
+        this.updateLiveData();
     }
 
     @Override
@@ -251,7 +231,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     @Override
     public void setGoalCalories(Integer value){
         opExec.setCalorieGoal(value);
-        updateLiveData();
+        this.updateLiveData();
     }
 
     // GetContent creates an ActivityResultLauncher<String> to allow you to pass
@@ -262,7 +242,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) {
-                        // There are no request codes
                         Intent data = result.getData();
                         int dbkey = data.getExtras().getInt("DBKEY");
                         System.out.println("We got back: " + dbkey);
@@ -271,6 +250,4 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                     }
                 }
             });
-
-
 }

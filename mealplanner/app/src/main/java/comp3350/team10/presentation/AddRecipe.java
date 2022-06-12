@@ -1,10 +1,16 @@
 package comp3350.team10.presentation;
 
+import comp3350.team10.R;
+import comp3350.team10.business.RecipeBookOps;
+import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.Food;
+import comp3350.team10.objects.ListItem;
+import comp3350.team10.persistence.DataAccessStub;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -21,19 +27,8 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import comp3350.team10.R;
-import comp3350.team10.business.RecipeBookOps;
-import comp3350.team10.objects.Edible;
-import comp3350.team10.objects.Food;
-import comp3350.team10.objects.ListItem;
-import comp3350.team10.persistence.DataAccessStub;
-
-
-
-
 public class AddRecipe extends DialogFragment {
-
-    private EditText foodNameText,caloriesText,quantityText;
+    private EditText foodNameText, caloriesText, quantityText;
     private Button addBtn, cancelButton;
     private String foodName;
     private EditText imageView;
@@ -41,45 +36,22 @@ public class AddRecipe extends DialogFragment {
     private int quantity;
     private ImageView image;
     private FragToRecipeBook send;
+    public static String TAG = "AddRecipe";
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    public AddRecipe() {}   //Required empty public constructor
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    public AddRecipe() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentMealDiaryEdit.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AddRecipe newInstance(String param1, String param2) {
+    public static AddRecipe newInstance() {
         AddRecipe fragment = new AddRecipe();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
 
@@ -87,10 +59,8 @@ public class AddRecipe extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
         View view = getActivity().getLayoutInflater().inflate(R.layout.activity_add_recipe, null);
         builder.setView(view);
-        //setContentView(R.layout.activity_add_recipe);
 
         foodNameText = view.findViewById(R.id.foodTitle);
         imageView  = view.findViewById(R.id.imagePath);
@@ -102,31 +72,22 @@ public class AddRecipe extends DialogFragment {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 sendData(view);
-
             }
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(getContext(), ActivityRecipeBook.class );
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-
-
             }
         });
+        
         return builder.create();
     }
-
-
-
-    public static String TAG = "AddRecipe";
-
 
     private void sendData(View view)
     {

@@ -1,59 +1,49 @@
-package comp3350.team10.objects;
+// package comp3350.team10.objects; //most likely getting removed
 
-import java.util.Calendar;
-import java.util.Date;
+// import java.util.Date;
+// import java.util.Calendar;
 
-public class DiaryItem implements ListItem {
-    private static Calendar calendar = Calendar.getInstance();
-    private FragmentType fragType;  //How it should appear on recycler views
-    private Edible item;            //The item's class reference (drink, meal or food) 
-    private Date date;              //The date the meal should appear on
-    private int key;                //database key
+// public class DiaryItem extends Edible {
+//     private ListItem.FragmentType fragType; //How it should appear on recycler views
+//     private Edible item;                    //The Edible
+//     private int key;                        //This entries database key
 
 
-    public DiaryItem(Edible item, Date date, int key) {
-        this.fragType = FragmentType.diaryEntry;
-        this.item = item;
-        this.date = date;
-        this.key = key;
-    }
+//     public DiaryItem(Edible item, int key) {
+//         this.fragType = ListItem.FragmentType.diaryEntry;
+//         this.item = item;
+//         this.key = key;
+//     }
 
-    public DiaryItem(FragmentType type, Edible item, Date date, int key) {
-        this.fragType = type;
-        this.item = item;
-        this.date = date;
-        this.key = key;
-    }
+//     public DiaryItem(ListItem.FragmentType type, Edible item, int key) {
+//         this.fragType = type;
+//         this.item = item;
+//         this.key = key;
+//     }
 
-    public DiaryItem() {
-        this.fragType = FragmentType.diaryEntry;
-        //this.item = new Food("some food", "); //defaults Josef had <3 so I dont mess with your stuff
-        this.date = calendar.getTime(); //give todays date
-        this.key = 0;
-    }
+//     public DiaryItem() {
+//         this.fragType = ListItem.FragmentType.diaryEntry;
+//         //this.item = new Food("some food", "); //defaults Josef had <3 so I dont mess with your stuff
+//         this.key = 0;
+//     }
 
-    @Override
-    public FragmentType getFragmentType() {
-        return fragType;
-    }
+//     public ListItem.FragmentType getFragmentType() {
+//         return this.fragType;
+//     }
 
-    public Edible getItem() {
-        return this.item;
-    }
+//     public Edible getItem() {
+//         return this.item;
+//     }
 
-    public Date getDate() {
-        return this.date;
-    }
+//     public int getKey() {
+//         return this.key;
+//     }
 
-    public int getKey() {
-        return this.key;
-    }
+//     public ListItem.Unit getBaseUnit(){
+//         return null;
+//     }
 
-    public Unit getBaseUnit(){
-        return null;
-    }
-
-    public int getQuantity(){
-        return 0;
-    }
-}
+//     public int getQuantity(){
+//         return 0;
+//     }
+// }

@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.LinkedList;
 
-import comp3350.team10.objects.DiaryItem;
+//import comp3350.team10.objects.DiaryItem;
 import comp3350.team10.objects.ListItem;
 
 public class MealDiaryLiveData extends ViewModel {
@@ -32,6 +32,7 @@ public class MealDiaryLiveData extends ViewModel {
         if(mealsOnDate == null ){
             mealsOnDate = new MutableLiveData<LinkedList<ListItem>>(new LinkedList<ListItem>());
         }
+
         return mealsOnDate;
     }
 
@@ -39,6 +40,7 @@ public class MealDiaryLiveData extends ViewModel {
         if(goalCalories == null){
             goalCalories = new MutableLiveData<Integer>(1500);
         }
+
         return goalCalories;
     }
 
@@ -46,6 +48,7 @@ public class MealDiaryLiveData extends ViewModel {
         if(consumedCalories == null){
             consumedCalories = new MutableLiveData<Integer>(1000);
         }
+
         return consumedCalories;
     }
 
@@ -53,6 +56,7 @@ public class MealDiaryLiveData extends ViewModel {
         if(exerciselCalories == null){
             exerciselCalories = new MutableLiveData<Integer>(200);
         }
+
         return exerciselCalories;
     }
 
@@ -60,6 +64,7 @@ public class MealDiaryLiveData extends ViewModel {
         if(netCalories == null){
             netCalories = new MutableLiveData<Integer>(69);
         }
+
         return netCalories;
     }
 
@@ -67,6 +72,7 @@ public class MealDiaryLiveData extends ViewModel {
         if(progressBar == null){
             progressBar = new MutableLiveData<Integer>(0);
         }
+
         return progressBar;
     }
 
@@ -74,6 +80,7 @@ public class MealDiaryLiveData extends ViewModel {
         if(progressExcess == null){
             progressExcess = new MutableLiveData<Integer>(0);
         }
+        
         return progressExcess;
 
     }
