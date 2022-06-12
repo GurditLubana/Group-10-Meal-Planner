@@ -1,5 +1,4 @@
-# Best-3350-Group-Project
-
+# Comp3350  
 # Team 10  
 ## Group members  
 Dane Wanke - wanked@myumanitoba.ca  
@@ -77,6 +76,65 @@ Attendees:
  Decision:  
 Rationale:  
 
+### 2022 Jun 07
+Attendees:  
+- Josef
+- Manraj
+
+    Topic: Working meeting Dialog Fragments  
+ Decision:  
+Rationale:  
+
+### 2022 Jun 09
+Attendees:  
+- Josef
+- Manraj
+
+    Topic: Working meeting Dialog Fragments  
+ Decision:  
+Rationale:  
+
+### 2022 Jun 11
+Attendees:  
+- Dane  
+- Josef  
+- Manraj  
+- Gurdit  
+- Zhao  
+
+    Topic: Working meeting Dialog Fragments  
+ Decision:  
+Rationale:  
+
+### 2022 Jun 14
+Attendees:  
+- Dane  
+- Josef  
+- Manraj  
+- Gurdit  
+- Zhao  
+
+    Topic: Working meeting Dialog Fragments  
+ Decision:  
+Rationale:  
+
+### 2022 Jun 16
+Attendees:  
+- Dane  
+- Josef  
+- Manraj  
+- Gurdit  
+- Zhao  
+
+    Topic: Working meeting Dialog Fragments  
+ Decision:  
+Rationale:  
+
+
+
+
+
+
 
 
 ## Dev tasks  
@@ -104,28 +162,28 @@ Estimate: 1hr
    Title: Onboarding 
     Desc: set up git, android studio, clone repo, compile main branch 
 Estimate: 1hr  
-  Actual:     
+  Actual: 1hr     
      Dev: Dane    
 
 ##### Task 00  
    Title: Onboarding 
     Desc: set up git, android studio, clone repo, compile main branch 
 Estimate: 1hr  
-  Actual:   
+  Actual: 1hr   
      Dev: Gurdit  
 
 ##### Task 00  
    Title: Onboarding 
     Desc: set up git, android studio, clone repo, compile main branch 
 Estimate: 1hr  
-  Actual:     
+  Actual: 1hr     
      Dev: Manraj  
 
 ##### Task 00  
    Title: Onboarding 
     Desc: set up git, android studio, clone repo, compile main branch 
 Estimate: 1hr  
-  Actual:   
+  Actual: 1hr  
      Dev: Zhou  
    
 ##### Task 000  
@@ -188,7 +246,7 @@ Estimate: 2hrs
    Title: Meal Diary entry editor
     Desc: Build Modal for data modification
 Estimate: 4hrs
-  Actual:  
+  Actual: 2days 
      Dev: Manraj  
      
 ##### Task 09
@@ -222,8 +280,8 @@ Estimate: 2hrs
 ##### Task 13
    Title: Recipe book UI  
     Desc: Build Recipe book UI with recyclerview, search bar, tabs, add button  
-Estimate: 4 days  
-  Actual: 6 days   
+Estimate: 4days  
+  Actual: 6days   
      Dev: Dane, Gurdit, Josef  
      
 ##### Task 14
@@ -237,7 +295,7 @@ Estimate: 2hrs
    Title: Recipe book entries context UI  
     Desc: Build reusable card fragments to show options when entry is clicked  
 Estimate: 2hrs  
-  Actual:  
+  Actual: 2hrs 
      Dev: Dane   
      
 ##### Task 16
@@ -264,29 +322,29 @@ Estimate: 4hrs
 ##### Task 19
    Title: Recipe book stub drinks data  
     Desc: Implement stub database for recipe book  
-Estimate: 
-  Actual:  
+Estimate: 8hrs
+  Actual: 8hrs 
      Dev: Dane  
 
 ##### Task 20
    Title: Recipe book detailed view  
     Desc: UI prototype layout  
 Estimate: 4hrs   
-  Actual:   
+  Actual: 4hrs  
      Dev: Gurdit  
 
 ##### Task 21
    Title: Recipe book detailed view   
     Desc: UI elements recyclerview   
 Estimate: 4hrs  
-  Actual:  
+  Actual: Incomplete  
      Dev: Gurdit  
      
 ##### Task 22
    Title: Recipe book detailed view   
     Desc: Implement drink slider  
 Estimate: 4hrs  
-  Actual:  
+  Actual: Incomplete 
      Dev: Dane  
      
 ##### Task 23
@@ -300,7 +358,7 @@ Estimate: 4hrs
    Title: MealDiaryOps Unit testing  
     Desc: Implement class unit testing
 Estimate: 8hrs  
-  Actual:    
+  Actual: 16hrs   
      Dev: Josef
 
 
@@ -406,7 +464,7 @@ Estimate:
 ## Bugs
 
 ### Bug 01
-   Title: Persistence across activities  
+   Title: none  
     Desc:   
 Estimate:  
   Actual:   
@@ -545,4 +603,25 @@ Duration: 8hrs
     - Implemented meal entry edit input dialog   
     - Redesigned alternate recipe book card context UI
 
+
+### 2022-06-11
+     Dev:
+      - Gurdit
+      - Dane
+      - Manraj
+      - Josef
+      - Zhao
+Duration: 8hrs
+   Tasks:
+   - Agile software dev practices discussion
+   - pull completed branches into main
+   - App UI functional tests
+   - Evaluate dev task completion
+   - UI evaluation for user experience
+   - Code peer review
+   - Identify dead code, duplicate code, correct oo, coupling and other areas for refactoring.
+   - Write unit tests
+   - Refactor all code areas identified
+   - Readme write up
+   - devlog write up
 

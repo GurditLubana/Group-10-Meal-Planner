@@ -54,35 +54,35 @@ Desc
 ### SharedDB
 Desc  
 ## Presentation
-Presentation classes handle all UI activities. Drawing new elements on the screen, displaying new information, accepting user entries, handling of user gestures, etc.
+Presentation classes handle all UI activities. Drawing new elements on the screen, displaying new information, accepting user entries, handling of user gestures, etc.  
 
 ### Activity Meal Diary
-Desc  
+This class handles the UI for the meal diary activity. This is the User interface for logging food consumed. This activity shows a users daily progress at glance and allows the user add their days exercise activity.  
 
 ### Activity Recipe Book
-Desc  
+This class handles the UI for the Recipe Book  
 
 ### FragToMealDiary
-Desc  
+This is an interface of methods that allow fragments that comprise the meal diary to send and recieve infromation from the parent activity  
 
 ### FragToRecipeBook
-Desc  
+This is an interface of methods that allow fragments that comprise the recipe book to send and recieve infromation from the parent activity  
 
 ### RVAMealDiary
-Desc  
+This is a recycler view adapter for the meal diary activity. This adapter handles the display of different fragment layouts in a recycler view.  
 
 ### RVARecipeBook
-Desc  
+This is a recycler view adapter for the recipe book activity. This adapter handles the display of different fragment layouts in a recycler view.  
 
 ### MealDiaryLiveData
-Desc  
+This is a class that allows the use of the observer design pattern in Android Activities. UI elements can be set to observe this class for changes and allow all observers to update their own elements when this class is updated.  
 
 # Feature List
 The main page of the Meal Planner application display's the food items that the user plans to consume on a specific Day. The bar depicts the Calorie goal for the day, the number of calories consumed via Food, calories burnt via Exercise, and the net calories that can make. The user can set the Calorie goal for the day, and calories burnt in the exercise routine and will be able to track the progress made. The user can edit the list of Food items that need to be consumed. They can add Food items, Meals, and Drinks to the Food list along with the amount that they are consuming for each item. Also, we can remove the items on the list to cut off the unnecessary calorie intake. The user can set the Calorie goal for the day and will be able to track the number of calories that can still be consumed to reach the target. Moreover, users are able to change the amount of each item they did intake. The users can also add new food recipes. They can 
 
 # Environments Used in Testing
 
-Our team used Android Studio Chipmunk 2021.2.1 Patch 1 for development. We tested our code both on a Nexus 7 device and several Android virtual devices created in Android studio. Android virtual devices used, had SDK 23 and SDK 29 for debugging.  
+Our team used Android Studio Chipmunk 2021.2.1 Patch 1 for development on Windows 10. We tested our code both on a Nexus 7 device and several Android virtual devices created in Android studio. Android virtual devices used, had SDK 23 for testing and SDK 29 for debugging.  
 
 
 
