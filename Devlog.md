@@ -73,7 +73,7 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
 
     Topic: UI design and rationalizing, Iter0 refinement, dev environment and production software.  Josef also showcased his work
     -----
-    Decision: Please see supportingDocs/May23/UI design
+    Decision: Please see mealplanner docs/May23 (UI images)
     -----
     Rationale: Iter0 refinement and UI design
 <br>
@@ -575,7 +575,7 @@ Duration: 10hrs
     Task:  
    - Set up test environment (C drive wass full had to troubleshoot why the emulator would not run)
    - Had an issue where branches were not loading from git (learnt what fetch does)
-   - Created Version 1 of object structure (see additionalDocs/May30/objectStructure.pdf)
+   - Created Version 1 of object structure (see mealplanner docs/May30/General data structs.pdf)
    - Talked with Josef about system requirements
    - Researched general android studio knowledge and terminology
    
@@ -603,7 +603,7 @@ Duration: 1hrs
      Dev: Dane  
 Duration: 15hrs   
     Tasks:  
-   - Created and edited a video for team to watch if they were having trouble understanding our current codebase (please see additionalDocs/June1/video.txt)
+   - Created and edited a video for team to watch if they were having trouble understanding our current codebase (please see mealplanner docs/June1/video.txt)
    - Improved slider accessability and functionality in ViewEdibleActivity UI
    - Setup back button for viewEdibleActivity (returns to original activity that called it not hardcoded for other use)
    - Refactored objects
