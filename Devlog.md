@@ -363,12 +363,14 @@ Estimate: 8hrs
      Dev: Josef
 <br>
 <br>
+
 ---
 ## Big story 2 : Progress tracking  
 As a user I would like to be able to set calorie goals and see my progress towards those goals.  
 - Priority - High
 - Cost - 6 days   
 <br>
+
 - ##### Task 01
    Title: progress bar  
     Desc: Build reusable progressbar fragment   
