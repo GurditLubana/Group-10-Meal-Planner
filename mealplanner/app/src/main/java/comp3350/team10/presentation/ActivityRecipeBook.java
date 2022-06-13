@@ -37,13 +37,13 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private Animation fabOpen, fabClose, rotateForward, rotateBackward;
     private boolean isOpen = false;
     private static int currTab;
-    public static final String Edible = "Edible";
-    public static final String Calories = "Calories";
-    public static final String Quantity = "Quantity";
-    private String fName ;
-    private int fCalories;
-    private int fQuantity;
-    FragToRecipeBook send;
+//    public static final String Edible = "Edible";
+//    public static final String Calories = "Calories";
+//    public static final String Quantity = "Quantity";
+//    private String fName ;
+//    private int fCalories;
+//    private int fQuantity;
+//    FragToRecipeBook send;
 
 
 
@@ -112,8 +112,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
                 else if(currTab == 1)
                 {
-                    Intent i = new Intent(ActivityRecipeBook.this, AddDrinks.class);
-                    startActivity(i);
+                    new AddMeals().show(
+                            getSupportFragmentManager(), AddMeals.TAG);
                 }
 
                 else if(currTab == 2)
@@ -233,11 +233,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.recyclerViewAdapter.notifyDataSetChanged();
     }
 
-    private void addItemToRecipe()
-    {
-
-    }
-
     
     @Override
     public void addToMealDiary(int pos){
@@ -276,9 +271,9 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     @Override
-    public void addMeal() { //change this to correct signature
-        // do input validation then pass to ops
-        //opExec.addMeal(); //add appropriate objects here
+    public void addMeal(String name, int iconPath, int calories, MealIngredient[] ingredients, String [] instructions, ListItem.Unit baseUnit, int quantity)  { //change this to correct signature
+
+        opExec.addMeal(name,iconPath,calories,ingredients,instructions,baseUnit,quantity); //add appropriate objects here
         data = opExec.getMealRecipes();
         updateRVA();
     }

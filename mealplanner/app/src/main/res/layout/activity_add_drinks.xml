@@ -127,7 +127,7 @@
                     android:backgroundTint="#A5C6E1"
                     android:ems="10"
                     android:layout_marginEnd="10dp"
-                    android:hint="  Number of calories in this food."
+                    android:hint="  Number of calories in this drinks."
                     android:inputType="number"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -340,7 +340,6 @@
                     android:background="#A5C6E1"
                     android:backgroundTint="#A5C6E1"
                     android:ems="10"
-                    android:hint="  Drink's Name"
                     android:inputType="textMultiLine" />
 
             </LinearLayout>
