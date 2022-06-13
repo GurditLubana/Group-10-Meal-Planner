@@ -9,8 +9,8 @@ import java.util.Calendar;
 
 import comp3350.team10.business.MealDiaryOps;
 import comp3350.team10.business.RecipeBookOps;
-import comp3350.team10.persistence.DataAccessStub;
-import comp3350.team10.persistence.SharedDB;
+import DataAccessStub;
+import SharedDB;
 
 
 /**
