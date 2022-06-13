@@ -204,12 +204,12 @@ public class DataAccessStub {
             }
         }
         for(int i = 0; i < dbRecipeMeal.size() && result == null; i++) {
-            if(dbRecipeFood.get(i).getDbkey() == key) {
+            if(dbRecipeMeal.get(i).getDbkey() == key) {
                 result = dbRecipeMeal.get(i);
             }
         }
         for(int i = 0; i < dbRecipeDrink.size() && result == null; i++) {
-            if(dbRecipeFood.get(i).getDbkey() == key) {
+            if(dbRecipeDrink.get(i).getDbkey() == key) {
                 result = dbRecipeDrink.get(i);
             }
         }
