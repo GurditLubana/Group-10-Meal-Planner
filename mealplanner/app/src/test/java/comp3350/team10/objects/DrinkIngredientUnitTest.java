@@ -16,14 +16,13 @@ public class DrinkIngredientUnitTest {
 	public void test1() {
 		String[] testInstruct = {"1","2","3"};
 		String[] testIngredients = {"banana","apple","peach"};
-		
+
 		DrinkIngredient testDrinkIngredient = new DrinkIngredient("juice", 12.25, "3", true, false);
 		assertEquals("juice", testDrinkIngredient.getName());
 		assertFalse(testDrinkIngredient.isAlcoholic());
 		//assertTrue(testDrinkIngredient.isReplacement());
-		
+
 	}
-	
+
 
 }
-

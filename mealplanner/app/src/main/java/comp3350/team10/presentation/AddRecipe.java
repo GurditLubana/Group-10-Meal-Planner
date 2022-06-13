@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -58,7 +59,7 @@ public class AddRecipe extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View view = getActivity().getLayoutInflater().inflate(R.layout.activity_add_recipe, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.activity_add_food, null);
         builder.setView(view);
 
         foodNameText = view.findViewById(R.id.foodTitle);
@@ -78,33 +79,82 @@ public class AddRecipe extends DialogFragment {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ActivityRecipeBook.class );
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+
+                dismiss();
             }
         });
-        
+
         return builder.create();
     }
 
     private void sendData(View view)
     {
 
+        if(validateInput(view) == true)
+        {
         foodName = foodNameText.getText().toString().trim();
         calories = Integer.parseInt(caloriesText.getText().toString().trim());
         quantity = Integer.parseInt(quantityText.getText().toString().trim());
         Intent intent = new Intent(getContext(), ActivityRecipeBook.class );
         Context context = view.getContext();
 
-        if (context != null) {
-            send = (FragToRecipeBook) context;
-            send.addFood(foodName, R.drawable.ic_eggplant,calories,Edible.Unit.g,quantity);
-        }
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
 
+            if (context != null) {
+                send = (FragToRecipeBook) context;
+                send.addFood(foodName, R.drawable.ic_eggplant,calories,Edible.Unit.g,quantity);
+            }
+
+            String text = foodName + " Successfully added to the list";
+            Toast toast = Toast.makeText(getContext(), text , Toast.LENGTH_SHORT);
+            toast.show();
+            dismiss();
+        }
+
+    }
+
+    private boolean validateInput(View view) {
+        boolean result = true;
+        String name = foodNameText.getText().toString().trim();
+        String calory = caloriesText.getText().toString().trim();
+        String quantity = quantityText.getText().toString().trim();
+
+
+        if (calory.length() == 0 ) {
+            Context context = view.getContext();
+            CharSequence text = "Calory count can't be empty.";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(getContext(), text, duration);
+            toast.show();
+            result = false;
+
+        }
+
+
+        if (name.length() == 0) {
+            Context context = view.getContext();
+            CharSequence text = "Food name can't be empty.";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(getContext(), text, duration);
+            toast.show();
+            result = false;
+
+        }
+
+
+        if (quantity.length() == 0) {
+            Context context = view.getContext();
+            CharSequence text = "Quantities field can't be empty.";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            result = false;
+
+        }
+
+        return result;
     }
 
 

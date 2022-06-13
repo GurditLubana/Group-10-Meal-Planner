@@ -35,7 +35,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     private Animation fabOpen, fabClose, rotateForward, rotateBackward; //Animations for floating buttons
     private FloatingActionButton openFab, editFab, addFab;              //Floating buttons
-    
+
     private RVARecipeBook recyclerViewAdapter;      //Houses the logic for a recycle view with recipes
     private RecyclerView recipeRecyclerView;        //Houses a recycle view for recipes
     private RecipeBookOps opExec;                   //Buisness logic for RecipeBook
@@ -93,17 +93,22 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                 if(currTab == 0) {
                     new AddRecipe().show(getSupportFragmentManager(), AddRecipe.TAG);
                 }
-                else if(currTab == 1) {
-                    Intent i = new Intent(ActivityRecipeBook.this, AddMeals.class);
-                    startActivity(i);
+
+                else if(currTab == 1)
+                {
+                    new AddMeals().show(
+                            getSupportFragmentManager(), AddMeals.TAG);
                 }
-                else if(currTab == 2) {
-                    Intent i = new Intent(ActivityRecipeBook.this, AddDrinks.class);
-                    startActivity(i);
+
+                else if(currTab == 2)
+                {
+                    new AddDrinks().show(
+                            getSupportFragmentManager(), AddDrinks.TAG
+
+                    );
                 }
-                else {
-                    animateButton();
-                }
+
+                else{animateButton();}
             }
         });
     }
@@ -129,7 +134,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     private void initToolbar() {
         View object = findViewById(R.id.toolbar);
-        
+
         if(object instanceof Toolbar) {
             this.toolbar = (Toolbar)object;
 
@@ -154,17 +159,18 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
             this.recipeRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         }
     }
-    
+
     private void setTabListeners(){
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if(tab.getPosition() == 0) {
+            public void onTabSelected(TabLayout.Tab tab) { //tab.getPosition() tab 0 = food, 1 = meal, 2 = drink
+                currTab = tab.getPosition();
+                if(currTab == 0){
                     data = opExec.getFoodRecipes();
                 }
-                else if(tab.getPosition() == 1) {
+                else if(currTab == 1){
                     data = opExec.getMealRecipes();
                 }
                 else {
@@ -195,7 +201,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
             this.saved = this.data.remove(posi);
             this.savedPosi = posi;
             this.data.add(posi, new Food("",0,0,ListItem.FragmentType.cardSelection, null, 0, 0));
-        } 
+        }
         else {
             this.data.remove(posi);
             this.data.add(posi, this.saved);
@@ -229,9 +235,10 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     @Override
-    public void addDrink() {  //change this to correct signature
+    public void addDrink(String name, int iconPath, int calories, DrinkIngredient[] ingredients, String [] instructions, Edible.Unit baseUnit, int quantity) {
         // do input validation then pass to ops
-        //opExec.addDrink(); //add appropriate objects here
+
+        opExec.addDrink(name,iconPath,calories,instructions,ingredients,baseUnit,quantity); //add appropriate objects here
         data = opExec.getDrinkRecipes();
         this.updateRVA();
     }
@@ -245,9 +252,9 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     @Override
-    public void addMeal() { //change this to correct signature
-        // do input validation then pass to ops
-        //opExec.addMeal(); //add appropriate objects here
+    public void addMeal(String name, int iconPath, int calories, MealIngredient[] ingredients, String [] instructions, Edible.Unit baseUnit, int quantity)  { //change this to correct signature
+
+        opExec.addMeal(name,iconPath,calories,ingredients,instructions,baseUnit,quantity); //add appropriate objects here
         data = opExec.getMealRecipes();
         this.updateRVA();
     }

@@ -12,9 +12,6 @@
         android:theme="@style/Theme.MealPlanner">
 
         <activity
-            android:name=".presentation.AddMeals"
-            android:exported="false" />
-        <activity
 
             android:name=".presentation.AddRecipe"
             android:exported="false"
