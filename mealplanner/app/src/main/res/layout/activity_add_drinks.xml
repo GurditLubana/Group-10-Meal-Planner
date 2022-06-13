@@ -10,7 +10,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="888dp"
+        android:layout_height="870dp"
         android:background="?colorPrimary">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +36,7 @@
 
 
             <LinearLayout
-                android:layout_width="600dp"
+                android:layout_width="570dp"
                 android:layout_height="60dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
@@ -70,6 +70,7 @@
                     android:id="@+id/drinksImagePath"
                     android:layout_width="320dp"
                     android:layout_height="49dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="0.7"
                     android:background="#A5C6E1"
                     android:backgroundTint="#A5C6E1"
@@ -87,8 +88,8 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="596dp"
-                android:layout_height="53dp"
+                android:layout_width="570dp"
+                android:layout_height="60dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -96,7 +97,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.372">
+                app:layout_constraintVertical_bias="0.352">
 
 
                 <TextView
@@ -105,7 +106,6 @@
                     android:layout_height="49dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginBottom="7dp"
                     android:layout_weight="0.3"
                     android:background="@color/white"
                     android:text="  Calories count"
@@ -116,7 +116,7 @@
                     app:layout_constraintHorizontal_bias="0.068"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.403" />
+                     />
 
                 <EditText
                     android:id="@+id/drinksCalories"
@@ -126,6 +126,7 @@
                     android:background="#A5C6E1"
                     android:backgroundTint="#A5C6E1"
                     android:ems="10"
+                    android:layout_marginEnd="10dp"
                     android:hint="  Number of calories in this food."
                     android:inputType="number"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -138,8 +139,8 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="594dp"
-                android:layout_height="61dp"
+                android:layout_width="570dp"
+                android:layout_height="60dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -147,7 +148,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.445">
+                app:layout_constraintVertical_bias="0.44">
 
 
                 <TextView
@@ -177,6 +178,7 @@
                     android:background="#A5C6E1"
                     android:backgroundTint="#A5C6E1"
                     android:ems="10"
+                    android:layout_marginRight="10dp"
                     android:hint="  Quantity ( numeric - 1,2,3)"
                     android:inputType="number"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -189,7 +191,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="586dp"
+                android:layout_width="570dp"
                 android:layout_height="55dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
@@ -227,7 +229,9 @@
                     android:background="#A5C6E1"
                     android:backgroundTint="#A5C6E1"
                     android:ems="10"
-                    android:hint=" List all the ingredients in the drink.        (, comma seperated)"
+                    android:layout_marginEnd="10dp"
+                    android:hint=" List all the ingredients in the drink.
+                                   (, comma seperated)"
                     android:inputType="textMultiLine"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -266,16 +270,16 @@
                 app:layout_constraintVertical_bias="0.928" />
 
             <LinearLayout
-                android:layout_width="598dp"
-                android:layout_height="47dp"
+                android:layout_width="570dp"
+                android:layout_height="59dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.199">
+                app:layout_constraintVertical_bias="0.196">
 
                 <TextView
                     android:id="@+id/Heading"
@@ -293,7 +297,7 @@
                     android:id="@+id/drinksTitle"
                     android:layout_width="320dp"
                     android:layout_height="49dp"
-
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="0.7"
                     android:background="#A5C6E1"
                     android:backgroundTint="#A5C6E1"
@@ -303,16 +307,16 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="597dp"
+                android:layout_width="570dp"
                 android:layout_height="244dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.666"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.797">
+                app:layout_constraintVertical_bias="0.8">
 
 
                 <TextView
@@ -331,7 +335,7 @@
                     android:id="@+id/drinkInstructions"
                     android:layout_width="320dp"
                     android:layout_height="220dp"
-
+                    android:layout_marginRight="10dp"
                     android:layout_weight="0.7"
                     android:background="#A5C6E1"
                     android:backgroundTint="#A5C6E1"

@@ -3,12 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/3350/Best-3350-Group-Project/mealplanner/app/src/main/res/layout/fragment_daily_progress.xml" value="0.18385416666666668" />
+        <entry key="..\:/3350/Best-3350-Group-Project/mealplanner/app/src/main/res/layout/fragment_exercise_entry.xml" value="0.35989583333333336" />
+        <entry key="..\:/3350/Best-3350-Group-Project/mealplanner/app/src/main/res/layout/fragment_goal_entry.xml" value="0.35989583333333336" />
+        <entry key="..\:/3350/Best-3350-Group-Project/mealplanner/app/src/main/res/layout/fragment_meal_diary_edit.xml" value="0.35866013071895425" />
+        <entry key="..\:/3350/Best-3350-Group-Project/mealplanner/app/src/main/res/layout/spinner_unit_items.xml" value="0.35866013071895425" />
         <entry key="..\:/Users/gurdi/Documents/GitHub/Eat-Dix-1/mealplanner/app/src/main/res/drawable/ic_open.xml" value="0.1595" />
         <entry key="..\:/Users/gurdi/Documents/GitHub/Eat-Dix-1/mealplanner/app/src/main/res/drawable/ic_open_buttons.xml" value="0.1595" />
         <entry key="..\:/Users/gurdi/Documents/GitHub/Eat-Dix-1/mealplanner/app/src/main/res/layout/activity_add_drinks.xml" value="0.264" />
         <entry key="..\:/Users/gurdi/Documents/GitHub/Eat-Dix-1/mealplanner/app/src/main/res/layout/activity_add_drinks2.xml" value="0.25" />
         <entry key="..\:/Users/gurdi/Documents/GitHub/Eat-Dix-1/mealplanner/app/src/main/res/layout/activity_add_meals.xml" value="0.25" />
-        <entry key="..\:/Users/gurdi/Documents/GitHub/Eat-Dix-1/mealplanner/app/src/main/res/layout/activity_add_recipe.xml" value="0.264" />
+        <entry key="..\:/Users/gurdi/Documents/GitHub/Eat-Dix-1/mealplanner/app/src/main/res/layout/activity_add_recipe.xml" value="0.25" />
         <entry key="..\:/Users/gurdi/Documents/GitHub/Eat-Dix-1/mealplanner/app/src/main/res/layout/activity_add_to_recipe_book.xml" value="0.25" />
         <entry key="..\:/Users/gurdi/Documents/GitHub/Eat-Dix-1/mealplanner/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/gurdi/Documents/GitHub/Eat-Dix-1/mealplanner/app/src/main/res/layout/activity_meal_diary.xml" value="0.25" />
