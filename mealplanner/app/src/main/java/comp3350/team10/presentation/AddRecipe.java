@@ -140,6 +140,10 @@ public class AddRecipe extends DialogFragment {
                 send = (FragToRecipeBook) context;
                 send.addFood(foodName, R.drawable.ic_eggplant,calories,ListItem.Unit.g,quantity);
             }
+
+            String text = foodName + " Successfully added to the list";
+            Toast toast = Toast.makeText(getContext(), text , Toast.LENGTH_SHORT);
+            toast.show();
             dismiss();
         }
 

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -89,22 +90,99 @@ public class AddMeals extends DialogFragment {
     private void sendData(View view)
     {
 
-        String [] dInstruct = instructions.getText().toString().split("\n");
-        String[] dIngredients = ingredients.getText().toString().split(",");
-        mealName = mealNameText.getText().toString().trim();
-        calories = Integer.parseInt(caloriesText.getText().toString().trim());
-        quantity = Integer.parseInt(quantityText.getText().toString().trim());
-        Intent intent = new Intent(getContext(), ActivityRecipeBook.class );
-        Context context = view.getContext();
+        if(validateInput(view) == true) {
 
-        if (context != null) {
-            sendInput2 = (FragToRecipeBook) context;
-            sendInput2.addMeal(mealName, R.drawable.ic_eggplant,calories,ingredientsArray, dInstruct,ListItem.Unit.ml,quantity);
+            String[] dInstruct = instructions.getText().toString().split("\n");
+            String[] dIngredients = ingredients.getText().toString().split(",");
+            mealName = mealNameText.getText().toString().trim();
+            calories = Integer.parseInt(caloriesText.getText().toString().trim());
+            quantity = Integer.parseInt(quantityText.getText().toString().trim());
+            Intent intent = new Intent(getContext(), ActivityRecipeBook.class);
+            Context context = view.getContext();
+
+            if (context != null) {
+                sendInput2 = (FragToRecipeBook) context;
+                sendInput2.addMeal(mealName, R.drawable.ic_eggplant, calories, ingredientsArray, dInstruct, ListItem.Unit.ml, quantity);
+            }
+            String text = mealName + " Successfully added to the list";
+            Toast toast = Toast.makeText(getContext(), text, Toast.LENGTH_SHORT);
+            toast.show();
+            dismiss();
         }
 
-        dismiss();
-
     }
+
+
+
+    private boolean validateInput(View view) {
+        boolean result = true;
+        String name = mealNameText.getText().toString().trim();
+        String calory = caloriesText.getText().toString().trim();
+        String quantity = quantityText.getText().toString().trim();
+        String recipe = instructions.getText().toString().trim();
+        String ingred = ingredients.getText().toString().trim();
+
+
+        if (calory.length() == 0 ) {
+            Context context = view.getContext();
+            CharSequence text = "Calory count can't be empty.";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(getContext(), text, duration);
+            toast.show();
+            result = false;
+
+        }
+
+
+        if (name.length() == 0) {
+            Context context = view.getContext();
+            CharSequence text = "Meal Title can't be empty.";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(getContext(), text, duration);
+            toast.show();
+            result = false;
+
+        }
+
+        if (recipe.length() == 0) {
+            Context context = view.getContext();
+            CharSequence text = "Recipe field can't be empty.";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(getContext(), text, duration);
+            toast.show();
+            result = false;
+
+        }
+
+        if (ingred.length() == 0) {
+            Context context = view.getContext();
+            CharSequence text = "Field Ingredients can't be empty.";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(getContext(), text, duration);
+            toast.show();
+            result = false;
+
+        }
+
+
+        if (quantity.length() == 0) {
+            Context context = view.getContext();
+            CharSequence text = "Quantities field can't be empty.";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            result = false;
+
+        }
+
+        return result;
+    }
+
 
 
 }
