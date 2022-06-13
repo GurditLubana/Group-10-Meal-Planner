@@ -702,3 +702,12 @@ Duration: 6hrs
    - Entered personal dev history for May 19, 31 and July 1 and 2 
    - Added additionalDocs
    - Bug: need to change the cardOnSelect UI, we do not want to add items from this menu anymore
+
+### 2022-06-13
+     Dev: Dane
+Duration: 2hrs
+   Tasks:
+   - Main was accidentally overwritten, changed default branch
+   - More refactoring for testing (Edible and PreparedItem)
+   - Created an enum checker - each enum will need its own (see ListItem)
+   - Edible is supposed to be abstract but had its own instance for the creation card, delegated to food class
