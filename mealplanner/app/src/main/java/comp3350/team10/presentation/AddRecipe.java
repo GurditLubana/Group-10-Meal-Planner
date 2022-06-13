@@ -89,7 +89,7 @@ public class AddRecipe extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        View view = getActivity().getLayoutInflater().inflate(R.layout.activity_add_recipe, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.activity_add_food, null);
         builder.setView(view);
         //setContentView(R.layout.activity_add_recipe);
 
