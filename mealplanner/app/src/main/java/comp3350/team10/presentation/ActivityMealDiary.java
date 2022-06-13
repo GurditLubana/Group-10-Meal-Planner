@@ -27,6 +27,7 @@ import java.util.Calendar;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToMealDiary {
     private static enum EDIBLES_TYPES {FOOD, MEAL, DRINK}
+    private ActivityResultLauncher<Intent> pickMeal;
     private RVAMealDiary recyclerViewAdapter;   //Houses the logic for a recycle view with diary entries
     private MealDiaryLiveData mealDiaryData;    //Enables persistent data
     private RecyclerView mealRecyclerView;      //Houses a recycle view for diary entries
@@ -48,6 +49,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         this.opExec = new MealDiaryOps(SharedDB.getSharedDB());
         this.initLiveData();
         this.initRecyclerView();
+        this.createActivityCallbackListener();
     }
 
     private void initToolbar() {
@@ -69,6 +71,26 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             this.mealRecyclerView.setAdapter(this.recyclerViewAdapter);
             this.mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
+    }
+
+    private void createActivityCallbackListener(){
+        this.pickMeal = registerForActivityResult( new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        Intent data;
+                        int dbkey;
+
+                        if(result.getResultCode() == Activity.RESULT_OK) {
+                            data = result.getData();
+                            dbkey = data.getExtras().getInt("DBKEY");
+
+                            System.out.println("We got back: " + dbkey);
+                            opExec.addByKey(dbkey);
+                            updateLiveData();
+                        }
+                    }
+                });
     }
 
     public void showContextUI(int position) {
@@ -97,9 +119,13 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public void selectDate() {
-        MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker().setTitleText("Select date")
-            .setSelection(MaterialDatePicker.todayInUtcMilliseconds()).build();
+        MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select date")
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build();
+
         datePicker.show(getSupportFragmentManager(), "MATERIAL_DATE_PICKER");
+
         datePicker.addOnPositiveButtonClickListener(
             new MaterialPickerOnPositiveButtonClickListener() {
                 @Override
@@ -232,22 +258,22 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     // GetContent creates an ActivityResultLauncher<String> to allow you to pass
     // in the mime type you'd like to allow the user to select
-    ActivityResultLauncher<Intent> pickMeal = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    Intent data;
-                    int dbkey;
-
-                    if(result.getResultCode() == Activity.RESULT_OK) {
-                        data = result.getData();
-                        dbkey = data.getExtras().getInt("DBKEY");
-
-                        System.out.println("We got back: " + dbkey);
-                        opExec.addByKey(dbkey);
-                        updateLiveData();
-                    }
-                }
-            });
+//    ActivityResultLauncher<Intent> pickMeal = registerForActivityResult(
+//            new ActivityResultContracts.StartActivityForResult(),
+//            new ActivityResultCallback<ActivityResult>() {
+//                @Override
+//                public void onActivityResult(ActivityResult result) {
+//                    Intent data;
+//                    int dbkey;
+//
+//                    if(result.getResultCode() == Activity.RESULT_OK) {
+//                        data = result.getData();
+//                        dbkey = data.getExtras().getInt("DBKEY");
+//
+//                        System.out.println("We got back: " + dbkey);
+//                        opExec.addByKey(dbkey);
+//                        updateLiveData();
+//                    }
+//                }
+//            });
 }
