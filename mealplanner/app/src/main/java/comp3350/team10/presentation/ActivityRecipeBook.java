@@ -1,5 +1,10 @@
 package comp3350.team10.presentation;
 
+import comp3350.team10.R;
+import comp3350.team10.business.RecipeBookOps;
+import comp3350.team10.objects.*;
+import comp3350.team10.persistence.*;
+
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -7,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -19,95 +23,75 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
-
-import comp3350.team10.R;
-import comp3350.team10.business.RecipeBookOps;
-
-import comp3350.team10.objects.*;
-import comp3350.team10.persistence.SharedDB;
 
 import java.util.LinkedList;
 
 public class ActivityRecipeBook extends AppCompatActivity implements FragToRecipeBook {
+    private final static int TITLE_COLOR = Color.WHITE;
+    private final static String TITLE_CONTENT = "MealPlanner";
+    private static enum EDIBLE_TYPES {FOOD, MEAL, DRINK}
 
-    private FloatingActionButton openFab, editFab, addFab;
-    private Animation fabOpen, fabClose, rotateForward, rotateBackward;
-    private boolean isOpen = false;
-    private static int currTab;
-//    public static final String Edible = "Edible";
-//    public static final String Calories = "Calories";
-//    public static final String Quantity = "Quantity";
-//    private String fName ;
-//    private int fCalories;
-//    private int fQuantity;
-//    FragToRecipeBook send;
+    private Animation fabOpen, fabClose, rotateForward, rotateBackward; //Animations for floating buttons
+    private FloatingActionButton openFab, editFab, addFab;              //Floating buttons
 
+    private RVARecipeBook recyclerViewAdapter;      //Houses the logic for a recycle view with recipes
+    private RecyclerView recipeRecyclerView;        //Houses a recycle view for recipes
+    private RecipeBookOps opExec;                   //Buisness logic for RecipeBook
+    private Toolbar toolbar;                        //Progress bar
 
-
-    private RVARecipeBook recyclerViewAdapter;        // handles card layouts and card button listeners
-    private RecyclerView recipeRecyclerView;         // handles showing card lists
-    private LinkedList<ListItem> data;               // our list of data
-    private RecipeBookOps opExec;                    // business class to handle calculations and db operations
-    private ListItem saved;                          // variable to store items from the list to show context UI cards
-    private int savedPos;                            // position in the list of the saved variable
-    private Toolbar toolbar;                         // our app toolbar
+    private LinkedList<Edible> data;                //The data for the recipe book
+    private boolean modMenuIsOpen;                  //Represents whether the menu to add/edit recipes is toggled on
+    private int savedPosi;                          //Saves the position of an item for temporary removal
+    private Edible saved;                           //Saves the item for temporary removal
+    private int currTab;                            //The tab that is currently displayed
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_book);
-        initToolbar();
-        initLiveData();
-        initRecyclerView();
-        setTabListeners();
-        executeFab();// make floating action button work.
-
-
-
+        this.modMenuIsOpen = false;
+        this.currTab = 0;
+        this.initToolbar();
+        this.initLiveData();
+        this.initRecyclerView();
+        this.setTabListeners();
+        this.executeFab();       //Make floating action button work.
     }
 
 
-    private void executeFab()
-    {
+    private void executeFab() {
+        this.openFab = findViewById(R.id.openButton);
+        this.addFab = findViewById(R.id.addButton);
+        this.editFab = findViewById(R.id.editButton);
 
-        openFab = findViewById(R.id.openButton);
-        addFab = findViewById(R.id.addButton);
-        editFab = findViewById(R.id.editButton);
+        //Loads animations
+        this.fabOpen = AnimationUtils.loadAnimation(this, R.anim.button_open);
+        this.fabClose = AnimationUtils.loadAnimation(this, R.anim.button_close);
+        this.rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_button);
+        this.rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotatebackwards_button);
 
-        fabOpen = AnimationUtils.loadAnimation(this, R.anim.button_open);
-        fabClose = AnimationUtils.loadAnimation(this, R.anim.button_close);
-
-        rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_button);
-        rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotatebackwards_button);
-
-        openFab.setOnClickListener(new View.OnClickListener() {
+        //Adds event listeners
+        this.openFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 animateButton();
             }
         });
 
-        editFab.setOnClickListener(new View.OnClickListener() {
+        this.editFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 animateButton();
             }
         });
 
-        addFab.setOnClickListener(new View.OnClickListener() {
+        this.addFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(currTab == 0) //food tab
-                {
-                    new AddRecipe().show(
-                            getSupportFragmentManager(), AddRecipe.TAG
-
-                    );
-
+                if(currTab == 0) {
+                    new AddRecipe().show(getSupportFragmentManager(), AddRecipe.TAG);
                 }
 
                 else if(currTab == 1)
@@ -127,56 +111,55 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                 else{animateButton();}
             }
         });
-
     }
 
-
-    private void animateButton()
-    {
-        if(isOpen){
-            openFab.startAnimation(rotateForward);
-//            editFab.startAnimation(fabClose);
-            addFab.startAnimation(fabClose);
-            addFab.setClickable(false);
-//            editFab.setClickable(false);
-            isOpen = false;
-
+    private void animateButton() {
+        if(this.modMenuIsOpen) {
+            this.openFab.startAnimation(rotateForward);
+            this.editFab.startAnimation(fabClose);
+            this.addFab.startAnimation(fabClose);
+            this.addFab.setClickable(false);
+            this.editFab.setClickable(false);
+            this.modMenuIsOpen = false;
         }
-
-        else
-        {
-            openFab.startAnimation(rotateBackward);
-//            editFab.startAnimation(fabOpen);
-            addFab.startAnimation(fabOpen);
-            addFab.setClickable(true);
-
-//            editFab.setClickable(true);
-            isOpen = true;
-
+        else {
+            this.openFab.startAnimation(rotateBackward);
+            this.editFab.startAnimation(fabOpen);
+            this.addFab.startAnimation(fabOpen);
+            this.addFab.setClickable(true);
+            this.editFab.setClickable(true);
+            this.modMenuIsOpen = true;
         }
     }
-
 
     private void initToolbar() {
-        this.toolbar = (Toolbar) findViewById(R.id.toolbar);
-        this.toolbar.setTitle("MealPlanner");
-        this.toolbar.setTitleTextColor(Color.WHITE);
-        this.toolbar.setElevation(0);
+        View object = findViewById(R.id.toolbar);
+
+        if(object instanceof Toolbar) {
+            this.toolbar = (Toolbar)object;
+
+            this.toolbar.setTitleTextColor(TITLE_COLOR);
+            this.toolbar.setTitle(TITLE_CONTENT);
+            this.toolbar.setElevation(0);
+        }
     }
 
     private void initLiveData() {
         this.opExec = new RecipeBookOps(SharedDB.getSharedDB());
-        data = opExec.getFoodRecipes();
+        this.data = opExec.getFoodRecipes();
     }
 
     private void initRecyclerView() {
-        if (this.data != null) {
+        View object = findViewById(R.id.recipeRecyclerView);
+
+        if(this.data != null && object instanceof RecyclerView) {
+            this.recipeRecyclerView = (RecyclerView)object;
             this.recyclerViewAdapter = new RVARecipeBook(data);
-            this.recipeRecyclerView = (RecyclerView) findViewById(R.id.recipeRecyclerView);
             this.recipeRecyclerView.setAdapter(recyclerViewAdapter);
-            this.recipeRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
+            this.recipeRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         }
     }
+
     private void setTabListeners(){
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
@@ -190,64 +173,62 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                 else if(currTab == 1){
                     data = opExec.getMealRecipes();
                 }
-                else{
+                else {
                     data = opExec.getDrinkRecipes();
                 }
+
                 updateRVA();
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 currTab = tab.getPosition();
-                System.out.println("unselected");
-                System.out.println("selected: " + tab);
             }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {    //this can probably be removed?
-                currTab = tab.getPosition();
-                System.out.println("reselected");
-                System.out.println("selected: " + tab);
-            }
+            public void onTabReselected(TabLayout.Tab tab){}
         });
     }
 
     @Override
-    public void showContextUI(int pos) { //do a thing here to take an object as well?
-        if (pos != this.savedPos && this.saved != null) {
-            this.data.remove(this.savedPos);
-            this.data.add(this.savedPos, this.saved);
+    public void showContextUI(int posi) {
+        if(posi != this.savedPosi && this.saved != null) {
+            this.data.remove(this.savedPosi);
+            this.data.add(this.savedPosi, this.saved);
         }
-        if (this.data.get(pos).getFragmentType() != ListItem.FragmentType.cardSelection) {
-            this.saved = this.data.remove(pos);
-            this.savedPos = pos;
-            this.data.add(pos, new Food("",0,0,ListItem.FragmentType.cardSelection, null, 0, 0));
-        } else {
-            this.data.remove(pos);
-            this.data.add(pos, this.saved);
+
+        if(this.data.get(posi).getFragmentType() != ListItem.FragmentType.cardSelection) {
+            this.saved = this.data.remove(posi);
+            this.savedPosi = posi;
+            this.data.add(posi, new Food("",0,0,ListItem.FragmentType.cardSelection, null, 0, 0));
+        }
+        else {
+            this.data.remove(posi);
+            this.data.add(posi, this.saved);
             this.saved = null;
         }
-        //mealRecyclerView.removeViewAt(pos);
-        this.recyclerViewAdapter.notifyItemRemoved(pos);
-        this.recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
+
+        this.recyclerViewAdapter.notifyItemRemoved(posi);
+        this.recyclerViewAdapter.notifyItemRangeChanged(posi, data.size());
         this.recyclerViewAdapter.notifyDataSetChanged();
     }
 
-    
     @Override
-    public void addToMealDiary(int pos){
+    public void addToMealDiary(int posi){
         Intent intent = new Intent();
         int dbkey = -1;
+
         if(saved != null) {
             dbkey =  ((Edible) saved).getDbkey();
         }
-        intent.putExtra("DBKEY", dbkey); //
+
+        intent.putExtra("DBKEY", dbkey);
         setResult(RESULT_OK, intent);
         finish();
     };
 
     private void updateRVA(){
-        if (recyclerViewAdapter != null) {
+        if(recyclerViewAdapter != null) {
             recyclerViewAdapter.changeData(data);
             recyclerViewAdapter.notifyDataSetChanged();
         }
@@ -259,15 +240,15 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
         opExec.addDrink(name,iconPath,calories,instructions,ingredients,baseUnit,quantity); //add appropriate objects here
         data = opExec.getDrinkRecipes();
-        updateRVA();
+        this.updateRVA();
     }
 
     @Override
-    public void addFood(String name, int iconPath, int calories, ListItem.Unit baseUnit, int quantity) { //change this to correct signature
+    public void addFood(String name, int iconPath, int calories, Edible.Unit baseUnit, int quantity) { //change this to correct signature
         // do input validation then pass to ops
         opExec.addFood(name, iconPath, calories, baseUnit, quantity);
         data = opExec.getFoodRecipes();
-        updateRVA();
+        this.updateRVA();
     }
 
     @Override
@@ -275,7 +256,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
         opExec.addMeal(name,iconPath,calories,ingredients,instructions,baseUnit,quantity); //add appropriate objects here
         data = opExec.getMealRecipes();
-        updateRVA();
+        this.updateRVA();
     }
-
 }

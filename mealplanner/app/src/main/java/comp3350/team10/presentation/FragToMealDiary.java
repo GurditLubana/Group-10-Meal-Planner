@@ -1,6 +1,6 @@
 package comp3350.team10.presentation;
 
-import comp3350.team10.objects.ListItem;
+import comp3350.team10.objects.*;
 
 public interface FragToMealDiary {
     public void showContextUI(int pos);
@@ -13,7 +13,7 @@ public interface FragToMealDiary {
     public void showExerciseEntryDialog();
     public void addEntry(int pos);
     public String getEntryQty();
-    public ListItem.Unit getEntryUnit();
+    public Edible.Unit getEntryUnit();
     public void setEntryQty(Integer amount, String unit);
     public String getExerciseCalories();
     public void setExerciseCalories(Integer value);

@@ -1,8 +1,6 @@
 package comp3350.team10.presentation;
 
-import comp3350.team10.objects.DrinkIngredient;
-import comp3350.team10.objects.ListItem;
-import comp3350.team10.objects.MealIngredient;
+import comp3350.team10.objects.*;
 
 public interface FragToRecipeBook {
     public void showContextUI(int pos);

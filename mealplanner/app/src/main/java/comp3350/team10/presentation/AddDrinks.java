@@ -1,5 +1,8 @@
 package comp3350.team10.presentation;
 
+import comp3350.team10.R;
+import comp3350.team10.objects.*;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -15,11 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import comp3350.team10.R;
-import comp3350.team10.objects.DrinkIngredient;
-import comp3350.team10.objects.ListItem;
-
-
 public class AddDrinks extends DialogFragment {
 
     private EditText drinkNameText,caloriesText,quantityText,instructions, ingredients;
@@ -30,9 +28,16 @@ public class AddDrinks extends DialogFragment {
     private DrinkIngredient[] ingredientsArray;
     private ImageView image;
     private FragToRecipeBook sendInput;
+    public static String TAG = "ADD_DRINK";
+    public AddDrinks() {} //Required empty public constructor
 
-    public AddDrinks() {
-        // Required empty public constructor
+
+    public static AddDrinks newInstance() {
+        AddDrinks fragment = new AddDrinks();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
     @Override
@@ -45,7 +50,6 @@ public class AddDrinks extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
         View view = getActivity().getLayoutInflater().inflate(R.layout.activity_add_drinks, null);
         builder.setView(view);
 
@@ -63,9 +67,7 @@ public class AddDrinks extends DialogFragment {
         addBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 sendData(view);
-
             }
         });
 
