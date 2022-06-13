@@ -81,7 +81,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             if (this.data.get(position).getFragmentType() == ListItem.FragmentType.diaryEntry) {
                 this.savedItem = this.data.remove(position);
                 this.savedItemPosition = position;
-                this.data.add(position, new Food("ui", 0, 0, ListItem.FragmentType.diaryModify, ListItem.Unit.g, 0, 0));
+                this.data.add(position, new Food("ui", 0, 0, ListItem.FragmentType.diaryModify, Edible.Unit.g, 0, 0));
             }
             else {
                 this.data.remove(position);
