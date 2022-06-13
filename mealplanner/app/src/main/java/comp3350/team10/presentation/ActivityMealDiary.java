@@ -82,11 +82,11 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
 
         if(posi >= 0) {
-            if (data.get(posi).getFragmentType() == ListItem.FragmentType.diaryEntry) {
+            if(data.get(posi).getFragmentType() == ListItem.FragmentType.diaryEntry) {
                 savedItem = data.remove(posi);
                 savedItemPosi = posi;
-                data.add(posi, new Edible(ListItem.FragmentType.diaryModify));
-            } 
+                data.add(posi, new Food(ListItem.FragmentType.diaryModify));
+            }
             else {
                 data.remove(posi);
                 data.add(posi, savedItem);
