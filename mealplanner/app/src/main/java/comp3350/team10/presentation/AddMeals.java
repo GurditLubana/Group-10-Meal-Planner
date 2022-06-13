@@ -16,8 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import comp3350.team10.R;
-import comp3350.team10.objects.DrinkIngredient;
-import comp3350.team10.objects.ListItem;
+import comp3350.team10.objects.*;
 import comp3350.team10.objects.MealIngredient;
 
 
@@ -102,7 +101,7 @@ public class AddMeals extends DialogFragment {
 
             if (context != null) {
                 sendInput2 = (FragToRecipeBook) context;
-                sendInput2.addMeal(mealName, R.drawable.ic_eggplant, calories, ingredientsArray, dInstruct, ListItem.Unit.ml, quantity);
+                sendInput2.addMeal(mealName, R.drawable.ic_eggplant, calories, ingredientsArray, dInstruct, Edible.Unit.ml, quantity);
             }
             String text = mealName + " Successfully added to the list";
             Toast toast = Toast.makeText(getContext(), text, Toast.LENGTH_SHORT);

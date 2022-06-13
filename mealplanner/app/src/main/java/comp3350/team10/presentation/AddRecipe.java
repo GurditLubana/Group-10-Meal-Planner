@@ -59,7 +59,7 @@ public class AddRecipe extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View view = getActivity().getLayoutInflater().inflate(R.layout.activity_add_recipe, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.activity_add_food, null);
         builder.setView(view);
 
         foodNameText = view.findViewById(R.id.foodTitle);
@@ -101,7 +101,7 @@ public class AddRecipe extends DialogFragment {
 
             if (context != null) {
                 send = (FragToRecipeBook) context;
-                send.addFood(foodName, R.drawable.ic_eggplant,calories,ListItem.Unit.g,quantity);
+                send.addFood(foodName, R.drawable.ic_eggplant,calories,Edible.Unit.g,quantity);
             }
 
             String text = foodName + " Successfully added to the list";

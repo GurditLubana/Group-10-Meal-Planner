@@ -235,7 +235,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     @Override
-    public void addDrink(String name, int iconPath, int calories, DrinkIngredient[] ingredients, String [] instructions, ListItem.Unit baseUnit, int quantity) {
+    public void addDrink(String name, int iconPath, int calories, DrinkIngredient[] ingredients, String [] instructions, Edible.Unit baseUnit, int quantity) {
         // do input validation then pass to ops
 
         opExec.addDrink(name,iconPath,calories,instructions,ingredients,baseUnit,quantity); //add appropriate objects here
@@ -252,7 +252,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     @Override
-    public void addMeal(String name, int iconPath, int calories, MealIngredient[] ingredients, String [] instructions, ListItem.Unit baseUnit, int quantity)  { //change this to correct signature
+    public void addMeal(String name, int iconPath, int calories, MealIngredient[] ingredients, String [] instructions, Edible.Unit baseUnit, int quantity)  { //change this to correct signature
 
         opExec.addMeal(name,iconPath,calories,ingredients,instructions,baseUnit,quantity); //add appropriate objects here
         data = opExec.getMealRecipes();

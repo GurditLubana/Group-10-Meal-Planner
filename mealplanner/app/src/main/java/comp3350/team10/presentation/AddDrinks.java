@@ -82,10 +82,6 @@ public class AddDrinks extends DialogFragment {
         return builder.create();
     }
 
-    public static String TAG = "AddDrinks";
-
-
-
     private void sendData(View view)
     {
 
@@ -100,7 +96,7 @@ public class AddDrinks extends DialogFragment {
 
             if (context != null) {
                 sendInput = (FragToRecipeBook) context;
-                sendInput.addDrink(drinkName, R.drawable.ic_eggplant, calories, ingredientsArray, dInstruct, ListItem.Unit.ml, quantity);
+                sendInput.addDrink(drinkName, R.drawable.ic_eggplant, calories, ingredientsArray, dInstruct, Edible.Unit.ml, quantity);
             }
 
             String text = drinkName + " Successfully added to the list";
