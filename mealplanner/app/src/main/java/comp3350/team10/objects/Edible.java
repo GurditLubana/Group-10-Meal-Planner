@@ -1,6 +1,6 @@
 package comp3350.team10.objects;
 
-public class Edible { //abstract
+public abstract class Edible {
     private ListItem.FragmentType fragmentType; //How it should appear on recycler views
     private ListItem.Unit baseUnit;                      //The unit of a given edible
     private int quantity;                       //The quantity of a given edible

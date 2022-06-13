@@ -82,7 +82,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                 this.savedItem = this.data.remove(position);
                 this.savedItemPosition = position;
                 this.data.add(position, new Edible(ListItem.FragmentType.diaryModify));
-            } 
+            }
             else {
                 this.data.remove(position);
                 this.data.add(position, this.savedItem);
@@ -173,7 +173,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             this.mealDiaryData.getProgressBar().setValue(this.opExec.getProgressBar());
             this.mealDiaryData.getProgressExcess().setValue(this.opExec.getProgressExcess());
         }
-        
+
         if (this.recyclerViewAdapter != null) {
             this.recyclerViewAdapter.changeData(this.data);
             this.recyclerViewAdapter.notifyDataSetChanged();
@@ -243,7 +243,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                     if(result.getResultCode() == Activity.RESULT_OK) {
                         data = result.getData();
                         dbkey = data.getExtras().getInt("DBKEY");
-                        
+
                         System.out.println("We got back: " + dbkey);
                         opExec.addByKey(dbkey);
                         updateLiveData();

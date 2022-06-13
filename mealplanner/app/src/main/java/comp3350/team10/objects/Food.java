@@ -25,6 +25,10 @@ public class Food extends Edible {
         this.macros = new Macros();
     }
 
+    public Food(ListItem.FragmentType type) {
+        super(null, -1, type, null, -1, -1);    //used for add card
+    }
+
     
     public Macros getMacros() {
         return this.macros;
