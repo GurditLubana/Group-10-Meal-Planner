@@ -190,7 +190,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     @Override
-    public ListItem.Unit getEntryUnit(){
+    public Edible.Unit getEntryUnit(){
         return savedItem.getBaseUnit();
     }
 
@@ -203,7 +203,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             selectedItem = (Edible) savedItem;
             converter = new UnitConverter(selectedItem.getBaseUnit(), selectedItem.getQuantity(), selectedItem.getCalories());
             selectedItem.setQuantity(amount);
-            selectedItem.setBaseUnit(ListItem.Unit.valueOf(unit));
+            selectedItem.setBaseUnit(Edible.Unit.valueOf(unit));
             selectedItem.setCalories(converter.getCalories(selectedItem.getBaseUnit(), selectedItem.getQuantity()));
         }
 
@@ -250,7 +250,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                         
                         System.out.println("We got back: " + dbkey);
                         opExec.addByKey(dbkey);
-                        this.updateLiveData();
+                        updateLiveData();
                     }
                 }
             });

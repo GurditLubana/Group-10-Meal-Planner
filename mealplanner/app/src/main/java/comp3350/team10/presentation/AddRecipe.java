@@ -100,7 +100,7 @@ public class AddRecipe extends DialogFragment {
 
         if (context != null) {
             send = (FragToRecipeBook) context;
-            send.addFood(foodName, R.drawable.ic_eggplant,calories,ListItem.Unit.g,quantity);
+            send.addFood(foodName, R.drawable.ic_eggplant,calories,Edible.Unit.g,quantity);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

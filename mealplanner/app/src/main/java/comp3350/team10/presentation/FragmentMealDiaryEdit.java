@@ -1,7 +1,7 @@
 package comp3350.team10.presentation;
 
 import comp3350.team10.R;
-import comp3350.team10.objects.ListItem;
+import comp3350.team10.objects.*;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -55,8 +55,8 @@ public class FragmentMealDiaryEdit extends DialogFragment {
     }
 
     private void setFieldDefaults(View view){
-        ListItem.Unit unit = ListItem.Unit.serving;
-        int size = ListItem.Unit.values().length;
+        Edible.Unit unit = Edible.Unit.serving;
+        int size = Edible.Unit.values().length;
         ArrayAdapter<String> adapter = null;
         Context context = view.getContext();
         Spinner inputSpinner = null;
@@ -65,7 +65,7 @@ public class FragmentMealDiaryEdit extends DialogFragment {
         String[] items = new String[size];
 
         for(int i = 0; i < size; i++){
-            items[i] = ListItem.Unit.values()[i].name();
+            items[i] = Edible.Unit.values()[i].name();
         }
 
         adapter = new ArrayAdapter<String>(getActivity().getBaseContext(), R.layout.spinner_unit_items, items);

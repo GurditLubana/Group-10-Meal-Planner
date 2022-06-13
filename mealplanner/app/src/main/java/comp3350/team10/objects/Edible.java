@@ -1,15 +1,16 @@
 package comp3350.team10.objects;
 
-public abstract class Edible {
+public abstract class Edible implements ListItem {
+    public enum Unit {cups, oz, g, serving, tbsp, tsp, ml, liter};
     private ListItem.FragmentType fragmentType; //How it should appear on recycler views
-    private ListItem.Unit baseUnit;                      //The unit of a given edible
+    private Unit baseUnit;                      //The unit of a given edible
     private int quantity;                       //The quantity of a given edible
     private int calories;                       //The calories for a given edible
     private int iconPath;                       //The image path for a given edible
     private String name;                        //The name for a given variable
     private int dbkey;                          //This edibles database key
 
-    public Edible(String name, int iconPath, ListItem.FragmentType type, ListItem.Unit baseUnit, int quantity, int dbkey) {
+    public Edible(String name, int iconPath, ListItem.FragmentType type, Unit baseUnit, int quantity, int dbkey) {
         this.name = name;
         this.calories = 0;
         this.dbkey = dbkey;
@@ -44,7 +45,7 @@ public abstract class Edible {
         return this.fragmentType;
     }
 
-    public ListItem.Unit getBaseUnit(){
+    public Unit getBaseUnit(){
         return this.baseUnit;
     }
 
@@ -64,7 +65,7 @@ public abstract class Edible {
         this.calories = newCalories;
     }
 
-    public void setBaseUnit(ListItem.Unit baseUnit) {
+    public void setBaseUnit(Unit baseUnit) {
         this.baseUnit = baseUnit;
     }
 

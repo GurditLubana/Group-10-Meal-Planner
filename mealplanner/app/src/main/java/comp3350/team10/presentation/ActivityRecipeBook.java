@@ -237,7 +237,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     @Override
-    public void addFood(String name, int iconPath, int calories, ListItem.Unit baseUnit, int quantity) { //change this to correct signature
+    public void addFood(String name, int iconPath, int calories, Edible.Unit baseUnit, int quantity) { //change this to correct signature
         // do input validation then pass to ops
         opExec.addFood(name, iconPath, calories, baseUnit, quantity);
         data = opExec.getFoodRecipes();

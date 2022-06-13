@@ -1,7 +1,7 @@
 package comp3350.team10.presentation;
 
 import comp3350.team10.R;
-import comp3350.team10.objects.ListItem;
+import comp3350.team10.objects.*;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -91,7 +91,7 @@ public class AddDrinks extends DialogFragment {
 
         if(context != null) {
             sendInput = (FragToRecipeBook) context;
-            sendInput.addFood(drinkName, R.drawable.ic_eggplant,calories,ListItem.Unit.ml,quantity);
+            sendInput.addFood(drinkName, R.drawable.ic_eggplant,calories,Edible.Unit.ml,quantity);
         }
 
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
