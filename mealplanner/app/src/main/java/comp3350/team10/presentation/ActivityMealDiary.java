@@ -37,6 +37,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     private LinkedList<Edible> data;            //The data for the diary entries
     private int savedItemPosition;              //Saves the position of an item for temporary removal
     private Edible savedItem;                   //Saves the item for temporary removal
+    private EntryMode mode;                     //This tracks the type of input dialog when launched
 
 
     @Override
@@ -153,18 +154,21 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     @Override
-    public void editItem(int pos) { //launch dialog fragment
-        new FragmentMealDiaryEdit().show(getSupportFragmentManager(), FragmentMealDiaryEdit.TAG);
+    public void editItem() { //launch dialog fragment
+        new FragmentMealDiaryDialogs().show(getSupportFragmentManager(), FragmentMealDiaryDialogs.TAG);
+        this.mode = EntryMode.EDIT_QTY;
     }
 
     @Override
     public void showGoalEntryDialog() { //launch dialog fragment
-        new FragmentGoalEntry().show(getSupportFragmentManager(), FragmentGoalEntry.TAG);
+        new FragmentMealDiaryDialogs().show(getSupportFragmentManager(), FragmentMealDiaryDialogs.TAG);
+        this.mode = EntryMode.GOAL_CALORIE;
     }
 
     @Override
     public void showExerciseEntryDialog() { //launch dialog fragment
-        new FragmentExerciseEntry().show(getSupportFragmentManager(), FragmentExerciseEntry.TAG);
+        new FragmentMealDiaryDialogs().show(getSupportFragmentManager(), FragmentMealDiaryDialogs.TAG);
+        this.mode = EntryMode.ACTUAL_EXERCISE;
     }
 
     @Override
@@ -256,24 +260,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         this.updateLiveData();
     }
 
-    // GetContent creates an ActivityResultLauncher<String> to allow you to pass
-    // in the mime type you'd like to allow the user to select
-//    ActivityResultLauncher<Intent> pickMeal = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(),
-//            new ActivityResultCallback<ActivityResult>() {
-//                @Override
-//                public void onActivityResult(ActivityResult result) {
-//                    Intent data;
-//                    int dbkey;
-//
-//                    if(result.getResultCode() == Activity.RESULT_OK) {
-//                        data = result.getData();
-//                        dbkey = data.getExtras().getInt("DBKEY");
-//
-//                        System.out.println("We got back: " + dbkey);
-//                        opExec.addByKey(dbkey);
-//                        updateLiveData();
-//                    }
-//                }
-//            });
+    public EntryMode getEntryMode(){
+        return this.mode;
+    }
 }

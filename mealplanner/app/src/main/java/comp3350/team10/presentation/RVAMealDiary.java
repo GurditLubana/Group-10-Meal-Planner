@@ -201,7 +201,7 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
 
                 if (context != null) {
                     sendToMealDiary = (FragToMealDiary) context;
-                    sendToMealDiary.editItem(selectedPos);
+                    sendToMealDiary.editItem();
                 }
             }
         });
