@@ -10,9 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class FragmentLogCard extends Fragment {
-    private FragToParent parentComm;
-
-
     public FragmentLogCard() {} //Required empty public constructor
 
     public static FragmentLogCard newInstance() {
@@ -36,13 +33,7 @@ public class FragmentLogCard extends Fragment {
     @Override
     public void onAttach(Context context) { //This makes sure that the container activity has implemented
         super.onAttach(context);            //the callback interface. If not, it throws an exception
-        
-        try {
-            parentComm = (FragToParent) context;
-        } 
-        catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnHeadlineSelectedListener");
-        }
+
     }
 
 

@@ -57,8 +57,8 @@ public class AddRecipe extends DialogFragment {
         //imageView  = view.findViewById(R.id.imagePath);
         caloriesText = view.findViewById(R.id.foodCalories);
         quantityText = view.findViewById(R.id.foodQnty);
-        addBtn = view.findViewById(R.id.addItem3);
-        cancelButton = view.findViewById(R.id.cancelTask3);
+        addBtn = view.findViewById(R.id.btnOk);
+        cancelButton = view.findViewById(R.id.btnCancel);
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
