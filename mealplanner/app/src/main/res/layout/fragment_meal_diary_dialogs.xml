@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="450dp"
     android:layout_height="300dp"
-    tools:context=".presentation.FragmentGoalEntry">
+    tools:context=".presentation.FragmentMealDiaryDialogs">
 
     <androidx.cardview.widget.CardView
         android:layout_width="450dp"
@@ -79,7 +79,7 @@
                 app:layout_constraintVertical_bias="0.531" />
 
             <TextView
-                android:id="@+id/inputUnit"
+                android:id="@+id/inputUnitText"
                 android:layout_width="116dp"
                 android:layout_height="42dp"
                 android:text="Calories"
@@ -88,6 +88,14 @@
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="@+id/inputQty"
                 app:layout_constraintStart_toEndOf="@+id/inputQty" />
+
+            <Spinner
+                android:id="@+id/inputUnit"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                app:layout_constraintBottom_toBottomOf="@+id/inputQty"
+                app:layout_constraintStart_toEndOf="@+id/inputQty"
+                app:layout_constraintTop_toTopOf="@+id/inputQty" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

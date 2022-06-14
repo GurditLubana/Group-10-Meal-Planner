@@ -82,8 +82,8 @@ public class FragmentMealDiaryEdit extends DialogFragment {
     }
 
     private void setOnClickListeners(View view){
-        Button btnCancel = (Button) view.findViewById(R.id.cancelTask3);
-        Button btnOk = (Button) view.findViewById(R.id.addItem3);
+        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+        Button btnOk = (Button) view.findViewById(R.id.btnOk);
         
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override

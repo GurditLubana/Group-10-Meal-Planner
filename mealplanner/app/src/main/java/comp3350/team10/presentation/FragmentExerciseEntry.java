@@ -64,8 +64,8 @@ public class FragmentExerciseEntry extends DialogFragment {
     }
 
     private void setOnClickListeners(View view){
-        Button btnOk = (Button)view.findViewById(R.id.addItem3);
-        Button btnCancel = (Button)view.findViewById(R.id.cancelTask3);
+        Button btnOk = (Button)view.findViewById(R.id.btnOk);
+        Button btnCancel = (Button)view.findViewById(R.id.btnCancel);
 
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
