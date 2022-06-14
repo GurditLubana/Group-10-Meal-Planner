@@ -1,8 +1,8 @@
 package comp3350.team10.objects;
 
 public abstract class Ingredient {
-    private double quantity;
-    private String units;
+    private double quantity;    //The quantity of a given ingredient
+    private String units;       //The units for the quantity of the given ingredient
     
     public Ingredient(double quantity, String units) {
         this.quantity = quantity;

@@ -21,10 +21,10 @@ import comp3350.team10.objects.ListItem;
 import comp3350.team10.objects.RecipeBookItem;
 
 public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder> {
-    private LinkedList<ListItem> localDataSet;          // the list Recyclerview renders
+    private LinkedList<Edible> localDataSet;          // the list Recyclerview renders
     private int selectedPos = RecyclerView.NO_POSITION; // tracks the last clicked item
     private FragToRecipeBook sendToRecipeBook;          // interface to pass data to recipebook
-    private ListItem saved;                             // var to save a meal entry when we show context UI
+    private Edible saved;                             // var to save a meal entry when we show context UI
 
     /**
      * getItemViewType
@@ -63,11 +63,11 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
      * @param dataSet LinkedList<ListItem> containing the data to populate views to be used
      *                by RecyclerView.
      */
-    public RVARecipeBook(LinkedList<ListItem> dataSet) {
+    public RVARecipeBook(LinkedList<Edible> dataSet) {
         localDataSet = dataSet;
     }
 
-    public void changeData(LinkedList<ListItem> newData) {
+    public void changeData(LinkedList<Edible> newData) {
         localDataSet = newData;
         this.notifyDataSetChanged();
     }

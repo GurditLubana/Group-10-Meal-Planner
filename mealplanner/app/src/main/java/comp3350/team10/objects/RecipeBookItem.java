@@ -1,38 +1,31 @@
 package comp3350.team10.objects;
-import android.content.res.Resources;
 
+import android.content.res.Resources;
 import comp3350.team10.R;
 
-public class RecipeBookItem implements ListItem{
-    private FragmentType fragType;  //How it should appear on recycler views
-    private Edible item;            //The item's class reference (drink, meal or food)
-    private int key;                //database key
-    private Unit unit;
+public class RecipeBookItem {
+    private ListItem.FragmentType fragType;  //How it should appear on recycler views
+    private Edible item;            //The edible 
+    private Edible.Unit unit;              //The unit of the edible
+    private int key;                //This entries database key
 
-    private int image;  //this is getting deleted in the future???
-
-    public RecipeBookItem(Edible item, int image, int key) { //this needs to be refactored
+    public RecipeBookItem(Edible item, int key) { //this needs to be refactored
         this.fragType = ListItem.FragmentType.recipe;
-        this.image = image;
+        this.unit = Edible.Unit.serving;
         this.item = item;
         this.key = key;
-        this.unit = Unit.serving;
     }
 
-    @Override
-    public FragmentType getFragmentType() {
+
+    public ListItem.FragmentType getFragmentType() {
         return fragType;
-    }
-
-    public int getImage(){
-        return image;
     }
 
     public Edible getFood() {
         return this.item;
     }
 
-    public Unit getBaseUnit(){
+    public Edible.Unit getBaseUnit(){
         return this.unit;
     }
 

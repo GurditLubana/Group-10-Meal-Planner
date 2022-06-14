@@ -1,23 +1,27 @@
 package comp3350.team10.objects;
 
-public abstract class Edible implements ListItem{
-    private int calories;
-    private String name;
-    private int iconPath;
-    private FragmentType fragmentType;
-    private Unit baseUnit;
-    private int quantity;
-    private int dbkey;
+public abstract class Edible implements ListItem {
+    public enum Unit {cups, oz, g, serving, tbsp, tsp, ml, liter};
+    private ListItem.FragmentType fragmentType; //How it should appear on recycler views
+    private Unit baseUnit;                      //The unit of a given edible
+    private int quantity;                       //The quantity of a given edible
+    private int calories;                       //The calories for a given edible
+    private int iconPath;                       //The image path for a given edible
+    private String name;                        //The name for a given variable
+    private int dbkey;                          //This edibles database key
 
-    public Edible(String name, int iconPath, FragmentType type, Unit baseUnit, int quantity, int dbkey) {
-        this.calories = 0;
+    public Edible(String name, int iconPath, ListItem.FragmentType type, Unit baseUnit, int quantity, int dbkey) {
         this.name = name;
+        this.calories = 0;
+        this.dbkey = dbkey;
         this.iconPath = iconPath;
         this.fragmentType = type;
         this.baseUnit = baseUnit;
         this.quantity = quantity;
-        this.dbkey = dbkey;
-        //System.out.println("After edible constructor");
+    }
+
+    public Edible(ListItem.FragmentType type) {
+        this.fragmentType = type;
     }
 
 
@@ -26,7 +30,7 @@ public abstract class Edible implements ListItem{
     }
 
     public Integer getCalories() {
-        return new Integer(this.calories);
+        return this.calories;
     }
 
     public String getName() {
@@ -37,7 +41,7 @@ public abstract class Edible implements ListItem{
         return this.iconPath;
     }
 
-    public FragmentType getFragmentType(){
+    public ListItem.FragmentType getFragmentType(){
         return this.fragmentType;
     }
 
@@ -46,14 +50,14 @@ public abstract class Edible implements ListItem{
     }
 
     public int getQuantity(){
-        return quantity;
+        return this.quantity;
     }
 
     public int getDbkey() {
-        return dbkey;
+        return this.dbkey;
     }
 
-    public void setFragmentType(FragmentType fragmentType){
+    public void setFragmentType(ListItem.FragmentType fragmentType){
         this.fragmentType = fragmentType;
     }
 

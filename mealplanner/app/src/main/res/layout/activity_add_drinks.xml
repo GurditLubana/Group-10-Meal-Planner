@@ -1,184 +1,292 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:animationCache="true"
     android:background="?colorPrimary"
-    tools:context=".presentation.AddRecipe">
+    tools:context=".presentation.AddDrinks">
 
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="415dp"
-        android:layout_height="59dp"
-        android:background="@color/white"
-        android:text="   Add new Drinks"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.087" />
-
-    <TextView
-        android:id="@+id/Heading"
-        android:layout_width="107dp"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        android:text="  Drinks title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.072"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23" />
-
-    <EditText
-        android:id="@+id/drinksTitle"
-        android:layout_width="320dp"
-        android:layout_height="49dp"
-        android:background="#A5C6E1"
-        android:backgroundTint="#A5C6E1"
-        android:ems="10"
-        android:hint="  Drink Name"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.707"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.222" />
-
-
-    <TextView
-        android:id="@+id/dImage"
-        android:layout_width="140dp"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        android:text="  Drink's Image "
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.073"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.316" />
-
-    <EditText
-        android:id="@+id/DrinksImagePath"
-        android:layout_width="320dp"
-        android:layout_height="49dp"
-        android:background="#A5C6E1"
-        android:backgroundTint="#A5C6E1"
-        android:ems="10"
-        android:hint="  Image (.png,.jpg, etc)"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.707"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.309" />
-
-
-    <TextView
-        android:id="@+id/calories"
-        android:layout_width="147dp"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        android:text="  Calories count"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.068"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.403" />
-
-    <EditText
-        android:id="@+id/drinksCalories"
-        android:layout_width="320dp"
-        android:layout_height="49dp"
-        android:background="#A5C6E1"
-        android:backgroundTint="#A5C6E1"
-        android:ems="10"
-        android:hint="  Number of calories in this food."
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.707"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.397" />
-
-
-    <TextView
-        android:id="@+id/Quantity"
-        android:layout_width="107dp"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        android:text="  Quantity"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.062"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.486" />
-
-    <EditText
-        android:id="@+id/drinksQnty"
-        android:layout_width="320dp"
-        android:layout_height="49dp"
-        android:background="#A5C6E1"
-        android:backgroundTint="#A5C6E1"
-        android:ems="10"
-        android:hint="  Quantity ( numeric - 1,2,3)"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.707"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.482" />
-
-
-
-    <Button
-        android:id="@+id/cancelTask"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:onClick="buttonAddNewItemOnClick"
-        android:text="Cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.59"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.82" />
+        android:background="?colorPrimary"
+        android:minHeight="400dp">
 
-    <Button
-        android:id="@+id/addItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:onClick="buttonAddNewItemOnClick"
-        android:text="Finish"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.837"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.82" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollIndicators="right"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarSize="15dp"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical"
+            android:verticalScrollbarPosition="right">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?colorPrimary">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="64dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/drinkIngred">
+
+                        <Button
+                            android:id="@+id/cancelTask2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.5"
+                            android:backgroundTint="?colorPrimaryVariant"
+                            android:text="CANCEL"
+                            android:textColor="?colorOnPrimary" />
+
+                        <Button
+                            android:id="@+id/addItem2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.5"
+                            android:backgroundTint="?colorPrimaryVariant"
+                            android:text="OK"
+                            android:textColor="?colorOnPrimary" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/drinksQnty"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:hint="Quantity"
+                        android:inputType="number"
+                        android:paddingRight="10dp"
+                        android:textAlignment="textEnd"
+                        android:textColor="?colorOnPrimary"
+                        android:textColorHint="#E1E1E1"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/inputUnit2"
+                        app:layout_constraintEnd_toStartOf="@+id/inputUnit2"
+                        app:layout_constraintTop_toTopOf="@+id/inputUnit2" />
+
+                    <Spinner
+                        android:id="@+id/inputUnit2"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintEnd_toEndOf="@+id/drinksCalories"
+                        app:layout_constraintStart_toStartOf="@+id/drinksCalories"
+                        app:layout_constraintTop_toBottomOf="@+id/drinksCalories" />
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="10dp"
+                        android:src="@drawable/baseline_photo_camera_white_48"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                        app:layout_constraintEnd_toEndOf="@+id/imageView6"
+                        app:layout_constraintStart_toStartOf="@+id/imageView6"
+                        app:layout_constraintTop_toTopOf="@+id/imageView6" />
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginStart="64dp"
+                        android:layout_marginTop="32dp"
+                        android:background="?colorSecondaryVariant"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+                    <TextView
+                        android:id="@+id/dImage2"
+                        android:layout_width="147dp"
+                        android:layout_height="49dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="0.3"
+                        android:background="?colorPrimary"
+                        android:gravity="center"
+                        android:text="Take a photo"
+                        android:textAlignment="gravity"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?colorOnPrimary"
+                        android:textSize="20dp"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="@+id/imageView6"
+                        app:layout_constraintHorizontal_bias="0.463"
+                        app:layout_constraintStart_toStartOf="@+id/imageView6"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+                    <TextView
+                        android:id="@+id/textView20"
+                        android:layout_width="415dp"
+                        android:layout_height="59dp"
+                        android:layout_marginTop="32dp"
+                        android:background="?colorPrimary"
+                        android:text="Add Drink"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?colorOnPrimary"
+                        android:textSize="40dp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <EditText
+                        android:id="@+id/drinksTitle"
+                        android:layout_width="360dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="82dp"
+                        android:layout_marginEnd="64dp"
+                        android:layout_weight="0.7"
+                        android:background="?colorSecondaryVariant"
+                        android:backgroundTint="?colorSecondaryVariant"
+                        android:hint="Drink Name"
+                        android:inputType="textPersonName"
+                        android:padding="10dp"
+                        android:textColor="?colorOnPrimary"
+                        android:textColorHint="#E1E1E1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/dImage2" />
+
+                    <TextView
+                        android:id="@+id/Heading"
+                        android:layout_width="147dp"
+                        android:layout_height="49dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="0.3"
+                        android:background="?colorPrimary"
+                        android:gravity="right|center_vertical"
+                        android:text="Drink Name"
+                        android:textAlignment="gravity"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?colorOnPrimary"
+                        android:textSize="20dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/drinksTitle"
+                        app:layout_constraintEnd_toStartOf="@+id/drinksTitle"
+                        app:layout_constraintTop_toTopOf="@+id/drinksTitle" />
+
+                    <TextView
+                        android:id="@+id/calories"
+                        android:layout_width="147dp"
+                        android:layout_height="49dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="0.3"
+                        android:background="?colorPrimary"
+                        android:gravity="right|center_vertical"
+                        android:text="Calories"
+                        android:textAlignment="gravity"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?colorOnPrimary"
+                        android:textSize="20dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/drinksCalories"
+                        app:layout_constraintEnd_toStartOf="@+id/drinksCalories"
+                        app:layout_constraintTop_toTopOf="@+id/drinksCalories"
+                        app:layout_constraintVertical_bias="0.648" />
+
+                    <EditText
+                        android:id="@+id/drinksCalories"
+                        android:layout_width="360dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="16dp"
+                        android:background="?colorSecondaryVariant"
+                        android:backgroundTint="?colorSecondaryVariant"
+                        android:hint="Calories in this drink"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:textColor="?colorOnPrimary"
+                        android:textColorHint="#E1E1E1"
+                        app:layout_constraintEnd_toEndOf="@+id/drinksTitle"
+                        app:layout_constraintStart_toStartOf="@+id/drinksTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/drinksTitle" />
+
+                    <TextView
+                        android:id="@+id/drinkIngredients"
+                        android:layout_width="147dp"
+                        android:layout_height="49dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="0.3"
+                        android:background="?colorPrimary"
+                        android:gravity="right|center_vertical"
+                        android:text=" Ingredients"
+                        android:textAlignment="gravity"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?colorOnPrimary"
+                        android:textSize="20dp"
+                        app:layout_constraintEnd_toStartOf="@+id/drinkIngred"
+                        app:layout_constraintTop_toTopOf="@+id/drinkIngred" />
+
+                    <EditText
+                        android:id="@+id/drinkIngred"
+                        android:layout_width="360dp"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="16dp"
+                        android:background="?colorSecondaryVariant"
+                        android:backgroundTint="?colorSecondaryVariant"
+                        android:gravity="top"
+                        android:hint="Drink Ingredients\n(, comma separated)"
+                        android:inputType="textMultiLine"
+                        android:padding="10dp"
+                        android:scrollIndicators="right"
+                        android:scrollbarAlwaysDrawVerticalTrack="true"
+                        android:scrollbarStyle="insideInset"
+                        android:scrollbars="vertical"
+                        android:textAlignment="gravity"
+                        android:textColor="?colorOnPrimary"
+                        android:textColorHint="#E1E1E1"
+                        android:verticalScrollbarPosition="right"
+                        app:layout_constraintEnd_toEndOf="@+id/inputUnit2"
+                        app:layout_constraintStart_toEndOf="@+id/drinksQnty"
+                        app:layout_constraintTop_toBottomOf="@+id/inputUnit2" />
+
+                    <EditText
+                        android:id="@+id/drinkInstructions"
+                        android:layout_width="257dp"
+                        android:layout_height="246dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="64dp"
+                        android:layout_marginBottom="32dp"
+                        android:background="?colorSecondaryVariant"
+                        android:backgroundTint="?colorSecondaryVariant"
+                        android:gravity="top"
+                        android:hint="Mixing Instructions"
+                        android:inputType="textMultiLine"
+                        android:padding="10dp"
+                        android:scrollIndicators="right"
+                        android:scrollbarAlwaysDrawVerticalTrack="true"
+                        android:scrollbarStyle="insideInset"
+                        android:scrollbars="vertical"
+                        android:textAlignment="gravity"
+                        android:textColor="?colorOnPrimary"
+                        android:textColorHint="#E1E1E1"
+                        android:verticalScrollbarPosition="right"
+                        app:layout_constraintBottom_toTopOf="@+id/drinksTitle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView20"
+                        app:layout_constraintVertical_bias="0.0" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.cardview.widget.CardView>
+
+
+</FrameLayout>

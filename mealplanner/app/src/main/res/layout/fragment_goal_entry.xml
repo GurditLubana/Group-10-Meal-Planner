@@ -7,8 +7,8 @@
     tools:context=".presentation.FragmentGoalEntry">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="450dp"
+        android:layout_height="300dp"
         app:cardBackgroundColor="?colorSecondaryVariant"
         app:cardCornerRadius="0dp">
 
@@ -27,7 +27,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <Button
-                    android:id="@+id/btnCancel"
+                    android:id="@+id/cancelTask3"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginBottom="5dp"
@@ -37,7 +37,7 @@
                     android:textColor="?colorOnPrimary" />
 
                 <Button
-                    android:id="@+id/btnOK"
+                    android:id="@+id/addItem3"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginBottom="5dp"
@@ -66,10 +66,13 @@
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="76dp"
+                android:hint="1234"
                 android:inputType="number"
-                android:text="0"
+                android:paddingRight="10dp"
                 android:textAlignment="textEnd"
                 android:textColor="?colorOnPrimary"
+                android:textColorHint="#E1E1E1"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dialogTitle"

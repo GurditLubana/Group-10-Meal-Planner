@@ -1,227 +1,237 @@
 package comp3350.team10.presentation;
 
+import comp3350.team10.R;
+import comp3350.team10.business.MealDiaryOps;
+import comp3350.team10.business.UnitConverter;
+import comp3350.team10.objects.*;
+import comp3350.team10.persistence.*;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.ImageButton;
 
 import com.google.android.material.datepicker.*;
-
-import comp3350.team10.R;
-import comp3350.team10.business.MealDiaryOps;
-import comp3350.team10.objects.*;
-import comp3350.team10.persistence.SharedDB;
 
 import java.util.LinkedList;
 import java.util.Calendar;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToMealDiary {
+    private static enum EDIBLES_TYPES {FOOD, MEAL, DRINK}
+    private ActivityResultLauncher<Intent> pickMeal;
+    private RVAMealDiary recyclerViewAdapter;   //Houses the logic for a recycle view with diary entries
+    private MealDiaryLiveData mealDiaryData;    //Enables persistent data
+    private RecyclerView mealRecyclerView;      //Houses a recycle view for diary entries
+    private MealDiaryOps opExec;                //Business logic for MealDiary
+    private Toolbar toolbar;                    //Progress bar
 
-    private RVAMealDiary recyclerViewAdapter;
-    private RecyclerView mealRecyclerView;
-    private LinkedList<ListItem> data;
-    private ListItem savedItem;
-    private int savedItemPosition;
-    private MealDiaryLiveData mealDiaryData;
-    private MealDiaryOps opExec;
-    private Toolbar toolbar;
+    private LinkedList<Edible> data;            //The data for the diary entries
+    private int savedItemPosition;              //Saves the position of an item for temporary removal
+    private Edible savedItem;                   //Saves the item for temporary removal
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_meal_diary);
-        initToolbar();
         SharedDB.start("EaTen");
-        opExec = new MealDiaryOps(SharedDB.getSharedDB());
-        initLiveData();
-        initRecyclerView();
+        this.initToolbar();
+        this.opExec = new MealDiaryOps(SharedDB.getSharedDB());
+        this.initLiveData();
+        this.initRecyclerView();
+        this.createActivityCallbackListener();
     }
 
     private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("MealPlanner");
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setElevation(0);
+        this.toolbar = (Toolbar) findViewById(R.id.toolbar);
+        this.toolbar.setTitle("MealPlanner");
+        this.toolbar.setTitleTextColor(Color.WHITE);
+        this.toolbar.setElevation(0);
     }
 
     private void initLiveData() {
-        mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class);
-        if (opExec.isDataReady()) {
-            updateLiveData();
-        }
+        this.mealDiaryData = new ViewModelProvider(this).get(MealDiaryLiveData.class);
+        this.updateLiveData();
     }
 
     private void initRecyclerView() {
-        if (data != null) {
-            recyclerViewAdapter = new RVAMealDiary(data);
-            mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
-            mealRecyclerView.setAdapter(recyclerViewAdapter);
-            mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        } else {
-            //throw new Exception("Meal Diary Linked list empty");
+        if(this.data != null) {
+            this.recyclerViewAdapter = new RVAMealDiary(this.data);
+            this.mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
+            this.mealRecyclerView.setAdapter(this.recyclerViewAdapter);
+            this.mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
     }
 
-    public void showContextUI(int pos) {
-        System.out.println("clicked " + " " + pos);
-        if (pos != savedItemPosition && savedItem != null) {
-            data.remove(savedItemPosition);
-            data.add(savedItemPosition, savedItem);
-        }
-        if(pos >= 0) {
-            if (data.get(pos).getFragmentType() == ListItem.FragmentType.diaryEntry) {
-                savedItem = data.remove(pos);
-                savedItemPosition = pos;
-                data.add(pos, new DiaryItem(ListItem.FragmentType.diaryModify, null, null, 0));
-            } else {
-                data.remove(pos);
-                data.add(pos, savedItem);
-                savedItem = null;
-            }
-        }
-        recyclerViewAdapter.notifyItemRemoved(pos);
-        recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
-        recyclerViewAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void selectDate() {
-
-        MaterialDatePicker datePicker;
-
-        datePicker = MaterialDatePicker.Builder
-                .datePicker()
-                .setTitleText("Select date")
-                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                .build();
-        datePicker.show(getSupportFragmentManager(), "MATERIAL_DATE_PICKER");
-        datePicker.addOnPositiveButtonClickListener(
-                new MaterialPickerOnPositiveButtonClickListener() {
+    private void createActivityCallbackListener(){
+        this.pickMeal = registerForActivityResult( new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
                     @Override
-                    public void onPositiveButtonClick(Object selection) {
-                        Calendar selectedDate = Calendar.getInstance();
-                        selectedDate.setTimeInMillis((Long) selection);
-                        selectedDate.add(Calendar.DAY_OF_YEAR, 1);
-                        opExec.setListDate(selectedDate);
-                        while (!opExec.isDataReady()) {
+                    public void onActivityResult(ActivityResult result) {
+                        Intent data;
+                        int dbkey;
+
+                        if(result.getResultCode() == Activity.RESULT_OK) {
+                            data = result.getData();
+                            dbkey = data.getExtras().getInt("DBKEY");
+
+                            System.out.println("We got back: " + dbkey);
+                            opExec.addByKey(dbkey);
+                            updateLiveData();
                         }
-                        updateLiveData();
                     }
                 });
     }
 
+    public void showContextUI(int position) {
+        if(position != this.savedItemPosition && this.savedItem != null) {
+            this.data.remove(this.savedItemPosition);
+            this.data.add(this.savedItemPosition, this.savedItem);
+        }
+
+        if(position >= 0) {
+            if (this.data.get(position).getFragmentType() == ListItem.FragmentType.diaryEntry) {
+                this.savedItem = this.data.remove(position);
+                this.savedItemPosition = position;
+                this.data.add(position, new Food("ui", 0, 0, ListItem.FragmentType.diaryModify, Edible.Unit.g, 0, 0));
+            }
+            else {
+                this.data.remove(position);
+                this.data.add(position, this.savedItem);
+                this.savedItem = null;
+            }
+        }
+
+        this.recyclerViewAdapter.notifyItemRemoved(position);
+        this.recyclerViewAdapter.notifyItemRangeChanged(position, data.size());
+        this.recyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void selectDate() {
+        MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select date")
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build();
+
+        datePicker.show(getSupportFragmentManager(), "MATERIAL_DATE_PICKER");
+
+        datePicker.addOnPositiveButtonClickListener(
+            new MaterialPickerOnPositiveButtonClickListener() {
+                @Override
+                public void onPositiveButtonClick(Object selection) {
+                    Calendar selectedDate = Calendar.getInstance();
+                    selectedDate.setTimeInMillis((Long) selection);
+                    selectedDate.add(Calendar.DAY_OF_YEAR, 1);
+                    opExec.setListDate(selectedDate);
+                    updateLiveData();
+                }
+            }
+        );
+    }
+
     @Override
     public void prevDate() {
-        opExec.prevDate();
-        while (!opExec.isDataReady()) {
-        }
-        updateLiveData();
+        this.opExec.prevDate();
+        this.updateLiveData();
     }
 
     @Override
     public void nextDate() {
-        opExec.nextDate();
-        while (!opExec.isDataReady()) {
-        }
-        updateLiveData();
+        this.opExec.nextDate();
+        this.updateLiveData();
     }
 
     @Override
-    public void editItem(int pos) {
-        //launch dialog fragment
-        new FragmentMealDiaryEdit().show(
-                getSupportFragmentManager(), FragmentMealDiaryEdit.TAG
-        );
+    public void editItem(int pos) { //launch dialog fragment
+        new FragmentMealDiaryEdit().show(getSupportFragmentManager(), FragmentMealDiaryEdit.TAG);
     }
 
     @Override
-    public void showGoalEntryDialog() {
-        //launch dialog fragment
-        new FragmentGoalEntry().show(
-                getSupportFragmentManager(), FragmentGoalEntry.TAG
-        );
+    public void showGoalEntryDialog() { //launch dialog fragment
+        new FragmentGoalEntry().show(getSupportFragmentManager(), FragmentGoalEntry.TAG);
     }
 
     @Override
-    public void showExerciseEntryDialog() {
-        //launch dialog fragment
-        new FragmentExerciseEntry().show(
-                getSupportFragmentManager(), FragmentExerciseEntry.TAG
-        );
+    public void showExerciseEntryDialog() { //launch dialog fragment
+        new FragmentExerciseEntry().show(getSupportFragmentManager(), FragmentExerciseEntry.TAG);
     }
 
     @Override
     public void removeItem(int pos) {
-        if (data.size() > 0) {
-            data.remove(pos);
-            savedItem = null;
-            recyclerViewAdapter.notifyItemRemoved(pos);
-            recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
-            recyclerViewAdapter.notifyDataSetChanged();
-            opExec.updateList(data);
-            updateLiveData();
+        if(this.data.size() > 0) {
+            this.data.remove(pos);
+            this.savedItem = null;
+            this.recyclerViewAdapter.notifyItemRemoved(pos);
+            this.recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
+            this.recyclerViewAdapter.notifyDataSetChanged();
+            this.opExec.updateList(data);
+            this.updateLiveData();
         }
     }
 
     @Override
-    public void addEntry(int pos) {
-        //launch recipebook use ActivityResultLauncher to allow data passing
+    public void addEntry(int pos) { //launch recipebook use ActivityResultLauncher to allow data passing
         Intent intent = new Intent(this, ActivityRecipeBook.class);
-        //use this if need to pass information to activity being launched
-        //intent.putExtra("DBKEY", 0);
-        pickMeal.launch(intent);
+
+        intent.putExtra("DBKEY", this.data.get(pos).getDbkey());
+        this.pickMeal.launch(intent);
     }
 
     public void updateLiveData() {
-        if (mealDiaryData != null && opExec != null && opExec.isDataReady()) {
-            data = opExec.getList();
-            mealDiaryData.getActivityDate().setValue(opExec.getListDate());
-            mealDiaryData.getGoalCalories().setValue(opExec.getCalorieGoal());
-            mealDiaryData.getConsumedCalories().setValue(opExec.getCalorieConsumed());
-            mealDiaryData.getExerciselCalories().setValue(opExec.getCalorieExercise());
-            mealDiaryData.getNetCalories().setValue(opExec.getCalorieNet());
-            mealDiaryData.getProgressBar().setValue(opExec.getProgressBar());
-            mealDiaryData.getProgressExcess().setValue(opExec.getProgressExcess());
+        if (this.mealDiaryData != null && this.opExec != null) {
+            this.data = this.opExec.getList();
+            this.mealDiaryData.getActivityDate().setValue(this.opExec.getListDate());
+            this.mealDiaryData.getGoalCalories().setValue(this.opExec.getCalorieGoal());
+            this.mealDiaryData.getConsumedCalories().setValue(this.opExec.getCalorieConsumed());
+            this.mealDiaryData.getExerciselCalories().setValue(this.opExec.getCalorieExercise());
+            this.mealDiaryData.getNetCalories().setValue(this.opExec.getCalorieNet());
+            this.mealDiaryData.getProgressBar().setValue(this.opExec.getProgressBar());
+            this.mealDiaryData.getProgressExcess().setValue(this.opExec.getProgressExcess());
         }
-        if (recyclerViewAdapter != null) {
-            recyclerViewAdapter.changeData(data);
-            recyclerViewAdapter.notifyDataSetChanged();
+
+        if (this.recyclerViewAdapter != null) {
+            this.recyclerViewAdapter.changeData(this.data);
+            this.recyclerViewAdapter.notifyDataSetChanged();
         }
     }
 
     @Override
     public String getEntryQty(){
-        return String.valueOf(((Edible) savedItem).getQuantity());
+        return String.valueOf(this.savedItem.getQuantity());
     }
 
     @Override
-    public ListItem.Unit getEntryUnit(){
-        return ((Edible) savedItem).getBaseUnit();
+    public Edible.Unit getEntryUnit(){
+        return this.savedItem.getBaseUnit();
     }
 
     @Override
     public void setEntryQty(Integer amount, String unit){
-        //TODO call the unit converter first
-        ((Edible) savedItem).setQuantity(amount);
-        ((Edible) savedItem).setBaseUnit(ListItem.Unit.valueOf(unit));
-        showContextUI(-1);
-        opExec.updateList(data);
-        updateLiveData();
+        Edible selectedItem = null;
+        UnitConverter converter = null;
+
+        if(savedItem instanceof Edible) {
+            selectedItem = (Edible) this.savedItem;
+            converter = new UnitConverter(selectedItem.getBaseUnit(), selectedItem.getQuantity(), selectedItem.getCalories());
+            selectedItem.setQuantity(amount);
+            selectedItem.setBaseUnit(Edible.Unit.valueOf(unit));
+            selectedItem.setCalories(converter.getCalories(selectedItem.getBaseUnit(), selectedItem.getQuantity()));
+        }
+
+        this.showContextUI(-1);
+        this.opExec.updateList(data);
+        this.updateLiveData();
     }
 
     @Override
@@ -231,8 +241,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public void setExerciseCalories(Integer value){
-        opExec.setCalorieExercise(value);
-        updateLiveData();
+        this.opExec.setCalorieExercise(value);
+        this.updateLiveData();
     }
 
     @Override
@@ -242,27 +252,28 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public void setGoalCalories(Integer value){
-        opExec.setCalorieGoal(value);
-        updateLiveData();
+        this.opExec.setCalorieGoal(value);
+        this.updateLiveData();
     }
 
     // GetContent creates an ActivityResultLauncher<String> to allow you to pass
     // in the mime type you'd like to allow the user to select
-    ActivityResultLauncher<Intent> pickMeal = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        // There are no request codes
-                        Intent data = result.getData();
-                        int dbkey = data.getExtras().getInt("DBKEY");
-                        System.out.println("We got back: " + dbkey);
-                        opExec.addByKey(dbkey);
-                        updateLiveData();
-                    }
-                }
-            });
-
-
+//    ActivityResultLauncher<Intent> pickMeal = registerForActivityResult(
+//            new ActivityResultContracts.StartActivityForResult(),
+//            new ActivityResultCallback<ActivityResult>() {
+//                @Override
+//                public void onActivityResult(ActivityResult result) {
+//                    Intent data;
+//                    int dbkey;
+//
+//                    if(result.getResultCode() == Activity.RESULT_OK) {
+//                        data = result.getData();
+//                        dbkey = data.getExtras().getInt("DBKEY");
+//
+//                        System.out.println("We got back: " + dbkey);
+//                        opExec.addByKey(dbkey);
+//                        updateLiveData();
+//                    }
+//                }
+//            });
 }
