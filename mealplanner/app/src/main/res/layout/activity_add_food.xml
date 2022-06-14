@@ -31,11 +31,12 @@
                 android:id="@+id/foodQnty"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
+                android:hint="Quantity"
                 android:inputType="number"
                 android:paddingRight="10dp"
-                android:text="Quantity"
                 android:textAlignment="textEnd"
                 android:textColor="?colorOnPrimary"
+                android:textColorHint="#E1E1E1"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/inputUnit2"
                 app:layout_constraintEnd_toStartOf="@+id/inputUnit2"
@@ -60,7 +61,6 @@
 
             <EditText
                 android:id="@+id/foodTitle"
-                android:hint="Food Name"
                 android:layout_width="360dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
@@ -68,10 +68,11 @@
                 android:layout_weight="0.7"
                 android:background="?colorSecondaryVariant"
                 android:backgroundTint="?colorSecondaryVariant"
+                android:hint="Food Name"
                 android:inputType="textPersonName"
                 android:paddingLeft="10dp"
                 android:textColor="?colorOnPrimary"
-                android:textColorHint="?colorOnPrimary"
+                android:textColorHint="#E1E1E1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dImage" />
 
@@ -94,15 +95,16 @@
 
             <EditText
                 android:id="@+id/foodCalories"
-                android:hint="Calories in this food item"
                 android:layout_width="360dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:background="?colorSecondaryVariant"
                 android:backgroundTint="?colorSecondaryVariant"
+                android:hint="Calories in this food item"
                 android:inputType="number"
                 android:padding="10dp"
-                android:textColorHint="?colorOnPrimary"
+                android:textColor="?colorOnPrimary"
+                android:textColorHint="#E1E1E1"
                 app:layout_constraintEnd_toEndOf="@+id/foodTitle"
                 app:layout_constraintStart_toStartOf="@+id/foodTitle"
                 app:layout_constraintTop_toBottomOf="@+id/foodTitle" />

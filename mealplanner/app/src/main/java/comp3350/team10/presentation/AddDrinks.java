@@ -54,7 +54,7 @@ public class AddDrinks extends DialogFragment {
         builder.setView(view);
 
         drinkNameText = view.findViewById(R.id.drinksTitle);
-        imageView  = view.findViewById(R.id.drinksImagePath);
+        //imageView  = view.findViewById(R.id.drinksImagePath);
         caloriesText = view.findViewById(R.id.drinksCalories);
         quantityText = view.findViewById(R.id.drinksQnty);
         instructions = view.findViewById(R.id.drinkInstructions);
@@ -117,58 +117,33 @@ public class AddDrinks extends DialogFragment {
 
 
         if (calory.length() == 0 ) {
-            Context context = view.getContext();
-            CharSequence text = "Calory count can't be empty.";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(getContext(), text, duration);
-            toast.show();
+            caloriesText.setError("Calorie count cannot be empty");
             result = false;
 
         }
 
 
         if (name.length() == 0) {
-            Context context = view.getContext();
-            CharSequence text = "Drink name can't be empty.";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(getContext(), text, duration);
-            toast.show();
+            drinkNameText.setError("Drink name cannot be empty");
             result = false;
 
         }
 
         if (recipe.length() == 0) {
-            Context context = view.getContext();
-            CharSequence text = "Recipe field can't be empty.";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(getContext(), text, duration);
-            toast.show();
+            instructions.setError("Mix instructions cannot be empty");
             result = false;
 
         }
 
         if (ingred.length() == 0) {
-            Context context = view.getContext();
-            CharSequence text = "Field Ingredients can't be empty.";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(getContext(), text, duration);
-            toast.show();
+            ingredients.setError("Ingredients cannot be empty");
             result = false;
 
         }
 
 
         if (quantity.length() == 0) {
-            Context context = view.getContext();
-            CharSequence text = "Quantities field can't be empty.";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+            quantityText.setError("Quantity must be between 0 and 9999 inclusive");
             result = false;
 
         }

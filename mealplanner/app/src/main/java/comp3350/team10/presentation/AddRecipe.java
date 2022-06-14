@@ -53,7 +53,7 @@ public class AddRecipe extends DialogFragment {
         builder.setView(view);
 
         foodNameText = view.findViewById(R.id.foodTitle);
-        imageView  = view.findViewById(R.id.imagePath);
+        //imageView  = view.findViewById(R.id.imagePath);
         caloriesText = view.findViewById(R.id.foodCalories);
         quantityText = view.findViewById(R.id.foodQnty);
         addBtn = view.findViewById(R.id.addItem3);
@@ -110,36 +110,21 @@ public class AddRecipe extends DialogFragment {
 
 
         if (calory.length() == 0 ) {
-            Context context = view.getContext();
-            CharSequence text = "Calory count can't be empty.";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(getContext(), text, duration);
-            toast.show();
+            caloriesText.setError("Calorie count cannot be empty");
             result = false;
 
         }
 
 
         if (name.length() == 0) {
-            Context context = view.getContext();
-            CharSequence text = "Food name can't be empty.";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(getContext(), text, duration);
-            toast.show();
+            foodNameText.setError("Meal name cannot be empty");
             result = false;
 
         }
 
 
         if (quantity.length() == 0) {
-            Context context = view.getContext();
-            CharSequence text = "Quantities field can't be empty.";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+            quantityText.setError("Quantity must be between 0 and 9999 inclusive");
             result = false;
 
         }
