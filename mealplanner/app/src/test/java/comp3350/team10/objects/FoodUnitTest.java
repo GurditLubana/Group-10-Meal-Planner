@@ -23,12 +23,9 @@ public class FoodUnitTest {
 	@DisplayName("Initial Object State")
 	class Building {
 		Food testFood;
-		Food SetFood;
-
 		@BeforeEach
 		void SetUp(){
 			testFood = new Food("pasta", 2, 450, FragmentType.diaryEntry, Unit.liter, 5, 4);
-			SetFood = new Food("pasta", 2);
 		}
 
 		@Test
@@ -59,6 +56,94 @@ public class FoodUnitTest {
 			assertTrue( testFood.getIconPath() <= 9999);
 		}
 
+	}
+	@Nested
+	@DisplayName("Edible Tests")
+	class EdibleTests{
+
+		Food SetFood;
+		@BeforeEach
+		void SetUP(){
+			SetFood = new Food("Burger", 55, 300, FragmentType.diaryEntry, Unit.liter, 15, 3);
+		}
+		@Test
+		void TestsetCalories(){
+			int currCal = SetFood.getCalories();
+			SetFood.modifyCalories(350);
+			assertTrue(SetFood.getCalories() != currCal);
+			assertTrue(SetFood.getCalories() == (currCal + 350));
+		}
+		@Test
+		void TestFragmentSetter(){
+			ListItem.FragmentType curr = SetFood.getFragmentType();
+			SetFood.setFragmentType(FragmentType.cardSelection);
+			assertTrue(SetFood.getFragmentType() != curr);
+			assertTrue(SetFood.getFragmentType() == FragmentType.cardSelection);
+		}
+
+		@Test
+		void TestCalorieSetter(){
+			int curr = SetFood.getCalories();
+			SetFood.setCalories(250);
+			assertTrue(SetFood.getCalories() != curr);
+			assertTrue(SetFood.getCalories() == 250);
+		}
+
+		@Test
+		void TestQuantitySetter(){
+			int currQuantity = SetFood.getQuantity();
+			SetFood.setQuantity(100);
+			assertTrue(SetFood.getQuantity() != currQuantity);
+			assertTrue(SetFood.getQuantity() == 100);
+		}
+		@Test
+		void TestBaseSetter(){
+			Unit currBaseUnit = SetFood.getBaseUnit();
+			SetFood.setBaseUnit(Unit.serving);
+			assertTrue(SetFood.getBaseUnit() != currBaseUnit);
+			assertTrue(SetFood.getBaseUnit() == Unit.serving);
+		}
+
+		@Test
+		void TestSetDb(){
+			int currDb = SetFood.getDbkey();
+			SetFood.setDbkey(1);
+			assertTrue(SetFood.getDbkey() != currDb);
+			assertTrue(SetFood.getDbkey() == 1);
+		}
+
+		@Test
+		void TestSetName(){
+			String currName = SetFood.getName();
+			SetFood.setName("NewFood");
+			assertTrue(SetFood.getName() != currName);
+			assertTrue(SetFood.getName() == "NewFood");
+		}
+
+		@Test
+		void testIconSetter(){
+			int currpath = SetFood.getIconPath();
+			SetFood.setIconPath(30);
+			assertTrue(SetFood.getIconPath() != currpath);
+			assertTrue(SetFood.getIconPath() == 30);
+		}
+	}
+
+	@Nested
+	@DisplayName("Edible Test edge cases")
+	class EdgeCases{
+
+		Food testThis;
+
+		@BeforeEach
+		void SetUpFood(){
+			testThis = new Food("noodles", 55, 300, FragmentType.diaryEntry, Unit.liter, 15, 3);
+		}
+
+		@Test
+		void FoodName(){
+			assertNull(testThis.getName());
+		}
 	}
 
 

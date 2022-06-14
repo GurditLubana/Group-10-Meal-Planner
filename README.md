@@ -81,7 +81,19 @@ This is a class that allows the use of the observer design pattern in Android Ac
 Fragments are reusable UI components that perform specific functions in activities. The most important example is the navigation fragment which is shared across all activities.  
 
 # Feature List
-The main page of the Meal Planner application display's the food items that the user plans to consume on a specific Day. The bar depicts the Calorie goal for the day, the number of calories consumed via Food, calories burnt via Exercise, and the net calories that can make. The user can set the Calorie goal for the day, and calories burnt in the exercise routine and will be able to track the progress made. The user can edit the list of Food items that need to be consumed. They can add Food items, Meals, and Drinks to the Food list along with the amount that they are consuming for each item. Also, we can remove the items on the list to cut off the unnecessary calorie intake. The user can set the Calorie goal for the day and will be able to track the number of calories that can still be consumed to reach the target. Moreover, users are able to change the amount of each item they did intake. The users can also add new food recipes. They can 
+The main page of the Meal Planner application display's the food items that the user plans to consume on a specific Day. The bar depicts the Calorie goal for the day, the number of calories consumed via Food, calories burnt via Exercise, and the net calories that can make. The user can set the Calorie goal for the day, and calories burnt in the exercise routine and will be able to track the progress made. The user can edit the list of Food items that need to be consumed. They can add Food items, Meals, and Drinks to the Food list along with the amount that they are consuming for each item. Also, we can remove the items on the list to cut off the unnecessary calorie intake. The user can set the Calorie goal for the day and will be able to track the number of calories that can still be consumed to reach the target. Moreover, users are able to change the amount of each item they did intake. The users can also add new food recipes.They need to enter the name of the Dish and the calorie count of the dish, the quantity of the dish.
+
+Features:
+
+1. The users can track their daily food items, meals, and drinks.
+Description:
+This feature is on the MealDiary activity. The users can scroll up and down to view all the food items and the amount they are consuming for the day.
+
+2. The users can set the daily goal for their calorie intake.
+Description:
+This feature is on the Meal Diary activity. The users can add the number of calories they want to consume for the day by clicking the budget button on the top left and letting the application keep track of them.
+
+3. The users can add the number of calories burnt 
 
 # Environments Used in Testing
 
