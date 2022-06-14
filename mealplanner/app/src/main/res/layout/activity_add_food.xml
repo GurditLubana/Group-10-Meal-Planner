@@ -70,7 +70,7 @@
                 android:backgroundTint="?colorSecondaryVariant"
                 android:hint="Food Name"
                 android:inputType="textPersonName"
-                android:paddingLeft="10dp"
+                android:padding="10dp"
                 android:textColor="?colorOnPrimary"
                 android:textColorHint="#E1E1E1"
                 app:layout_constraintEnd_toEndOf="parent"
