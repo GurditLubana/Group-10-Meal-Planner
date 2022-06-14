@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -31,6 +33,7 @@ import java.util.LinkedList;
 public class ActivityRecipeBook extends AppCompatActivity implements FragToRecipeBook {
     private final static int TITLE_COLOR = Color.WHITE;
     private final static String TITLE_CONTENT = "MealPlanner";
+
     private static enum EDIBLE_TYPES {FOOD, MEAL, DRINK}
 
     private Animation fabOpen, fabClose, rotateForward, rotateBackward; //Animations for floating buttons
@@ -46,6 +49,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private int savedPosi;                          //Saves the position of an item for temporary removal
     private Edible saved;                           //Saves the item for temporary removal
     private int currTab;                            //The tab that is currently displayed
+    private EntryMode mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,39 +94,30 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.addFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(currTab == 0) {
-                    new AddRecipe().show(getSupportFragmentManager(), AddRecipe.TAG);
+                if (currTab == 0) {
+                    mode = EntryMode.ADD_FOOD;
+                } else if (currTab == 1) {
+                    mode = EntryMode.ADD_MEAL;
+                } else if (currTab == 2) {
+                    mode = EntryMode.ADD_DRINK;
+                } else {
+                    animateButton();
                 }
 
-                else if(currTab == 1)
-                {
-                    new AddMeals().show(
-                            getSupportFragmentManager(), AddMeals.TAG);
-                }
-
-                else if(currTab == 2)
-                {
-                    new AddDrinks().show(
-                            getSupportFragmentManager(), AddDrinks.TAG
-
-                    );
-                }
-
-                else{animateButton();}
+                new FragmentAddRecipeBook().show(getSupportFragmentManager(), FragmentAddRecipeBook.TAG);
             }
         });
     }
 
     private void animateButton() {
-        if(this.modMenuIsOpen) {
+        if (this.modMenuIsOpen) {
             this.openFab.startAnimation(rotateForward);
             this.editFab.startAnimation(fabClose);
             this.addFab.startAnimation(fabClose);
             this.addFab.setClickable(false);
             this.editFab.setClickable(false);
             this.modMenuIsOpen = false;
-        }
-        else {
+        } else {
             this.openFab.startAnimation(rotateBackward);
             this.editFab.startAnimation(fabOpen);
             this.addFab.startAnimation(fabOpen);
@@ -135,8 +130,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private void initToolbar() {
         View object = findViewById(R.id.toolbar);
 
-        if(object instanceof Toolbar) {
-            this.toolbar = (Toolbar)object;
+        if (object instanceof Toolbar) {
+            this.toolbar = (Toolbar) object;
 
             this.toolbar.setTitleTextColor(TITLE_COLOR);
             this.toolbar.setTitle(TITLE_CONTENT);
@@ -152,28 +147,26 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private void initRecyclerView() {
         View object = findViewById(R.id.recipeRecyclerView);
 
-        if(this.data != null && object instanceof RecyclerView) {
-            this.recipeRecyclerView = (RecyclerView)object;
+        if (this.data != null && object instanceof RecyclerView) {
+            this.recipeRecyclerView = (RecyclerView) object;
             this.recyclerViewAdapter = new RVARecipeBook(data);
             this.recipeRecyclerView.setAdapter(recyclerViewAdapter);
             this.recipeRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         }
     }
 
-    private void setTabListeners(){
+    private void setTabListeners() {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) { //tab.getPosition() tab 0 = food, 1 = meal, 2 = drink
                 currTab = tab.getPosition();
-                if(currTab == 0){
+                if (currTab == 0) {
                     data = opExec.getFoodRecipes();
-                }
-                else if(currTab == 1){
+                } else if (currTab == 1) {
                     data = opExec.getMealRecipes();
-                }
-                else {
+                } else {
                     data = opExec.getDrinkRecipes();
                 }
 
@@ -186,23 +179,23 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
             }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab){}
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
         });
     }
 
     @Override
     public void showContextUI(int posi) {
-        if(posi != this.savedPosi && this.saved != null) {
+        if (posi != this.savedPosi && this.saved != null) {
             this.data.remove(this.savedPosi);
             this.data.add(this.savedPosi, this.saved);
         }
 
-        if(this.data.get(posi).getFragmentType() != ListItem.FragmentType.cardSelection) {
+        if (this.data.get(posi).getFragmentType() != ListItem.FragmentType.cardSelection) {
             this.saved = this.data.remove(posi);
             this.savedPosi = posi;
-            this.data.add(posi, new Food("",0,0,ListItem.FragmentType.cardSelection, null, 0, 0));
-        }
-        else {
+            this.data.add(posi, new Food("", 0, 0, ListItem.FragmentType.cardSelection, null, 0, 0));
+        } else {
             this.data.remove(posi);
             this.data.add(posi, this.saved);
             this.saved = null;
@@ -214,31 +207,33 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     @Override
-    public void addToMealDiary(int posi){
+    public void addToMealDiary(int posi) {
         Intent intent = new Intent();
         int dbkey = -1;
 
-        if(saved != null) {
-            dbkey =  ((Edible) saved).getDbkey();
+        if (saved != null) {
+            dbkey = ((Edible) saved).getDbkey();
         }
 
         intent.putExtra("DBKEY", dbkey);
         setResult(RESULT_OK, intent);
         finish();
-    };
+    }
 
-    private void updateRVA(){
-        if(recyclerViewAdapter != null) {
+    ;
+
+    private void updateRVA() {
+        if (recyclerViewAdapter != null) {
             recyclerViewAdapter.changeData(data);
             recyclerViewAdapter.notifyDataSetChanged();
         }
     }
 
     @Override
-    public void addDrink(String name, int iconPath, int calories, DrinkIngredient[] ingredients, String [] instructions, Edible.Unit baseUnit, int quantity) {
+    public void addDrink(String name, int iconPath, int calories, String ingredients, String instructions, Edible.Unit baseUnit, int quantity) {
         // do input validation then pass to ops
 
-        opExec.addDrink(name,iconPath,calories,instructions,ingredients,baseUnit,quantity); //add appropriate objects here
+        opExec.addDrink(name, iconPath, calories, instructions, ingredients, baseUnit, quantity); //add appropriate objects here
         data = opExec.getDrinkRecipes();
         this.updateRVA();
     }
@@ -252,10 +247,14 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     @Override
-    public void addMeal(String name, int iconPath, int calories, MealIngredient[] ingredients, String [] instructions, Edible.Unit baseUnit, int quantity)  { //change this to correct signature
+    public void addMeal(String name, int iconPath, int calories, String ingredients, String instructions, Edible.Unit baseUnit, int quantity) { //change this to correct signature
 
-        opExec.addMeal(name,iconPath,calories,ingredients,instructions,baseUnit,quantity); //add appropriate objects here
+        opExec.addMeal(name, iconPath, calories, ingredients, instructions, baseUnit, quantity); //add appropriate objects here
         data = opExec.getMealRecipes();
         this.updateRVA();
+    }
+
+    public EntryMode getEntryMode() {
+        return this.mode;
     }
 }

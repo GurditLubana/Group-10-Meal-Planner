@@ -54,16 +54,16 @@ public class AddDrinks extends DialogFragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.activity_add_drinks, null);
         builder.setView(view);
 
-        drinkNameText = view.findViewById(R.id.drinksTitle);
+        drinkNameText = view.findViewById(R.id.dialogRecipeNameInput);
         //imageView  = view.findViewById(R.id.drinksImagePath);
-        caloriesText = view.findViewById(R.id.drinksCalories);
-        quantityText = view.findViewById(R.id.drinksQnty);
-        instructions = view.findViewById(R.id.drinkInstructions);
-        ingredients = view.findViewById(R.id.drinkIngred);
+        caloriesText = view.findViewById(R.id.dialogRecipeCaloriesInput);
+        quantityText = view.findViewById(R.id.dialogRecipeQuantityInput);
+        instructions = view.findViewById(R.id.dialogRecipeInstructions);
+        ingredients = view.findViewById(R.id.dialogRecipeIngredientsInput);
 
 
-        addBtn2 = view.findViewById(R.id.addItem2);
-        cancelButton2 = view.findViewById(R.id.cancelTask2);
+        addBtn2 = view.findViewById(R.id.dialogRecipeBtnOk);
+        cancelButton2 = view.findViewById(R.id.dialogRecipeBtnCancel);
 
         addBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +99,7 @@ public class AddDrinks extends DialogFragment {
 
             if (context != null) {
                 sendInput = (FragToRecipeBook) context;
-                sendInput.addDrink(drinkName, R.drawable.ic_eggplant, calories, ingredientsArray, dInstruct, Edible.Unit.ml, quantity);
+                //sendInput.addDrink(drinkName, R.drawable.ic_eggplant, calories, dInstruct, ingredientsArray,  Edible.Unit.ml, quantity);
             }
 
             String text = drinkName + " Successfully added to the list";

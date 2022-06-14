@@ -45,7 +45,6 @@ public class AddRecipe extends DialogFragment {
         super.onCreate(savedInstanceState);
     }
 
-
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -70,7 +69,6 @@ public class AddRecipe extends DialogFragment {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 dismiss();
             }
         });
@@ -91,7 +89,6 @@ public class AddRecipe extends DialogFragment {
         Intent intent = new Intent(getContext(), ActivityRecipeBook.class );
         Context context = view.getContext();
 
-
             if (context != null) {
                 send = (FragToRecipeBook) context;
                 send.addFood(foodName, R.drawable.ic_eggplant,calories,Edible.Unit.g,quantity);
@@ -111,25 +108,19 @@ public class AddRecipe extends DialogFragment {
         String calory = caloriesText.getText().toString().trim();
         String quantity = quantityText.getText().toString().trim();
 
-
         if (calory.length() == 0 ) {
             caloriesText.setError("Calorie count cannot be empty");
             result = false;
-
         }
-
 
         if (name.length() == 0) {
             foodNameText.setError("Meal name cannot be empty");
             result = false;
-
         }
-
 
         if (quantity.length() == 0) {
             quantityText.setError("Quantity must be between 0 and 9999 inclusive");
             result = false;
-
         }
 
         return result;

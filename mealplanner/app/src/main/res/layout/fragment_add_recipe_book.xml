@@ -6,9 +6,7 @@
     android:layout_height="wrap_content"
     android:animationCache="true"
     android:background="?colorPrimary"
-    android:scrollbarStyle="insideOverlay"
-    android:verticalScrollbarPosition="right"
-    tools:context=".presentation.AddDrinks">
+    tools:context=".presentation.FragmentAddRecipeBook">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -29,12 +27,95 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical" >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?colorPrimary">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_marginTop="32dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingLeft="64dp"
+                        android:paddingRight="64dp"
+                        android:textAlignment="gravity"
+                        app:layout_constraintTop_toBottomOf="@+id/dialogRecipeTitle">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/dialogRecipeTakePhoto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="?colorPrimary">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:id="@+id/dialogRecipePhoto"
+                                    android:layout_width="150dp"
+                                    android:layout_height="150dp"
+                                    android:background="?colorSecondaryVariant"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/dialogRecipePhotoIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:elevation="10dp"
+                                    android:src="@drawable/baseline_photo_camera_white_48"
+                                    app:layout_constraintBottom_toBottomOf="@+id/dialogRecipePhoto"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="@+id/dialogRecipePhoto"
+                                    app:layout_constraintTop_toTopOf="@+id/dialogRecipePhoto" />
+
+                                <TextView
+                                    android:id="@+id/dialogRecipePhotoText"
+                                    android:layout_width="147dp"
+                                    android:layout_height="49dp"
+                                    android:layout_weight="0.3"
+                                    android:background="?colorPrimary"
+                                    android:gravity="center"
+                                    android:text="Take a photo"
+                                    android:textAlignment="gravity"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                    android:textColor="?colorOnPrimary"
+                                    android:textSize="20dp"
+                                    android:visibility="visible"
+                                    app:layout_constraintEnd_toEndOf="@+id/dialogRecipePhoto"
+                                    app:layout_constraintStart_toStartOf="@+id/dialogRecipePhoto"
+                                    app:layout_constraintTop_toBottomOf="@+id/dialogRecipePhoto" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <EditText
+                            android:id="@+id/dialogRecipeInstructions"
+                            android:layout_width="257dp"
+                            android:layout_height="246dp"
+                            android:layout_marginLeft="32dp"
+                            android:background="?colorSecondaryVariant"
+                            android:backgroundTint="?colorSecondaryVariant"
+                            android:gravity="top"
+                            android:hint="Mixing Instructions"
+                            android:inputType="textMultiLine"
+                            android:padding="10dp"
+                            android:scrollIndicators="right"
+                            android:scrollbarAlwaysDrawVerticalTrack="true"
+                            android:scrollbarStyle="insideInset"
+                            android:scrollbars="vertical"
+                            android:textAlignment="gravity"
+                            android:textColor="?colorOnPrimary"
+                            android:textColorHint="#E1E1E1"
+                            android:verticalScrollbarPosition="right" />
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/linearLayout"
@@ -46,10 +127,10 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/mealsIngred">
+                        app:layout_constraintTop_toBottomOf="@+id/dialogRecipeIngredientsInput">
 
                         <Button
-                            android:id="@+id/btnCancel"
+                            android:id="@+id/dialogRecipeBtnCancel"
                             android:layout_width="wrap_content"
                             android:layout_height="50dp"
                             android:layout_marginBottom="5dp"
@@ -59,7 +140,7 @@
                             android:textColor="?colorOnPrimary" />
 
                         <Button
-                            android:id="@+id/btnOk"
+                            android:id="@+id/dialogRecipeBtnOk"
                             android:layout_width="wrap_content"
                             android:layout_height="50dp"
                             android:layout_marginBottom="5dp"
@@ -70,7 +151,7 @@
                     </LinearLayout>
 
                     <EditText
-                        android:id="@+id/mealsQnty"
+                        android:id="@+id/dialogRecipeQuantityInput"
                         android:layout_width="150dp"
                         android:layout_height="50dp"
                         android:hint="Quantity"
@@ -80,58 +161,18 @@
                         android:textColor="?colorOnPrimary"
                         android:textColorHint="#E1E1E1"
                         android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/inputUnit3"
-                        app:layout_constraintEnd_toStartOf="@+id/inputUnit3"
-                        app:layout_constraintTop_toTopOf="@+id/inputUnit3" />
+                        app:layout_constraintBottom_toBottomOf="@+id/dialogRecipeSpinner"
+                        app:layout_constraintEnd_toStartOf="@+id/dialogRecipeSpinner"
+                        app:layout_constraintTop_toTopOf="@+id/dialogRecipeSpinner" />
 
                     <Spinner
-                        android:id="@+id/inputUnit3"
+                        android:id="@+id/dialogRecipeSpinner"
                         android:layout_width="150dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="16dp"
-                        app:layout_constraintEnd_toEndOf="@+id/mealsCalories"
-                        app:layout_constraintStart_toStartOf="@+id/mealsCalories"
-                        app:layout_constraintTop_toBottomOf="@+id/mealsCalories" />
-
-                    <ImageView
-                        android:id="@+id/dialogRecipePhotoIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:elevation="10dp"
-                        android:src="@drawable/baseline_photo_camera_white_48"
-                        app:layout_constraintBottom_toBottomOf="@+id/dialogRecipePhoto"
-                        app:layout_constraintEnd_toEndOf="@+id/dialogRecipePhoto"
-                        app:layout_constraintStart_toStartOf="@+id/dialogRecipePhoto"
-                        app:layout_constraintTop_toTopOf="@+id/dialogRecipePhoto" />
-
-                    <ImageView
-                        android:id="@+id/dialogRecipePhoto"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="64dp"
-                        android:layout_marginTop="32dp"
-                        android:background="?colorSecondaryVariant"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dialogRecipeTitle" />
-
-                    <TextView
-                        android:id="@+id/dialogRecipePhotoText"
-                        android:layout_width="147dp"
-                        android:layout_height="49dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="0.3"
-                        android:background="?colorPrimary"
-                        android:gravity="center"
-                        android:text="Take a photo"
-                        android:textAlignment="gravity"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                        android:textColor="?colorOnPrimary"
-                        android:textSize="20dp"
-                        android:visibility="visible"
-                        app:layout_constraintEnd_toEndOf="@+id/dialogRecipePhoto"
-                        app:layout_constraintHorizontal_bias="0.463"
-                        app:layout_constraintStart_toStartOf="@+id/dialogRecipePhoto"
-                        app:layout_constraintTop_toBottomOf="@+id/dialogRecipePhoto" />
+                        app:layout_constraintEnd_toEndOf="@+id/dialogRecipeCaloriesInput"
+                        app:layout_constraintStart_toStartOf="@+id/dialogRecipeCaloriesInput"
+                        app:layout_constraintTop_toBottomOf="@+id/dialogRecipeCaloriesInput" />
 
                     <TextView
                         android:id="@+id/dialogRecipeTitle"
@@ -139,7 +180,7 @@
                         android:layout_height="59dp"
                         android:layout_marginTop="32dp"
                         android:background="?colorPrimary"
-                        android:text="Add Meal"
+                        android:text="Add Drink"
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         android:textColor="?colorOnPrimary"
@@ -151,21 +192,21 @@
 
 
                     <EditText
-                        android:id="@+id/mealsTitle"
+                        android:id="@+id/dialogRecipeNameInput"
                         android:layout_width="360dp"
                         android:layout_height="50dp"
-                        android:layout_marginTop="80dp"
+                        android:layout_marginTop="16dp"
                         android:layout_marginEnd="64dp"
                         android:layout_weight="0.7"
                         android:background="?colorSecondaryVariant"
                         android:backgroundTint="?colorSecondaryVariant"
-                        android:hint="Meal Name"
+                        android:hint="Drink Name"
                         android:inputType="textPersonName"
                         android:padding="10dp"
                         android:textColor="?colorOnPrimary"
                         android:textColorHint="#E1E1E1"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dialogRecipePhotoText" />
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
                     <TextView
                         android:id="@+id/dialogRecipeNameLabel"
@@ -175,14 +216,14 @@
                         android:layout_weight="0.3"
                         android:background="?colorPrimary"
                         android:gravity="right|center_vertical"
-                        android:text="Meal Name"
+                        android:text="Drink Name"
                         android:textAlignment="gravity"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         android:textColor="?colorOnPrimary"
                         android:textSize="20dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/mealsTitle"
-                        app:layout_constraintEnd_toStartOf="@+id/mealsTitle"
-                        app:layout_constraintTop_toTopOf="@+id/mealsTitle" />
+                        app:layout_constraintBottom_toBottomOf="@+id/dialogRecipeNameInput"
+                        app:layout_constraintEnd_toStartOf="@+id/dialogRecipeNameInput"
+                        app:layout_constraintTop_toTopOf="@+id/dialogRecipeNameInput" />
 
                     <TextView
                         android:id="@+id/dialogRecipeCaloriesLabel"
@@ -197,26 +238,26 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         android:textColor="?colorOnPrimary"
                         android:textSize="20dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/mealsCalories"
-                        app:layout_constraintEnd_toStartOf="@+id/mealsCalories"
-                        app:layout_constraintTop_toTopOf="@+id/mealsCalories"
+                        app:layout_constraintBottom_toBottomOf="@+id/dialogRecipeCaloriesInput"
+                        app:layout_constraintEnd_toStartOf="@+id/dialogRecipeCaloriesInput"
+                        app:layout_constraintTop_toTopOf="@+id/dialogRecipeCaloriesInput"
                         app:layout_constraintVertical_bias="0.648" />
 
                     <EditText
-                        android:id="@+id/mealsCalories"
+                        android:id="@+id/dialogRecipeCaloriesInput"
                         android:layout_width="360dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="16dp"
                         android:background="?colorSecondaryVariant"
                         android:backgroundTint="?colorSecondaryVariant"
-                        android:hint="Calories in this meal"
+                        android:hint="Calories in this drink"
                         android:inputType="number"
                         android:padding="10dp"
                         android:textColor="?colorOnPrimary"
                         android:textColorHint="#E1E1E1"
-                        app:layout_constraintEnd_toEndOf="@+id/mealsTitle"
-                        app:layout_constraintStart_toStartOf="@+id/mealsTitle"
-                        app:layout_constraintTop_toBottomOf="@+id/mealsTitle" />
+                        app:layout_constraintEnd_toEndOf="@+id/dialogRecipeNameInput"
+                        app:layout_constraintStart_toStartOf="@+id/dialogRecipeNameInput"
+                        app:layout_constraintTop_toBottomOf="@+id/dialogRecipeNameInput" />
 
                     <TextView
                         android:id="@+id/dialogRecipeIngredientsLabel"
@@ -231,18 +272,18 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         android:textColor="?colorOnPrimary"
                         android:textSize="20dp"
-                        app:layout_constraintEnd_toStartOf="@+id/mealsIngred"
-                        app:layout_constraintTop_toTopOf="@+id/mealsIngred" />
+                        app:layout_constraintEnd_toStartOf="@+id/dialogRecipeIngredientsInput"
+                        app:layout_constraintTop_toTopOf="@+id/dialogRecipeIngredientsInput" />
 
                     <EditText
-                        android:id="@+id/mealsIngred"
+                        android:id="@+id/dialogRecipeIngredientsInput"
                         android:layout_width="360dp"
                         android:layout_height="100dp"
                         android:layout_marginTop="16dp"
                         android:background="?colorSecondaryVariant"
                         android:backgroundTint="?colorSecondaryVariant"
                         android:gravity="top"
-                        android:hint="Meal Ingredients\n(, comma separated)"
+                        android:hint="Drink Ingredients\n(, comma separated)"
                         android:inputType="textMultiLine"
                         android:padding="10dp"
                         android:scrollIndicators="right"
@@ -253,35 +294,9 @@
                         android:textColor="?colorOnPrimary"
                         android:textColorHint="#E1E1E1"
                         android:verticalScrollbarPosition="right"
-                        app:layout_constraintEnd_toEndOf="@+id/inputUnit3"
-                        app:layout_constraintStart_toEndOf="@+id/mealsQnty"
-                        app:layout_constraintTop_toBottomOf="@+id/inputUnit3" />
-
-                    <EditText
-                        android:id="@+id/mealsInstructions"
-                        android:layout_width="257dp"
-                        android:layout_height="246dp"
-                        android:layout_marginTop="32dp"
-                        android:layout_marginEnd="64dp"
-                        android:layout_marginBottom="32dp"
-                        android:background="?colorSecondaryVariant"
-                        android:backgroundTint="?colorSecondaryVariant"
-                        android:gravity="top"
-                        android:hint="Cooking Instructions"
-                        android:inputType="textMultiLine"
-                        android:padding="10dp"
-                        android:scrollIndicators="right"
-                        android:scrollbarAlwaysDrawVerticalTrack="true"
-                        android:scrollbarStyle="insideInset"
-                        android:scrollbars="vertical"
-                        android:textAlignment="gravity"
-                        android:textColor="?colorOnPrimary"
-                        android:textColorHint="#E1E1E1"
-                        android:verticalScrollbarPosition="right"
-                        app:layout_constraintBottom_toTopOf="@+id/mealsTitle"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dialogRecipeTitle"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:layout_constraintEnd_toEndOf="@+id/dialogRecipeSpinner"
+                        app:layout_constraintStart_toEndOf="@+id/dialogRecipeQuantityInput"
+                        app:layout_constraintTop_toBottomOf="@+id/dialogRecipeSpinner" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

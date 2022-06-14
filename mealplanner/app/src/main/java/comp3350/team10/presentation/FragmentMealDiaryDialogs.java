@@ -75,23 +75,23 @@ public class FragmentMealDiaryDialogs extends DialogFragment {
 
             switch(mode){
                 case EDIT_QTY:
-                    setEditDialogFieldDefaults(view);
+                    setEditDialogFieldDefaults();
                     break;
                 case GOAL_CALORIE:
-                    setCalorieGoalFieldDefaults(view);
+                    setCalorieGoalFieldDefaults();
                     break;
                 case ACTUAL_EXERCISE:
-                    setExerciseActualFieldDefaults(view);
+                    setExerciseActualFieldDefaults();
                     break;
             }
-            setOnClickListeners(view);
+            setOnClickListeners();
         }
 
         builder.setView(view);
         return builder.create();
     }
 
-    private void setEditDialogFieldDefaults(View view){
+    private void setEditDialogFieldDefaults(){
         Edible.Unit unit = Edible.Unit.serving;
         int size = Edible.Unit.values().length;
         ArrayAdapter<String> adapter = null;
@@ -118,7 +118,7 @@ public class FragmentMealDiaryDialogs extends DialogFragment {
         }
     }
 
-    private void setCalorieGoalFieldDefaults(View view){
+    private void setCalorieGoalFieldDefaults(){
         if (this.send != null && send instanceof FragToMealDiary) {
             this.title.setText("Set New Calorie Goal");
             this.unitSpinner.setVisibility(View.INVISIBLE);
@@ -127,7 +127,7 @@ public class FragmentMealDiaryDialogs extends DialogFragment {
         }
     }
 
-    private void setExerciseActualFieldDefaults(View view){
+    private void setExerciseActualFieldDefaults(){
         if (this.send != null && send instanceof FragToMealDiary) {
             this.title.setText("Set Exercise Calories");
             this.unitSpinner.setVisibility(View.INVISIBLE);
@@ -136,7 +136,7 @@ public class FragmentMealDiaryDialogs extends DialogFragment {
         }
     }
 
-    private void setOnClickListeners(View view){
+    private void setOnClickListeners(){
 
         this.btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,7 +147,7 @@ public class FragmentMealDiaryDialogs extends DialogFragment {
                     if(send != null && send instanceof FragToMealDiary) {
                         switch(mode){
                             case EDIT_QTY:
-                                send.setEntryQty(value, (String) unitSpinner.getSelectedItem());
+                                send.setEntryQty(value, unitSpinner.getSelectedItem().toString());
                                 break;
                             case GOAL_CALORIE:
                                 send.setGoalCalories(value);

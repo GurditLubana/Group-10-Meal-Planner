@@ -35,7 +35,7 @@
                     android:background="?colorPrimary">
 
                     <Spinner
-                        android:id="@+id/inputUnit2"
+                        android:id="@+id/dialogRecipeSpinner"
                         android:layout_width="150dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="32dp"
@@ -54,9 +54,9 @@
                         android:textColor="?colorOnPrimary"
                         android:textColorHint="#E1E1E1"
                         android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/inputUnit2"
-                        app:layout_constraintEnd_toStartOf="@+id/inputUnit2"
-                        app:layout_constraintTop_toTopOf="@+id/inputUnit2" />
+                        app:layout_constraintBottom_toBottomOf="@+id/dialogRecipeSpinner"
+                        app:layout_constraintEnd_toStartOf="@+id/dialogRecipeSpinner"
+                        app:layout_constraintTop_toTopOf="@+id/dialogRecipeSpinner" />
 
                     <TextView
                         android:id="@+id/textView19"
@@ -93,7 +93,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/dImage" />
 
                     <TextView
-                        android:id="@+id/Heading"
+                        android:id="@+id/dialogRecipeNameLabel"
                         android:layout_width="147dp"
                         android:layout_height="49dp"
                         android:layout_marginEnd="8dp"
@@ -146,7 +146,7 @@
 
 
                     <TextView
-                        android:id="@+id/calories"
+                        android:id="@+id/dialogRecipeCaloriesLabel"
                         android:layout_width="147dp"
                         android:layout_height="49dp"
                         android:layout_marginEnd="8dp"

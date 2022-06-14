@@ -1,9 +1,9 @@
 package comp3350.team10.objects;
 
 public abstract class PreparedItem extends Edible {
-    private String[] instructions;  //The instructions required for the item to prepare
+    private String instructions;  //The instructions required for the item to prepare
     
-    public PreparedItem(String name, int iconPath, int calories, String[] instructions, ListItem.FragmentType type, Edible.Unit baseUnit, int quantity, int dbkey) {
+    public PreparedItem(String name, int iconPath, int calories, String instructions, ListItem.FragmentType type, Edible.Unit baseUnit, int quantity, int dbkey) {
         super(name, iconPath, type, baseUnit, quantity, dbkey);
 
         super.modifyCalories(calories);
@@ -11,11 +11,11 @@ public abstract class PreparedItem extends Edible {
     }
 
 
-    public String[] getInstructions() {
+    public String getInstructions() {
         return instructions;
     }
 
-    public void changeInstructions(String[] newInstructions) {
+    public void changeInstructions(String newInstructions) {
         this.instructions = newInstructions;
     }
 }

@@ -711,3 +711,14 @@ Duration: 2hrs
    - More refactoring for testing (Edible and PreparedItem)
    - Created an enum checker - each enum will need its own (see ListItem)
    - Edible is supposed to be abstract but had its own instance for the creation card, delegated to food class
+
+### 2022-06-14
+     Dev:
+      - Gurdit
+      - Josef
+      - Manraj
+Duration: 6hrs
+   Tasks:
+   - Unit Testing
+   - Bug Fixes
+   - Code Refactoring

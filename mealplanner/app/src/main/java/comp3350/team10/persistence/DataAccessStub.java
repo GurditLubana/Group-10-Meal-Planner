@@ -448,53 +448,53 @@ public class DataAccessStub {
     private void loadRecipeMeals() {
         this.dbRecipeMeal = new ArrayList<Edible>();
 
-        this.dbRecipeMeal.add(new Meal("soup", R.drawable.soup, 270, new MealIngredient[]{
-                new MealIngredient(5, "cups", new Food("broth", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("onion", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("brocoli", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()))
+        this.dbRecipeMeal.add(new Meal("soup", R.drawable.soup, 270, new Food[]{
+                new Food("broth", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("onion", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("brocoli", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())
         }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
 
-        this.dbRecipeMeal.add(new Meal("salad", R.drawable.salad, 150, new MealIngredient[]{
-                new MealIngredient(5, "cups", new Food("lettuce", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("tomato", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("onion", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()))
+        this.dbRecipeMeal.add(new Meal("salad", R.drawable.salad, 150, new Food[]{
+                new Food("lettuce", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("tomato", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("onion", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())
         }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
 
-        this.dbRecipeMeal.add(new Meal("yogurt parfait", R.drawable.parfait, 175, new MealIngredient[]{
-                new MealIngredient(5, "cups", new Food("yogurt", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("oats", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("Stawberry", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()))
+        this.dbRecipeMeal.add(new Meal("yogurt parfait", R.drawable.parfait, 175, new Food[]{
+                new Food("yogurt", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("oats", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("Stawberry", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())
         }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
 
-        this.dbRecipeMeal.add(new Meal("smoothie", R.drawable.food3, 500, new MealIngredient[]{
-                new MealIngredient(5, "cups", new Food("milk", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("oats", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("banana", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()))
+        this.dbRecipeMeal.add(new Meal("smoothie", R.drawable.food3, 500, new Food[]{
+                new Food("milk", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("oats", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("banana", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())
         }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
 
-        this.dbRecipeMeal.add(new Meal("rice pilaf", R.drawable.food, 420, new MealIngredient[]{
-                new MealIngredient(5, "cups", new Food("cucumber", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("rice", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("bread", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()))
+        this.dbRecipeMeal.add(new Meal("rice pilaf", R.drawable.food, 420, new Food[]{
+                new Food("cucumber", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("rice", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("bread", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())
         }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
 
-        this.dbRecipeMeal.add(new Meal("sushi", R.drawable.food4, 320, new MealIngredient[]{
-                new MealIngredient(5, "cups", new Food("rice", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("cream cheese", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("nori", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()))
+        this.dbRecipeMeal.add(new Meal("sushi", R.drawable.food4, 320, new Food[]{
+                new Food("rice", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("cream cheese", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("nori", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())
         }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
 
-        this.dbRecipeMeal.add(new Meal("wrap", R.drawable.food2, 200, new MealIngredient[]{
-                new MealIngredient(5, "cups", new Food("steak", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("pesto", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("lettuce", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()))
+        this.dbRecipeMeal.add(new Meal("wrap", R.drawable.food2, 200, new Food[]{
+                new Food("steak", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("pesto", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("lettuce", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())
         }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
 
-        this.dbRecipeMeal.add(new Meal("shrimp tacos", R.drawable.food, 160, new MealIngredient[]{
-                new MealIngredient(5, "cups", new Food("shrimp", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("taco shell", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("cheese", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())),
-                new MealIngredient(5, "cups", new Food("lettuce", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()))
+        this.dbRecipeMeal.add(new Meal("shrimp tacos", R.drawable.food, 160, new Food[]{
+                new Food("shrimp", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("taco shell", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("cheese", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
+                new Food("lettuce", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())
         }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
     }
 }

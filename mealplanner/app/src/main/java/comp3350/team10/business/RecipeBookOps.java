@@ -61,13 +61,13 @@ public class RecipeBookOps {
         db.addFoodToRecipeBook(newFood);
     }
 
-    public void addMeal(String name, int iconPath, int calories, MealIngredient[] ingredients, String[] instructions, Edible.Unit baseUnit, int quantity){
+    public void addMeal(String name, int iconPath, int calories, String ingredients, String instructions, Edible.Unit baseUnit, int quantity){
         Edible newMeal = new Meal(name, iconPath, calories, ingredients, instructions, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey());
         
         db.addMealToRecipeBook(newMeal);
     }
 
-    public void addDrink(String name, int iconPath, int cals, String[] instructions, DrinkIngredient[] ingredients, Edible.Unit baseUnit, int quantity){
+    public void addDrink(String name, int iconPath, int cals, String instructions, String ingredients, Edible.Unit baseUnit, int quantity){
         Edible newDrink = new Drink(name, iconPath, cals, instructions, ingredients, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey());
         
         db.addDrinkToRecipeBook(newDrink);
