@@ -29,7 +29,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <Button
-                    android:id="@+id/cancelTask"
+                    android:id="@+id/cancelTask3"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginBottom="5dp"
@@ -39,7 +39,7 @@
                     android:textColor="?colorOnPrimary" />
 
                 <Button
-                    android:id="@+id/addItem"
+                    android:id="@+id/addItem3"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginBottom="5dp"

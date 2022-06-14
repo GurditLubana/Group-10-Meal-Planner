@@ -43,25 +43,24 @@
 
             <TextView
                 android:id="@+id/textView19"
+                android:text="Add Food Item"
                 android:layout_width="415dp"
                 android:layout_height="59dp"
+                android:layout_marginTop="32dp"
                 android:background="?colorPrimary"
-                android:text="Add Food Item"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="?colorOnPrimary"
                 android:textSize="40dp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.087" />
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <EditText
                 android:id="@+id/foodTitle"
+                android:hint="Food Name"
                 android:layout_width="360dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
@@ -69,7 +68,6 @@
                 android:layout_weight="0.7"
                 android:background="?colorSecondaryVariant"
                 android:backgroundTint="?colorSecondaryVariant"
-                android:hint="Food Name"
                 android:inputType="textPersonName"
                 android:paddingLeft="10dp"
                 android:textColor="?colorOnPrimary"
@@ -79,13 +77,13 @@
 
             <TextView
                 android:id="@+id/Heading"
+                android:text="Food Name"
                 android:layout_width="147dp"
                 android:layout_height="49dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="0.3"
                 android:background="?colorPrimary"
                 android:gravity="right|center_vertical"
-                android:text="Food Name"
                 android:textAlignment="gravity"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="?colorOnPrimary"
@@ -96,12 +94,12 @@
 
             <EditText
                 android:id="@+id/foodCalories"
+                android:hint="Calories in this food item"
                 android:layout_width="360dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:background="?colorSecondaryVariant"
                 android:backgroundTint="?colorSecondaryVariant"
-                android:hint="Calories in this food item"
                 android:inputType="number"
                 android:padding="10dp"
                 android:textColorHint="?colorOnPrimary"
@@ -172,7 +170,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/foodQnty">
 
                 <Button
-                    android:id="@+id/cancelTask"
+                    android:id="@+id/cancelTask3"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginBottom="5dp"
@@ -182,7 +180,7 @@
                     android:textColor="?colorOnPrimary" />
 
                 <Button
-                    android:id="@+id/addItem"
+                    android:id="@+id/addItem3"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginBottom="5dp"

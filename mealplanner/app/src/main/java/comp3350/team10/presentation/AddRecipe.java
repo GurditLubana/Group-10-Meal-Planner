@@ -1,31 +1,21 @@
 package comp3350.team10.presentation;
 
 import comp3350.team10.R;
-import comp3350.team10.business.RecipeBookOps;
 import comp3350.team10.objects.Edible;
-import comp3350.team10.objects.Food;
-import comp3350.team10.objects.ListItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.v4.media.MediaMetadataCompat;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class AddRecipe extends DialogFragment {
     private EditText foodNameText, caloriesText, quantityText;
@@ -66,8 +56,8 @@ public class AddRecipe extends DialogFragment {
         imageView  = view.findViewById(R.id.imagePath);
         caloriesText = view.findViewById(R.id.foodCalories);
         quantityText = view.findViewById(R.id.foodQnty);
-        addBtn = view.findViewById(R.id.addItem);
-        cancelButton = view.findViewById(R.id.cancelTask);
+        addBtn = view.findViewById(R.id.addItem3);
+        cancelButton = view.findViewById(R.id.cancelTask3);
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
