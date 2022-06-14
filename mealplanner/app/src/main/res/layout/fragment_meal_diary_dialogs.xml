@@ -86,6 +86,7 @@
                 android:textAlignment="center"
                 android:textColor="?colorOnPrimary"
                 android:textSize="24sp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/inputQty"
                 app:layout_constraintStart_toEndOf="@+id/inputQty" />
 
@@ -93,6 +94,7 @@
                 android:id="@+id/inputUnit"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/inputQty"
                 app:layout_constraintStart_toEndOf="@+id/inputQty"
                 app:layout_constraintTop_toTopOf="@+id/inputQty" />

@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,34 +32,21 @@ public class FragmentMealDiaryDialogs extends DialogFragment {
     public static String TAG = "MealEntryDialog";
     private FragToMealDiary send;
     private FragToMealDiary.EntryMode mode;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Button btnCancel;
+    private Button btnOk;
+    private TextView title;
+    private EditText quantity;
+    private TextView unitText;
+    private Spinner unitSpinner;
 
     public FragmentMealDiaryDialogs() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentMealDiaryDialogs.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static FragmentMealDiaryDialogs newInstance(String param1, String param2) {
         FragmentMealDiaryDialogs fragment = new FragmentMealDiaryDialogs();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,10 +54,6 @@ public class FragmentMealDiaryDialogs extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @NonNull
@@ -78,7 +62,12 @@ public class FragmentMealDiaryDialogs extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_meal_diary_edit, null);
         Context context = view.getContext();
-        builder.setView(view);
+        this.btnCancel = (Button) view.findViewById(R.id.btnCancel);
+        this.btnOk = (Button) view.findViewById(R.id.btnOk);
+        this.title = (TextView) view.findViewById(R.id.dialogTitle);
+        this.quantity = (EditText) view.findViewById(R.id.inputQty);
+        this.unitText = (TextView) view.findViewById(R.id.inputUnitText);
+        this.unitSpinner = (Spinner) view.findViewById(R.id.inputUnit);;
 
         if(context != null && context instanceof FragToMealDiary){
             this.send = (FragToMealDiary) context;
@@ -86,19 +75,71 @@ public class FragmentMealDiaryDialogs extends DialogFragment {
 
             switch(mode){
                 case EDIT_QTY:
-
+                    setEditDialogFieldDefaults(view);
+                    setEditDialogOnClickListeners(view);
                     break;
                 case GOAL_CALORIE:
+
+                    break;
+                case ACTUAL_EXERCISE:
 
                     break;
             }
         }
 
-        setFieldDefaults(view);
-        setOnClickListeners(view);
-
+        builder.setView(view);
         return builder.create();
     }
 
+    private void setEditDialogFieldDefaults(View view){
+        Edible.Unit unit = Edible.Unit.serving;
+        int size = Edible.Unit.values().length;
+        ArrayAdapter<String> adapter = null;
+        String quantity = "null";
+        String[] items = new String[size];
 
+        this.title.setText("Edit Quantity");
+        for(int i = 0; i < size; i++){
+            items[i] = Edible.Unit.values()[i].name();
+        }
+
+        adapter = new ArrayAdapter<String>(getActivity().getBaseContext(), R.layout.spinner_unit_items, items);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        if(this.send != null && send instanceof FragToMealDiary) {
+            quantity = this.send.getEntryQty();
+            unit = this.send.getEntryUnit();
+
+            this.quantity.setText(quantity);
+            this.unitSpinner.setAdapter(adapter);
+            this.unitSpinner.setSelection(adapter.getPosition(unit.name()));
+        }
+    }
+
+    private void setEditDialogOnClickListeners(View view){
+
+        this.btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer value = Integer.parseInt(quantity.getText().toString());
+
+                if(value < Constant.ENTRY_MIN_VALUE || value > Constant.ENTRY_MAX_VALUE){
+                    quantity.setError("Invalid input must be between 0 and 9999 inclusive");
+                }
+                else {
+                    if(send != null && send instanceof FragToMealDiary) {
+                        send.setEntryQty(value, (String) unitSpinner.getSelectedItem());
+                        dismiss();
+                    }
+                }
+            }
+        });
+
+        this.btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+    }
 }
