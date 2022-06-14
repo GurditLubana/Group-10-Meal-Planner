@@ -60,7 +60,7 @@ public class FragmentMealDiaryDialogs extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_meal_diary_edit, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_meal_diary_dialogs, null);
         Context context = view.getContext();
         this.btnCancel = (Button) view.findViewById(R.id.btnCancel);
         this.btnOk = (Button) view.findViewById(R.id.btnOk);
@@ -76,15 +76,15 @@ public class FragmentMealDiaryDialogs extends DialogFragment {
             switch(mode){
                 case EDIT_QTY:
                     setEditDialogFieldDefaults(view);
-                    setEditDialogOnClickListeners(view);
                     break;
                 case GOAL_CALORIE:
-
+                    setCalorieGoalFieldDefaults(view);
                     break;
                 case ACTUAL_EXERCISE:
-
+                    setExerciseActualFieldDefaults(view);
                     break;
             }
+            setOnClickListeners(view);
         }
 
         builder.setView(view);
@@ -113,24 +113,54 @@ public class FragmentMealDiaryDialogs extends DialogFragment {
             this.quantity.setText(quantity);
             this.unitSpinner.setAdapter(adapter);
             this.unitSpinner.setSelection(adapter.getPosition(unit.name()));
+            this.unitSpinner.setVisibility(View.VISIBLE);
+            this.unitText.setVisibility(View.INVISIBLE);
         }
     }
 
-    private void setEditDialogOnClickListeners(View view){
+    private void setCalorieGoalFieldDefaults(View view){
+        if (this.send != null && send instanceof FragToMealDiary) {
+            this.title.setText("Set New Calorie Goal");
+            this.unitSpinner.setVisibility(View.INVISIBLE);
+            this.unitText.setVisibility(View.VISIBLE);
+            this.quantity.setText(this.send.getGoalCalories());
+        }
+    }
+
+    private void setExerciseActualFieldDefaults(View view){
+        if (this.send != null && send instanceof FragToMealDiary) {
+            this.title.setText("Set Exercise Calories");
+            this.unitSpinner.setVisibility(View.INVISIBLE);
+            this.unitText.setVisibility(View.VISIBLE);
+            this.quantity.setText(this.send.getExerciseCalories());
+        }
+    }
+
+    private void setOnClickListeners(View view){
 
         this.btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Integer value = Integer.parseInt(quantity.getText().toString());
 
-                if(value < Constant.ENTRY_MIN_VALUE || value > Constant.ENTRY_MAX_VALUE){
-                    quantity.setError("Invalid input must be between 0 and 9999 inclusive");
-                }
-                else {
+                if(value >= Constant.ENTRY_MIN_VALUE || value <= Constant.ENTRY_MAX_VALUE){
                     if(send != null && send instanceof FragToMealDiary) {
-                        send.setEntryQty(value, (String) unitSpinner.getSelectedItem());
+                        switch(mode){
+                            case EDIT_QTY:
+                                send.setEntryQty(value, (String) unitSpinner.getSelectedItem());
+                                break;
+                            case GOAL_CALORIE:
+                                send.setGoalCalories(value);
+                                break;
+                            case ACTUAL_EXERCISE:
+                                send.setExerciseCalories(value);
+                                break;
+                        }
                         dismiss();
                     }
+                }
+                else {
+                    quantity.setError("Invalid input must be between 0 and 9999 inclusive");
                 }
             }
         });
