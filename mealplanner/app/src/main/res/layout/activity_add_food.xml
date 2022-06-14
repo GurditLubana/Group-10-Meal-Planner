@@ -11,199 +11,218 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?colorPrimary">
+        android:background="?colorPrimary"
+        android:minHeight="400dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?colorPrimary">
-
-            <Spinner
-                android:id="@+id/inputUnit2"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="32dp"
-                app:layout_constraintEnd_toEndOf="@+id/foodCalories"
-                app:layout_constraintStart_toStartOf="@+id/foodCalories"
-                app:layout_constraintTop_toBottomOf="@+id/foodCalories" />
-
-            <EditText
-                android:id="@+id/foodQnty"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:hint="Quantity"
-                android:inputType="number"
-                android:paddingRight="10dp"
-                android:textAlignment="textEnd"
-                android:textColor="?colorOnPrimary"
-                android:textColorHint="#E1E1E1"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/inputUnit2"
-                app:layout_constraintEnd_toStartOf="@+id/inputUnit2"
-                app:layout_constraintTop_toTopOf="@+id/inputUnit2" />
-
-            <TextView
-                android:id="@+id/textView19"
-                android:text="Add Food Item"
-                android:layout_width="415dp"
-                android:layout_height="59dp"
-                android:layout_marginTop="32dp"
-                android:background="?colorPrimary"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="?colorOnPrimary"
-                android:textSize="40dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <EditText
-                android:id="@+id/foodTitle"
-                android:layout_width="360dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="64dp"
-                android:layout_weight="0.7"
-                android:background="?colorSecondaryVariant"
-                android:backgroundTint="?colorSecondaryVariant"
-                android:hint="Food Name"
-                android:inputType="textPersonName"
-                android:padding="10dp"
-                android:textColor="?colorOnPrimary"
-                android:textColorHint="#E1E1E1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dImage" />
-
-            <TextView
-                android:id="@+id/Heading"
-                android:text="Food Name"
-                android:layout_width="147dp"
-                android:layout_height="49dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="0.3"
-                android:background="?colorPrimary"
-                android:gravity="right|center_vertical"
-                android:textAlignment="gravity"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="?colorOnPrimary"
-                android:textSize="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/foodTitle"
-                app:layout_constraintEnd_toStartOf="@+id/foodTitle"
-                app:layout_constraintTop_toTopOf="@+id/foodTitle" />
-
-            <EditText
-                android:id="@+id/foodCalories"
-                android:layout_width="360dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:background="?colorSecondaryVariant"
-                android:backgroundTint="?colorSecondaryVariant"
-                android:hint="Calories in this food item"
-                android:inputType="number"
-                android:padding="10dp"
-                android:textColor="?colorOnPrimary"
-                android:textColorHint="#E1E1E1"
-                app:layout_constraintEnd_toEndOf="@+id/foodTitle"
-                app:layout_constraintStart_toStartOf="@+id/foodTitle"
-                app:layout_constraintTop_toBottomOf="@+id/foodTitle" />
-
-            <TextView
-                android:id="@+id/dImage"
-                android:layout_width="147dp"
-                android:layout_height="49dp"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="0.3"
-                android:background="?colorPrimary"
-                android:gravity="center"
-                android:text="Take a photo"
-                android:textAlignment="gravity"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="?colorOnPrimary"
-                android:textSize="20dp"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="@+id/imageView"
-                app:layout_constraintHorizontal_bias="0.463"
-                app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-
-            <TextView
-                android:id="@+id/calories"
-                android:layout_width="147dp"
-                android:layout_height="49dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="0.3"
-                android:background="?colorPrimary"
-                android:gravity="right|center_vertical"
-                android:text="Calories"
-                android:textAlignment="gravity"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="?colorOnPrimary"
-                android:textSize="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/foodCalories"
-                app:layout_constraintEnd_toStartOf="@+id/foodCalories"
-                app:layout_constraintTop_toTopOf="@+id/foodCalories"
-                app:layout_constraintVertical_bias="0.896" />
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="32dp"
-                android:background="?colorSecondaryVariant"
-                android:src="@drawable/baseline_photo_camera_white_36"
-                app:layout_constraintEnd_toEndOf="@+id/textView19"
-                app:layout_constraintStart_toStartOf="@+id/textView19"
-                app:layout_constraintTop_toBottomOf="@+id/textView19"
-                app:srcCompat="?attr/selectableItemBackground" />
+            android:scrollIndicators="right"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarSize="15dp"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical"
+            android:verticalScrollbarPosition="right">
 
             <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/foodQnty">
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/cancelTask3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="0.5"
-                    android:backgroundTint="?colorPrimaryVariant"
-                    android:text="CANCEL"
-                    android:textColor="?colorOnPrimary" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?colorPrimary">
 
-                <Button
-                    android:id="@+id/addItem3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="0.5"
-                    android:backgroundTint="?colorPrimaryVariant"
-                    android:text="OK"
-                    android:textColor="?colorOnPrimary" />
+                    <Spinner
+                        android:id="@+id/inputUnit2"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="32dp"
+                        app:layout_constraintEnd_toEndOf="@+id/foodCalories"
+                        app:layout_constraintStart_toStartOf="@+id/foodCalories"
+                        app:layout_constraintTop_toBottomOf="@+id/foodCalories" />
+
+                    <EditText
+                        android:id="@+id/foodQnty"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:hint="Quantity"
+                        android:inputType="number"
+                        android:paddingRight="10dp"
+                        android:textAlignment="textEnd"
+                        android:textColor="?colorOnPrimary"
+                        android:textColorHint="#E1E1E1"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/inputUnit2"
+                        app:layout_constraintEnd_toStartOf="@+id/inputUnit2"
+                        app:layout_constraintTop_toTopOf="@+id/inputUnit2" />
+
+                    <TextView
+                        android:id="@+id/textView19"
+                        android:layout_width="415dp"
+                        android:layout_height="59dp"
+                        android:layout_marginTop="32dp"
+                        android:background="?colorPrimary"
+                        android:text="Add Food Item"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?colorOnPrimary"
+                        android:textSize="40dp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <EditText
+                        android:id="@+id/foodTitle"
+                        android:layout_width="360dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="64dp"
+                        android:layout_weight="0.7"
+                        android:background="?colorSecondaryVariant"
+                        android:backgroundTint="?colorSecondaryVariant"
+                        android:hint="Food Name"
+                        android:inputType="textPersonName"
+                        android:padding="10dp"
+                        android:textColor="?colorOnPrimary"
+                        android:textColorHint="#E1E1E1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/dImage" />
+
+                    <TextView
+                        android:id="@+id/Heading"
+                        android:layout_width="147dp"
+                        android:layout_height="49dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="0.3"
+                        android:background="?colorPrimary"
+                        android:gravity="right|center_vertical"
+                        android:text="Food Name"
+                        android:textAlignment="gravity"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?colorOnPrimary"
+                        android:textSize="20dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/foodTitle"
+                        app:layout_constraintEnd_toStartOf="@+id/foodTitle"
+                        app:layout_constraintTop_toTopOf="@+id/foodTitle" />
+
+                    <EditText
+                        android:id="@+id/foodCalories"
+                        android:layout_width="360dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="16dp"
+                        android:background="?colorSecondaryVariant"
+                        android:backgroundTint="?colorSecondaryVariant"
+                        android:hint="Calories in this food item"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:textColor="?colorOnPrimary"
+                        android:textColorHint="#E1E1E1"
+                        app:layout_constraintEnd_toEndOf="@+id/foodTitle"
+                        app:layout_constraintStart_toStartOf="@+id/foodTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/foodTitle" />
+
+                    <TextView
+                        android:id="@+id/dImage"
+                        android:layout_width="147dp"
+                        android:layout_height="49dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="0.3"
+                        android:background="?colorPrimary"
+                        android:gravity="center"
+                        android:text="Take a photo"
+                        android:textAlignment="gravity"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?colorOnPrimary"
+                        android:textSize="20dp"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="@+id/imageView"
+                        app:layout_constraintHorizontal_bias="0.463"
+                        app:layout_constraintStart_toStartOf="@+id/imageView"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+
+                    <TextView
+                        android:id="@+id/calories"
+                        android:layout_width="147dp"
+                        android:layout_height="49dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="0.3"
+                        android:background="?colorPrimary"
+                        android:gravity="right|center_vertical"
+                        android:text="Calories"
+                        android:textAlignment="gravity"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?colorOnPrimary"
+                        android:textSize="20dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/foodCalories"
+                        app:layout_constraintEnd_toStartOf="@+id/foodCalories"
+                        app:layout_constraintTop_toTopOf="@+id/foodCalories"
+                        app:layout_constraintVertical_bias="0.896" />
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="32dp"
+                        android:background="?colorSecondaryVariant"
+                        android:src="@drawable/baseline_photo_camera_white_36"
+                        app:layout_constraintEnd_toEndOf="@+id/textView19"
+                        app:layout_constraintStart_toStartOf="@+id/textView19"
+                        app:layout_constraintTop_toBottomOf="@+id/textView19"
+                        app:srcCompat="?attr/selectableItemBackground" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="64dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/foodQnty">
+
+                        <Button
+                            android:id="@+id/cancelTask3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.5"
+                            android:backgroundTint="?colorPrimaryVariant"
+                            android:text="CANCEL"
+                            android:textColor="?colorOnPrimary" />
+
+                        <Button
+                            android:id="@+id/addItem3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.5"
+                            android:backgroundTint="?colorPrimaryVariant"
+                            android:text="OK"
+                            android:textColor="?colorOnPrimary" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="10dp"
+                        android:src="@drawable/baseline_photo_camera_white_48"
+                        app:layout_constraintBottom_toTopOf="@+id/dImage"
+                        app:layout_constraintEnd_toEndOf="@+id/imageView"
+                        app:layout_constraintStart_toStartOf="@+id/imageView"
+                        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
+        </ScrollView>
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:elevation="10dp"
-                android:src="@drawable/baseline_photo_camera_white_48"
-                app:layout_constraintBottom_toTopOf="@+id/dImage"
-                app:layout_constraintEnd_toEndOf="@+id/imageView"
-                app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="@+id/imageView" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
 

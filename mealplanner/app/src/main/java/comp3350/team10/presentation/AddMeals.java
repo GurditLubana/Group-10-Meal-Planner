@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,15 +23,14 @@ import comp3350.team10.objects.MealIngredient;
 
 public class AddMeals extends DialogFragment {
 
-    private EditText mealNameText,caloriesText,quantityText,instructions, ingredients;
+    private EditText mealNameText, caloriesText, quantityText, instructions, ingredients;
     private Button addBtn3, cancelButton3;
     private String mealName;
     private EditText imageView;
-    private int calories,quantity;
+    private int calories, quantity;
     private MealIngredient[] ingredientsArray;
     private ImageView image;
     private FragToRecipeBook sendInput2;
-
 
 
     public AddMeals() {
@@ -79,17 +79,17 @@ public class AddMeals extends DialogFragment {
             }
         });
 
-        return builder.create();
+        Dialog dialog = builder.create();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        return dialog;
     }
 
     public static String TAG = "AddMeals";
 
 
+    private void sendData(View view) {
 
-    private void sendData(View view)
-    {
-
-        if(validateInput(view) == true) {
+        if (validateInput(view) == true) {
 
             String[] dInstruct = instructions.getText().toString().split("\n");
             String[] dIngredients = ingredients.getText().toString().split(",");
@@ -112,7 +112,6 @@ public class AddMeals extends DialogFragment {
     }
 
 
-
     private boolean validateInput(View view) {
         boolean result = true;
         String name = mealNameText.getText().toString().trim();
@@ -122,7 +121,7 @@ public class AddMeals extends DialogFragment {
         String ingred = ingredients.getText().toString().trim();
 
 
-        if (calory.length() == 0 ) {
+        if (calory.length() == 0) {
             caloriesText.setError("Calorie count cannot be empty");
             result = false;
 
@@ -155,7 +154,6 @@ public class AddMeals extends DialogFragment {
 
         return result;
     }
-
 
 
 }
