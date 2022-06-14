@@ -25,8 +25,8 @@ import comp3350.team10.persistence.SharedDB;
 public class UnitConverterTests {
 
     @Nested
-    @DisplayName("All conversions of per unit Table spoon")
-    class tableSpoon {
+    @DisplayName("All these conversions tests should pass ")
+    class shouldPassTests {
 
         @Test
         void convertPerTbspToPerGram() {
@@ -91,14 +91,92 @@ public class UnitConverterTests {
             Integer result = prevValue.getCalories(Edible.Unit.g, 1);
             UnitConverter prevValue2 = new UnitConverter(Edible.Unit.g, 1, result);
 
-            Integer result2 = prevValue2.getCalories(Edible.Unit.serving, 1);
-
-
-            Integer expected = 2500;
+            Integer result2 = prevValue2.getCalories(Edible.Unit.oz, 1);
+            Integer expected = 280;
             assertEquals(expected,result2);
 
 
         }
+
+
+
+        @Test
+        void convertPerTspToPerServing() {
+
+            UnitConverter prevValue = new UnitConverter(Edible.Unit.tsp, 1, 144);
+            Integer result = prevValue.getCalories(Edible.Unit.g, 1);
+            UnitConverter prevValue2 = new UnitConverter(Edible.Unit.g, 1, result);
+
+            Integer result2 = prevValue2.getCalories(Edible.Unit.serving, 1);
+
+
+            Integer expected = 7000;
+            assertEquals(expected,result2);
+
+        }
+
+        @Test
+        void convertPerTspToPerMl() {
+
+            UnitConverter prevValue = new UnitConverter(Edible.Unit.tsp, 1, 144);
+            Integer result = prevValue.getCalories(Edible.Unit.g, 1);
+            UnitConverter prevValue2 = new UnitConverter(Edible.Unit.g, 1, result);
+
+            Integer result2 = prevValue2.getCalories(Edible.Unit.ml, 1);
+
+
+            Integer expected = 28;
+            assertEquals(expected,result2);
+        }
+
+
+        @Test
+        void convertPerTspToPerCups() {
+
+            UnitConverter prevValue = new UnitConverter(Edible.Unit.tsp, 1, 144);
+            Integer result = prevValue.getCalories(Edible.Unit.g, 1);
+            UnitConverter prevValue2 = new UnitConverter(Edible.Unit.g, 1, result);
+
+            Integer result2 = prevValue2.getCalories(Edible.Unit.cups, 1);
+
+
+            Integer expected = 6272;
+            assertEquals(expected,result2);
+
+
+        }
+
+        @Test
+        void convertPerTspToPerOz() {
+
+            UnitConverter prevValue = new UnitConverter(Edible.Unit.oz, 1, 144);
+            Integer result = prevValue.getCalories(Edible.Unit.g, 1);
+            UnitConverter prevValue2 = new UnitConverter(Edible.Unit.g, 1, result);
+
+            Integer result2 = prevValue2.getCalories(Edible.Unit.oz, 1);
+
+
+            Integer expected = 140;
+            assertEquals(expected,result2);
+
+        }
+
+        @Test
+        void convertPerTspToPerLiter() {
+
+            UnitConverter prevValue = new UnitConverter(Edible.Unit.oz, 1, 144);
+            Integer result = prevValue.getCalories(Edible.Unit.g, 1);
+            UnitConverter prevValue2 = new UnitConverter(Edible.Unit.g, 1, result);
+
+            Integer result2 = prevValue2.getCalories(Edible.Unit.liter, 1);
+
+
+            Integer expected = 5;
+            assertEquals(expected,result2);
+
+        }
+
+
 
         @Test
         void convertPerTspToPerGram() {
@@ -109,6 +187,7 @@ public class UnitConverterTests {
             assertEquals(expected, result);
 
         }
+
 
         @Test
         void convertPerLiterToPerGram()
@@ -137,8 +216,6 @@ public class UnitConverterTests {
             UnitConverter prevValue = new UnitConverter(Edible.Unit.ml,100, 52);
             Integer result = prevValue.getCalories(Edible.Unit.g,400);
 
-            System.out.println(result);
-
             Integer expected = 208;
             assertEquals(expected,result);
         }
@@ -149,9 +226,51 @@ public class UnitConverterTests {
             UnitConverter prevValue = new UnitConverter(Edible.Unit.serving,3, 840);
             Integer result = prevValue.getCalories(Edible.Unit.g,400);
 
-            System.out.println(result);
 
             Integer expected = 448;
+            assertEquals(expected,result);
+        }
+
+    }
+
+    @Nested
+    @DisplayName("These are the edge cases. Some or all of them should fail the tests")
+    class edgeCases{
+
+        @Test
+        void convertingToSameUnit()
+        {
+            UnitConverter prevValue = new UnitConverter(Edible.Unit.serving,3, 840);
+            Integer result = prevValue.getCalories(Edible.Unit.serving,3);
+
+            Integer expected = 840;
+            assertEquals(expected,result);
+
+
+
+
+        }
+
+        @Test
+        void testingIfQntyZero()
+        {
+            UnitConverter prevValue = new UnitConverter(Edible.Unit.serving,0, 840);
+            Integer result = prevValue.getCalories(Edible.Unit.g,3);
+
+
+            Integer expected = 0;
+            assertEquals(expected,result);
+         }
+
+
+        @Test
+        void testingIfCaloryZero()
+        {
+            UnitConverter prevValue = new UnitConverter(Edible.Unit.serving,3, 0);
+            Integer result = prevValue.getCalories(Edible.Unit.serving,1);
+
+
+            Integer expected = 0;
             assertEquals(expected,result);
         }
 

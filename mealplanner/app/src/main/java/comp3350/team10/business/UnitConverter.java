@@ -62,6 +62,9 @@ public class UnitConverter {
     }
 
     private void convertCaloriesPerUnitToCaloriesPerGram(){
+
+
+
         if( prevUnit == Edible.Unit.cups ){
             calsPerUnit = 1/factorGPerCup * calsPerUnit;
         }
@@ -91,7 +94,16 @@ public class UnitConverter {
     }
 
     private void calculateCaloriesPerUnit(){
-        calsPerUnit = prevCalories/prevQuantity;
+
+        if(prevQuantity != 0)
+        {
+            calsPerUnit = prevCalories/prevQuantity;
+        }
+        else
+        {
+            calsPerUnit = 0.0;
+        }
+
     }
 
     private void gTog(){
