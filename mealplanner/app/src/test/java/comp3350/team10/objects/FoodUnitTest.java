@@ -30,7 +30,6 @@ public class FoodUnitTest {
 
 		@Test
 		void testGetValues(){
-			assertFalse(0 == testFood.getCalories());
 			assertEquals(450, testFood.getCalories());
 			assertTrue("pasta" == testFood.getName());
 			assertTrue(5 == testFood.getQuantity());
@@ -38,6 +37,15 @@ public class FoodUnitTest {
 			assertTrue(testFood.getFragmentType() == FragmentType.diaryEntry);
 		}
 
+		@Test
+		void nameNotNull(){
+			assertTrue(testFood.getName() != null);
+		}
+
+		@Test
+		void nameNotEmpty(){
+			assertFalse(testFood.getName() == "");
+		}
 		@Test
 		void testCalories(){
 			assertTrue(testFood.getCalories() >= 0);
@@ -54,6 +62,12 @@ public class FoodUnitTest {
 		void testIconPath(){
 			assertTrue(testFood.getIconPath() >= 0);
 			assertTrue( testFood.getIconPath() <= 9999);
+		}
+
+		@Test
+		void testDbKey(){
+			assertTrue(testFood.getDbkey() >= 0);
+			assertTrue(testFood.getDbkey() <= 9999);
 		}
 
 	}
@@ -126,23 +140,6 @@ public class FoodUnitTest {
 			SetFood.setIconPath(30);
 			assertTrue(SetFood.getIconPath() != currpath);
 			assertTrue(SetFood.getIconPath() == 30);
-		}
-	}
-
-	@Nested
-	@DisplayName("Edible Test edge cases")
-	class EdgeCases{
-
-		Food testThis;
-
-		@BeforeEach
-		void SetUpFood(){
-			testThis = new Food("noodles", 55, 300, FragmentType.diaryEntry, Unit.liter, 15, 3);
-		}
-
-		@Test
-		void FoodName(){
-			assertNull(testThis.getName());
 		}
 	}
 
