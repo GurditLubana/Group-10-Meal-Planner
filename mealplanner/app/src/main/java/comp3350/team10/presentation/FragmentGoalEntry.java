@@ -9,10 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import android.view.LayoutInflater;
+
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -67,8 +65,8 @@ public class FragmentGoalEntry extends DialogFragment {
     }
 
     private void setOnClickListeners(View view){
-        Button btnOk = (Button) view.findViewById(R.id.btnOK);
-        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+        Button btnOk = (Button) view.findViewById(R.id.addItem3);
+        Button btnCancel = (Button) view.findViewById(R.id.cancelTask3);
 
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override

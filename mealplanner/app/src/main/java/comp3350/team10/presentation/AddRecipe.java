@@ -1,31 +1,21 @@
 package comp3350.team10.presentation;
 
 import comp3350.team10.R;
-import comp3350.team10.business.RecipeBookOps;
 import comp3350.team10.objects.Edible;
-import comp3350.team10.objects.Food;
-import comp3350.team10.objects.ListItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.v4.media.MediaMetadataCompat;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class AddRecipe extends DialogFragment {
     private EditText foodNameText, caloriesText, quantityText;
@@ -63,11 +53,11 @@ public class AddRecipe extends DialogFragment {
         builder.setView(view);
 
         foodNameText = view.findViewById(R.id.foodTitle);
-        imageView  = view.findViewById(R.id.imagePath);
+        //imageView  = view.findViewById(R.id.imagePath);
         caloriesText = view.findViewById(R.id.foodCalories);
         quantityText = view.findViewById(R.id.foodQnty);
-        addBtn = view.findViewById(R.id.addItem);
-        cancelButton = view.findViewById(R.id.cancelTask);
+        addBtn = view.findViewById(R.id.addItem3);
+        cancelButton = view.findViewById(R.id.cancelTask3);
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,36 +110,21 @@ public class AddRecipe extends DialogFragment {
 
 
         if (calory.length() == 0 ) {
-            Context context = view.getContext();
-            CharSequence text = "Calory count can't be empty.";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(getContext(), text, duration);
-            toast.show();
+            caloriesText.setError("Calorie count cannot be empty");
             result = false;
 
         }
 
 
         if (name.length() == 0) {
-            Context context = view.getContext();
-            CharSequence text = "Food name can't be empty.";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(getContext(), text, duration);
-            toast.show();
+            foodNameText.setError("Meal name cannot be empty");
             result = false;
 
         }
 
 
         if (quantity.length() == 0) {
-            Context context = view.getContext();
-            CharSequence text = "Quantities field can't be empty.";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+            quantityText.setError("Quantity must be between 0 and 9999 inclusive");
             result = false;
 
         }
