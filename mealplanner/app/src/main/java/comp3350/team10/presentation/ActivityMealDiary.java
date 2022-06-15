@@ -95,6 +95,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     public void showContextUI(int position) {
+        Food modifyUIcard = null;
         if(position != this.savedItemPosition && this.savedItem != null) {
             this.data.remove(this.savedItemPosition);
             this.data.add(this.savedItemPosition, this.savedItem);
@@ -104,7 +105,9 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             if (this.data.get(position).getFragmentType() == ListItem.FragmentType.diaryEntry) {
                 this.savedItem = this.data.remove(position);
                 this.savedItemPosition = position;
-                this.data.add(position, new Food("ui", 0, 0, ListItem.FragmentType.diaryModify, Edible.Unit.g, 0, 0));
+                modifyUIcard = new Food();
+                modifyUIcard.init("ui", 0, 0, ListItem.FragmentType.diaryModify, Edible.Unit.g, 0, 0);
+                this.data.add(position, modifyUIcard);
             }
             else {
                 this.data.remove(position);

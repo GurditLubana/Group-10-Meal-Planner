@@ -56,19 +56,25 @@ public class RecipeBookOps {
     }
 
     public void addFood(String name, int iconPath, int calories, Edible.Unit baseUnit, int quantity) {
-        Edible newFood = new Food(name, iconPath, calories, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey());
+        Food item = new Food();
+        item.init(name, iconPath, calories, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey());
+        Edible newFood = item;
         
         db.addFoodToRecipeBook(newFood);
     }
 
     public void addMeal(String name, int iconPath, int calories, String ingredients, String instructions, Edible.Unit baseUnit, int quantity){
-        Edible newMeal = new Meal(name, iconPath, calories, ingredients, instructions, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey());
+        Meal item = new Meal();
+        item.init(name, iconPath, calories, ingredients, instructions, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey());
+        Edible newMeal = item;
         
         db.addMealToRecipeBook(newMeal);
     }
 
     public void addDrink(String name, int iconPath, int cals, String instructions, String ingredients, Edible.Unit baseUnit, int quantity){
-        Edible newDrink = new Drink(name, iconPath, cals, instructions, ingredients, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey());
+        Drink item = new Drink();
+        item.init(name, iconPath, cals, instructions, ingredients, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey());
+        Edible newDrink = item;
         
         db.addDrinkToRecipeBook(newDrink);
     }

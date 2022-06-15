@@ -15,6 +15,6 @@ public class Food extends Edible {
 
 
     public boolean init(String name, int iconPath, int calories, ListItem.FragmentType type, Edible.Unit baseUnit, int quantity, int dbkey) {
-        return super.init(name, iconPath, type, baseUnit, quantity, dbkey);
+        return super.init(name, iconPath, calories, type, baseUnit, quantity, dbkey);
     }
 }
