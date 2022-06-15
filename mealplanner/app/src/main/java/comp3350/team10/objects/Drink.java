@@ -4,7 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Drink extends PreparedItem {
     private final static Integer CALORIES_PER_DRINK = 250;  //The default quantity of calories per drink
-    private String[] ingredients;                           //A list of ingredients for the given drink
+    private String ingredients;                           //A list of ingredients for the given drink
 
     public Drink() {
         super();
@@ -13,7 +13,7 @@ public class Drink extends PreparedItem {
     }
 
 
-    public boolean init(String name, int iconPath, int cals, String instructions, String[] ingredients, ListItem.FragmentType type, Edible.Unit baseUnit, int quantity, int dbkey) {
+    public boolean init(String name, int iconPath, int cals, String instructions, String ingredients, ListItem.FragmentType type, Edible.Unit baseUnit, int quantity, int dbkey) {
         boolean results = super.init(name, iconPath, CALORIES_PER_DRINK, instructions, type, baseUnit, quantity, dbkey);
         
         if(!results || !setIngredients(ingredients)) {
@@ -28,10 +28,10 @@ public class Drink extends PreparedItem {
         return this.ingredients;
     }
 
-    public boolean setIngredients(String[] newIngredients) {
+    public boolean setIngredients(String newIngredients) {
         boolean results = false;
 
-        if(newIngredients == null || (newIngredients.length > 0 && !Arrays.asList(newIngredients).contains(""))) {
+        if(newIngredients == null || (newIngredients.length() > 0 )) {
             this.ingredients = newIngredients;
             results = true;
         }

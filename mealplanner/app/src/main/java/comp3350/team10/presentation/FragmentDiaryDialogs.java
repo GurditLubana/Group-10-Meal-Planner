@@ -12,11 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import android.view.View;
+
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,10 +23,10 @@ import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentMealDiaryDialogs#newInstance} factory method to
+ * Use the {@link FragmentDiaryDialogs#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentMealDiaryDialogs extends DialogFragment {
+public class FragmentDiaryDialogs extends DialogFragment {
     public static String TAG = "MealEntryDialog";
     private FragToMealDiary send;
     private FragToMealDiary.EntryMode mode;
@@ -39,13 +37,13 @@ public class FragmentMealDiaryDialogs extends DialogFragment {
     private TextView unitText;
     private Spinner unitSpinner;
 
-    public FragmentMealDiaryDialogs() {
+    public FragmentDiaryDialogs() {
         // Required empty public constructor
     }
 
 
-    public static FragmentMealDiaryDialogs newInstance(String param1, String param2) {
-        FragmentMealDiaryDialogs fragment = new FragmentMealDiaryDialogs();
+    public static FragmentDiaryDialogs newInstance(String param1, String param2) {
+        FragmentDiaryDialogs fragment = new FragmentDiaryDialogs();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -60,7 +58,7 @@ public class FragmentMealDiaryDialogs extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_meal_diary_dialogs, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_diary_dialogs, null);
         Context context = view.getContext();
         this.btnCancel = view.findViewById(R.id.btnCancel);
         this.btnOk = view.findViewById(R.id.btnOk);

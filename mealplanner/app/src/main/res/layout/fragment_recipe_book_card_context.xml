@@ -7,7 +7,7 @@
     android:layout_height="280dp"
     android:minWidth="300dp"
     android:minHeight="300dp"
-    tools:context=".presentation.FragmentDblCard">
+    tools:context=".presentation.FragmentRecipeBookCard">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.cardview.widget.CardView

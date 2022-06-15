@@ -96,7 +96,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                     animateButton();
                 }
 
-                new FragmentRecipeBookAdd().show(getSupportFragmentManager(), FragmentRecipeBookAdd.TAG);
+                new FragmentRecipeBookDialogs().show(getSupportFragmentManager(), FragmentRecipeBookDialogs.TAG);
             }
         });
     }
@@ -177,24 +177,27 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     @Override
-    public void showContextUI(int posi) {
-        if (posi != this.savedPosi && this.saved != null) {
+    public void showContextUI(int position) {
+        Food modifyUIcard = null;
+        if (position != this.savedPosi && this.saved != null) {
             this.data.remove(this.savedPosi);
             this.data.add(this.savedPosi, this.saved);
         }
 
-        if (this.data.get(posi).getFragmentType() != ListItem.FragmentType.cardSelection) {
-            this.saved = this.data.remove(posi);
-            this.savedPosi = posi;
-            this.data.add(posi, new Food("", 0, 0, ListItem.FragmentType.cardSelection, null, 0, 0));
+        if (this.data.get(position).getFragmentType() != ListItem.FragmentType.cardSelection) {
+            this.saved = this.data.remove(position);
+            this.savedPosi = position;
+            modifyUIcard = new Food();
+            modifyUIcard.init("ui", 0, 0, ListItem.FragmentType.cardSelection, Edible.Unit.g, 1, 0);
+            this.data.add(position, modifyUIcard);
         } else {
-            this.data.remove(posi);
-            this.data.add(posi, this.saved);
+            this.data.remove(position);
+            this.data.add(position, this.saved);
             this.saved = null;
         }
 
-        this.recyclerViewAdapter.notifyItemRemoved(posi);
-        this.recyclerViewAdapter.notifyItemRangeChanged(posi, data.size());
+        this.recyclerViewAdapter.notifyItemRemoved(position);
+        this.recyclerViewAdapter.notifyItemRangeChanged(position, data.size());
         this.recyclerViewAdapter.notifyDataSetChanged();
     }
 

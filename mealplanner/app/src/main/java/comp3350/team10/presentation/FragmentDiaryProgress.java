@@ -18,17 +18,17 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class FragmentDailyProgress extends Fragment {
+public class FragmentDiaryProgress extends Fragment {
     MealDiaryLiveData mealDiaryLiveData;
     private SimpleDateFormat mon ;
     private SimpleDateFormat day ;
     FragToMealDiary send;
 
-    public FragmentDailyProgress() {}  //Required empty public constructor
+    public FragmentDiaryProgress() {}  //Required empty public constructor
 
 
-    public static FragmentDailyProgress newInstance() {
-        FragmentDailyProgress fragment = new FragmentDailyProgress();
+    public static FragmentDiaryProgress newInstance() {
+        FragmentDiaryProgress fragment = new FragmentDiaryProgress();
         Bundle args = new Bundle();
         fragment.setArguments(args);
 
@@ -44,7 +44,7 @@ public class FragmentDailyProgress extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_daily_progress, container, false);
+        View view = inflater.inflate(R.layout.fragment_diary_progress, container, false);
         setClickListeners(view);
 
         mealDiaryLiveData = new ViewModelProvider(requireActivity()).get(MealDiaryLiveData.class);

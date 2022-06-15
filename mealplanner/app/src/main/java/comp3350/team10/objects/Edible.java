@@ -32,8 +32,8 @@ public abstract class Edible implements ListItem {
     }
 
 
-    public boolean init(String name, int iconPath, ListItem.FragmentType type, Unit baseUnit, int quantity, int dbkey) {
-        return this.setName(name) && this.setIconPath(iconPath) && this.setFragmentType(type) && 
+    public boolean init(String name, int iconPath, int calories, ListItem.FragmentType type, Unit baseUnit, int quantity, int dbkey) {
+        return this.setName(name) && this.setIconPath(iconPath) && this.setCalories(calories) && this.setFragmentType(type) &&
             this.setBaseUnit(baseUnit) && this.setQuantity(quantity) && this.setDbkey(dbkey);
     }
 
@@ -90,7 +90,7 @@ public abstract class Edible implements ListItem {
     public boolean setCalories(Integer newCalories) {
         boolean results = false;
 
-        if(newCalories <= Constant.ENTRY_MAX_VALUE && newCalories > Constant.ENTRY_MIN_VALUE) {
+        if(newCalories <= Constant.ENTRY_MAX_VALUE && newCalories >= Constant.ENTRY_MIN_VALUE) {
             this.calories = newCalories;
             results = true;
         }
@@ -123,7 +123,7 @@ public abstract class Edible implements ListItem {
     public boolean setDbkey(int dbkey) {
         boolean results = false;
 
-        if(dbkey > 0) {
+        if(dbkey >= 0) {
             this.dbkey = dbkey;
             results = true;
         }
@@ -145,7 +145,7 @@ public abstract class Edible implements ListItem {
     public boolean setIconPath(int iconPath) {
         boolean results = false;
 
-        if(iconPath > Constant.ENTRY_MIN_VALUE) {
+        if(iconPath >= Constant.ENTRY_MIN_VALUE) {
             this.iconPath = iconPath;
             results = true;
         }
