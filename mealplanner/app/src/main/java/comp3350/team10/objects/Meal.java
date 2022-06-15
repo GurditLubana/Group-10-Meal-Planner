@@ -11,8 +11,7 @@ public class Meal extends PreparedItem {
 
 
     public boolean init(String name, int iconPath, int calories, String ingredients, String instructions, ListItem.FragmentType type, Edible.Unit baseUnit, int quantity, int dbkey) {
-        return super.init(name, iconPath, calories, instructions, type, baseUnit, quantity, dbkey) &&
-            this.setIngredients(ingredients);
+        return super.init(name, iconPath, calories, instructions, type, baseUnit, quantity, dbkey) && this.setIngredients(ingredients);
     }
 
     public String getIngredients() {

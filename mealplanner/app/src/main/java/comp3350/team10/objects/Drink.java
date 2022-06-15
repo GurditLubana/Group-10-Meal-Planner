@@ -13,13 +13,7 @@ public class Drink extends PreparedItem {
 
 
     public boolean init(String name, int iconPath, int cals, String instructions, String ingredients, ListItem.FragmentType type, Edible.Unit baseUnit, int quantity, int dbkey) {
-        boolean results = super.init(name, iconPath, cals, instructions, type, baseUnit, quantity, dbkey);
-        
-        if(!results || !setIngredients(ingredients)) {
-            results = false;
-        }
-
-        return results;
+        return super.init(name, iconPath, cals, instructions, type, baseUnit, quantity, dbkey) && setIngredients(ingredients);
     }
 
 
