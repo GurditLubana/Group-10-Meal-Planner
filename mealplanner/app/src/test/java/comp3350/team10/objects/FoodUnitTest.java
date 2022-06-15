@@ -48,26 +48,26 @@
  		}
  		@Test
  		void testCalories(){
- 			assertTrue(testFood.getCalories() >= 0);
- 			assertTrue( testFood.getCalories() <= 9999);
+ 			assertTrue(testFood.getCalories() >= Constant.ENTRY_MIN_VALUE);
+ 			assertTrue( testFood.getCalories() <= Constant.ENTRY_MAX_VALUE);
  		}
 
  		@Test
  		void testgetQuantity(){
- 			assertTrue(testFood.getQuantity() >= 0);
- 			assertTrue( testFood.getQuantity() <= 9999);
+ 			assertTrue(testFood.getQuantity() >= Constant.ENTRY_MIN_VALUE);
+ 			assertTrue( testFood.getQuantity() <= Constant.ENTRY_MAX_VALUE);
  		}
 
  		@Test
  		void testIconPath(){
- 			assertTrue(testFood.getIconPath() >= 0);
- 			assertTrue( testFood.getIconPath() <= 9999);
+ 			assertTrue(testFood.getIconPath() >= Constant.ENTRY_MIN_VALUE);
+ 			assertTrue( testFood.getIconPath() <= Constant.ENTRY_MAX_VALUE);
  		}
 
  		@Test
  		void testDbKey(){
- 			assertTrue(testFood.getDbkey() >= 0);
- 			assertTrue(testFood.getDbkey() <= 9999);
+ 			assertTrue(testFood.getDbkey() >= Constant.ENTRY_MIN_VALUE);
+ 			assertTrue(testFood.getDbkey() <= Constant.ENTRY_MAX_VALUE);
  		}
 
  	}
@@ -84,9 +84,10 @@
  		@Test
  		void TestsetCalories(){
  			int currCal = SetFood.getCalories();
- 			SetFood.modifyCalories(350);
+			 int addCal = 350;
+ 			SetFood.modifyCalories(addCal);
  			assertTrue(SetFood.getCalories() != currCal);
- 			assertTrue(SetFood.getCalories() == (currCal + 350));
+ 			assertTrue(SetFood.getCalories() == (currCal + addCal));
  		}
  		@Test
  		void TestFragmentSetter(){
@@ -98,18 +99,20 @@
 
  		@Test
  		void TestCalorieSetter(){
- 			int curr = SetFood.getCalories();
- 			SetFood.setCalories(250);
+			 int curr = SetFood.getCalories();
+			 int setCal = 250;
+ 			SetFood.setCalories(setCal);
  			assertTrue(SetFood.getCalories() != curr);
- 			assertTrue(SetFood.getCalories() == 250);
+ 			assertTrue(SetFood.getCalories() == setCal);
  		}
 
  		@Test
  		void TestQuantitySetter(){
  			int currQuantity = SetFood.getQuantity();
- 			SetFood.setQuantity(100);
+			int setQty = 100;
+ 			SetFood.setQuantity(setQty);
  			assertTrue(SetFood.getQuantity() != currQuantity);
- 			assertTrue(SetFood.getQuantity() == 100);
+ 			assertTrue(SetFood.getQuantity() == setQty);
  		}
  		@Test
  		void TestBaseSetter(){
@@ -122,25 +125,28 @@
  		@Test
  		void TestSetDb(){
  			int currDb = SetFood.getDbkey();
- 			SetFood.setDbkey(1);
+			int dbkey = 1;
+ 			SetFood.setDbkey(dbkey);
  			assertTrue(SetFood.getDbkey() != currDb);
- 			assertTrue(SetFood.getDbkey() == 1);
+ 			assertTrue(SetFood.getDbkey() == dbkey);
  		}
 
  		@Test
  		void TestSetName(){
  			String currName = SetFood.getName();
- 			SetFood.setName("NewFood");
+			String setName = "NewFood";
+ 			SetFood.setName(setName);
  			assertTrue(SetFood.getName() != currName);
- 			assertTrue(SetFood.getName() == "NewFood");
+ 			assertTrue(SetFood.getName() == setName);
  		}
 
  		@Test
  		void testIconSetter(){
  			int currpath = SetFood.getIconPath();
- 			SetFood.setIconPath(30);
+			int setPath = 30;
+ 			SetFood.setIconPath(setPath);
  			assertTrue(SetFood.getIconPath() != currpath);
- 			assertTrue(SetFood.getIconPath() == 30);
+ 			assertTrue(SetFood.getIconPath() == setPath);
  		}
  	}
 

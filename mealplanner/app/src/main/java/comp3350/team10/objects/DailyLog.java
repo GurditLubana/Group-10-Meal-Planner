@@ -20,7 +20,6 @@ public class DailyLog { //Sort of like the user's logs from the database
         this.date = null;
         this.calGoal = null;
         this.excGoal = null;
-        this.fragmentType = null;
         this.excActual = null;
     }
 
@@ -85,17 +84,6 @@ public class DailyLog { //Sort of like the user's logs from the database
         return result;
     }
 
-    public boolean setFragmentType(ListItem.FragmentType fragmentType) {
-        boolean result = false;
-
-        if(fragmentType != null) {
-            this.fragmentType = fragmentType;
-            result = true;
-        }
-        
-        return result;
-    }
-
     public ArrayList<Edible> getFoodList() {
         return this.log;
     }
@@ -114,9 +102,5 @@ public class DailyLog { //Sort of like the user's logs from the database
 
     public Integer getDate() {
         return this.date;
-    }
-
-    public ListItem.FragmentType getFragmentType() {
-        return this.fragmentType;
     }
 }
