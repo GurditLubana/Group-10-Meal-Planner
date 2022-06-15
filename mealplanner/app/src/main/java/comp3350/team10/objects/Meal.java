@@ -1,19 +1,32 @@
 package comp3350.team10.objects;
 
 public class Meal extends PreparedItem {
-    private MealIngredient[] ingredients;   //The ingredients in the meal
+    private String strIngredients;   //The ingredients in the meal
 
-    public Meal(String name, int iconPath, int calories, MealIngredient[] ingredients, String[] instructions, ListItem.FragmentType type, Edible.Unit baseUnit, int quantity, int dbkey) {
-        super(name, iconPath, calories, instructions, type, baseUnit, quantity, dbkey);
-        this.ingredients = ingredients;
-    }
-    
+    public Meal() {
+        super();
 
-    public MealIngredient[] getIngredients() {
-        return ingredients;
+        this.strIngredients = null;
     }
 
-    public void changeIngredients(MealIngredient[] newIngredients) {
-        this.ingredients = newIngredients;
+
+    public boolean init(String name, int iconPath, int calories, String ingredients, String instructions, ListItem.FragmentType type, Edible.Unit baseUnit, int quantity, int dbkey) {
+        return super.init(name, iconPath, calories, instructions, type, baseUnit, quantity, dbkey) &&
+                this.setIngredients(ingredients);
+    }
+
+    public String getIngredients() {
+        return strIngredients;
+    }
+
+    public boolean setIngredients(String newIngredients) {
+        boolean results = false;
+
+        if (newIngredients == null || (newIngredients.length() > 0)) {
+            this.strIngredients = newIngredients;
+            results = true;
+        }
+
+        return results;
     }
 }

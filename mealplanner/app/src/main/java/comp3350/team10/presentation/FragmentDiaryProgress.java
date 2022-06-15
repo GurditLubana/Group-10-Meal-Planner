@@ -5,9 +5,11 @@ import comp3350.team10.R;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +20,18 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class FragmentDailyProgress extends Fragment {
+public class FragmentDiaryProgress extends Fragment {
     MealDiaryLiveData mealDiaryLiveData;
-    private SimpleDateFormat mon ;
-    private SimpleDateFormat day ;
+    private SimpleDateFormat mon;
+    private SimpleDateFormat day;
     FragToMealDiary send;
 
-    public FragmentDailyProgress() {}  //Required empty public constructor
+    public FragmentDiaryProgress() {
+    }  //Required empty public constructor
 
 
-    public static FragmentDailyProgress newInstance() {
-        FragmentDailyProgress fragment = new FragmentDailyProgress();
+    public static FragmentDiaryProgress newInstance() {
+        FragmentDiaryProgress fragment = new FragmentDiaryProgress();
         Bundle args = new Bundle();
         fragment.setArguments(args);
 
@@ -44,7 +47,7 @@ public class FragmentDailyProgress extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_daily_progress, container, false);
+        View view = inflater.inflate(R.layout.fragment_diary_progress, container, false);
         setClickListeners(view);
 
         mealDiaryLiveData = new ViewModelProvider(requireActivity()).get(MealDiaryLiveData.class);
@@ -53,7 +56,7 @@ public class FragmentDailyProgress extends Fragment {
         return view;
     }
 
-    private void setClickListeners(View view){
+    private void setClickListeners(View view) {
         ImageButton prevDateProgress = (ImageButton) view.findViewById(R.id.prevDateProgress);
         ImageButton nextDateProgress = (ImageButton) view.findViewById(R.id.nextDateProgress);
         TextView exerciseProgress = (TextView) view.findViewById(R.id.exerciseProgress);
@@ -65,7 +68,7 @@ public class FragmentDailyProgress extends Fragment {
             public void onClick(View v) {
                 Context context = view.getContext();
 
-                if(context != null) {
+                if (context != null) {
                     send = (FragToMealDiary) context;
                     send.selectDate();
                 }
@@ -77,7 +80,7 @@ public class FragmentDailyProgress extends Fragment {
             public void onClick(View v) {
                 Context context = view.getContext();
 
-                if(context != null) {
+                if (context != null) {
                     send = (FragToMealDiary) context;
                     send.prevDate();
                 }
@@ -89,7 +92,7 @@ public class FragmentDailyProgress extends Fragment {
             public void onClick(View v) {
                 Context context = view.getContext();
 
-                if(context != null) {
+                if (context != null) {
                     send = (FragToMealDiary) context;
                     send.nextDate();
                 }
@@ -101,7 +104,7 @@ public class FragmentDailyProgress extends Fragment {
             public void onClick(View v) {
                 Context context = view.getContext();
 
-                if(context != null) {
+                if (context != null) {
                     send = (FragToMealDiary) context;
                     send.showGoalEntryDialog();
                 }
@@ -113,7 +116,7 @@ public class FragmentDailyProgress extends Fragment {
             public void onClick(View v) {
                 Context context = view.getContext();
 
-                if(context != null) {
+                if (context != null) {
                     send = (FragToMealDiary) context;
                     send.showExerciseEntryDialog();
                 }
@@ -154,11 +157,10 @@ public class FragmentDailyProgress extends Fragment {
             @Override
             public void onChanged(Integer netCalories) {
                 ((TextView) view.findViewById(R.id.netCalories)).setText(String.valueOf(Math.abs(netCalories.intValue())));
-                
-                if(netCalories < 0) {
+
+                if (netCalories < 0) {
                     ((TextView) view.findViewById(R.id.netCalories)).setTextColor(Color.RED);
-                }
-                else {
+                } else {
                     ((TextView) view.findViewById(R.id.netCalories)).setTextColor(Color.parseColor("#81C784"));
                 }
             }

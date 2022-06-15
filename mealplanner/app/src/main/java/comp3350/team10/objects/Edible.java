@@ -1,7 +1,10 @@
 package comp3350.team10.objects;
 
+
 public abstract class Edible implements ListItem {
-    public enum Unit {cups, oz, g, serving, tbsp, tsp, ml, liter};
+    public enum Unit {cups, oz, g, serving, tbsp, tsp, ml, liter}
+
+    ;
     private ListItem.FragmentType fragmentType; //How it should appear on recycler views
     private Unit baseUnit;                      //The unit of a given edible
     private int quantity;                       //The quantity of a given edible
@@ -10,23 +13,41 @@ public abstract class Edible implements ListItem {
     private String name;                        //The name for a given variable
     private int dbkey;                          //This edibles database key
 
-    public Edible(String name, int iconPath, ListItem.FragmentType type, Unit baseUnit, int quantity, int dbkey) {
-        this.name = name;
+    public Edible() {
+        this.name = null;
         this.calories = 0;
-        this.dbkey = dbkey;
-        this.iconPath = iconPath;
-        this.fragmentType = type;
-        this.baseUnit = baseUnit;
-        this.quantity = quantity;
+        this.dbkey = -1;
+        this.iconPath = -1;
+        this.fragmentType = null;
+        this.baseUnit = null;
+        this.quantity = -1;
     }
 
     public Edible(ListItem.FragmentType type) {
         this.fragmentType = type;
+        this.name = null;
+        this.calories = 0;
+        this.dbkey = -1;
+        this.iconPath = -1;
+        this.baseUnit = null;
+        this.quantity = -1;
     }
 
 
-    public void modifyCalories(int amount) {
-        this.calories += amount;
+    public boolean init(String name, int iconPath, int calories, ListItem.FragmentType type, Unit baseUnit, int quantity, int dbkey) {
+        return this.setName(name) && this.setIconPath(iconPath) && this.setCalories(calories) && this.setFragmentType(type) &&
+                this.setBaseUnit(baseUnit) && this.setQuantity(quantity) && this.setDbkey(dbkey);
+    }
+
+    public boolean modifyCalories(int amount) {
+        boolean results = false;
+
+        if (amount > Constant.ENTRY_MIN_VALUE && this.calories + amount <= Constant.ENTRY_MAX_VALUE) {
+            this.calories += amount;
+            results = true;
+        }
+
+        return results;
     }
 
     public Integer getCalories() {
@@ -41,15 +62,15 @@ public abstract class Edible implements ListItem {
         return this.iconPath;
     }
 
-    public ListItem.FragmentType getFragmentType(){
+    public ListItem.FragmentType getFragmentType() {
         return this.fragmentType;
     }
 
-    public Unit getBaseUnit(){
+    public Unit getBaseUnit() {
         return this.baseUnit;
     }
 
-    public int getQuantity(){
+    public int getQuantity() {
         return this.quantity;
     }
 
@@ -57,31 +78,80 @@ public abstract class Edible implements ListItem {
         return this.dbkey;
     }
 
-    public void setFragmentType(ListItem.FragmentType fragmentType){
-        this.fragmentType = fragmentType;
+    public boolean setFragmentType(ListItem.FragmentType fragmentType) {
+        boolean results = false;
+
+        if (fragmentType != null) {
+            this.fragmentType = fragmentType;
+            results = true;
+        }
+
+        return results;
     }
 
-    public void setCalories(Integer newCalories){
-        this.calories = newCalories;
+    public boolean setCalories(Integer newCalories) {
+        boolean results = false;
+
+        if (newCalories <= Constant.ENTRY_MAX_VALUE && newCalories >= Constant.ENTRY_MIN_VALUE) {
+            this.calories = newCalories;
+            results = true;
+        }
+
+        return results;
     }
 
-    public void setBaseUnit(Unit baseUnit) {
-        this.baseUnit = baseUnit;
+    public boolean setBaseUnit(Unit baseUnit) {
+        boolean results = false;
+
+        if (baseUnit != null) {
+            this.baseUnit = baseUnit;
+            results = true;
+        }
+
+        return results;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public boolean setQuantity(int quantity) {
+        boolean results = false;
+
+        if (quantity <= Constant.ENTRY_MAX_VALUE && quantity > Constant.ENTRY_MIN_VALUE) {
+            this.quantity = quantity;
+            results = true;
+        }
+
+        return results;
     }
 
-    public void setDbkey(int dbkey) {
-        this.dbkey = dbkey;
+    public boolean setDbkey(int dbkey) {
+        boolean results = false;
+
+        if (dbkey >= 0) {
+            this.dbkey = dbkey;
+            results = true;
+        }
+
+        return results;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public boolean setName(String name) {
+        boolean results = false;
+
+        if (name != null && !name.equals("")) {
+            this.name = name;
+            results = true;
+        }
+
+        return results;
     }
 
-    public void setIconPath(int iconPath) {
-        this.iconPath = iconPath;
+    public boolean setIconPath(int iconPath) {
+        boolean results = false;
+
+        if (iconPath >= Constant.ENTRY_MIN_VALUE) {
+            this.iconPath = iconPath;
+            results = true;
+        }
+
+        return results;
     }
 }

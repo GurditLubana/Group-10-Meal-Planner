@@ -3,17 +3,20 @@ package comp3350.team10.presentation;
 import comp3350.team10.R;
 
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FragmentModifyLog extends Fragment {
-    public FragmentModifyLog() {} //Required empty public constructor
+public class FragmentRecipeBookCard extends Fragment {
+    public FragmentRecipeBookCard() {
+    } // Required empty public constructor
 
 
-    public static FragmentModifyLog newInstance() {
-        FragmentModifyLog fragment = new FragmentModifyLog();
+    public static FragmentRecipeBookCard newInstance() {
+        FragmentRecipeBookCard fragment = new FragmentRecipeBookCard();
         Bundle args = new Bundle();
         fragment.setArguments(args);
 
@@ -27,6 +30,6 @@ public class FragmentModifyLog extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_modify_log, container, false);
+        return inflater.inflate(R.layout.fragment_recipe_book_card, container, false);
     }
 }

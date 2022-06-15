@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="450dp"
     android:layout_height="300dp"
-    tools:context=".presentation.FragmentGoalEntry">
+    tools:context=".presentation.FragmentDiaryDialogs">
 
     <androidx.cardview.widget.CardView
         android:layout_width="450dp"
@@ -27,7 +27,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <Button
-                    android:id="@+id/cancelTask3"
+                    android:id="@+id/btnCancel"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginBottom="5dp"
@@ -37,7 +37,7 @@
                     android:textColor="?colorOnPrimary" />
 
                 <Button
-                    android:id="@+id/addItem3"
+                    android:id="@+id/btnOk"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginBottom="5dp"
@@ -79,15 +79,27 @@
                 app:layout_constraintVertical_bias="0.531" />
 
             <TextView
-                android:id="@+id/inputUnit"
+                android:id="@+id/inputUnitText"
                 android:layout_width="116dp"
                 android:layout_height="42dp"
                 android:text="Calories"
+                android:elevation="10dp"
                 android:textAlignment="center"
                 android:textColor="?colorOnPrimary"
                 android:textSize="24sp"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/inputQty"
                 app:layout_constraintStart_toEndOf="@+id/inputQty" />
+
+            <Spinner
+                android:id="@+id/inputUnit"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:visibility="visible"
+                android:elevation="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/inputQty"
+                app:layout_constraintStart_toEndOf="@+id/inputQty"
+                app:layout_constraintTop_toTopOf="@+id/inputQty" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

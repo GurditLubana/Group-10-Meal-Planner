@@ -135,6 +135,55 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
     Rationale: Hack meeting and Iter1 progress
 ---
 <br>
+
+
+### 2022 Jun 14
+    Attendees:  
+    - Josef  
+    - Manraj  
+    - Gurdit  
+
+    Topic: Iter1 requirements compared to our existing codebase, refactoring, testing and data sanitizing 
+    ----- 
+    Decision: What needs further work and work distribution
+    -----
+    Rationale: Hack meeting and Iter1 progress
+---
+<br>
+
+### 2022 Jun 15
+    Attendees:  
+    - Dane  
+    - Josef  
+    - Manraj  
+    - Gurdit  
+    - Zhao  
+
+    Topic: Iter1 requirements compared to our existing codebase, refactoring, testing and data sanitizing 
+    ----- 
+    Decision: What needs further work and work distribution
+    -----
+    Rationale: Hack meeting and Iter1 progress
+---
+<br>
+
+### 2022 Jun 16
+    Attendees:  
+    - Dane  
+    - Josef  
+    - Manraj  
+    - Gurdit  
+    - Zhao  
+
+    Topic: Iter1 requirements compared to our existing codebase, refactoring, testing and data sanitizing 
+    ----- 
+    Decision: What needs further work and work distribution
+    -----
+    Rationale: Hack meeting and Iter1 progress
+---
+<br>
+
+
 <br>
 
 # Dev tasks 
@@ -300,10 +349,10 @@ Estimate: 2hrs
      Dev: Dane   
      
 - ##### Task 16
-   Title: Recipe book more info
-    Desc: Build detailed meal information page
+   Title: Recipe book more info  
+    Desc: Build detailed meal information page  
 Estimate: 4hrs  
-  Actual:   
+  Actual: Incomplete    
      Dev: Gurdit, Dane, Josef  
      
 - ##### Task 17
@@ -395,16 +444,16 @@ Estimate: 4hrs
 - ##### Task 04
    Title: Charts   
     Desc: Build charts page UI  
-Estimate:  
-  Actual:  
-     Dev:  
+Estimate: Incomplete   
+  Actual: Incomplete  
+     Dev: Incomplete  
 
 - ##### Task 05
    Title: Charts business logic   
     Desc: implement business logic to pull data and calculate stats  
-Estimate:  
-  Actual:  
-     Dev:  
+Estimate: Incomplete  
+  Actual: Incomplete  
+     Dev: Incomplete  
 <br>
 ---
 ## Big story 3 : Viewing the meal plan  
@@ -459,9 +508,9 @@ share meal plans on social media.
 - #### Task 01
    Title: Social UI   
     Desc: Build UI for social page  
-Estimate:  
-  Actual:  
-     Dev: Gurdit  
+Estimate: Incomplete  
+  Actual: Incomplete  
+     Dev: Incomplete   
 <br>
 <br>
 ---
@@ -703,6 +752,22 @@ Duration: 6hrs
    - Added additionalDocs
    - Bug: need to change the cardOnSelect UI, we do not want to add items from this menu anymore
 
+### 2022-06-12
+     Dev: Zhou
+Duration: 6hrs
+   Tasks:
+   - Junit test for the object already been test in sepearate file
+     - DiaryItem
+     - DrinkIngredient
+     - Drink
+     - Edible
+     - Exercise
+     - Food
+     - MealIngredient and Ingredient
+     - Workout
+   - All the test is done in separate class, Bug already been fixed,
+
+
 ### 2022-06-13
      Dev: Dane
 Duration: 2hrs
@@ -711,3 +776,50 @@ Duration: 2hrs
    - More refactoring for testing (Edible and PreparedItem)
    - Created an enum checker - each enum will need its own (see ListItem)
    - Edible is supposed to be abstract but had its own instance for the creation card, delegated to food class
+
+### 2022-06-14
+     Dev:
+      - Gurdit
+      - Josef
+      - Manraj
+Duration: 6hrs
+   Tasks:
+   - Unit Testing  
+   - Bug Fixes  
+   - Code Refactoring  
+   - Consolidated meal diary dialog classes  
+   - Consolidated recipe book dialog classes
+
+### 2022-06-14
+     Dev:
+      - Dane
+      - Josef
+      - Manraj
+Duration: 6hrs
+   Tasks:
+   - Unit Testing  
+   - Bug Fixes  
+   - Code Refactoring  
+
+   
+### 2022-06-15
+     Dev:
+      - Gurdit
+      - Josef
+      - Manraj
+Duration: 6hrs
+   Tasks:
+   - Unit Testing
+   - Bug Fixes
+   - Code Refactoring
+ 
+### 2022-06-16
+     Dev:
+      - Gurdit
+      - Josef
+      - Manraj
+Duration: 6hrs
+   Tasks:
+   - Unit Testing
+   - Bug Fixes
+   - Code Refactoring

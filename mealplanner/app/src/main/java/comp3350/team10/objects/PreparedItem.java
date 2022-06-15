@@ -1,21 +1,35 @@
 package comp3350.team10.objects;
 
-public abstract class PreparedItem extends Edible {
-    private String[] instructions;  //The instructions required for the item to prepare
-    
-    public PreparedItem(String name, int iconPath, int calories, String[] instructions, ListItem.FragmentType type, Edible.Unit baseUnit, int quantity, int dbkey) {
-        super(name, iconPath, type, baseUnit, quantity, dbkey);
+import java.util.Arrays;
 
-        super.modifyCalories(calories);
-        this.instructions = instructions;
+public abstract class PreparedItem extends Edible {
+    private String instructions;  //The instructions required for the item to prepare
+
+
+    public PreparedItem() {
+        super();
+
+        this.instructions = null;
+    }
+
+    public boolean init(String name, int iconPath, int calories, String instructions, ListItem.FragmentType type, Unit baseUnit, int quantity, int dbkey) {
+        return super.init(name, iconPath, calories, type, baseUnit, quantity, dbkey) && super.modifyCalories(calories)
+                && this.changeInstructions(instructions);
     }
 
 
-    public String[] getInstructions() {
+    public String getInstructions() {
         return instructions;
     }
 
-    public void changeInstructions(String[] newInstructions) {
-        this.instructions = newInstructions;
+    public boolean changeInstructions(String newInstructions) {
+        boolean results = false;
+
+        if (newInstructions == null || (newInstructions.length() > 0)) {
+            this.instructions = newInstructions;
+            results = true;
+        }
+
+        return results;
     }
 }

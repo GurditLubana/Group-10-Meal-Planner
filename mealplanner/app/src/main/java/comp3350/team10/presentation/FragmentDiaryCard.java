@@ -4,19 +4,19 @@ import comp3350.team10.R;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FragmentLogCard extends Fragment {
-    private FragToParent parentComm;
+public class FragmentDiaryCard extends Fragment {
+    public FragmentDiaryCard() {
+    } //Required empty public constructor
 
-
-    public FragmentLogCard() {} //Required empty public constructor
-
-    public static FragmentLogCard newInstance() {
-        FragmentLogCard fragment = new FragmentLogCard();
+    public static FragmentDiaryCard newInstance() {
+        FragmentDiaryCard fragment = new FragmentDiaryCard();
         Bundle args = new Bundle();
         fragment.setArguments(args);
 
@@ -30,19 +30,13 @@ public class FragmentLogCard extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_log_card, container, false);
+        return inflater.inflate(R.layout.fragment_diary_card, container, false);
     }
 
     @Override
     public void onAttach(Context context) { //This makes sure that the container activity has implemented
         super.onAttach(context);            //the callback interface. If not, it throws an exception
-        
-        try {
-            parentComm = (FragToParent) context;
-        } 
-        catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnHeadlineSelectedListener");
-        }
+
     }
 
 
