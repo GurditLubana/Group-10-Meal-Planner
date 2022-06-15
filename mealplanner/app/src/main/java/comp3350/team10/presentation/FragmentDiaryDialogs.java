@@ -65,13 +65,14 @@ public class FragmentDiaryDialogs extends DialogFragment {
         this.title = view.findViewById(R.id.dialogTitle);
         this.quantity = view.findViewById(R.id.inputQty);
         this.unitText = view.findViewById(R.id.inputUnitText);
-        this.unitSpinner = view.findViewById(R.id.inputUnit);;
+        this.unitSpinner = view.findViewById(R.id.inputUnit);
+        ;
 
-        if(context != null && context instanceof FragToMealDiary){
+        if (context != null && context instanceof FragToMealDiary) {
             this.send = (FragToMealDiary) context;
             this.mode = this.send.getEntryMode();
 
-            switch(mode){
+            switch (mode) {
                 case EDIT_QTY:
                     setEditDialogFieldDefaults();
                     break;
@@ -89,7 +90,7 @@ public class FragmentDiaryDialogs extends DialogFragment {
         return builder.create();
     }
 
-    private void setEditDialogFieldDefaults(){
+    private void setEditDialogFieldDefaults() {
         Edible.Unit unit = Edible.Unit.serving;
         int size = Edible.Unit.values().length;
         ArrayAdapter<String> adapter = null;
@@ -97,14 +98,14 @@ public class FragmentDiaryDialogs extends DialogFragment {
         String[] items = new String[size];
 
         this.title.setText("Edit Quantity");
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             items[i] = Edible.Unit.values()[i].name();
         }
 
         adapter = new ArrayAdapter<String>(getActivity().getBaseContext(), R.layout.spinner_unit_items, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        if(this.send != null && send instanceof FragToMealDiary) {
+        if (this.send != null && send instanceof FragToMealDiary) {
             quantity = this.send.getEntryQty();
             unit = this.send.getEntryUnit();
 
@@ -116,7 +117,7 @@ public class FragmentDiaryDialogs extends DialogFragment {
         }
     }
 
-    private void setCalorieGoalFieldDefaults(){
+    private void setCalorieGoalFieldDefaults() {
         if (this.send != null && send instanceof FragToMealDiary) {
             this.title.setText("Set New Calorie Goal");
             this.unitSpinner.setVisibility(View.INVISIBLE);
@@ -125,7 +126,7 @@ public class FragmentDiaryDialogs extends DialogFragment {
         }
     }
 
-    private void setExerciseActualFieldDefaults(){
+    private void setExerciseActualFieldDefaults() {
         if (this.send != null && send instanceof FragToMealDiary) {
             this.title.setText("Set Exercise Calories");
             this.unitSpinner.setVisibility(View.INVISIBLE);
@@ -134,16 +135,16 @@ public class FragmentDiaryDialogs extends DialogFragment {
         }
     }
 
-    private void setOnClickListeners(){
+    private void setOnClickListeners() {
 
         this.btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Integer value = Integer.parseInt(quantity.getText().toString());
 
-                if(value >= Constant.ENTRY_MIN_VALUE && value <= Constant.ENTRY_MAX_VALUE){
-                    if(send != null && send instanceof FragToMealDiary) {
-                        switch(mode){
+                if (value >= Constant.ENTRY_MIN_VALUE && value <= Constant.ENTRY_MAX_VALUE) {
+                    if (send != null && send instanceof FragToMealDiary) {
+                        switch (mode) {
                             case EDIT_QTY:
                                 send.setEntryQty(value, unitSpinner.getSelectedItem().toString());
                                 break;
@@ -156,8 +157,7 @@ public class FragmentDiaryDialogs extends DialogFragment {
                         }
                         dismiss();
                     }
-                }
-                else {
+                } else {
                     quantity.setError("Invalid input must be between 0 and 9999 inclusive");
                 }
             }

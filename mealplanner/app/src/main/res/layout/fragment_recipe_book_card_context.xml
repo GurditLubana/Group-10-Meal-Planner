@@ -27,22 +27,74 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="97dp"
+                android:layout_marginBottom="40dp"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <Button
+                    android:id="@+id/addToPlannerBtn2"
+                    android:layout_width="97dp"
+                    android:layout_height="97dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="?colorSecondary" />
+
+                <Button
+                    android:id="@+id/viewBtn2"
+                    android:layout_width="97dp"
+                    android:layout_height="97dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="?colorSecondary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="97dp"
+                android:layout_marginBottom="40dp"
+                android:elevation="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:id="@+id/addIcon"
+                    android:layout_width="116dp"
+                    android:layout_height="88dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="#00FFFFFF"
+                    android:elevation="10dp"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    app:srcCompat="@drawable/baseline_add_circle_outline_black_36"
+                    app:tint="#138000" />
+
+                <ImageView
+                    android:id="@+id/viewIcon"
+                    android:layout_width="116dp"
+                    android:layout_height="88dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="#00FFFFFF"
+                    android:elevation="10dp"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:src="@android:drawable/ic_menu_view"
+                    app:srcCompat="@drawable/baseline_visibility_black_48"
+                    app:tint="#000000" />
+            </LinearLayout>
+
             <Button
                 android:id="@+id/btnBackRecipe"
                 android:layout_width="97dp"
                 android:layout_height="97dp"
                 android:layout_marginEnd="86dp"
                 android:layout_marginBottom="146dp"
-                android:backgroundTint="?colorSecondary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <Button
-                android:id="@+id/viewBtn2"
-                android:layout_width="97dp"
-                android:layout_height="97dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="40dp"
                 android:backgroundTint="?colorSecondary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -59,48 +111,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.159" />
-
-            <ImageView
-                android:id="@+id/viewIcon"
-                android:layout_width="116dp"
-                android:layout_height="88dp"
-                android:layout_marginEnd="14dp"
-                android:layout_marginBottom="45dp"
-                android:background="#00FFFFFF"
-                android:elevation="10dp"
-                android:scaleX="0.8"
-                android:scaleY="0.8"
-                android:src="@android:drawable/ic_menu_view"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/baseline_visibility_black_48"
-                app:tint="#000000" />
-
-            <Button
-                android:id="@+id/addToPlannerBtn2"
-                android:layout_width="97dp"
-                android:layout_height="97dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="40dp"
-                android:backgroundTint="?colorSecondary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <ImageView
-                android:id="@+id/addIcon"
-                android:layout_width="116dp"
-                android:layout_height="88dp"
-                android:background="#00FFFFFF"
-                android:elevation="10dp"
-                android:scaleX="0.8"
-                android:scaleY="0.8"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/viewIcon"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.75"
-                app:srcCompat="@drawable/baseline_add_circle_outline_black_36"
-                app:tint="#138000" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

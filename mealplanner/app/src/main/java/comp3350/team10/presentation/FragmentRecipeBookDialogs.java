@@ -107,7 +107,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         return dialog;
     }
 
-    private void setFoodDialogFieldDefaults(){
+    private void setFoodDialogFieldDefaults() {
         this.title.setText("Add New Food");
         this.labelName.setText("Food Name");
         this.inputName.setHint("Food Name");
@@ -116,7 +116,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         this.labelIngredients.setVisibility(View.GONE);
     }
 
-    private void setMealDialogFieldDefaults(){
+    private void setMealDialogFieldDefaults() {
 
         this.title.setText("Add New Meal");
         this.labelName.setText("Meal Name");
@@ -125,7 +125,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         this.inputIngredients.setHint("Meal Ingredients\n(, comma separated)");
     }
 
-    private void setDrinkDialogFieldDefaults(){
+    private void setDrinkDialogFieldDefaults() {
 
         this.title.setText("Add New Drink");
         this.labelName.setText("Drink Name");
@@ -175,11 +175,11 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
     private boolean validateData() {
         int success = 0;
 
-        if(check(this.inputName)){
+        if (check(this.inputName)) {
             this.name = this.inputName.getText().toString().trim();
             success += 1;
         }
-        if(check(this.inputCalories)){
+        if (check(this.inputCalories)) {
             this.calories = Integer.parseInt(this.inputCalories.getText().toString().trim());
             success += 1;
         }
@@ -188,14 +188,14 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
             success += 1;
         }
 
-        if(mode != FragToRecipeBook.EntryMode.ADD_FOOD){
-            if(check(this.inputIngredients) ){
+        if (mode != FragToRecipeBook.EntryMode.ADD_FOOD) {
+            if (check(this.inputIngredients)) {
                 this.ingredients = this.inputIngredients.getText().toString().trim();
-                success +=1;
+                success += 1;
             }
-            if(check(this.inputInstructions)){
+            if (check(this.inputInstructions)) {
                 this.instructions = this.inputInstructions.getText().toString().trim();
-                success +=1;
+                success += 1;
             }
         }
 
@@ -214,7 +214,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
             view.setError("Field cannot be empty");
             result = false;
         }
-        if(result && (view == this.inputCalories || view == this.inputQuantity)) {
+        if (result && (view == this.inputCalories || view == this.inputQuantity)) {
             intValue = Integer.parseInt(value);
             if (intValue < Constant.ENTRY_MIN_VALUE || intValue > Constant.ENTRY_MAX_VALUE) {
                 this.inputCalories.setError("Must be between 0 and 9999 inclusive");
@@ -227,15 +227,15 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
 
     private void sendData() {
         if (this.send != null && this.send instanceof FragToRecipeBook) {
-            switch(mode){
+            switch (mode) {
                 case ADD_FOOD:
                     this.send.addFood(this.name, R.drawable.ic_eggplant, this.calories, this.unit, this.quantity);
                     break;
                 case ADD_MEAL:
-                    this.send.addMeal(this.name, R.drawable.ic_eggplant, this.calories, this.ingredients, this.instructions, this.unit, quantity);
+                    this.send.addMeal(this.name, R.drawable.ic_eggplant, this.calories, this.ingredients, this.instructions, this.unit, this.quantity);
                     break;
                 case ADD_DRINK:
-                    this.send.addDrink(this.name, R.drawable.ic_eggplant, this.calories, this.ingredients, this.instructions, this.unit, quantity);
+                    this.send.addDrink(this.name, R.drawable.ic_eggplant, this.calories, this.ingredients, this.instructions, this.unit, this.quantity);
                     break;
             }
         }

@@ -12,7 +12,7 @@ public class Meal extends PreparedItem {
 
     public boolean init(String name, int iconPath, int calories, String ingredients, String instructions, ListItem.FragmentType type, Edible.Unit baseUnit, int quantity, int dbkey) {
         return super.init(name, iconPath, calories, instructions, type, baseUnit, quantity, dbkey) &&
-            this.setIngredients(ingredients);
+                this.setIngredients(ingredients);
     }
 
     public String getIngredients() {
@@ -22,7 +22,7 @@ public class Meal extends PreparedItem {
     public boolean setIngredients(String newIngredients) {
         boolean results = false;
 
-        if(newIngredients == null || (newIngredients.length() > 0 )) {
+        if (newIngredients == null || (newIngredients.length() > 0)) {
             this.strIngredients = newIngredients;
             results = true;
         }

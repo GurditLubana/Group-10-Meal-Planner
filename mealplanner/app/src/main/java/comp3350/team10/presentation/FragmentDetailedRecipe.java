@@ -3,13 +3,16 @@ package comp3350.team10.presentation;
 import comp3350.team10.R;
 
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class FragmentDetailedRecipe extends Fragment {
-    public FragmentDetailedRecipe() {} //Required empty public constructor
+    public FragmentDetailedRecipe() {
+    } //Required empty public constructor
 
 
     public static FragmentDetailedRecipe newInstance() {

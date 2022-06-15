@@ -4,17 +4,17 @@ import java.util.Arrays;
 
 public abstract class PreparedItem extends Edible {
     private String instructions;  //The instructions required for the item to prepare
-    
+
 
     public PreparedItem() {
         super();
 
-        this.instructions = null;        
+        this.instructions = null;
     }
 
     public boolean init(String name, int iconPath, int calories, String instructions, ListItem.FragmentType type, Unit baseUnit, int quantity, int dbkey) {
         return super.init(name, iconPath, calories, type, baseUnit, quantity, dbkey) && super.modifyCalories(calories)
-            && this.changeInstructions(instructions);
+                && this.changeInstructions(instructions);
     }
 
 
@@ -25,7 +25,7 @@ public abstract class PreparedItem extends Edible {
     public boolean changeInstructions(String newInstructions) {
         boolean results = false;
 
-        if(newInstructions == null || (newInstructions.length() > 0 )) {
+        if (newInstructions == null || (newInstructions.length() > 0)) {
             this.instructions = newInstructions;
             results = true;
         }

@@ -31,17 +31,18 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private Animation fabOpen, fabClose, rotateForward, rotateBackward; //Animations for floating buttons
     private FloatingActionButton openFab, editFab, addFab;              //Floating buttons
 
-    private RVARecipeBook recyclerViewAdapter;      //Houses the logic for a recycle view with recipes
-    private RecyclerView recipeRecyclerView;        //Houses a recycle view for recipes
-    private RecipeBookOps opExec;                   //Buisness logic for RecipeBook
-    private Toolbar toolbar;                        //Progress bar
+    private RVARecipeBook recyclerViewAdapter;      // Houses the logic for a recycle view with recipes
+    private RecyclerView recipeRecyclerView;        // Houses a recycle view for recipes
+    private RecipeBookOps opExec;                   // Buisness logic for RecipeBook
+    private Toolbar toolbar;                        // Progress bar
 
-    private LinkedList<Edible> data;                //The data for the recipe book
-    private boolean modMenuIsOpen;                  //Represents whether the menu to add/edit recipes is toggled on
-    private int savedPosition;                          //Saves the position of an item for temporary removal
-    private Edible saved;                           //Saves the item for temporary removal
-    private int currTab;                            //The tab that is currently displayed
-    private EntryMode mode;
+    private LinkedList<Edible> data;                // The data for the recipe book
+    private boolean modMenuIsOpen;                  // Represents whether the menu to add/edit recipes is toggled on
+    private int savedPosition;                      // Saves the position of an item for temporary removal
+    private Edible saved;                           // Saves the item for temporary removal
+    private int currTab;                            // The tab that is currently displayed
+    private EntryMode mode;                         //
+    private boolean detailsFlag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
         if (object instanceof Toolbar) {
             this.toolbar = (Toolbar) object;
-
             this.toolbar.setTitleTextColor(TITLE_COLOR);
             this.toolbar.setTitle(TITLE_CONTENT);
             this.toolbar.setElevation(0);
@@ -119,13 +119,11 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.editFab = findViewById(R.id.editButton);
         this.editFab.setVisibility(View.GONE);
 
-        //Loads animations
         this.fabOpen = AnimationUtils.loadAnimation(this, R.anim.button_open);
         this.fabClose = AnimationUtils.loadAnimation(this, R.anim.button_close);
         this.rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_button);
         this.rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotatebackwards_button);
 
-        //Adds event listeners
         this.openFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -245,5 +243,25 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     public EntryMode getEntryMode() {
         return this.mode;
+    }
+
+    @Override
+    public String getIntentExtra(String key) {
+        Intent intent = getIntent();
+        return intent.getStringExtra(key);
+    }
+
+    @Override
+    public void showDetails() {
+        this.detailsFlag = true;
+        new FragmentRecipeBookDialogs().show(getSupportFragmentManager(), FragmentRecipeBookDialogs.TAG);
+    }
+
+    @Override
+    public boolean getDetails() {
+        boolean result = this.detailsFlag;
+        this.detailsFlag = false;
+
+        return result;
     }
 }

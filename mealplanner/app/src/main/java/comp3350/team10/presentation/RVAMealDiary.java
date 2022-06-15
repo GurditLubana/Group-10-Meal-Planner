@@ -22,23 +22,11 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
     private FragToMealDiary sendToMealDiary;            // interface to pass data to mealdiary
     private ListItem saved;                             // var to save a meal entry when we show context UI
 
-    /**
-     * getItemViewType
-     * get the layout/fragment we want to use for a particular list item
-     * required to show different layouts inside recyclerview
-     * @param pos - position of data in the dataset
-     * @return int - the numeric value of the Fragment type enum of the ListItem class
-     */
     @Override
     public int getItemViewType(int pos) {
         return localDataSet.get(pos).getFragmentType().ordinal();
     }
 
-    /**
-     * TODO maybe we want a generic view inside every fragment frame layout so it's less awkward
-     * Provide a reference to the type of views that you are using
-     * (custom ViewHolder).
-     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final FrameLayout fragmentView;
 
@@ -47,37 +35,23 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
             fragmentView = (FrameLayout) view.findViewById(R.id.frame_container);
 
         }
+
         public FrameLayout getView() {
             return fragmentView;
         }
     }
 
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param dataSet LinkedList<ListItem> containing the data to populate views to be used
-     *                by RecyclerView.
-     */
     public RVAMealDiary(LinkedList<Edible> dataSet) {
-        localDataSet = dataSet;
+        this.localDataSet = dataSet;
     }
 
     public void changeData(LinkedList<Edible> newData) {
-        localDataSet = newData;
+        this.localDataSet = newData;
         this.notifyDataSetChanged();
     }
 
-    /**
-     * Method where we assign the layout of a ViewHolder being created based on the Fragment Type enum
-     * assigned to the ListItem object being "rendered"
-     * @param viewGroup
-     * @param viewType - the int returned by getItemViewType(int)
-     * @return ViewHolder
-     */
-    // Create new views (invoked by the layout manager)
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view, which defines the UI of the list item
         View view;
         ViewHolder viewHolder;
 
@@ -99,18 +73,8 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
         return viewHolder;
     }
 
-    /**
-     * Here we set the data of a fragment being created and set onclick listeners based on the Fragment Type enum
-     * assigned to the ListItem object being "rendered"
-     * @param viewHolder
-     * @param position
-     */
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
 
         switch (viewHolder.getItemViewType()) {
             case 0:
@@ -123,19 +87,15 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
             case 2:
                 setDiaryAddListeners(viewHolder);
                 break;
-            default:
-                //view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_add_log, viewGroup, false);
         }
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return localDataSet.size();
+        return this.localDataSet.size();
     }
 
-    //set the data of a meal entry fragment
-    private void setDiaryEntryData(ViewHolder viewHolder, final int position){
+    private void setDiaryEntryData(ViewHolder viewHolder, final int position) {
         TextView itemName = (TextView) viewHolder.getView().findViewById(R.id.itemNameBox);
         TextView itemQty = (TextView) viewHolder.getView().findViewById(R.id.itemQtyBox);
         TextView itemUnit = (TextView) viewHolder.getView().findViewById(R.id.itemUnitBox);
@@ -150,8 +110,8 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
         itemImage.setImageResource(currentItem.getIconPath());
     }
 
-    //meal log card fragment click listeners
-    private void setDiaryEntryListeners(ViewHolder viewHolder){
+
+    private void setDiaryEntryListeners(ViewHolder viewHolder) {
         viewHolder.getView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,8 +126,7 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
         });
     }
 
-    //modify meal fragment click listeners
-    private void setDiaryContextListeners(ViewHolder viewHolder){
+    private void setDiaryContextListeners(ViewHolder viewHolder) {
         viewHolder.getView().findViewById(R.id.btnBackMealLog).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,6 +139,7 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
                 }
             }
         });
+
         viewHolder.getView().findViewById(R.id.btnDeleteMeal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,6 +152,7 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
                 }
             }
         });
+
         viewHolder.getView().findViewById(R.id.btnModifyMeal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -206,8 +167,7 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
         });
     }
 
-    //add meal entry fragment click listener
-    private void setDiaryAddListeners(ViewHolder viewHolder){
+    private void setDiaryAddListeners(ViewHolder viewHolder) {
         viewHolder.getView().findViewById(R.id.btnAddMeal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

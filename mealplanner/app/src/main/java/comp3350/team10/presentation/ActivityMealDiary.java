@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -27,6 +28,7 @@ import java.util.Calendar;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToMealDiary {
     private static enum EDIBLES_TYPES {FOOD, MEAL, DRINK}
+
     private ActivityResultLauncher<Intent> pickMeal;
     private RVAMealDiary recyclerViewAdapter;   //Houses the logic for a recycle view with diary entries
     private MealDiaryLiveData mealDiaryData;    //Enables persistent data
@@ -66,7 +68,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     private void initRecyclerView() {
-        if(this.data != null) {
+        if (this.data != null) {
             this.recyclerViewAdapter = new RVAMealDiary(this.data);
             this.mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
             this.mealRecyclerView.setAdapter(this.recyclerViewAdapter);
@@ -74,15 +76,15 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
     }
 
-    private void createActivityCallbackListener(){
-        this.pickMeal = registerForActivityResult( new ActivityResultContracts.StartActivityForResult(),
+    private void createActivityCallbackListener() {
+        this.pickMeal = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         Intent data;
                         int dbkey;
 
-                        if(result.getResultCode() == Activity.RESULT_OK) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
                             data = result.getData();
                             dbkey = data.getExtras().getInt("DBKEY");
 
@@ -95,20 +97,19 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     public void showContextUI(int position) {
         Food modifyUIcard = null;
-        if(position != this.savedItemPosition && this.savedItem != null) {
+        if (position != this.savedItemPosition && this.savedItem != null) {
             this.data.remove(this.savedItemPosition);
             this.data.add(this.savedItemPosition, this.savedItem);
         }
 
-        if(position >= 0) {
+        if (position >= 0) {
             if (this.data.get(position).getFragmentType() == ListItem.FragmentType.diaryEntry) {
                 this.savedItem = this.data.remove(position);
                 this.savedItemPosition = position;
                 modifyUIcard = new Food();
                 modifyUIcard.init("ui", 0, 0, ListItem.FragmentType.diaryModify, Edible.Unit.g, 0, 0);
                 this.data.add(position, modifyUIcard);
-            }
-            else {
+            } else {
                 this.data.remove(position);
                 this.data.add(position, this.savedItem);
                 this.savedItem = null;
@@ -130,16 +131,16 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         datePicker.show(getSupportFragmentManager(), "MATERIAL_DATE_PICKER");
 
         datePicker.addOnPositiveButtonClickListener(
-            new MaterialPickerOnPositiveButtonClickListener() {
-                @Override
-                public void onPositiveButtonClick(Object selection) {
-                    Calendar selectedDate = Calendar.getInstance();
-                    selectedDate.setTimeInMillis((Long) selection);
-                    selectedDate.add(Calendar.DAY_OF_YEAR, 1);
-                    opExec.setListDate(selectedDate);
-                    updateLiveData();
+                new MaterialPickerOnPositiveButtonClickListener() {
+                    @Override
+                    public void onPositiveButtonClick(Object selection) {
+                        Calendar selectedDate = Calendar.getInstance();
+                        selectedDate.setTimeInMillis((Long) selection);
+                        selectedDate.add(Calendar.DAY_OF_YEAR, 1);
+                        opExec.setListDate(selectedDate);
+                        updateLiveData();
+                    }
                 }
-            }
         );
     }
 
@@ -175,7 +176,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public void removeItem(int pos) {
-        if(this.data.size() > 0) {
+        if (this.data.size() > 0) {
             this.data.remove(pos);
             this.savedItem = null;
             this.recyclerViewAdapter.notifyItemRemoved(pos);
@@ -213,21 +214,21 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     @Override
-    public String getEntryQty(){
+    public String getEntryQty() {
         return String.valueOf(this.savedItem.getQuantity());
     }
 
     @Override
-    public Edible.Unit getEntryUnit(){
+    public Edible.Unit getEntryUnit() {
         return this.savedItem.getBaseUnit();
     }
 
     @Override
-    public void setEntryQty(Integer amount, String unit){
+    public void setEntryQty(Integer amount, String unit) {
         Edible selectedItem = null;
         UnitConverter converter = null;
 
-        if(savedItem instanceof Edible) {
+        if (savedItem instanceof Edible) {
             selectedItem = (Edible) this.savedItem;
             converter = new UnitConverter(selectedItem.getBaseUnit(), selectedItem.getQuantity(), selectedItem.getCalories());
             selectedItem.setQuantity(amount);
@@ -241,28 +242,28 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     @Override
-    public String getExerciseCalories(){
+    public String getExerciseCalories() {
         return opExec.getCalorieExercise().toString();
     }
 
     @Override
-    public void setExerciseCalories(Integer value){
+    public void setExerciseCalories(Integer value) {
         this.opExec.setCalorieExercise(value);
         this.updateLiveData();
     }
 
     @Override
-    public String getGoalCalories(){
+    public String getGoalCalories() {
         return opExec.getCalorieGoal().toString();
     }
 
     @Override
-    public void setGoalCalories(Integer value){
+    public void setGoalCalories(Integer value) {
         this.opExec.setCalorieGoal(value);
         this.updateLiveData();
     }
 
-    public EntryMode getEntryMode(){
+    public EntryMode getEntryMode() {
         return this.mode;
     }
 }
