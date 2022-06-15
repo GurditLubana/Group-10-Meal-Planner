@@ -40,7 +40,7 @@ public abstract class Edible implements ListItem {
     public boolean modifyCalories(int amount) {
         boolean results = false;
 
-        if(amount > Constant.ENTRY_MIN_VALUE && this.calories + amount <= Constant.ENTRY_MAX_VALUE) {
+        if(this.calories + amount >= Constant.ENTRY_MIN_VALUE && this.calories + amount <= Constant.ENTRY_MAX_VALUE) {
             this.calories += amount;
             results = true;
         }
@@ -48,7 +48,7 @@ public abstract class Edible implements ListItem {
         return results;
     }
 
-    public Integer getCalories() {
+    public int getCalories() {
         return this.calories;
     }
 

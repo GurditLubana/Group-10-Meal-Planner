@@ -13,8 +13,7 @@ public abstract class PreparedItem extends Edible {
     }
 
     public boolean init(String name, int iconPath, int calories, String instructions, ListItem.FragmentType type, Unit baseUnit, int quantity, int dbkey) {
-        return super.init(name, iconPath, calories, type, baseUnit, quantity, dbkey) && super.modifyCalories(calories)
-            && this.changeInstructions(instructions);
+        return super.init(name, iconPath, calories, type, baseUnit, quantity, dbkey) && this.changeInstructions(instructions);
     }
 
 
@@ -25,7 +24,7 @@ public abstract class PreparedItem extends Edible {
     public boolean changeInstructions(String newInstructions) {
         boolean results = false;
 
-        if(newInstructions == null || (newInstructions.length() > 0 )) {
+        if(newInstructions != null) {
             this.instructions = newInstructions;
             results = true;
         }
