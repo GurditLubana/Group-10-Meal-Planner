@@ -76,8 +76,17 @@ public class UnitConverter {
         prevQuantity = 1.0;
     }
 
-    private void calculateCaloriesPerUnit() {
-        calsPerUnit = prevCalories / prevQuantity;
+    private void calculateCaloriesPerUnit(){
+
+        if(prevQuantity != 0)
+        {
+            calsPerUnit = prevCalories/prevQuantity;
+        }
+        else
+        {
+            calsPerUnit = 0.0;
+        }
+
     }
 
     private void gTog() {
