@@ -18,7 +18,6 @@ import java.util.LinkedList;
 import comp3350.team10.R;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.ListItem;
-import comp3350.team10.objects.RecipeBookItem;
 
 public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder> {
     private LinkedList<Edible> localDataSet;          // the list Recyclerview renders

@@ -26,7 +26,6 @@ public class DataAccessStub {
     private String dbName;                  //Name of database
 
     private ArrayList<DailyLog> dbFoodLog;      //Food log
-    private ArrayList<Routine> dbRoutines;      //Routines
     private ArrayList<Edible> dbRecipeDrink;    //Drink recipes
     private ArrayList<Edible> dbRecipeFood;     //Food
     private ArrayList<Edible> dbRecipeMeal;     //Meal recipes
@@ -54,7 +53,6 @@ public class DataAccessStub {
         Calendar calendar = Calendar.getInstance();
 
         //Load data
-        this.loadExercises();
         this.loadRecipeDrinks();
         this.loadRecipeFood();
         this.loadRecipeMeals();
@@ -289,46 +287,6 @@ public class DataAccessStub {
         result.add(new Food(null, -1, 0, ListItem.FragmentType.diaryAdd, null, -1, -1));
         
         return result;
-    }
-
-    private void loadExercises() {
-        this.dbRoutines = new ArrayList<Routine>();
-
-        Workout chestWorkout = new Workout(new Exercise[]{
-                new Exercise("Incline dumbell press", "Put the bench at 45 degrees", 9, 3, 5),
-                new Exercise("Lat pull down", "Lead with elbows and go slow", 9, 3, 4),
-                new Exercise("Benchpress", "ego lifting is bad", 9, 3, 8),
-                new Exercise("Bent over rows", "keep that back flat", 8, 3, 4),
-                new Exercise("Chest fly", "Move arms accross chest, dont go too low", 9, 3, 3)
-        });
-
-        Workout armWorkout = new Workout(new Exercise[]{
-                new Exercise("Dumbbell waiter curls", "keep those elbows in", 8, 4, 5),
-                new Exercise("Cable tricep pulldowns", "focus on pushing with triceps", 8, 4, 4),
-                new Exercise("Cheat curls", "dont go toooo crazy", 6, 4, 5),
-                new Exercise("Banded tricep extensions", "use a close grip", 12, 3, 4),
-                new Exercise("Dumbell curls", "keep those elbows in", 8, 4, 5)
-        });
-
-        Workout legWorkout = new Workout(new Exercise[]{
-                new Exercise("Leg press", "focus on pressing into the machine/ground", 16, 3, 7),
-                new Exercise("Fire hydrants", "keep your knee in", 20, 3, 7),
-                new Exercise("Squat", "focus on pressing into the machine/ground", 16, 3, 8),
-                new Exercise("Donkey kicks", "try to point your toes and get them up", 20, 3, 7),
-                new Exercise("Calf extensions", "you still need to be able to walk to get home", 12, 3, 8)
-        });
-
-        Workout cardio = new Workout(new Exercise[]{
-                new Exercise("Eliptical", "its better to sprint for a little than walk for awhile", 20, 3, 100)
-        });
-
-        Workout rest = new Workout(new Exercise[]{
-                new Exercise("Rest", "take a break you deserve it... hopefully", 0, 0, 0)
-        });
-
-        this.dbRoutines.add(new Routine("build muscle", new Workout[]{chestWorkout, armWorkout, legWorkout, rest, chestWorkout, legWorkout, rest}));
-        this.dbRoutines.add(new Routine("lose weight", new Workout[]{cardio, cardio, cardio, cardio, cardio, cardio, cardio}));
-        this.dbRoutines.add(new Routine("tone", new Workout[]{chestWorkout, cardio, armWorkout, cardio, legWorkout, cardio, rest}));
     }
 
     private void loadRecipeDrinks() {
