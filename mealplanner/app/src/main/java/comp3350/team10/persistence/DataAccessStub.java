@@ -224,26 +224,46 @@ public class DataAccessStub {
 
     private void loadFoodlog() {
         Integer today = calendarToInt(calendar);
-        DailyLog currLog;
+        DailyLog currLog = new DailyLog();
+
+        ArrayList<Edible> logDay = new ArrayList<Edible>();
+        logDay.add(this.dbRecipeFood.get(0));
+        logDay.add(this.dbRecipeFood.get(1));
+        logDay.add(this.dbRecipeFood.get(2));
+        logDay.add(this.dbRecipeFood.get(3));
 
         this.dbFoodLog = new ArrayList<DailyLog>(); // key = yyyyddd integer , Calorie goal, Exercise goal, actual exercise, Foodlog
-        currLog.init()
-        this.dbFoodLog.add(new DailyLog(today, 1500, 300, 0, randomLog()));
 
-        this.dbFoodLog.add(new DailyLog(today - 1, 1700, 300, 200, randomLog()));
+        currLog.init(today, 1500, 300, 0, logDay);
+        this.dbFoodLog.add(currLog);
 
-        this.dbFoodLog.add(new DailyLog(today - 2, 1600, 300, 120, randomLog()));
+        currLog = new DailyLog();
+        logDay = new ArrayList<Edible>();
+        logDay.add(this.dbRecipeFood.get(4));
+        logDay.add(this.dbRecipeFood.get(5));
+        logDay.add(this.dbRecipeFood.get(6));
+        logDay.add(this.dbRecipeFood.get(7));
+        logDay.add(this.dbRecipeFood.get(8));
+        currLog.init(today-1, 1700, 300, 200, logDay);
+        this.dbFoodLog.add(currLog);
 
-        this.dbFoodLog.add(new DailyLog(today - 3, 1300, 300, 30, randomLog()));
+        currLog = new DailyLog();
+        logDay = new ArrayList<Edible>();
+        logDay.add(this.dbRecipeFood.get(9));
+        logDay.add(this.dbRecipeFood.get(10));
+        logDay.add(this.dbRecipeFood.get(11));
+        logDay.add(this.dbRecipeFood.get(12));
+        logDay.add(this.dbRecipeFood.get(13));
+        currLog.init(today-2, 1300, 300, 30, logDay);
+        this.dbFoodLog.add(currLog);
 
-        this.dbFoodLog.add(new DailyLog(today - 4, 1800, 300, 300, randomLog()));
-
-        this.dbFoodLog.add(new DailyLog(today - 5, 1500, 300, 100, randomLog()));
-
-        this.dbFoodLog.add(new DailyLog(today - 6, 1600, 300, 300, randomLog()));
-
-        this.dbFoodLog.add(new DailyLog(today + 1, 1600, 300, 400, randomLog()));
-
+        currLog = new DailyLog();
+        logDay = new ArrayList<Edible>();
+        logDay.add(this.dbRecipeFood.get(4));
+        logDay.add(this.dbRecipeFood.get(5));
+        logDay.add(this.dbRecipeFood.get(6));
+        currLog.init(today+1, 1800, 300, 100, logDay);
+        this.dbFoodLog.add(currLog);
 
         this.sortDBFoodLog();
     }
@@ -291,19 +311,23 @@ public class DataAccessStub {
 
     private ArrayList<Edible> emptyLog() {
         ArrayList<Edible> result = new ArrayList<Edible>();
+        Food addLog = new Food();
+        addLog.init("uielement", 0, 0, ListItem.FragmentType.diaryAdd, Edible.Unit.cups, 0, 0);
 
-        result.add(new Food(null, -1, 0, ListItem.FragmentType.diaryAdd, null, -1, -1));
+        result.add(addLog);
 
         return result;
     }
 
     private void loadRecipeDrinks() {
+        Drink drinkItem = new Drink();
         int caloriesRandom = ThreadLocalRandom.current().nextInt(250, 450);
         this.dbRecipeDrink = new ArrayList<Edible>();
 
-        this.dbRecipeDrink.add(new Drink("Mojito", R.drawable.food, caloriesRandom, new String("Mix them"),
+        drinkItem.init("Mojito", R.drawable.food, caloriesRandom, new String("Mix them"),
                 new String("White Rum 1.5oz\nSugar 2TBSP\nMint 8leaves\nLime 1.2 lime\nClub soda 0 fill\n"
-                ), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
+                ), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey());
+        this.dbRecipeDrink.add(new Drink(
         ));
 
         caloriesRandom = ThreadLocalRandom.current().nextInt(250, 450);
