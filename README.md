@@ -101,7 +101,6 @@ Fragments are reusable UI components that perform specific functions in activiti
 example is the navigation fragment which is shared across all activities.  
 
 # Feature List
-The main page of the Meal Planner application display's the food items that the user plans to consume on a specific Day. The bar depicts the Calorie goal for the day, the number of calories consumed via Food, calories burnt via Exercise, and the net calories that can make. The user can set the Calorie goal for the day, and calories burnt in the exercise routine and will be able to track the progress made. The user can edit the list of Food items that need to be consumed. They can add Food items, Meals, and Drinks to the Food list along with the amount that they are consuming for each item. Also, we can remove the items on the list to cut off the unnecessary calorie intake. The user can set the Calorie goal for the day and will be able to track the number of calories that can still be consumed to reach the target. Moreover, users are able to change the amount of each item they did intake. The users can also add new food recipes.They need to enter the name of the Dish and the calorie count of the dish, the quantity of the dish.
 
 ## Users can track their daily consumed food items, meals, and drinks   
 This feature is on the initial app activity the meal diary screen. This screen can be accessed by clicking on the  
@@ -159,7 +158,9 @@ requirements.
 
 # Environments Used in Testing
 
-Our team used Android Studio Chipmunk 2021.2.1 Patch 1 for development on Windows 10. We tested our code both on a Nexus 7 device and several Android virtual devices created in Android studio. Android virtual devices used, had SDK 23 for testing and SDK 29 for debugging.  
+Our team used Android Studio Chipmunk 2021.2.1 Patch 1 for development on Windows 10. We tested our code both on a   
+Nexus 7 device and several Android virtual devices created in Android studio. Android virtual devices used, had   
+SDK 23 for testing and SDK 29 for debugging.  
 
 
 
