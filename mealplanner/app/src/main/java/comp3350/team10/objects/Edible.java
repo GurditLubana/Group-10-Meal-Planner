@@ -1,5 +1,6 @@
 package comp3350.team10.objects;
 
+
 public abstract class Edible implements ListItem {
     public enum Unit {cups, oz, g, serving, tbsp, tsp, ml, liter};
     private ListItem.FragmentType fragmentType; //How it should appear on recycler views
@@ -13,11 +14,11 @@ public abstract class Edible implements ListItem {
     public Edible(String name, int iconPath, ListItem.FragmentType type, Unit baseUnit, int quantity, int dbkey) {
         this.name = name;
         this.calories = 0;
-        this.dbkey = dbkey;
-        this.iconPath = iconPath;
-        this.fragmentType = type;
-        this.baseUnit = baseUnit;
-        this.quantity = quantity;
+        this.dbkey = -1;
+        this.iconPath = -1;
+        this.fragmentType = null;
+        this.baseUnit = null;
+        this.quantity = -1;
     }
 
     public Edible(ListItem.FragmentType type) {
@@ -25,8 +26,19 @@ public abstract class Edible implements ListItem {
     }
 
 
-    public void modifyCalories(int amount) {
-        this.calories += amount;
+    public boolean init(String name, int iconPath, ListItem.FragmentType type, ListItem.Unit baseUnit, int quantity, int dbkey) {
+        return this.setName(name) && this.setIconPath(iconPath) && this.setFragmentType(type) && 
+            this.setBaseUnit(baseUnit) && this.setQuantity(quantity) && this.setDbkey(dbkey);
+    }
+
+    public boolean modifyCalories(int amount) {
+        boolean valid = amount > 0 && this.calories + amount <= LIMIT;
+
+        if(valid) {
+            this.calories += amount;
+        }
+        
+        return valid;
     }
 
     public Integer getCalories() {
@@ -57,31 +69,73 @@ public abstract class Edible implements ListItem {
         return this.dbkey;
     }
 
-    public void setFragmentType(ListItem.FragmentType fragmentType){
-        this.fragmentType = fragmentType;
+    public boolean setFragmentType(ListItem.FragmentType fragmentType) {
+        boolean valid = validFragEnum(fragmentType);
+
+        if(valid) {
+            this.fragmentType = fragmentType;
+        }
+        
+        return valid;
     }
 
-    public void setCalories(Integer newCalories){
-        this.calories = newCalories;
+    public boolean setCalories(Integer newCalories) {
+        boolean valid = newCalories <= LIMIT && newCalories > 0;
+
+        if(valid) {
+            this.calories = newCalories;
+        }
+
+        return valid;
     }
 
-    public void setBaseUnit(Unit baseUnit) {
-        this.baseUnit = baseUnit;
+    public boolean setBaseUnit(ListItem.Unit baseUnit) {
+        boolean valid = validUnitEnum(baseUnit);
+        
+        if(valid) {
+            this.baseUnit = baseUnit;
+        }
+
+        return valid;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public boolean setQuantity(int quantity) {
+        boolean valid = quanity <= LIMIT && quantity > 0;
+        
+        if(valid) {
+            this.quantity = quantity;
+        }
+
+        return valid;
     }
 
-    public void setDbkey(int dbkey) {
-        this.dbkey = dbkey;
+    public boolean setDbkey(int dbkey) {
+        boolean valid = dbkey > 0;;
+
+        if(valid) {
+            this.dbkey = dbkey;
+        }
+        
+        return valid;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public boolean setName(String name) {
+        boolean valid = !name.equals("");
+
+        if(valid) {
+            this.name = name;
+        }
+
+        return false;
     }
 
-    public void setIconPath(int iconPath) {
-        this.iconPath = iconPath;
+    public boolean setIconPath(int iconPath) {
+        boolean valid = iconPath > 0;;
+
+        if(valid) {
+            this.iconPath = iconPath;
+        }
+        
+        return valid;
     }
 }
