@@ -159,7 +159,7 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
 
                 if (context != null) {
                     sendToRecipeBook = (FragToRecipeBook) context;
-                    sendToRecipeBook.addToMealDiary(position);
+                    sendToRecipeBook.addToMealDiary();
                 }
             }
         });
