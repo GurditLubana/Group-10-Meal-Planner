@@ -180,9 +180,8 @@ public class MealDiaryOps {
             this.calorieConsumed = 0;
 
             for (int i = 0; i < this.todayFoodList.size(); i++) {
-                if (this.todayFoodList.get(i) instanceof Edible) {
-                    this.calorieConsumed += ((Edible) this.todayFoodList.get(i)).getCalories();
-                }
+                    this.calorieConsumed += this.todayFoodList.get(i).getCalories();
+
             }
         }
     }

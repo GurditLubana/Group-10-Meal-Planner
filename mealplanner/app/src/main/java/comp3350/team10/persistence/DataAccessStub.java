@@ -305,7 +305,7 @@ public class DataAccessStub {
         }
 
         for (int i = 0; i < result.size(); i++) {
-            ((Edible) result.get(i)).setFragmentType(ListItem.FragmentType.diaryEntry);
+            result.get(i).setFragmentType(ListItem.FragmentType.diaryEntry);
         }
 
         result.addAll(emptyLog());

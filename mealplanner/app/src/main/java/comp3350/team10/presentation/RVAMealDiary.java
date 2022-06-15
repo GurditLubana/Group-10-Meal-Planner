@@ -102,7 +102,7 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
         TextView itemCals = (TextView) viewHolder.getView().findViewById(R.id.itemCalsBox);
         ImageView itemImage = (ImageView) viewHolder.getView().findViewById(R.id.itemImage);
 
-        Edible currentItem = (Edible) localDataSet.get(position);
+        Edible currentItem = localDataSet.get(position);
         itemName.setText(currentItem.getName()); //had two take two lines below out to make it work
         itemQty.setText(String.format("%3d", currentItem.getQuantity()));
         itemUnit.setText(currentItem.getBaseUnit().name());
