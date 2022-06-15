@@ -153,9 +153,6 @@ food details and add the item using the OK button. The user is notified visually
 requirements. 
 
 
-
-
-
 # Environments Used in Testing
 
 Our team used Android Studio Chipmunk 2021.2.1 Patch 1 for development on Windows 10. We tested our code both on a   
