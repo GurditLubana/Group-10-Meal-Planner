@@ -1,188 +1,550 @@
-// package comp3350.team10.objects;
+package comp3350.team10.objects;
 
-// import comp3350.team10.objects.*;
-// import comp3350.team10.objects.ListItem.FragmentType;
-// import comp3350.team10.objects.Edible.Unit;
+import comp3350.team10.objects.*;
+import comp3350.team10.objects.ListItem.FragmentType;
+import comp3350.team10.objects.Edible.Unit;
 
-// import static org.junit.jupiter.api.Assertions.*;
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.DisplayName;
-// import org.junit.jupiter.api.Nested;
-// import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
-// import static org.junit.Assert.*;
-// import org.junit.Test;
+public class DrinkUnitTest {
 
-// public class DrinkUnitTest {
-// 	private Drink testDrink;
-
-// 	@BeforeEach
-// 	void setUp(){
-// 		testDrink = new Drink();
-// 	}
-
-// 	@Test
-// 	private void Test_Simple() {
-// 		assertTrue(testDrink.init("drink", 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 		assertTrue(testDrink.init("drink", 1, ListItem.FragmentType.diaryModify, Edible.Unit.cups, 5, 1));
-// 		assertTrue(testDrink.init("drink", 1, ListItem.FragmentType.diaryAdd, Edible.Unit.cups, 5, 1));
-// 		assertTrue(testDrink.init("drink", 1, ListItem.FragmentType.recipe, Edible.Unit.cups, 5, 1));
-// 		assertTrue(testDrink.init("drink", 1, ListItem.FragmentType.cardSelection, Edible.Unit.cups, 5, 1));
-// 		assertTrue(testDrink.init("drink", 1, ListItem.FragmentType.noType, Edible.Unit.cups, 5, 1));
-
-// 		assertTrue(testDrink.init("drink", 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 		assertTrue(testDrink.init("drink", 1, ListItem.FragmentType.diaryModify, Edible.Unit.oz, 5, 1));
-// 		assertTrue(testDrink.init("drink", 1, ListItem.FragmentType.diaryAdd, Edible.Unit.g, 5, 1));
-// 		assertTrue(testDrink.init("drink", 1, ListItem.FragmentType.recipe, Edible.Unit.serving, 5, 1));
-// 		assertTrue(testDrink.init("drink", 1, ListItem.FragmentType.cardSelection, Edible.Unit.tbsp, 5, 1));
-// 		assertTrue(testDrink.init("drink", 1, ListItem.FragmentType.noType, Edible.Unit.tsp, 5, 1));
-// 		assertTrue(testDrink.init("drink", 1, ListItem.FragmentType.cardSelection, Edible.Unit.ml, 5, 1));
-// 		assertTrue(testDrink.init("drink", 1, ListItem.FragmentType.noType, Edible.Unit.liter, 5, 1));
+	@Nested
+	@DisplayName("Simple tests")
+	class Test_Simple {
+		private Drink testDrink;
 		
-// 		assertTrue(testDrink.getName() == "drink");
-// 		assertTrue(testDrink.getIconPath() == 1);
-// 		assertTrue(testDrink.getFragmentType() == ListItem.FragmentType.noType);
-// 		assertTrue(testDrink.getBaseUnit() == Edible.Unit.liter);
-// 		assertTrue(testDrink.getQuantity() == 5);
-// 		assertTrue(testDrink.getDbkey() == 1);
-		
-// 		assertTrue(testDrink.changeInstructions(new String[] {"you"}));
-// 		assertTrue(testDrink.changeInstructions(new String[] {"you", "should"}));
+		@BeforeEach
+		void setUp() {
+			testDrink = new Drink();
+		}
 
-// 		assertTrue(testDrink.modifyCalories(100));
-// 		assertTrue(testDrink.getCalories() == 100);
-// 		assertTrue(testDrink.modifyCalories(-5));
-// 		assertTrue(testDrink.getCalories() == 95);
+		@Test
+		void testDiffFrags() {
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients",ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryModify, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryAdd, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.recipe, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.cardSelection, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.noType, Edible.Unit.cups, 5, 1));
+		}
 
-// 		assertTrue(testDrink.setBaseUnit(Edible.Unit.cups));
-// 		assertTrue(testDrink.setBaseUnit(Edible.Unit.oz));
-// 		assertTrue(testDrink.setBaseUnit(Edible.Unit.g));
-// 		assertTrue(testDrink.setBaseUnit(Edible.Unit.serving));
-// 		assertTrue(testDrink.setBaseUnit(Edible.Unit.tbsp));
-// 		assertTrue(testDrink.setBaseUnit(Edible.Unit.tsp));
-// 		assertTrue(testDrink.setBaseUnit(Edible.Unit.ml));
-// 		assertTrue(testDrink.setBaseUnit(Edible.Unit.l));
-		
-// 		assertTrue(testDrink.setCalories(100));
-// 		assertTrue(testDrink.getCalories() == 100);
-// 		assertTrue(testDrink.setBaseUnit(Edible.Unit.cups));
+		@Test
+		void testDiffUnits() {
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryModify, Edible.Unit.oz, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryAdd, Edible.Unit.g, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.recipe, Edible.Unit.serving, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.cardSelection, Edible.Unit.tbsp, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.noType, Edible.Unit.tsp, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.cardSelection, Edible.Unit.ml, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.noType, Edible.Unit.liter, 5, 1));
+		}
 
-// 		assertTrue(testDrink.setDbkey(1));
-// 		assertTrue(testDrink.setDbkey(10));
-		
-// 		assertTrue(testDrink.setFragmentType(ListItem.FragmentType.diaryModify));
-// 		assertTrue(testDrink.setFragmentType(ListItem.FragmentType.diaryAdd));
-// 		assertTrue(testDrink.setFragmentType(ListItem.FragmentType.recipe));
-// 		assertTrue(testDrink.setFragmentType(ListItem.FragmentType.cardSelection));
-// 		assertTrue(testDrink.setFragmentType(ListItem.FragmentType.noType));
-// 		assertTrue(testDrink.setFragmentType(ListItem.FragmentType.cardSelection));
-// 		assertTrue(testDrink.setFragmentType(ListItem.FragmentType.noType));
+		@Test
+		void testDefaultVals() {
+			assertTrue(testDrink.getName() == null);
+			assertTrue(testDrink.getIconPath() == -1);
+			assertTrue(testDrink.getFragmentType() == null);
+			assertTrue(testDrink.getBaseUnit() == null);
+			assertTrue(testDrink.getQuantity() == -1);
+			assertTrue(testDrink.getDbkey() == -1);
+			assertTrue(testDrink.getInstructions() == null);
+			assertTrue(testDrink.getCalories() == 0);
+			assertTrue(testDrink.getIngredients() == null);
+		}
 
-// 		assertTrue(testDrink.setIconPath(5));
-// 		assertTrue(testDrink.setIconPath(15));
+		@Test
+		void testChangeInstructions() {
+			assertTrue(testDrink.changeInstructions("you"));
+			assertTrue(testDrink.changeInstructions("you should"));
+		}
+			
+		@Test
+		void testSetCaloies() {
+			assertTrue(testDrink.setCalories(100));
+			assertTrue(testDrink.getCalories() == 100);
+		}
 
-// 		assertTrue(testDrink.setIngredients(new String[] {"you"}));
-// 		assertTrue(testDrink.setIngredients(new String[] {"you", "should"}));
+		@Test
+		void testModCalories() {
+			assertTrue(testDrink.modifyCalories(100));
+			assertTrue(testDrink.getCalories() == 100);
+			assertTrue(testDrink.modifyCalories(-5));
+			assertTrue(testDrink.getCalories() == 95);
+		}
 
-// 		assertTrue(testDrink.setName("name"));
-// 		assertTrue(testDrink.setQuantity(100));
-// 		assertTrue(testDrink.getQuantity() == 100);
-// 	}
+		@Test
+		void testSetUnit() {
+			assertTrue(testDrink.setBaseUnit(Edible.Unit.cups));
+			assertTrue(testDrink.setBaseUnit(Edible.Unit.oz));
+			assertTrue(testDrink.setBaseUnit(Edible.Unit.g));
+			assertTrue(testDrink.setBaseUnit(Edible.Unit.serving));
+			assertTrue(testDrink.setBaseUnit(Edible.Unit.tbsp));
+			assertTrue(testDrink.setBaseUnit(Edible.Unit.tsp));
+			assertTrue(testDrink.setBaseUnit(Edible.Unit.ml));
+			assertTrue(testDrink.setBaseUnit(Unit.liter));
+		}
+			
+		@Test
+		void testSetDBKey() {
+			assertTrue(testDrink.setDbkey(1));
+			assertTrue(testDrink.setDbkey(10));
+		}
 
-// 	@Test
-// 	private void Test_Complex() {
-// 		assertTrue(testDrink.init("drink", 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-		
-// 		assertTrue(testDrink.getName() == "drink");
-// 		assertTrue(testDrink.getIconPath() == 1);
-// 		assertTrue(testDrink.getFragmentType() == ListItem.FragmentType.noType);
-// 		assertTrue(testDrink.getBaseUnit() == Edible.Unit.liter);
-// 		assertTrue(testDrink.getQuantity() == 5);
-// 		assertTrue(testDrink.getDbkey() == 1);
+		@Test
+		void testSetFragType() {
+			assertTrue(testDrink.setFragmentType(ListItem.FragmentType.diaryModify));
+			assertTrue(testDrink.setFragmentType(ListItem.FragmentType.diaryAdd));
+			assertTrue(testDrink.setFragmentType(ListItem.FragmentType.recipe));
+			assertTrue(testDrink.setFragmentType(ListItem.FragmentType.cardSelection));
+			assertTrue(testDrink.setFragmentType(ListItem.FragmentType.noType));
+			assertTrue(testDrink.setFragmentType(ListItem.FragmentType.cardSelection));
+			assertTrue(testDrink.setFragmentType(ListItem.FragmentType.noType));
+		}
 
-// 		assertTrue(testDrink.changeInstructions(new String[] {"you"}));
+		@Test
+		void testSetIconPath() {
+			assertTrue(testDrink.setIconPath(5));
+			assertTrue(testDrink.setIconPath(15));
+		}	
 
-// 		assertTrue(testDrink.modifyCalories(100));
-// 		assertTrue(testDrink.setBaseUnit(Edible.Unit.l));
-		
-// 		assertTrue(testDrink.setCalories(100));
-// 		assertTrue(testDrink.setFragmentType(ListItem.FragmentType.noType));
+		@Test
+		void testSetIngredients() {
+			assertTrue(testDrink.setIngredients("you"));
+			assertTrue(testDrink.setIngredients("youshould"));
+		}	
 
-// 		assertTrue(testDrink.setIconPath(5));
-// 		assertTrue(testDrink.setIconPath(15));
-// 		assertTrue(testDrink.setName("name"));
-// 		assertTrue(testDrink.setQuantity(100));
+		@Test
+		void testSetName() {
+			assertTrue(testDrink.setName("name"));
+			assertTrue(testDrink.setName("diffName"));
+		}
 
-// 		assertTrue(testDrink.setIngredients(new String[] {"you"}));
+		@Test
+		void testSetQuantity() {	
+			assertTrue(testDrink.setQuantity(100));
+			assertTrue(testDrink.getQuantity() == 100);
+			assertTrue(testDrink.setQuantity(300));
+			assertTrue(testDrink.getQuantity() == 300);
+		}
+	}
 
+	@Nested
+	@DisplayName("Complex tests")
+	class Test_Complex {
+		private Drink testDrink;
+		
+		@BeforeEach
+		void setUp() {
+			testDrink = new Drink();
+		}
 
+		@Test
+		void testComplexDrinkCreations() {
+			assertTrue(testDrink.init("very long drink name", 10, 400, "instructio\nns", "in\n\ngredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 504, 700));
+			assertTrue(testDrink.init("even longer longggg\ng \ndrink name", 1, 1, "iions", "idients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 500, 100));
+			assertTrue(testDrink.init("12345555", 10, 1, "12344444", "43222222", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 580, 900));
+			assertTrue(testDrink.init("#$%!!!+=[][][][[", 10, 1, "#$%!!!+=[][][][[", "\"\"|\"", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 50, 4));
+			assertTrue(testDrink.init(" ", 10, 1, " ", "  $ ", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 150, 14));
+			assertTrue(testDrink.init("  $ ", 10, 1, "  $ ", " ", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 590, 666));
+		}
 
-// 		assertTrue(testDrink.modifyCalories(-94));
-// 		assertTrue(testDrink.getCalories() == 1);
-// 	}
+		@Test
+		void testSetIconPaths() {
+			assertTrue(testDrink.changeInstructions("I follow rivers  baby \ngood song"));
+			assertTrue(testDrink.changeInstructions("I follow \n\nrivers baby \n"));
+		}
 
-// 	@Test
-// 	private void Test_Empty() {
-	
-// 	}
-	
-// 	@Test
-// 	private void Test_EdgeCases() {
-	
-// 	}
-	
-// 	@Test
-// 	private void Test_Invalid() {
-		
-// 	}
-// 	public void test1() {
-// 		String[] testInstruct = {"1","2","3"};
-// 		String[] testIngredients = {"banana","apple","peach"};
-		
-// 		DrinkIngredient testDrinkIngredient0 = new DrinkIngredient("juice", 12.25, "3", true, false);
-// 		DrinkIngredient testDrinkIngredient1 = new DrinkIngredient("apple", 12.5, "2", false, false);
-// 		DrinkIngredient testDrinkIngredient2 = new DrinkIngredient("cake", 5.43, "1", true, true);
-		
-// 		DrinkIngredient testDrinkIngredient4 = new DrinkIngredient("apple", 12.5, "2", false, false);
-// 		DrinkIngredient testDrinkIngredient5 = new DrinkIngredient("cake", 5.43, "1", true, true);
-		
-// 		DrinkIngredient[] testDrinkIngredientList = new DrinkIngredient[3];
-// 		testDrinkIngredientList[0] = testDrinkIngredient0;
-// 		testDrinkIngredientList[1] = testDrinkIngredient1;
-// 		testDrinkIngredientList[2] = testDrinkIngredient2;
-		
-// 		DrinkIngredient[] testDrinkIngredientList1 = new DrinkIngredient[2];
-// 		testDrinkIngredientList1[0] = testDrinkIngredient4;
-// 		testDrinkIngredientList1[1] = testDrinkIngredient5;
-		
-		
-// 		Drink testDrink0 = new Drink("water", 1, testInstruct,testDrinkIngredientList, FragmentType.diaryEntry, Unit.cups, 2, 5);
-		
-		
-// 		assertEquals("water", testDrink0.getName());
-// 		assertEquals(1, testDrink0.getIconPath());
-// 		assertEquals(0, testDrink0.getCalories());
-		
-// 		DrinkIngredient[] getDrinkIngredientList = testDrink0.getIngredients();
-		
-// 		for (int i = 0; i < getDrinkIngredientList.length; i++) {
-// 			assertEquals(testDrinkIngredientList[i].getName(), getDrinkIngredientList[i].getName());
-// 			assertEquals(testDrinkIngredientList[i].isAlcoholic(), getDrinkIngredientList[i].isAlcoholic());
-// 		}
-		
-// 		testDrink0.changeIngredients(testDrinkIngredientList1);
-		
-// 		getDrinkIngredientList = testDrink0.getIngredients();
-		
-// 		for (int i = 0; i < getDrinkIngredientList.length; i++) {
-// 			assertEquals(testDrinkIngredientList1[i].getName(), getDrinkIngredientList[i].getName());
-// 			assertEquals(testDrinkIngredientList1[i].isAlcoholic(), getDrinkIngredientList[i].isAlcoholic());
-// 		}
-		
-		
-// 		Drink testDrink1 = new Drink("water", 1, 564,testInstruct,testDrinkIngredientList, FragmentType.diaryEntry, Unit.cups, 2, 5);
-		
-// 	}
-// }
+		@Test
+		void testModCalories() {
+			assertTrue(testDrink.modifyCalories(600));
+			assertTrue(testDrink.getCalories() == 600);
+			assertTrue(testDrink.modifyCalories(-500));
+			assertTrue(testDrink.getCalories() == 100);
+		}
 
+		@Test
+		void testSetCalories() {
+			assertTrue(testDrink.setCalories(500));
+			assertTrue(testDrink.getCalories() == 500);
+			assertTrue(testDrink.setCalories(999));
+			assertTrue(testDrink.getCalories() == 999);
+		}
+
+		@Test
+		void testModCaloriesAfterSettingCalories() {
+			assertTrue(testDrink.setCalories(500));
+			assertTrue(testDrink.modifyCalories(600));
+			assertTrue(testDrink.getCalories() == 1100);
+			assertTrue(testDrink.modifyCalories(-600));
+			assertTrue(testDrink.getCalories() == 500);
+		}
+
+		@Test
+		void testSetIconPath() {
+			assertTrue(testDrink.setIconPath(500));
+		}	
+
+		@Test
+		void testSetName() {
+			assertTrue(testDrink.setName("even longerrrrrrrrrrrrrrrrrrrrrr\n\nrrrrrrr drink name"));
+			assertTrue(testDrink.setName("12345555"));
+			assertTrue(testDrink.setName("#$%!!!+=[][][][["));
+		}
+
+		@Test
+		void testSetQuantity() {
+			assertTrue(testDrink.setQuantity(600));
+		}
+			
+		@Test			
+		void testSetIngredients() {
+			assertTrue(testDrink.setIngredients("y\n\nou ingredient, ingrediant, ingreed\n\n"));
+		}
+	}
+
+	@Nested
+	@DisplayName("Empty tests")
+	class Test_Empty {
+		private Drink testDrink;
+		
+		@BeforeEach
+		void setUp() {
+			testDrink = new Drink();
+		}
+
+		@Test
+		void testSingleEmptysInCreation() {
+			assertFalse(testDrink.init(null, 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 0, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 0, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertFalse(testDrink.init("drink", 1, 1, null, "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertFalse(testDrink.init("drink", 1, 1, "instructions", null, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertFalse(testDrink.init("drink", 1, 1, "instructions", "ingredients", null, Edible.Unit.cups, 5, 1));
+			assertFalse(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, null, 5, 1));
+			assertFalse(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 0, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 0));
+		}
+
+		@Test
+		void testMultiEmptyInCreation() { // 1, "instructions", "ingredients", 
+			assertFalse(testDrink.init(null, 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertFalse(testDrink.init(null, 0, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertFalse(testDrink.init(null, 0, 0, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertFalse(testDrink.init(null, 0, 0, null, "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertFalse(testDrink.init(null, 0, 0, null, null, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertFalse(testDrink.init(null, 0, 0, null, null,  null, Edible.Unit.cups, 5, 1));
+			assertFalse(testDrink.init(null, 0, 0, null, null,  null, null, 5, 1));
+			assertFalse(testDrink.init(null, 0, 0, null, null,  null, null, 0, 1));
+			assertFalse(testDrink.init(null, 0, 0, null, null,  null, null, 0, 0));
+		}
+
+		@Test
+		void testEmptyValues() {
+			assertFalse(testDrink.init(null, 0, 0, null, null,  null, null, 0, 0));
+			assertTrue(testDrink.getName() == null);
+			assertTrue(testDrink.getIconPath() == -1);
+			assertTrue(testDrink.getCalories() == 0);
+			assertTrue(testDrink.getInstructions() == null);
+			assertTrue(testDrink.getIngredients() == null);
+			assertTrue(testDrink.getFragmentType() == null);
+			assertTrue(testDrink.getBaseUnit() == null);
+			assertTrue(testDrink.getQuantity() == -1);
+			assertTrue(testDrink.getDbkey() == -1);
+		}
+
+		@Test
+		void testSetIngredients() {
+			assertFalse(testDrink.changeInstructions(null));
+		}
+
+		@Test 
+		void testModCalories() {
+			assertTrue(testDrink.modifyCalories(0));
+		}
+
+		@Test 
+		void testSetBaseUnit() {
+			assertFalse(testDrink.setBaseUnit(null));
+		}
+
+		@Test
+		void testSetCaloies() {
+			assertTrue(testDrink.setCalories(0));
+		}
+
+		@Test
+		void testSetFragType() {
+			assertFalse(testDrink.setFragmentType(null));
+		}
+
+		@Test
+		void testSetIconPath() {
+			assertTrue(testDrink.setIconPath(0));
+		}
+
+		@Test
+		void testSetName() {
+			assertFalse(testDrink.setName(null));
+		}
+
+		@Test
+		void testSetQuantity() {
+			assertFalse(testDrink.setQuantity(0));
+		}
+	}
+
+	@Nested
+	@DisplayName("Edge case tests")
+	class Test_EdgeCases {
+		private Drink testDrink;
+		
+		@BeforeEach
+		void setUp() {
+			testDrink = new Drink();
+		}
+		
+		@Test
+		void testEdgeCasesInCreation() {//1, "instructions", "ingredients"
+			assertTrue(testDrink.init("\n", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertFalse(testDrink.init("", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init(" ", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", Constant.ENTRY_MAX_VALUE, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, Constant.ENTRY_MAX_VALUE, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "\n", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "\n", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 1, Constant.ENTRY_MAX_VALUE));
+			assertTrue(testDrink.init("drink", Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE));
+		}
+
+		@Test
+		void testSetCalories() {
+			assertTrue(testDrink.setCalories(Constant.ENTRY_MAX_VALUE));
+		}
+			
+		@Test
+		void testChangeInstructions() {	
+			assertTrue(testDrink.changeInstructions(""));
+			assertTrue(testDrink.changeInstructions("\n"));
+		}
+
+		@Test
+		void testModCalories() {
+			assertTrue(testDrink.modifyCalories(Constant.ENTRY_MAX_VALUE));
+			assertTrue(testDrink.getCalories() == Constant.ENTRY_MAX_VALUE);
+			assertTrue(testDrink.modifyCalories(-Constant.ENTRY_MAX_VALUE));
+			assertTrue(testDrink.getCalories() == 0);
+		}
+
+		@Test
+		void testSetIconPath() {
+			assertTrue(testDrink.setIconPath(Constant.ENTRY_MAX_VALUE));
+		}
+
+		@Test
+		void testSetName() {
+			assertFalse(testDrink.setName(""));
+		}
+
+		@Test
+		void testSetQuantity() {
+			assertTrue(testDrink.setQuantity(Constant.ENTRY_MAX_VALUE));
+			assertTrue(testDrink.setQuantity(1));
+		}
+		
+		@Test
+		void testSetIngredients() {
+			assertTrue(testDrink.setIngredients(""));
+		}
+	}
+
+	@Nested
+	@DisplayName("Invalid tests")
+	class Test_Invalid {
+		private Drink testDrink;
+		
+		@BeforeEach
+		void setUp() {
+			testDrink = new Drink();
+		}	
+
+		@Test
+		void testInvalidNameCreation() {
+			assertFalse(testDrink.init("", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.getName() == null);
+			assertTrue(testDrink.getIconPath() == -1);
+			assertTrue(testDrink.getCalories() == 0);
+			assertTrue(testDrink.getInstructions() == null);
+			assertTrue(testDrink.getIngredients() == null);
+			assertTrue(testDrink.getFragmentType() == null);
+			assertTrue(testDrink.getBaseUnit() == null);
+			assertTrue(testDrink.getQuantity() == -1);
+			assertTrue(testDrink.getDbkey() == -1);
+		}
+
+		@Test
+		void testInvalidIconPathCreation() {
+			assertFalse(testDrink.init("drink", -1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.getName().equals("drink"));
+			assertTrue(testDrink.getIconPath() == -1);
+			assertTrue(testDrink.getCalories() == 0);
+			assertTrue(testDrink.getInstructions() == null);
+			assertTrue(testDrink.getIngredients() == null);
+			assertTrue(testDrink.getFragmentType() == null);
+			assertTrue(testDrink.getBaseUnit() == null);
+			assertTrue(testDrink.getQuantity() == -1);
+			assertTrue(testDrink.getDbkey() == -1);
+		}
+
+		@Test
+		void testInvalidCaloriesCreation() {
+			assertFalse(testDrink.init("drink", 1, -1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.getName().equals("drink"));
+			assertTrue(testDrink.getIconPath() == 1);
+			assertTrue(testDrink.getCalories() == 0);
+			assertTrue(testDrink.getInstructions() == null);
+			assertTrue(testDrink.getIngredients() == null);
+			assertTrue(testDrink.getFragmentType() == null);
+			assertTrue(testDrink.getBaseUnit() == null);
+			assertTrue(testDrink.getQuantity() == -1);
+			assertTrue(testDrink.getDbkey() == -1);
+
+			assertFalse(testDrink.init("drink", 1, Constant.ENTRY_MAX_VALUE + 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.getName() == "drink");
+			assertTrue(testDrink.getIconPath() == 1);
+			assertTrue(testDrink.getCalories() == 0);
+			assertTrue(testDrink.getInstructions() == null);
+			assertTrue(testDrink.getIngredients() == null);
+			assertTrue(testDrink.getFragmentType() == null);
+			assertTrue(testDrink.getBaseUnit() == null);
+			assertTrue(testDrink.getQuantity() == -1);
+			assertTrue(testDrink.getDbkey() == -1);
+		}
+
+		@Test
+		void testInvalidInstructionsCreation() {
+			assertFalse(testDrink.init("drink", 1, 1, null, "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.getName().equals("drink"));
+			assertTrue(testDrink.getIconPath() == 1);
+			assertTrue(testDrink.getCalories() == 1);
+			assertTrue(testDrink.getInstructions() == null);
+			assertTrue(testDrink.getIngredients() == null);
+			assertTrue(testDrink.getFragmentType() == ListItem.FragmentType.diaryEntry);
+			assertTrue(testDrink.getBaseUnit() == Edible.Unit.cups);
+			assertTrue(testDrink.getQuantity() == 5);
+			assertTrue(testDrink.getDbkey() == 1);
+		}
+
+		@Test
+		void testInvalidIngredientsCreation() {
+			assertFalse(testDrink.init("drink", 1,  1, "instructions", null, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.getName().equals("drink"));
+			assertTrue(testDrink.getIconPath() == 1);
+			assertTrue(testDrink.getCalories() == 1);
+			assertTrue(testDrink.getInstructions().equals("instructions"));
+			assertTrue(testDrink.getIngredients() == null);
+			assertTrue(testDrink.getFragmentType() == ListItem.FragmentType.diaryEntry);
+			assertTrue(testDrink.getBaseUnit() == Edible.Unit.cups);
+			assertTrue(testDrink.getQuantity() == 5);
+			assertTrue(testDrink.getDbkey() == 1);
+		}
+
+		@Test
+		void testInvalidFragmentCreation() {
+			assertFalse(testDrink.init("drink", 1, 1, "instructions", "ingredients", null, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.getName().equals("drink"));
+			assertTrue(testDrink.getIconPath() == 1);
+			assertTrue(testDrink.getCalories() == 1);
+			assertTrue(testDrink.getInstructions() == null);
+			assertTrue(testDrink.getIngredients() == null);
+			assertTrue(testDrink.getFragmentType() == null);
+			assertTrue(testDrink.getBaseUnit() == null);
+			assertTrue(testDrink.getQuantity() == -1);
+			assertTrue(testDrink.getDbkey() == -1);
+		}
+
+		@Test
+		void testInvalidUnitCreation() {
+			assertFalse(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, null, 5, 1));
+			assertTrue(testDrink.getName().equals("drink"));
+			assertTrue(testDrink.getIconPath() == 1);
+			assertTrue(testDrink.getCalories() == 1);
+			assertTrue(testDrink.getInstructions() == null);
+			assertTrue(testDrink.getIngredients() == null);
+			assertTrue(testDrink.getFragmentType() == ListItem.FragmentType.diaryEntry);
+			assertTrue(testDrink.getBaseUnit() == null);
+			assertTrue(testDrink.getQuantity() == -1);
+			assertTrue(testDrink.getDbkey() == -1);
+		}
+
+		@Test
+		void testInvalidQuantityCreation() {
+			assertFalse(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, -1, 1));
+			assertTrue(testDrink.getName().equals("drink"));
+			assertTrue(testDrink.getIconPath() == 1);
+			assertTrue(testDrink.getCalories() == 1);
+			assertTrue(testDrink.getInstructions() == null);
+			assertTrue(testDrink.getIngredients() == null);
+			assertTrue(testDrink.getFragmentType() == ListItem.FragmentType.diaryEntry);
+			assertTrue(testDrink.getBaseUnit() == Edible.Unit.cups);
+			assertTrue(testDrink.getQuantity() == -1);
+			assertTrue(testDrink.getDbkey() == -1);
+
+			assertFalse(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE + 1, 1));
+			assertTrue(testDrink.getName().equals("drink"));
+			assertTrue(testDrink.getIconPath() == 1);
+			assertTrue(testDrink.getCalories() == 1);
+			assertTrue(testDrink.getInstructions() == null);
+			assertTrue(testDrink.getIngredients() == null);
+			assertTrue(testDrink.getFragmentType() == ListItem.FragmentType.diaryEntry);
+			assertTrue(testDrink.getBaseUnit() == Edible.Unit.cups);
+			assertTrue(testDrink.getQuantity() == -1);
+			assertTrue(testDrink.getDbkey() == -1);
+		}
+
+		@Test
+		void testInvalidDBKeyCreation() {
+			assertFalse(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, -1));
+			assertTrue(testDrink.getName().equals("drink"));
+			assertTrue(testDrink.getIconPath() == 1);
+			assertTrue(testDrink.getCalories() == 1);
+			assertTrue(testDrink.getInstructions() == null);
+			assertTrue(testDrink.getIngredients() == null);
+			assertTrue(testDrink.getFragmentType() == ListItem.FragmentType.diaryEntry);
+			assertTrue(testDrink.getBaseUnit() == Edible.Unit.cups);
+			assertTrue(testDrink.getQuantity() == 5);
+			assertTrue(testDrink.getDbkey() == -1);
+		}
+
+		@Test
+		void  testModCalories() {
+			assertFalse(testDrink.modifyCalories(Constant.ENTRY_MAX_VALUE + 1));
+			assertFalse(testDrink.modifyCalories(-1));
+		}
+
+		@Test
+		void testSetCaloies() {
+			assertFalse(testDrink.setCalories(Constant.ENTRY_MAX_VALUE + 1));
+			assertFalse(testDrink.setCalories(-1));
+		}
+
+		@Test
+		void testSetIconPath() {
+			assertFalse(testDrink.setIconPath(-1));
+		}
+
+		@Test
+		void testSetQuantity() {	
+			assertFalse(testDrink.setQuantity(Constant.ENTRY_MAX_VALUE + 1));
+			assertFalse(testDrink.setQuantity(-1));
+		}
+	}
+}
