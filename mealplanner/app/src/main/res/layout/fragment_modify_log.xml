@@ -5,7 +5,7 @@
     android:id="@+id/frame_container"
     android:layout_width="match_parent"
     android:layout_height="130dp"
-    tools:context="comp3350.team10.presentation.FragmentModifyLog">
+    tools:context="comp3350.team10.presentation.FragmentDiaryCardContext">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

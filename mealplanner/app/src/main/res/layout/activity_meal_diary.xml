@@ -27,7 +27,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
-        android:name="comp3350.team10.presentation.FragmentDailyProgress"
+        android:name="comp3350.team10.presentation.FragmentDiaryProgress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="?android:attr/actionBarSize"

@@ -9,11 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FragmentLogCard extends Fragment {
-    public FragmentLogCard() {} //Required empty public constructor
+public class FragmentDiaryLogCard extends Fragment {
+    public FragmentDiaryLogCard() {} //Required empty public constructor
 
-    public static FragmentLogCard newInstance() {
-        FragmentLogCard fragment = new FragmentLogCard();
+    public static FragmentDiaryLogCard newInstance() {
+        FragmentDiaryLogCard fragment = new FragmentDiaryLogCard();
         Bundle args = new Bundle();
         fragment.setArguments(args);
 

@@ -158,19 +158,19 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public void editItem() { //launch dialog fragment
-        new FragmentMealDiaryDialogs().show(getSupportFragmentManager(), FragmentMealDiaryDialogs.TAG);
+        new FragmentDiaryDialogs().show(getSupportFragmentManager(), FragmentDiaryDialogs.TAG);
         this.mode = EntryMode.EDIT_QTY;
     }
 
     @Override
     public void showGoalEntryDialog() { //launch dialog fragment
-        new FragmentMealDiaryDialogs().show(getSupportFragmentManager(), FragmentMealDiaryDialogs.TAG);
+        new FragmentDiaryDialogs().show(getSupportFragmentManager(), FragmentDiaryDialogs.TAG);
         this.mode = EntryMode.GOAL_CALORIE;
     }
 
     @Override
     public void showExerciseEntryDialog() { //launch dialog fragment
-        new FragmentMealDiaryDialogs().show(getSupportFragmentManager(), FragmentMealDiaryDialogs.TAG);
+        new FragmentDiaryDialogs().show(getSupportFragmentManager(), FragmentDiaryDialogs.TAG);
         this.mode = EntryMode.ACTUAL_EXERCISE;
     }
 

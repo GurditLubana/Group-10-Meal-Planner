@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="130dp"
     android:clickable="false"
-    tools:context="comp3350.team10.presentation.FragmentLogCard">
+    tools:context="comp3350.team10.presentation.FragmentDiaryLogCard">
 
     <!-- TODO: Update blank fragment layout -->
 
