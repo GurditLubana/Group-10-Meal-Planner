@@ -15,15 +15,6 @@ public class DailyLog { //Sort of like the user's logs from the database
     private Integer calGoal;                    //Calculates the difference between the goal and actual exercise calories
     private Integer date;                       //The date
 
-    public DailyLog(Integer date, Integer calGoal, Integer excGoal, Integer excActual, ArrayList<Edible> log) {
-        this.log = log;
-        this.date = date;
-        this.calGoal = calGoal;
-        this.excGoal = excGoal;
-        this.fragmentType = null;
-        this.excActual = excActual;
-    }
-
     public DailyLog() {
         this.log = null;
         this.date = null;
@@ -33,8 +24,10 @@ public class DailyLog { //Sort of like the user's logs from the database
         this.excActual = null;
     }
 
+
     public boolean init(Integer date, Integer calGoal, Integer excGoal, Integer excActual, ArrayList<Edible> log) {
         boolean result = false;
+        
         if (date != null && date >= 0
                 && setCalGoal(calGoal)
                 && setExcGoal(excGoal)
@@ -44,51 +37,62 @@ public class DailyLog { //Sort of like the user's logs from the database
             this.date = date;
             result = true;
         }
+
         return result;
     }
 
     public boolean setFoodList(ArrayList<Edible> newLog) {
         boolean result = false;
-        if (newLog != null && newLog.size() > 0) {
+
+        if(newLog != null && newLog.size() > 0 && !newLog.contains(null)) {
             this.log = newLog;
             result = true;
         }
+
         return result;
     }
 
     public boolean setExcActual(Integer newExcActual) {
         boolean result = false;
-        if (newExcActual != null && newExcActual >= 0 && newExcActual <= 9999) {
+
+        if(newExcActual != null && newExcActual >= Constant.ENTRY_MIN_VALUE && newExcActual <= Constant.ENTRY_MAX_VALUE) {
             this.excActual = newExcActual;
             result = true;
         }
+
         return result;
     }
 
     public boolean setCalGoal(Integer newCalGoal) {
         boolean result = false;
-        if (newCalGoal != null && newCalGoal >= 0 && newCalGoal <= 9999) {
+
+        if(newCalGoal != null && newCalGoal >= Constant.ENTRY_MIN_VALUE && newCalGoal <= Constant.ENTRY_MAX_VALUE) {
             this.calGoal = newCalGoal;
             result = true;
         }
+
         return result;
     }
 
     public boolean setExcGoal(Integer newExcGoal) {
         boolean result = false;
-        if (newExcGoal != null && newExcGoal >= 0 && newExcGoal <= 9999) {
+
+        if(newExcGoal != null && newExcGoal >= Constant.ENTRY_MIN_VALUE && newExcGoal <= Constant.ENTRY_MAX_VALUE) {
             this.excGoal = newExcGoal;
             result = true;
         }
+
         return result;
     }
 
     public boolean setFragmentType(ListItem.FragmentType fragmentType) {
         boolean result = false;
-        if (fragmentType != null) {
+
+        if(fragmentType != null) {
             this.fragmentType = fragmentType;
             result = true;
         }
+        
         return result;
     }
 

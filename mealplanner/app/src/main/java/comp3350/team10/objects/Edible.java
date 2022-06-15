@@ -11,8 +11,8 @@ public abstract class Edible implements ListItem {
     private String name;                        //The name for a given variable
     private int dbkey;                          //This edibles database key
 
-    public Edible(String name, int iconPath, ListItem.FragmentType type, Unit baseUnit, int quantity, int dbkey) {
-        this.name = name;
+    public Edible() {
+        this.name = null;
         this.calories = 0;
         this.dbkey = -1;
         this.iconPath = -1;
@@ -23,22 +23,29 @@ public abstract class Edible implements ListItem {
 
     public Edible(ListItem.FragmentType type) {
         this.fragmentType = type;
+        this.name = null;
+        this.calories = 0;
+        this.dbkey = -1;
+        this.iconPath = -1;
+        this.baseUnit = null;
+        this.quantity = -1;
     }
 
 
-    public boolean init(String name, int iconPath, ListItem.FragmentType type, ListItem.Unit baseUnit, int quantity, int dbkey) {
+    public boolean init(String name, int iconPath, ListItem.FragmentType type, Unit baseUnit, int quantity, int dbkey) {
         return this.setName(name) && this.setIconPath(iconPath) && this.setFragmentType(type) && 
             this.setBaseUnit(baseUnit) && this.setQuantity(quantity) && this.setDbkey(dbkey);
     }
 
     public boolean modifyCalories(int amount) {
-        boolean valid = amount > 0 && this.calories + amount <= LIMIT;
+        boolean results = false;
 
-        if(valid) {
+        if(amount > Constant.ENTRY_MIN_VALUE && this.calories + amount <= Constant.ENTRY_MAX_VALUE) {
             this.calories += amount;
+            results = true;
         }
         
-        return valid;
+        return results;
     }
 
     public Integer getCalories() {
@@ -70,72 +77,79 @@ public abstract class Edible implements ListItem {
     }
 
     public boolean setFragmentType(ListItem.FragmentType fragmentType) {
-        boolean valid = validFragEnum(fragmentType);
+        boolean results = false;
 
-        if(valid) {
+        if(fragmentType != null) {
             this.fragmentType = fragmentType;
+            results = true;
         }
         
-        return valid;
+        return results;
     }
 
     public boolean setCalories(Integer newCalories) {
-        boolean valid = newCalories <= LIMIT && newCalories > 0;
+        boolean results = false;
 
-        if(valid) {
+        if(newCalories <= Constant.ENTRY_MAX_VALUE && newCalories > Constant.ENTRY_MIN_VALUE) {
             this.calories = newCalories;
+            results = true;
         }
 
-        return valid;
+        return results;
     }
 
-    public boolean setBaseUnit(ListItem.Unit baseUnit) {
-        boolean valid = validUnitEnum(baseUnit);
+    public boolean setBaseUnit(Unit baseUnit) {
+        boolean results = false;
         
-        if(valid) {
+        if(baseUnit != null) {
             this.baseUnit = baseUnit;
+            results = true;
         }
 
-        return valid;
+        return results;
     }
 
     public boolean setQuantity(int quantity) {
-        boolean valid = quanity <= LIMIT && quantity > 0;
+        boolean results = false;
         
-        if(valid) {
+        if(quantity <= Constant.ENTRY_MAX_VALUE && quantity > Constant.ENTRY_MIN_VALUE) {
             this.quantity = quantity;
+            results = true;
         }
 
-        return valid;
+        return results;
     }
 
     public boolean setDbkey(int dbkey) {
-        boolean valid = dbkey > 0;;
+        boolean results = false;
 
-        if(valid) {
+        if(dbkey > 0) {
             this.dbkey = dbkey;
+            results = true;
         }
         
-        return valid;
+        return results;
     }
 
     public boolean setName(String name) {
-        boolean valid = !name.equals("");
+        boolean results = false;
 
-        if(valid) {
+        if(name != null && !name.equals("")) {
             this.name = name;
+            results = true;
         }
 
-        return false;
+        return results;
     }
 
     public boolean setIconPath(int iconPath) {
-        boolean valid = iconPath > 0;;
+        boolean results = false;
 
-        if(valid) {
+        if(iconPath > Constant.ENTRY_MIN_VALUE) {
             this.iconPath = iconPath;
+            results = true;
         }
         
-        return valid;
+        return results;
     }
 }

@@ -118,8 +118,10 @@ public class DataAccessStub {
     }
 
     private DailyLog setSelectedFoodLog(Integer date) {
-        DailyLog result = new DailyLog(date, 1500, 0, 0, emptyLog());
+        DailyLog result = new DailyLog();
         int position = this.getFoodLogDBIndex(date);
+
+        result.init(date, 1500, 0, 0, emptyLog());
 
         if (position == -1) {
             dbFoodLog.add(result);
@@ -222,16 +224,26 @@ public class DataAccessStub {
 
     private void loadFoodlog() {
         Integer today = calendarToInt(calendar);
-        this.dbFoodLog = new ArrayList<DailyLog>(); // key = yyyyddd integer , Calorie goal, Exercise goal, actual exercise, Foodlog
+        DailyLog currLog;
 
+        this.dbFoodLog = new ArrayList<DailyLog>(); // key = yyyyddd integer , Calorie goal, Exercise goal, actual exercise, Foodlog
+        currLog.init()
         this.dbFoodLog.add(new DailyLog(today, 1500, 300, 0, randomLog()));
+
         this.dbFoodLog.add(new DailyLog(today - 1, 1700, 300, 200, randomLog()));
+
         this.dbFoodLog.add(new DailyLog(today - 2, 1600, 300, 120, randomLog()));
+
         this.dbFoodLog.add(new DailyLog(today - 3, 1300, 300, 30, randomLog()));
+
         this.dbFoodLog.add(new DailyLog(today - 4, 1800, 300, 300, randomLog()));
+
         this.dbFoodLog.add(new DailyLog(today - 5, 1500, 300, 100, randomLog()));
+
         this.dbFoodLog.add(new DailyLog(today - 6, 1600, 300, 300, randomLog()));
+
         this.dbFoodLog.add(new DailyLog(today + 1, 1600, 300, 400, randomLog()));
+
 
         this.sortDBFoodLog();
     }

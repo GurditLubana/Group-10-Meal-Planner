@@ -14,15 +14,4 @@ public interface ListItem {
 
         return results;
     }
-
-    public static boolean validUnitEnum(Unit unit) {
-        boolean results = false;
-
-        for(Unit curr : Unit.values()) {
-            if(curr.equals(unit))
-                results =  true;
-        }
-
-        return results;
-    }
 }

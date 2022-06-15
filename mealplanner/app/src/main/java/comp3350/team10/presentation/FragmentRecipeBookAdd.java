@@ -108,7 +108,6 @@ public class FragmentRecipeBookAdd extends DialogFragment {
     }
 
     private void setFoodDialogFieldDefaults(){
-
         this.title.setText("Add New Food");
         this.labelName.setText("Food Name");
         this.inputName.setHint("Food Name");
