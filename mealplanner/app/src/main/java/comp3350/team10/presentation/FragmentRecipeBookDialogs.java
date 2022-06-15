@@ -20,7 +20,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class FragmentRecipeBookAdd extends DialogFragment {
+public class FragmentRecipeBookDialogs extends DialogFragment {
     private TextView title;
     private TextView labelName;
     private TextView labelCalories;
@@ -43,12 +43,12 @@ public class FragmentRecipeBookAdd extends DialogFragment {
     private Edible.Unit unit;
     private FragToRecipeBook.EntryMode mode;
 
-    public FragmentRecipeBookAdd() {
+    public FragmentRecipeBookDialogs() {
         // Required empty public constructor
     }
 
-    public static FragmentRecipeBookAdd newInstance(String param1, String param2) {
-        FragmentRecipeBookAdd fragment = new FragmentRecipeBookAdd();
+    public static FragmentRecipeBookDialogs newInstance(String param1, String param2) {
+        FragmentRecipeBookDialogs fragment = new FragmentRecipeBookDialogs();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;

@@ -84,10 +84,10 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
 
         switch (viewType) {
             case 4:    //add thing to make it show this card/buttons thingy add enum
-                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_on_card_selection, viewGroup, false);
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_recipe_book_card_context, viewGroup, false);
                 break;
             default:
-                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_dbl_card, viewGroup, false);
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_recipe_book_card, viewGroup, false);
                 break;
         }
         viewHolder = new ViewHolder(view);

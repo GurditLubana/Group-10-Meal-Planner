@@ -96,7 +96,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                     animateButton();
                 }
 
-                new FragmentRecipeBookAdd().show(getSupportFragmentManager(), FragmentRecipeBookAdd.TAG);
+                new FragmentRecipeBookDialogs().show(getSupportFragmentManager(), FragmentRecipeBookDialogs.TAG);
             }
         });
     }

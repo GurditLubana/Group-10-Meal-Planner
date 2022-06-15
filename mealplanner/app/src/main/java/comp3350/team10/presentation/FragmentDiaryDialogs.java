@@ -58,7 +58,7 @@ public class FragmentDiaryDialogs extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_meal_diary_dialogs, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_diary_dialogs, null);
         Context context = view.getContext();
         this.btnCancel = view.findViewById(R.id.btnCancel);
         this.btnOk = view.findViewById(R.id.btnOk);

@@ -9,11 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FragmentDiaryLogCard extends Fragment {
-    public FragmentDiaryLogCard() {} //Required empty public constructor
+public class FragmentDiaryCard extends Fragment {
+    public FragmentDiaryCard() {} //Required empty public constructor
 
-    public static FragmentDiaryLogCard newInstance() {
-        FragmentDiaryLogCard fragment = new FragmentDiaryLogCard();
+    public static FragmentDiaryCard newInstance() {
+        FragmentDiaryCard fragment = new FragmentDiaryCard();
         Bundle args = new Bundle();
         fragment.setArguments(args);
 
@@ -27,7 +27,7 @@ public class FragmentDiaryLogCard extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_log_card, container, false);
+        return inflater.inflate(R.layout.fragment_diary_card, container, false);
     }
 
     @Override
