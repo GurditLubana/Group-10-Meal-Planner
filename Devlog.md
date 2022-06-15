@@ -703,6 +703,22 @@ Duration: 6hrs
    - Added additionalDocs
    - Bug: need to change the cardOnSelect UI, we do not want to add items from this menu anymore
 
+### 2022-06-12
+     Dev: Zhou
+Duration: 6hrs
+   Tasks:
+   - Junit test for the object already been test in sepearate file
+     - DiaryItem
+     - DrinkIngredient
+     - Drink
+     - Edible
+     - Exercise
+     - Food
+     - MealIngredient and Ingredient
+     - Workout
+   - All the test is done in separate class, Bug already been fixed,
+
+
 ### 2022-06-13
      Dev: Dane
 Duration: 2hrs
