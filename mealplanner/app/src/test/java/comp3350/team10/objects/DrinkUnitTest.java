@@ -5,11 +5,84 @@ import comp3350.team10.objects.ListItem.FragmentType;
 import comp3350.team10.objects.Edible.Unit;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 
 //import static org.junit.Assert.*;
 //import org.junit.Test;
+
+
+public class DrinkUnitTest {
+
+    Drink testDrink;
+
+    @Nested
+    @DisplayName("Testing Drink Object getters")
+    class testDrink{
+
+        @BeforeEach
+        void SetDrinks(){
+            testDrink = new Drink("Mohito", 2, 250, "Instructions", "ingredients", FragmentType.diaryEntry, Unit.liter, 4, 7);
+        }
+
+        @Test
+        void testGetters(){
+            assertTrue(testDrink.getName() == "Mohito");
+            assertTrue(testDrink.getIconPath() == 2);
+            assertTrue(testDrink.getCalories() == 250);
+            assertTrue(testDrink.getInstructions() == "Instructions");
+            assertTrue(testDrink.getIngredients() == "ingredients");
+            assertTrue(testDrink.getFragmentType() == FragmentType.diaryEntry);
+            assertTrue(testDrink.getBaseUnit() == Unit.liter);
+            assertTrue(testDrink.getQuantity() == 4);
+            assertTrue(testDrink.getDbkey() == 7);
+        }
+        @Test
+        void DrinkIngNotNull(){
+            assertTrue(testDrink.getIngredients() != null);
+        }
+
+        @Test
+        void DrinkIngNotEmpty(){
+            assertTrue(testDrink.getIngredients() != "");
+        }
+
+        @Test
+        void testIconpath(){
+            assertTrue(testDrink.getIconPath() >=0);
+            assertTrue(testDrink.getIconPath() <= 9999);
+        }
+
+        @Test
+        void testInstNotNull(){
+            assertTrue(testDrink.getInstructions() != null);
+        }
+
+        @Test
+        void testInstNotEmpty(){
+            assertTrue(testDrink.getInstructions() != "");
+        }
+
+        @Test
+        void testIngNotNull(){
+            assertTrue(testDrink.getIngredients() != null);
+        }
+
+        @Test
+        void testIngNotEmpty(){
+            assertTrue(testDrink.getIngredients() != "");
+        }
+
+        @Test
+        void TestFragType(){
+
+        }
+    }
+}
 /*
 public class DrinkUnitTest {
 	@Test
