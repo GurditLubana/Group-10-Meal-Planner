@@ -2,7 +2,6 @@ package comp3350.team10.persistence;
 
 import comp3350.team10.objects.*;
 import comp3350.team10.R;
-import comp3350.team10.business.MealDiaryOps;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.Collections;
@@ -13,6 +12,7 @@ import java.util.Calendar;
 
 public class DataAccessStub {
     private final static int GOAL_LIMIT = 9999;
+
     private static enum DATA_TYPES {FOOD, MEAL, DRINK}
 
     //Database and app management variables
@@ -37,16 +37,16 @@ public class DataAccessStub {
         this.calendar = Calendar.getInstance();
         this.selectedDate = null;
         this.selectedFoodLog = null;
-        this.currKey = 1; 
+        this.currKey = 1;
     }
 
     public DataAccessStub() {
         this(SharedDB.dbName);
-        
+
         this.calendar = Calendar.getInstance();
         this.selectedDate = null;
         this.selectedFoodLog = null;
-        this.currKey = 1; 
+        this.currKey = 1;
     }
 
     public void open(String dbName) {
@@ -72,7 +72,7 @@ public class DataAccessStub {
     }
 
     public void setCalorieGoal(int goal) {
-        if(goal >= 0 && goal <= GOAL_LIMIT) {
+        if (goal >= 0 && goal <= GOAL_LIMIT) {
             selectedFoodLog.setCalGoal(goal);
             this.updateFoodLogDB();
         }
@@ -83,7 +83,7 @@ public class DataAccessStub {
     }
 
     public void setExerciseGoal(int goal) {
-        if(goal >= 0 && goal <= GOAL_LIMIT) {
+        if (goal >= 0 && goal <= GOAL_LIMIT) {
             selectedFoodLog.setExcGoal(goal);
             this.updateFoodLogDB();
         }
@@ -98,7 +98,7 @@ public class DataAccessStub {
     }
 
     public ArrayList<Edible> getFoodList(Calendar date) {
-        if(selectedDate.intValue() != calendarToInt(date).intValue()) {
+        if (selectedDate.intValue() != calendarToInt(date).intValue()) {
             selectedFoodLog = setSelectedFoodLog(calendarToInt(date));
             selectedDate = calendarToInt(date);
         }
@@ -107,7 +107,7 @@ public class DataAccessStub {
     }
 
     public void updateSelectedFoodLogFoodList(ArrayList<Edible> newList) {
-        if(newList != null) {
+        if (newList != null) {
             selectedFoodLog.setFoodList(newList);
             this.updateFoodLogDB();
         }
@@ -121,15 +121,14 @@ public class DataAccessStub {
         DailyLog result = new DailyLog(date, 1500, 0, 0, emptyLog());
         int position = this.getFoodLogDBIndex(date);
 
-        if(position == -1) {
+        if (position == -1) {
             dbFoodLog.add(result);
-        } 
-        else {
+        } else {
             result = dbFoodLog.get(position);
         }
-        
+
         this.sortDBFoodLog();
-        
+
         return result;
     }
 
@@ -144,9 +143,9 @@ public class DataAccessStub {
         boolean found = false;
         int result = -1;
 
-        if(dbFoodLog.size() > 0) {
-            for(int i = 0; i < dbFoodLog.size() && !found; i++) {
-                if(date.intValue() == dbFoodLog.get(i).getDate().intValue()) {
+        if (dbFoodLog.size() > 0) {
+            for (int i = 0; i < dbFoodLog.size() && !found; i++) {
+                if (date.intValue() == dbFoodLog.get(i).getDate().intValue()) {
                     found = true;
                     result = i;
                 }
@@ -161,11 +160,9 @@ public class DataAccessStub {
 
         if (edibleType == "FOOD") {
             currEdibles.addAll(dbRecipeFood);
-        } 
-        else if (edibleType == "DRINKS") {
+        } else if (edibleType == "DRINKS") {
             currEdibles.addAll(dbRecipeDrink);
-        } 
-        else if (edibleType == "MEALS") {
+        } else if (edibleType == "MEALS") {
             currEdibles.addAll(dbRecipeMeal);
         }
 
@@ -174,40 +171,40 @@ public class DataAccessStub {
         return currEdibles;
     }
 
-    public void addFoodToRecipeBook(Edible newFood){
-        if(newFood != null) {
+    public void addFoodToRecipeBook(Edible newFood) {
+        if (newFood != null) {
             dbRecipeFood.add(newFood);
         }
     }
 
-    public void addMealToRecipeBook(Edible newMeal){
-        if(newMeal != null) {
+    public void addMealToRecipeBook(Edible newMeal) {
+        if (newMeal != null) {
             dbRecipeMeal.add(newMeal);
         }
     }
 
-    public void addDrinkToRecipeBook(Edible newDrink){
-        if(newDrink != null) {
+    public void addDrinkToRecipeBook(Edible newDrink) {
+        if (newDrink != null) {
             dbRecipeDrink.add(newDrink);
         }
     }
 
     public Edible findEdibleByKey(int key) {
         Edible result = null;
-        System.out.println("key: " +key);
+        System.out.println("key: " + key);
 
-        for(int i = 0; i < dbRecipeFood.size() && result == null; i++) {
-            if(dbRecipeFood.get(i).getDbkey() == key) {
+        for (int i = 0; i < dbRecipeFood.size() && result == null; i++) {
+            if (dbRecipeFood.get(i).getDbkey() == key) {
                 result = dbRecipeFood.get(i);
             }
         }
-        for(int i = 0; i < dbRecipeMeal.size() && result == null; i++) {
-            if(dbRecipeMeal.get(i).getDbkey() == key) {
+        for (int i = 0; i < dbRecipeMeal.size() && result == null; i++) {
+            if (dbRecipeMeal.get(i).getDbkey() == key) {
                 result = dbRecipeMeal.get(i);
             }
         }
-        for(int i = 0; i < dbRecipeDrink.size() && result == null; i++) {
-            if(dbRecipeDrink.get(i).getDbkey() == key) {
+        for (int i = 0; i < dbRecipeDrink.size() && result == null; i++) {
+            if (dbRecipeDrink.get(i).getDbkey() == key) {
                 result = dbRecipeDrink.get(i);
             }
         }
@@ -245,10 +242,9 @@ public class DataAccessStub {
             public int compare(DailyLog left, DailyLog right) {
                 int result = 0;
 
-                if(left.getDate() < right.getDate()) {
+                if (left.getDate() < right.getDate()) {
                     result = -1;
-                } 
-                else if(left.getDate() < right.getDate()) {
+                } else if (left.getDate() < right.getDate()) {
                     result = 1;
                 }
                 return result;
@@ -261,18 +257,18 @@ public class DataAccessStub {
         int randomCount = 0;
         int randomIndex = 0;
 
-        if(dbRecipeFood != null) {
+        if (dbRecipeFood != null) {
             result.addAll(dbRecipeFood);
             Collections.shuffle(result.subList(0, 14));
             randomCount = ThreadLocalRandom.current().nextInt(result.size() / 2, result.size());
 
-            for(int i = 0; i < randomCount; i++) {
+            for (int i = 0; i < randomCount; i++) {
                 randomIndex = ThreadLocalRandom.current().nextInt(0, result.size() - 1);
                 result.remove(randomIndex);
             }
         }
 
-        for(int i = 0; i < result.size(); i++) {
+        for (int i = 0; i < result.size(); i++) {
             ((Edible) result.get(i)).setFragmentType(ListItem.FragmentType.diaryEntry);
         }
 
@@ -283,9 +279,9 @@ public class DataAccessStub {
 
     private ArrayList<Edible> emptyLog() {
         ArrayList<Edible> result = new ArrayList<Edible>();
-        
+
         result.add(new Food(null, -1, 0, ListItem.FragmentType.diaryAdd, null, -1, -1));
-        
+
         return result;
     }
 
@@ -293,83 +289,51 @@ public class DataAccessStub {
         int caloriesRandom = ThreadLocalRandom.current().nextInt(250, 450);
         this.dbRecipeDrink = new ArrayList<Edible>();
 
-        this.dbRecipeDrink.add(new Drink("Mojito", R.drawable.food, caloriesRandom, new String[]{"GET", "GOOD"},
-                new DrinkIngredient[]{
-                        new DrinkIngredient("White Rum", 1.5, "oz", false, true),
-                        new DrinkIngredient("Sugar", 2, "TBSP", false, false),
-                        new DrinkIngredient("Mint", 8, "leaves", false, false),
-                        new DrinkIngredient("Lime", 1.2, "lime", false, false),
-                        new DrinkIngredient("Club soda", 0, "fill", true, false),
-                }, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
+        this.dbRecipeDrink.add(new Drink("Mojito", R.drawable.food, caloriesRandom, new String("Mix them"),
+                new String("White Rum 1.5oz\nSugar 2TBSP\nMint 8leaves\nLime 1.2 lime\nClub soda 0 fill\n"
+                ), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
         ));
 
         caloriesRandom = ThreadLocalRandom.current().nextInt(250, 450);
-        this.dbRecipeDrink.add(new Drink("Mai-tai", R.drawable.food2, caloriesRandom, new String[]{"GET", "GOOD"},
-                new DrinkIngredient[]{
-                        new DrinkIngredient("Coconut Malibu", 1.5, "oz", true, false),
-                        new DrinkIngredient("Rum", 1.5, "oz", true, false),
-                        new DrinkIngredient("Pineapple juice", 3, "oz", true, false),
-                        new DrinkIngredient("Orange juice", 2, "oz", true, false),
-                        new DrinkIngredient("Grenadine", 1, "dash", false, false),
-                }, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
+        this.dbRecipeDrink.add(new Drink("Mai-tai", R.drawable.food2, caloriesRandom, new String("Mix them"),
+                new String("Coconut Malibu 1.5oz\nRum 1.5oz\nPineapple juice 3oz\nOrange juice 2oz\nGrenadine 1dash\n"
+                ), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
         ));
 
         caloriesRandom = ThreadLocalRandom.current().nextInt(250, 450);
-        this.dbRecipeDrink.add(new Drink("Red Headed \"friend\"", R.drawable.food3, caloriesRandom, new String[]{"GET", "GOOD"},
-                new DrinkIngredient[]{
-                        new DrinkIngredient("Jagermeister", 1, "oz", false, true),
-                        new DrinkIngredient("Cranberry juice", 1, "oz", true, false),
-                        new DrinkIngredient("Peach Schnapps", 1, "oz", false, true),
-                }, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
+        this.dbRecipeDrink.add(new Drink("Red Headed \"friend\"", R.drawable.food3, caloriesRandom, new String("Mix them"),
+                new String("Jagermeister 1oz\nCranberry juice 1oz\nPeach Schnapps 1oz\n"
+                ), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
         ));
 
         caloriesRandom = ThreadLocalRandom.current().nextInt(250, 450);
-        this.dbRecipeDrink.add(new Drink("Fun On The Beach", R.drawable.food4, caloriesRandom, new String[]{"GET", "GOOD"},
-                new DrinkIngredient[]{
-                        new DrinkIngredient("Vodka", 1.5, "oz", false, true),
-                        new DrinkIngredient("Peach Schnapps", 0.5, "oz", false, true),
-                        new DrinkIngredient("Chamboard", 1 / 2, "oz", false, true),
-                        new DrinkIngredient("Orange juice", 1.5, "oz", true, false),
-                        new DrinkIngredient("Cranberry juice", 1.5, "oz", true, false),
-                }, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
+        this.dbRecipeDrink.add(new Drink("Fun On The Beach", R.drawable.food4, caloriesRandom, new String("Mix them"),
+                new String("Vodka 1.5oz\nPeach Schnapps 0.5oz\nChamboard 1 / 2oz\nOrange juice 1.5oz\nCranberry juice 1.5oz\n"
+                ), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
         ));
 
         caloriesRandom = ThreadLocalRandom.current().nextInt(250, 450);
-        this.dbRecipeDrink.add(new Drink("Non Alcoholic Moscow Mule", R.drawable.food, caloriesRandom, new String[]{"GET", "GOOD"},
-                new DrinkIngredient[]{
-                        new DrinkIngredient("Lime juice", 1, "TBSP", false, false),
-                        new DrinkIngredient("Ginger beer", 4, "oz", false, false),
-                        new DrinkIngredient("Club soda", 0, "fill", false, false),
-                        new DrinkIngredient("Mint", 8, "leaves", false, false),
-                }, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
+        this.dbRecipeDrink.add(new Drink("Non Alcoholic Moscow Mule", R.drawable.food, caloriesRandom, new String("Mix them"),
+                new String("Lime juice 1TBSP\nGinger beer 4oz\nClub soda 0fill\nMint 8leaves\n"
+                ), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
         ));
 
         caloriesRandom = ThreadLocalRandom.current().nextInt(250, 450);
-        this.dbRecipeDrink.add(new Drink("Blue Hawaiian", R.drawable.food2, caloriesRandom, new String[]{"GET", "GOOD"},
-                new DrinkIngredient[]{
-                        new DrinkIngredient("Pineapple juice", 2, "oz", true, false),
-                        new DrinkIngredient("Light rum", 1, "oz", false, true),
-                        new DrinkIngredient("Blue Curacao", 1, "oz", false, true),
-                        new DrinkIngredient("Coconut Malibu", 1, "oz", false, true),
-                }, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
+        this.dbRecipeDrink.add(new Drink("Blue Hawaiian", R.drawable.food2, caloriesRandom, new String("Mix them"),
+                new String("Pineapple juice 2oz\nLight rum 1oz\nBlue Curacao 1oz\nCoconut Malibu 1oz\n"
+                ), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
         ));
 
         caloriesRandom = ThreadLocalRandom.current().nextInt(250, 450);
-        this.dbRecipeDrink.add(new Drink("French Martini", R.drawable.food3, caloriesRandom, new String[]{"GET", "GOOD"},
-                new DrinkIngredient[]{
-                        new DrinkIngredient("Pineapple juice", 3, "oz", true, false),
-                        new DrinkIngredient("Chamboard", 1, "oz", false, true),
-                }, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
+        this.dbRecipeDrink.add(new Drink("French Martini", R.drawable.food3, caloriesRandom, new String("Mix them"),
+                new String("Pineapple juice 3oz\nChamboard 1oz\n"
+                ), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
         ));
 
         caloriesRandom = ThreadLocalRandom.current().nextInt(250, 450);
-        this.dbRecipeDrink.add(new Drink("Non Alcoholic Mojito", R.drawable.food4, caloriesRandom, new String[]{"GET", "GOOD"},
-                new DrinkIngredient[]{
-                        new DrinkIngredient("Sugar", 2, "TBSP", false, false),
-                        new DrinkIngredient("Mint", 8, "leaves", false, false),
-                        new DrinkIngredient("Lime", 1 / 2, "lime", false, false),
-                        new DrinkIngredient("Club soda", 0, "fill", false, false),
-                }, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
+        this.dbRecipeDrink.add(new Drink("Non Alcoholic Mojito", R.drawable.food4, caloriesRandom, new String("Mix them"),
+                new String("Sugar 2TBSP\nMint 8leaves\nLime 1 / 2lime\nClub soda 0fill\n"
+                ), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()
         ));
 
     }
@@ -406,53 +370,36 @@ public class DataAccessStub {
     private void loadRecipeMeals() {
         this.dbRecipeMeal = new ArrayList<Edible>();
 
-        this.dbRecipeMeal.add(new Meal("soup", R.drawable.soup, 270, new Food[]{
-                new Food("broth", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("onion", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("brocoli", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())
-        }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
+        this.dbRecipeMeal.add(new Meal("soup", R.drawable.soup, 270, new String(
+                "broth 10 cups 100 cals\n onion 5 cups 50 cals\n brocoli 7 cups 80 cals\n"
+        ), new String("Cooking Instructions:\nMix pot\nCook it"), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
 
-        this.dbRecipeMeal.add(new Meal("salad", R.drawable.salad, 150, new Food[]{
-                new Food("lettuce", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("tomato", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("onion", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())
-        }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
+        this.dbRecipeMeal.add(new Meal("salad", R.drawable.salad, 150, new String(
+                "lettuce 10 cups 100 cals\n tomato 5 cups 50 cals\n onion 7 cups 80 cals\n"
+        ), new String("Cooking Instructions:\nMix pot\nCook it"), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
 
-        this.dbRecipeMeal.add(new Meal("yogurt parfait", R.drawable.parfait, 175, new Food[]{
-                new Food("yogurt", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("oats", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("Stawberry", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())
-        }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
+        this.dbRecipeMeal.add(new Meal("yogurt parfait", R.drawable.parfait, 175, new String(
+                "yogurt 10 cups 100 cals\n oats 5 cups 50 cals\n Stawberry 7 cups 80 cals\n"
+        ), new String("Cooking Instructions:\nMix pot\nCook it"), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
 
-        this.dbRecipeMeal.add(new Meal("smoothie", R.drawable.food3, 500, new Food[]{
-                new Food("milk", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("oats", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("banana", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())
-        }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
+        this.dbRecipeMeal.add(new Meal("smoothie", R.drawable.food3, 500, new String(
+                "milk 10 cups 100 cals\n oats 5 cups 50 cals\n banana 7 cups 80 cals\n"
+        ), new String("Cooking Instructions:\nMix pot\nCook it"), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
 
-        this.dbRecipeMeal.add(new Meal("rice pilaf", R.drawable.food, 420, new Food[]{
-                new Food("cucumber", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("rice", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("bread", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())
-        }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
+        this.dbRecipeMeal.add(new Meal("rice pilaf", R.drawable.food, 420, new String(
+                "cucumber 10 cups 100 cals\n rice 5 cups 50 cals\n bread 7 cups 80 cals\n"
+        ), new String("Cooking Instructions:\nMix pot\nCook it"), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
 
-        this.dbRecipeMeal.add(new Meal("sushi", R.drawable.food4, 320, new Food[]{
-                new Food("rice", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("cream cheese", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("nori", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())
-        }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
+        this.dbRecipeMeal.add(new Meal("sushi", R.drawable.food4, 320, new String(
+                "rice 10 cups 100 cals\n cream cheese5 cups 50 cals\n nori 7 cups 80 cals\n"
+        ), new String("Cooking Instructions:\nMix pot\nCook it"), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
 
-        this.dbRecipeMeal.add(new Meal("wrap", R.drawable.food2, 200, new Food[]{
-                new Food("steak", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("pesto", R.drawable.food2, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("lettuce", R.drawable.food3, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())
-        }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
+        this.dbRecipeMeal.add(new Meal("wrap", R.drawable.food2, 200, new String(
+                "steak 10 cups 100 cals\n pesto 5 cups 50 cals\n lettuce 7 cups 80 cals\n"
+        ), new String("Cooking Instructions:\nMix pot\nCook it"), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
 
-        this.dbRecipeMeal.add(new Meal("shrimp tacos", R.drawable.food, 160, new Food[]{
-                new Food("shrimp", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("taco shell", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("cheese", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey()),
-                new Food("lettuce", R.drawable.food, 10, ListItem.FragmentType.noType, Edible.Unit.g, 10, getNextKey())
-        }, new String[]{"Get", "Good"}, ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
+        this.dbRecipeMeal.add(new Meal("shrimp tacos", R.drawable.food, 160, new String(
+                "shrimp 10 cups 100 cals\n taco shell 10 cups 100 cals\n cheese 10 cups 100 cals\n lettuce 10 cups 100 cals\n"
+        ), new String("Cooking Instructions:\nMix pot\nCook it"), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey()));
     }
 }

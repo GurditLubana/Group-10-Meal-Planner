@@ -5,25 +5,17 @@ import comp3350.team10.business.RecipeBookOps;
 import comp3350.team10.objects.*;
 import comp3350.team10.persistence.*;
 
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -104,7 +96,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                     animateButton();
                 }
 
-                new FragmentAddRecipeBook().show(getSupportFragmentManager(), FragmentAddRecipeBook.TAG);
+                new FragmentRecipeBookAdd().show(getSupportFragmentManager(), FragmentRecipeBookAdd.TAG);
             }
         });
     }

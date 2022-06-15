@@ -1,13 +1,11 @@
 package comp3350.team10.presentation;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,7 +15,6 @@ import java.util.LinkedList;
 
 import comp3350.team10.R;
 import comp3350.team10.objects.Edible;
-import comp3350.team10.objects.ListItem;
 
 public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder> {
     private LinkedList<Edible> localDataSet;          // the list Recyclerview renders
@@ -87,7 +84,7 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
 
         switch (viewType) {
             case 4:    //add thing to make it show this card/buttons thingy add enum
-                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_on_card_selection2, viewGroup, false);
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_on_card_selection, viewGroup, false);
                 break;
             default:
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_dbl_card, viewGroup, false);

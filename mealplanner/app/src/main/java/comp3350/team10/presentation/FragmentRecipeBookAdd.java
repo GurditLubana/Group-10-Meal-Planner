@@ -6,26 +6,21 @@ import comp3350.team10.objects.*;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class FragmentAddRecipeBook extends DialogFragment {
+public class FragmentRecipeBookAdd extends DialogFragment {
     private TextView title;
     private TextView labelName;
     private TextView labelCalories;
@@ -48,12 +43,12 @@ public class FragmentAddRecipeBook extends DialogFragment {
     private Edible.Unit unit;
     private FragToRecipeBook.EntryMode mode;
 
-    public FragmentAddRecipeBook() {
+    public FragmentRecipeBookAdd() {
         // Required empty public constructor
     }
 
-    public static FragmentAddRecipeBook newInstance(String param1, String param2) {
-        FragmentAddRecipeBook fragment = new FragmentAddRecipeBook();
+    public static FragmentRecipeBookAdd newInstance(String param1, String param2) {
+        FragmentRecipeBookAdd fragment = new FragmentRecipeBookAdd();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -70,7 +65,7 @@ public class FragmentAddRecipeBook extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Dialog dialog = null;
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_add_recipe_book, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_recipe_book_dialogs, null);
         Context context = view.getContext();
 
         this.title = view.findViewById(R.id.dialogRecipeTitle);
@@ -213,7 +208,7 @@ public class FragmentAddRecipeBook extends DialogFragment {
             view.setError("Field cannot be empty");
             result = false;
         }
-        if(view == this.inputCalories || view == this.inputQuantity) {
+        if(result && (view == this.inputCalories || view == this.inputQuantity)) {
             intValue = Integer.parseInt(value);
             if (intValue < Constant.ENTRY_MIN_VALUE || intValue > Constant.ENTRY_MAX_VALUE) {
                 this.inputCalories.setError("Must be between 0 and 9999 inclusive");

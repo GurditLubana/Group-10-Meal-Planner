@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:animationCache="true"
     android:background="?colorPrimary"
-    tools:context=".presentation.FragmentAddRecipeBook">
+    tools:context=".presentation.FragmentRecipeBookAdd">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
