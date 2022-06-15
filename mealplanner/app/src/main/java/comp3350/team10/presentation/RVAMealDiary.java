@@ -35,6 +35,7 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
             fragmentView = (FrameLayout) view.findViewById(R.id.frame_container);
 
         }
+
         public FrameLayout getView() {
             return fragmentView;
         }
@@ -94,7 +95,7 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
         return this.localDataSet.size();
     }
 
-    private void setDiaryEntryData(ViewHolder viewHolder, final int position){
+    private void setDiaryEntryData(ViewHolder viewHolder, final int position) {
         TextView itemName = (TextView) viewHolder.getView().findViewById(R.id.itemNameBox);
         TextView itemQty = (TextView) viewHolder.getView().findViewById(R.id.itemQtyBox);
         TextView itemUnit = (TextView) viewHolder.getView().findViewById(R.id.itemUnitBox);
@@ -110,7 +111,7 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
     }
 
 
-    private void setDiaryEntryListeners(ViewHolder viewHolder){
+    private void setDiaryEntryListeners(ViewHolder viewHolder) {
         viewHolder.getView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,7 +126,7 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
         });
     }
 
-    private void setDiaryContextListeners(ViewHolder viewHolder){
+    private void setDiaryContextListeners(ViewHolder viewHolder) {
         viewHolder.getView().findViewById(R.id.btnBackMealLog).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,7 +167,7 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
         });
     }
 
-    private void setDiaryAddListeners(ViewHolder viewHolder){
+    private void setDiaryAddListeners(ViewHolder viewHolder) {
         viewHolder.getView().findViewById(R.id.btnAddMeal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -2,6 +2,7 @@ package comp3350.team10.presentation;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -27,7 +28,7 @@ public class MealDiaryLiveData extends ViewModel {
     }
 
     public MutableLiveData<LinkedList<ListItem>> getMealsOnDate() {
-        if(mealsOnDate == null ){
+        if (mealsOnDate == null) {
             mealsOnDate = new MutableLiveData<LinkedList<ListItem>>(new LinkedList<ListItem>());
         }
 
@@ -35,7 +36,7 @@ public class MealDiaryLiveData extends ViewModel {
     }
 
     public MutableLiveData<Integer> getGoalCalories() {
-        if(goalCalories == null){
+        if (goalCalories == null) {
             goalCalories = new MutableLiveData<Integer>(1500);
         }
 
@@ -43,7 +44,7 @@ public class MealDiaryLiveData extends ViewModel {
     }
 
     public MutableLiveData<Integer> getConsumedCalories() {
-        if(consumedCalories == null){
+        if (consumedCalories == null) {
             consumedCalories = new MutableLiveData<Integer>(1000);
         }
 
@@ -51,7 +52,7 @@ public class MealDiaryLiveData extends ViewModel {
     }
 
     public MutableLiveData<Integer> getExerciselCalories() {
-        if(exerciselCalories == null){
+        if (exerciselCalories == null) {
             exerciselCalories = new MutableLiveData<Integer>(200);
         }
 
@@ -59,26 +60,26 @@ public class MealDiaryLiveData extends ViewModel {
     }
 
     public MutableLiveData<Integer> getNetCalories() {
-        if(netCalories == null){
+        if (netCalories == null) {
             netCalories = new MutableLiveData<Integer>(69);
         }
 
         return netCalories;
     }
 
-    public MutableLiveData<Integer> getProgressBar(){
-        if(progressBar == null){
+    public MutableLiveData<Integer> getProgressBar() {
+        if (progressBar == null) {
             progressBar = new MutableLiveData<Integer>(0);
         }
 
         return progressBar;
     }
 
-    public MutableLiveData<Integer> getProgressExcess(){
-        if(progressExcess == null){
+    public MutableLiveData<Integer> getProgressExcess() {
+        if (progressExcess == null) {
             progressExcess = new MutableLiveData<Integer>(0);
         }
-        
+
         return progressExcess;
 
     }

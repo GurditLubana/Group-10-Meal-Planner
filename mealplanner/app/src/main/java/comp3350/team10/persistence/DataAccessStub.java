@@ -246,7 +246,7 @@ public class DataAccessStub {
         logDay.add(this.dbRecipeFood.get(7));
         logDay.add(this.dbRecipeFood.get(8));
         logDay.addAll(emptyLog());
-        currLog.init(today-1, 1700, 300, 200, logDay);
+        currLog.init(today - 1, 1700, 300, 200, logDay);
         this.dbFoodLog.add(currLog);
 
         currLog = new DailyLog();
@@ -257,7 +257,7 @@ public class DataAccessStub {
         logDay.add(this.dbRecipeFood.get(12));
         logDay.add(this.dbRecipeFood.get(13));
         logDay.addAll(emptyLog());
-        currLog.init(today-2, 1300, 300, 30, logDay);
+        currLog.init(today - 2, 1300, 300, 30, logDay);
         this.dbFoodLog.add(currLog);
 
         currLog = new DailyLog();
@@ -266,7 +266,7 @@ public class DataAccessStub {
         logDay.add(this.dbRecipeFood.get(5));
         logDay.add(this.dbRecipeFood.get(6));
         logDay.addAll(emptyLog());
-        currLog.init(today+1, 1800, 300, 100, logDay);
+        currLog.init(today + 1, 1800, 300, 100, logDay);
         this.dbFoodLog.add(currLog);
 
         this.sortDBFoodLog();

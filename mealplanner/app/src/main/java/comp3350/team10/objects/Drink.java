@@ -15,8 +15,8 @@ public class Drink extends PreparedItem {
 
     public boolean init(String name, int iconPath, int cals, String instructions, String ingredients, ListItem.FragmentType type, Edible.Unit baseUnit, int quantity, int dbkey) {
         boolean results = super.init(name, iconPath, CALORIES_PER_DRINK, instructions, type, baseUnit, quantity, dbkey);
-        
-        if(!results || !setIngredients(ingredients)) {
+
+        if (!results || !setIngredients(ingredients)) {
             results = false;
         }
 
@@ -31,11 +31,11 @@ public class Drink extends PreparedItem {
     public boolean setIngredients(String newIngredients) {
         boolean results = false;
 
-        if(newIngredients == null || (newIngredients.length() > 0 )) {
+        if (newIngredients == null || (newIngredients.length() > 0)) {
             this.ingredients = newIngredients;
             results = true;
         }
-        
+
         return results;
     }
 

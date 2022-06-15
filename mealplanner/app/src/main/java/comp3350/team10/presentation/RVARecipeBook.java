@@ -35,6 +35,7 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
 
             fragmentView = (FrameLayout) view.findViewById(R.id.frame_container);
         }
+
         public FrameLayout getView() {
             return fragmentView;
         }
@@ -66,7 +67,7 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
         }
 
         context = view.getContext();
-        if( context instanceof FragToRecipeBook ){
+        if (context instanceof FragToRecipeBook) {
             this.sendToRecipeBook = (FragToRecipeBook) context;
         }
 
@@ -105,7 +106,7 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
         });
     }
 
-    private void setRecipeData(ViewHolder viewHolder, int position){
+    private void setRecipeData(ViewHolder viewHolder, int position) {
         ImageView itemImage = (ImageView) viewHolder.getView().findViewById(R.id.mealImage);
         TextView textDesc = (TextView) viewHolder.getView().findViewById(R.id.mealDesc);
         TextView mealCalories = (TextView) viewHolder.getView().findViewById(R.id.mealCals);
@@ -133,10 +134,10 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
             }
         });
 
-        if(sendToRecipeBook != null){
+        if (sendToRecipeBook != null) {
 
             launcher = sendToRecipeBook.getIntentExtra("Source");
-            if(launcher != null && launcher.equals("NAV")) {
+            if (launcher != null && launcher.equals("NAV")) {
                 viewHolder.getView().findViewById(R.id.addToPlannerBtn2).setVisibility(View.GONE);
                 viewHolder.getView().findViewById(R.id.addIcon).setVisibility(View.GONE);
             }
@@ -153,17 +154,5 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
             }
         });
 
-        viewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { //need to pass tab information, and edible
-//                Intent intent = new Intent(view.getContext(), ActivityViewEdible.class);
-//                String currActivityName = view.getContext().getClass().getName();
-//
-//                intent.putExtra(ActivityViewEdible.RETURN_ACTIVITY_NAME, currActivityName);
-//                //intent.putExtra("edibleItem", (Parcelable)localDataSet.get(position));
-//
-//                view.getContext().startActivity(intent);
-            }
-        });
     }
 }

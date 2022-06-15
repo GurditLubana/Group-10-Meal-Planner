@@ -42,6 +42,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private Edible saved;                           // Saves the item for temporary removal
     private int currTab;                            // The tab that is currently displayed
     private EntryMode mode;                         //
+    private boolean detailsFlag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,5 +249,19 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     public String getIntentExtra(String key) {
         Intent intent = getIntent();
         return intent.getStringExtra(key);
+    }
+
+    @Override
+    public void showDetails() {
+        this.detailsFlag = true;
+        new FragmentRecipeBookDialogs().show(getSupportFragmentManager(), FragmentRecipeBookDialogs.TAG);
+    }
+
+    @Override
+    public boolean getDetails() {
+        boolean result = this.detailsFlag;
+        this.detailsFlag = false;
+
+        return result;
     }
 }

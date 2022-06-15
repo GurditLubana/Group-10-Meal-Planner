@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +23,9 @@ public class FragmentNavigation extends Fragment {
     ImageButton recipeButton = null;
     ImageButton chartsButton = null;
     ImageButton socialButton = null;
-    public FragmentNavigation() {} //Required empty public constructor
+
+    public FragmentNavigation() {
+    } //Required empty public constructor
 
 
     public static FragmentNavigation newInstance() {
@@ -49,16 +53,16 @@ public class FragmentNavigation extends Fragment {
 
         setButtonClickListeners(view);
         setActiveButton(view);
-        
+
         return view;
     }
 
-    private void setButtonClickListeners(View view){
+    private void setButtonClickListeners(View view) {
 
         mealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getActivity() != null && !(getActivity() instanceof ActivityMealDiary)) {
+                if (getActivity() != null && !(getActivity() instanceof ActivityMealDiary)) {
                     Intent intent = new Intent(getActivity().getApplicationContext(), ActivityMealDiary.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -70,7 +74,7 @@ public class FragmentNavigation extends Fragment {
         recipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getActivity() != null && !(getActivity() instanceof ActivityRecipeBook)) {
+                if (getActivity() != null && !(getActivity() instanceof ActivityRecipeBook)) {
                     Intent intent = new Intent(getActivity(), ActivityRecipeBook.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -81,14 +85,13 @@ public class FragmentNavigation extends Fragment {
         });
     }
 
-    private void setActiveButton(View view){
+    private void setActiveButton(View view) {
         Context context = view.getContext();
 
-        if(context instanceof ActivityMealDiary){
+        if (context instanceof ActivityMealDiary) {
             mealButton.setColorFilter(Color.parseColor("#FFFFBB33"));
             mealButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#5885AF")));
-        }
-        else if (context instanceof ActivityRecipeBook){
+        } else if (context instanceof ActivityRecipeBook) {
             recipeButton.setColorFilter(Color.parseColor("#FFFFBB33"));
             recipeButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#5885AF")));
         }
