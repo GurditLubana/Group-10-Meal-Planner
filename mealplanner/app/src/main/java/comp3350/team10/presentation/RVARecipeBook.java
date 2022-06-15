@@ -54,7 +54,6 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
 
         ViewHolder viewHolder = null;
         Context context = null;
-        String launcher = "";
         View view = null;
 
         switch (viewType) {
@@ -69,11 +68,6 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
         context = view.getContext();
         if( context instanceof FragToRecipeBook ){
             this.sendToRecipeBook = (FragToRecipeBook) context;
-            launcher = sendToRecipeBook.getIntentExtra("Source");
-            if(launcher.toString() == "NAV") {
-                viewHolder.getView().findViewById(R.id.addToPlannerBtn2).setVisibility(View.GONE);
-                viewHolder.getView().findViewById(R.id.addIcon).setVisibility(View.GONE);
-            }
         }
 
         viewHolder = new ViewHolder(view);
@@ -99,9 +93,6 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
         return this.localDataSet.size();
     }
 
-    private void setCardContextLayout(String launcher){
-
-    }
 
     private void setCardListeners(ViewHolder viewHolder, int position) {
         viewHolder.getView().findViewById(R.id.cardView2).setOnClickListener(new View.OnClickListener() {
@@ -131,6 +122,7 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
         Button backButton = (Button) viewHolder.getView().findViewById(R.id.btnBackRecipe);
         Button addButton = (Button) viewHolder.getView().findViewById(R.id.addToPlannerBtn2);
         ImageView addIcon = (ImageView) viewHolder.getView().findViewById(R.id.addIcon);
+        String launcher = "";
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +132,15 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
                 }
             }
         });
+
+        if(sendToRecipeBook != null){
+
+            launcher = sendToRecipeBook.getIntentExtra("Source");
+            if(launcher != null && launcher.equals("NAV")) {
+                viewHolder.getView().findViewById(R.id.addToPlannerBtn2).setVisibility(View.GONE);
+                viewHolder.getView().findViewById(R.id.addIcon).setVisibility(View.GONE);
+            }
+        }
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
