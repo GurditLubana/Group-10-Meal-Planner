@@ -30,6 +30,6 @@ public abstract class PreparedItem extends Edible {
             results = true;
         }
 
-        return true;
+        return results;
     }
 }
