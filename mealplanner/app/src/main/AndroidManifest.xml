@@ -11,12 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MealPlanner">
 
-        <activity
 
-            android:name=".presentation.AddRecipe"
-            android:exported="false"
-            android:parentActivityName=".presentation.ActivityRecipeBook"
-            tools:ignore="Instantiatable" />
+
         <activity
             android:name=".presentation.ActivityRecipeBook" />
         <activity
@@ -24,19 +20,16 @@
             android:exported="false"
             android:label="@string/title_activity_view_edible"
             android:launchMode="singleTask"
-            android:parentActivityName=".presentation.MainActivity"
             android:theme="@style/Theme.MealPlanner.NoActionBar" />
         <activity
             android:name=".presentation.ActivityMealDiary"
-            android:launchMode="singleTop"
-            android:parentActivityName=".presentation.MainActivity">
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.MainActivity" />
     </application>
 
 </manifest>
