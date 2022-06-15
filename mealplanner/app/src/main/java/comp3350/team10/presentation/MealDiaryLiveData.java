@@ -6,12 +6,10 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.LinkedList;
 
-//import comp3350.team10.objects.DiaryItem;
 import comp3350.team10.objects.ListItem;
 
 public class MealDiaryLiveData extends ViewModel {
 
-    // Create a LiveData with a String
     private MutableLiveData<Calendar> activityDate;
     private MutableLiveData<LinkedList<ListItem>> mealsOnDate;
     private MutableLiveData<Integer> goalCalories;
@@ -85,5 +83,4 @@ public class MealDiaryLiveData extends ViewModel {
 
     }
 
-    // Rest of the ViewModel...
 }

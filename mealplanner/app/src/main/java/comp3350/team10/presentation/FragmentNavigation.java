@@ -58,7 +58,6 @@ public class FragmentNavigation extends Fragment {
         mealButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // prevent creating new activity when button pressed while in MealDiary
                 if(getActivity() != null && !(getActivity() instanceof ActivityMealDiary)) {
                     Intent intent = new Intent(getActivity().getApplicationContext(), ActivityMealDiary.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

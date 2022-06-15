@@ -22,43 +22,24 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
     private FragToRecipeBook sendToRecipeBook;          // interface to pass data to recipebook
     private Edible saved;                             // var to save a meal entry when we show context UI
 
-    /**
-     * getItemViewType
-     * get the layout/fragment we want to use for a particular list item
-     * required to show different layouts inside recyclerview
-     * @param pos - position of data in the dataset
-     * @return int - the numeric value of the Fragment type enum of the ListItem class
-     */
     @Override
     public int getItemViewType(int pos) {
         return localDataSet.get(pos).getFragmentType().ordinal();
     }
 
-    /**
-     * TODO maybe we want a generic view inside every fragment frame layout so it's less awkward
-     * Provide a reference to the type of views that you are using
-     * (custom ViewHolder).
-     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final FrameLayout fragmentView;
 
         public ViewHolder(View view) {
             super(view);
-            // Define click listener for the ViewHolder's View
-            fragmentView = (FrameLayout) view.findViewById(R.id.frame_container);
 
+            fragmentView = (FrameLayout) view.findViewById(R.id.frame_container);
         }
         public FrameLayout getView() {
             return fragmentView;
         }
     }
 
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param dataSet LinkedList<ListItem> containing the data to populate views to be used
-     *                by RecyclerView.
-     */
     public RVARecipeBook(LinkedList<Edible> dataSet) {
         localDataSet = dataSet;
     }
@@ -68,39 +49,37 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
         this.notifyDataSetChanged();
     }
 
-    /**
-     * Method where we assign the layout of a ViewHolder being created based on the Fragment Type enum
-     * assigned to the ListItem object being "rendered"
-     * @param viewGroup
-     * @param viewType - the int returned by getItemViewType(int)
-     * @return ViewHolder
-     */
-    // Create new views (invoked by the layout manager)
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view, which defines the UI of the list item
-        View view;
-        ViewHolder viewHolder;
+
+        ViewHolder viewHolder = null;
+        Context context = null;
+        String launcher = "";
+        View view = null;
 
         switch (viewType) {
-            case 4:    //add thing to make it show this card/buttons thingy add enum
+            case 4:
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_recipe_book_card_context, viewGroup, false);
                 break;
             default:
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_recipe_book_card, viewGroup, false);
                 break;
         }
+
+        context = view.getContext();
+        if( context instanceof FragToRecipeBook ){
+            this.sendToRecipeBook = (FragToRecipeBook) context;
+            launcher = sendToRecipeBook.getIntentExtra("Source");
+            if(launcher.toString() == "NAV") {
+                viewHolder.getView().findViewById(R.id.addToPlannerBtn2).setVisibility(View.GONE);
+                viewHolder.getView().findViewById(R.id.addIcon).setVisibility(View.GONE);
+            }
+        }
+
         viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
-    /**
-     * Here we set the data of a fragment being created and set onclick listeners based on the Fragment Type enum
-     * assigned to the ListItem object being "rendered"
-     * @param viewHolder
-     * @param position
-     */
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
@@ -109,27 +88,26 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
                 setCardSelectionListeners(viewHolder, position);
                 break;
             default:
-                setRecipeData(viewHolder, position);    //this is what puts information into dbl cards
+                setRecipeData(viewHolder, position);
                 setCardListeners(viewHolder, position);
+                break;
         }
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return localDataSet.size();
+        return this.localDataSet.size();
     }
 
-    //modify card type to be of type card select
+    private void setCardContextLayout(String launcher){
+
+    }
+
     private void setCardListeners(ViewHolder viewHolder, int position) {
         viewHolder.getView().findViewById(R.id.cardView2).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { //localDataSet.get(position)
-                Context context = view.getContext();
-
-                //System.out.println("...");
-                if (context != null) {
-                    sendToRecipeBook = (FragToRecipeBook) context;
+            public void onClick(View view) {
+                if (sendToRecipeBook != null) {
                     sendToRecipeBook.showContextUI(position);
                 }
             }
@@ -147,18 +125,17 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
         textDesc.setText(currentFood.getName());
         mealCalories.setText(Integer.toString(currentFood.getCalories()));
     }
+
     private void setCardSelectionListeners(ViewHolder viewHolder, int position) {
         Button viewButton = (Button) viewHolder.getView().findViewById(R.id.viewBtn2);
-        Button addButton = (Button) viewHolder.getView().findViewById(R.id.addToPlannerBtn2);
         Button backButton = (Button) viewHolder.getView().findViewById(R.id.btnBackRecipe);
+        Button addButton = (Button) viewHolder.getView().findViewById(R.id.addToPlannerBtn2);
+        ImageView addIcon = (ImageView) viewHolder.getView().findViewById(R.id.addIcon);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Context context = view.getContext();
-
-                if (context != null) {
-                    sendToRecipeBook = (FragToRecipeBook) context;
+                if (sendToRecipeBook != null) {
                     sendToRecipeBook.addToMealDiary();
                 }
             }
@@ -168,10 +145,8 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
             @Override
             public void onClick(View view) {
                 selectedPos = viewHolder.getAbsoluteAdapterPosition();
-                Context context = view.getContext();
 
-                if (context != null) {
-                    sendToRecipeBook = (FragToRecipeBook) context;
+                if (sendToRecipeBook != null) {
                     sendToRecipeBook.showContextUI(selectedPos);
                 }
             }
