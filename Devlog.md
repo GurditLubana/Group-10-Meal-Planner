@@ -543,6 +543,14 @@ Duration: 1hrs
     - Empty Android project Added to repo   
 
 ### 2022-05-23
+     Dev: Manraj
+Durarion: 1hour
+     Task:
+     - Learning the basic setup for android studio
+     - Leaning creating a new Activity
+     - Setting up new fragments on to the main Activity
+
+### 2022-05-23
      Dev: Josef   
 Duration: 4hrs  
     Task:  
@@ -560,6 +568,15 @@ Duration: 4hrs
     - Experiment with fragments as Meal diary entries in a RecyclerView  
     - Meal Diary entry log fragment UI layout updated   
     - Meal Diary modification context fragment UI layout updated   
+
+### 2022-05-24
+     Dev: Manraj
+Durarion: 8hrs
+     Task:
+     - Eventhandling in android studio
+     - learning about intents and how we are supposed to use them.
+     - learned how to write that in xml format and java format.
+     - worked on making a recyclerview.
 
 ### 2022-05-26
      Dev: Josef   
@@ -777,6 +794,12 @@ Duration: 2hrs
    - Created an enum checker - each enum will need its own (see ListItem)
    - Edible is supposed to be abstract but had its own instance for the creation card, delegated to food class
 
+### 2022-06-13
+    Dev: Manraj
+Duration: 2hrs
+    Tasks:
+    - Unit testing for object classes
+    - some Refractoring
 ### 2022-06-14
      Dev:
       - Gurdit
