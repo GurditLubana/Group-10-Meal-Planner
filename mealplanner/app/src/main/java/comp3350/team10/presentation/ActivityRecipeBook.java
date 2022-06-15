@@ -38,7 +38,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     private LinkedList<Edible> data;                //The data for the recipe book
     private boolean modMenuIsOpen;                  //Represents whether the menu to add/edit recipes is toggled on
-    private int savedPosi;                          //Saves the position of an item for temporary removal
+    private int savedPosition;                          //Saves the position of an item for temporary removal
     private Edible saved;                           //Saves the item for temporary removal
     private int currTab;                            //The tab that is currently displayed
     private EntryMode mode;
@@ -53,70 +53,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.initLiveData();
         this.initRecyclerView();
         this.setTabListeners();
-        this.executeFab();       //Make floating action button work.
-    }
-
-
-    private void executeFab() {
-        this.openFab = findViewById(R.id.openButton);
-        this.addFab = findViewById(R.id.addButton);
-        this.editFab = findViewById(R.id.editButton);
-
-        //Loads animations
-        this.fabOpen = AnimationUtils.loadAnimation(this, R.anim.button_open);
-        this.fabClose = AnimationUtils.loadAnimation(this, R.anim.button_close);
-        this.rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_button);
-        this.rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotatebackwards_button);
-
-        //Adds event listeners
-        this.openFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                animateButton();
-            }
-        });
-
-        this.editFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                animateButton();
-            }
-        });
-
-        this.addFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (currTab == 0) {
-                    mode = EntryMode.ADD_FOOD;
-                } else if (currTab == 1) {
-                    mode = EntryMode.ADD_MEAL;
-                } else if (currTab == 2) {
-                    mode = EntryMode.ADD_DRINK;
-                } else {
-                    animateButton();
-                }
-
-                new FragmentRecipeBookDialogs().show(getSupportFragmentManager(), FragmentRecipeBookDialogs.TAG);
-            }
-        });
-    }
-
-    private void animateButton() {
-        if (this.modMenuIsOpen) {
-            this.openFab.startAnimation(rotateForward);
-            this.editFab.startAnimation(fabClose);
-            this.addFab.startAnimation(fabClose);
-            this.addFab.setClickable(false);
-            this.editFab.setClickable(false);
-            this.modMenuIsOpen = false;
-        } else {
-            this.openFab.startAnimation(rotateBackward);
-            this.editFab.startAnimation(fabOpen);
-            this.addFab.startAnimation(fabOpen);
-            this.addFab.setClickable(true);
-            this.editFab.setClickable(true);
-            this.modMenuIsOpen = true;
-        }
+        this.initActionButtons();       //Make floating action button work.
     }
 
     private void initToolbar() {
@@ -176,17 +113,80 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         });
     }
 
+    private void initActionButtons() {
+        this.openFab = findViewById(R.id.openButton);
+        this.addFab = findViewById(R.id.addButton);
+        this.editFab = findViewById(R.id.editButton);
+        this.editFab.setVisibility(View.GONE);
+
+        //Loads animations
+        this.fabOpen = AnimationUtils.loadAnimation(this, R.anim.button_open);
+        this.fabClose = AnimationUtils.loadAnimation(this, R.anim.button_close);
+        this.rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_button);
+        this.rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotatebackwards_button);
+
+        //Adds event listeners
+        this.openFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                animateButton();
+            }
+        });
+
+        this.editFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                animateButton();
+            }
+        });
+
+        this.addFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currTab == 0) {
+                    mode = EntryMode.ADD_FOOD;
+                } else if (currTab == 1) {
+                    mode = EntryMode.ADD_MEAL;
+                } else if (currTab == 2) {
+                    mode = EntryMode.ADD_DRINK;
+                } else {
+                    animateButton();
+                }
+
+                new FragmentRecipeBookDialogs().show(getSupportFragmentManager(), FragmentRecipeBookDialogs.TAG);
+            }
+        });
+    }
+
+    private void animateButton() {
+        if (this.modMenuIsOpen) {
+            this.openFab.startAnimation(rotateForward);
+            this.editFab.startAnimation(fabClose);
+            this.addFab.startAnimation(fabClose);
+            this.addFab.setClickable(false);
+            this.editFab.setClickable(false);
+            this.modMenuIsOpen = false;
+        } else {
+            this.openFab.startAnimation(rotateBackward);
+            this.editFab.startAnimation(fabOpen);
+            this.addFab.startAnimation(fabOpen);
+            this.addFab.setClickable(true);
+            this.editFab.setClickable(true);
+            this.modMenuIsOpen = true;
+        }
+    }
+
     @Override
     public void showContextUI(int position) {
         Food modifyUIcard = null;
-        if (position != this.savedPosi && this.saved != null) {
-            this.data.remove(this.savedPosi);
-            this.data.add(this.savedPosi, this.saved);
+        if (position != this.savedPosition && this.saved != null) {
+            this.data.remove(this.savedPosition);
+            this.data.add(this.savedPosition, this.saved);
         }
 
         if (this.data.get(position).getFragmentType() != ListItem.FragmentType.cardSelection) {
             this.saved = this.data.remove(position);
-            this.savedPosi = position;
+            this.savedPosition = position;
             modifyUIcard = new Food();
             modifyUIcard.init("ui", 0, 0, ListItem.FragmentType.cardSelection, Edible.Unit.g, 1, 0);
             this.data.add(position, modifyUIcard);
@@ -202,12 +202,12 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     @Override
-    public void addToMealDiary(int posi) {
+    public void addToMealDiary() {
         Intent intent = new Intent();
         int dbkey = -1;
 
-        if (saved != null) {
-            dbkey = ((Edible) saved).getDbkey();
+        if (this.saved != null) {
+            dbkey = this.saved.getDbkey();
         }
 
         intent.putExtra("DBKEY", dbkey);
@@ -215,37 +215,31 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         finish();
     }
 
-    ;
-
     private void updateRVA() {
-        if (recyclerViewAdapter != null) {
-            recyclerViewAdapter.changeData(data);
-            recyclerViewAdapter.notifyDataSetChanged();
+        if (this.recyclerViewAdapter != null) {
+            this.recyclerViewAdapter.changeData(this.data);
+            this.recyclerViewAdapter.notifyDataSetChanged();
         }
     }
 
     @Override
     public void addDrink(String name, int iconPath, int calories, String ingredients, String instructions, Edible.Unit baseUnit, int quantity) {
-        // do input validation then pass to ops
-
-        opExec.addDrink(name, iconPath, calories, instructions, ingredients, baseUnit, quantity); //add appropriate objects here
-        data = opExec.getDrinkRecipes();
+        this.opExec.addDrink(name, iconPath, calories, instructions, ingredients, baseUnit, quantity);
+        this.data = this.opExec.getDrinkRecipes();
         this.updateRVA();
     }
 
     @Override
-    public void addFood(String name, int iconPath, int calories, Edible.Unit baseUnit, int quantity) { //change this to correct signature
-        // do input validation then pass to ops
+    public void addFood(String name, int iconPath, int calories, Edible.Unit baseUnit, int quantity) {
         opExec.addFood(name, iconPath, calories, baseUnit, quantity);
-        data = opExec.getFoodRecipes();
+        this.data = this.opExec.getFoodRecipes();
         this.updateRVA();
     }
 
     @Override
-    public void addMeal(String name, int iconPath, int calories, String ingredients, String instructions, Edible.Unit baseUnit, int quantity) { //change this to correct signature
-
-        opExec.addMeal(name, iconPath, calories, ingredients, instructions, baseUnit, quantity); //add appropriate objects here
-        data = opExec.getMealRecipes();
+    public void addMeal(String name, int iconPath, int calories, String ingredients, String instructions, Edible.Unit baseUnit, int quantity) {
+        this.opExec.addMeal(name, iconPath, calories, ingredients, instructions, baseUnit, quantity);
+        this.data = opExec.getMealRecipes();
         this.updateRVA();
     }
 

@@ -86,7 +86,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                             data = result.getData();
                             dbkey = data.getExtras().getInt("DBKEY");
 
-                            System.out.println("We got back: " + dbkey);
                             opExec.addByKey(dbkey);
                             updateLiveData();
                         }

@@ -75,6 +75,7 @@ public class FragmentNavigation extends Fragment {
                     Intent intent = new Intent(getActivity(), ActivityRecipeBook.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("Source", "NAV");
                     startActivity(intent);
                 }
             }
