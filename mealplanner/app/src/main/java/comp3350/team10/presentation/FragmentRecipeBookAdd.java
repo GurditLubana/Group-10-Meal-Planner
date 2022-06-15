@@ -81,7 +81,7 @@ public class FragmentRecipeBookAdd extends DialogFragment {
         this.btnOk = view.findViewById(R.id.dialogRecipeBtnOk);
         this.btnCancel = view.findViewById(R.id.dialogRecipeBtnCancel);
 
-        if (context != null && context instanceof ActivityRecipeBook) {
+        if (context != null && context instanceof FragToRecipeBook) {
             this.send = (FragToRecipeBook) context;
             this.mode = this.send.getEntryMode();
             this.inputQuantity.setHint("0 - 9999");
@@ -159,8 +159,8 @@ public class FragmentRecipeBookAdd extends DialogFragment {
             public void onClick(View view) {
                 if (validateData()) {
                     sendData();
+                    dismiss();
                 }
-                dismiss();
             }
         });
 
@@ -174,28 +174,35 @@ public class FragmentRecipeBookAdd extends DialogFragment {
     }
 
     private boolean validateData() {
-        boolean result = false;
+        int success = 0;
 
-        if (check(this.inputCalories) && check(this.inputName) && check(this.inputQuantity)) {
+        if(check(this.inputName)){
             this.name = this.inputName.getText().toString().trim();
+            success += 1;
+        }
+        if(check(this.inputCalories)){
             this.calories = Integer.parseInt(this.inputCalories.getText().toString().trim());
+            success += 1;
+        }
+        if (check(this.inputQuantity)) {
             this.quantity = Integer.parseInt(this.inputQuantity.getText().toString().trim());
-
-            result = true;
+            success += 1;
         }
 
-        if(mode == FragToRecipeBook.EntryMode.ADD_MEAL || mode == FragToRecipeBook.EntryMode.ADD_DRINK){
-
-            if(check(this.inputIngredients) && check(this.inputInstructions)){
+        if(mode != FragToRecipeBook.EntryMode.ADD_FOOD){
+            if(check(this.inputIngredients) ){
                 this.ingredients = this.inputIngredients.getText().toString().trim();
+                success +=1;
+            }
+            if(check(this.inputInstructions)){
                 this.instructions = this.inputInstructions.getText().toString().trim();
-                result = true;
+                success +=1;
             }
         }
 
         this.unit = Edible.Unit.valueOf(this.inputSpinner.getSelectedItem().toString());
 
-        return result;
+        return (success == 3 || (mode != FragToRecipeBook.EntryMode.ADD_FOOD && success == 5));
     }
 
     private boolean check(EditText view) {

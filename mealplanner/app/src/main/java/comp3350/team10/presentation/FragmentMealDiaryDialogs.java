@@ -62,12 +62,12 @@ public class FragmentMealDiaryDialogs extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_meal_diary_dialogs, null);
         Context context = view.getContext();
-        this.btnCancel = (Button) view.findViewById(R.id.btnCancel);
-        this.btnOk = (Button) view.findViewById(R.id.btnOk);
-        this.title = (TextView) view.findViewById(R.id.dialogTitle);
-        this.quantity = (EditText) view.findViewById(R.id.inputQty);
-        this.unitText = (TextView) view.findViewById(R.id.inputUnitText);
-        this.unitSpinner = (Spinner) view.findViewById(R.id.inputUnit);;
+        this.btnCancel = view.findViewById(R.id.btnCancel);
+        this.btnOk = view.findViewById(R.id.btnOk);
+        this.title = view.findViewById(R.id.dialogTitle);
+        this.quantity = view.findViewById(R.id.inputQty);
+        this.unitText = view.findViewById(R.id.inputUnitText);
+        this.unitSpinner = view.findViewById(R.id.inputUnit);;
 
         if(context != null && context instanceof FragToMealDiary){
             this.send = (FragToMealDiary) context;
@@ -143,7 +143,7 @@ public class FragmentMealDiaryDialogs extends DialogFragment {
             public void onClick(View v) {
                 Integer value = Integer.parseInt(quantity.getText().toString());
 
-                if(value >= Constant.ENTRY_MIN_VALUE || value <= Constant.ENTRY_MAX_VALUE){
+                if(value >= Constant.ENTRY_MIN_VALUE && value <= Constant.ENTRY_MAX_VALUE){
                     if(send != null && send instanceof FragToMealDiary) {
                         switch(mode){
                             case EDIT_QTY:
