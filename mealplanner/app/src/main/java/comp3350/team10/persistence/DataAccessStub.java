@@ -40,15 +40,6 @@ public class DataAccessStub {
         this.currKey = 1;
     }
 
-    public DataAccessStub() {
-        this(SharedDB.dbName);
-
-        this.calendar = Calendar.getInstance();
-        this.selectedDate = null;
-        this.selectedFoodLog = null;
-        this.currKey = 1;
-    }
-
     public void open(String dbName) {
         Calendar calendar = Calendar.getInstance();
 
@@ -60,7 +51,7 @@ public class DataAccessStub {
 
         //Get the current day's logs
         this.selectedDate = this.calendarToInt(calendar);
-        this.selectedFoodLog = this.setSelectedFoodLog(selectedDate);
+        this.selectedFoodLog = this.selectFoodLogByDate(selectedDate);
     }
 
     public void close() {
@@ -74,7 +65,7 @@ public class DataAccessStub {
     public void setCalorieGoal(int goal) {
         if (goal >= 0 && goal <= GOAL_LIMIT) {
             this.selectedFoodLog.setCalGoal(goal);
-            this.updateFoodLogDB();
+            this.pushUpdatedLogToDB();
         }
     }
 
@@ -85,7 +76,7 @@ public class DataAccessStub {
     public void setExerciseGoal(int goal) {
         if (goal >= 0 && goal <= GOAL_LIMIT) {
             this.selectedFoodLog.setExcGoal(goal);
-            this.updateFoodLogDB();
+            this.pushUpdatedLogToDB();
         }
     }
 
@@ -99,7 +90,7 @@ public class DataAccessStub {
 
     public ArrayList<Edible> getFoodList(Calendar date) {
         if (this.selectedDate.intValue() != calendarToInt(date).intValue()) {
-            this.selectedFoodLog = setSelectedFoodLog(calendarToInt(date));
+            this.selectedFoodLog = selectFoodLogByDate(calendarToInt(date));
             this.selectedDate = calendarToInt(date);
         }
 
@@ -109,7 +100,7 @@ public class DataAccessStub {
     public void updateSelectedFoodLogFoodList(ArrayList<Edible> newList) {
         if (newList != null) {
             this.selectedFoodLog.setFoodList(newList);
-            this.updateFoodLogDB();
+            this.pushUpdatedLogToDB();
         }
     }
 
@@ -117,9 +108,9 @@ public class DataAccessStub {
         return Integer.parseInt(String.valueOf(date.get(Calendar.YEAR)) + String.valueOf(date.get(Calendar.DAY_OF_YEAR)));
     }
 
-    private DailyLog setSelectedFoodLog(Integer date) {
+    private DailyLog selectFoodLogByDate(Integer date) {
         DailyLog result = new DailyLog();
-        int position = this.getFoodLogDBIndex(date);
+        int position = this.searchFoodLogByDate(date);
 
         result.init(date, 1500, 0, 0, emptyLog());
 
@@ -134,14 +125,14 @@ public class DataAccessStub {
         return result;
     }
 
-    private void updateFoodLogDB() { // not necessary for java, but necessary for actual db
-        int position = getFoodLogDBIndex(this.selectedDate);
+    private void pushUpdatedLogToDB() {
+        int position = searchFoodLogByDate(this.selectedDate);
 
         this.dbFoodLog.remove(position);
         this.dbFoodLog.add(this.selectedFoodLog);
     }
 
-    private int getFoodLogDBIndex(Integer date) {
+    private int searchFoodLogByDate(Integer date) {
         boolean found = false;
         int result = -1;
 
