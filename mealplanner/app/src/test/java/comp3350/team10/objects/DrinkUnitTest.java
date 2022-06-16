@@ -67,15 +67,15 @@ public class DrinkUnitTest {
 		@Test
 		void testSetCaloies() {
 			assertTrue(testDrink.setCalories(100));
-			assertEquals(100, testDrink.getCalories());
+			assertEquals(testDrink.getCalories(), 100);
 		}
 
 		@Test
 		void testModCalories() {
 			assertTrue(testDrink.modifyCalories(100));
-			assertEquals(100, testDrink.getCalories());
+			assertEquals(testDrink.getCalories(), 100);
 			assertTrue(testDrink.modifyCalories(-5));
-			assertEquals(95, testDrink.getCalories());
+			assertEquals(testDrink.getCalories(), 95);
 		}
 
 		@Test
@@ -128,9 +128,9 @@ public class DrinkUnitTest {
 		@Test
 		void testSetQuantity() {	
 			assertTrue(testDrink.setQuantity(100));
-			assertEquals(100, testDrink.getQuantity());
+			assertEquals(testDrink.getQuantity(), 100);
 			assertTrue(testDrink.setQuantity(300));
-			assertEquals(300, testDrink.getQuantity());
+			assertEquals(testDrink.getQuantity(), 300);
 		}
 	}
 
@@ -163,26 +163,26 @@ public class DrinkUnitTest {
 		@Test
 		void testModCalories() {
 			assertTrue(testDrink.modifyCalories(600));
-			assertEquals(600, testDrink.getCalories());
+			assertEquals(testDrink.getCalories(), 600);
 			assertTrue(testDrink.modifyCalories(-500));
-			assertEquals(100, testDrink.getCalories());
+			assertEquals(testDrink.getCalories(), 100);
 		}
 
 		@Test
 		void testSetCalories() {
 			assertTrue(testDrink.setCalories(500));
-			assertEquals(500, testDrink.getCalories());
+			assertEquals(testDrink.getCalories(), 500);
 			assertTrue(testDrink.setCalories(999));
-			assertEquals(999, testDrink.getCalories());
+			assertEquals(testDrink.getCalories(), 999);
 		}
 
 		@Test
 		void testModCaloriesAfterSettingCalories() {
 			assertTrue(testDrink.setCalories(500));
 			assertTrue(testDrink.modifyCalories(600));
-			assertEquals(1100, testDrink.getCalories());
+			assertEquals(testDrink.getCalories(), 1100);
 			assertTrue(testDrink.modifyCalories(-600));
-			assertEquals(500, testDrink.getCalories());
+			assertEquals(testDrink.getCalories(), 500);
 		}
 
 		@Test

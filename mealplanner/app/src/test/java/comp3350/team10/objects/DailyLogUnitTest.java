@@ -20,137 +20,282 @@ import java.util.Calendar;
 public class DailyLogUnitTest {
 
     @Nested
-    @DisplayName("Tests for Daily log object")
-    class basicTests{
+    @DisplayName("Simple tests")
+    class Test_Simple {
+        private DailyLog testLog;
 
-        DailyLog testLog = new DailyLog();
-        ArrayList<Edible> foodlist = new ArrayList<>();
-        Food food1 = new Food();
-        Food food2 = new Food();
-        Food food3 = new Food();
-        Drink drink1 = new Drink();
-        boolean shouldBeTrue;
         @BeforeEach
-        void SetLog(){
-            food1.init("pasta", 2, 450, FragmentType.diaryEntry, Unit.liter, 5, 4);
-            food2.init("food2", 3, 100, FragmentType.recipe, Unit.ml, 15, 2);
-            food3.init("food3", 4, 250, FragmentType.diaryAdd, Unit.g, 4, 1);
-            drink1.init("drink1",5,300, FragmentType.diaryEntry,Unit.ml, 15, 3);
-
-            foodlist.add(food1);
-            foodlist.add(food2);
-            foodlist.add(food3);
-            foodlist.add(drink1);
-            shouldBeTrue = testLog.init(13,250,7,55,foodlist);
+        void setup(){
+            testLog = new DailyLog();
         }
 
         @Test
-        void objectSetup(){
-            assertTrue(shouldBeTrue);
+        void testDefaultValues() {
+            assertNull(testLog.getFoodList());
+            assertNull(testLog.getDate());
+            assertNull(testLog.getCalGoal());
+            assertNull(testLog.getExcGoal());
+            assertNull(testLog.getExcActual());
         }
 
         @Test
-        void testListGetter(){
-            assertEquals(testLog.getFoodList(), foodlist);
+        void testBasicLogCreation() {
+            ArrayList<Edible> logs = new ArrayList<Edible>();
+            logs.add(new Drink());
+            logs.add(new Drink());
+        
+            assertTrue(testLog.init(5, 100, 50, 1, logs));
+            assertEquals(testLog.getCalGoal(), 100);
+            assertEquals(testLog.getExcGoal(), 50);
+            assertEquals(testLog.getExcActual(), 1);
+            assertEquals(testLog.getFoodList().size(), 2);
+            assertNotNull(testLog.getDate());
+
+            for(int i = 0; i < testLog.size(); i++) {
+                assertNotNull(testLog.getFoodList().get(i));
+            }
         }
 
         @Test
-        void testExcActual(){
-            assertTrue(testLog.getExcActual() >= Constant.ENTRY_MIN_VALUE);
-            assertTrue(testLog.getExcActual() <= Constant.ENTRY_MAX_VALUE);
+        void testSetFoodList() {
+            ArrayList<Edible> logs = new ArrayList<Edible>();
+            logs.add(new Drink());
+            logs.add(new Drink());
+
+            assertTrue(testLog.setFoodList(logs));
         }
 
         @Test
-        void testExcGoal(){
-            assertTrue(testLog.getExcGoal() >= Constant.ENTRY_MIN_VALUE);
-            assertTrue(testLog.getExcGoal() <= Constant.ENTRY_MAX_VALUE);
+        void testSetExcerciseActual() {
+            assertTrue(testLog.setExcActual(500));
+            assertTrue(testLog.setExcActual(100));
+            assertTrue(testLog.setExcActual(900));
         }
 
         @Test
-        void testCalGoal(){
-            assertTrue(testLog.getCalGoal() >= Constant.ENTRY_MIN_VALUE);
-            assertTrue(testLog.getCalGoal() <= Constant.ENTRY_MAX_VALUE);
+        void testSetCalGoal() {
+            assertTrue(testLog.setCalGoal(500));
+            assertTrue(testLog.setCalGoal(100));
+            assertTrue(testLog.setCalGoal(900));
         }
 
-
+        @Test
+        void testSetExcerciseGoal() {
+            assertTrue(testLog.setExcGoal(500));
+            assertTrue(testLog.setExcGoal(100));
+            assertTrue(testLog.setExcGoal(900));
+        }
     }
 
     @Nested
-    @DisplayName("testing the Setters for DailyLog")
-    class Testsetter{
+    @DisplayName("Complex tests")
+    class Test_Complex {
+        private DailyLog testLog;
 
-        DailyLog testLog2 = new DailyLog();
-        ArrayList<Edible> testList = new ArrayList<>();
-        ArrayList<Edible> testList2 = new ArrayList<>();
-        Food food1 = new Food();
-        Food food2 = new Food();
-        Food food3 = new Food();
-        Drink drink1 = new Drink();
-        Drink drink2 = new Drink();
-        Food food4 = new Food();
-        boolean shouldBeTrue;
         @BeforeEach
-        void SetLog(){
-            food1.init("pasta", 2, 450, FragmentType.diaryEntry, Unit.liter, 5, 4);
-            food2.init("food2", 3, 100, FragmentType.recipe, Unit.ml, 15, 2);
-            food3.init("food3", 4, 250, FragmentType.diaryAdd, Unit.g, 4, 1);
-
-            testList.add(food1);
-            testList.add(food2);
-            testList.add(food3);
-            shouldBeTrue = testLog2.init(13,250,100,55,testList);
+        void setup(){
+            testLog = new DailyLog();
         }
 
         @Test
-        void testListSetter(){
-            drink1.init("daaru",3 ,400, FragmentType.recipe,Unit.liter, 3, 12);
-            drink2.init("sharbat", 4, 250, FragmentType.diaryEntry, Unit.ml, 4, 2);
-            food4.init("Dosa", 2, 100, FragmentType.diaryAdd, Unit.serving, 3, 55);
+        void testLogOverriding() {
+            ArrayList<Edible> logs = new ArrayList<Edible>();
+            logs.add(new Drink());
+            logs.add(new Drink());
 
-            testList2.add(drink1);
-            testList2.add(drink2);
-            testList2.add(food4);
+            assertTrue(testLog.init(5, 100, 50, 1, logs));
 
-            assertEquals(testLog2.getFoodList(), testList);
-            testLog2.setFoodList(testList2);
-            assertEquals(testLog2.getFoodList(), testList2);
-        }
+            logs.add(new Drink());
+            assertEquals(testLog.getFoodList().size(), 2);
 
-        @Test
-        void testExcActualSetter(){
-            int currExcActual = testLog2.getExcActual();
-            int newActual = 301;
-            if(testLog2.setExcActual(newActual)) {
-                assertTrue(testLog2.getExcActual() >= Constant.ENTRY_MIN_VALUE);
-                assertTrue(testLog2.getExcActual() <= Constant.ENTRY_MAX_VALUE);
-                assertTrue(testLog2.getExcActual() != currExcActual);
-                assertEquals((int) testLog2.getExcActual(), newActual);
+            assertTrue(testLog.setFoodList(logs));
+            for(int i = 0; i < testLog.size(); i++) {
+                assertNotNull(testLog.getFoodList().get(i));
             }
+
+            assertEquals(testLog.getFoodList().size(), 3);
         }
 
         @Test
-        void testCalGoalSetter(){
-            int currCalGoal = testLog2.getCalGoal();
-            int newGoal = 200;
-            if(testLog2.setCalGoal(newGoal)) {
-                assertTrue(testLog2.getCalGoal() >= Constant.ENTRY_MIN_VALUE);
-                assertTrue(testLog2.getCalGoal() <= Constant.ENTRY_MAX_VALUE);
-                assertTrue(testLog2.getCalGoal() != currCalGoal);
-                assertEquals((int) testLog2.getCalGoal(), newGoal);
+        void testSetAVarietyOfEdiblesLog() {
+            ArrayList<Edible> logs = new ArrayList<Edible>();
+            logs.add(new Drink());
+            logs.add(new Meal());
+            logs.add(new Food());
+
+            assertTrue(testLog.setFoodList(logs));
+            for(int i = 0; i < testLog.size(); i++) {
+                assertNotNull(testLog.getFoodList().get(i));
             }
+
+            assertEquals(testLog.getFoodList().size(), 3);
         }
 
         @Test
-        void testExcGoalSetter(){
-            int currExcGoal = testLog2.getExcGoal();
-            int newGoal = 2000;
-            if(testLog2.setExcGoal(newGoal)){
-                assertTrue(testLog2.getExcGoal() >= Constant.ENTRY_MIN_VALUE);
-                assertTrue(testLog2.getExcGoal() <= Constant.ENTRY_MAX_VALUE);
-                assertTrue(testLog2.getExcGoal() != currExcGoal);
-                assertEquals((int) testLog2.getExcGoal(), newGoal);
+        void testLongFoodLog() {
+            ArrayList<Edible> logs = new ArrayList<Edible>();
+            logs.add(new Meal());
+            logs.add(new Meal());
+            logs.add(new Meal());
+            logs.add(new Meal());
+            logs.add(new Meal());
+            logs.add(new Meal());
+            logs.add(new Meal());
+            logs.add(new Meal());
+            logs.add(new Meal());
+
+            assertTrue(testLog.setFoodList(logs));
+            for(int i = 0; i < testLog.size(); i++) {
+                assertNotNull(testLog.getFoodList().get(i));
             }
+
+            assertEquals(testLog.getFoodList().size(), 9);
+        }
+
+        @Test
+        void testSetExcerciseActual() {
+            assertTrue(testLog.setExcActual(500));
+            assertTrue(testLog.setExcActual(50));
+            assertTrue(testLog.setExcActual(900));
+        }
+
+        @Test
+        void testSetCalGoal() {
+            assertTrue(testLog.setCalGoal(500));
+            assertTrue(testLog.setCalGoal(50));
+            assertTrue(testLog.setCalGoal(900));
+        }
+
+        @Test
+        void testSetExcerciseGoal() {
+            assertTrue(testLog.setExcGoal(500));
+            assertTrue(testLog.setExcGoal(50));
+            assertTrue(testLog.setExcGoal(900));
+        }        
+    }
+    @Nested
+    @DisplayName("Empty tests")
+    class Test_Empty {
+        private DailyLog testLog;
+
+        @BeforeEach
+        void setup() {
+            testLog = new DailyLog();
+        }
+
+        @Test
+        void testLogCreation() {
+            assertFalse(testLog.init(null, 0, 0, 0, null));
+            assertFalse(testLog.init(null, 0, 0, 0, new ArrayList<Edible>()));
+        }
+
+        @Test
+        void testSetFoodList() {
+            assertFalse(testLog.getFoodList(null)); 
+            assertTrue(testLog.getFoodList(new ArrayList<Edible>()));
+        }
+
+        @Test
+        void testNullInsideFoodList() {
+            ArrayList<Edible> newLog = new ArrayList<Edible>();
+            newLog.add(new Edible());
+            newLog.add(null);
+            newLog.add(new Edible());
+
+            assertFalse(testLog.setFoodList(newLog));
+        }
+
+        @Test
+        void testSetExcerciseActual() {
+            assertTrue(testLog.getExcActual(0));
+        }
+
+        @Test
+        void testSetCalGoal() {
+            assertTrue(testLog.setCalGoal(0));
+        }
+
+        @Test
+        void testSetExcerciseGoal() {
+            assertTrue(testLog.setExcGoal(0));
         }
         
+    }
+    @Nested
+    @DisplayName("Edge case tests")
+    class Test_EdgeCases {
+        private DailyLog testLog;
+
+        @BeforeEach
+        void setup(){
+            testLog = new DailyLog();
+        }
+
+        @Test
+        void testBasicLogCreation() {
+            assertTrue(testLog.init(0, 0, 0, 0, new ArrayList<Edibles>()));
+            assertTrue(testLog.init(0, Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, new ArrayList<Edibles>()));
+        }
+
+        @Test
+        void testSetExcerciseActual() {
+            assertTrue(testLog.setExcActual(0));
+            assertTrue(testLog.setExcActual(Constant.ENTRY_MAX_VALUE));
+        }
+
+        @Test
+        void testSetCalGoal() {
+            assertTrue(testLog.setCalGoal(0));
+            assertTrue(testLog.setCalGoal(Constant.ENTRY_MAX_VALUE));
+        }
+
+        @Test
+        void testSetExcerciseGoal() {
+            assertTrue(testLog.setExcGoal(0));
+            assertTrue(testLog.setExcGoal(Constant.ENTRY_MAX_VALUE));
+        }
+    }
+
+    @Nested
+    @DisplayName("Invalid tests")
+    class Test_Invalid {
+        private DailyLog testLog;
+
+        @BeforeEach
+        void setup(){
+            testLog = new DailyLog();
+        }
+
+        @Test
+        void testBasicLogCreation() {
+            assertFalse(testLog.init(-1, 20, 20, 20, new ArrayList<Edibles>()));
+            assertFalse(testLog.init(null, 20, 20, 20, new ArrayList<Edibles>()));
+            assertFalse(testLog.init(20, -1, 20, 20, new ArrayList<Edibles>()));
+            assertFalse(testLog.init(20, Constant.ENTRY_MAX_VALUE + 1, 20, 20, new ArrayList<Edibles>()));
+            assertFalse(testLog.init(20, 20, -1, 20, new ArrayList<Edibles>()));
+            assertFalse(testLog.init(20, 20, Constant.ENTRY_MAX_VALUE + 1, 20, new ArrayList<Edibles>()));
+            assertFalse(testLog.init(20, 20, 5, -1, 20));
+            assertFalse(testLog.init(20, 20, 20, Constant.ENTRY_MAX_VALUE + 1, new ArrayList<Edibles>()));
+            assertFalse(testLog.init(-1, Constant.ENTRY_MAX_VALUE + 1, Constant.ENTRY_MAX_VALUE + 1, null));
+            assertFalse(testLog.init(-1, -1, -1, -1, null));
+        }
+
+        @Test
+        void testSetExcerciseActual() {
+            assertFalse(testLog.setExcActual(-1));
+            assertFalse(testLog.setExcActual(Constant.ENTRY_MAX_VALUE + 1));
+        }
+
+        @Test
+        void testSetCalGoal() {
+            assertFalse(testLog.setCalGoal(-1));
+            assertFalse(testLog.setCalGoal(Constant.ENTRY_MAX_VALUE + 1));
+        }
+
+        @Test
+        void testSetExcerciseGoal() {
+            assertFalse(testLog.setExcGoal(-1));
+            assertFalse(testLog.setExcGoal(Constant.ENTRY_MAX_VALUE + 1));
+        }
     }
 }
