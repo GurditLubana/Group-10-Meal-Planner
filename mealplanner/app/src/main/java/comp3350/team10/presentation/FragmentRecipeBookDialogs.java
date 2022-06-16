@@ -217,7 +217,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         if (result && (view == this.inputCalories || view == this.inputQuantity)) {
             intValue = Integer.parseInt(value);
             if (intValue < Constant.ENTRY_MIN_VALUE || intValue > Constant.ENTRY_MAX_VALUE) {
-                this.inputCalories.setError("Must be between 0 and 9999 inclusive");
+                view.setError("Must be between 0 and 9999 inclusive");
                 result = false;
             }
         }
