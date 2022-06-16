@@ -34,7 +34,10 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
 
     Topic: iter0 availability, project organization and goals 
     -----
-    Decision: Our next meeting will be on May 19 (later in the day) and we would use github to stay organized
+    Decision: - Project discussion and ideas on which application could be worked.
+              - Created a chart to shortlist best meeting times to work on Project collectively.
+              - Our next meeting will be on May 19 (later in the day) 
+              - we would use github to stay organized
     -----  
     Rationale: Availability  
 <br>
@@ -48,7 +51,9 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
 
     Topic: Iter0 progress, app features (both little and small)
     -----
-    Decision: We decided on the mealPlanner idea and what we wanted our app to do
+    Decision: - We decided on the mealPlanner idea and what we wanted our app to do
+              - made the list of what functionality could be added to the app
+              - wrote some user stories gathering the main ideas
     -----
     Rationale: Iter0 progress
 <br>
@@ -60,7 +65,11 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
     - Dane
 
     Topic: Iter0 refinment: vision and more detailed functionality
-    Decision: shared vision of the meal planner
+    Decision: - shared vision of the meal planner
+              - Created a vision statement for the Iteration 0
+              - created some additional user stories
+              - refined the user stories and categorised them into big and small stories
+              - finalised the vision statement and user stories according to priorities
     Rationale: Iter0 refinement  
 <br>
 
@@ -576,7 +585,7 @@ Durarion: 8hrs
      - Eventhandling in android studio
      - learning about intents and how we are supposed to use them.
      - learned how to write that in xml format and java format.
-     - worked on making a recyclerview.
+     - implemented user input for calorieGoal intake
 
 ### 2022-05-26
      Dev: Josef   
@@ -618,7 +627,7 @@ Duration: 2hrs
     - Create FragToParent interface for passing clicks/data between fragment and parent activity   
     - Added material date picker dialog on click of Meal Diary Date  
     - added icons of food  
-    - added material design icons for UI navigation and context menus  
+    - added material design icons for UI navigation and context menus
 
 ### 2022-05-30
      Dev: Josef  
@@ -685,7 +694,22 @@ Duration: 15hrs
    - Merged actualCardSelection into main
    - Created sprint tasks for Iter1
 
+### 2022-06-02
+    Dev: Manraj
+Duration: 4hrs
+    Tasks:
+    - Watched all yuja videos learning about the testing
+    - went through the given sample code and creating junit tests
+    - studied the application code
 
+### 2022-06-02
+    Dev: Gurdit
+Duration: 5hrs
+    Tasks:
+    - worked on creating an object class for food and drinks.
+    - fixed a ton of bugs for the classes
+    - refractored object classes code to Josef's code
+    
 ### 2022-06-02
      Dev: 
       - Josef
@@ -707,6 +731,14 @@ Duration: 1hr
    - Broke down task list from git dev tasks
 
 ### 2022-06-03
+    Dev: Gurdit
+Duration: 4hrs
+    Tasks:
+    - worked on creating a recyclerview of food and drinks
+    - could not complete the task then switched to creating UI for objects
+    - implemented the onclickListner class for Food and drinks.
+    
+### 2022-06-03
      Dev: Josef  
 Duration: 8hrs  
     Tasks:  
@@ -717,7 +749,7 @@ Duration: 8hrs
     - Created UI meal diary dialog   
     - Separated recycler view adapter for Meal Diary and Recipe Book   
     - created alternate card context UI for recipebook   
-    - Activity exit listener and integer passing between activities   
+    - Activity exit listener and integer passing between activities
 
 ### 2022-06-04
      Dev: Josef  
@@ -768,6 +800,14 @@ Duration: 6hrs
    - Entered personal dev history for May 19, 31 and July 1 and 2 
    - Added additionalDocs
    - Bug: need to change the cardOnSelect UI, we do not want to add items from this menu anymore
+
+### 2022-06-03
+    Dev: Gurdit
+Duration: 6hrs
+    Tasks:
+    - implemented a validation method for the edible classes
+    - created a unitconverter class for the object units
+    - implemented all the edge cases for the unit converter class
 
 ### 2022-06-12
      Dev: Zhou
