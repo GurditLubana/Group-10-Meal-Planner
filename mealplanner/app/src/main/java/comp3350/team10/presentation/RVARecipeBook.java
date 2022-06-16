@@ -111,7 +111,7 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
         TextView textDesc = (TextView) viewHolder.getView().findViewById(R.id.mealDesc);
         TextView mealCalories = (TextView) viewHolder.getView().findViewById(R.id.mealCals);
 
-        Edible currentFood = (Edible) localDataSet.get(position);
+        Edible currentFood = localDataSet.get(position);
 
         itemImage.setImageResource(currentFood.getIconPath());
         textDesc.setText(currentFood.getName());

@@ -228,13 +228,11 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         Edible selectedItem = null;
         UnitConverter converter = null;
 
-        if (savedItem instanceof Edible) {
-            selectedItem = (Edible) this.savedItem;
-            converter = new UnitConverter(selectedItem.getBaseUnit(), selectedItem.getQuantity(), selectedItem.getCalories());
-            selectedItem.setQuantity(amount);
-            selectedItem.setBaseUnit(Edible.Unit.valueOf(unit));
-            selectedItem.setCalories(converter.getCalories(selectedItem.getBaseUnit(), selectedItem.getQuantity()));
-        }
+        selectedItem = this.savedItem;
+        converter = new UnitConverter(selectedItem.getBaseUnit(), selectedItem.getQuantity(), selectedItem.getCalories());
+        selectedItem.setQuantity(amount);
+        selectedItem.setBaseUnit(Edible.Unit.valueOf(unit));
+        selectedItem.setCalories(converter.getCalories(selectedItem.getBaseUnit(), selectedItem.getQuantity()));
 
         this.showContextUI(-1);
         this.opExec.updateList(data);
