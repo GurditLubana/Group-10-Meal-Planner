@@ -266,10 +266,52 @@ public class TestMealDiaryOps {
 
         @Test
         @DisplayName("Dates that more than 2 years older than current date")
-        void someTest(){
+        void testBadDate1(){
             Calendar badDate = Calendar.getInstance();
             badDate.set(Calendar.YEAR, badDate.get(Calendar.YEAR) -3);
             ops.setListDate(badDate);
+            assertEquals(currDate, ops.getListDate());
+        }
+
+        @Test
+        @DisplayName("Date that is zero")
+        void testBadDate2(){
+            Calendar badDate = Calendar.getInstance();
+            badDate.set(Calendar.YEAR, 0);
+            ops.setListDate(badDate);
+            assertEquals(currDate, ops.getListDate());
+        }
+
+        @Test
+        @DisplayName("Calorie goal negative")
+        void canSetCal() {
+            int prevGoal = ops.getCalorieGoal();
+            ops.setCalorieGoal(-5);
+            assertEquals(prevGoal, ops.getCalorieGoal());
+        }
+
+        @Test
+        @DisplayName("Exercise actual negative")
+        void canSetExcAct() {
+            int prevExercise = ops.getCalorieExercise();
+            ops.setCalorieExercise(-5);
+            assertEquals(prevExercise, ops.getCalorieExercise());
+        }
+
+        @Test
+        @DisplayName("Calorie goal 99999")
+        void canSetCal1() {
+            int prevGoal = ops.getCalorieGoal();
+            ops.setCalorieGoal(-5);
+            assertEquals(prevGoal, ops.getCalorieGoal());
+        }
+
+        @Test
+        @DisplayName("Exercise actual 99999")
+        void canSetExcAct1() {
+            int prevExercise = ops.getCalorieExercise();
+            ops.setCalorieExercise(-5);
+            assertEquals(prevExercise, ops.getCalorieExercise());
         }
     }
 }
