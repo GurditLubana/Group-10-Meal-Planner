@@ -6,7 +6,7 @@ public class SharedDB {
 
     public static void start(String dbname) {
         if (db == null) {
-            db = new DataAccessStub();
+            db = new DataAccessStub(dbname);
             SharedDB.dbName = dbname;
             db.open(dbname);
         }

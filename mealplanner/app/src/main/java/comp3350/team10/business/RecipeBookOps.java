@@ -21,7 +21,6 @@ public class RecipeBookOps {
         this.pullDBdata();
     }
 
-
     private void pullDBdata() {
         if (this.selectedType == RecipeBook.FOOD) {
             this.selectedList = db.getRecipes(RecipeBook.FOOD.name());

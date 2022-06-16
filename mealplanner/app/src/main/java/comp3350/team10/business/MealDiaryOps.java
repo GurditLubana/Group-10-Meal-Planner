@@ -29,22 +29,6 @@ public class MealDiaryOps {
     private Integer calorieGoal;                //Represents the calorie goal
     private Integer calorieNet;                 //Represents the consumed calories - exercise calories burnt
 
-    public MealDiaryOps() {
-        this.todayFoodList = new LinkedList<Edible>();
-        this.listDate = Calendar.getInstance();
-        this.db = new DataAccessStub();
-
-        this.calorieConsumed = -1;
-        this.calorieExercise = -1;
-        this.progressExcess = -1;
-        this.progressBar = -1;
-        this.calorieGoal = -1;
-        this.calorieNet = -1;
-
-        this.pullDBdata();
-        this.updateProgress();
-    }
-
     //dependency injectable constructor
     public MealDiaryOps(DataAccessStub db) {
         this.listDate = Calendar.getInstance();
