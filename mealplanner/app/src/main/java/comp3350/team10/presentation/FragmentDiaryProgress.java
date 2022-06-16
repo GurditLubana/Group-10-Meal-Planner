@@ -21,10 +21,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class FragmentDiaryProgress extends Fragment {
-    MealDiaryLiveData mealDiaryLiveData;
-    private SimpleDateFormat mon;
-    private SimpleDateFormat day;
-    FragToMealDiary send;
+    MealDiaryLiveData mealDiaryLiveData; // live data source for automatic field updates
+    private SimpleDateFormat mon;        // date format for month
+    private SimpleDateFormat day;        // date format for day
+    FragToMealDiary send;                // Interface to pass data to the parent activity
 
     public FragmentDiaryProgress() {
     }  //Required empty public constructor
