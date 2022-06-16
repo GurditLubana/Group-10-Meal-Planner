@@ -47,27 +47,27 @@ public class FoodUnitTest {
 
 		@Test
 		void testDefaultVals() {
-			assertTrue(testFood.getName() == null);
-			assertTrue(testFood.getIconPath() == -1);
-			assertTrue(testFood.getFragmentType() == null);
-			assertTrue(testFood.getBaseUnit() == null);
-			assertTrue(testFood.getQuantity() == -1);
-			assertTrue(testFood.getDbkey() == -1);
-			assertTrue(testFood.getCalories() == 0);
+			assertNull(testFood.getName());
+			assertEquals(-1, testFood.getIconPath());
+			assertNull(testFood.getFragmentType());
+			assertNull(testFood.getBaseUnit());
+			assertEquals(-1, testFood.getQuantity());
+			assertEquals(-1, testFood.getDbkey());
+			assertEquals(0, testFood.getCalories());
 		}
 			
 		@Test
 		void testSetCaloies() {
 			assertTrue(testFood.setCalories(100));
-			assertTrue(testFood.getCalories() == 100);
+			assertEquals(100, testFood.getCalories());
 		}
 
 		@Test
 		void testModCalories() {
 			assertTrue(testFood.modifyCalories(100));
-			assertTrue(testFood.getCalories() == 100);
+			assertEquals(100, testFood.getCalories());
 			assertTrue(testFood.modifyCalories(-5));
-			assertTrue(testFood.getCalories() == 95);
+			assertEquals(95, testFood.getCalories());
 		}
 
 		@Test
@@ -114,9 +114,9 @@ public class FoodUnitTest {
 		@Test
 		void testSetQuantity() {	
 			assertTrue(testFood.setQuantity(100));
-			assertTrue(testFood.getQuantity() == 100);
+			assertEquals(100, testFood.getQuantity());
 			assertTrue(testFood.setQuantity(300));
-			assertTrue(testFood.getQuantity() == 300);
+			assertEquals(300, testFood.getQuantity());
 		}
 	}
 
@@ -143,26 +143,26 @@ public class FoodUnitTest {
 		@Test
 		void testModCalories() {
 			assertTrue(testFood.modifyCalories(600));
-			assertTrue(testFood.getCalories() == 600);
+			assertEquals(600, testFood.getCalories());
 			assertTrue(testFood.modifyCalories(-500));
-			assertTrue(testFood.getCalories() == 100);
+			assertEquals(100, testFood.getCalories());
 		}
 
 		@Test
 		void testSetCalories() {
 			assertTrue(testFood.setCalories(500));
-			assertTrue(testFood.getCalories() == 500);
+			assertEquals(500, testFood.getCalories());
 			assertTrue(testFood.setCalories(999));
-			assertTrue(testFood.getCalories() == 999);
+			assertEquals(999, testFood.getCalories());
 		}
 
 		@Test
 		void testModCaloriesAfterSettingCalories() {
 			assertTrue(testFood.setCalories(500));
 			assertTrue(testFood.modifyCalories(600));
-			assertTrue(testFood.getCalories() == 1100);
+			assertEquals(1100, testFood.getCalories());
 			assertTrue(testFood.modifyCalories(-600));
-			assertTrue(testFood.getCalories() == 500);
+			assertEquals(500, testFood.getCalories());
 		}
 
 		@Test
@@ -218,13 +218,13 @@ public class FoodUnitTest {
 		@Test
 		void testEmptyValues() {
 			assertFalse(testFood.init(null, 0, 0, null, null, 0, 0));
-			assertTrue(testFood.getName() == null);
-			assertTrue(testFood.getIconPath() == -1);
-			assertTrue(testFood.getCalories() == 0);
-			assertTrue(testFood.getFragmentType() == null);
-			assertTrue(testFood.getBaseUnit() == null);
-			assertTrue(testFood.getQuantity() == -1);
-			assertTrue(testFood.getDbkey() == -1);
+			assertNull(testFood.getName());
+			assertEquals(-1, testFood.getIconPath());
+			assertEquals(0, testFood.getCalories());
+			assertNull(testFood.getFragmentType());
+			assertNull(testFood.getBaseUnit());
+			assertEquals(-1, testFood.getQuantity());
+			assertEquals(-1, testFood.getDbkey());
 		}
 
 		@Test 
@@ -294,9 +294,9 @@ public class FoodUnitTest {
 		@Test
 		void testModCalories() {
 			assertTrue(testFood.modifyCalories(Constant.ENTRY_MAX_VALUE));
-			assertTrue(testFood.getCalories() == Constant.ENTRY_MAX_VALUE);
+			assertEquals(Constant.ENTRY_MAX_VALUE, testFood.getCalories());
 			assertTrue(testFood.modifyCalories(-Constant.ENTRY_MAX_VALUE));
-			assertTrue(testFood.getCalories() == 0);
+			assertEquals(0, testFood.getCalories());
 		}
 
 		@Test
@@ -329,103 +329,103 @@ public class FoodUnitTest {
 		@Test
 		void testInvalidNameCreation() {
 			assertFalse(testFood.init("", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-			assertTrue(testFood.getName() == null);
-			assertTrue(testFood.getIconPath() == -1);
-			assertTrue(testFood.getCalories() == 0);
-			assertTrue(testFood.getFragmentType() == null);
-			assertTrue(testFood.getBaseUnit() == null);
-			assertTrue(testFood.getQuantity() == -1);
-			assertTrue(testFood.getDbkey() == -1);
+			assertNull(testFood.getName());
+			assertEquals(-1, testFood.getIconPath());
+			assertEquals(0, testFood.getCalories());
+			assertNull(testFood.getFragmentType());
+			assertNull(testFood.getBaseUnit());
+			assertEquals(-1, testFood.getQuantity());
+			assertEquals(-1, testFood.getDbkey());
 		}
 
 		@Test
 		void testInvalidIconPathCreation() {
 			assertFalse(testFood.init("food", -1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-			assertTrue(testFood.getName().equals("food"));
-			assertTrue(testFood.getIconPath() == -1);
-			assertTrue(testFood.getCalories() == 0);
-			assertTrue(testFood.getFragmentType() == null);
-			assertTrue(testFood.getBaseUnit() == null);
-			assertTrue(testFood.getQuantity() == -1);
-			assertTrue(testFood.getDbkey() == -1);
+			assertEquals("food", testFood.getName());
+			assertEquals(-1, testFood.getIconPath());
+			assertEquals(0, testFood.getCalories());
+			assertNull(testFood.getFragmentType());
+			assertNull(testFood.getBaseUnit());
+			assertEquals(-1, testFood.getQuantity());
+			assertEquals(-1, testFood.getDbkey());
 		}
 
 		@Test
 		void testInvalidCaloriesCreation() {
 			assertFalse(testFood.init("food", 1, -1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-			assertTrue(testFood.getName().equals("food"));
-			assertTrue(testFood.getIconPath() == 1);
-			assertTrue(testFood.getCalories() == 0);
-			assertTrue(testFood.getFragmentType() == null);
-			assertTrue(testFood.getBaseUnit() == null);
-			assertTrue(testFood.getQuantity() == -1);
-			assertTrue(testFood.getDbkey() == -1);
+			assertEquals("food", testFood.getName());
+			assertEquals(1, testFood.getIconPath());
+			assertEquals(0, testFood.getCalories());
+			assertNull(testFood.getFragmentType());
+			assertNull(testFood.getBaseUnit());
+			assertEquals(-1, testFood.getQuantity());
+			assertEquals(-1, testFood.getDbkey());
 
 			assertFalse(testFood.init("food", 1, Constant.ENTRY_MAX_VALUE + 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-			assertTrue(testFood.getName() == "food");
-			assertTrue(testFood.getIconPath() == 1);
-			assertTrue(testFood.getCalories() == 0);
-			assertTrue(testFood.getFragmentType() == null);
-			assertTrue(testFood.getBaseUnit() == null);
-			assertTrue(testFood.getQuantity() == -1);
-			assertTrue(testFood.getDbkey() == -1);
+			assertSame("food", testFood.getName());
+			assertEquals(1, testFood.getIconPath());
+			assertEquals(0, testFood.getCalories());
+			assertNull(testFood.getFragmentType());
+			assertNull(testFood.getBaseUnit());
+			assertEquals(-1, testFood.getQuantity());
+			assertEquals(-1, testFood.getDbkey());
 		}
 
 		@Test
 		void testInvalidFragmentCreation() {
 			assertFalse(testFood.init("food", 1, 1, null, Edible.Unit.cups, 5, 1));
-			assertTrue(testFood.getName().equals("food"));
-			assertTrue(testFood.getIconPath() == 1);
-			assertTrue(testFood.getCalories() == 1);
-			assertTrue(testFood.getFragmentType() == null);
-			assertTrue(testFood.getBaseUnit() == null);
-			assertTrue(testFood.getQuantity() == -1);
-			assertTrue(testFood.getDbkey() == -1);
+			assertEquals("food", testFood.getName());
+			assertEquals(1, testFood.getIconPath());
+			assertEquals(1, testFood.getCalories());
+			assertNull(testFood.getFragmentType());
+			assertNull(testFood.getBaseUnit());
+			assertEquals(-1, testFood.getQuantity());
+			assertEquals(-1, testFood.getDbkey());
 		}
 
 		@Test
 		void testInvalidUnitCreation() {
 			assertFalse(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, null, 5, 1));
-			assertTrue(testFood.getName().equals("food"));
-			assertTrue(testFood.getIconPath() == 1);
-			assertTrue(testFood.getCalories() == 1);
-			assertTrue(testFood.getFragmentType() == ListItem.FragmentType.diaryEntry);
-			assertTrue(testFood.getBaseUnit() == null);
-			assertTrue(testFood.getQuantity() == -1);
-			assertTrue(testFood.getDbkey() == -1);
+			assertEquals("food", testFood.getName());
+			assertEquals(1, testFood.getIconPath());
+			assertEquals(1, testFood.getCalories());
+			assertSame(testFood.getFragmentType(), FragmentType.diaryEntry);
+			assertNull(testFood.getBaseUnit());
+			assertEquals(-1, testFood.getQuantity());
+			assertEquals(-1, testFood.getDbkey());
 		}
 
 		@Test
 		void testInvalidQuantityCreation() {
 			assertFalse(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, -1, 1));
-			assertTrue(testFood.getName().equals("food"));
-			assertTrue(testFood.getIconPath() == 1);
-			assertTrue(testFood.getCalories() == 1);
-			assertTrue(testFood.getFragmentType() == ListItem.FragmentType.diaryEntry);
-			assertTrue(testFood.getBaseUnit() == Edible.Unit.cups);
-			assertTrue(testFood.getQuantity() == -1);
-			assertTrue(testFood.getDbkey() == -1);
+			assertEquals("food", testFood.getName());
+			assertEquals(1, testFood.getIconPath());
+			assertEquals(1, testFood.getCalories());
+			assertSame(testFood.getFragmentType(), FragmentType.diaryEntry);
+			assertSame(testFood.getBaseUnit(), Unit.cups);
+			assertEquals(-1, testFood.getQuantity());
+			assertEquals(-1, testFood.getDbkey());
 
 			assertFalse(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE + 1, 1));
-			assertTrue(testFood.getName().equals("food"));
-			assertTrue(testFood.getIconPath() == 1);
-			assertTrue(testFood.getCalories() == 1);
-			assertTrue(testFood.getFragmentType() == ListItem.FragmentType.diaryEntry);
-			assertTrue(testFood.getBaseUnit() == Edible.Unit.cups);
-			assertTrue(testFood.getQuantity() == -1);
-			assertTrue(testFood.getDbkey() == -1);
+			assertEquals("food", testFood.getName());
+			assertEquals(1, testFood.getIconPath());
+			assertEquals(1, testFood.getCalories());
+			assertSame(testFood.getFragmentType(), FragmentType.diaryEntry);
+			assertSame(testFood.getBaseUnit(), Unit.cups);
+			assertEquals(-1, testFood.getQuantity());
+			assertEquals(-1, testFood.getDbkey());
 		}
 
 		@Test
 		void testInvalidDBKeyCreation() {
 			assertFalse(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, -1));
-			assertTrue(testFood.getName().equals("food"));
-			assertTrue(testFood.getIconPath() == 1);
-			assertTrue(testFood.getCalories() == 1);
-			assertTrue(testFood.getFragmentType() == ListItem.FragmentType.diaryEntry);
-			assertTrue(testFood.getBaseUnit() == Edible.Unit.cups);
-			assertTrue(testFood.getQuantity() == 5);
-			assertTrue(testFood.getDbkey() == -1);
+			assertEquals("food", testFood.getName());
+			assertEquals(1, testFood.getIconPath());
+			assertEquals(1, testFood.getCalories());
+			assertSame(testFood.getFragmentType(), FragmentType.diaryEntry);
+			assertSame(testFood.getBaseUnit(), Unit.cups);
+			assertEquals(5, testFood.getQuantity());
+			assertEquals(-1, testFood.getDbkey());
 		}
 
 		@Test

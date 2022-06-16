@@ -51,7 +51,7 @@ public class DailyLogUnitTest {
 
         @Test
         void testListGetter(){
-            assertTrue(testLog.getFoodList().equals(foodlist));
+            assertEquals(testLog.getFoodList(), foodlist);
         }
 
         @Test
@@ -111,9 +111,9 @@ public class DailyLogUnitTest {
             testList2.add(drink2);
             testList2.add(food4);
 
-            assertTrue(testLog2.getFoodList().equals(testList));
+            assertEquals(testLog2.getFoodList(), testList);
             testLog2.setFoodList(testList2);
-            assertTrue(testLog2.getFoodList().equals(testList2));
+            assertEquals(testLog2.getFoodList(), testList2);
         }
 
         @Test
@@ -124,7 +124,7 @@ public class DailyLogUnitTest {
                 assertTrue(testLog2.getExcActual() >= Constant.ENTRY_MIN_VALUE);
                 assertTrue(testLog2.getExcActual() <= Constant.ENTRY_MAX_VALUE);
                 assertTrue(testLog2.getExcActual() != currExcActual);
-                assertTrue(testLog2.getExcActual() == newActual);
+                assertEquals((int) testLog2.getExcActual(), newActual);
             }
         }
 
@@ -136,7 +136,7 @@ public class DailyLogUnitTest {
                 assertTrue(testLog2.getCalGoal() >= Constant.ENTRY_MIN_VALUE);
                 assertTrue(testLog2.getCalGoal() <= Constant.ENTRY_MAX_VALUE);
                 assertTrue(testLog2.getCalGoal() != currCalGoal);
-                assertTrue(testLog2.getCalGoal() == newGoal);
+                assertEquals((int) testLog2.getCalGoal(), newGoal);
             }
         }
 
@@ -148,7 +148,7 @@ public class DailyLogUnitTest {
                 assertTrue(testLog2.getExcGoal() >= Constant.ENTRY_MIN_VALUE);
                 assertTrue(testLog2.getExcGoal() <= Constant.ENTRY_MAX_VALUE);
                 assertTrue(testLog2.getExcGoal() != currExcGoal);
-                assertTrue(testLog2.getExcGoal() == newGoal);
+                assertEquals((int) testLog2.getExcGoal(), newGoal);
             }
         }
         

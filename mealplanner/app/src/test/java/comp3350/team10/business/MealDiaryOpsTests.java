@@ -40,8 +40,8 @@ public class MealDiaryOpsTests {
 
         @Test
         void list_date(){
-            assertTrue(ops.getListDate().YEAR == Calendar.getInstance().YEAR);
-            assertTrue(ops.getListDate().DAY_OF_YEAR == Calendar.getInstance().DAY_OF_YEAR);
+            assertEquals(ops.getListDate().YEAR, Calendar.getInstance().YEAR);
+            assertEquals(ops.getListDate().DAY_OF_YEAR, Calendar.getInstance().DAY_OF_YEAR);
         }
 
         @Test
@@ -70,7 +70,7 @@ public class MealDiaryOpsTests {
 
         @Test
         void initial_list(){
-            assertTrue(ops.getList() != null);
+            assertNotNull(ops.getList());
         }
     }
 
@@ -169,7 +169,7 @@ public class MealDiaryOpsTests {
                     }
                 }
             }
-            assertTrue(!identical);
+            assertFalse(identical);
         }
     }
 
