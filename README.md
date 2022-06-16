@@ -54,7 +54,7 @@ The app uses views that rely on lists of items.
 
 ### Edible
 This is an Abstract class at the top of the heirarchy of food items. This class defines essential  
-attributes and methods that all fod items should have.  
+attributes and methods that all food items should have.  
 
 ### 
 ## Persistence
