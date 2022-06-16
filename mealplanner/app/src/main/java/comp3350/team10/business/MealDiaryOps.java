@@ -179,8 +179,6 @@ public class MealDiaryOps {
         if (this.todayFoodList != null) {
             this.calorieConsumed = 0;
 
-
-            
             for (int i = 0; i < this.todayFoodList.size(); i++) {
                 this.calorieConsumed += this.todayFoodList.get(i).getCalories();
             }

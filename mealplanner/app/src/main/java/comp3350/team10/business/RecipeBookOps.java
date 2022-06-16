@@ -9,7 +9,7 @@ import java.util.LinkedList;
 public class RecipeBookOps {
     private static enum RecipeBook {FOOD, DRINKS, MEALS}; //Possible Edible type views
 
-    private LinkedList<Edible> selectedList;    //The recipes availible for the current view
+    private LinkedList<Edible> selectedList;    //The recipes available for the current view
     private RecipeBook selectedType;            //The selected Edible type view (see enum on line 18)
     private DataAccessStub db;                  //Accesses the database
 
