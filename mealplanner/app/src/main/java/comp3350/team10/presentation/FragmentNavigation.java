@@ -18,11 +18,11 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 public class FragmentNavigation extends Fragment {
-    ImageButton mealButton = null;
-    ImageButton dailyButton = null;
-    ImageButton recipeButton = null;
-    ImageButton chartsButton = null;
-    ImageButton socialButton = null;
+    ImageButton mealButton = null;    // button to launch the diary screen
+    ImageButton dailyButton = null;   // button to launch the multi goal daily charts screen
+    ImageButton recipeButton = null;  // button to launch the recipebook screen
+    ImageButton chartsButton = null;  // button to launch the long term charts screen
+    ImageButton socialButton = null;  // button to launch the social screen
 
     public FragmentNavigation() {
     } //Required empty public constructor

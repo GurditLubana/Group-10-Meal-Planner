@@ -27,15 +27,15 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class FragmentDiaryDialogs extends DialogFragment {
-    public static String TAG = "MealEntryDialog";
-    private FragToMealDiary send;
-    private FragToMealDiary.EntryMode mode;
-    private Button btnCancel;
-    private Button btnOk;
-    private TextView title;
-    private EditText quantity;
-    private TextView unitText;
-    private Spinner unitSpinner;
+    public static String TAG = "MealEntryDialog"; // tag name of this fragment for reference in the fragment manager
+    private FragToMealDiary send;                 // Interface for communication with parent activity
+    private FragToMealDiary.EntryMode mode;       // the type of dialog to show
+    private Button btnCancel;                     // Cancel Button
+    private Button btnOk;                         // OK button
+    private TextView title;                       // Dialog Title
+    private EditText quantity;                    // input field for quantity
+    private TextView unitText;                    // static unit label
+    private Spinner unitSpinner;                  // input field for quantity units
 
     public FragmentDiaryDialogs() {
         // Required empty public constructor

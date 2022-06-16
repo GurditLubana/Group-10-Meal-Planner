@@ -209,16 +209,20 @@ public class MealDiaryOpsTests {
             Integer newProgress = 0;
             Integer prevGoal = ops.getCalorieGoal();
 
-            if(prevProgress < 99) {
-                ops.setCalorieGoal(prevGoal + 1000);
-                newProgress = ops.getProgressBar();
+            if( prevProgress > 0 ) {
+                if (prevProgress < 99) {
+                    ops.setCalorieGoal(prevGoal + 1000);
+                    newProgress = ops.getProgressBar();
+                } else {
+                    prevProgress = ops.getProgressExcess();
+                    ops.setCalorieGoal(prevGoal + 1000);
+                    newProgress = ops.getProgressExcess();
+                }
+                assertTrue(prevProgress.intValue() > newProgress.intValue());
             }
             else {
-                prevProgress = ops.getProgressExcess();
-                ops.setCalorieGoal(prevGoal + 1000);
-                newProgress = ops.getProgressExcess();
+                assertEquals(prevProgress.intValue(), newProgress.intValue());
             }
-            assertNotEquals(prevProgress, newProgress);
         }
 
         @Test
@@ -227,16 +231,21 @@ public class MealDiaryOpsTests {
             Integer prevProgress = ops.getProgressBar();
             Integer newProgress = 0;
 
-            if(prevProgress < 100) {
-                ops.setCalorieExercise(1000);
-                newProgress = ops.getProgressBar();
+            if( prevProgress > 0 ) {
+                if (prevProgress < 100) {
+                    ops.setCalorieExercise(1000);
+                    newProgress = ops.getProgressBar();
+                } else {
+                    prevProgress = ops.getProgressExcess();
+                    ops.setCalorieExercise(1000);
+                    newProgress = ops.getProgressExcess();
+                }
+                assertNotEquals(prevProgress.intValue(), newProgress.intValue());
             }
             else {
-                prevProgress = ops.getProgressExcess();
-                ops.setCalorieExercise(1000);
-                newProgress = ops.getProgressExcess();
+                assertEquals(prevProgress.intValue(), newProgress.intValue());
             }
-            assertNotEquals(prevProgress, newProgress);
+
         }
     }
 

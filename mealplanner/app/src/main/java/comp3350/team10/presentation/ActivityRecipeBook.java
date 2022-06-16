@@ -34,15 +34,15 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private RVARecipeBook recyclerViewAdapter;      // Houses the logic for a recycle view with recipes
     private RecyclerView recipeRecyclerView;        // Houses a recycle view for recipes
     private RecipeBookOps opExec;                   // Buisness logic for RecipeBook
-    private Toolbar toolbar;                        // Progress bar
+    private Toolbar toolbar;                        // app title
 
     private LinkedList<Edible> data;                // The data for the recipe book
     private boolean modMenuIsOpen;                  // Represents whether the menu to add/edit recipes is toggled on
     private int savedPosition;                      // Saves the position of an item for temporary removal
     private Edible saved;                           // Saves the item for temporary removal
     private int currTab;                            // The tab that is currently displayed
-    private EntryMode mode;                         //
-    private boolean detailsFlag = false;
+    private EntryMode mode;                         // The type of dialog to show
+    private boolean detailsFlag = false;            // flag to show detailed recipes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

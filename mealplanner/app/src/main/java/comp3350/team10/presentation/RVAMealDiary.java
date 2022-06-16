@@ -17,7 +17,7 @@ import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.ListItem;
 
 public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> {
-    private LinkedList<Edible> localDataSet;          // the list Recyclerview renders
+    private LinkedList<Edible> localDataSet;            // the list Recyclerview renders
     private int selectedPos = RecyclerView.NO_POSITION; // tracks the last clicked item
     private FragToMealDiary sendToMealDiary;            // interface to pass data to mealdiary
     private ListItem saved;                             // var to save a meal entry when we show context UI

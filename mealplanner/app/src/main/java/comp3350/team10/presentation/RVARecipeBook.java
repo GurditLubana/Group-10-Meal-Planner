@@ -17,10 +17,10 @@ import comp3350.team10.R;
 import comp3350.team10.objects.Edible;
 
 public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder> {
-    private LinkedList<Edible> localDataSet;          // the list Recyclerview renders
+    private LinkedList<Edible> localDataSet;            // the list Recyclerview renders
     private int selectedPos = RecyclerView.NO_POSITION; // tracks the last clicked item
     private FragToRecipeBook sendToRecipeBook;          // interface to pass data to recipebook
-    private Edible saved;                             // var to save a meal entry when we show context UI
+    private Edible saved;                               // var to save a meal entry when we show context UI
 
     @Override
     public int getItemViewType(int pos) {
@@ -111,7 +111,7 @@ public class RVARecipeBook extends RecyclerView.Adapter<RVARecipeBook.ViewHolder
         TextView textDesc = (TextView) viewHolder.getView().findViewById(R.id.mealDesc);
         TextView mealCalories = (TextView) viewHolder.getView().findViewById(R.id.mealCals);
 
-        Edible currentFood = localDataSet.get(position);
+        Edible currentFood = this.localDataSet.get(position);
 
         itemImage.setImageResource(currentFood.getIconPath());
         textDesc.setText(currentFood.getName());
