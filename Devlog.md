@@ -800,6 +800,22 @@ Duration: 2hrs
     Tasks:
     - Unit testing for object classes
     - some Refractoring
+
+### 2022-06-14
+     Dev:
+      - Dane
+Duration: 4hrs
+   Tasks:
+   - Code refactoring
+   - Caught up on Yuja videos, focused on testing more specifically
+
+### 2022-06-14
+     Dev:
+      - Manraj
+Duration: 4hrs
+   Tasks:
+   - Caught up on Yuja videos, with a focus on the agile development process
+   
 ### 2022-06-14
      Dev:
       - Gurdit
@@ -824,25 +840,36 @@ Duration: 6hrs
    - Bug Fixes  
    - Code Refactoring  
 
-   
 ### 2022-06-15
      Dev:
       - Gurdit
       - Josef
       - Manraj
+      - Dane
 Duration: 6hrs
    Tasks:
    - Unit Testing
    - Bug Fixes
    - Code Refactoring
- 
-### 2022-06-16
+
+### 2022-06-15
      Dev:
       - Gurdit
       - Josef
       - Manraj
+      - Dane
 Duration: 6hrs
    Tasks:
    - Unit Testing
    - Bug Fixes
    - Code Refactoring
+
+### 2022-06-15
+     Dev:
+      - Dane
+Duration: 7.5hrs
+   Tasks:
+   - Unit Testing
+   - Bug Fixes
+   - Code Refactoring
+   - Lots of test refactoring, and directory cleaning
