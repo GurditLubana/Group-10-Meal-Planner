@@ -17,11 +17,6 @@ import comp3350.team10.objects.ListItem;
 import comp3350.team10.persistence.DataAccessStub;
 import comp3350.team10.persistence.SharedDB;
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
 public class UnitConverterTests {
 
     @Nested
@@ -273,6 +268,5 @@ public class UnitConverterTests {
             Integer expected = 0;
             assertEquals(expected,result);
         }
-
     }
 }

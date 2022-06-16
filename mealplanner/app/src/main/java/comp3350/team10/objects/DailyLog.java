@@ -6,9 +6,9 @@ import java.util.Comparator;
 
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.ListItem;
+import comp3350.team10.objects.Constant;
 
-public class DailyLog { //Sort of like the user's logs from the database
-    private ListItem.FragmentType fragmentType; //How it should appear on recycler views
+public class DailyLog {                 //The user's logs from the database
     private ArrayList<Edible> log;              //The edibles present in the given log
     private Integer excActual;                  //The calories burnt while exercising
     private Integer excGoal;                    //The original calorie goal for exercising
