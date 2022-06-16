@@ -252,18 +252,16 @@ public class TestUnitConverter {
             UnitConverter prevValue = new UnitConverter(Edible.Unit.serving,0, 840);
             Integer result = prevValue.getCalories(Edible.Unit.g,3);
 
-
             Integer expected = 0;
             assertEquals(expected,result);
          }
 
 
         @Test
-        void testingIfCaloryZero()
+        void testingIfCalorieZero()
         {
             UnitConverter prevValue = new UnitConverter(Edible.Unit.serving,3, 0);
             Integer result = prevValue.getCalories(Edible.Unit.serving,1);
-
 
             Integer expected = 0;
             assertEquals(expected,result);
