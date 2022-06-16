@@ -51,7 +51,7 @@ public class DailyLogUnitTest {
             assertEquals(testLog.getFoodList().size(), 2);
             assertNotNull(testLog.getDate());
 
-            for(int i = 0; i < testLog.size(); i++) {
+            for(int i = 0; i < testLog.getFoodList().size(); i++) {
                 assertNotNull(testLog.getFoodList().get(i));
             }
         }
@@ -105,11 +105,15 @@ public class DailyLogUnitTest {
 
             assertTrue(testLog.init(5, 100, 50, 1, logs));
 
+            logs = new ArrayList<Edible>();
             logs.add(new Drink());
+            logs.add(new Drink());
+            logs.add(new Drink());
+
             assertEquals(testLog.getFoodList().size(), 2);
 
             assertTrue(testLog.setFoodList(logs));
-            for(int i = 0; i < testLog.size(); i++) {
+            for(int i = 0; i < testLog.getFoodList().size(); i++) {
                 assertNotNull(testLog.getFoodList().get(i));
             }
 
@@ -124,7 +128,7 @@ public class DailyLogUnitTest {
             logs.add(new Food());
 
             assertTrue(testLog.setFoodList(logs));
-            for(int i = 0; i < testLog.size(); i++) {
+            for(int i = 0; i < testLog.getFoodList().size(); i++) {
                 assertNotNull(testLog.getFoodList().get(i));
             }
 
@@ -145,7 +149,7 @@ public class DailyLogUnitTest {
             logs.add(new Meal());
 
             assertTrue(testLog.setFoodList(logs));
-            for(int i = 0; i < testLog.size(); i++) {
+            for(int i = 0; i < testLog.getFoodList().size(); i++) {
                 assertNotNull(testLog.getFoodList().get(i));
             }
 
@@ -191,23 +195,23 @@ public class DailyLogUnitTest {
 
         @Test
         void testSetFoodList() {
-            assertFalse(testLog.getFoodList(null)); 
-            assertTrue(testLog.getFoodList(new ArrayList<Edible>()));
+            assertFalse(testLog.setFoodList(null));
+            assertFalse(testLog.setFoodList(new ArrayList<Edible>()));
         }
 
         @Test
         void testNullInsideFoodList() {
             ArrayList<Edible> newLog = new ArrayList<Edible>();
-            newLog.add(new Edible());
+            newLog.add(new Meal());
             newLog.add(null);
-            newLog.add(new Edible());
+            newLog.add(new Meal());
 
             assertFalse(testLog.setFoodList(newLog));
         }
 
         @Test
         void testSetExcerciseActual() {
-            assertTrue(testLog.getExcActual(0));
+            assertTrue(testLog.setExcActual(0));
         }
 
         @Test
@@ -233,8 +237,11 @@ public class DailyLogUnitTest {
 
         @Test
         void testBasicLogCreation() {
-            assertTrue(testLog.init(0, 0, 0, 0, new ArrayList<Edibles>()));
-            assertTrue(testLog.init(0, Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, new ArrayList<Edibles>()));
+            ArrayList<Edible> newLog = new ArrayList<Edible>();
+            newLog.add(new Food());
+
+            assertTrue(testLog.init(0, 0, 0, 0, newLog));
+            assertTrue(testLog.init(0, Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, newLog));
         }
 
         @Test
@@ -268,15 +275,15 @@ public class DailyLogUnitTest {
 
         @Test
         void testBasicLogCreation() {
-            assertFalse(testLog.init(-1, 20, 20, 20, new ArrayList<Edibles>()));
-            assertFalse(testLog.init(null, 20, 20, 20, new ArrayList<Edibles>()));
-            assertFalse(testLog.init(20, -1, 20, 20, new ArrayList<Edibles>()));
-            assertFalse(testLog.init(20, Constant.ENTRY_MAX_VALUE + 1, 20, 20, new ArrayList<Edibles>()));
-            assertFalse(testLog.init(20, 20, -1, 20, new ArrayList<Edibles>()));
-            assertFalse(testLog.init(20, 20, Constant.ENTRY_MAX_VALUE + 1, 20, new ArrayList<Edibles>()));
-            assertFalse(testLog.init(20, 20, 5, -1, 20));
-            assertFalse(testLog.init(20, 20, 20, Constant.ENTRY_MAX_VALUE + 1, new ArrayList<Edibles>()));
-            assertFalse(testLog.init(-1, Constant.ENTRY_MAX_VALUE + 1, Constant.ENTRY_MAX_VALUE + 1, null));
+            assertFalse(testLog.init(-1, 20, 20, 20, new ArrayList<Edible>()));
+            assertFalse(testLog.init(null, 20, 20, 20, new ArrayList<Edible>()));
+            assertFalse(testLog.init(20, -1, 20, 20, new ArrayList<Edible>()));
+            assertFalse(testLog.init(20, Constant.ENTRY_MAX_VALUE + 1, 20, 20, new ArrayList<Edible>()));
+            assertFalse(testLog.init(20, 20, -1, 20, new ArrayList<Edible>()));
+            assertFalse(testLog.init(20, 20, Constant.ENTRY_MAX_VALUE + 1, 20, new ArrayList<Edible>()));
+            assertFalse(testLog.init(20, 20, 5, -1, new ArrayList<Edible>()));
+            assertFalse(testLog.init(20, 20, 20, Constant.ENTRY_MAX_VALUE + 1, new ArrayList<Edible>()));
+            assertFalse(testLog.init(-1, Constant.ENTRY_MAX_VALUE + 1, Constant.ENTRY_MAX_VALUE + 1, Constant.ENTRY_MAX_VALUE + 1, null));
             assertFalse(testLog.init(-1, -1, -1, -1, null));
         }
 

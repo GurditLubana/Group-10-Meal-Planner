@@ -867,7 +867,7 @@ Duration: 6hrs
 ### 2022-06-15
      Dev:
       - Dane
-Duration: 7.5hrs
+Duration: 8hrs
    Tasks:
    - Unit Testing
    - Bug Fixes
