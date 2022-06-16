@@ -4,56 +4,26 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.LinkedList;
 
 import comp3350.team10.R;
 import comp3350.team10.objects.Edible;
-import comp3350.team10.objects.ListItem;
 
-public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> {
-    private LinkedList<Edible> localDataSet;            // the list Recyclerview renders
-    private int selectedPos = RecyclerView.NO_POSITION; // tracks the last clicked item
+public class RVAMealDiary extends RecyclerViewAdapter {
     private FragToMealDiary sendToMealDiary;            // interface to pass data to mealdiary
-    private ListItem saved;                             // var to save a meal entry when we show context UI
-
-    @Override
-    public int getItemViewType(int pos) {
-        return localDataSet.get(pos).getFragmentType().ordinal();
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final FrameLayout fragmentView;
-
-        public ViewHolder(View view) {
-            super(view);
-            fragmentView = (FrameLayout) view.findViewById(R.id.frame_container);
-
-        }
-
-        public FrameLayout getView() {
-            return fragmentView;
-        }
-    }
 
     public RVAMealDiary(LinkedList<Edible> dataSet) {
-        this.localDataSet = dataSet;
-    }
-
-    public void changeData(LinkedList<Edible> newData) {
-        this.localDataSet = newData;
-        this.notifyDataSetChanged();
+        super(dataSet);
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view;
-        ViewHolder viewHolder;
+        View view = null;
+        Context context = null;
+        ViewHolder viewHolder = null;
 
         switch (viewType) {
             case 0:
@@ -68,6 +38,10 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
             default:
                 view = null;
                 break;
+        }
+        context = view.getContext();
+        if (context instanceof FragToMealDiary) {
+            this.sendToMealDiary = (FragToMealDiary) context;
         }
         viewHolder = new ViewHolder(view);
         return viewHolder;
@@ -90,20 +64,15 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return this.localDataSet.size();
-    }
-
     private void setDiaryEntryData(ViewHolder viewHolder, final int position) {
-        TextView itemName = (TextView) viewHolder.getView().findViewById(R.id.itemNameBox);
-        TextView itemQty = (TextView) viewHolder.getView().findViewById(R.id.itemQtyBox);
-        TextView itemUnit = (TextView) viewHolder.getView().findViewById(R.id.itemUnitBox);
-        TextView itemCals = (TextView) viewHolder.getView().findViewById(R.id.itemCalsBox);
-        ImageView itemImage = (ImageView) viewHolder.getView().findViewById(R.id.itemImage);
+        TextView itemName = viewHolder.getView().findViewById(R.id.itemNameBox);
+        TextView itemQty = viewHolder.getView().findViewById(R.id.itemQtyBox);
+        TextView itemUnit = viewHolder.getView().findViewById(R.id.itemUnitBox);
+        TextView itemCals = viewHolder.getView().findViewById(R.id.itemCalsBox);
+        ImageView itemImage = viewHolder.getView().findViewById(R.id.itemImage);
 
-        Edible currentItem = localDataSet.get(position);
-        itemName.setText(currentItem.getName()); //had two take two lines below out to make it work
+        Edible currentItem = super.getDataset().get(position);
+        itemName.setText(currentItem.getName());
         itemQty.setText(String.format("%3d", currentItem.getQuantity()));
         itemUnit.setText(currentItem.getBaseUnit().name());
         itemCals.setText(String.format("%3d", currentItem.getCalories()));
@@ -115,12 +84,10 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
         viewHolder.getView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectedPos = viewHolder.getAbsoluteAdapterPosition();
-                Context context = view.getContext();
+                int position = viewHolder.getAbsoluteAdapterPosition();
 
-                if (context != null) {
-                    sendToMealDiary = (FragToMealDiary) context;
-                    sendToMealDiary.showContextUI(selectedPos);
+                if (sendToMealDiary != null) {
+                    sendToMealDiary.showContextUI(position);
                 }
             }
         });
@@ -130,12 +97,10 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
         viewHolder.getView().findViewById(R.id.btnBackMealLog).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectedPos = viewHolder.getAbsoluteAdapterPosition();
-                Context context = view.getContext();
+                int position = viewHolder.getAbsoluteAdapterPosition();
 
-                if (context != null) {
-                    sendToMealDiary = (FragToMealDiary) context;
-                    sendToMealDiary.showContextUI(selectedPos);
+                if (sendToMealDiary != null) {
+                    sendToMealDiary.showContextUI(position);
                 }
             }
         });
@@ -143,12 +108,10 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
         viewHolder.getView().findViewById(R.id.btnDeleteMeal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectedPos = viewHolder.getAbsoluteAdapterPosition();
-                Context context = view.getContext();
+                int position = viewHolder.getAbsoluteAdapterPosition();
 
-                if (context != null) {
-                    sendToMealDiary = (FragToMealDiary) context;
-                    sendToMealDiary.removeItem(selectedPos);
+                if (sendToMealDiary != null) {
+                    sendToMealDiary.removeItem(position);
                 }
             }
         });
@@ -156,11 +119,8 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
         viewHolder.getView().findViewById(R.id.btnModifyMeal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectedPos = viewHolder.getAbsoluteAdapterPosition();
-                Context context = view.getContext();
 
-                if (context != null) {
-                    sendToMealDiary = (FragToMealDiary) context;
+                if (sendToMealDiary != null) {
                     sendToMealDiary.editItem();
                 }
             }
@@ -171,12 +131,10 @@ public class RVAMealDiary extends RecyclerView.Adapter<RVAMealDiary.ViewHolder> 
         viewHolder.getView().findViewById(R.id.btnAddMeal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectedPos = viewHolder.getAbsoluteAdapterPosition();
-                Context context = view.getContext();
+                int position = viewHolder.getAbsoluteAdapterPosition();
 
-                if (context != null) {
-                    sendToMealDiary = (FragToMealDiary) context;
-                    sendToMealDiary.addEntry(selectedPos);
+                if (sendToMealDiary != null) {
+                    sendToMealDiary.addEntry(position);
                 }
             }
         });
