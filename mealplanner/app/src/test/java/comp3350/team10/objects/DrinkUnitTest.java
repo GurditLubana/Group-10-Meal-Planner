@@ -232,7 +232,7 @@ public class DrinkUnitTest {
 		}
 
 		@Test
-		void testMultiEmptyInCreation() { // 1, "instructions", "ingredients", 
+		void testMultiEmptyInCreation() {
 			assertFalse(testDrink.init(null, 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertFalse(testDrink.init(null, 0, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertFalse(testDrink.init(null, 0, 0, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
@@ -310,7 +310,7 @@ public class DrinkUnitTest {
 		}
 		
 		@Test
-		void testEdgeCasesInCreation() {//1, "instructions", "ingredients"
+		void testEdgeCasesInCreation() {
 			assertTrue(testDrink.init("\n", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertFalse(testDrink.init("", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertTrue(testDrink.init(" ", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));

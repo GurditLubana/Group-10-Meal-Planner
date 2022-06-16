@@ -9,8 +9,8 @@ public class Food extends Edible {
         super();
     }
 
-    public Food(ListItem.FragmentType type) {
-        super(type);    //used for add card
+    public Food(ListItem.FragmentType type) { //used for add card
+        super(type);
     }
 
 
