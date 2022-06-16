@@ -59,8 +59,8 @@ public class DataAccessStub {
         this.loadFoodlog();
 
         //Get the current day's logs
-        selectedDate = this.calendarToInt(calendar);
-        selectedFoodLog = this.setSelectedFoodLog(selectedDate);
+        this.selectedDate = this.calendarToInt(calendar);
+        this.selectedFoodLog = this.setSelectedFoodLog(selectedDate);
     }
 
     public void close() {
@@ -73,7 +73,7 @@ public class DataAccessStub {
 
     public void setCalorieGoal(int goal) {
         if (goal >= 0 && goal <= GOAL_LIMIT) {
-            selectedFoodLog.setCalGoal(goal);
+            this.selectedFoodLog.setCalGoal(goal);
             this.updateFoodLogDB();
         }
     }
@@ -84,31 +84,31 @@ public class DataAccessStub {
 
     public void setExerciseGoal(int goal) {
         if (goal >= 0 && goal <= GOAL_LIMIT) {
-            selectedFoodLog.setExcGoal(goal);
+            this.selectedFoodLog.setExcGoal(goal);
             this.updateFoodLogDB();
         }
     }
 
     public void setExerciseActual(int exerciseActual) {
-        selectedFoodLog.setExcActual(exerciseActual);
+        this.selectedFoodLog.setExcActual(exerciseActual);
     }
 
     public int getExerciseActual() {
-        return selectedFoodLog.getExcActual();
+        return this.selectedFoodLog.getExcActual();
     }
 
     public ArrayList<Edible> getFoodList(Calendar date) {
-        if (selectedDate.intValue() != calendarToInt(date).intValue()) {
-            selectedFoodLog = setSelectedFoodLog(calendarToInt(date));
-            selectedDate = calendarToInt(date);
+        if (this.selectedDate.intValue() != calendarToInt(date).intValue()) {
+            this.selectedFoodLog = setSelectedFoodLog(calendarToInt(date));
+            this.selectedDate = calendarToInt(date);
         }
 
-        return selectedFoodLog.getFoodList();
+        return this.selectedFoodLog.getFoodList();
     }
 
     public void updateSelectedFoodLogFoodList(ArrayList<Edible> newList) {
         if (newList != null) {
-            selectedFoodLog.setFoodList(newList);
+            this.selectedFoodLog.setFoodList(newList);
             this.updateFoodLogDB();
         }
     }
@@ -124,9 +124,9 @@ public class DataAccessStub {
         result.init(date, 1500, 0, 0, emptyLog());
 
         if (position == -1) {
-            dbFoodLog.add(result);
+            this.dbFoodLog.add(result);
         } else {
-            result = dbFoodLog.get(position);
+            result = this.dbFoodLog.get(position);
         }
 
         this.sortDBFoodLog();
@@ -135,19 +135,19 @@ public class DataAccessStub {
     }
 
     private void updateFoodLogDB() { // not necessary for java, but necessary for actual db
-        int position = getFoodLogDBIndex(selectedDate);
+        int position = getFoodLogDBIndex(this.selectedDate);
 
-        dbFoodLog.remove(position);
-        dbFoodLog.add(selectedFoodLog);
+        this.dbFoodLog.remove(position);
+        this.dbFoodLog.add(this.selectedFoodLog);
     }
 
     private int getFoodLogDBIndex(Integer date) {
         boolean found = false;
         int result = -1;
 
-        if (dbFoodLog.size() > 0) {
-            for (int i = 0; i < dbFoodLog.size() && !found; i++) {
-                if (date.intValue() == dbFoodLog.get(i).getDate().intValue()) {
+        if (this.dbFoodLog.size() > 0) {
+            for (int i = 0; i < this.dbFoodLog.size() && !found; i++) {
+                if (date.intValue() == this.dbFoodLog.get(i).getDate().intValue()) {
                     found = true;
                     result = i;
                 }
@@ -161,11 +161,11 @@ public class DataAccessStub {
         LinkedList<Edible> currEdibles = new LinkedList<Edible>();
 
         if (edibleType == "FOOD") {
-            currEdibles.addAll(dbRecipeFood);
+            currEdibles.addAll(this.dbRecipeFood);
         } else if (edibleType == "DRINKS") {
-            currEdibles.addAll(dbRecipeDrink);
+            currEdibles.addAll(this.dbRecipeDrink);
         } else if (edibleType == "MEALS") {
-            currEdibles.addAll(dbRecipeMeal);
+            currEdibles.addAll(this.dbRecipeMeal);
         }
 
         Collections.shuffle(currEdibles);
@@ -175,19 +175,19 @@ public class DataAccessStub {
 
     public void addFoodToRecipeBook(Edible newFood) {
         if (newFood != null) {
-            dbRecipeFood.add(newFood);
+            this.dbRecipeFood.add(newFood);
         }
     }
 
     public void addMealToRecipeBook(Edible newMeal) {
         if (newMeal != null) {
-            dbRecipeMeal.add(newMeal);
+            this.dbRecipeMeal.add(newMeal);
         }
     }
 
     public void addDrinkToRecipeBook(Edible newDrink) {
         if (newDrink != null) {
-            dbRecipeDrink.add(newDrink);
+            this.dbRecipeDrink.add(newDrink);
         }
     }
 
@@ -195,19 +195,19 @@ public class DataAccessStub {
         Edible result = null;
         System.out.println("key: " + key);
 
-        for (int i = 0; i < dbRecipeFood.size() && result == null; i++) {
-            if (dbRecipeFood.get(i).getDbkey() == key) {
-                result = dbRecipeFood.get(i);
+        for (int i = 0; i < this.dbRecipeFood.size() && result == null; i++) {
+            if (this.dbRecipeFood.get(i).getDbkey() == key) {
+                result = this.dbRecipeFood.get(i);
             }
         }
-        for (int i = 0; i < dbRecipeMeal.size() && result == null; i++) {
-            if (dbRecipeMeal.get(i).getDbkey() == key) {
-                result = dbRecipeMeal.get(i);
+        for (int i = 0; i < this.dbRecipeMeal.size() && result == null; i++) {
+            if (this.dbRecipeMeal.get(i).getDbkey() == key) {
+                result = this.dbRecipeMeal.get(i);
             }
         }
-        for (int i = 0; i < dbRecipeDrink.size() && result == null; i++) {
-            if (dbRecipeDrink.get(i).getDbkey() == key) {
-                result = dbRecipeDrink.get(i);
+        for (int i = 0; i < this.dbRecipeDrink.size() && result == null; i++) {
+            if (this.dbRecipeDrink.get(i).getDbkey() == key) {
+                result = this.dbRecipeDrink.get(i);
             }
         }
 
@@ -215,9 +215,9 @@ public class DataAccessStub {
     }
 
     public Integer getNextKey() {
-        Integer result = currKey.intValue();
+        Integer result = this.currKey.intValue();
 
-        currKey += 1;
+        this.currKey += 1;
 
         return result;
     }
