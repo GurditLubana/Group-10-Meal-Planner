@@ -134,7 +134,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                 new MaterialPickerOnPositiveButtonClickListener() {
                     @Override
                     public void onPositiveButtonClick(Object selection) {
-                        //showContextUI(-1);
+                        restoreSaved();
                         Calendar selectedDate = Calendar.getInstance();
                         selectedDate.setTimeInMillis((Long) selection);
                         selectedDate.add(Calendar.DAY_OF_YEAR, 1);
@@ -145,16 +145,27 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         );
     }
 
+    public void restoreSaved(){
+        if(savedItem != null){
+            this.data.remove(this.savedItemPosition);
+            this.data.add(this.savedItemPosition, this.savedItem);
+            this.savedItemPosition = -1;
+            this.savedItem = null;
+        }
+
+        updateLiveData();
+    }
+
     @Override
     public void prevDate() {
-        //this.showContextUI(-1);
+        this.restoreSaved();
         this.opExec.prevDate();
         this.updateLiveData();
     }
 
     @Override
     public void nextDate() {
-        //this.showContextUI(-1);
+        this.restoreSaved();
         this.opExec.nextDate();
         this.updateLiveData();
     }
