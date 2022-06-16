@@ -15,7 +15,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -27,7 +26,7 @@ import java.util.LinkedList;
 import java.util.Calendar;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToMealDiary {
-    private static enum EDIBLES_TYPES {FOOD, MEAL, DRINK}
+    private static enum EDIBLES_TYPES {FOOD, MEAL, DRINK} //The different types of food types
 
     private ActivityResultLauncher<Intent> pickMeal; // call back listener when recipebook activity is launched for meal selection
     private RVAMealDiary recyclerViewAdapter;   //Houses the logic for a recycle view with diary entries

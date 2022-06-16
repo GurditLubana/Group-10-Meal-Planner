@@ -50,5 +50,4 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
     public LinkedList<Edible> getDataset() {
         return this.localDataSet;
     }
-
 }

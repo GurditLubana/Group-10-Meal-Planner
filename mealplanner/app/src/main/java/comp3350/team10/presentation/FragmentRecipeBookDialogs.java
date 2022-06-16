@@ -247,5 +247,4 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
             }
         }
     }
-
 }

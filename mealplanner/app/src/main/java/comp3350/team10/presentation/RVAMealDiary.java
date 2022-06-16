@@ -139,5 +139,4 @@ public class RVAMealDiary extends RecyclerViewAdapter {
             }
         });
     }
-
 }

@@ -23,10 +23,10 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.LinkedList;
 
 public class ActivityRecipeBook extends AppCompatActivity implements FragToRecipeBook {
-    private final static int TITLE_COLOR = Color.WHITE;
-    private final static String TITLE_CONTENT = "MealPlanner";
+    private final static int TITLE_COLOR = Color.WHITE; //The title color of the acitivty
+    private final static String TITLE_CONTENT = "MealPlanner"; //The title content of the activity
 
-    private static enum EDIBLE_TYPES {FOOD, MEAL, DRINK}
+    private static enum EDIBLE_TYPES {FOOD, MEAL, DRINK}; //The different types of food types
 
     private Animation fabOpen, fabClose, rotateForward, rotateBackward; //Animations for floating buttons
     private FloatingActionButton openFab, editFab, addFab;              //Floating buttons

@@ -118,6 +118,5 @@ public class RVARecipeBook extends RecyclerViewAdapter {
                 }
             }
         });
-
     }
 }

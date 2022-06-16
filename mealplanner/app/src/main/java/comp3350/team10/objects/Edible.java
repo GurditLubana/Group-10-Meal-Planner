@@ -2,9 +2,7 @@ package comp3350.team10.objects;
 
 
 public abstract class Edible implements ListItem {
-    public enum Unit {cups, oz, g, serving, tbsp, tsp, ml, liter}
-
-    ;
+    public enum Unit {cups, oz, g, serving, tbsp, tsp, ml, liter}; //All possible units for a given edible
     private ListItem.FragmentType fragmentType; //How it should appear on recycler views
     private Unit baseUnit;                      //The unit of a given edible
     private int quantity;                       //The quantity of a given edible
@@ -24,13 +22,8 @@ public abstract class Edible implements ListItem {
     }
 
     public Edible(ListItem.FragmentType type) {
+        this();
         this.fragmentType = type;
-        this.name = null;
-        this.calories = 0;
-        this.dbkey = -1;
-        this.iconPath = -1;
-        this.baseUnit = null;
-        this.quantity = -1;
     }
 
 
