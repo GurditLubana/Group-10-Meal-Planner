@@ -159,7 +159,7 @@ public class MealDiaryOps {
     }
 
     private void calcProgress() {
-        if (this.calorieNet > 0) { //used to be >= b4
+        if (this.calorieNet > 0) {
             this.progressExcess = 0;
             this.progressBar = (this.calorieGoal - this.calorieNet) * MAX_PROGRESS / this.calorieGoal;
         } else {
@@ -179,6 +179,8 @@ public class MealDiaryOps {
         if (this.todayFoodList != null) {
             this.calorieConsumed = 0;
 
+
+            
             for (int i = 0; i < this.todayFoodList.size(); i++) {
                 this.calorieConsumed += this.todayFoodList.get(i).getCalories();
             }
