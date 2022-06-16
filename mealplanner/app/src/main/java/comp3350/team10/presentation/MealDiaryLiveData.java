@@ -52,11 +52,11 @@ public class MealDiaryLiveData extends ViewModel {
     }
 
     public MutableLiveData<Integer> getExerciselCalories() {
-        if (exerciselCalories == null) {
-            exerciselCalories = new MutableLiveData<Integer>(200);
+        if (exerciseCalories == null) {
+            exerciseCalories = new MutableLiveData<Integer>(200);
         }
 
-        return exerciselCalories;
+        return exerciseCalories;
     }
 
     public MutableLiveData<Integer> getNetCalories() {
