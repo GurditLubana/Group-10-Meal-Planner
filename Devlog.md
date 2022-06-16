@@ -19,7 +19,10 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
 
     Topic: Meet and greet, initial planning and communication styles
     -----
-    Decisions: Main form of communication will be discord  
+    Decisions: Main form of communication will be discord
+               - discussion to know each other and where are we from
+               - if we are taking some common courses
+               - how often do we like to meet in the week to discuss the project work
     -----
     Rationale: Communication and introductions 
 <br>
@@ -35,9 +38,13 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
     Topic: iter0 availability, project organization and goals 
     -----
     Decision: - Project discussion and ideas on which application could be worked.
+              - went online on a website to form a little chart to stay put of the times that everyone is good to meet.
               - Created a chart to shortlist best meeting times to work on Project collectively.
-              - Our next meeting will be on May 19 (later in the day) 
+              - discussed what are the best places to gather for the group meetings
+              - decided the group meetings could be held on campus in the computer lab, on discord or at Dane's place.
               - we would use github to stay organized
+              - helped making github accounts and sharing the user accounts to make sure everyone is connected.
+              - discussed on the ideas about what features should the application include.
     -----  
     Rationale: Availability  
 <br>
@@ -51,9 +58,12 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
 
     Topic: Iter0 progress, app features (both little and small)
     -----
-    Decision: - We decided on the mealPlanner idea and what we wanted our app to do
+    Decision: - decided to work on building a Meal Planner application out of the given ideas for the project
+              - discussed on what part of the application building part everyone is confortable working on.
               - made the list of what functionality could be added to the app
-              - wrote some user stories gathering the main ideas
+              - wrote some user stories gathering the main ideas for the features
+              - discussed and shortlisted some big user stories.
+              - learned how to write the index cards for the user stories from the lecture.
     -----
     Rationale: Iter0 progress
 <br>
@@ -65,11 +75,12 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
     - Dane
 
     Topic: Iter0 refinment: vision and more detailed functionality
-    Decision: - shared vision of the meal planner
-              - Created a vision statement for the Iteration 0
-              - created some additional user stories
-              - refined the user stories and categorised them into big and small stories
-              - finalised the vision statement and user stories according to priorities
+    Decision: - shared vision of the meal planner.
+              - Created a vision statement for the Iteration 0.
+              - created some additional user stories.
+              - refined the user stories and categorised them into big and small stories.
+              - categorised user stories according to priorities and the Cost that it takes.
+              - finalised the vision statement according to the big and small user stories.
     Rationale: Iter0 refinement  
 <br>
 
@@ -80,9 +91,16 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
     - Manraj
     - Zhou
 
-    Topic: UI design and rationalizing, Iter0 refinement, dev environment and production software.  Josef also showcased his work
+    Topic: UI design and rationalizing, Iter0 refinement, dev environment and production software. Josef also showcased his work
     -----
     Decision: Please see mealplanner docs/May23 (UI images)
+              - we proofread and made some changes to the iteration 0 user stories
+              - finalized and submitted the interation 0.
+              - discussed on how the user Interface should look like for the Meal Planner.
+              - detailed listing of the main features that the application should have on the Main Activity.
+              - we created the main branch named Meal-dairy branch launching from a separate screen.
+              - decided to have some navigation buttons on the bottom of the Main Activity.
+              - these buttons onclick will take the users to next Activity according to their function.
     -----
     Rationale: Iter0 refinement and UI design
 <br>
@@ -98,6 +116,8 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
     Topic: Iter1 requirements and coding standard 
     -----
     Decision: Project coding standard will immitate Dane's code style
+              - discussed on the main coding format that we all need to follow for this project.
+              - read through the Iteration1 requirements and made sure evryone knew about the standards on which it is evaluated.
     -----
     Rationale: Iter1 requirements  
 <br>
