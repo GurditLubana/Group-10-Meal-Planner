@@ -882,19 +882,6 @@ Duration: 6hrs
 
 ### 2022-06-15
      Dev:
-      - Gurdit
-      - Josef
-      - Manraj
-      - Dane
-Duration: 6hrs
-   Tasks:
-   - Unit Testing
-   - Bug Fixes
-   - Code Refactoring
-
-### 2022-06-15
-     Dev:
-      - Gurdit
       - Josef
       - Manraj
       - Dane
@@ -913,3 +900,23 @@ Duration: 8hrs
    - Bug Fixes
    - Code Refactoring
    - Lots of test refactoring, and directory cleaning
+
+### 2022-06-15
+     Dev:
+      - Manraj
+Duration: 3hrs
+   Tasks:
+   - Unit Testing
+   - Bug Fixes
+   - Lots of test refactoring, and directory cleaning
+
+### 2022-06-16
+     Dev:
+      - Josef
+      - Manraj
+      - Dane
+Duration: 6hrs
+   Tasks:
+   - Unit Testing
+   - Bug Fixes
+   - Code Refactoring
