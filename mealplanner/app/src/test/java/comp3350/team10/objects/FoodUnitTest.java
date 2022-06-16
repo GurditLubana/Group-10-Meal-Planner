@@ -281,7 +281,6 @@ public class FoodUnitTest {
 			assertTrue(testFood.init("food", Constant.ENTRY_MAX_VALUE, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertTrue(testFood.init("food", 1, Constant.ENTRY_MAX_VALUE, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE, 1));
 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 1, Constant.ENTRY_MAX_VALUE));
 			assertTrue(testFood.init("food", Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE));

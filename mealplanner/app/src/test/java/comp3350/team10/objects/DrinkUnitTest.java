@@ -315,11 +315,16 @@ public class DrinkUnitTest {
 			assertFalse(testDrink.init("", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertTrue(testDrink.init(" ", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertTrue(testDrink.init("drink", Constant.ENTRY_MAX_VALUE, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-			assertTrue(testDrink.init("drink", 1, Constant.ENTRY_MAX_VALUE, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, Constant.ENTRY_MAX_VALUE, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertTrue(testDrink.init("drink", 1, 1, "", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertTrue(testDrink.init("drink", 1, 1, "instructions", "", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertTrue(testDrink.init("drink", 1, 1, "\n", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertTrue(testDrink.init("drink", 1, 1, "instructions", "\n", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "\n", "\n", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "\n", "", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "", "instructions", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "", "", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testDrink.init("drink", 1, 1, "instructions", "", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE, 1));
 			assertTrue(testDrink.init("drink", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 1, Constant.ENTRY_MAX_VALUE));
 			assertTrue(testDrink.init("drink", Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE));

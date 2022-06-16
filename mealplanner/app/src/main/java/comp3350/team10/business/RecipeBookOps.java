@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class RecipeBookOps {
-    private static enum RecipeBook {FOOD, DRINKS, MEALS}
-
-    ; //Possible Edible type views
+    private static enum RecipeBook {FOOD, DRINKS, MEALS}; //Possible Edible type views
 
     private LinkedList<Edible> selectedList;    //The recipes availible for the current view
     private RecipeBook selectedType;            //The selected Edible type view (see enum on line 18)
@@ -56,26 +54,26 @@ public class RecipeBookOps {
     }
 
     public void addFood(String name, int iconPath, int calories, Edible.Unit baseUnit, int quantity) {
-        Food item = new Food();
-        item.init(name, iconPath, calories, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey());
-        Edible newFood = item;
+        Food newFood = new Food();
 
-        db.addFoodToRecipeBook(newFood);
+        if(newFood.init(name, iconPath, calories, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey())) {
+            db.addFoodToRecipeBook(newFood);
+        }
     }
 
     public void addMeal(String name, int iconPath, int calories, String ingredients, String instructions, Edible.Unit baseUnit, int quantity) {
-        Meal item = new Meal();
-        item.init(name, iconPath, calories, ingredients, instructions, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey());
-        Edible newMeal = item;
+        Meal newMeal = new Meal();
 
-        db.addMealToRecipeBook(newMeal);
+        if(newMeal.init(name, iconPath, calories, ingredients, instructions, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey())) {
+            db.addMealToRecipeBook(newMeal);
+        }
     }
 
     public void addDrink(String name, int iconPath, int cals, String instructions, String ingredients, Edible.Unit baseUnit, int quantity) {
-        Drink item = new Drink();
-        item.init(name, iconPath, cals, instructions, ingredients, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey());
-        Edible newDrink = item;
+        Drink newDrink = new Drink();
 
-        db.addDrinkToRecipeBook(newDrink);
+        if(newDrink.init(name, iconPath, cals, instructions, ingredients, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey())) {
+            db.addDrinkToRecipeBook(newDrink);
+        }
     }
 }

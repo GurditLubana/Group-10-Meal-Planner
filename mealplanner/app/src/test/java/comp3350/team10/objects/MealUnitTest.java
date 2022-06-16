@@ -310,12 +310,12 @@ public class MealUnitTest {
 		}
 		
 		@Test
-		void testEdgeCasesInCreation() {//1, "instructions", "ingredients"
+		void testEdgeCasesInCreation() {
 			assertTrue(testMeal.init("\n", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertFalse(testMeal.init("", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertTrue(testMeal.init(" ", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertTrue(testMeal.init("meal", Constant.ENTRY_MAX_VALUE, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-			assertTrue(testMeal.init("meal", 1, Constant.ENTRY_MAX_VALUE, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
+			assertTrue(testMeal.init("meal", 1, Constant.ENTRY_MAX_VALUE, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertTrue(testMeal.init("meal", 1, 1, "", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertTrue(testMeal.init("meal", 1, 1, "instructions", "", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 			assertTrue(testMeal.init("meal", 1, 1, "\n", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
@@ -323,6 +323,14 @@ public class MealUnitTest {
 			assertTrue(testMeal.init("meal", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE, 1));
 			assertTrue(testMeal.init("meal", 1, 1, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 1, Constant.ENTRY_MAX_VALUE));
 			assertTrue(testMeal.init("meal", Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, "instructions", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE));
+			assertTrue(testMeal.init("meal", 1, 1, "\n", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 5));
+            assertTrue(testMeal.init("meal", 1, 1, "\n", "\n", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5,5 ));
+            assertTrue(testMeal.init("meal", 1, 1, "", " ", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 5));
+            assertTrue(testMeal.init("meal", 1, 1, " ", "", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 5));
+            assertTrue(testMeal.init("meal", 1, 1, "", "", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 5));
+            assertTrue(testMeal.init("meal", 1, 1, " ", " ", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 5));
+            assertTrue(testMeal.init("meal", 1, 1, "", "ingredients", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 5));
+            assertTrue(testMeal.init("meal", 1, 1, "instructions", "", ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 5));
 		}
 
 		@Test

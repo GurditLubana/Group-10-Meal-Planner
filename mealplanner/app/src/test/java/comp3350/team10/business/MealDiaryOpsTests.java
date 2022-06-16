@@ -13,11 +13,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.LinkedList;
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
-**/
 public class MealDiaryOpsTests {
 
     @Nested
@@ -266,29 +261,6 @@ public class MealDiaryOpsTests {
             Calendar badDate = Calendar.getInstance();
             badDate.set(Calendar.YEAR, badDate.get(Calendar.YEAR) -3);
             ops.setListDate(badDate);
-        }
-    }
-
-    @Nested
-    @DisplayName("Something2")
-    class someClass2{
-        DataAccessStub db;
-        MealDiaryOps ops;
-        Calendar currDate;
-
-        @BeforeEach
-        void setup() {
-            SharedDB.start("test");
-            //db = new DataAccessStub();
-            db =SharedDB.getSharedDB();
-            ops = new MealDiaryOps(db);
-            currDate = (Calendar) ops.getListDate().clone();
-        }
-
-        @Test
-        @DisplayName("s")
-        void someTest(){
-
         }
     }
 }

@@ -223,8 +223,8 @@ public class UnitConverterTests {
         @Test
         void convertPerServingToPerGram()
         {
-            UnitConverter prevValue = new UnitConverter(Edible.Unit.serving,3, 840);
-            Integer result = prevValue.getCalories(Edible.Unit.g,400);
+            UnitConverter prevValue = new UnitConverter(Edible.Unit.serving, 3, 840);
+            Integer result = prevValue.getCalories(Edible.Unit.g, 400);
 
 
             Integer expected = 448;
