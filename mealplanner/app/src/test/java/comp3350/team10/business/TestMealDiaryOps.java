@@ -297,5 +297,21 @@ public class TestMealDiaryOps {
             ops.setCalorieExercise(-5);
             assertEquals(prevExercise, ops.getCalorieExercise());
         }
+
+        @Test
+        @DisplayName("Calorie goal 99999")
+        void canSetCal1() {
+            int prevGoal = ops.getCalorieGoal();
+            ops.setCalorieGoal(-5);
+            assertEquals(prevGoal, ops.getCalorieGoal());
+        }
+
+        @Test
+        @DisplayName("Exercise actual 99999")
+        void canSetExcAct1() {
+            int prevExercise = ops.getCalorieExercise();
+            ops.setCalorieExercise(-5);
+            assertEquals(prevExercise, ops.getCalorieExercise());
+        }
     }
 }
