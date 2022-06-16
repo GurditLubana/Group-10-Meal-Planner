@@ -17,7 +17,7 @@ import comp3350.team10.objects.ListItem;
 import comp3350.team10.persistence.DataAccessStub;
 import comp3350.team10.persistence.SharedDB;
 
-public class UnitConverterTests {
+public class TestUnitConverter {
 
     @Nested
     @DisplayName("All these conversions tests should pass ")

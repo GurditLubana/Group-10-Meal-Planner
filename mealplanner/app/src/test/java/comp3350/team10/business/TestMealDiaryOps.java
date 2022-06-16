@@ -13,7 +13,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.LinkedList;
 
-public class MealDiaryOpsTests {
+public class TestMealDiaryOps {
 
     @Nested
     @DisplayName("Initial Object state")
