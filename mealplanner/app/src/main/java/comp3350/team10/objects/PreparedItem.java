@@ -24,7 +24,7 @@ public abstract class PreparedItem extends Edible {
     public boolean changeInstructions(String newInstructions) {
         boolean results = false;
 
-        if(newInstructions != null) {
+        if (newInstructions != null) {
             this.instructions = newInstructions;
             results = true;
         }

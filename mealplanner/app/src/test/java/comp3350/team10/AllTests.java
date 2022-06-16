@@ -18,7 +18,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @Suite
 @SuiteDisplayName("JUnit5 mealplanner test suite")
 @SelectPackages("comp3350.team10.*")
-//@SelectClasses({TestMealDiaryOps.class, TestRecipeBookOps.class, TestUnitConverter.class, TestDailyLogUnit.class, TestDrinkUnit.class, TestFoodUnit.class, TestMealUnit.class})
+@SelectClasses({TestMealDiaryOps.class, TestRecipeBookOps.class, TestUnitConverter.class, TestDailyLogUnit.class, TestDrinkUnit.class, TestFoodUnit.class, TestMealUnit.class})
 public class AllTests {
 
 }

@@ -134,6 +134,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                 new MaterialPickerOnPositiveButtonClickListener() {
                     @Override
                     public void onPositiveButtonClick(Object selection) {
+                        showContextUI(-1);
                         Calendar selectedDate = Calendar.getInstance();
                         selectedDate.setTimeInMillis((Long) selection);
                         selectedDate.add(Calendar.DAY_OF_YEAR, 1);
@@ -146,12 +147,14 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public void prevDate() {
+        this.showContextUI(-1);
         this.opExec.prevDate();
         this.updateLiveData();
     }
 
     @Override
     public void nextDate() {
+        this.showContextUI(-1);
         this.opExec.nextDate();
         this.updateLiveData();
     }

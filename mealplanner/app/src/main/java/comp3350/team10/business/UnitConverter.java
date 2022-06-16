@@ -76,14 +76,11 @@ public class UnitConverter {
         prevQuantity = 1.0;
     }
 
-    private void calculateCaloriesPerUnit(){
+    private void calculateCaloriesPerUnit() {
 
-        if(prevQuantity != 0)
-        {
-            calsPerUnit = prevCalories/prevQuantity;
-        }
-        else
-        {
+        if (prevQuantity != 0) {
+            calsPerUnit = prevCalories / prevQuantity;
+        } else {
             calsPerUnit = 0.0;
         }
 
