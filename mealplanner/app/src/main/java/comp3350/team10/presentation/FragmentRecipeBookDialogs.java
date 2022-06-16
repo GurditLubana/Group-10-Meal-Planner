@@ -21,27 +21,27 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class FragmentRecipeBookDialogs extends DialogFragment {
-    private TextView title;
-    private TextView labelName;
-    private TextView labelCalories;
-    private TextView labelIngredients;
-    private EditText inputInstructions;
-    private EditText inputName;
-    private EditText inputCalories;
-    private EditText inputIngredients;
-    private EditText inputQuantity;
-    private Spinner inputSpinner;
-    private Button btnOk;
-    private Button btnCancel;
-    private FragToRecipeBook send;
-    public static String TAG = "AddRecipe";
-    private int calories;
-    private int quantity;
-    private String name;
-    private String instructions;
-    private String ingredients;
-    private Edible.Unit unit;
-    private FragToRecipeBook.EntryMode mode;
+    private TextView title;                  // Dialog Title
+    private TextView labelName;              // Label of name field
+    private TextView labelCalories;          // Label of calories field
+    private TextView labelIngredients;       // Label of ingredients field
+    private EditText inputInstructions;      // input field for instructions
+    private EditText inputName;              // input field for item name
+    private EditText inputCalories;          // input field for item calories
+    private EditText inputIngredients;       // input field for item ingredients
+    private EditText inputQuantity;          // input field for item quantity
+    private Spinner inputSpinner;            // input field for quantity units
+    private Button btnOk;                    // OK button
+    private Button btnCancel;                // Cancel Button
+    private FragToRecipeBook send;           // Interface for communication with parent activity
+    private FragToRecipeBook.EntryMode mode; // the type of dialog to show
+    public static String TAG = "AddRecipe";  // tag name of this fragment for reference in the fragment manager
+    private int calories;                    // value of calorie input
+    private int quantity;                    // value of quantity input
+    private String name;                     // value of name input
+    private String instructions;             // value of instructions input
+    private String ingredients;              // value of ingredients input
+    private Edible.Unit unit;                // value of units input
 
     public FragmentRecipeBookDialogs() {
         // Required empty public constructor
@@ -188,7 +188,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
             success += 1;
         }
 
-        if (mode != FragToRecipeBook.EntryMode.ADD_FOOD) {
+        if (this.mode != FragToRecipeBook.EntryMode.ADD_FOOD) {
             if (check(this.inputIngredients)) {
                 this.ingredients = this.inputIngredients.getText().toString().trim();
                 success += 1;
@@ -201,7 +201,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
 
         this.unit = Edible.Unit.valueOf(this.inputSpinner.getSelectedItem().toString());
 
-        return (success == 3 || (mode != FragToRecipeBook.EntryMode.ADD_FOOD && success == 5));
+        return (success == 3 || (this.mode != FragToRecipeBook.EntryMode.ADD_FOOD && success == 5));
     }
 
     private boolean check(EditText view) {
@@ -214,10 +214,17 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
             view.setError("Field cannot be empty");
             result = false;
         }
-        if (result && (view == this.inputCalories || view == this.inputQuantity)) {
+        if (result && (view == this.inputCalories)) {
             intValue = Integer.parseInt(value);
             if (intValue < Constant.ENTRY_MIN_VALUE || intValue > Constant.ENTRY_MAX_VALUE) {
                 view.setError("Must be between 0 and 9999 inclusive");
+                result = false;
+            }
+        }
+        if (result && (view == this.inputQuantity)) {
+            intValue = Integer.parseInt(value);
+            if (intValue < 1 || intValue > Constant.ENTRY_MAX_VALUE) {
+                view.setError("Must be between 1 and 9999 inclusive");
                 result = false;
             }
         }
