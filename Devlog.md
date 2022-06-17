@@ -946,6 +946,13 @@ Duration: 3hrs
    - Unit Testing
    - Bug Fixes
    - Lots of test refactoring, and directory cleaning
+   
+### 2022-06-15
+     Dev:
+      - Zhou
+Duration: 6hrs
+   Tasks:
+   - Unit Test for class recipe book ops class
 
 ### 2022-06-16
      Dev:
