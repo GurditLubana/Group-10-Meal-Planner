@@ -968,9 +968,10 @@ Duration: 6hrs
 ### 2022-06-17
      Dev:
       - Dane
-Duration: 4hrs
+Duration: 5hrs
    Tasks:
    - Researched HSQL and how to implement it
-   - Created a basic version of how the database could look
-   - Created V1 of what the interface may require based on stub DB
+   - Researched and setup data grip
+   - Created V1 of the database (more experimentation than anything)
+   - Created V1 of the data interface based on current stubDB
    - Started creating a entity relationship diagram
