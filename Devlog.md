@@ -964,3 +964,13 @@ Duration: 6hrs
    - Unit Testing
    - Bug Fixes
    - Code Refactoring
+
+### 2022-06-17
+     Dev:
+      - Dane
+Duration: 4hrs
+   Tasks:
+   - Researched HSQL and how to implement it
+   - Created a basic version of how the database could look
+   - Created V1 of what the interface may require based on stub DB
+   - Started creating a entity relationship diagram
