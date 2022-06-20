@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 
 import comp3350.team10.objects.Meal;
 
-public class HSqlDB extends SQLiteOpenHelper implements DataInterface {
+public class HSqlDB extends SQLiteOpenHelper {//implements DataInterface {
     private static final int CURR_VERSION = 1;
     private static final String DB_NAME = "HSqlDB";
 
@@ -130,7 +130,7 @@ public class HSqlDB extends SQLiteOpenHelper implements DataInterface {
             "UserID     INTEGER not null," +
             "Date       DATE    not null," +
             "EdibleID   INTEGER not null," +
-                
+
             "FOREIGN KEY(UserID) REFERENCES User(ID) ON DELETE CASCADE ON UPDATE CASCADE," +
             "FOREIGN KEY(EdibleID) REFERENCES Edible(ID) ON DELETE CASCADE ON UPDATE CASCADE);"
         );
