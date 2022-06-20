@@ -22,7 +22,7 @@ Manraj Singh – singhm53@myumanitoba.ca
 Zhihou Zhou- zhouz2@myumanitoba.ca  
 
 # Repo URL
-https://github.com/DaneHarrison/Eat-Dix
+https://github.com/DaneHarrison/Group-10-Meal-Planner
 
 # Dev Log
 The team dev log is kept as an md file in the github repository. The group has meetings to determine dev tasks and  
