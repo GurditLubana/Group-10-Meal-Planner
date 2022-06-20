@@ -9,10 +9,12 @@ import comp3350.team10.objects.Meal;
 
 public class HSqlDB extends SQLiteOpenHelper implements DataInterface {
     private static final int CURR_VERSION = 1;
+    private static final String DB_NAME = "HSqlDB";
 
     public HSqlDB(@Nullable Context context, @Nullable String name) {
-        super(context, name, null, CURR_VERSION);
+        super(context, DB_NAME, null, CURR_VERSION);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -65,7 +67,11 @@ public class HSqlDB extends SQLiteOpenHelper implements DataInterface {
             "Calories   INTEGER," +
             "Protein    INTEGER," +
             "Carbs      INTEGER," +
-            "Fat        INTEGER);"
+            "Fat        INTEGER," +
+
+            "FOREIGN KEY(EdibleID) REFERENCES Food(ID) ON DELETE CASCADE ON UPDATE CASCADE," +
+            "FOREIGN KEY(EdibleID) REFERENCES Meal(ID) ON DELETE CASCADE ON UPDATE CASCADE," +
+            "FOREIGN KEY(EdibleID) REFERENCES Drink(ID) ON DELETE CASCADE ON UPDATE CASCADE);"
         );
     }
 
@@ -75,16 +81,24 @@ public class HSqlDB extends SQLiteOpenHelper implements DataInterface {
             "IngredientID INTEGER       not null," +
             "Alcoholic    BOOLEAN       not null," +
             "Substitute   BOOLEAN       not null," +
-            "Unit         VARCHAR(9999) not null);"
+            "Unit         VARCHAR(9999) not null," +
+
+            "FOREIGN KEY(DrinkID) REFERENCES Drink(ID) ON DELETE CASCADE ON UPDATE CASCADE," +
+            "FOREIGN KEY(IngredientID) REFERENCES Food(ID) ON DELETE CASCADE ON UPDATE CASCADE," +
+            "FOREIGN KEY(IngredientID) REFERENCES Drink(ID) ON DELETE CASCADE ON UPDATE CASCADE);"
         );
     }
 
     private void createMealIngredientTable(SQLiteDatabase db) {
         db.execSQL("create table MealIngredient (" +
-            "MealID        INTEGER       not null," +
-            "IngredientID  INTEGER       not null," +
-            "Quantity      INTEGER       not null," +
-            "Unit          VARCHAR(9999) not null);"
+            "MealID         INTEGER       not null," +
+            "IngredientID   INTEGER       not null," +
+            "Quantity       INTEGER       not null," +
+            "Unit           VARCHAR(9999) not null," +
+
+            "FOREIGN KEY(MealID) REFERENCES Meal(ID) ON DELETE CASCADE ON UPDATE CASCADE," +
+            "FOREIGN KEY(IngredientID) REFERENCES Food(ID) ON DELETE CASCADE ON UPDATE CASCADE," +
+            "FOREIGN KEY(IngredientID) REFERENCES Drink(ID) ON DELETE CASCADE ON UPDATE CASCADE);"
         );
     }
 
@@ -104,7 +118,9 @@ public class HSqlDB extends SQLiteOpenHelper implements DataInterface {
             "ID             INTEGER PRIMARY KEY AUTOINCREMENT," +
             "UserID         INTEGER not null," +
             "Date           DATE    not null," +
-            "ExerciseActual INTEGER not null);"
+            "ExerciseActual INTEGER not null," +
+
+            "FOREIGN KEY(UserID) REFERENCES User(ID) ON DELETE CASCADE ON UPDATE CASCADE);"
         );
     }
 
@@ -113,7 +129,10 @@ public class HSqlDB extends SQLiteOpenHelper implements DataInterface {
             "ID          INTEGER PRIMARY KEY AUTOINCREMENT," +
             "UserID     INTEGER not null," +
             "Date       DATE    not null," +
-            "EdibleID   INTEGER not null);"
+            "EdibleID   INTEGER not null," +
+                
+            "FOREIGN KEY(UserID) REFERENCES User(ID) ON DELETE CASCADE ON UPDATE CASCADE," +
+            "FOREIGN KEY(EdibleID) REFERENCES Edible(ID) ON DELETE CASCADE ON UPDATE CASCADE);"
         );
     }
 

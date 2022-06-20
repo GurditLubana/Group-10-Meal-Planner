@@ -990,6 +990,8 @@ Duration: 1hr
       - Dane
 Duration: 1hr (started at 11)
    Tasks:
-   - Redesigned database v3 after feedback from team
+   - Redesigned database v3 after feedback from Josef
    - Created extended entity relation diagram for the new database design
    - Created raw tables in SQL
+   - Added relationships into table
+   - Tested and fixed bugs (cannot call this in super constructor, current constructor hasnt run yet!)
