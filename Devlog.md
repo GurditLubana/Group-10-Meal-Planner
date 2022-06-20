@@ -972,7 +972,7 @@ Duration: 5hrs
    Tasks:
    - Researched HSQL and how to implement it
    - Researched and setup data grip
-   - Created V1 of the database (more experimentation than anything)
+   - Experimented with v1 of the database see mealplanner docs/June20/DB v1.JPG
    - Created V1 of the data interface based on current stubDB
    - Started creating a entity relationship diagram
 
@@ -982,7 +982,7 @@ Duration: 5hrs
 Duration: 1hr
    Tasks:
    - Researched good practices towards storing similar objects in a database
-   - Redesigned database v2
+   - Redesigned database v2 see mealplanner docs/June20/DB v2.PNG
    - Created relational mapping
 
 ### 2022-06-20
@@ -990,8 +990,9 @@ Duration: 1hr
       - Dane
 Duration: 1hr (started at 11)
    Tasks:
-   - Redesigned database v3 after feedback from Josef
+   - Redesigned database v3 after feedback from Josef see mealplanner docs/June20/DB v3.PNG
    - Created extended entity relation diagram for the new database design
    - Created raw tables in SQL
    - Added relationships into table
+   - Refactored interface
    - Tested and fixed bugs (cannot call this in super constructor, current constructor hasnt run yet!)
