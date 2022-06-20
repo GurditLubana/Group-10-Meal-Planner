@@ -975,3 +975,21 @@ Duration: 5hrs
    - Created V1 of the database (more experimentation than anything)
    - Created V1 of the data interface based on current stubDB
    - Started creating a entity relationship diagram
+
+### 2022-06-19
+     Dev:
+      - Dane
+Duration: 1hr
+   Tasks:
+   - Researched good practices towards storing similar objects in a database
+   - Redesigned database v2
+   - Created relational mapping
+
+### 2022-06-20
+     Dev:
+      - Dane
+Duration: 1hr (started at 11)
+   Tasks:
+   - Redesigned database v3 after feedback from team
+   - Created extended entity relation diagram for the new database design
+   - Created raw tables in SQL
