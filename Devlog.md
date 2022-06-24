@@ -988,7 +988,7 @@ Duration: 1hr
 ### 2022-06-20
      Dev:
       - Dane
-Duration: 1hr (started at 11)
+Duration: 5hr
    Tasks:
    - Redesigned database v3 after feedback from Josef see mealplanner docs/June20/DB v3.PNG
    - Created extended entity relation diagram for the new database design
@@ -996,3 +996,11 @@ Duration: 1hr (started at 11)
    - Added relationships into table
    - Refactored interface
    - Tested and fixed bugs (cannot call this in super constructor, current constructor hasnt run yet!)
+
+### 2022-06-24
+     Dev:
+      - Dane
+Duration: 4hr
+   Tasks:
+   - Fixed UnitConverter bugs: rounding issues and wrong variables being used
+   - Started refactoring unitConverter and added additional test cases
