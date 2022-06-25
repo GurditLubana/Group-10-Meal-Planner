@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class DataAccessStub implements DataInterface {
+public class DataAccessStub implements DiaryDBInterface, EdibleDBInterface, RecipeDBInterface, UserDBInterface {
     //Database and app management variables
     private DailyLog selectedFoodLog;       //Currently selected food log
     private Integer selectedDate;           //Currently selected date
@@ -58,6 +58,26 @@ public class DataAccessStub implements DataInterface {
         return selectedFoodLog.getCalGoal();
     }
 
+    @Override
+    public void addUser(String name, int height, int weight) {
+
+    }
+
+    @Override
+    public User getUserDetails() {
+        return null;
+    }
+
+    @Override
+    public void setHeight(int newHeight) {
+
+    }
+
+    @Override
+    public void setWeight(int newWeight) {
+
+    }
+
     public void setCalorieGoal(int goal) {
         if (goal >= 0 && goal <= GOAL_LIMIT) {
             this.selectedFoodLog.setCalGoal(goal);
@@ -91,6 +111,46 @@ public class DataAccessStub implements DataInterface {
         }
 
         return this.selectedFoodLog.getFoodList();
+    }
+
+    @Override
+    public ArrayList<Edible> getMealList(Calendar date) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Edible> getDrinkList(Calendar date) {
+        return null;
+    }
+
+    @Override
+    public void addFoodToRecipeBook(Food newFood) {
+
+    }
+
+    @Override
+    public void addMealToRecipeBook(Meal newMeal) {
+
+    }
+
+    @Override
+    public void addDrinkToRecipeBook(Drink newDrink) {
+
+    }
+
+    @Override
+    public void addLog(Edible newEdible) {
+
+    }
+
+    @Override
+    public void deleteLog(Edible delEdible) {
+
+    }
+
+    @Override
+    public void updateLog(Edible modEdible) {
+
     }
 
     public void updateSelectedFoodLogFoodList(ArrayList<Edible> newList) {
@@ -523,5 +583,15 @@ public class DataAccessStub implements DataInterface {
                 new String("shrimp 10 cups 100 cals\n taco shell 10 cups 100 cals\n cheese 10 cups 100 cals\n lettuce 10 cups 100 cals\n"),
                 new String("Cooking Instructions:\nMix pot\nCook it"), ListItem.FragmentType.recipe, Edible.Unit.serving, 1, getNextKey());
         this.dbRecipeMeal.add(mealItem);
+    }
+
+    @Override
+    public void addEdible(Edible newEdible) {
+
+    }
+
+    @Override
+    public void updateEdible(Edible modEdible) {
+
     }
 }

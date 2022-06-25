@@ -5,13 +5,20 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
-import comp3350.team10.objects.Meal;
+import java.util.ArrayList;
+import java.util.Calendar;
 
-public class HSqlDB extends SQLiteOpenHelper {//implements DataInterface {
+import comp3350.team10.objects.Drink;
+import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.Food;
+import comp3350.team10.objects.Meal;
+import comp3350.team10.objects.User;
+
+public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, EdibleDBInterface, RecipeDBInterface, UserDBInterface {
     private static final int CURR_VERSION = 1;
     private static final String DB_NAME = "HSqlDB";
 
-    public HSqlDB(@Nullable Context context, @Nullable String name) {
+    public HSqlDB(@Nullable Context context) {
         super(context, DB_NAME, null, CURR_VERSION);
     }
 
@@ -153,4 +160,72 @@ public class HSqlDB extends SQLiteOpenHelper {//implements DataInterface {
 
     @Override //used when the a new version is created
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
+
+    public ArrayList<Edible> getFoodList(Calendar date) {
+        return null;
+    }
+
+    public ArrayList<Edible> getMealList(Calendar date) {
+        return null;
+    }
+
+    public ArrayList<Edible> getDrinkList(Calendar date) {
+        return null;
+    }
+
+    public void addFoodToRecipeBook(Food newFood) {
+
+    }
+
+    public void addMealToRecipeBook(Meal newMeal) {
+
+    }
+
+    public void addDrinkToRecipeBook(Drink newDrink) {
+
+    }
+
+    public void addLog(Edible newEdible) {
+
+    }
+
+    public void deleteLog(Edible delEdible) {
+
+    }
+
+    public void updateLog(Edible modEdible) {
+
+    }
+
+    public void addEdible(Edible newEdible) {
+
+    }
+
+    public void updateEdible(Edible modEdible) {
+
+    }
+
+    public void addUser(String name, int height, int weight) {
+
+    }
+
+    public User getUserDetails() {
+        return null;
+    }
+
+    public void setHeight(int newHeight) {
+
+    }
+
+    public void setWeight(int newWeight) {
+
+    }
+
+    public void setCalorieGoal(int goal) {
+
+    }
+
+    public void setExerciseGoal(int goal) {
+
+    }
 }

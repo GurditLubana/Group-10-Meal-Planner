@@ -13,7 +13,7 @@ public class RecipeBookOps {
     private RecipeBook selectedType;            //The selected Edible type view (see enum on line 18)
     private DataAccessStub db;                  //Accesses the database
 
-    public RecipeBookOps(DataAccessStub db) {
+    public RecipeBookOps(DataAccessStub db) { //will need cache added
         this.selectedType = RecipeBook.FOOD;
         this.selectedList = null;
         this.db = db;
