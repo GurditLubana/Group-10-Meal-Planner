@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MealPlanner">
         <activity
-            android:name=".dailyProgress"
+            android:name=".presentation.ActivityDailyProgress"
             android:exported="false" />
         <activity android:name=".presentation.ActivityRecipeBook" />
         <activity

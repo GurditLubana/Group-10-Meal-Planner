@@ -83,6 +83,19 @@ public class FragmentNavigation extends Fragment {
                 }
             }
         });
+
+        dailyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() != null && !(getActivity() instanceof ActivityDailyProgress)) {
+                    Intent intent = new Intent(getActivity(), ActivityDailyProgress.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    //intent.putExtra("Source", "NAV");
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void setActiveButton(View view) {
@@ -94,6 +107,9 @@ public class FragmentNavigation extends Fragment {
         } else if (context instanceof ActivityRecipeBook) {
             recipeButton.setColorFilter(Color.parseColor("#FFFFBB33"));
             recipeButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#5885AF")));
+        } else if (context instanceof ActivityDailyProgress) {
+            dailyButton.setColorFilter(Color.parseColor("#FFFFBB33"));
+            dailyButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#5885AF")));
         }
     }
 }
