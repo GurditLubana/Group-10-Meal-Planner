@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class DataAccessStub implements DiaryDBInterface, EdibleDBInterface, RecipeDBInterface, UserDBInterface {
+public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, UserDBInterface {
     //Database and app management variables
     private DailyLog selectedFoodLog;       //Currently selected food log
     private Integer selectedDate;           //Currently selected date
@@ -48,225 +48,6 @@ public class DataAccessStub implements DiaryDBInterface, EdibleDBInterface, Reci
         //Get the current day's logs
         this.selectedDate = this.calendarToInt(calendar);
         this.selectedFoodLog = this.selectFoodLogByDate(selectedDate);
-    }
-
-    public void close() {
-        System.out.println("Closed " + this.dbType + " database " + this.dbName);
-    }
-
-    public int getCalorieGoal() {
-        return selectedFoodLog.getCalGoal();
-    }
-
-    @Override
-    public void addUser(String name, int height, int weight) {
-
-    }
-
-    @Override
-    public User getUserDetails() {
-        return null;
-    }
-
-    @Override
-    public void setHeight(int newHeight) {
-
-    }
-
-    @Override
-    public void setWeight(int newWeight) {
-
-    }
-
-    public void setCalorieGoal(int goal) {
-        if (goal >= 0 && goal <= GOAL_LIMIT) {
-            this.selectedFoodLog.setCalGoal(goal);
-            this.pushUpdatedLogToDB();
-        }
-    }
-
-    public int getExerciseGoal() {
-        return selectedFoodLog.getExcGoal();
-    }
-
-    public void setExerciseGoal(int goal) {
-        if (goal >= 0 && goal <= GOAL_LIMIT) {
-            this.selectedFoodLog.setExcGoal(goal);
-            this.pushUpdatedLogToDB();
-        }
-    }
-
-    public void setExerciseActual(int exerciseActual) {
-        this.selectedFoodLog.setExcActual(exerciseActual);
-    }
-
-    public int getExerciseActual() {
-        return this.selectedFoodLog.getExcActual();
-    }
-
-    public ArrayList<Edible> getFoodList(Calendar date) {
-        if (this.selectedDate.intValue() != calendarToInt(date).intValue()) {
-            this.selectedFoodLog = selectFoodLogByDate(calendarToInt(date));
-            this.selectedDate = calendarToInt(date);
-        }
-
-        return this.selectedFoodLog.getFoodList();
-    }
-
-    @Override
-    public ArrayList<Edible> getMealList(Calendar date) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Edible> getDrinkList(Calendar date) {
-        return null;
-    }
-
-    @Override
-    public void addFoodToRecipeBook(Food newFood) {
-
-    }
-
-    @Override
-    public void addMealToRecipeBook(Meal newMeal) {
-
-    }
-
-    @Override
-    public void addDrinkToRecipeBook(Drink newDrink) {
-
-    }
-
-    @Override
-    public void addLog(Edible newEdible) {
-
-    }
-
-    @Override
-    public void deleteLog(Edible delEdible) {
-
-    }
-
-    @Override
-    public void updateLog(Edible modEdible) {
-
-    }
-
-    public void updateSelectedFoodLogFoodList(ArrayList<Edible> newList) {
-        if (newList != null) {
-            this.selectedFoodLog.setFoodList(newList);
-            this.pushUpdatedLogToDB();
-        }
-    }
-
-    private Integer calendarToInt(Calendar date) {
-        return Integer.parseInt(String.valueOf(date.get(Calendar.YEAR)) + String.valueOf(date.get(Calendar.DAY_OF_YEAR)));
-    }
-
-    private DailyLog selectFoodLogByDate(Integer date) {
-        DailyLog result = new DailyLog();
-        int position = this.searchFoodLogByDate(date);
-
-        result.init(date, 1500, 0, 0, emptyLog());
-
-        if (position == -1) {
-            this.dbFoodLog.add(result);
-        } else {
-            result = this.dbFoodLog.get(position);
-        }
-
-        this.sortDBFoodLog();
-
-        return result;
-    }
-
-    private void pushUpdatedLogToDB() {
-        int position = searchFoodLogByDate(this.selectedDate);
-
-        this.dbFoodLog.remove(position);
-        this.dbFoodLog.add(this.selectedFoodLog);
-    }
-
-    private int searchFoodLogByDate(Integer date) {
-        boolean found = false;
-        int result = -1;
-
-        if (this.dbFoodLog.size() > 0) {
-            for (int i = 0; i < this.dbFoodLog.size() && !found; i++) {
-                if (date.intValue() == this.dbFoodLog.get(i).getDate().intValue()) {
-                    found = true;
-                    result = i;
-                }
-            }
-        }
-
-        return result;
-    }
-
-    public LinkedList<Edible> getRecipes(String edibleType) {
-        LinkedList<Edible> currEdibles = new LinkedList<Edible>();
-
-        if (edibleType == "FOOD") {
-            currEdibles.addAll(this.dbRecipeFood);
-        } else if (edibleType == "DRINKS") {
-            currEdibles.addAll(this.dbRecipeDrink);
-        } else if (edibleType == "MEALS") {
-            currEdibles.addAll(this.dbRecipeMeal);
-        }
-
-        Collections.shuffle(currEdibles);
-
-        return currEdibles;
-    }
-
-    public void addFoodToRecipeBook(Edible newFood) {
-        if (newFood != null) {
-            this.dbRecipeFood.add(newFood);
-        }
-    }
-
-    public void addMealToRecipeBook(Edible newMeal) {
-        if (newMeal != null) {
-            this.dbRecipeMeal.add(newMeal);
-        }
-    }
-
-    public void addDrinkToRecipeBook(Edible newDrink) {
-        if (newDrink != null) {
-            this.dbRecipeDrink.add(newDrink);
-        }
-    }
-
-    public Edible findEdibleByKey(int key) {
-        Edible result = null;
-        System.out.println("key: " + key);
-
-        for (int i = 0; i < this.dbRecipeFood.size() && result == null; i++) {
-            if (this.dbRecipeFood.get(i).getDbkey() == key) {
-                result = this.dbRecipeFood.get(i);
-            }
-        }
-        for (int i = 0; i < this.dbRecipeMeal.size() && result == null; i++) {
-            if (this.dbRecipeMeal.get(i).getDbkey() == key) {
-                result = this.dbRecipeMeal.get(i);
-            }
-        }
-        for (int i = 0; i < this.dbRecipeDrink.size() && result == null; i++) {
-            if (this.dbRecipeDrink.get(i).getDbkey() == key) {
-                result = this.dbRecipeDrink.get(i);
-            }
-        }
-
-        return result;
-    }
-
-    public Integer getNextKey() {
-        Integer result = this.currKey.intValue();
-
-        this.currKey += 1;
-
-        return result;
     }
 
     private void loadFoodlog() {
@@ -321,7 +102,7 @@ public class DataAccessStub implements DiaryDBInterface, EdibleDBInterface, Reci
 
     private void sortDBFoodLog() {
         Collections.sort(dbFoodLog, new Comparator<DailyLog>() {
-            @Override
+    
             public int compare(DailyLog left, DailyLog right) {
                 int result = 0;
 
@@ -585,12 +366,221 @@ public class DataAccessStub implements DiaryDBInterface, EdibleDBInterface, Reci
         this.dbRecipeMeal.add(mealItem);
     }
 
-    @Override
+    public void close() {
+        System.out.println("Closed " + this.dbType + " database " + this.dbName);
+    }
+
+    //This section implements DiaryDBInterface
+    //This section implements EdibleDBInterface
+    //This section implements RecipeDBInterface
+    //This section implements UserDBInterface'
+    public int getCalorieGoal() {
+        return selectedFoodLog.getCalGoal();
+    }
+
+    public void addUser(String name, int height, int weight) {
+
+    }
+
+    public User getUserDetails() {
+        return null;
+    }
+
+    public void setHeight(int newHeight) {
+
+    }
+
+    public void setWeight(int newWeight) {
+
+    }
+
+    public void setCalorieGoal(int goal) {
+        if (goal >= 0 && goal <= GOAL_LIMIT) {
+            this.selectedFoodLog.setCalGoal(goal);
+            this.pushUpdatedLogToDB();
+        }
+    }
+
+    public int getExerciseGoal() {
+        return selectedFoodLog.getExcGoal();
+    }
+
+    public void setExerciseGoal(int goal) {
+        if (goal >= 0 && goal <= GOAL_LIMIT) {
+            this.selectedFoodLog.setExcGoal(goal);
+            this.pushUpdatedLogToDB();
+        }
+    }
+
+    public void setExerciseActual(int exerciseActual) {
+        this.selectedFoodLog.setExcActual(exerciseActual);
+    }
+
+    public int getExerciseActual() {
+        return this.selectedFoodLog.getExcActual();
+    }
+
+    public ArrayList<Edible> getFoodList(Calendar date) {
+        if (this.selectedDate.intValue() != calendarToInt(date).intValue()) {
+            this.selectedFoodLog = selectFoodLogByDate(calendarToInt(date));
+            this.selectedDate = calendarToInt(date);
+        }
+
+        return this.selectedFoodLog.getFoodList();
+    }
+
+    //    public LinkedList<Edible> getRecipes(String edibleType) {
+    //     LinkedList<Edible> currEdibles = new LinkedList<Edible>();
+
+    //     if (edibleType == "FOOD") {
+    //         currEdibles.addAll(this.dbRecipeFood);
+    //     } else if (edibleType == "DRINKS") {
+    //         currEdibles.addAll(this.dbRecipeDrink);
+    //     } else if (edibleType == "MEALS") {
+    //         currEdibles.addAll(this.dbRecipeMeal);
+    //     }
+
+    //     Collections.shuffle(currEdibles);
+
+    //     return currEdibles;
+    // }
+
+    public ArrayList<Edible> getMealList(Calendar date) {
+        return null;
+    }
+
+    public ArrayList<Edible> getDrinkList(Calendar date) {
+        return null;
+    }
+
+    public void addFoodToRecipeBook(Food newFood) {
+
+    }
+
+    public void addMealToRecipeBook(Meal newMeal) {
+
+    }
+
+    public void addDrinkToRecipeBook(Drink newDrink) {
+
+    }
+
+    public void addLog(Edible newEdible) {
+
+    }
+
+    public void deleteLog(Edible delEdible) {
+
+    }
+
+    public void updateLog(Edible modEdible) {
+
+    }
+
+    public void updateSelectedFoodLogFoodList(ArrayList<Edible> newList) {
+        if (newList != null) {
+            this.selectedFoodLog.setFoodList(newList);
+            this.pushUpdatedLogToDB();
+        }
+    }
+
+    private Integer calendarToInt(Calendar date) {
+        return Integer.parseInt(String.valueOf(date.get(Calendar.YEAR)) + String.valueOf(date.get(Calendar.DAY_OF_YEAR)));
+    }
+
+    private DailyLog selectFoodLogByDate(Integer date) {
+        DailyLog result = new DailyLog();
+        int position = this.searchFoodLogByDate(date);
+
+        result.init(date, 1500, 0, 0, emptyLog());
+
+        if (position == -1) {
+            this.dbFoodLog.add(result);
+        } else {
+            result = this.dbFoodLog.get(position);
+        }
+
+        this.sortDBFoodLog();
+
+        return result;
+    }
+
+    private void pushUpdatedLogToDB() {
+        int position = searchFoodLogByDate(this.selectedDate);
+
+        this.dbFoodLog.remove(position);
+        this.dbFoodLog.add(this.selectedFoodLog);
+    }
+
+    private int searchFoodLogByDate(Integer date) {
+        boolean found = false;
+        int result = -1;
+
+        if (this.dbFoodLog.size() > 0) {
+            for (int i = 0; i < this.dbFoodLog.size() && !found; i++) {
+                if (date.intValue() == this.dbFoodLog.get(i).getDate().intValue()) {
+                    found = true;
+                    result = i;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public void addFoodToRecipeBook(Edible newFood) {
+        if (newFood != null) {
+            this.dbRecipeFood.add(newFood);
+        }
+    }
+
+    public void addMealToRecipeBook(Edible newMeal) {
+        if (newMeal != null) {
+            this.dbRecipeMeal.add(newMeal);
+        }
+    }
+
+    public void addDrinkToRecipeBook(Edible newDrink) {
+        if (newDrink != null) {
+            this.dbRecipeDrink.add(newDrink);
+        }
+    }
+
+    public Edible findEdibleByKey(int key) {
+        Edible result = null;
+        System.out.println("key: " + key);
+
+        for (int i = 0; i < this.dbRecipeFood.size() && result == null; i++) {
+            if (this.dbRecipeFood.get(i).getDbkey() == key) {
+                result = this.dbRecipeFood.get(i);
+            }
+        }
+        for (int i = 0; i < this.dbRecipeMeal.size() && result == null; i++) {
+            if (this.dbRecipeMeal.get(i).getDbkey() == key) {
+                result = this.dbRecipeMeal.get(i);
+            }
+        }
+        for (int i = 0; i < this.dbRecipeDrink.size() && result == null; i++) {
+            if (this.dbRecipeDrink.get(i).getDbkey() == key) {
+                result = this.dbRecipeDrink.get(i);
+            }
+        }
+
+        return result;
+    }
+
+    public Integer getNextKey() {
+        Integer result = this.currKey.intValue();
+
+        this.currKey += 1;
+
+        return result;
+    }
+
     public void addEdible(Edible newEdible) {
 
     }
 
-    @Override
     public void updateEdible(Edible modEdible) {
 
     }
