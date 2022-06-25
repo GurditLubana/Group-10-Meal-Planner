@@ -17,15 +17,39 @@
             android:layout_height="match_parent">
 
             <ProgressBar
-                android:id="@+id/progressBar2"
+                android:id="@+id/circleProgress"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="32dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/progressPercentage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                android:text="60%"
+                android:textSize="60sp"
+                app:layout_constraintBottom_toBottomOf="@+id/circleProgress"
+                app:layout_constraintEnd_toEndOf="@+id/circleProgress"
+                app:layout_constraintStart_toStartOf="@+id/circleProgress"
+                app:layout_constraintTop_toTopOf="@+id/circleProgress" />
+
+            <TextView
+                android:id="@+id/progressTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
