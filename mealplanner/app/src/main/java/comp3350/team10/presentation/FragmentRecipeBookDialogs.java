@@ -1,24 +1,47 @@
 package comp3350.team10.presentation;
 
+import static android.app.Activity.RESULT_OK;
+
 import comp3350.team10.R;
 import comp3350.team10.objects.*;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class FragmentRecipeBookDialogs extends DialogFragment {
     private TextView title;                  // Dialog Title
@@ -33,11 +56,14 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
     private Spinner inputSpinner;            // input field for quantity units
     private Button btnOk;                    // OK button
     private Button btnCancel;                // Cancel Button
+    private Button btnChooseItemImage;         // Import a picture for the Edible item.
+    private  ImageView EdibleItemImage;
     private FragToRecipeBook send;           // Interface for communication with parent activity
     private FragToRecipeBook.EntryMode mode; // the type of dialog to show
     public static String TAG = "AddRecipe";  // tag name of this fragment for reference in the fragment manager
     private int calories;                    // value of calorie input
     private int quantity;                    // value of quantity input
+    private int IMAGE_REQUEST_CODE = 1;   // value of request code
     private String name;                     // value of name input
     private String instructions;             // value of instructions input
     private String ingredients;              // value of ingredients input
@@ -80,6 +106,9 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         this.inputSpinner = view.findViewById(R.id.dialogRecipeSpinner);
         this.btnOk = view.findViewById(R.id.dialogRecipeBtnOk);
         this.btnCancel = view.findViewById(R.id.dialogRecipeBtnCancel);
+        this.btnChooseItemImage = view.findViewById(R.id.dialogRecipePhotoBtn);
+        this.EdibleItemImage= view.findViewById(R.id.dialogRecipePhotoIcon);
+
 
         if (context != null && context instanceof FragToRecipeBook) {
             this.send = (FragToRecipeBook) context;
@@ -170,7 +199,68 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
             }
         });
 
+
+        this.btnChooseItemImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+                galleryIntent.setType("image/*");
+                imagePickerActivityResult.launch(galleryIntent);
+
+            }
+        });
+
     }
+
+    ActivityResultLauncher<Intent> imagePickerActivityResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result != null) {
+                        Uri imageUri = result.getData().getData();
+//                        Glide.with(getContext())
+//                                .load(imageUri)
+//                                .into(EdibleItemImage);
+
+//                        final Uri imageUri = data.getData();
+
+
+                        try {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
+                            EdibleItemImage.setImageBitmap(bitmap);
+                        } catch (IOException e) {
+                            Log.i("TAG", "Some exception " + e);
+                        }
+
+//                        final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+//                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+//
+//                        image_view.setImageBitmap(selectedImage);
+
+
+//                        EdibleItemImage.setImageURI(imageUri);
+//                        EdibleItemImage.getResources();
+//                        EdibleItemImage.setImageURI(imageUri);
+                    }
+                }
+            }
+    );
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+//    {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == IMAGE_REQUEST_CODE  && data != null) {
+//            Uri selectedImage = data.getData();
+//            ImageView imageView = getView().findViewById(R.id.dialogRecipePhoto);
+//            imageView.setImageURI(selectedImage);
+//
+//
+//        }
+//
+//    }
 
     private boolean validateData() {
         int success = 0;

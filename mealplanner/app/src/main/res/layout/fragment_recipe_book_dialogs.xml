@@ -75,13 +75,14 @@
                                     app:layout_constraintStart_toStartOf="@+id/dialogRecipePhoto"
                                     app:layout_constraintTop_toTopOf="@+id/dialogRecipePhoto" />
 
-                                <TextView
-                                    android:id="@+id/dialogRecipePhotoText"
+                                <Button
+                                    android:id="@+id/dialogRecipePhotoBtn"
                                     android:layout_width="147dp"
                                     android:layout_height="49dp"
                                     android:layout_weight="0.3"
                                     android:background="?colorPrimary"
                                     android:gravity="center"
+                                    android:clickable="true"
                                     android:text="Take a photo"
                                     android:textAlignment="gravity"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
