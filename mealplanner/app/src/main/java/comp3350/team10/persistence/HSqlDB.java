@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedList;
 
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.Edible;
@@ -170,6 +171,21 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
     }
 
     public ArrayList<Edible> getDrinkList(Calendar date) {
+        return null;
+    }
+
+    @Override
+    public LinkedList<Edible> getFoodRecipes() {
+        return null;
+    }
+
+    @Override
+    public LinkedList<Edible> getMealRecipes() {
+        return null;
+    }
+
+    @Override
+    public LinkedList<Edible> getDrinkRecipes() {
         return null;
     }
 

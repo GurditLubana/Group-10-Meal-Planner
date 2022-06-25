@@ -370,9 +370,7 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         System.out.println("Closed " + this.dbType + " database " + this.dbName);
     }
 
-    //This section implements DiaryDBInterface
-    //This section implements EdibleDBInterface
-    //This section implements RecipeDBInterface
+   
     //This section implements UserDBInterface'
     public int getCalorieGoal() {
         return selectedFoodLog.getCalGoal();
@@ -420,51 +418,61 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         return this.selectedFoodLog.getExcActual();
     }
 
-    public ArrayList<Edible> getFoodList(Calendar date) {
+    public ArrayList<Edible> getFoodList(Calendar date) { //getListOfEntries????
         if (this.selectedDate.intValue() != calendarToInt(date).intValue()) {
             this.selectedFoodLog = selectFoodLogByDate(calendarToInt(date));
             this.selectedDate = calendarToInt(date);
         }
 
-        return this.selectedFoodLog.getFoodList();
+        return this.selectedFoodLog.getFoodList(); //getListOfEntries
     }
 
-    //    public LinkedList<Edible> getRecipes(String edibleType) {
-    //     LinkedList<Edible> currEdibles = new LinkedList<Edible>();
 
-    //     if (edibleType == "FOOD") {
-    //         currEdibles.addAll(this.dbRecipeFood);
-    //     } else if (edibleType == "DRINKS") {
-    //         currEdibles.addAll(this.dbRecipeDrink);
-    //     } else if (edibleType == "MEALS") {
-    //         currEdibles.addAll(this.dbRecipeMeal);
-    //     }
+    //This section implements RecipeDBInterface
+    public LinkedList<Edible> getFoodRecipes() {
+        LinkedList<Edible> currFood = new LinkedList<Edible>();
+        
+        currFood.addAll(this.dbRecipeFood);
 
-    //     Collections.shuffle(currEdibles);
-
-    //     return currEdibles;
-    // }
-
-    public ArrayList<Edible> getMealList(Calendar date) {
-        return null;
+        return currFood;
     }
 
-    public ArrayList<Edible> getDrinkList(Calendar date) {
-        return null;
+    public LinkedList<Edible> getMealRecipes() {
+        LinkedList<Edible> currMeals = new LinkedList<Edible>();
+        
+        currMeals.addAll(this.dbRecipeMeal);
+
+        return currMeals;
+    }
+
+    public LinkedList<Edible> getDrinkRecipes() {
+        LinkedList<Edible> currDrinks = new LinkedList<Edible>();
+        
+        currDrinks.addAll(this.dbRecipeDrink);
+
+        return currDrinks;
     }
 
     public void addFoodToRecipeBook(Food newFood) {
-
+        if (newFood != null) {
+            this.dbRecipeFood.add(newFood);
+        }
     }
 
     public void addMealToRecipeBook(Meal newMeal) {
-
+        if (newMeal != null) {
+            this.dbRecipeMeal.add(newMeal);
+        }
     }
 
     public void addDrinkToRecipeBook(Drink newDrink) {
-
+        if (newDrink != null) {
+            this.dbRecipeDrink.add(newDrink);
+        }
     }
 
+
+    //This section implements DiaryDBInterface
     public void addLog(Edible newEdible) {
 
     }
@@ -528,24 +536,6 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         return result;
     }
 
-    public void addFoodToRecipeBook(Edible newFood) {
-        if (newFood != null) {
-            this.dbRecipeFood.add(newFood);
-        }
-    }
-
-    public void addMealToRecipeBook(Edible newMeal) {
-        if (newMeal != null) {
-            this.dbRecipeMeal.add(newMeal);
-        }
-    }
-
-    public void addDrinkToRecipeBook(Edible newDrink) {
-        if (newDrink != null) {
-            this.dbRecipeDrink.add(newDrink);
-        }
-    }
-
     public Edible findEdibleByKey(int key) {
         Edible result = null;
         System.out.println("key: " + key);
@@ -575,13 +565,5 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         this.currKey += 1;
 
         return result;
-    }
-
-    public void addEdible(Edible newEdible) {
-
-    }
-
-    public void updateEdible(Edible modEdible) {
-
     }
 }
