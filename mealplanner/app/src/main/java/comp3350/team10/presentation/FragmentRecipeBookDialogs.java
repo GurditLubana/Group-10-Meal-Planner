@@ -13,9 +13,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -232,11 +229,11 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
                         } catch (IOException e) {
                             Log.i("TAG", "Some exception " + e);
                         }
-
-//                        final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+//
+//                        InputStream imageStream = context.getContentResolver().openInputStream(imageUri);
 //                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
 //
-//                        image_view.setImageBitmap(selectedImage);
+//                        EdibleItemImage.setImageBitmap(selectedImage);
 
 
 //                        EdibleItemImage.setImageURI(imageUri);
