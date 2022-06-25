@@ -100,6 +100,27 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         this.sortDBFoodLog();
     }
 
+    private Integer calendarToInt(Calendar date) {
+        return Integer.parseInt(String.valueOf(date.get(Calendar.YEAR)) + String.valueOf(date.get(Calendar.DAY_OF_YEAR)));
+    }
+
+    private DailyLog selectFoodLogByDate(Integer date) {
+        DailyLog result = new DailyLog();
+        int position = this.searchFoodLogByDate(date);
+
+        result.init(date, 1500, 0, 0, emptyLog());
+
+        if (position == -1) {
+            this.dbFoodLog.add(result);
+        } else {
+            result = this.dbFoodLog.get(position);
+        }
+
+        this.sortDBFoodLog();
+
+        return result;
+    }
+    
     private void sortDBFoodLog() {
         Collections.sort(dbFoodLog, new Comparator<DailyLog>() {
     
@@ -366,6 +387,37 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         this.dbRecipeMeal.add(mealItem);
     }
 
+    public Edible findEdibleByKey(int key) {
+        Edible result = null;
+        System.out.println("key: " + key);
+
+        for (int i = 0; i < this.dbRecipeFood.size() && result == null; i++) {
+            if (this.dbRecipeFood.get(i).getDbkey() == key) {
+                result = this.dbRecipeFood.get(i);
+            }
+        }
+        for (int i = 0; i < this.dbRecipeMeal.size() && result == null; i++) {
+            if (this.dbRecipeMeal.get(i).getDbkey() == key) {
+                result = this.dbRecipeMeal.get(i);
+            }
+        }
+        for (int i = 0; i < this.dbRecipeDrink.size() && result == null; i++) {
+            if (this.dbRecipeDrink.get(i).getDbkey() == key) {
+                result = this.dbRecipeDrink.get(i);
+            }
+        }
+
+        return result;
+    }
+
+    public Integer getNextKey() {
+        Integer result = this.currKey.intValue();
+
+        this.currKey += 1;
+
+        return result;
+    }
+
     public void close() {
         System.out.println("Closed " + this.dbType + " database " + this.dbName);
     }
@@ -377,19 +429,21 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
     }
 
     public void addUser(String name, int height, int weight) {
-
+        System.out.println("Service not implemented yet");
     }
 
     public User getUserDetails() {
+        System.out.println("Service not implemented yet");
+
         return null;
     }
 
     public void setHeight(int newHeight) {
-
+        System.out.println("Service not implemented yet");
     }
 
     public void setWeight(int newWeight) {
-
+        System.out.println("Service not implemented yet");
     }
 
     public void setCalorieGoal(int goal) {
@@ -416,15 +470,6 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
 
     public int getExerciseActual() {
         return this.selectedFoodLog.getExcActual();
-    }
-
-    public ArrayList<Edible> getFoodList(Calendar date) { //getListOfEntries????
-        if (this.selectedDate.intValue() != calendarToInt(date).intValue()) {
-            this.selectedFoodLog = selectFoodLogByDate(calendarToInt(date));
-            this.selectedDate = calendarToInt(date);
-        }
-
-        return this.selectedFoodLog.getFoodList(); //getListOfEntries
     }
 
 
@@ -473,6 +518,15 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
 
 
     //This section implements DiaryDBInterface
+    public ArrayList<Edible> getFoodList(Calendar date) { //getListOfEntries????
+        if (this.selectedDate.intValue() != calendarToInt(date).intValue()) {
+            this.selectedFoodLog = selectFoodLogByDate(calendarToInt(date));
+            this.selectedDate = calendarToInt(date);
+        }
+
+        return this.selectedFoodLog.getFoodList(); //getListOfEntries
+    }
+
     public void addLog(Edible newEdible) {
 
     }
@@ -490,27 +544,6 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
             this.selectedFoodLog.setFoodList(newList);
             this.pushUpdatedLogToDB();
         }
-    }
-
-    private Integer calendarToInt(Calendar date) {
-        return Integer.parseInt(String.valueOf(date.get(Calendar.YEAR)) + String.valueOf(date.get(Calendar.DAY_OF_YEAR)));
-    }
-
-    private DailyLog selectFoodLogByDate(Integer date) {
-        DailyLog result = new DailyLog();
-        int position = this.searchFoodLogByDate(date);
-
-        result.init(date, 1500, 0, 0, emptyLog());
-
-        if (position == -1) {
-            this.dbFoodLog.add(result);
-        } else {
-            result = this.dbFoodLog.get(position);
-        }
-
-        this.sortDBFoodLog();
-
-        return result;
     }
 
     private void pushUpdatedLogToDB() {
@@ -532,37 +565,6 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
                 }
             }
         }
-
-        return result;
-    }
-
-    public Edible findEdibleByKey(int key) {
-        Edible result = null;
-        System.out.println("key: " + key);
-
-        for (int i = 0; i < this.dbRecipeFood.size() && result == null; i++) {
-            if (this.dbRecipeFood.get(i).getDbkey() == key) {
-                result = this.dbRecipeFood.get(i);
-            }
-        }
-        for (int i = 0; i < this.dbRecipeMeal.size() && result == null; i++) {
-            if (this.dbRecipeMeal.get(i).getDbkey() == key) {
-                result = this.dbRecipeMeal.get(i);
-            }
-        }
-        for (int i = 0; i < this.dbRecipeDrink.size() && result == null; i++) {
-            if (this.dbRecipeDrink.get(i).getDbkey() == key) {
-                result = this.dbRecipeDrink.get(i);
-            }
-        }
-
-        return result;
-    }
-
-    public Integer getNextKey() {
-        Integer result = this.currKey.intValue();
-
-        this.currKey += 1;
 
         return result;
     }

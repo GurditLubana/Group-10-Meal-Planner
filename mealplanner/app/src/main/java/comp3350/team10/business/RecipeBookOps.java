@@ -23,11 +23,11 @@ public class RecipeBookOps {
 
     private void pullDBdata() {
         if (this.selectedType == RecipeBook.FOOD) {
-            this.selectedList = db.getRecipes(RecipeBook.FOOD.name());
+            this.selectedList = db.getFoodRecipes();
         } else if (this.selectedType == RecipeBook.MEALS) {
-            this.selectedList = db.getRecipes(RecipeBook.MEALS.name());
+            this.selectedList = db.getMealRecipes();
         } else {
-            this.selectedList = db.getRecipes(RecipeBook.DRINKS.name());
+            this.selectedList = db.getDrinkRecipes();
         }
     }
 
