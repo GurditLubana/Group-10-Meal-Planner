@@ -26,8 +26,8 @@ public class UnitConverter {
     }
 
     public Integer getCalories(Edible.Unit newUnit, Integer newQuantity) {
-
         this.newQuantity = newQuantity.doubleValue();
+
         calculateCaloriesPerUnit();
         if (prevUnit != Edible.Unit.g) {
             convertCaloriesPerUnitToCaloriesPerGram();
@@ -45,13 +45,13 @@ public class UnitConverter {
             gTotsp();
         } else if (newUnit == Edible.Unit.ml) {
             gToml();
-        } else if (prevUnit == Edible.Unit.liter) {
+        } else if (newUnit == Edible.Unit.liter) {
             gToliter();
         } else {
             gTog();
         }
 
-        return newCalories.intValue();
+        return (int)Math.round(newCalories);
     }
 
     private void convertCaloriesPerUnitToCaloriesPerGram() {
@@ -91,36 +91,29 @@ public class UnitConverter {
 
     private void gTocup() {
         newCalories = newQuantity * factorGPerCup * calsPerUnit;
-
     }
 
     private void gTooz() {
         newCalories = newQuantity * factorGPerOz * calsPerUnit;
-
     }
 
     private void gToserving() {
         newCalories = newQuantity * factorGPerServing * calsPerUnit;
-
     }
 
     private void gTotbsp() {
         newCalories = newQuantity * factorGPerTbsp * calsPerUnit;
-
     }
 
     private void gTotsp() {
         newCalories = newQuantity * factorGPerTsp * calsPerUnit;
-
     }
 
     private void gToml() {
         newCalories = newQuantity * factorGPerMl * calsPerUnit;
-
     }
 
     private void gToliter() {
         newCalories = newQuantity * factorGPerLiter * calsPerUnit;
-
     }
 }

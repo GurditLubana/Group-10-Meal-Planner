@@ -10,10 +10,7 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class DataAccessStub {
-    private final static int GOAL_LIMIT = 9999;         //Goal limit (standalone variable as per MealDiaryLog)
-    private static enum DATA_TYPES {FOOD, MEAL, DRINK}  //The different types of food types
-
+public class DataAccessStub implements DataInterface {
     //Database and app management variables
     private DailyLog selectedFoodLog;       //Currently selected food log
     private Integer selectedDate;           //Currently selected date
