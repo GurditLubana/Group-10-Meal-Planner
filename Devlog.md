@@ -1019,3 +1019,16 @@ Duration: 4hr
    Tasks:
    - Fixed UnitConverter bugs: rounding issues and wrong variables being used
    - Started refactoring unitConverter and added additional test cases
+
+### 2022-06-25
+     Dev:
+      - Josef
+      - Manraj
+Duration: 2hrs
+   Tasks:
+   - daily progress activity 
+   - layout, cards
+   - classes discussion/setup
+
+
+   
