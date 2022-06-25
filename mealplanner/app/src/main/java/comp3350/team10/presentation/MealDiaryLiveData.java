@@ -11,15 +11,15 @@ import comp3350.team10.objects.ListItem;
 
 public class MealDiaryLiveData extends ViewModel {
 
-    private MutableLiveData<Calendar> activityDate;
-    private MutableLiveData<LinkedList<ListItem>> mealsOnDate;
-    private MutableLiveData<Integer> goalCalories;
-    private MutableLiveData<Integer> consumedCalories;
-    private MutableLiveData<Integer> exerciselCalories;
-    private MutableLiveData<Integer> netCalories;
-    private MutableLiveData<Integer> progressBar;
-    private MutableLiveData<Integer> progressExcess;
-
+    private MutableLiveData<Calendar> activityDate;             //The current date 
+    private MutableLiveData<LinkedList<ListItem>> mealsOnDate;  //The given meals on the current date
+    private MutableLiveData<Integer> goalCalories;              //The calorie goal for the current date
+    private MutableLiveData<Integer> consumedCalories;          //The calories consumed for the current date
+    private MutableLiveData<Integer> exerciseCalories;          //The calories burnt during exercise for the current date
+    private MutableLiveData<Integer> netCalories;               //The net calorie calculation for a given date (consumed - burnt)
+    private MutableLiveData<Integer> progressBar;               //The progress bar for the current date
+    private MutableLiveData<Integer> progressExcess;            //The excess progress bar for the current date 
+                                                                //(different than progress bar)
     public MutableLiveData<Calendar> getActivityDate() {
         if (activityDate == null) {
             activityDate = new MutableLiveData<Calendar>();
@@ -52,11 +52,11 @@ public class MealDiaryLiveData extends ViewModel {
     }
 
     public MutableLiveData<Integer> getExerciselCalories() {
-        if (exerciselCalories == null) {
-            exerciselCalories = new MutableLiveData<Integer>(200);
+        if (exerciseCalories == null) {
+            exerciseCalories = new MutableLiveData<Integer>(200);
         }
 
-        return exerciselCalories;
+        return exerciseCalories;
     }
 
     public MutableLiveData<Integer> getNetCalories() {
@@ -81,7 +81,5 @@ public class MealDiaryLiveData extends ViewModel {
         }
 
         return progressExcess;
-
     }
-
 }

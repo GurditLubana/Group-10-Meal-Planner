@@ -19,7 +19,7 @@ import comp3350.team10.objects.Food;
 import comp3350.team10.objects.Meal;
 import comp3350.team10.persistence.*;
 
-public class RecipeBookOpsTests {
+public class TestRecipeBookOps {
 
     @Nested
     @DisplayName("Simple tests")

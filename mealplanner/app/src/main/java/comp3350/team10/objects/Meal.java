@@ -21,7 +21,7 @@ public class Meal extends PreparedItem {
     public boolean setIngredients(String newIngredients) {
         boolean results = false;
 
-        if(newIngredients != null) {
+        if (newIngredients != null) {
             this.strIngredients = newIngredients;
             results = true;
         }

@@ -3,21 +3,21 @@ package comp3350.team10.business;
 import comp3350.team10.objects.*;
 
 public class UnitConverter {
-    private Edible.Unit prevUnit = Edible.Unit.serving;
-    private Edible.Unit newUnit = Edible.Unit.serving; //cups, oz, g, serving, tbsp, tsp, ml, liter
-    private Double factorGPerCup = 224.0;
-    private Double factorGPerOz = 28.0;
-    private Double factorGPerServing = 250.0;
-    private Double factorGPerTbsp = 14.0;
-    private Double factorGPerTsp = 5.0;
-    private Double factorGPerMl = 1.0;
-    private Double factorGPerLiter = 1000.0;
-    private Double prevQuantity = -1.0;
-    private Double prevCalories = -1.0;
-    private Double newQuantity = -1.0;
-    private Double newCalories = -1.0;
-    private Double calsPerUnit = 0.0;
-    private Double newFactor = 0.0;
+    private final static Double factorGPerCup = 224.0;      //Ratio between g and cups
+    private final static Double factorGPerOz = 28.0;        //Ratio between g and oz
+    private final static Double factorGPerServing = 250.0;  //Ratio between g and serving
+    private final static Double factorGPerTbsp = 14.0;      //Ratio between g and tbsp
+    private final static Double factorGPerTsp = 5.0;        //Ratio between g and tsp
+    private final static Double factorGPerMl = 1.0;         //Ratio between g and ml
+    private final static Double factorGPerLiter = 1000.0;   //Ratio between g and liter
+
+    private Edible.Unit prevUnit = Edible.Unit.serving; //The previous unit (cups, oz, g, serving, tbsp, tsp, ml, liter)
+    private Edible.Unit newUnit = Edible.Unit.serving; //The current unit (cups, oz, g, serving, tbsp, tsp, ml, liter)
+    private Double prevQuantity = -1.0; //Previous quantity
+    private Double prevCalories = -1.0; //Previous calorie amount for the given quantity
+    private Double newQuantity = -1.0;  //new quantity
+    private Double newCalories = -1.0;  //New calorie amount for the given quantity
+    private Double calsPerUnit = 0.0;   //The ratio of calories per unit
 
     public UnitConverter(Edible.Unit prevUnit, Integer prevQuantity, Integer prevCalories) {
         this.prevUnit = prevUnit;
@@ -69,21 +69,17 @@ public class UnitConverter {
             calsPerUnit = 1 / factorGPerMl * calsPerUnit;
         } else if (prevUnit == Edible.Unit.liter) {
             calsPerUnit = 1 / factorGPerLiter * calsPerUnit;
-        } else {
-            //already in calories per gram
         }
+        
         prevUnit = Edible.Unit.g;
         prevQuantity = 1.0;
     }
 
-    private void calculateCaloriesPerUnit(){
+    private void calculateCaloriesPerUnit() {
 
-        if(prevQuantity != 0)
-        {
-            calsPerUnit = prevCalories/prevQuantity;
-        }
-        else
-        {
+        if (prevQuantity != 0) {
+            calsPerUnit = prevCalories / prevQuantity;
+        } else {
             calsPerUnit = 0.0;
         }
 
@@ -127,5 +123,4 @@ public class UnitConverter {
         newCalories = newQuantity * factorGPerLiter * calsPerUnit;
 
     }
-
 }

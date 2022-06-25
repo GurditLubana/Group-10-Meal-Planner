@@ -15,7 +15,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -27,7 +26,7 @@ import java.util.LinkedList;
 import java.util.Calendar;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToMealDiary {
-    private static enum EDIBLES_TYPES {FOOD, MEAL, DRINK}
+    private static enum EDIBLES_TYPES {FOOD, MEAL, DRINK} //The different types of food types
 
     private ActivityResultLauncher<Intent> pickMeal; // call back listener when recipebook activity is launched for meal selection
     private RVAMealDiary recyclerViewAdapter;   //Houses the logic for a recycle view with diary entries
@@ -134,6 +133,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                 new MaterialPickerOnPositiveButtonClickListener() {
                     @Override
                     public void onPositiveButtonClick(Object selection) {
+                        restoreSaved();
                         Calendar selectedDate = Calendar.getInstance();
                         selectedDate.setTimeInMillis((Long) selection);
                         selectedDate.add(Calendar.DAY_OF_YEAR, 1);
@@ -144,14 +144,27 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         );
     }
 
+    public void restoreSaved(){
+        if(savedItem != null){
+            this.data.remove(this.savedItemPosition);
+            this.data.add(this.savedItemPosition, this.savedItem);
+            this.savedItemPosition = -1;
+            this.savedItem = null;
+        }
+
+        updateLiveData();
+    }
+
     @Override
     public void prevDate() {
+        this.restoreSaved();
         this.opExec.prevDate();
         this.updateLiveData();
     }
 
     @Override
     public void nextDate() {
+        this.restoreSaved();
         this.opExec.nextDate();
         this.updateLiveData();
     }

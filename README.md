@@ -22,7 +22,7 @@ Manraj Singh – singhm53@myumanitoba.ca
 Zhihou Zhou- zhouz2@myumanitoba.ca  
 
 # Repo URL
-https://github.com/DaneHarrison/Eat-Dix
+https://github.com/DaneHarrison/Group-10-Meal-Planner
 
 # Dev Log
 The team dev log is kept as an md file in the github repository. The group has meetings to determine dev tasks and  
@@ -54,7 +54,7 @@ The app uses views that rely on lists of items.
 
 ### Edible
 This is an Abstract class at the top of the heirarchy of food items. This class defines essential  
-attributes and methods that all fod items should have.  
+attributes and methods that all food items should have.  
 
 ### 
 ## Persistence

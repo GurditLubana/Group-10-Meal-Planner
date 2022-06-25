@@ -17,7 +17,7 @@ public class RVARecipeBook extends RecyclerViewAdapter {
     private FragToRecipeBook sendToRecipeBook;          // interface to pass data to recipebook
 
     public RVARecipeBook(LinkedList<Edible> dataSet) {
-        super( dataSet ) ;
+        super(dataSet);
     }
 
     @Override
@@ -118,6 +118,5 @@ public class RVARecipeBook extends RecyclerViewAdapter {
                 }
             }
         });
-
     }
 }

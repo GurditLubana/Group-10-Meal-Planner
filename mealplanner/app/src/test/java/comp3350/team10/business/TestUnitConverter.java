@@ -17,7 +17,7 @@ import comp3350.team10.objects.ListItem;
 import comp3350.team10.persistence.DataAccessStub;
 import comp3350.team10.persistence.SharedDB;
 
-public class UnitConverterTests {
+public class TestUnitConverter {
 
     @Nested
     @DisplayName("All these conversions tests should pass ")
@@ -252,18 +252,16 @@ public class UnitConverterTests {
             UnitConverter prevValue = new UnitConverter(Edible.Unit.serving,0, 840);
             Integer result = prevValue.getCalories(Edible.Unit.g,3);
 
-
             Integer expected = 0;
             assertEquals(expected,result);
          }
 
 
         @Test
-        void testingIfCaloryZero()
+        void testingIfCalorieZero()
         {
             UnitConverter prevValue = new UnitConverter(Edible.Unit.serving,3, 0);
             Integer result = prevValue.getCalories(Edible.Unit.serving,1);
-
 
             Integer expected = 0;
             assertEquals(expected,result);

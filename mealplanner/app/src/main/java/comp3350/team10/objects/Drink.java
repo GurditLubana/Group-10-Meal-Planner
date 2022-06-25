@@ -3,7 +3,7 @@ package comp3350.team10.objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Drink extends PreparedItem {
-    private String ingredients;                           //A list of ingredients for the given drink
+    private String ingredients;                 //A list of ingredients for the given drink
 
     public Drink() {
         super();
@@ -24,7 +24,7 @@ public class Drink extends PreparedItem {
     public boolean setIngredients(String newIngredients) {
         boolean results = false;
 
-        if(newIngredients != null) {
+        if (newIngredients != null) {
             this.ingredients = newIngredients;
             results = true;
         }
