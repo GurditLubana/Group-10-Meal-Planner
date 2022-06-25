@@ -21,10 +21,16 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
     private String dbType = "stub";         //Type of database
     private String dbName;                  //Name of database
 
-    private ArrayList<DailyLog> dbFoodLog;      //Food log
+    //Recipe Database
     private ArrayList<Edible> dbRecipeDrink;    //Drink recipes
     private ArrayList<Edible> dbRecipeFood;     //Food
     private ArrayList<Edible> dbRecipeMeal;     //Meal recipes
+
+    //User and History Database
+    private final static int USER_ID = 0;   //Default user id
+    private User currUser;
+    private ArrayList<DailyLog> dbFoodLog;      //Food log
+    //private ArrayList<WorkoutLog> dbWorkoutLog;
 
 
     public DataAccessStub(String dbName) {
@@ -40,14 +46,21 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         Calendar calendar = Calendar.getInstance();
 
         //Load data
-        this.loadRecipeDrinks();
         this.loadRecipeFood();
         this.loadRecipeMeals();
+        this.loadRecipeDrinks();
+
+        this.loadUser();
         this.loadFoodlog();
+        //this.workoutLog();
 
         //Get the current day's logs
         this.selectedDate = this.calendarToInt(calendar);
         this.selectedFoodLog = this.selectFoodLogByDate(selectedDate);
+    }
+
+    private void loadUser() {
+        currUser = new User("USER", USER_ID, 666, 666, 666, 666);
     }
 
     private void loadFoodlog() {
@@ -432,23 +445,22 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         System.out.println("Service not implemented yet");
     }
 
-    public User getUserDetails() {
-        System.out.println("Service not implemented yet");
-
-        return null;
+    public User getUser() {
+        return this.currUser;
     }
 
     public void setHeight(int newHeight) {
-        System.out.println("Service not implemented yet");
+        this.currUser.setHeight(newHeight);
     }
 
     public void setWeight(int newWeight) {
-        System.out.println("Service not implemented yet");
+        this.currUser.setHeight(newWeight);
     }
 
     public void setCalorieGoal(int goal) {
         if (goal >= 0 && goal <= GOAL_LIMIT) {
             this.selectedFoodLog.setCalGoal(goal);
+            this.currUser.setCalorieGoal(goal);
             this.pushUpdatedLogToDB();
         }
     }
@@ -460,6 +472,7 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
     public void setExerciseGoal(int goal) {
         if (goal >= 0 && goal <= GOAL_LIMIT) {
             this.selectedFoodLog.setExcGoal(goal);
+            this.currUser.setExerciseGoal(goal);
             this.pushUpdatedLogToDB();
         }
     }

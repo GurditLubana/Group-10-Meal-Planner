@@ -3,6 +3,7 @@ package comp3350.team10.presentation;
 import comp3350.team10.R;
 import comp3350.team10.business.MealDiaryOps;
 import comp3350.team10.business.UnitConverter;
+import comp3350.team10.business.UserDataOps;
 import comp3350.team10.objects.*;
 import comp3350.team10.persistence.*;
 
@@ -33,6 +34,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     private MealDiaryLiveData mealDiaryData;    //Enables persistent data
     private RecyclerView mealRecyclerView;      //Houses a recycle view for diary entries
     private MealDiaryOps opExec;                //Business logic for MealDiary
+    private UserDataOps opUser;                 //Buisness logic for handling the app's user
     private Toolbar toolbar;                    //app title
 
     private LinkedList<Edible> data;            //The data for the diary entries
@@ -48,6 +50,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         setContentView(R.layout.activity_meal_diary);
         SharedDB.start("EaTen");
         this.initToolbar();
+        this.opUser = new UserDataOps(SharedDB.getSharedDB());
         this.opExec = new MealDiaryOps(SharedDB.getSharedDB());
         this.initLiveData();
         this.initRecyclerView();

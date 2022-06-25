@@ -1,14 +1,13 @@
 package comp3350.team10.presentation;
 
+import comp3350.team10.R;
+import comp3350.team10.objects.Edible;
+
 import android.view.View;
 import android.widget.FrameLayout;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.LinkedList;
-
-import comp3350.team10.R;
-import comp3350.team10.objects.Edible;
 
 public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipeBook.ViewHolder> {
     private LinkedList<Edible> localDataSet;            // the list Recyclerview renders

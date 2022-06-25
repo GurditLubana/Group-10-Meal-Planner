@@ -4,7 +4,7 @@ import comp3350.team10.objects.User;
 
 public interface UserDBInterface {
     public void addUser(String name, int height, int weight);
-    public User getUserDetails();
+    public User getUser();
 
     public void setHeight(int newHeight);
     public void setWeight(int newWeight);

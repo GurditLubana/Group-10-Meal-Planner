@@ -225,6 +225,11 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
 
     }
 
+    @Override
+    public User getUser() {
+        return null;
+    }
+
     public User getUserDetails() {
         return null;
     }
