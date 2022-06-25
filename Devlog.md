@@ -229,6 +229,21 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
 ---
 <br>
 
+### 2022 Jun 24
+    Attendees:  
+    - Dane  
+    - Josef  
+    - Manraj  
+    - Gurdit  
+    - Zhao  
+
+    Topic: Iter1 requirements compared to our existing codebase, refactoring, testing and data sanitizing 
+    ----- 
+    Discussions: No one was happy about how Iter1 went, we talked about this and decided to change strategies we are now using an excel sheet to track everyone's current work and focused areas.  We also agreed to meet every week either on Thursday or Saturday at 9 to resync.  Specific areas is we werent doing good agile developement or pull requests which we will fix in this iteration.  We also set realistic expectations for each other and broke down developer tasks we plan on executing for this iteration.  Lastly, the team refactored the database to its best version yet!
+    -----
+    Rationale: Working meeting and Iter1 progress
+---
+<br>
 
 <br>
 

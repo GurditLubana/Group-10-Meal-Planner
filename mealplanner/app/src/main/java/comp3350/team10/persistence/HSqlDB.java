@@ -18,10 +18,10 @@ public class HSqlDB extends SQLiteOpenHelper {//implements DataInterface {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        this.createEdibleTable(db);
         this.createFoodTable(db);
         this.createMealTable(db);
         this.createDrinkTable(db);
-        this.createEdibleTable(db);
 
         this.createMealIngredientTable(db);
         this.createDrinkIngredientTable(db);
@@ -31,80 +31,95 @@ public class HSqlDB extends SQLiteOpenHelper {//implements DataInterface {
         this.createWorkoutHistoryTable(db);
     }
 
-    private void createFoodTable(SQLiteDatabase db) {
-         db.execSQL("create table Food (" +
-            "ID             INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "Name           VARCHAR(9999) not null," +
-            "Photo          BLOB);"
-         );
-    }
-
-    private void createMealTable(SQLiteDatabase db) {
-        db.execSQL("create table Meal (" +
-            "ID             INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "Name           VARCHAR(9999) not null," +
-            "Photo          BLOB," +
-            "Instructions   VARCHAR(9999));"
-        );
-    }
-
-    private void createDrinkTable(SQLiteDatabase db) {
-        db.execSQL("create table Drink (" +
-            "ID             INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "Name           VARCHAR(9999) not null," +
-            "Photo          BLOB," +
-            "Instructions   VARCHAR(9999));"
-        );
-    }
-
     private void createEdibleTable(SQLiteDatabase db) {
         db.execSQL("create table Edible (" +
-            "ID         INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "Type       VARCHAR(9999) not null," +
-            "EdibleID   INTEGER       not null," +
+            "EdibleID   INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "Name       VARCHAR(9999) not null," +
+            "Summary    VARCHAR(9999)," +
+            "Photo          BLOB," +
             "Quantity   INTEGER       not null," +
             "Unit       VARCHAR(9999) not null," +
             "Calories   INTEGER," +
             "Protein    INTEGER," +
             "Carbs      INTEGER," +
-            "Fat        INTEGER," +
+            "Fat        INTEGER);"
+        );
+    }
 
-            "FOREIGN KEY(EdibleID) REFERENCES Food(ID) ON DELETE CASCADE ON UPDATE CASCADE," +
-            "FOREIGN KEY(EdibleID) REFERENCES Meal(ID) ON DELETE CASCADE ON UPDATE CASCADE," +
-            "FOREIGN KEY(EdibleID) REFERENCES Drink(ID) ON DELETE CASCADE ON UPDATE CASCADE);"
+    private void createFoodTable(SQLiteDatabase db) {
+        db.execSQL("create table Food (" +
+            "EdibleID       INTEGER," +
+            "IsVegan        BOOLEAN," +
+            "IsVegetarian   BOOLEAN," +
+            "IsGlutanFree   BOOLEAN," +
+            "IsSpicy        BOOLEAN," +
+            "IsBreakfast    BOOLEAN," +
+            "IsLunch        BOOLEAN," +
+            "IsSupper       BOOLEAN," +
+
+            "FOREIGN KEY(EdibleID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE);"
+        );
+    }
+
+    private void createMealTable(SQLiteDatabase db) {
+        db.execSQL("create table Meal (" +
+            "EdibleID       INTEGER," +
+            "Instructions   VARCHAR(9999)," +
+            "IsVegan        BOOLEAN," +
+            "IsVegetarian   BOOLEAN," +
+            "IsGlutanFree   BOOLEAN," +
+            "IsSpicy        BOOLEAN," +
+            "IsBreakfast    BOOLEAN," +
+            "IsLunch        BOOLEAN," +
+            "IsSupper       BOOLEAN," +
+
+            "FOREIGN KEY(EdibleID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE);"
+        );
+    }
+
+    private void createDrinkTable(SQLiteDatabase db) {
+        db.execSQL("create table Drink (" +
+            "EdibleID       INTEGER," +
+            "Instructions   VARCHAR(9999)," +
+            "IsAlcoholic        BOOLEAN," +
+            "IsSpicy   BOOLEAN," +
+
+            "FOREIGN KEY(EdibleID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE);"
         );
     }
 
     private void createDrinkIngredientTable(SQLiteDatabase db) {
         db.execSQL("create table DrinkIngredient (" +
-            "DrinkID      INTEGER       not null," +
-            "IngredientID INTEGER       not null," +
-            "Alcoholic    BOOLEAN       not null," +
-            "Substitute   BOOLEAN       not null," +
-            "Unit         VARCHAR(9999) not null," +
+            "DrinkID            INTEGER       not null," +
+            "FoodIngredientID   INTEGER," +
+            "DrinkIngredientID  INTEGER," +
+            "Alcoholic          BOOLEAN       not null," +
+            "Substitute         BOOLEAN       not null," +
+            "Unit               VARCHAR(9999) not null," +
 
-            "FOREIGN KEY(DrinkID) REFERENCES Drink(ID) ON DELETE CASCADE ON UPDATE CASCADE," +
-            "FOREIGN KEY(IngredientID) REFERENCES Food(ID) ON DELETE CASCADE ON UPDATE CASCADE," +
-            "FOREIGN KEY(IngredientID) REFERENCES Drink(ID) ON DELETE CASCADE ON UPDATE CASCADE);"
+            "FOREIGN KEY(DrinkID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE," +
+            "FOREIGN KEY(FoodIngredientID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE," +
+            "FOREIGN KEY(DrinkIngredientID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE);"
         );
     }
 
     private void createMealIngredientTable(SQLiteDatabase db) {
         db.execSQL("create table MealIngredient (" +
-            "MealID         INTEGER       not null," +
-            "IngredientID   INTEGER       not null," +
-            "Quantity       INTEGER       not null," +
-            "Unit           VARCHAR(9999) not null," +
+            "MealID             INTEGER       not null," +
+            "FoodIngredientID   INTEGER," +
+            "DrinkIngredientID  INTEGER," +
+            "Quantity           INTEGER       not null," +
+            "Unit               VARCHAR(9999) not null," +
 
-            "FOREIGN KEY(MealID) REFERENCES Meal(ID) ON DELETE CASCADE ON UPDATE CASCADE," +
-            "FOREIGN KEY(IngredientID) REFERENCES Food(ID) ON DELETE CASCADE ON UPDATE CASCADE," +
-            "FOREIGN KEY(IngredientID) REFERENCES Drink(ID) ON DELETE CASCADE ON UPDATE CASCADE);"
+            "FOREIGN KEY(MealID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE," +
+            "FOREIGN KEY(FoodIngredientID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE," +
+            "FOREIGN KEY(DrinkIngredientID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE);"
         );
     }
 
     private void createUserTable(SQLiteDatabase db) {
         db.execSQL("create table User (" +
-            "ID             INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "UserID         INTEGER PRIMARY KEY AUTOINCREMENT," +
             "Name           VARCHAR(9999)," +
             "Height         INTEGER," +
             "Weight         INTEGER," +
@@ -115,24 +130,24 @@ public class HSqlDB extends SQLiteOpenHelper {//implements DataInterface {
 
     private void createWorkoutHistoryTable(SQLiteDatabase db) {
         db.execSQL("create table WorkoutHistory (" +
-            "ID             INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "WorkoutID      INTEGER PRIMARY KEY AUTOINCREMENT," +
             "UserID         INTEGER not null," +
             "Date           DATE    not null," +
             "ExerciseActual INTEGER not null," +
 
-            "FOREIGN KEY(UserID) REFERENCES User(ID) ON DELETE CASCADE ON UPDATE CASCADE);"
+            "FOREIGN KEY(UserID) REFERENCES User(UserID) ON DELETE CASCADE ON UPDATE CASCADE);"
         );
     }
 
     private void createEdibleHistoryTable(SQLiteDatabase db) {
         db.execSQL("create table EdibleHistory (" +
-            "ID          INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "LogID      INTEGER PRIMARY KEY AUTOINCREMENT," +
             "UserID     INTEGER not null," +
             "Date       DATE    not null," +
             "EdibleID   INTEGER not null," +
 
-            "FOREIGN KEY(UserID) REFERENCES User(ID) ON DELETE CASCADE ON UPDATE CASCADE," +
-            "FOREIGN KEY(EdibleID) REFERENCES Edible(ID) ON DELETE CASCADE ON UPDATE CASCADE);"
+            "FOREIGN KEY(UserID) REFERENCES User(UserID) ON DELETE CASCADE ON UPDATE CASCADE," +
+            "FOREIGN KEY(EdibleID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE);"
         );
     }
 
