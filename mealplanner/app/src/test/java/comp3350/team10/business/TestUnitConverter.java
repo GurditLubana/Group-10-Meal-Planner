@@ -196,27 +196,27 @@ public class TestUnitConverter {
 
         @Test
         void testGToL() {
-            converter = new UnitConverter(Edible.Unit.liter, 10, 10); //test when prev was g
+            converter = new UnitConverter(Edible.Unit.liter, 10, 10);
             results = converter.getCalories(Edible.Unit.cups, 5);
             assertEquals(results, Math.round(1/1000.0 * (10/10) * 5 * (10/10) * 224.0));
 
-            converter = new UnitConverter(Edible.Unit.liter, 10, 10); //test when prev was g
+            converter = new UnitConverter(Edible.Unit.liter, 10, 10);
             results = converter.getCalories(Edible.Unit.cups, 15);
             assertEquals(results, Math.round(1/1000.0 * (10/10) * 15 * (10/10) * 224.0));
 
-            converter = new UnitConverter(Edible.Unit.liter, 10, 10); //test when new is g
+            converter = new UnitConverter(Edible.Unit.liter, 10, 10);
             results = converter.getCalories(Edible.Unit.liter, 5);
             assertEquals(results, Math.round(1/1000.0 * (10/10) * 5 * (10/10) * 1000.0));
 
-            converter = new UnitConverter(Edible.Unit.liter, 10, 10); //test when new is g
+            converter = new UnitConverter(Edible.Unit.liter, 10, 10);
             results = converter.getCalories(Edible.Unit.liter, 15);
             assertEquals(results, Math.round(1/1000.0 * (10/10) * 15 * (10/10) * 1000.0));
 
-            converter = new UnitConverter(Edible.Unit.cups, 10, 10); // test when both are g
+            converter = new UnitConverter(Edible.Unit.cups, 10, 10);
             results = converter.getCalories(Edible.Unit.liter, 5);
             assertEquals(results, Math.round(1/224.0 * 5 * 1000.0));
 
-            converter = new UnitConverter(Edible.Unit.cups, 10, 10); // test when both are g
+            converter = new UnitConverter(Edible.Unit.cups, 10, 10);
             results = converter.getCalories(Edible.Unit.liter, 15);
             assertEquals(results, Math.round(1/224.0 * 15 * 1000.0));
         }
@@ -225,44 +225,52 @@ public class TestUnitConverter {
     @Nested
     @DisplayName("Complex tests")
     class Test_Complex {
-        private DailyLog testLog;
+        private UnitConverter converter;
+        private int results;
 
         @BeforeEach
         void setup(){
-            testLog = new DailyLog();
+            converter = null;
+            results = -1;
         }
     }
 
     @Nested
     @DisplayName("Empty tests")
     class Test_Empty {
-        private DailyLog testLog;
+        private UnitConverter converter;
+        private int results;
 
         @BeforeEach
         void setup(){
-            testLog = new DailyLog();
+            converter = null;
+            results = -1;
         }
     }
 
     @Nested
     @DisplayName("Edge case tests")
     class Test_EdgeCase {
-        private DailyLog testLog;
+        private UnitConverter converter;
+        private int results;
 
         @BeforeEach
         void setup(){
-            testLog = new DailyLog();
+            converter = null;
+            results = -1;
         }
     }
 
     @Nested
     @DisplayName("Invalid tests")
     class Test_Invalid {
-        private DailyLog testLog;
+        private UnitConverter converter;
+        private int results;
 
         @BeforeEach
         void setup(){
-            testLog = new DailyLog();
+            converter = null;
+            results = -1;
         }
     }
 }
