@@ -1,7 +1,14 @@
 package comp3350.team10.objects;
 
 public class Meal extends PreparedItem {
-    private String strIngredients;   //The ingredients in the meal
+    private Ingredient[] ingredients;   //The ingredients in the meal\
+    private boolean vegan;
+    private boolean vegetarian;
+    private boolean glutenFree;
+    private boolean spicy;
+    private boolean breakfast;
+    private boolean lunch;
+    private boolean supper;
 
     public Meal() {
         super();

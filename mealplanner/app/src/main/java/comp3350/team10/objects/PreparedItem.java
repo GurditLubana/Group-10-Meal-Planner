@@ -3,7 +3,7 @@ package comp3350.team10.objects;
 import java.util.Arrays;
 
 public abstract class PreparedItem extends Edible {
-    private String instructions;  //The instructions required for the item to prepare
+    private String[] instructions;  //The instructions required for the item to prepare
 
 
     public PreparedItem() {

@@ -3,12 +3,16 @@ package comp3350.team10.objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Drink extends PreparedItem {
-    private String ingredients;                 //A list of ingredients for the given drink
+    private DrinkIngredient[] ingredients;  //A list of ingredients for the given drink
+    private boolean alcoholic;              //Flag representing whether the drink contains alcohol or not
+    private boolean spicy;                  //Flat representing whether the drink is spicy or not
 
     public Drink() {
         super();
 
         this.ingredients = null;
+        this.alcoholic = false;
+        this.spicy = false;
     }
 
 

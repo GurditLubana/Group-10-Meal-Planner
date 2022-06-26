@@ -6,7 +6,7 @@ import comp3350.team10.persistence.*;
 import java.util.ArrayList;
 import java.util.ArrayList;
 
-public class RecipeBookOps {
+public class RecipeBookOps { //this needs to select the corect fragment
     private static enum RecipeBook {FOOD, DRINKS, MEALS} ; //Possible Edible type views
 
     private ArrayList<Edible> selectedList;    //The recipes available for the current view

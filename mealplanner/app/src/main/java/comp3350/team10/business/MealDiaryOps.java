@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.ArrayList;
 
-public class MealDiaryOps {
+public class MealDiaryOps { //this needs to select the correct fragment
     private final static Integer MAX_PROGRESS = 100;    //Scales the progress bar (percentage)
     private final static Integer GOAL_LIMIT = 9999;     //The highest number of calories a user should aim for
     private final static Integer MAX_EXCESS = 100;      //How many calories a user can exceed their goal by

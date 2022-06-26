@@ -103,7 +103,6 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
             "DrinkID            INTEGER       not null," +
             "FoodIngredientID   INTEGER," +
             "DrinkIngredientID  INTEGER," +
-            "Alcoholic          BOOLEAN       not null," +
             "Substitute         BOOLEAN       not null," +
             "Unit               VARCHAR(9999) not null," +
 

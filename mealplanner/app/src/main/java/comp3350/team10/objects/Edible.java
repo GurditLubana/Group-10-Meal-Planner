@@ -1,46 +1,126 @@
 package comp3350.team10.objects;
 
+import java.io.IOException;
+
+import javax.swing.text.html.ImageView;
 
 public abstract class Edible implements ListItem {
     public enum Unit {cups, oz, g, serving, tbsp, tsp, ml, liter}; //All possible units for a given edible
-    private ListItem.FragmentType fragmentType; //How it should appear on recycler views
-    private Unit baseUnit;                      //The unit of a given edible
-    private int quantity;                       //The quantity of a given edible
+
+    //Details
+    private int edibleID;                       //This edibles database key
+    private String name;                        //The name
+    private String description;                 //A brief description
+    private int quantity;                       //The quantity
+    private Unit quantityUnit;                  //The unit of the given quantity
+
+    //Nutritional value
     private int calories;                       //The calories for a given edible
-    private int iconPath;                       //The image path for a given edible
-    private String name;                        //The name for a given variable
-    private int dbkey;                          //This edibles database key
+    private int protein;                        //The protein value
+    private int carbs;                          //the carb value
+    private int fat;                            //The fat value
+
+    //Metadata
+    private imageView photo;                    //The image path for a given edible
+    private ListItem.FragmentType fragmentType; //How it should appear on recycler views                        
 
     public Edible() {
+        this.edibleID = -1;
         this.name = null;
-        this.calories = 0;
-        this.dbkey = -1;
-        this.iconPath = -1;
-        this.fragmentType = null;
-        this.baseUnit = null;
+        this.description = null;
         this.quantity = -1;
+        this.quantityUnit = null;
+
+        this.calories = 0;
+        this.protein = 0;
+        this.carbs = 0;
+        this.fat = 0;
+
+        this.photo = -1;
+        this.fragmentType = null;
     }
 
-    public Edible(ListItem.FragmentType type) {
-        this();
-        this.fragmentType = type;
+    public void init(int id, String name, String desc, int quantity, Unit unit, imageView photo, ListItem.FragmentType view) throws IOException {
+        this.setID(id);
+        this.setName(name);
+        this.setDescription(desc);
+        this.setQuantity(quantity);
+        this.setQuantityUnit(unit);
+
+        this.setPhoto(photo);
+        this.setFragmentType(view);
     }
 
-
-    public boolean init(String name, int iconPath, int calories, ListItem.FragmentType type, Unit baseUnit, int quantity, int dbkey) {
-        return this.setName(name) && this.setIconPath(iconPath) && this.setCalories(calories) && this.setFragmentType(type) &&
-                this.setBaseUnit(baseUnit) && this.setQuantity(quantity) && this.setDbkey(dbkey);
-    }
-
-    public boolean modifyCalories(int amount) {
-        boolean results = false;
-
-        if (this.calories + amount >= Constant.ENTRY_MIN_VALUE && this.calories + amount <= Constant.ENTRY_MAX_VALUE) {
+    public void modifyCalories(int amount) throws IOException {
+        if(this.calories + amount >= Constant.ENTRY_MIN_VALUE && this.calories + amount <= Constant.ENTRY_MAX_VALUE) {
             this.calories += amount;
-            results = true;
         }
+        else {
+            throw new IOException("Invalid incremental calorie change");
+        }
+    }
 
-        return results;
+    public void setFragmentType(ListItem.FragmentType newFragmentType) throws IOException {
+        if(newFragmentType != null) {
+            this.fragmentType = newFragmentType;
+        }
+        else {
+            throw new IOException("Invalid fragment type");
+        }
+    }
+
+    public void setCalories(int newCalories) throws IOException {
+        if(newCalories <= Constant.ENTRY_MAX_VALUE && newCalories >= Constant.ENTRY_MIN_VALUE) {
+            this.calories = newCalories;
+        }
+        else {
+            throw new IOException("Invalid calorie value");
+        }
+    }
+
+    public void setUnit(Unit newUnit) throws IOException {
+        if(newUnit != null) {
+            this.quantityUnit = newUnit;
+        }
+        else {
+            throw new IOException("Invalid unit");
+        }
+    }
+
+    public void setQuantity(int newQuantity) throws IOException {
+        if (newQuantity <= Constant.ENTRY_MAX_VALUE && newQuantity > Constant.ENTRY_MIN_VALUE) {
+            this.quantity = newQuantity;
+        }
+        else {
+            throw new IOException("Invalid quantity");
+        }
+    }
+
+    private void setDbkey(int dbkey) throws IOException {
+        if(dbkey >= 0) {
+            this.dbkey = dbkey;
+        }
+        else {
+            throw new IOException("Invalid DB key");
+        }
+    }
+
+    public void setName(String name) throws IOException{
+        if(name != null && !name.equals("")) {
+            this.name = name;
+        }
+        else {
+            throw new IOException("Invalid name");
+        }
+    }
+
+    public void setPhoto(ImageView newPhoto) throws IOException {
+        if(newPhoto != null) {
+            this.photo = newPhoto;
+        }
+        else {
+            throw new IOException("Invalid photo");
+        }
     }
 
     public int getCalories() {
@@ -51,16 +131,16 @@ public abstract class Edible implements ListItem {
         return this.name;
     }
 
-    public int getIconPath() {
-        return this.iconPath;
+    public int getPhoto() {
+        return this.photo;
     }
 
     public ListItem.FragmentType getFragmentType() {
         return this.fragmentType;
     }
 
-    public Unit getBaseUnit() {
-        return this.baseUnit;
+    public Unit getUnit() {
+        return this.quantityUnit;
     }
 
     public int getQuantity() {
@@ -68,83 +148,6 @@ public abstract class Edible implements ListItem {
     }
 
     public int getDbkey() {
-        return this.dbkey;
-    }
-
-    public boolean setFragmentType(ListItem.FragmentType fragmentType) {
-        boolean results = false;
-
-        if (fragmentType != null) {
-            this.fragmentType = fragmentType;
-            results = true;
-        }
-
-        return results;
-    }
-
-    public boolean setCalories(Integer newCalories) {
-        boolean results = false;
-
-        if (newCalories <= Constant.ENTRY_MAX_VALUE && newCalories >= Constant.ENTRY_MIN_VALUE) {
-            this.calories = newCalories;
-            results = true;
-        }
-
-        return results;
-    }
-
-    public boolean setBaseUnit(Unit baseUnit) {
-        boolean results = false;
-
-        if (baseUnit != null) {
-            this.baseUnit = baseUnit;
-            results = true;
-        }
-
-        return results;
-    }
-
-    public boolean setQuantity(int quantity) {
-        boolean results = false;
-
-        if (quantity <= Constant.ENTRY_MAX_VALUE && quantity > Constant.ENTRY_MIN_VALUE) {
-            this.quantity = quantity;
-            results = true;
-        }
-
-        return results;
-    }
-
-    public boolean setDbkey(int dbkey) {
-        boolean results = false;
-
-        if (dbkey >= 0) {
-            this.dbkey = dbkey;
-            results = true;
-        }
-
-        return results;
-    }
-
-    public boolean setName(String name) {
-        boolean results = false;
-
-        if (name != null && !name.equals("")) {
-            this.name = name;
-            results = true;
-        }
-
-        return results;
-    }
-
-    public boolean setIconPath(int iconPath) {
-        boolean results = false;
-
-        if (iconPath >= Constant.ENTRY_MIN_VALUE) {
-            this.iconPath = iconPath;
-            results = true;
-        }
-
-        return results;
+        return this.edibleID;
     }
 }
