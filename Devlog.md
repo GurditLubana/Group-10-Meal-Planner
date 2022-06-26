@@ -1003,7 +1003,7 @@ Duration: 1hr
 ### 2022-06-20
      Dev:
       - Dane
-Duration: 5hr
+Duration: 5hrs
    Tasks:
    - Redesigned database v3 after feedback from Josef see mealplanner docs/June20/DB v3.PNG
    - Created extended entity relation diagram for the new database design
@@ -1015,10 +1015,17 @@ Duration: 5hr
 ### 2022-06-24
      Dev:
       - Dane
-Duration: 4hr
+Duration: 4hrs
    Tasks:
    - Fixed UnitConverter bugs: rounding issues and wrong variables being used
    - Started refactoring unitConverter and added additional test cases
+
+### 2022-06-24
+     Dev:
+      - Dane
+Duration: 4hrs
+   Tasks:
+   - Caught up on Yuja videos
 
 ### 2022-06-25
      Dev:
@@ -1030,5 +1037,15 @@ Duration: 2hrs
    - layout, cards
    - classes discussion/setup
 
-
-   
+### 2022-06-24
+     Dev:
+      - Dane
+Duration: 11hrs
+   Tasks:
+   - Refined SQL table design (please see mealplanner docs/June20/DB v4.PNG)
+   - Adjusted table creation to reflect changes
+   - Refined DBInterface and divded into 4 sections
+   - Refactored stub DB to reflect DB Interfaces by removing dead code, moving and redesigning its methods
+   - Created DB controller class to swap between the two (dependency injection)
+   - Changed exercise goals and calorie goals to affect subsequent entries/past non-entries once changed
+   - Created User class and UserOps (this 100% needs refactoring in the future, might not even be needed)
