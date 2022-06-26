@@ -13,5 +13,4 @@ public interface DiaryDBInterface {
 
     public void addLog(DailyLog newLog);
     public void deleteLog(DailyLog delLog);
-    public void updateLog(DailyLog currLog);
 }

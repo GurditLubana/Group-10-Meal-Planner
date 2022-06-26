@@ -13,9 +13,9 @@ import java.util.Calendar;
 public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, UserDBInterface {
     //Database info and data variables
     private Calendar calendar = Calendar.getInstance();
-    private Integer currKey;                //The current database key
-    private String dbType = "stub";         //Type of database
-    private String dbName;                  //Name of database
+    private Integer currKey;                    //The current database key
+    private String dbType = "stub";             //Type of database
+    private String dbName;                      //Name of database
 
     //Recipe Database
     private ArrayList<Edible> dbRecipeDrink;    //Drink recipes
@@ -23,9 +23,9 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
     private ArrayList<Edible> dbRecipeMeal;     //Meal recipes
 
     //User and History Database
-    private final static int USER_ID = 0;   //Default user id
-    private ArrayList<DailyLog> dbFoodLog;  //Food log
-    private User currUser;
+    private final static int USER_ID = 0;       //Default user id
+    private ArrayList<DailyLog> dbFoodLog;      //Logs
+    private User currUser;                      //The current user
 
 
     public DataAccessStub(String dbName) {
@@ -380,11 +380,6 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
 
    
     //This section implements UserDBInterface'
-    public int getCalorieGoal() {
-        //return selectedFoodLog.getCalGoal();
-        return 1;
-    }
-
     public void addUser(String name, int height, int weight) {
         System.out.println("Service not implemented yet");
     }
@@ -401,26 +396,46 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         this.currUser.setHeight(newWeight);
     }
 
-    public void setCalorieGoal(int goal) {
+    public void setCalorieGoal(int goal, Calendar date) {
+        int currLog = this.dbFoodLog.indexOf(searchFoodLogByDate(date));
+        DailyLog currEntry;
+        int currLogIndex;
 
+        sortDBFoodLog();
+        currLogIndex = this.dbFoodLog.indexOf(currLog);
+        this.currUser.setCalorieGoal(goal);
+
+        for(int i = currLogIndex; i < this.dbFoodLog.size(); i++) {
+            currEntry = this.dbFoodLog.get(i);
+            this.dbFoodLog.remove(currEntry);
+            currEntry.setCalGoal(goal);
+            this.dbFoodLog.add(currEntry);
+        }        
     }
 
-    public void setExerciseGoal(int goal) {
+    public void setExerciseGoal(int goal, Calendar date) {
+        int currLog = this.dbFoodLog.indexOf(searchFoodLogByDate(date));
+        DailyLog currEntry;
+        int currLogIndex;
 
+        sortDBFoodLog();
+        currLogIndex = this.dbFoodLog.indexOf(currLog);
+        this.currUser.setExerciseGoal(goal);
+
+        for(int i = currLogIndex; i < this.dbFoodLog.size(); i++) {
+            currEntry = this.dbFoodLog.get(i);
+            this.dbFoodLog.remove(currEntry);
+            currEntry.setCalGoal(goal);
+            this.dbFoodLog.add(currEntry);
+        }
     }
 
-    public int getExerciseGoal() {
-        //return selectedFoodLog.getExcGoal();
-        return 1;
-    }
-
-    public void setExerciseActual(int exerciseActual) {
-        //this.selectedFoodLog.setExcActual(exerciseActual);
-    }
-
-    public int getExerciseActual() {
-        //return this.selectedFoodLog.getExcActual();
-        return 1;
+    public void setExerciseActual(int exerciseActual, Calendar date) {
+        DailyLog currEntry = searchFoodLogByDate(date);
+        
+        this.dbFoodLog.remove(currEntry);
+        currEntry.setCalGoal(exerciseActual);
+        this.dbFoodLog.add(currEntry);
     }
 
 
@@ -471,29 +486,26 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
     //This section implements DiaryDBInterface
     public DailyLog searchFoodLogByDate(Calendar date) {
         Integer intDate = calendarToInt(date);
-        int posi = -1;
+        DailyLog foundLog = null;
 
-        if (this.dbFoodLog.size() > 0) {
-            for (int i = 0; i < this.dbFoodLog.size() && posi == -1; i++) {
-                if (intDate.intValue() == this.dbFoodLog.get(i).getDate().intValue()) {
-                    posi = i;
-                }
+        for (int i = 0; i < this.dbFoodLog.size() && foundLog == null; i++) {
+            if (intDate.intValue() == this.dbFoodLog.get(i).getDate().intValue()) {
+                foundLog = dbFoodLog.get(i);
             }
         }
 
-        return this.dbFoodLog.get(posi);
-    }
-
-    public void updateLog(DailyLog delLog) {
-        this.deleteLog(delLog);
-        this.addLog(delLog);
+        return foundLog;
     }
 
     public void addLog(DailyLog newLog) {
-        this.dbFoodLog.add(newLog);
+        if(this.dbFoodLog != null) {
+            this.dbFoodLog.add(newLog);
+        }
     }
 
     public void deleteLog(DailyLog delLog) {
-        this.dbFoodLog.remove(delLog);
+        if(this.dbFoodLog != null) {
+            this.dbFoodLog.remove(delLog);
+        }
     }
 }

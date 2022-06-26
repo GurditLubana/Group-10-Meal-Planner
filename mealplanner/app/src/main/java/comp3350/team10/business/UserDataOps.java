@@ -36,7 +36,6 @@ public class UserDataOps {
 
     public void updateCalorieGoal(Integer newCalorieGoal) {
         currUser.setCalorieGoal(newCalorieGoal);
-        this.db.setCalorieGoal(newCalorieGoal);
     }
 
     public void updateExerciseGoal(int newExerciseGoal) {

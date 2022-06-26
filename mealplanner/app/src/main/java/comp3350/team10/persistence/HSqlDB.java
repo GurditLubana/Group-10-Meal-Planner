@@ -235,10 +235,6 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
 
     }
 
-    public void updateLog(Edible modEdible) {
-
-    }
-
     public void addEdible(Edible newEdible) {
 
     }
@@ -260,6 +256,10 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
     }
 
     public void setWeight(int newWeight) {
+
+    }
+
+    public void setCalorieGoal(int goal, Calendar date) {
 
     }
 

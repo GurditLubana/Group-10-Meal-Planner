@@ -66,6 +66,7 @@ public class MealDiaryOps {
         if (currLog != null) { //if doesnt exist generate a new one
             currLog = new DailyLog();
             currLog.init(calendarToInt(date), this.opUser.getUser().getCalorieGoal(), 0, 0, emptyLog());
+            db.addLog(currLog);
         }
 
         return currLog;
@@ -100,7 +101,7 @@ public class MealDiaryOps {
     public void setCalorieGoal(Integer newGoal) {
         if (newGoal != null && newGoal >= 0 && newGoal <= GOAL_LIMIT) {
             this.calorieGoal = newGoal;
-            db.setCalorieGoal(newGoal);
+            db.setCalorieGoal(newGoal, logDate);
             this.updateProgress();
         }
     }
