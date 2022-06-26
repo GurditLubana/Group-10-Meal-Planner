@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import comp3350.team10.R;
 import comp3350.team10.objects.Edible;
@@ -16,7 +16,7 @@ import comp3350.team10.objects.Edible;
 public class RVARecipeBook extends RecyclerViewAdapter {
     private FragToRecipeBook sendToRecipeBook;          // interface to pass data to recipebook
 
-    public RVARecipeBook(LinkedList<Edible> dataSet) {
+    public RVARecipeBook(ArrayList<Edible> dataSet) {
         super(dataSet);
     }
 

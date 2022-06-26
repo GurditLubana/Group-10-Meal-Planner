@@ -648,7 +648,7 @@ Duration: 8hrs
     - Working proof of concept card fragments for recyclerview     
     - Meal Diary entry log fragment UI layout updated  
     - Meal Diary modification context fragment UI layout updated  
-    - recycler view adapter will now use a linkedlist instead of a string array  
+    - recycler view adapter will now use a ArrayList instead of a string array  
     - Navigation Fragment buttons now have click listener stubs  
     
 ### 2022-05-27

@@ -4,11 +4,12 @@ import comp3350.team10.objects.User;
 import comp3350.team10.persistence.DataAccessStub;
 
 public class UserDataOps {
-    private DataAccessStub db;
+    private DataAccessStub db;      //References the current database
     private boolean infoAvailible;  //Can be used so that if vital user is not availible a prompt will appear
     private User currUser;          //The current user's details
 
     public UserDataOps(DataAccessStub db) {
+        this.db = db;
         this.currUser = db.getUser();
         this.infoAvailible = currUser != null;
     }
@@ -18,7 +19,7 @@ public class UserDataOps {
         return this.currUser;
     }
 
-    public void updateName(String newName) { //need to add a listener like how Josef did
+    public void updateName(String newName) {
         currUser.setName(newName);
         //update db
     }
@@ -33,9 +34,9 @@ public class UserDataOps {
         //update db
     }
 
-    public void updateCalorieGoal(int newCalorieGoal) {
+    public void updateCalorieGoal(Integer newCalorieGoal) {
         currUser.setCalorieGoal(newCalorieGoal);
-        //update db
+        this.db.setCalorieGoal(newCalorieGoal);
     }
 
     public void updateExerciseGoal(int newExerciseGoal) {

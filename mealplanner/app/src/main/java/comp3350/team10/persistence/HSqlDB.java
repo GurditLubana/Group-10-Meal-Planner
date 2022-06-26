@@ -7,8 +7,9 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
+import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Food;
@@ -35,6 +36,7 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
         this.createDrinkIngredientTable(db);
 
         this.createUserTable(db);
+        this.createHistoryTable(db);
         this.createEdibleHistoryTable(db);
         this.createWorkoutHistoryTable(db);
     }
@@ -136,13 +138,25 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
         );
     }
 
+    private void createHistoryTable(SQLiteDatabase db) {
+        db.execSQL("create table History (" +
+            "HistoryID      INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "UserID         INTEGER not null," +
+            "Date           DATE    not null," +
+            "CalorieGoal    INTEGER not null," +
+            "CalorieActual  INTEGER not null," +
+
+            "FOREIGN KEY(UserID) REFERENCES User(UserID) ON DELETE CASCADE ON UPDATE CASCADE);"
+        );
+    }
+
     private void createWorkoutHistoryTable(SQLiteDatabase db) {
         db.execSQL("create table WorkoutHistory (" +
             "WorkoutID      INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "UserID         INTEGER not null," +
-            "Date           DATE    not null," +
+            "HistoryID      INTEGER not null," +
             "ExerciseActual INTEGER not null," +
 
+            "FOREIGN KEY(HistoryID) REFERENCES History(HistoryID) ON DELETE CASCADE ON UPDATE CASCADE," +
             "FOREIGN KEY(UserID) REFERENCES User(UserID) ON DELETE CASCADE ON UPDATE CASCADE);"
         );
     }
@@ -150,10 +164,10 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
     private void createEdibleHistoryTable(SQLiteDatabase db) {
         db.execSQL("create table EdibleHistory (" +
             "LogID      INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "UserID     INTEGER not null," +
-            "Date       DATE    not null," +
+            "HistoryID  INTEGER not null," +
             "EdibleID   INTEGER not null," +
 
+            "FOREIGN KEY(HistoryID) REFERENCES History(HistoryID) ON DELETE CASCADE ON UPDATE CASCADE," +
             "FOREIGN KEY(UserID) REFERENCES User(UserID) ON DELETE CASCADE ON UPDATE CASCADE," +
             "FOREIGN KEY(EdibleID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE);"
         );
@@ -175,17 +189,17 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
     }
 
     @Override
-    public LinkedList<Edible> getFoodRecipes() {
+    public ArrayList<Edible> getFoodRecipes() {
         return null;
     }
 
     @Override
-    public LinkedList<Edible> getMealRecipes() {
+    public ArrayList<Edible> getMealRecipes() {
         return null;
     }
 
     @Override
-    public LinkedList<Edible> getDrinkRecipes() {
+    public ArrayList<Edible> getDrinkRecipes() {
         return null;
     }
 
@@ -198,6 +212,18 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
     }
 
     public void addDrinkToRecipeBook(Drink newDrink) {
+
+    }
+
+    public DailyLog searchFoodLogByDate(Calendar date) {
+        return null;
+    }
+
+    public void addLog(DailyLog newLog) {
+
+    }
+
+    public void deleteLog(DailyLog delLog) {
 
     }
 
@@ -225,12 +251,7 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
 
     }
 
-    @Override
     public User getUser() {
-        return null;
-    }
-
-    public User getUserDetails() {
         return null;
     }
 

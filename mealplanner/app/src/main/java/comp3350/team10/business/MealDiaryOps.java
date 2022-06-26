@@ -7,9 +7,9 @@ import comp3350.team10.persistence.*;
 
 import java.util.Calendar;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
-public class MealDiaryOps { //will need cache added
+public class MealDiaryOps {
     private final static Integer MAX_PROGRESS = 100;    //Scales the progress bar (percentage)
     private final static Integer GOAL_LIMIT = 9999;     //The highest number of calories a user should aim for
     private final static Integer MAX_EXCESS = 100;      //How many calories a user can exceed their goal by
@@ -17,21 +17,22 @@ public class MealDiaryOps { //will need cache added
     private final static Integer INCREMENT = 1;         //Directional arrow increments
 
     //Database variables
-    private LinkedList<Edible> todayFoodList; //The food in the planner for the given day
-    private Calendar listDate;                  //The date the planner is set to
-    private DataAccessStub db;                  //Accesses the database
+    private DailyLog currLog;           //The food in the planner for the given day
+    private Calendar logDate;           //The date the planner is set to
+    private DataAccessStub db;          //Accesses the database
 
     //Progress bar variables
-    private Integer calorieConsumed;            //Represents the number of calories currently consumed
-    private Integer calorieExercise;            //Represents the calories burnt through exercise
-    private Integer progressExcess;             //Represents the overflow of calories on the progress bar
-    private Integer progressBar;                //Represents the calories on the progress bar
-    private Integer calorieGoal;                //Represents the calorie goal
-    private Integer calorieNet;                 //Represents the consumed calories - exercise calories burnt
+    private UserDataOps opUser;         //Buisness logic for handling the app's user
+    private Integer calorieConsumed;    //Represents the number of calories currently consumed
+    private Integer calorieExercise;    //Represents the calories burnt through exercise
+    private Integer progressExcess;     //Represents the overflow of calories on the progress bar
+    private Integer progressBar;        //Represents the calories on the progress bar
+    private Integer calorieGoal;        //Represents the calorie goal
+    private Integer calorieNet;         //Represents the consumed calories - exercise calories burnt
 
     //dependency injectable constructor
     public MealDiaryOps(DataAccessStub db) {
-        this.listDate = Calendar.getInstance();
+        this.logDate = Calendar.getInstance();
 
         this.calorieConsumed = -1;
         this.calorieExercise = -1;
@@ -42,39 +43,55 @@ public class MealDiaryOps { //will need cache added
 
         if (db != null) {
             this.db = db;
+            this.opUser = new UserDataOps(db);
             this.pullDBdata();
             this.updateProgress();
-        }
+        }    
     }
 
 
+    private Integer calendarToInt(Calendar date) {
+        return Integer.parseInt(String.valueOf(date.get(Calendar.YEAR)) + String.valueOf(date.get(Calendar.DAY_OF_YEAR)));
+    }
+
     private void pullDBdata() {
-        this.todayFoodList = new LinkedList<Edible>(db.getFoodList(listDate));
-        this.calorieExercise = db.getExerciseActual();
-        this.calorieGoal = db.getCalorieGoal();
+        this.currLog = this.selectFoodLogByDate(logDate);
+        //this.calorieExercise = db.getExerciseActual();
+        this.calorieGoal = currLog.getCalGoal();
+    }
+
+    private DailyLog selectFoodLogByDate(Calendar date) { //creates a new one but it does not exist in the list so it breaks for days not already in list
+        DailyLog currLog = this.db.searchFoodLogByDate(date); //search for food log
+
+        if (currLog != null) { //if doesnt exist generate a new one
+            currLog = new DailyLog();
+            currLog.init(calendarToInt(date), this.opUser.getUser().getCalorieGoal(), 0, 0, emptyLog());
+        }
+
+        return currLog;
     }
 
     public void nextDate() {
-        listDate.add(Calendar.DAY_OF_YEAR, INCREMENT);
+        logDate.add(Calendar.DAY_OF_YEAR, INCREMENT);
         this.dateChangedUpdateList();
     }
 
     public void prevDate() {
-        listDate.add(Calendar.DAY_OF_YEAR, -INCREMENT);
+        logDate.add(Calendar.DAY_OF_YEAR, -INCREMENT);
         this.dateChangedUpdateList();
     }
 
     public void setListDate(Calendar newDate) {
-        Integer diff = listDate.get(Calendar.YEAR) - newDate.get(Calendar.YEAR);
+        Integer diff = logDate.get(Calendar.YEAR) - newDate.get(Calendar.YEAR);
 
         if (diff <= DATE_LIMIT && diff >= -DATE_LIMIT) { //if within 2 years
-            this.listDate = newDate;
+            this.logDate = newDate;
             this.dateChangedUpdateList();
         }
     }
 
-    private void dateChangedUpdateList() {
-        db.updateSelectedFoodLogFoodList(new ArrayList<Edible>(this.todayFoodList));
+    private void dateChangedUpdateList() { //update before you change
+        //db.updateSelectedFoodLogFoodList(new ArrayList<Edible>(this.currLog.getFoodList()));
 
         this.pullDBdata();
         this.updateProgress();
@@ -96,16 +113,16 @@ public class MealDiaryOps { //will need cache added
         }
     }
 
-    public void updateList(LinkedList<Edible> newList) {
+    public void updateList(ArrayList<Edible> newList) {
         if (newList != null) {
-            this.todayFoodList = newList;
-            db.updateSelectedFoodLogFoodList(new ArrayList<Edible>(newList));
+            this.currLog.setFoodList(newList);
+            //db.updateSelectedFoodLogFoodList(new ArrayList<Edible>(newList));
             this.updateProgress();
         }
     }
 
     public Calendar getListDate() {
-        return this.listDate;
+        return this.logDate;
     }
 
     public Integer getCalorieGoal() {
@@ -132,14 +149,24 @@ public class MealDiaryOps { //will need cache added
         return this.progressExcess;
     }
 
-    public LinkedList<Edible> getList() {
-        return this.todayFoodList;
+    public ArrayList<Edible> getList() {
+        return this.currLog.getFoodList();
     }
 
     private void updateProgress() {
         this.sumCalories();
         this.netCalories();
         this.calcProgress();
+    }
+
+    private ArrayList<Edible> emptyLog() {
+        ArrayList<Edible> result = new ArrayList<Edible>();
+        Food addLog = new Food();
+        addLog.init("uielement", 0, 0, ListItem.FragmentType.diaryAdd, Edible.Unit.cups, 1, 0);
+
+        result.add(addLog);
+
+        return result;
     }
 
     private void calcProgress() {
@@ -160,11 +187,11 @@ public class MealDiaryOps { //will need cache added
     }
 
     private void sumCalories() {
-        if (this.todayFoodList != null) {
+        if (this.currLog != null) {
             this.calorieConsumed = 0;
 
-            for (int i = 0; i < this.todayFoodList.size(); i++) {
-                this.calorieConsumed += this.todayFoodList.get(i).getCalories();
+            for (int i = 0; i < this.currLog.getFoodList().size(); i++) {
+                this.calorieConsumed += this.currLog.getFoodList().get(i).getCalories();
             }
         }
     }
@@ -178,7 +205,7 @@ public class MealDiaryOps { //will need cache added
 
         if (tempEdible != null) {
             tempEdible.setFragmentType(ListItem.FragmentType.diaryEntry);
-            this.todayFoodList.add(this.todayFoodList.size() - 1, tempEdible);
+            this.currLog.getFoodList().add(this.currLog.getFoodList().size() - 1, tempEdible);
         }
 
         this.updateProgress();

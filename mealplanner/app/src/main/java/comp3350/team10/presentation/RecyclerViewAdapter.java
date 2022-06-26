@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.FrameLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipeBook.ViewHolder> {
-    private LinkedList<Edible> localDataSet;            // the list Recyclerview renders
+    private ArrayList<Edible> localDataSet;            // the list Recyclerview renders
     private Edible saved;                               // var to save a meal entry when we show context UI
 
     @Override
@@ -32,11 +32,11 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
         }
     }
 
-    public RecyclerViewAdapter(LinkedList<Edible> dataSet) {
+    public RecyclerViewAdapter(ArrayList<Edible> dataSet) {
         this.localDataSet = dataSet;
     }
 
-    public void changeData(LinkedList<Edible> newData) {
+    public void changeData(ArrayList<Edible> newData) {
         this.localDataSet = newData;
         this.notifyDataSetChanged();
     }
@@ -46,7 +46,7 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
         return this.localDataSet.size();
     }
 
-    public LinkedList<Edible> getDataset() {
+    public ArrayList<Edible> getDataset() {
         return this.localDataSet;
     }
 }

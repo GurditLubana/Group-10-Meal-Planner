@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;

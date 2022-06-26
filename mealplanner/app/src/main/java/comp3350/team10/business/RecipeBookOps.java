@@ -4,12 +4,12 @@ import comp3350.team10.objects.*;
 import comp3350.team10.persistence.*;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class RecipeBookOps {
     private static enum RecipeBook {FOOD, DRINKS, MEALS} ; //Possible Edible type views
 
-    private LinkedList<Edible> selectedList;    //The recipes available for the current view
+    private ArrayList<Edible> selectedList;    //The recipes available for the current view
     private RecipeBook selectedType;            //The selected Edible type view (see enum on line 18)
     private DataAccessStub db;                  //Accesses the database
 
@@ -31,21 +31,21 @@ public class RecipeBookOps {
         }
     }
 
-    public LinkedList<Edible> getFoodRecipes() {
+    public ArrayList<Edible> getFoodRecipes() {
         this.selectedType = RecipeBook.FOOD;
         this.pullDBdata();
 
         return this.selectedList;
     }
 
-    public LinkedList<Edible> getDrinkRecipes() {
+    public ArrayList<Edible> getDrinkRecipes() {
         this.selectedType = RecipeBook.DRINKS;
         this.pullDBdata();
 
         return this.selectedList;
     }
 
-    public LinkedList<Edible> getMealRecipes() {
+    public ArrayList<Edible> getMealRecipes() {
         this.selectedType = RecipeBook.MEALS;
         this.pullDBdata();
 

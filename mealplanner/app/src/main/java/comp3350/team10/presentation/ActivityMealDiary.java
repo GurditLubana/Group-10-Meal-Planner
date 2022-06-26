@@ -23,7 +23,7 @@ import android.os.Bundle;
 
 import com.google.android.material.datepicker.*;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToMealDiary {
@@ -34,10 +34,9 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     private MealDiaryLiveData mealDiaryData;    //Enables persistent data
     private RecyclerView mealRecyclerView;      //Houses a recycle view for diary entries
     private MealDiaryOps opExec;                //Business logic for MealDiary
-    private UserDataOps opUser;                 //Buisness logic for handling the app's user
     private Toolbar toolbar;                    //app title
 
-    private LinkedList<Edible> data;            //The data for the diary entries
+    private ArrayList<Edible> data;            //The data for the diary entries
     private int savedItemPosition;              //Saves the position of an item for temporary removal
     private Edible savedItem;                   //Saves the item for temporary removal
     private EntryMode mode;                     //This tracks the type of input dialog when launched
@@ -50,7 +49,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         setContentView(R.layout.activity_meal_diary);
         SharedDB.start("EaTen");
         this.initToolbar();
-        this.opUser = new UserDataOps(SharedDB.getSharedDB());
         this.opExec = new MealDiaryOps(SharedDB.getSharedDB());
         this.initLiveData();
         this.initRecyclerView();
@@ -272,7 +270,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     @Override
-    public void setGoalCalories(Integer value) {
+    public void setGoalCalories(Integer value) { //only on current day
         this.opExec.setCalorieGoal(value);
         this.updateLiveData();
     }
