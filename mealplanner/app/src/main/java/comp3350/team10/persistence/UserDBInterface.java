@@ -11,5 +11,5 @@ public interface UserDBInterface {
     public void setHeight(int newHeight);
     public void setWeight(int newWeight);
     public void setCalorieGoal(int goal, Calendar date);
-    public void setExerciseGoal(int goal);
+    public void setExerciseGoal(int goal, Calendar date);
 }

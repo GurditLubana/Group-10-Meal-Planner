@@ -188,17 +188,14 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
         return null;
     }
 
-    @Override
     public ArrayList<Edible> getFoodRecipes() {
         return null;
     }
 
-    @Override
     public ArrayList<Edible> getMealRecipes() {
         return null;
     }
 
-    @Override
     public ArrayList<Edible> getDrinkRecipes() {
         return null;
     }
@@ -260,6 +257,10 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
     }
 
     public void setCalorieGoal(int goal, Calendar date) {
+
+    }
+
+    public void setExerciseGoal(int goal, Calendar date) {
 
     }
 

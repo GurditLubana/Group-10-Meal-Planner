@@ -56,14 +56,14 @@ public class MealDiaryOps {
 
     private void pullDBdata() {
         this.currLog = this.selectFoodLogByDate(logDate);
-        //this.calorieExercise = db.getExerciseActual();
+        this.calorieExercise = currLog.getExcActual();
         this.calorieGoal = currLog.getCalGoal();
     }
 
     private DailyLog selectFoodLogByDate(Calendar date) { //creates a new one but it does not exist in the list so it breaks for days not already in list
         DailyLog currLog = this.db.searchFoodLogByDate(date); //search for food log
 
-        if (currLog != null) { //if doesnt exist generate a new one
+        if (currLog == null) { //If doesnt exist generate a new one
             currLog = new DailyLog();
             currLog.init(calendarToInt(date), this.opUser.getUser().getCalorieGoal(), 0, 0, emptyLog());
             db.addLog(currLog);
@@ -92,8 +92,6 @@ public class MealDiaryOps {
     }
 
     private void dateChangedUpdateList() { //update before you change
-        //db.updateSelectedFoodLogFoodList(new ArrayList<Edible>(this.currLog.getFoodList()));
-
         this.pullDBdata();
         this.updateProgress();
     }
@@ -109,15 +107,16 @@ public class MealDiaryOps {
     public void setCalorieExercise(Integer newExercise) {
         if (newExercise != null && newExercise >= 0 && newExercise <= GOAL_LIMIT) {
             this.calorieExercise = newExercise;
-            db.setExerciseActual(newExercise);
+            db.setExerciseActual(newExercise, logDate);
             this.updateProgress();
         }
     }
 
     public void updateList(ArrayList<Edible> newList) {
         if (newList != null) {
+            this.db.deleteLog(currLog);
             this.currLog.setFoodList(newList);
-            //db.updateSelectedFoodLogFoodList(new ArrayList<Edible>(newList));
+            this.db.addLog(currLog);
             this.updateProgress();
         }
     }

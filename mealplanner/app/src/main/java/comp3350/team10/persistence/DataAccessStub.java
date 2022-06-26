@@ -397,36 +397,34 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
     }
 
     public void setCalorieGoal(int goal, Calendar date) {
-        int currLog = this.dbFoodLog.indexOf(searchFoodLogByDate(date));
-        DailyLog currEntry;
+        DailyLog currEntry = searchFoodLogByDate(date);
         int currLogIndex;
 
         sortDBFoodLog();
-        currLogIndex = this.dbFoodLog.indexOf(currLog);
+        currLogIndex = this.dbFoodLog.indexOf(currEntry);
         this.currUser.setCalorieGoal(goal);
 
         for(int i = currLogIndex; i < this.dbFoodLog.size(); i++) {
             currEntry = this.dbFoodLog.get(i);
             this.dbFoodLog.remove(currEntry);
             currEntry.setCalGoal(goal);
-            this.dbFoodLog.add(currEntry);
+            this.dbFoodLog.add(i, currEntry);
         }        
     }
 
     public void setExerciseGoal(int goal, Calendar date) {
-        int currLog = this.dbFoodLog.indexOf(searchFoodLogByDate(date));
-        DailyLog currEntry;
+        DailyLog currEntry = searchFoodLogByDate(date);
         int currLogIndex;
 
         sortDBFoodLog();
-        currLogIndex = this.dbFoodLog.indexOf(currLog);
+        currLogIndex = this.dbFoodLog.indexOf(currEntry);
         this.currUser.setExerciseGoal(goal);
 
         for(int i = currLogIndex; i < this.dbFoodLog.size(); i++) {
             currEntry = this.dbFoodLog.get(i);
             this.dbFoodLog.remove(currEntry);
             currEntry.setCalGoal(goal);
-            this.dbFoodLog.add(currEntry);
+            this.dbFoodLog.add(i, currEntry);
         }
     }
 
