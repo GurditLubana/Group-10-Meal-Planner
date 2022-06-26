@@ -102,13 +102,12 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
         db.execSQL("create table DrinkIngredient (" +
             "DrinkID            INTEGER       not null," +
             "FoodIngredientID   INTEGER," +
-            "DrinkIngredientID  INTEGER," +
             "Substitute         BOOLEAN       not null," +
+            "Quantity           INTEGER       not null," +
             "Unit               VARCHAR(9999) not null," +
 
             "FOREIGN KEY(DrinkID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE," +
-            "FOREIGN KEY(FoodIngredientID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE," +
-            "FOREIGN KEY(DrinkIngredientID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE);"
+            "FOREIGN KEY(FoodIngredientID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE);"
         );
     }
 
@@ -116,13 +115,11 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
         db.execSQL("create table MealIngredient (" +
             "MealID             INTEGER       not null," +
             "FoodIngredientID   INTEGER," +
-            "DrinkIngredientID  INTEGER," +
             "Quantity           INTEGER       not null," +
             "Unit               VARCHAR(9999) not null," +
 
             "FOREIGN KEY(MealID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE," +
-            "FOREIGN KEY(FoodIngredientID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE," +
-            "FOREIGN KEY(DrinkIngredientID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE);"
+            "FOREIGN KEY(FoodIngredientID) REFERENCES Edible(EdibleID) ON DELETE CASCADE ON UPDATE CASCADE);"
         );
     }
 

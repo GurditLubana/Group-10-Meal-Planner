@@ -1,10 +1,10 @@
 package comp3350.team10.objects;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 public abstract class PreparedItem extends Edible {
-    private String[] instructions;  //The instructions required for the item to prepare
-
+    private ArrayList<String> instructions;     //The instructions required for the Edible to prepare
 
     public PreparedItem() {
         super();
@@ -12,23 +12,23 @@ public abstract class PreparedItem extends Edible {
         this.instructions = null;
     }
 
-    public boolean init(String name, int iconPath, int calories, String instructions, ListItem.FragmentType type, Unit baseUnit, int quantity, int dbkey) {
-        return super.init(name, iconPath, calories, type, baseUnit, quantity, dbkey) && this.changeInstructions(instructions);
+
+    public void init(int id, String name, String desc, int qty, Unit unit, imageView photo, ListItem.FragmentType view, 
+            ArrayList<String> instructions) throws IOException {
+        super.init(id, name, desc, qty, unit, photo, view);
+        this.setInstructions(instructions);
     }
 
-
-    public String getInstructions() {
-        return instructions;
-    }
-
-    public boolean changeInstructions(String newInstructions) {
-        boolean results = false;
-
-        if (newInstructions != null) {
+    public void setInstructions(ArrayList<String> newInstructions) throws IOException {
+        if (newInstructions != null && !newInstructions.contains(null)) {
             this.instructions = newInstructions;
-            results = true;
         }
+        else {
+            throw new IOException("Invalid instructions");
+        }
+    }
 
-        return results;
+    public ArrayList<String> getInstructions() {
+        return this.instructions;
     }
 }

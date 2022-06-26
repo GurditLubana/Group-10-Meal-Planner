@@ -40,11 +40,11 @@ public abstract class Edible implements ListItem {
         this.fragmentType = null;
     }
 
-    public void init(int id, String name, String desc, int quantity, Unit unit, imageView photo, ListItem.FragmentType view) throws IOException {
-        this.setID(id);
+    public void init(int id, String name, String desc, int qty, Unit unit, imageView photo, ListItem.FragmentType view) throws IOException {
+        this.setDBKey(id);
         this.setName(name);
         this.setDescription(desc);
-        this.setQuantity(quantity);
+        this.setQuantity(qty);
         this.setQuantityUnit(unit);
 
         this.setPhoto(photo);
@@ -96,7 +96,7 @@ public abstract class Edible implements ListItem {
         }
     }
 
-    private void setDbkey(int dbkey) throws IOException {
+    private void setDBKey(int dbkey) throws IOException {
         if(dbkey >= 0) {
             this.dbkey = dbkey;
         }
