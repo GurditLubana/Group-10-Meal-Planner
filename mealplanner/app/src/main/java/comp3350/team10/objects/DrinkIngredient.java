@@ -1,3 +1,5 @@
+package comp3350.team10.objects;
+
 import java.io.IOException;
 
 public class DrinkIngredient extends Ingredient {

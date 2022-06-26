@@ -1,6 +1,9 @@
 package comp3350.team10.objects;
 
+import android.widget.ImageView;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Drink extends PreparedItem {
@@ -17,15 +20,15 @@ public class Drink extends PreparedItem {
     }
 
 
-    public void init(int id, String name, String desc, int qty, Unit unit, imageView photo, ListItem.FragmentType view, 
-            ArrayList<String> instructions, ArrayList<DrinkIngredients> ingredients) throws IOException {
+    public void init(int id, String name, String desc, int qty, Unit unit, ImageView photo, ListItem.FragmentType view,
+                     ArrayList<String> instructions, ArrayList<DrinkIngredient> ingredients) throws IOException {
         super.init(id, name, desc, qty, unit, photo, view, instructions);
         this.setIngredients(ingredients);
         this.setAlcoholic(ingredients);
         this.setSpicy(ingredients);
     }
 
-    public void setIngredients(ArrayList<DrinkIngredients> newIngredients) throws IOException {
+    public void setIngredients(ArrayList<DrinkIngredient> newIngredients) throws IOException {
         if (newIngredients != null && !newIngredients.contains(null)) {
             this.ingredients = newIngredients;
         }
@@ -34,7 +37,7 @@ public class Drink extends PreparedItem {
         }
     }
 
-    private void setAlcoholic(ArrayList<DrinkIngredients> ingredients) {
+    private void setAlcoholic(ArrayList<DrinkIngredient> ingredients) { //has two .. this probably should be refactored later
         boolean isAlcoholic = false;
 
         for(int i = 0 ; i < ingredients.size() && !isAlcoholic; i++) {
@@ -44,7 +47,7 @@ public class Drink extends PreparedItem {
         }
     }
 
-    private void setSpicy(ArrayList<DrinkIngredients> ingredients) {
+    private void setSpicy(ArrayList<DrinkIngredient> ingredients) {
         boolean isSpicy = false;
 
         for(int i = 0 ; i < ingredients.size() && !isSpicy; i++) {
@@ -54,7 +57,7 @@ public class Drink extends PreparedItem {
         }
     }
 
-    public DrinkIngredient[] getIngredients() {
+    public ArrayList<DrinkIngredient> getIngredients() {
         return this.ingredients;
     }
 

@@ -1,3 +1,5 @@
+package comp3350.team10.objects;
+
 import java.io.IOException;
 
 public class Ingredient {
@@ -12,7 +14,7 @@ public class Ingredient {
     }
 
 
-    public init(Food ingredient, int quantity, Edible.Unit quantityUnit) throws IOException {
+    public void init(Food ingredient, int quantity, Edible.Unit quantityUnit) throws IOException {
         this.setIngredient(ingredient);
         this.setQuantity(quantity);
         this.setQuantityUnit(quantityUnit);

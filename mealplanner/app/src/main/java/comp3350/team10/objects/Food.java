@@ -1,10 +1,13 @@
 package comp3350.team10.objects;
 
+import android.widget.ImageView;
+
 import java.io.IOException;
 
 public class Food extends Edible {
     private boolean vegan;
     private boolean vegetarian;
+    private boolean glutenFree;
     private boolean spicy;
     private boolean breakfast;
     private boolean lunch;
@@ -16,6 +19,7 @@ public class Food extends Edible {
 
         this.vegan = false;
         this.vegetarian = false;
+        this.glutenFree = false;
         this.spicy = false;
         this.breakfast = false;
         this.lunch = false;
@@ -24,16 +28,13 @@ public class Food extends Edible {
     }
 
 
-    public void init(ListItem.FragmentType view) throws IOException {   //used for add card
-        super.init(view);
-    }
-
-    public void init(int id, String name, String desc, int qty, Unit unit, imageView photo, ListItem.FragmentType view,
-            boolean isVegan, boolean isVegetarian, boolean isSpicy, boolean isBreakfastFood, boolean isLunchFood,
-            boolean isSupperFood, boolean isAlcoholic) throws IOException {
+    public void init(int id, String name, String desc, int qty, Unit unit, ImageView photo, ListItem.FragmentType view,
+                     boolean isVegan, boolean isVegetarian, boolean isGlutenFree, boolean isSpicy, boolean isBreakfastFood,
+                     boolean isLunchFood, boolean isSupperFood, boolean isAlcoholic) throws IOException {
         super.init(id, name, desc, qty, unit, photo, view);
         this.setVegan(isVegan);
         this.setVegetarian(isVegetarian);
+        this.setGlutenFree(isGlutenFree);
         this.setSpicy(isSpicy);
         this.setBreakfast(isBreakfastFood);
         this.setLunch(isLunchFood);
@@ -49,6 +50,9 @@ public class Food extends Edible {
         this.vegetarian = isVegetarian;
     }
 
+    private void setGlutenFree(boolean isGluteFree) {
+        this.glutenFree = isGluteFree;
+    }
     private void setSpicy(boolean isSpicy) {
         this.spicy = isSpicy;
     }
@@ -77,6 +81,9 @@ public class Food extends Edible {
         return this.vegetarian;
     }
 
+    public boolean isGlutenFree() {
+        return this.glutenFree;
+    }
     public boolean isSpicy() {
         return this.spicy;
     }

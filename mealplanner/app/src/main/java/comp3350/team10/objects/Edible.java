@@ -1,8 +1,10 @@
 package comp3350.team10.objects;
 
+import android.widget.ImageView;
+
 import java.io.IOException;
 
-import javax.swing.text.html.ImageView;
+import android.widget.ImageView;
 
 public abstract class Edible implements ListItem {
     public enum Unit {cups, oz, g, serving, tbsp, tsp, ml, liter}; //All possible units for a given edible
@@ -21,7 +23,7 @@ public abstract class Edible implements ListItem {
     private int fat;                            //The fat value
 
     //Metadata
-    private imageView photo;                    //The image path for a given edible
+    private ImageView photo;                    //The image path for a given edible
     private ListItem.FragmentType fragmentType; //How it should appear on recycler views                        
 
     public Edible() {
@@ -36,11 +38,11 @@ public abstract class Edible implements ListItem {
         this.carbs = 0;
         this.fat = 0;
 
-        this.photo = -1;
+        this.photo = null;
         this.fragmentType = null;
     }
 
-    public void init(int id, String name, String desc, int qty, Unit unit, imageView photo, ListItem.FragmentType view) throws IOException {
+    public void init(int id, String name, String desc, int qty, Unit unit, ImageView photo, ListItem.FragmentType view) throws IOException {
         this.setDBKey(id);
         this.setName(name);
         this.setDescription(desc);
@@ -49,6 +51,14 @@ public abstract class Edible implements ListItem {
 
         this.setPhoto(photo);
         this.setFragmentType(view);
+    }
+
+    public void setQuantityUnit(Unit unit) {
+
+    }
+
+    public void setDescription(String description) {
+
     }
 
     public void modifyCalories(int amount) throws IOException {
@@ -98,7 +108,7 @@ public abstract class Edible implements ListItem {
 
     private void setDBKey(int dbkey) throws IOException {
         if(dbkey >= 0) {
-            this.dbkey = dbkey;
+            this.edibleID = dbkey;
         }
         else {
             throw new IOException("Invalid DB key");
@@ -131,7 +141,7 @@ public abstract class Edible implements ListItem {
         return this.name;
     }
 
-    public int getPhoto() {
+    public ImageView getPhoto() {
         return this.photo;
     }
 

@@ -1,5 +1,10 @@
 package comp3350.team10.objects;
 
+import android.widget.ImageView;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Meal extends PreparedItem {
     private ArrayList<Ingredient> ingredients;  //The ingredients in the meal
     private boolean vegan;                      //Flag that represents whether this meal is vegan or not
@@ -24,9 +29,9 @@ public class Meal extends PreparedItem {
     }
 
 
-    public init(int id, String name, String desc, int qty, Unit unit, imageView photo, ListItem.FragmentType view, 
-            ArrayList<String> instructions, ArrayList<Ingredients> ingredients, boolean isBreakfastMeal,
-            boolean isLunchMeal, boolean isSupperMeal) throws IOException {
+    public void init(int id, String name, String desc, int qty, Unit unit, ImageView photo, ListItem.FragmentType view,
+                ArrayList<String> instructions, ArrayList<Ingredient> ingredients, boolean isBreakfastMeal,
+                boolean isLunchMeal, boolean isSupperMeal) throws IOException {
         super.init(id, name, desc, qty, unit, photo, view, instructions);
         this.setIngredients(ingredients);
         this.setVegan(ingredients);

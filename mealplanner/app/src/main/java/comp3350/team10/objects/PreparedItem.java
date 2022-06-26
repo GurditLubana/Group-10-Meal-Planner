@@ -1,6 +1,9 @@
 package comp3350.team10.objects;
 
+import android.widget.ImageView;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public abstract class PreparedItem extends Edible {
@@ -13,8 +16,8 @@ public abstract class PreparedItem extends Edible {
     }
 
 
-    public void init(int id, String name, String desc, int qty, Unit unit, imageView photo, ListItem.FragmentType view, 
-            ArrayList<String> instructions) throws IOException {
+    public void init(int id, String name, String desc, int qty, Unit unit, ImageView photo, ListItem.FragmentType view,
+                     ArrayList<String> instructions) throws IOException {
         super.init(id, name, desc, qty, unit, photo, view);
         this.setInstructions(instructions);
     }
