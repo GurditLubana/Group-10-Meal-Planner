@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ArrayList;
 
+import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Food;
 import comp3350.team10.objects.Meal;
+import comp3350.team10.objects.User;
 
 public class DBSelector {
     private HSqlDB hsql;                //An active instance of the HSQL database
