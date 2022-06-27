@@ -11,7 +11,7 @@ import comp3350.team10.objects.Edible;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class TestMealDiaryOps {
 
@@ -152,8 +152,8 @@ public class TestMealDiaryOps {
         @DisplayName("Switching dates results in updated food log")
         void newDate(){
             boolean identical = true;
-            LinkedList testList = null;
-            LinkedList todayList = ops.getList();
+            ArrayList testList = null;
+            ArrayList todayList = ops.getList();
             Calendar newDate = Calendar.getInstance();
             newDate.set(Calendar.DAY_OF_YEAR, newDate.get(Calendar.DAY_OF_YEAR)-1);
             ops.setListDate(newDate);

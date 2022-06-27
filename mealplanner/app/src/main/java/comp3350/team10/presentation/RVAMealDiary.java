@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import comp3350.team10.R;
 import comp3350.team10.objects.Edible;
@@ -15,7 +15,7 @@ import comp3350.team10.objects.Edible;
 public class RVAMealDiary extends RecyclerViewAdapter {
     private FragToMealDiary sendToMealDiary;            // interface to pass data to mealdiary
 
-    public RVAMealDiary(LinkedList<Edible> dataSet) {
+    public RVAMealDiary(ArrayList<Edible> dataSet) {
         super(dataSet);
     }
 
