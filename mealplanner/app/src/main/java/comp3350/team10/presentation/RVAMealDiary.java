@@ -11,11 +11,13 @@ import java.util.ArrayList;
 
 import comp3350.team10.R;
 import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.EdibleLog;
+import comp3350.team10.objects.ListItem;
 
 public class RVAMealDiary extends RecyclerViewAdapter {
     private FragToMealDiary sendToMealDiary;            // interface to pass data to mealdiary
 
-    public RVAMealDiary(ArrayList<Edible> dataSet) {
+    public RVAMealDiary(ArrayList<ListItem> dataSet) {
         super(dataSet);
     }
 
@@ -71,12 +73,16 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         TextView itemCals = viewHolder.getView().findViewById(R.id.itemCalsBox);
         ImageView itemImage = viewHolder.getView().findViewById(R.id.itemImage);
 
-        Edible currentItem = super.getDataset().get(position);
-        itemName.setText(currentItem.getName());
-        itemQty.setText(String.format("%3d", currentItem.getQuantity()));
-        itemUnit.setText(currentItem.getBaseUnit().name());
-        itemCals.setText(String.format("%3d", currentItem.getCalories()));
-        itemImage.setImageResource(currentItem.getIconPath());
+        ListItem currentItem = super.getDataset().get(position);
+        EdibleLog currentLog;
+        if(currentItem instanceof EdibleLog) {
+            currentLog = (EdibleLog)currentItem;
+            itemName.setText(currentLog.getEdibleEntry().getName());
+            itemQty.setText(String.format("%3d", currentLog.getQuantity()));
+            itemUnit.setText(currentLog.getUnit().name());
+            itemCals.setText(String.format("%3d", currentLog.getEdibleEntry().getCalories()));
+            //itemImage.setImageResource(currentItem.getIconPath());
+        }
     }
 
 

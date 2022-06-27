@@ -55,33 +55,41 @@ public abstract class Edible implements ListItem {
     }
 
     
-    public void initDetails(int id, String name, String description, int quantity, Unit unit) throws IOException {
+    public Edible initDetails(int id, String name, String description, int quantity, Unit unit) throws IOException {
         this.setDBKey(id);
         this.setName(name);
         this.setDescription(description);
         this.setBaseQuantity(quantity);
         this.setBaseUnit(unit);
+
+        return this;
     }
     
-    public void initNutrition(int calories, int protein, int carbs, int fat) throws IOException {
+    public Edible initNutrition(int calories, int protein, int carbs, int fat) throws IOException {
         this.setCalories(calories);
         this.setProtein(protein);
         this.setCarbs(carbs);
         this.setFat(fat);
+
+        return this;
     }
 
-    public void initCategories(boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree) {
+    public Edible initCategories(boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree) {
         this.setAlcoholic(alcoholic);
         this.setSpicy(spicy);
         this.setVegan(vegan);
         this.setVegetarian(vegetarian);
         this.setGlutenFree(glutenFree);
+
+        return this;
     }
 
-    public void initMetadata(boolean custom, byte[] photo, ListItem.FragmentType view) throws IOException {
+    public Edible initMetadata(boolean custom, byte[] photo, ListItem.FragmentType view) throws IOException {
         this.setCustom(custom);
         this.setPhotoBytes(photo);
         this.setFragmentType(view);
+
+        return this;
     }
 
     

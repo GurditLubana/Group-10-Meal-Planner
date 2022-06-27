@@ -119,7 +119,7 @@ public class MealDiaryOps { //this needs to select the correct fragment
         }
     }
 
-    public void updateList(ArrayList<Edible> newList) {
+    public void updateList(ArrayList<EdibleLog> newList) {
         try {
             if (newList != null) {
                 this.db.deleteLog(currLog);
@@ -153,8 +153,12 @@ public class MealDiaryOps { //this needs to select the correct fragment
         return this.progressExcess;
     }
 
-    public ArrayList<Edible> getList() {
+    public ArrayList<EdibleLog> getList() {
         return this.currLog.getEdibleList();
+    }
+
+    public DailyLog getCurrLog() {
+        return this.currLog;
     }
 
     private void updateProgress() {
@@ -162,19 +166,21 @@ public class MealDiaryOps { //this needs to select the correct fragment
         this.calcProgress();
     }
 
-    private ArrayList<Edible> emptyLog() {
-        ArrayList<Edible> empty = new ArrayList<Edible>();
+    private ArrayList<EdibleLog> emptyLog() {
+        ArrayList<EdibleLog> edibleLog = new ArrayList<EdibleLog>();
+        EdibleLog emptyLog = new EdibleLog();
         Food addLog = new Food();
 
         try {
             addLog.setFragmentType(ListItem.FragmentType.diaryAdd);
-            empty.add(addLog);
+            emptyLog.setEdibleEntry(addLog);
+            edibleLog.add(emptyLog);
         }
         catch(Exception e) {
             System.out.println(e);
         }
 
-        return empty;
+        return edibleLog;
     }
 
     private void calcProgress() {
@@ -200,11 +206,13 @@ public class MealDiaryOps { //this needs to select the correct fragment
 
     public void addByKey(int dbkey) {
         Edible tempEdible = db.findEdibleByKey(dbkey);
+        EdibleLog tempLog = new EdibleLog();
 
         try {
             if (tempEdible != null) {
                 tempEdible.setFragmentType(ListItem.FragmentType.diaryEntry);
-                this.currLog.getEdibleList().add(this.currLog.getEdibleList().size() - 1, tempEdible);
+                tempLog.setEdibleEntry(tempEdible);
+                this.currLog.getEdibleList().add(this.currLog.getEdibleList().size() - 1, tempLog);
                 this.updateProgress();
             }
         }

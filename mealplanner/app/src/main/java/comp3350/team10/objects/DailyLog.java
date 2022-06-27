@@ -27,18 +27,15 @@ public class DailyLog {
     }
 
 
-    public void init(int date, ArrayList<EdibleLog> log, int calGoal, int excGoal, int excActual) throws IOException {
+    public DailyLog init(int date, ArrayList<EdibleLog> log, int calGoal, int excGoal, int excActual) throws IOException {
         this.setDate(date);
         this.setEdibleList(log);
         this.setCalorieGoal(calGoal);
         this.setExerciseGoal(excGoal);
         this.setExerciseActual(excActual);
         this.setCalorieActual(this.calculateCalories());
-    }
-        
-    public void init(int date, ArrayList<EdibleLog> log, int calGoal, int excGoal, int excActual, int calActual) throws IOException {
-        this.init(date, log, calGoal, excGoal, excActual);
-        this.setCalorieActual(calActual);
+
+        return this;
     }
 
     private void setDate(int date) throws IOException {
@@ -119,6 +116,10 @@ public class DailyLog {
 
     public int getCalorieGoal() {
         return this.calorieGoal;
+    }
+
+    public int getCalorieActual() {
+        return this.calorieActual;
     }
 
     public int getDate() {

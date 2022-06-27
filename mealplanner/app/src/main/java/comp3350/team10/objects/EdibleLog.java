@@ -2,7 +2,7 @@ package comp3350.team10.objects;
 
 import java.io.IOException;
 
-public class EdibleLog {
+public class EdibleLog implements ListItem {
     private Edible edibleEntry;
     private int quantity;
     private Edible.Unit unit;
@@ -11,16 +11,18 @@ public class EdibleLog {
 
     }
 
+    //need to create a relative calorie function
 
-    public void init(Edible edibleEntry, int quantity, Edible.Unit unit) throws IOException{
+    public EdibleLog init(Edible edibleEntry, int quantity, Edible.Unit unit) throws IOException{
         this.setEdibleEntry(edibleEntry);
         this.setQuantity(quantity);
         this.setUnit(unit);
+
+        return this;
     }
 
     public void setEdibleEntry(Edible newEdible) throws IOException {
-        if(newEdible != null && newEdible.getCalories() != -1 && newEdible.getProtein() != -1 && newEdible.getCarbs() != -1 
-                && newEdible.getFat() != -1) {
+        if(newEdible != null) {
             this.edibleEntry = newEdible;
         }
         else {
@@ -56,5 +58,9 @@ public class EdibleLog {
 
     public Edible.Unit getUnit() {
         return this.unit;
+    }
+
+    public FragmentType getFragmentType() {
+        return this.edibleEntry.getFragmentType();
     }
 }

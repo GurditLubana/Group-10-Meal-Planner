@@ -3,9 +3,11 @@ package comp3350.team10.business;
 import android.widget.ImageView;
 
 import comp3350.team10.objects.*;
+import comp3350.team10.objects.Ingredient;
 import comp3350.team10.persistence.*;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class RecipeBookOps { //this needs to select the corect fragment
@@ -53,15 +55,17 @@ public class RecipeBookOps { //this needs to select the corect fragment
 
         return this.selectedList;
     }
-
-    public void addFood(String name, String desc, int qty, Edible.Unit unit, ImageView photo, ListItem.FragmentType view,
-             boolean isVegan, boolean isVegetarian, boolean isGlutenFree, boolean isSpicy, boolean isBreakfastFood,
-             boolean isLunchFood, boolean isSupperFood, boolean isAlcoholic) {
+    //might want to just pass the object in here later?
+    public void addFood(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat,
+            boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, byte[] photo) {
         Food newFood = new Food();
 
         try {
-            newFood.init(db.getNextKey(), name, desc, qty, unit, photo, view, isVegan, isVegetarian, isGlutenFree, isSpicy, isBreakfastFood,
-                isLunchFood, isSupperFood, isAlcoholic);
+            newFood.initDetails(db.getNextKey(), name, desc, qty, unit);
+            newFood.initNutrition(calories, protein, carbs, fat);
+            newFood.initCategories(alcoholic, spicy, vegan, vegetarian, glutenFree);
+            newFood.setCustom(true);
+            newFood.setPhotoBytes(photo);
             db.addFoodToRecipeBook(newFood);
         }
         catch(Exception e) {
@@ -69,27 +73,61 @@ public class RecipeBookOps { //this needs to select the corect fragment
         }
     }
 
-    public void addMeal(String name, String desc, int qty, Edible.Unit unit, ImageView photo, ListItem.FragmentType view,
-            ArrayList<String> instructions, ArrayList<Ingredient> ingredients, boolean isBreakfastMeal, boolean isLunchMeal,
-            boolean isSupperMeal) {
+    public void addMeal(String name, String desc, int qty, Edible.Unit unit, byte[] photo, String instructions,
+            ArrayList<Ingredient> ingredients) {
         Meal newMeal = new Meal();
 
         try {
-            newMeal.init(db.getNextKey(), name, desc, qty, unit, photo, view, instructions, ingredients, isBreakfastMeal,
-                    isLunchMeal, isSupperMeal);
+            newMeal.initDetails(db.getNextKey(), name, desc, qty, unit);
+            newMeal.setInstructions(instructions);
+            newMeal.setIngredients(ingredients);
+            newMeal.setCustom(true);
+            newMeal.setPhotoBytes(photo);
+
+            this.checkIngredients(newMeal, ingredients);
+
             db.addMealToRecipeBook(newMeal);
         }
         catch(Exception e) {
             System.out.println(e);
         }
     }
-//have 2 differnet add drink types
-    public void addDrink(String name, String desc, int qty, Edible.Unit unit, ImageView photo, ListItem.FragmentType view,
-            ArrayList<String> instructions, ArrayList<DrinkIngredient> ingredients) {
+
+    private void checkIngredients(PreparedItem currEdible, ArrayList<Ingredient> ingredients) throws IOException {
+        currEdible.calcCalories(ingredients);
+        currEdible.calcProtein(ingredients);
+        currEdible.calcCarbs(ingredients);
+        currEdible.calcFat(ingredients);
+        currEdible.checkIfAlcoholic(ingredients);
+        currEdible.checkIfSpicy(ingredients);
+        currEdible.checkIfVegan(ingredients);
+        currEdible.checkIfVegetarian(ingredients);
+        currEdible.checkIfGlutenFree(ingredients);
+    }
+
+    public void addSimpleDrink() {
+
+    }
+
+    public void addPreparedDrink(String name, String desc, int qty, Edible.Unit unit, byte[] photo, String instructions,
+            ArrayList<DrinkIngredient> ingredients) {
+        ArrayList<Ingredient> tempList = new ArrayList<Ingredient>();
         Drink newDrink = new Drink();
 
         try {
-            newDrink.init(db.getNextKey(), name, desc, qty, unit, photo, view, instructions, ingredients);
+            newDrink.initDetails(db.getNextKey(), name, desc, qty, unit);
+            newDrink.setInstructions(instructions);
+            newDrink.setIngredients(ingredients);
+            newDrink.setCustom(true);
+            newDrink.setPhotoBytes(photo);
+
+            for(int i = 0; i < ingredients.size(); i++) {
+                if(ingredients.get(i) instanceof Ingredient) {
+                    tempList.add((Ingredient)ingredients.get(i));
+                }
+            }
+            this.checkIngredients(newDrink, tempList);
+
             db.addDrinkToRecipeBook(newDrink);
         }
         catch(Exception e) {

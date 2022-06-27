@@ -75,6 +75,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     private void initRecyclerView() {
         View object = findViewById(R.id.recipeRecyclerView);
+        ArrayList<ListItem> tempList; //need to borrow from mealDiary
 
         if (this.data != null && object instanceof RecyclerView) {
             this.recipeRecyclerView = (RecyclerView) object;
