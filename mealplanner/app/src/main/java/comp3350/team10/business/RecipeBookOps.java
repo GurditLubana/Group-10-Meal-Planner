@@ -105,8 +105,21 @@ public class RecipeBookOps { //this needs to select the corect fragment
         currEdible.checkIfGlutenFree(ingredients);
     }
 
-    public void addSimpleDrink() {
+    public void addSimpleDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat,
+            boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, byte[] photo) {
+        Drink newDrink = new Drink();
 
+        try {
+            newDrink.initDetails(db.getNextKey(), name, desc, qty, unit);
+            newDrink.initNutrition(calories, protein, carbs, fat);
+            newDrink.initCategories(alcoholic, spicy, vegan, vegetarian, glutenFree);
+            newDrink.setCustom(true);
+            newDrink.setPhotoBytes(photo);
+            db.addDrinkToRecipeBook(newDrink);
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
     }
 
     public void addPreparedDrink(String name, String desc, int qty, Edible.Unit unit, byte[] photo, String instructions,

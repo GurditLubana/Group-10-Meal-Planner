@@ -129,12 +129,11 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                 try { //this probably needs to be fixed
                     modifyUIcard.setFragmentType(ListItem.FragmentType.diaryModify);
                     modifyLog.setEdibleEntry(modifyUIcard);
+                    this.data.add(position, modifyLog);
                 }
                 catch(Exception e) {
                     System.out.println(e);
                 }
-
-                this.data.add(position, modifyLog);
             } else {
                 this.data.remove(position);
                 this.data.add(position, this.savedItem);

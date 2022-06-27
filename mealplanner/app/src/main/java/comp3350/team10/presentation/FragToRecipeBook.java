@@ -1,15 +1,19 @@
 package comp3350.team10.presentation;
 
+import java.util.ArrayList;
+
 import comp3350.team10.objects.*;
 
 public interface FragToRecipeBook {
     public enum EntryMode {ADD_FOOD, ADD_MEAL, ADD_DRINK}
 
-    public void addDrink(String drinkName, int ic_eggplant, int calories, String ingredients, String dInstruct, Edible.Unit ml, int quantity);
+    public void addDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,
+        boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, byte[] photo, String instructions, ArrayList<DrinkIngredient> ingredients);
 
-    public void addMeal(String drinkName, int ic_eggplant, int calories, String ingredients, String dInstruct, Edible.Unit ml, int quantity);
+    public void addMeal(String name, String desc, int qty, Edible.Unit unit, byte[] photo, String instructions, ArrayList<Ingredient> ingredients);
 
-    public void addFood(String name, int iconPath, int calories, Edible.Unit baseUnit, int quantity);
+    public void addFood(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,
+        boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, byte[] photo);
 
     public String getIntentExtra(String key);
 

@@ -233,18 +233,18 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
     }
 
     private void sendData() {
-        if (this.send != null && this.send instanceof FragToRecipeBook) {
-            switch (mode) {
-                case ADD_FOOD:
-                    this.send.addFood(this.name, R.drawable.ic_eggplant, this.calories, this.unit, this.quantity);
-                    break;
-                case ADD_MEAL:
-                    this.send.addMeal(this.name, R.drawable.ic_eggplant, this.calories, this.ingredients, this.instructions, this.unit, this.quantity);
-                    break;
-                case ADD_DRINK:
-                    this.send.addDrink(this.name, R.drawable.ic_eggplant, this.calories, this.ingredients, this.instructions, this.unit, this.quantity);
-                    break;
-            }
-        }
+//        if (this.send != null && this.send instanceof FragToRecipeBook) {
+//            switch (mode) {
+//                case ADD_FOOD:
+//                    this.send.addFood(this.name, R.drawable.ic_eggplant, this.calories, this.unit, this.quantity);
+//                    break;
+//                case ADD_MEAL:
+//                    this.send.addMeal(this.name, R.drawable.ic_eggplant, this.calories, this.ingredients, this.instructions, this.unit, this.quantity);
+//                    break;
+//                case ADD_DRINK:
+//                    this.send.addDrink(this.name, R.drawable.ic_eggplant, this.calories, this.ingredients, this.instructions, this.unit, this.quantity);
+//                    break;
+//            }
+//        }
     }
 }
