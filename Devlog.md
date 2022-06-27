@@ -1049,3 +1049,36 @@ Duration: 11hrs
    - Created DB controller class to swap between the two (dependency injection)
    - Changed exercise goals and calorie goals to affect subsequent entries/past non-entries once changed
    - Created User class and UserOps (this 100% needs refactoring in the future, might not even be needed)
+
+### 2022-06-24
+     Dev:
+      - Dane
+Duration: 8hrs
+   Tasks:
+   - Refactored stub db
+   - Updated object schema
+   - Started refactoring buisness and presentation layers to meet new object requirements
+
+### 2022-06-24
+     Dev:
+      - Dane
+      - Josef
+Duration: 2hrs
+   Tasks:
+   - Found a bug where changing the portion of an ingredient affected all common edible entries
+   - Discussed object structure and expectations for ingredient classes
+   - Disccused general object heirarchy to ensure cohesion
+   - Edibles will now house categories as well
+   - Discussed how the latest refactors will affect the code base
+   - Discussed plans for inputing a new Edible Ingredient (if it has ingredients adds all its ingredients/calories etc...)
+
+### 2022-06-24
+     Dev:
+      - Dane
+      - Josef
+Duration: 1hr
+   Tasks:
+   - Discussed system scalability and the idea of a seperate custom DB - which we will are now implementing
+   - Discussed object structure further and how changes would affect the object structure
+   - Discussed how HSQL and how it operates inside android studio
+   - Discussed how images should be represented (for system independence) decided on byte arrays 

@@ -24,8 +24,8 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
         super(context, DB_NAME, null, CURR_VERSION);
     }
 
-
-    @Override
+    //updated again - leaving for a bit because it will probably change again
+    @Override //edible should not be deletable if it has an ingredien
     public void onCreate(SQLiteDatabase db) { //default values should start at 1 - 0 special value
         this.createEdibleTable(db);
         this.createFoodTable(db);
@@ -46,7 +46,7 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
             "EdibleID   INTEGER PRIMARY KEY AUTOINCREMENT," +
             "Name       VARCHAR(9999) not null," +
             "Summary    VARCHAR(9999)," +
-            "Photo          BLOB," +
+            "Photo      BLOB," +
             "Quantity   INTEGER       not null," +
             "Unit       VARCHAR(9999) not null," +
             "Calories   INTEGER," +
@@ -170,7 +170,10 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
     }
 
     @Override //used when the a new version is created
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+    }
+
 
     public ArrayList<Edible> getFoodList(Calendar date) {
         return null;

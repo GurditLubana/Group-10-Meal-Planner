@@ -83,7 +83,7 @@ public class RecipeBookOps { //this needs to select the corect fragment
             System.out.println(e);
         }
     }
-
+//have 2 differnet add drink types
     public void addDrink(String name, String desc, int qty, Edible.Unit unit, ImageView photo, ListItem.FragmentType view,
             ArrayList<String> instructions, ArrayList<DrinkIngredient> ingredients) {
         Drink newDrink = new Drink();

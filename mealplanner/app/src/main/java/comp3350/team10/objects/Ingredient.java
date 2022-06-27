@@ -3,8 +3,8 @@ package comp3350.team10.objects;
 import java.io.IOException;
 
 public class Ingredient {
-    private Food ingredient;            //The food that we will use as an ingredient
-    private int quantity;               //The quantity to use of the ingredient
+    private Edible ingredient;          //The food that we will use as an ingredient
+    private double quantity;            //The quantity to use of the ingredient
     private Edible.Unit quantityUnit;   //The units of the quantity of the ingredient
 
     public Ingredient() {
@@ -14,14 +14,15 @@ public class Ingredient {
     }
 
 
-    public void init(Food ingredient, int quantity, Edible.Unit quantityUnit) throws IOException {
+    public void init(Food ingredient, double quantity, Edible.Unit quantityUnit) throws IOException {
         this.setIngredient(ingredient);
         this.setQuantity(quantity);
         this.setQuantityUnit(quantityUnit);
     }
 
-    public void setIngredient(Food newIngredient) throws IOException {
-        if(newIngredient != null) {
+    public void setIngredient(Edible newIngredient) throws IOException {
+        if(newIngredient != null && newIngredient.getCalories() != -1 && newIngredient.getProtein() != -1 &&
+        newIngredient.getCarbs() != -1 && newIngredient.getFat() != -1) {
             this.ingredient = newIngredient;
         }
         else {
@@ -29,7 +30,7 @@ public class Ingredient {
         }
     }
 
-    public void setQuantity(int newQuantity) throws IOException {
+    public void setQuantity(double newQuantity) throws IOException {
         if(newQuantity > 0 && newQuantity <= Constant.ENTRY_MAX_VALUE) {
             this.quantity = newQuantity;
         }
@@ -47,11 +48,11 @@ public class Ingredient {
         }
     }
 
-    public Food getIngredient() {
+    public Edible getIngredient() {
         return this.ingredient;
     }
     
-    public int getQuantity() {
+    public double getQuantity() {
         return this.quantity;
     }
 

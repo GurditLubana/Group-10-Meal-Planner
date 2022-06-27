@@ -12,11 +12,6 @@ public class DrinkIngredient extends Ingredient {
     }
 
 
-    public DrinkIngredient(Food ingredient, int quantity, Edible.Unit quantityUnit, boolean isSubstitute) throws IOException {
-        super.init(ingredient, quantity, quantityUnit);
-        this.setSubtitute(isSubstitute);
-    }
-
     private void setSubtitute(boolean isSubstitute) {
         this.substitute = isSubstitute;
     }
