@@ -61,14 +61,13 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
     private Button btnOk;                    // OK button
     private Button btnCancel;                // Cancel Button
     private Button btnChooseItemImage;       // Import a picture for the Edible item.
-    private ImageView EdibleItemImage;
-    private ImageView imageIcon;
+    private ImageView EdibleItemImage;       // Image of the edible item.
+    private ImageView cameraIcon;
     private FragToRecipeBook send;           // Interface for communication with parent activity
     private FragToRecipeBook.EntryMode mode; // the type of dialog to show
     public static String TAG = "AddRecipe";  // tag name of this fragment for reference in the fragment manager
     private int calories;                    // value of calorie input
     private int quantity;                    // value of quantity input
-    private int IMAGE_REQUEST_CODE = 1;   // value of request code
     private String name;                     // value of name input
     private String instructions;             // value of instructions input
     private String ingredients;              // value of ingredients input
@@ -114,7 +113,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         this.btnCancel = view.findViewById(R.id.dialogRecipeBtnCancel);
         this.btnChooseItemImage = view.findViewById(R.id.dialogRecipePhotoBtn);
         this.EdibleItemImage= view.findViewById(R.id.dialogRecipePhoto);
-        this.imageIcon = view.findViewById(R.id.dialogRecipePhotoIcon);
+        this.cameraIcon = view.findViewById(R.id.dialogRecipePhotoIcon);
 
 
         if (context != null && context instanceof FragToRecipeBook) {
@@ -210,18 +209,22 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         this.btnChooseItemImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v){
-                try {
-                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-                        requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
-                    } else {
-//                        Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                        startActivityForResult(galleryIntent, PERMISSION_REQUEST_CODE);
-                        openGallery();
+
+                if(Build.VERSION.SDK_INT >= 23)
+                {
+                    try {
+                        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+                            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+                        } else {
+//
+                            openGallery();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+
             }
         });
 
@@ -254,145 +257,21 @@ private void openGallery()
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) {
-                        // There are no request codes
-                        Intent data = result.getData();
-                        //doSomeOperations();
+
+                        bitmap(result);
+
                     }
                 }
             });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//                        if (checkPermission())
-//                        {
-//
-//
-//                            if (result != null ) {
-//                                Uri imageUri = result.getData().getData();
-////                                BitmapFactory.Options options = new BitmapFactory.Options();
-////                                options.inJustDecodeBounds = true;
-////                                try {
-////                                    BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri), null, options);
-////                                    //  options.inSampleSize = calculateInSampleSize(options, 100, 100);
-////                                    options.inJustDecodeBounds = false;
-////                                    Bitmap image = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri), null, options);
-////                                    EdibleItemImage.setImageBitmap(image);
-////
-////                                } catch (FileNotFoundException e) {
-////                                    e.printStackTrace();
-////                                }
-//                    try {
-//                        InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
-//                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-//
-//                        EdibleItemImage.setImageBitmap(selectedImage);
-//
-//
-//                        EdibleItemImage.setImageURI(imageUri);
-//                        EdibleItemImage.getResources();
-//                        EdibleItemImage.setImageURI(imageUri);
-//                        imageIcon.setVisibility(View.INVISIBLE);
-//
-//                    }
-//                    catch (FileNotFoundException e) {
-//                                   e.printStackTrace();
-//                                }
-//                            }
-//                        }
-//
-//                        else {
-////                            requestPermission(); // Code for permission
-//
-//                            ActivityCompat.requestPermissions(getActivity(),
-//                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-//                                    2000);
-//
-//                            if (checkPermission()){
-//                                System.out.println("Chal pya");
-//                            }
-//                           bitmap(result);
-//
-//                        }
-
-
-
-//                        }
-//                    }
-//                }
-//
-//    );
-
-    private void bitmap(ActivityResult result)
+  private void bitmap(ActivityResult result)
     {
         Uri imageUri = result.getData().getData();
 
-        System.out.println(EdibleItemImage.getImageAlpha());
         EdibleItemImage.setImageURI(imageUri);
-        System.out.println(EdibleItemImage.getId());
-        System.out.println(EdibleItemImage.getImageAlpha());
-
-//                                BitmapFactory.Options options = new BitmapFactory.Options();
-//                                options.inJustDecodeBounds = true;
-//                                try {
-//                                    BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri), null, options);
-//                                    //  options.inSampleSize = calculateInSampleSize(options, 100, 100);
-//                                    options.inJustDecodeBounds = false;
-//                                    Bitmap image = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri), null, options);
-//                                    EdibleItemImage.setImageBitmap(image);
-//
-//                                } catch (FileNotFoundException e) {
-//                                    e.printStackTrace();
-//                                }
+        cameraIcon.setVisibility(View.INVISIBLE);
     }
-
-    private boolean checkPermission() {
-        int result = ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (result == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private void requestPermission() {
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            Toast.makeText(getActivity(), "Read External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
-        } else {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-            requestPermissionLauncher.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE);
-        }
-    }
-
-
-//    private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
-//            new ActivityResultContracts.RequestPermission(),
-//            new ActivityResultCallback<Boolean>() {
-//                @Override
-//                public void onActivityResult(Boolean result) {
-//                    if (result) {
-//                        // PERMISSION GRANTED
-//                    } else {
-//                        // PERMISSION NOT GRANTED
-//                    }
-//                }
-//            }
-//    );
 
 
 
