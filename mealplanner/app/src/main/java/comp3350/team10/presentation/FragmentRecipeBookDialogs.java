@@ -72,7 +72,8 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
     private String instructions;             // value of instructions input
     private String ingredients;              // value of ingredients input
     private Edible.Unit unit;                // value of units input
-    private Context context;
+    private static final int PERMISSION_REQUEST_CODE = 1 ;
+
 
     public FragmentRecipeBookDialogs() {
         // Required empty public constructor
@@ -271,6 +272,7 @@ private void openGallery()
 
         EdibleItemImage.setImageURI(imageUri);
         cameraIcon.setVisibility(View.INVISIBLE);
+
     }
 
 
