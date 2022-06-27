@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import comp3350.team10.business.MealDiaryOps;
 import comp3350.team10.business.RecipeBookOps;
@@ -43,7 +43,7 @@ public class TestRecipeBookOps {
 
         @Test
         void testFoodRecipesValid() {
-            LinkedList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
+            ArrayList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
 
             for(int i = 0; i < foodRecipes.size(); i++) {
                 assertNotNull(foodRecipes.get(i));
@@ -53,7 +53,7 @@ public class TestRecipeBookOps {
 
         @Test
         void testDrinkRecipesValid() {
-            LinkedList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
+            ArrayList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
 
             for(int i = 0; i < drinkRecipes.size(); i++) {
                 assertNotNull(drinkRecipes.get(i));
@@ -63,7 +63,7 @@ public class TestRecipeBookOps {
 
         @Test
         void testMealRecipesValid() {
-            LinkedList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
+            ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
 
             for(int i = 0; i < mealRecipes.size(); i++) {
                 assertNotNull(mealRecipes.get(i));
@@ -73,7 +73,7 @@ public class TestRecipeBookOps {
 
         @Test
         void testAddFood() {
-            LinkedList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
+            ArrayList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
             int prevLength = foodRecipes.size();
 
             recipeBookOps.addFood("food", 1, 5, Edible.Unit.g, 5);
@@ -84,7 +84,7 @@ public class TestRecipeBookOps {
 
         @Test
         void testAddDrink() {
-            LinkedList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
+            ArrayList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
             int prevLength = drinkRecipes.size();
 
             recipeBookOps.addDrink("drink", 1, 5, "instructions", "ingredients", Edible.Unit.g, 5);
@@ -95,7 +95,7 @@ public class TestRecipeBookOps {
 
         @Test
         void testAddMeal() {
-            LinkedList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
+            ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
             int prevLength = mealRecipes.size();
 
             recipeBookOps.addMeal("meal", 1, 5, "ingredients", "instructions", Edible.Unit.g, 5);
@@ -120,7 +120,7 @@ public class TestRecipeBookOps {
 
         @Test
         void testDuplicateFoods() {
-            LinkedList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
+            ArrayList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
             int prevLength = foodRecipes.size();
             int iterations = 5;
 
@@ -139,7 +139,7 @@ public class TestRecipeBookOps {
 
         @Test
 		void testMultiAddFood() {
-            LinkedList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
+            ArrayList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
             int prevLength = foodRecipes.size();
             int startPoint = 50;
             int iterations = 5;
@@ -159,7 +159,7 @@ public class TestRecipeBookOps {
 
         @Test
 		void testDuplicateDrinks() {
-            LinkedList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
+            ArrayList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
             int prevLength = drinkRecipes.size();
             int iterations = 5;
 
@@ -178,7 +178,7 @@ public class TestRecipeBookOps {
 
         @Test
 		void testMultiAddDrink() {
-            LinkedList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
+            ArrayList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
             int prevLength = drinkRecipes.size();
             int startPoint = 100;
             int iterations = 5;
@@ -198,7 +198,7 @@ public class TestRecipeBookOps {
 
         @Test
 		void testDuplicateMeals() {
-            LinkedList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
+            ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
             int prevLength = mealRecipes.size();
             int iterations = 5;
 
@@ -217,7 +217,7 @@ public class TestRecipeBookOps {
 
         @Test
 		void testMultiAddMeal() {
-            LinkedList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
+            ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
             int prevLength = mealRecipes.size();
             int startPoint = 150;
             int iterations = 5;
@@ -237,7 +237,7 @@ public class TestRecipeBookOps {
 
         @Test
 		void testAddRecipesToMultipleGroups() {
-            LinkedList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
+            ArrayList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
             int prevFoodLength = foodRecipes.size();
             int startPoint = 50;
             int iterations = 5;
@@ -249,7 +249,7 @@ public class TestRecipeBookOps {
             foodRecipes = recipeBookOps.getFoodRecipes();
 
 
-            LinkedList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
+            ArrayList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
             int prevDrinkLength = drinkRecipes.size();
 
             for(int i = startPoint; i < startPoint + iterations; i++) {
@@ -259,7 +259,7 @@ public class TestRecipeBookOps {
             drinkRecipes = recipeBookOps.getDrinkRecipes();
 
 
-            LinkedList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
+            ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
             int prevMealLength = mealRecipes.size();
 
             for(int i = startPoint; i < startPoint + iterations; i++) {
@@ -290,7 +290,7 @@ public class TestRecipeBookOps {
 
         @Test
         void testAddIncompleteFood() {
-            LinkedList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
+            ArrayList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
             int prevLength = foodRecipes.size();
 
             recipeBookOps.addFood(null, 1, 5, Edible.Unit.g, 5);
@@ -307,7 +307,7 @@ public class TestRecipeBookOps {
 
         @Test
         void testAddIncompleteDrink() {
-            LinkedList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
+            ArrayList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
             int prevLength = drinkRecipes.size();
 
             recipeBookOps.addDrink(null, 1, 5, "instructions", "ingredients", Edible.Unit.g, 5);
@@ -326,7 +326,7 @@ public class TestRecipeBookOps {
 
         @Test
         void testIncompleteMeal() {
-            LinkedList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
+            ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
             int prevLength = mealRecipes.size();
 
             recipeBookOps.addMeal(null, 1, 5, "ingredients", "instructions", Edible.Unit.g, 5);
@@ -359,7 +359,7 @@ public class TestRecipeBookOps {
         }
 
         void testAddFoods() {
-            LinkedList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
+            ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
             int prevLength = mealRecipes.size();
 
             recipeBookOps.addFood("\n", 1, 1, Edible.Unit.cups, 5);
@@ -375,7 +375,7 @@ public class TestRecipeBookOps {
         }
 
         void testAddDrinks() {
-            LinkedList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
+            ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
             int prevLength = mealRecipes.size();
 
             recipeBookOps.addDrink("\n", 1, 1, "instructions", "ingredients", Edible.Unit.cups, 5);
@@ -401,7 +401,7 @@ public class TestRecipeBookOps {
         }
 
         void testAddMeals() {
-            LinkedList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
+            ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
             int prevLength = mealRecipes.size();
 
             recipeBookOps.addMeal("\n", 1, 1, "instructions", "ingredients", Edible.Unit.cups, 5);

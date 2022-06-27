@@ -229,6 +229,21 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
 ---
 <br>
 
+### 2022 Jun 24
+    Attendees:  
+    - Dane  
+    - Josef  
+    - Manraj  
+    - Gurdit  
+    - Zhao  
+
+    Topic: Iter1 requirements compared to our existing codebase, refactoring, testing and data sanitizing 
+    ----- 
+    Discussions: No one was happy about how Iter1 went, we talked about this and decided to change strategies we are now using an excel sheet to track everyone's current work and focused areas.  We also agreed to meet every week either on Thursday or Saturday at 9 to resync.  Specific areas is we werent doing good agile developement or pull requests which we will fix in this iteration.  We also set realistic expectations for each other and broke down developer tasks we plan on executing for this iteration.  Lastly, the team refactored the database to its best version yet!
+    -----
+    Rationale: Working meeting and Iter1 progress
+---
+<br>
 
 <br>
 
@@ -633,7 +648,7 @@ Duration: 8hrs
     - Working proof of concept card fragments for recyclerview     
     - Meal Diary entry log fragment UI layout updated  
     - Meal Diary modification context fragment UI layout updated  
-    - recycler view adapter will now use a linkedlist instead of a string array  
+    - recycler view adapter will now use a ArrayList instead of a string array  
     - Navigation Fragment buttons now have click listener stubs  
     
 ### 2022-05-27
@@ -964,3 +979,73 @@ Duration: 6hrs
    - Unit Testing
    - Bug Fixes
    - Code Refactoring
+
+### 2022-06-17
+     Dev:
+      - Dane
+Duration: 5hrs
+   Tasks:
+   - Researched HSQL and how to implement it
+   - Researched and setup data grip
+   - Experimented with v1 of the database see mealplanner docs/June20/DB v1.JPG
+   - Created V1 of the data interface based on current stubDB
+   - Started creating a entity relationship diagram
+
+### 2022-06-19
+     Dev:
+      - Dane
+Duration: 1hr
+   Tasks:
+   - Researched good practices towards storing similar objects in a database
+   - Redesigned database v2 see mealplanner docs/June20/DB v2.PNG
+   - Created relational mapping
+
+### 2022-06-20
+     Dev:
+      - Dane
+Duration: 5hrs
+   Tasks:
+   - Redesigned database v3 after feedback from Josef see mealplanner docs/June20/DB v3.PNG
+   - Created extended entity relation diagram for the new database design
+   - Created raw tables in SQL
+   - Added relationships into table
+   - Refactored interface
+   - Tested and fixed bugs (cannot call this in super constructor, current constructor hasnt run yet!)
+
+### 2022-06-24
+     Dev:
+      - Dane
+Duration: 4hrs
+   Tasks:
+   - Fixed UnitConverter bugs: rounding issues and wrong variables being used
+   - Started refactoring unitConverter and added additional test cases
+
+### 2022-06-24
+     Dev:
+      - Dane
+Duration: 4hrs
+   Tasks:
+   - Caught up on Yuja videos
+
+### 2022-06-25
+     Dev:
+      - Josef
+      - Manraj
+Duration: 2hrs
+   Tasks:
+   - daily progress activity 
+   - layout, cards
+   - classes discussion/setup
+
+### 2022-06-24
+     Dev:
+      - Dane
+Duration: 11hrs
+   Tasks:
+   - Refined SQL table design (please see mealplanner docs/June20/DB v4.PNG)
+   - Adjusted table creation to reflect changes
+   - Refined DBInterface and divded into 4 sections
+   - Refactored stub DB to reflect DB Interfaces by removing dead code, moving and redesigning its methods
+   - Created DB controller class to swap between the two (dependency injection)
+   - Changed exercise goals and calorie goals to affect subsequent entries/past non-entries once changed
+   - Created User class and UserOps (this 100% needs refactoring in the future, might not even be needed)
