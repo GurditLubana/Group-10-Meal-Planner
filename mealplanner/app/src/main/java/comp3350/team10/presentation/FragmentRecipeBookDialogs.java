@@ -6,6 +6,7 @@ import comp3350.team10.R;
 import comp3350.team10.objects.*;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -59,8 +60,9 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
     private Spinner inputSpinner;            // input field for quantity units
     private Button btnOk;                    // OK button
     private Button btnCancel;                // Cancel Button
-    private Button btnChooseItemImage;         // Import a picture for the Edible item.
-    private  ImageView EdibleItemImage;
+    private Button btnChooseItemImage;       // Import a picture for the Edible item.
+    private ImageView EdibleItemImage;
+    private ImageView imageIcon;
     private FragToRecipeBook send;           // Interface for communication with parent activity
     private FragToRecipeBook.EntryMode mode; // the type of dialog to show
     public static String TAG = "AddRecipe";  // tag name of this fragment for reference in the fragment manager
@@ -71,6 +73,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
     private String instructions;             // value of instructions input
     private String ingredients;              // value of ingredients input
     private Edible.Unit unit;                // value of units input
+    private Context context;
 
     public FragmentRecipeBookDialogs() {
         // Required empty public constructor
@@ -95,7 +98,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         Dialog dialog = null;
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_recipe_book_dialogs, null);
-        Context context = view.getContext();
+        context = view.getContext();
 
         this.title = view.findViewById(R.id.dialogRecipeTitle);
         this.labelName = view.findViewById(R.id.dialogRecipeNameLabel);
@@ -110,7 +113,8 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         this.btnOk = view.findViewById(R.id.dialogRecipeBtnOk);
         this.btnCancel = view.findViewById(R.id.dialogRecipeBtnCancel);
         this.btnChooseItemImage = view.findViewById(R.id.dialogRecipePhotoBtn);
-        this.EdibleItemImage= view.findViewById(R.id.dialogRecipePhotoIcon);
+        this.EdibleItemImage= view.findViewById(R.id.dialogRecipePhoto);
+        this.imageIcon = view.findViewById(R.id.dialogRecipePhotoIcon);
 
 
         if (context != null && context instanceof FragToRecipeBook) {
@@ -205,89 +209,156 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
 
         this.btnChooseItemImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-                Intent galleryIntent = new Intent(Intent.ACTION_PICK);
-                galleryIntent.setType("image/*");
-                imagePickerActivityResult.launch(galleryIntent);
-
+            public void onClick (View v){
+                try {
+                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+                        requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+                    } else {
+//                        Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                        startActivityForResult(galleryIntent, PERMISSION_REQUEST_CODE);
+                        openGallery();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
+
     }
 
+    private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean result) {
+                    if (result) {
+                        openGallery();
+                    } else {
+                        // PERMISSION NOT GRANTED
+                    }
+                }
+            }
+    );
 
-    ActivityResultLauncher<Intent> imagePickerActivityResult = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+private void openGallery()
+{
+
+    Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+    galleryIntentLauncher.launch(galleryIntent);
+}
+
+    ActivityResultLauncher<Intent> galleryIntentLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-
-                    if (Build.VERSION.SDK_INT >= 23)
-                    {
-                        if (checkPermission())
-                        {
-
-
-                            if (result != null ) {
-                                Uri imageUri = result.getData().getData();
-//                                BitmapFactory.Options options = new BitmapFactory.Options();
-//                                options.inJustDecodeBounds = true;
-//                                try {
-//                                    BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri), null, options);
-//                                    //  options.inSampleSize = calculateInSampleSize(options, 100, 100);
-//                                    options.inJustDecodeBounds = false;
-//                                    Bitmap image = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri), null, options);
-//                                    EdibleItemImage.setImageBitmap(image);
-//
-//                                } catch (FileNotFoundException e) {
-//                                    e.printStackTrace();
-//                                }
-                    try {
-                        InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
-                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-
-                        EdibleItemImage.setImageBitmap(selectedImage);
-
-
-                        EdibleItemImage.setImageURI(imageUri);
-                        EdibleItemImage.getResources();
-                        EdibleItemImage.setImageURI(imageUri);
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // There are no request codes
+                        Intent data = result.getData();
+                        //doSomeOperations();
                     }
-                    catch (FileNotFoundException e) {
-                                   e.printStackTrace();
-                                }
-                            }
-
-                        }
-                        else {
-                            requestPermission(); // Code for permission
-                            Uri imageUri = result.getData().getData();
-                            System.out.println(imageUri);
-                            EdibleItemImage.getImageAlpha();
-                            EdibleItemImage.setImageURI(imageUri);
-                            System.out.println(EdibleItemImage.getId());
-                            EdibleItemImage.getImageAlpha();
-//                                BitmapFactory.Options options = new BitmapFactory.Options();
-//                                options.inJustDecodeBounds = true;
-//                                try {
-//                                    BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri), null, options);
-//                                    //  options.inSampleSize = calculateInSampleSize(options, 100, 100);
-//                                    options.inJustDecodeBounds = false;
-//                                    Bitmap image = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri), null, options);
-//                                    EdibleItemImage.setImageBitmap(image);
-//
-//                                } catch (FileNotFoundException e) {
-//                                    e.printStackTrace();
-//                                }
-
-                        }
-                        }
-                    }
-
-
-
                 }
+            });
 
-    );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//                        if (checkPermission())
+//                        {
+//
+//
+//                            if (result != null ) {
+//                                Uri imageUri = result.getData().getData();
+////                                BitmapFactory.Options options = new BitmapFactory.Options();
+////                                options.inJustDecodeBounds = true;
+////                                try {
+////                                    BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri), null, options);
+////                                    //  options.inSampleSize = calculateInSampleSize(options, 100, 100);
+////                                    options.inJustDecodeBounds = false;
+////                                    Bitmap image = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri), null, options);
+////                                    EdibleItemImage.setImageBitmap(image);
+////
+////                                } catch (FileNotFoundException e) {
+////                                    e.printStackTrace();
+////                                }
+//                    try {
+//                        InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
+//                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+//
+//                        EdibleItemImage.setImageBitmap(selectedImage);
+//
+//
+//                        EdibleItemImage.setImageURI(imageUri);
+//                        EdibleItemImage.getResources();
+//                        EdibleItemImage.setImageURI(imageUri);
+//                        imageIcon.setVisibility(View.INVISIBLE);
+//
+//                    }
+//                    catch (FileNotFoundException e) {
+//                                   e.printStackTrace();
+//                                }
+//                            }
+//                        }
+//
+//                        else {
+////                            requestPermission(); // Code for permission
+//
+//                            ActivityCompat.requestPermissions(getActivity(),
+//                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+//                                    2000);
+//
+//                            if (checkPermission()){
+//                                System.out.println("Chal pya");
+//                            }
+//                           bitmap(result);
+//
+//                        }
+
+
+
+//                        }
+//                    }
+//                }
+//
+//    );
+
+    private void bitmap(ActivityResult result)
+    {
+        Uri imageUri = result.getData().getData();
+
+        System.out.println(EdibleItemImage.getImageAlpha());
+        EdibleItemImage.setImageURI(imageUri);
+        System.out.println(EdibleItemImage.getId());
+        System.out.println(EdibleItemImage.getImageAlpha());
+
+//                                BitmapFactory.Options options = new BitmapFactory.Options();
+//                                options.inJustDecodeBounds = true;
+//                                try {
+//                                    BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri), null, options);
+//                                    //  options.inSampleSize = calculateInSampleSize(options, 100, 100);
+//                                    options.inJustDecodeBounds = false;
+//                                    Bitmap image = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri), null, options);
+//                                    EdibleItemImage.setImageBitmap(image);
+//
+//                                } catch (FileNotFoundException e) {
+//                                    e.printStackTrace();
+//                                }
+    }
 
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -301,7 +372,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
     private void requestPermission() {
 
         if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            Toast.makeText(getActivity(), "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Read External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
         } else {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
             requestPermissionLauncher.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -309,19 +380,19 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
     }
 
 
-    private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
-            new ActivityResultContracts.RequestPermission(),
-            new ActivityResultCallback<Boolean>() {
-                @Override
-                public void onActivityResult(Boolean result) {
-                    if (result) {
-                        // PERMISSION GRANTED
-                    } else {
-                        // PERMISSION NOT GRANTED
-                    }
-                }
-            }
-    );
+//    private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
+//            new ActivityResultContracts.RequestPermission(),
+//            new ActivityResultCallback<Boolean>() {
+//                @Override
+//                public void onActivityResult(Boolean result) {
+//                    if (result) {
+//                        // PERMISSION GRANTED
+//                    } else {
+//                        // PERMISSION NOT GRANTED
+//                    }
+//                }
+//            }
+//    );
 
 
 
