@@ -5,15 +5,18 @@ import static android.app.Activity.RESULT_OK;
 import comp3350.team10.R;
 import comp3350.team10.objects.*;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResult;
@@ -22,6 +25,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 import android.provider.MediaStore;
@@ -41,6 +46,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class FragmentRecipeBookDialogs extends DialogFragment {
+    private static final int PERMISSION_REQUEST_CODE = 1 ;
     private TextView title;                  // Dialog Title
     private TextView labelName;              // Label of name field
     private TextView labelCalories;          // Label of calories field
@@ -207,57 +213,117 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
 
             }
         });
-
     }
+
 
     ActivityResultLauncher<Intent> imagePickerActivityResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    if (result != null) {
-                        Uri imageUri = result.getData().getData();
-//                        Glide.with(getContext())
-//                                .load(imageUri)
-//                                .into(EdibleItemImage);
 
-//                        final Uri imageUri = data.getData();
+                    if (Build.VERSION.SDK_INT >= 23)
+                    {
+                        if (checkPermission())
+                        {
 
 
-                        try {
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
-                            EdibleItemImage.setImageBitmap(bitmap);
-                        } catch (IOException e) {
-                            Log.i("TAG", "Some exception " + e);
+                            if (result != null ) {
+                                Uri imageUri = result.getData().getData();
+//                                BitmapFactory.Options options = new BitmapFactory.Options();
+//                                options.inJustDecodeBounds = true;
+//                                try {
+//                                    BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri), null, options);
+//                                    //  options.inSampleSize = calculateInSampleSize(options, 100, 100);
+//                                    options.inJustDecodeBounds = false;
+//                                    Bitmap image = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri), null, options);
+//                                    EdibleItemImage.setImageBitmap(image);
+//
+//                                } catch (FileNotFoundException e) {
+//                                    e.printStackTrace();
+//                                }
+                    try {
+                        InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
+                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+
+                        EdibleItemImage.setImageBitmap(selectedImage);
+
+
+                        EdibleItemImage.setImageURI(imageUri);
+                        EdibleItemImage.getResources();
+                        EdibleItemImage.setImageURI(imageUri);
+                    }
+                    catch (FileNotFoundException e) {
+                                   e.printStackTrace();
+                                }
+                            }
+
                         }
+                        else {
+                            requestPermission(); // Code for permission
+                            Uri imageUri = result.getData().getData();
+                            System.out.println(imageUri);
+                            EdibleItemImage.getImageAlpha();
+                            EdibleItemImage.setImageURI(imageUri);
+                            System.out.println(EdibleItemImage.getId());
+                            EdibleItemImage.getImageAlpha();
+//                                BitmapFactory.Options options = new BitmapFactory.Options();
+//                                options.inJustDecodeBounds = true;
+//                                try {
+//                                    BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri), null, options);
+//                                    //  options.inSampleSize = calculateInSampleSize(options, 100, 100);
+//                                    options.inJustDecodeBounds = false;
+//                                    Bitmap image = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri), null, options);
+//                                    EdibleItemImage.setImageBitmap(image);
 //
-//                        InputStream imageStream = context.getContentResolver().openInputStream(imageUri);
-//                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-//
-//                        EdibleItemImage.setImageBitmap(selectedImage);
+//                                } catch (FileNotFoundException e) {
+//                                    e.printStackTrace();
+//                                }
+
+                        }
+                        }
+                    }
 
 
-//                        EdibleItemImage.setImageURI(imageUri);
-//                        EdibleItemImage.getResources();
-//                        EdibleItemImage.setImageURI(imageUri);
+
+                }
+
+    );
+
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void requestPermission() {
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            Toast.makeText(getActivity(), "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+        } else {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            requestPermissionLauncher.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+    }
+
+
+    private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean result) {
+                    if (result) {
+                        // PERMISSION GRANTED
+                    } else {
+                        // PERMISSION NOT GRANTED
                     }
                 }
             }
     );
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-//    {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == IMAGE_REQUEST_CODE  && data != null) {
-//            Uri selectedImage = data.getData();
-//            ImageView imageView = getView().findViewById(R.id.dialogRecipePhoto);
-//            imageView.setImageURI(selectedImage);
-//
-//
-//        }
-//
-//    }
+
 
     private boolean validateData() {
         int success = 0;
@@ -334,4 +400,6 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
             }
         }
     }
+
+
 }
