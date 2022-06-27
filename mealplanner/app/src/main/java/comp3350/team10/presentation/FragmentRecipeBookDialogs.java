@@ -48,6 +48,7 @@ import java.io.InputStream;
 
 public class FragmentRecipeBookDialogs extends DialogFragment {
     private static final int PERMISSION_REQUEST_CODE = 1 ;
+
     private TextView title;                  // Dialog Title
     private TextView labelName;              // Label of name field
     private TextView labelCalories;          // Label of calories field
@@ -99,6 +100,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_recipe_book_dialogs, null);
         context = view.getContext();
+        Context context = view.getContext();
 
         this.title = view.findViewById(R.id.dialogRecipeTitle);
         this.labelName = view.findViewById(R.id.dialogRecipeNameLabel);
@@ -215,6 +217,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
                 {
                     try {
                         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
                             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
                         } else {
