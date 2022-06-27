@@ -26,7 +26,7 @@ public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, Recipe
 
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase db) { //default values should start at 1 - 0 special value
         this.createEdibleTable(db);
         this.createFoodTable(db);
         this.createMealTable(db);

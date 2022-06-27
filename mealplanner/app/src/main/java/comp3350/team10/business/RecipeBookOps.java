@@ -1,5 +1,7 @@
 package comp3350.team10.business;
 
+import android.widget.ImageView;
+
 import comp3350.team10.objects.*;
 import comp3350.team10.persistence.*;
 
@@ -52,27 +54,46 @@ public class RecipeBookOps { //this needs to select the corect fragment
         return this.selectedList;
     }
 
-    public void addFood(String name, int iconPath, int calories, Edible.Unit baseUnit, int quantity) {
+    public void addFood(String name, String desc, int qty, Edible.Unit unit, ImageView photo, ListItem.FragmentType view,
+             boolean isVegan, boolean isVegetarian, boolean isGlutenFree, boolean isSpicy, boolean isBreakfastFood,
+             boolean isLunchFood, boolean isSupperFood, boolean isAlcoholic) {
         Food newFood = new Food();
 
-        if (newFood.init(name, iconPath, calories, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey())) {
+        try {
+            newFood.init(db.getNextKey(), name, desc, qty, unit, photo, view, isVegan, isVegetarian, isGlutenFree, isSpicy, isBreakfastFood,
+                isLunchFood, isSupperFood, isAlcoholic);
             db.addFoodToRecipeBook(newFood);
         }
-    }
-
-    public void addMeal(String name, int iconPath, int calories, String ingredients, String instructions, Edible.Unit baseUnit, int quantity) {
-        Meal newMeal = new Meal();
-
-        if (newMeal.init(name, iconPath, calories, ingredients, instructions, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey())) {
-            db.addMealToRecipeBook(newMeal);
+        catch(Exception e) {
+            System.out.println(e);
         }
     }
 
-    public void addDrink(String name, int iconPath, int cals, String instructions, String ingredients, Edible.Unit baseUnit, int quantity) {
+    public void addMeal(String name, String desc, int qty, Edible.Unit unit, ImageView photo, ListItem.FragmentType view,
+            ArrayList<String> instructions, ArrayList<Ingredient> ingredients, boolean isBreakfastMeal, boolean isLunchMeal,
+            boolean isSupperMeal) {
+        Meal newMeal = new Meal();
+
+        try {
+            newMeal.init(db.getNextKey(), name, desc, qty, unit, photo, view, instructions, ingredients, isBreakfastMeal,
+                    isLunchMeal, isSupperMeal);
+            db.addMealToRecipeBook(newMeal);
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void addDrink(String name, String desc, int qty, Edible.Unit unit, ImageView photo, ListItem.FragmentType view,
+            ArrayList<String> instructions, ArrayList<DrinkIngredient> ingredients) {
         Drink newDrink = new Drink();
 
-        if (newDrink.init(name, iconPath, cals, instructions, ingredients, ListItem.FragmentType.diaryEntry, baseUnit, quantity, db.getNextKey())) {
+        try {
+            newDrink.init(db.getNextKey(), name, desc, qty, unit, photo, view, instructions, ingredients);
             db.addDrinkToRecipeBook(newDrink);
+        }
+        catch(Exception e) {
+            System.out.println(e);
         }
     }
 }

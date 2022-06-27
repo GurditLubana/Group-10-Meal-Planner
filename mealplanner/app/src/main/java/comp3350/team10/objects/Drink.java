@@ -21,7 +21,7 @@ public class Drink extends PreparedItem {
 
 
     public void init(int id, String name, String desc, int qty, Unit unit, ImageView photo, ListItem.FragmentType view,
-                     ArrayList<String> instructions, ArrayList<DrinkIngredient> ingredients) throws IOException {
+            ArrayList<String> instructions, ArrayList<DrinkIngredient> ingredients) throws IOException {
         super.init(id, name, desc, qty, unit, photo, view, instructions);
         this.setIngredients(ingredients);
         this.setAlcoholic(ingredients);

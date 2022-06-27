@@ -50,7 +50,7 @@ public class DailyLog {
         }
     }
 
-    public void setFoodList(ArrayList<Edible> newLog) throws IOException {
+    public void setEdibleList(ArrayList<Edible> newLog) throws IOException {
         if (newLog != null && newLog.size() > 0 && !newLog.contains(null)) {
             this.edibleLog = newLog;
         }
