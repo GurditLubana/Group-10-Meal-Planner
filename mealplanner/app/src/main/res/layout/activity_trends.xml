@@ -24,11 +24,61 @@
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"></androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:background="?colorPrimary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorColor="@android:color/holo_orange_light"
+        app:tabSelectedTextColor="@android:color/holo_orange_light"
+        app:tabTextColor="#FFFFFF"
+        tools:layout_editor_absoluteX="0dp">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/trendWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1W" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/trendMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1M" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/trendThreeMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3M" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/trendSixMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6M" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/trendYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1Y" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/trendAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All" />
+
+    </com.google.android.material.tabs.TabLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trendsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="113dp"
         android:layout_marginBottom="@dimen/navbar"
         android:background="?colorPrimaryVariant"
         app:layout_constraintBottom_toBottomOf="parent"
