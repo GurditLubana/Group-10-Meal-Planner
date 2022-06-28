@@ -58,7 +58,7 @@ public class MealDiaryOps { //this needs to select the correct fragment
         try {
             if (currLog == null) { //If doesnt exist generate a new one
                 currLog = new DailyLog();
-                currLog.init(calendarToInt(date), emptyLog(), this.opUser.getUser().getCalorieGoal(), 0, 0);
+                currLog.init(calendarToInt(date), new ArrayList<EdibleLog>(), this.opUser.getUser().getCalorieGoal(), 0, 0);
                 db.addLog(currLog);
             }
         }
