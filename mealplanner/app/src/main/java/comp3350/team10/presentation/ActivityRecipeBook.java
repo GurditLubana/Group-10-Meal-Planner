@@ -189,7 +189,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     @Override
     public void showContextUI(int position) {
-        Food modifyUIcard = null;
+        Food modifyUIcard = new Food();
         if (position != this.savedPosition && this.saved != null) {
             this.data.remove(this.savedPosition);
             this.data.add(this.savedPosition, this.saved);
@@ -198,7 +198,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         if (this.data.get(position).getFragmentType() != ListItem.FragmentType.cardSelection) {
             this.saved = this.data.remove(position);
             this.savedPosition = position;
-            modifyUIcard = new Food();
 
             try { //this probably needs to be fixed
                 modifyUIcard.setFragmentType(ListItem.FragmentType.cardSelection);

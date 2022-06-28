@@ -61,6 +61,7 @@ public class EdibleLog implements ListItem {
     }
 
     public FragmentType getFragmentType() {
-        return this.edibleEntry.getFragmentType();
+        return FragmentType.diaryEntry;
+        //this.edibleEntry.getFragmentType();
     }
 }

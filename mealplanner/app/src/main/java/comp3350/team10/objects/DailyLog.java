@@ -22,8 +22,8 @@ public class DailyLog {
         this.edibleLog = null;
         this.calorieGoal = -1;
         this.exerciseGoal = -1;
-        this.exerciseActual = -1;
-        this.calorieActual = -1;
+        this.exerciseActual = 0;
+        this.calorieActual = 0;
     }
 
 

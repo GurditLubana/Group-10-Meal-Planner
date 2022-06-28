@@ -38,10 +38,10 @@ public abstract class Edible implements ListItem {
         this.baseQuantity = -1;
         this.baseUnit = null;
 
-        this.calories = -1;
-        this.protein = -1;
-        this.carbs = -1;
-        this.fat = -1;
+        this.calories = 0;  //these need to be 0 (add card was messing with this)
+        this.protein = 0;
+        this.carbs = 0;
+        this.fat = 0;
 
         this.isAlcoholic = false;
         this.isSpicy = false;
@@ -142,7 +142,7 @@ public abstract class Edible implements ListItem {
     }
 
     public void setDescription(String newDescription) throws IOException {
-        if(description != null) {
+        if(newDescription != null) {
             this.description = newDescription;
         }
         else {

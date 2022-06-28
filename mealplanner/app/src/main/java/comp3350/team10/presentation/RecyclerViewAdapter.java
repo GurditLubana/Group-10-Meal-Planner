@@ -16,6 +16,8 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
 
     @Override
     public int getItemViewType(int pos) {
+        System.out.println(pos);
+        System.out.println(localDataSet.get(pos).getFragmentType().ordinal());
         return localDataSet.get(pos).getFragmentType().ordinal();
     }
 

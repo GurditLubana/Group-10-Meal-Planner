@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import comp3350.team10.R;
+import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
 import comp3350.team10.objects.ListItem;
@@ -72,16 +73,16 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         TextView itemUnit = viewHolder.getView().findViewById(R.id.itemUnitBox);
         TextView itemCals = viewHolder.getView().findViewById(R.id.itemCalsBox);
         ImageView itemImage = viewHolder.getView().findViewById(R.id.itemImage);
-
+        System.out.println("getting position: " + position);
         ListItem currentItem = super.getDataset().get(position);
         EdibleLog currentLog;
-        if(currentItem instanceof EdibleLog) {
+        if(currentItem instanceof DailyLog) {   //used to be EdibleLog
             currentLog = (EdibleLog)currentItem;
             itemName.setText(currentLog.getEdibleEntry().getName());
             itemQty.setText(String.format("%3d", currentLog.getQuantity()));
             itemUnit.setText(currentLog.getUnit().name());
             itemCals.setText(String.format("%3d", currentLog.getEdibleEntry().getCalories()));
-            //itemImage.setImageResource(currentItem.getIconPath());
+            //itemImage.setImageResource(currentLog.getEdibleEntry().getPhotoBytes());
         }
     }
 
