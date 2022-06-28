@@ -17,6 +17,7 @@ public class EdibleLog extends Edible {
         }
         catch(Exception e) {
             System.out.println(e);
+            System.exit(1);
         }
     }
 
@@ -27,7 +28,8 @@ public class EdibleLog extends Edible {
             this.setFragmentType(fragType);
         }
         catch (Exception e) {
-            System.out.println(e + "\n\n");
+            System.out.println(e);
+            System.exit(1);
         }
     }
     //need to create a relative calorie function

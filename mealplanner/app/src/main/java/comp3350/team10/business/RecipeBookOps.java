@@ -70,6 +70,7 @@ public class RecipeBookOps { //this needs to select the corect fragment
         }
         catch(Exception e) {
             System.out.println(e);
+            System.exit(1);
         }
     }
 
@@ -90,6 +91,7 @@ public class RecipeBookOps { //this needs to select the corect fragment
         }
         catch(Exception e) {
             System.out.println(e);
+            System.exit(1);
         }
     }
 
@@ -119,6 +121,7 @@ public class RecipeBookOps { //this needs to select the corect fragment
         }
         catch(Exception e) {
             System.out.println(e);
+            System.exit(1);
         }
     }
 
@@ -145,6 +148,7 @@ public class RecipeBookOps { //this needs to select the corect fragment
         }
         catch(Exception e) {
             System.out.println(e);
+            System.exit(1);
         }
     }
 }

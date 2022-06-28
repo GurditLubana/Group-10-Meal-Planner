@@ -83,7 +83,7 @@ public class DailyLog {
         }
     }
 
-    private int calculateCalories() {
+    public int calculateCalories() {
         int currCalories = 0;
 
         for(int i = 0; i < this.edibleLog.size(); i++) {

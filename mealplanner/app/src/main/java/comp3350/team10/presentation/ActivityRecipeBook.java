@@ -199,14 +199,16 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
             this.saved = this.data.remove(position);
             this.savedPosition = position;
 
-            try { //this probably needs to be fixed
+            try {
                 modifyUIcard.setFragmentType(ListItem.FragmentType.cardSelection);
                 this.data.add(position, modifyUIcard);
             }
             catch(Exception e) {
                 System.out.println(e);
+                System.exit(1);
             }
-        } else {
+        } 
+        else {
             this.data.remove(position);
             this.data.add(position, this.saved);
             this.saved = null;

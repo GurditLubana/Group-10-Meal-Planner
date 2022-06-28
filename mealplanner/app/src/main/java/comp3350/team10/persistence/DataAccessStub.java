@@ -119,6 +119,7 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         }
         catch(Exception e) {
             System.out.println(e);
+            System.exit(1);
         }
     }
 
@@ -153,6 +154,7 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         }
         catch(Exception e) {
             System.out.println(e);
+            System.exit(1);
         }
     }
 
@@ -189,6 +191,7 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         }
         catch(Exception e) {
             System.out.println(e);
+            System.exit(1);
         }
     }
 
@@ -263,6 +266,7 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         }
         catch(Exception e) {
             System.out.println(e);
+            System.exit(1);
         }
     }
 
@@ -284,6 +288,7 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         }
         catch(Exception e) {
             System.out.println(e);
+            System.exit(1);
         }
     }
 
@@ -296,6 +301,7 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         }
         catch(Exception e) {
             System.out.println(e);
+            System.exit(1);
         }
     }
 

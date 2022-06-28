@@ -64,6 +64,7 @@ public class MealDiaryOps { //this needs to select the correct fragment
         }
         catch(Exception e) {
             System.out.println(e);
+            System.exit(1);
         }
 
         return currLog;
@@ -103,6 +104,7 @@ public class MealDiaryOps { //this needs to select the correct fragment
         }
         catch(Exception e) {
             System.out.println(e);
+            System.exit(1);
         }
     }
 
@@ -116,6 +118,7 @@ public class MealDiaryOps { //this needs to select the correct fragment
         }
         catch(Exception e) {
             System.out.println(e);
+            System.exit(1);
         }
     }
 
@@ -130,6 +133,7 @@ public class MealDiaryOps { //this needs to select the correct fragment
         }
         catch(Exception e) {
             System.out.println(e);
+            System.exit(1);
         }
     }
 
@@ -166,11 +170,12 @@ public class MealDiaryOps { //this needs to select the correct fragment
         this.calcProgress();
     }
 
-    private void calcProgress() {
+    private void calcProgress() { //
         if (this.calorieNet > 0) {
             this.progressExcess = 0;
             this.progressBar = (this.currLog.getCalorieGoal() - this.calorieNet) * MAX_PROGRESS / this.currLog.getCalorieGoal();
-        } else {
+        }
+        else {
             this.progressBar = MAX_PROGRESS;
             this.progressExcess = -this.calorieNet * MAX_PROGRESS / this.currLog.getCalorieGoal();
 
@@ -184,7 +189,7 @@ public class MealDiaryOps { //this needs to select the correct fragment
     }
 
     private void netCalories() {
-        this.calorieNet = this.currLog.getCalorieGoal() - this.currLog.getExerciseActual();
+        this.calorieNet = this.currLog.getCalorieGoal() - this.currLog.getCalorieActual();
     }
 
     public void addByKey(int dbkey) {
