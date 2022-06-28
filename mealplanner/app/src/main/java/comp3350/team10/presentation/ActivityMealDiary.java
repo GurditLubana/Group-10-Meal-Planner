@@ -30,6 +30,7 @@ import java.util.List;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToMealDiary {
     private static enum EDIBLES_TYPES {FOOD, MEAL, DRINK} //The different types of food types
+    private EdibleLog addButton;
 
     private ActivityResultLauncher<Intent> pickMeal; // call back listener when recipebook activity is launched for meal selection
     private RVAMealDiary recyclerViewAdapter;   //Houses the logic for a recycle view with diary entries
@@ -48,6 +49,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        this.addButton = new EdibleLog(ListItem.FragmentType.diaryAdd);
         setContentView(R.layout.activity_meal_diary);
         SharedDB.start("EaTen");
         this.initToolbar();
@@ -70,11 +72,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     private void initRecyclerView() {
-        //ArrayList<Edible> tempList;
-        EdibleLog addButton = new EdibleLog(ListItem.FragmentType.diaryAdd);
-
         if (this.data != null) {
-            this.data.add(addButton);
             this.recyclerViewAdapter = new RVAMealDiary(this.data);
             this.mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
             this.mealRecyclerView.setAdapter(this.recyclerViewAdapter);
@@ -102,8 +100,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     public void showContextUI(int position) {
-        Food modifyUIcard = null;
-        EdibleLog modifyLog = null;
+        EdibleLog modifyLog = new EdibleLog(ListItem.FragmentType.diaryModify);
+
         if (position != this.savedItemPosition && this.savedItem != null) {
             this.data.remove(this.savedItemPosition);
             this.data.add(this.savedItemPosition, this.savedItem);
@@ -113,18 +111,9 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             if (this.data.get(position).getFragmentType() == ListItem.FragmentType.diaryEntry) {
                 this.savedItem = this.data.remove(position);
                 this.savedItemPosition = position;
-                modifyUIcard = new Food();
-                modifyLog= new EdibleLog(modifyUIcard);
-
-                try { //this probably needs to be fixed
-                    modifyUIcard.setFragmentType(ListItem.FragmentType.diaryModify);
-                    //modifyLog.setEdibleEntry(modifyUIcard);
-                    this.data.add(position, modifyLog);
-                }
-                catch(Exception e) {
-                    System.out.println(e);
-                }
-            } else {
+                this.data.add(position, modifyLog);
+            }
+            else {
                 this.data.remove(position);
                 this.data.add(position, this.savedItem);
                 this.savedItem = null;
@@ -227,9 +216,9 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     public void updateLiveData() {
-        ArrayList<ListItem> tempList = new ArrayList<ListItem>();
         if (this.mealDiaryData != null && this.opExec != null) {
             this.data = this.opExec.getList();
+            this.data.add(this.addButton);
             this.mealDiaryData.getActivityDate().setValue(this.opExec.getListDate());
             this.mealDiaryData.getGoalCalories().setValue(this.opExec.getCalorieGoal());
             this.mealDiaryData.getConsumedCalories().setValue(this.opExec.getCurrLog().getCalorieActual() - this.opExec.getCurrLog().getExerciseActual());
