@@ -73,24 +73,11 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         ArrayList<Edible> tempList;
 
         if (this.data != null) {
-            //tempList = convertToListItem(this.data);
             this.recyclerViewAdapter = new RVAMealDiary(this.data);
             this.mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
             this.mealRecyclerView.setAdapter(this.recyclerViewAdapter);
             this.mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
-    }
-
-    private ArrayList<ListItem> convertToListItem(ArrayList<EdibleLog> currList) {
-        ArrayList<ListItem> tempList = new ArrayList<ListItem>();
-
-        for(int i = 0; i < currList.size(); i++) {
-            if(currList.get(i) instanceof ListItem) {
-                tempList.add(this.data.get(i));
-            }
-        }
-
-        return tempList;
     }
 
     private void createActivityCallbackListener() {

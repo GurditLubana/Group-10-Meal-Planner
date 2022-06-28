@@ -58,7 +58,7 @@ public class MealDiaryOps { //this needs to select the correct fragment
         try {
             if (currLog == null) { //If doesnt exist generate a new one
                 currLog = new DailyLog();
-                currLog.init(calendarToInt(date), new ArrayList<EdibleLog>(), this.opUser.getUser().getCalorieGoal(), 0, 0);
+                currLog.init(calendarToInt(date), new ArrayList<Edible>(), this.opUser.getUser().getCalorieGoal(), 0, 0);
                 db.addLog(currLog);
             }
         }
@@ -119,7 +119,7 @@ public class MealDiaryOps { //this needs to select the correct fragment
         }
     }
 
-    public void updateList(ArrayList<EdibleLog> newList) {
+    public void updateList(ArrayList<Edible> newList) {
         try {
             if (newList != null) {
                 this.db.deleteLog(currLog);
@@ -153,7 +153,7 @@ public class MealDiaryOps { //this needs to select the correct fragment
         return this.progressExcess;
     }
 
-    public ArrayList<EdibleLog> getList() {
+    public ArrayList<Edible> getList() {
         return this.currLog.getEdibleList();
     }
 
@@ -188,7 +188,7 @@ public class MealDiaryOps { //this needs to select the correct fragment
     }
 
     public void addByKey(int dbkey) {
-        EdibleLog tempLog = new EdibleLog(db.findEdibleByKey(dbkey));
+        EdibleLog tempLog = new di(db.findEdibleByKey(dbkey));
 
         this.currLog.getEdibleList().add(this.currLog.getEdibleList().size() - 1, tempLog);
         this.updateProgress();

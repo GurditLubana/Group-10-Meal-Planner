@@ -11,7 +11,7 @@ import comp3350.team10.objects.Constant;
 
 public class DailyLog {
     private int date;                          //The date of this particular log    
-    private ArrayList<EdibleLog> edibleLog;    //The edibles present in the given log for a given date
+    private ArrayList<Edible> edibleLog;    //The edibles present in the given log for a given date
     private int calorieGoal;                   //The calorie goal for a given date 
     private int exerciseGoal;                  //The calorie goal for exercising for a given date
     private int exerciseActual;                //The calories burnt while exercising for a given date
@@ -27,7 +27,7 @@ public class DailyLog {
     }
 
 
-    public DailyLog init(int date, ArrayList<EdibleLog> log, int calGoal, int excGoal, int excActual) throws IOException {
+    public DailyLog init(int date, ArrayList<Edible> log, int calGoal, int excGoal, int excActual) throws IOException {
         this.setDate(date);
         this.setEdibleList(log);
         this.setCalorieGoal(calGoal);
@@ -47,7 +47,7 @@ public class DailyLog {
         }
     }
 
-    public void setEdibleList(ArrayList<EdibleLog> newLog) throws IOException {
+    public void setEdibleList(ArrayList<Edible> newLog) throws IOException {
         if (newLog != null && newLog.size() > 0 && !newLog.contains(null)) {
             this.edibleLog = newLog;
         }
@@ -102,7 +102,7 @@ public class DailyLog {
         }
     }
 
-    public ArrayList<EdibleLog> getEdibleList() {
+    public ArrayList<Edible> getEdibleList() {
         return this.edibleLog;
     }
 

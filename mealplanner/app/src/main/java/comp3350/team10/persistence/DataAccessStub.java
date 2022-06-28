@@ -55,7 +55,7 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         this.dbFoodLog = new ArrayList<DailyLog>(); // key = yyyyddd integer , Calorie goal, Exercise goal, actual exercise, Foodlog
 
         try {
-            ArrayList<EdibleLog> logDay = new ArrayList<EdibleLog>();
+            ArrayList<Edible> logDay = new ArrayList<Edible>();
             logDay.add(new EdibleLog(this.dbRecipeFood.get(0)).init(1, Edible.Unit.cups));
             this.dbFoodLog.add(new DailyLog().init(today, logDay, 700, 100, 0));
 
