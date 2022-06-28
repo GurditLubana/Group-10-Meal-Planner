@@ -102,7 +102,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container_nav"
+        android:id="@+id/diaryNav"
         android:name="comp3350.team10.presentation.FragmentNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

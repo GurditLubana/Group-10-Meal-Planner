@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipeBook.ViewHolder> {
     private ArrayList<Edible> localDataSet;            // the list Recyclerview renders
-    private Edible saved;                               // var to save a meal entry when we show context UI
+    //private Edible saved;                               // var to save a meal entry when we show context UI
 
     @Override
     public int getItemViewType(int pos) {
@@ -46,7 +46,7 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
         return this.localDataSet.size();
     }
 
-    public ArrayList<Edible> getDataset() {
+    public ArrayList<Edible> getDataSet() {
         return this.localDataSet;
     }
 }

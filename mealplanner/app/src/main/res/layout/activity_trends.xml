@@ -2,10 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mealDiary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="comp3350.team10.presentation.ActivityMealDiary">
+    tools:context=".presentation.ActivityTrends">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -25,20 +24,11 @@
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"></androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/diaryProgress"
-        android:name="comp3350.team10.presentation.FragmentDiaryProgress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="?android:attr/actionBarSize"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trendsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="214dp"
+        android:layout_marginTop="64dp"
         android:layout_marginBottom="@dimen/navbar"
         android:background="?colorPrimaryVariant"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +37,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/diaryNav"
+        android:id="@+id/trendsNav"
         android:name="comp3350.team10.presentation.FragmentNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,6 +45,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
