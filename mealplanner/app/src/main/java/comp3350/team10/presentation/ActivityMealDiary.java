@@ -218,7 +218,11 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     public void updateLiveData() {
         if (this.mealDiaryData != null && this.opExec != null) {
             this.data = this.opExec.getList();
-            this.data.add(this.addButton);
+            
+            if(!this.data.contains(this.addButton)) {
+                this.data.add(this.addButton);
+            }
+            
             this.mealDiaryData.getActivityDate().setValue(this.opExec.getListDate());
             this.mealDiaryData.getGoalCalories().setValue(this.opExec.getCalorieGoal());
             this.mealDiaryData.getConsumedCalories().setValue(this.opExec.getCurrLog().getCalorieActual() - this.opExec.getCurrLog().getExerciseActual());
