@@ -188,7 +188,7 @@ public class MealDiaryOps { //this needs to select the correct fragment
     }
 
     public void addByKey(int dbkey) {
-        EdibleLog tempLog = new di(db.findEdibleByKey(dbkey));
+        EdibleLog tempLog = new EdibleLog(db.findEdibleByKey(dbkey));
 
         this.currLog.getEdibleList().add(this.currLog.getEdibleList().size() - 1, tempLog);
         this.updateProgress();
