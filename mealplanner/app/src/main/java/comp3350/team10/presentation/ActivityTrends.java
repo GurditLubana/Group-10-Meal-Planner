@@ -14,6 +14,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.material.tabs.TabLayout;
+
 import java.util.ArrayList;
 
 public class ActivityTrends extends AppCompatActivity implements FragToTrends{
@@ -22,6 +24,7 @@ public class ActivityTrends extends AppCompatActivity implements FragToTrends{
     private ArrayList<DataFrame> data;
     private TrendsOps opExec;
     private Toolbar toolbar;                    //app title
+    private int currTab;                            // The tab that is currently displayed
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,7 @@ public class ActivityTrends extends AppCompatActivity implements FragToTrends{
         this.initToolbar();
         this.initData();
         this.initRecyclerView();
+        this.setTabListeners();
     }
 
     private void initToolbar() {
@@ -59,6 +63,42 @@ public class ActivityTrends extends AppCompatActivity implements FragToTrends{
             this.trendsRecyclerView.setAdapter(recyclerViewAdapter);
             this.trendsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
+    }
+
+    private void setTabListeners() {
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) { //tab.getPosition() tab 0 = food, 1 = meal, 2 = drink
+                currTab = tab.getPosition();
+                if (currTab == 0) {
+                    data = opExec.getDataFrames(DataFrame.Span.Week);
+                } else if (currTab == 1) {
+                    data = opExec.getDataFrames(DataFrame.Span.Month);
+                } else if (currTab == 2) {
+                    data = opExec.getDataFrames(DataFrame.Span.ThreeMonth);
+                } else if (currTab == 3) {
+                    data = opExec.getDataFrames(DataFrame.Span.SixMonth);
+                } else if (currTab == 4) {
+                    data = opExec.getDataFrames(DataFrame.Span.Year);
+                } else {
+                    data = opExec.getDataFrames(DataFrame.Span.All);
+                }
+
+                recyclerViewAdapter.changeDataSet(data);
+                recyclerViewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                currTab = tab.getPosition();
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
     }
 
 

@@ -40,21 +40,23 @@ public class TrendsOps {
 
     private DataFrame getDataFromDB(DataFrame.DataType dataType) {
         DataFrame dataFrame = new DataFrame(dataType, this.span);
-        dataFrame.setData(stubData());
+        dataFrame.setData(stubData(dataType));
 
         return dataFrame;
     }
 
-    private ArrayList<Double> stubData() {
+    private ArrayList<Double> stubData(DataFrame.DataType dataType) { // stub, remove when persistence is ready
         ArrayList<Double> stubArray = new ArrayList<Double>();
-
-        stubArray.add(new Double(1500.00));
-        stubArray.add(new Double(1200.00));
-        stubArray.add(new Double(1300.00));
-        stubArray.add(new Double(1700.00));
-        stubArray.add(new Double(1400.00));
-        stubArray.add(new Double(2500.00));
-        stubArray.add(new Double(2000.00));
+        int[] multiplier = {1,4,12,24,48,96};
+        for(int i = 0;  i < multiplier[this.span.ordinal()]; i++) {
+            stubArray.add(new Double(1500.00));
+            stubArray.add(new Double(1200.00));
+            stubArray.add(new Double(1300.00));
+            stubArray.add(new Double(1700.00));
+            stubArray.add(new Double(1400.00));
+            stubArray.add(new Double(2500.00));
+            stubArray.add(new Double(2000.00));
+        }
 
         return stubArray;
     }
