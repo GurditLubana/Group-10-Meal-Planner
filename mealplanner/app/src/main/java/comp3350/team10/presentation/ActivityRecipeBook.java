@@ -75,11 +75,11 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     private void initRecyclerView() {
         View object = findViewById(R.id.recipeRecyclerView);
-        ArrayList<ListItem> tempList = convertToListItem(this.data);
+        //ArrayList<ListItem> tempList = convertToListItem(this.data);
 
         if (this.data != null && object instanceof RecyclerView) {
             this.recipeRecyclerView = (RecyclerView) object;
-            this.recyclerViewAdapter = new RVARecipeBook(tempList);
+            this.recyclerViewAdapter = new RVARecipeBook(this.data);
             this.recipeRecyclerView.setAdapter(recyclerViewAdapter);
             this.recipeRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         }
@@ -232,11 +232,11 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     private void updateRVA() {
-        ArrayList<ListItem> tempList;
+        //ArrayList<ListItem> tempList;
 
         if (this.recyclerViewAdapter != null) {
-            tempList = convertToListItem(this.data);
-            this.recyclerViewAdapter.changeData(tempList);
+            //tempList = convertToListItem(this.data);
+            this.recyclerViewAdapter.changeData(this.data);
             this.recyclerViewAdapter.notifyDataSetChanged();
         }
     }

@@ -18,7 +18,7 @@ import comp3350.team10.objects.ListItem;
 public class RVAMealDiary extends RecyclerViewAdapter {
     private FragToMealDiary sendToMealDiary;            // interface to pass data to mealdiary
 
-    public RVAMealDiary(ArrayList<ListItem> dataSet) {
+    public RVAMealDiary(ArrayList<Edible> dataSet) {
         super(dataSet);
     }
 
