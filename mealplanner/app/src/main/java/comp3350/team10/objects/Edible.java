@@ -51,7 +51,7 @@ public abstract class Edible implements ListItem {
 
         this.isCustom = false;
         this.photoBytes = null;
-        this.fragmentType = null;
+        this.fragmentType = FragmentType.recipe;
     }
 
     
@@ -252,6 +252,10 @@ public abstract class Edible implements ListItem {
         }
     }
 
+    public String getDesciprtion() {
+        return this.description;
+    }
+    
     public int getCalories() {
         return this.calories;
     }

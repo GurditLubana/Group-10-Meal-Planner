@@ -125,10 +125,11 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                 this.savedItem = this.data.remove(position);
                 this.savedItemPosition = position;
                 modifyUIcard = new Food();
+                modifyLog= new EdibleLog(modifyUIcard);
 
                 try { //this probably needs to be fixed
                     modifyUIcard.setFragmentType(ListItem.FragmentType.diaryModify);
-                    modifyLog.setEdibleEntry(modifyUIcard);
+                    //modifyLog.setEdibleEntry(modifyUIcard);
                     this.data.add(position, modifyLog);
                 }
                 catch(Exception e) {
@@ -231,7 +232,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         Intent intent = new Intent(this, ActivityRecipeBook.class);
 
         if(this.data.get(pos) instanceof EdibleLog) {
-            intent.putExtra("DBKEY", ((EdibleLog)(this.data.get(pos))).getEdibleEntry().getDbkey());
+            intent.putExtra("DBKEY", ((EdibleLog)(this.data.get(pos))).getDbkey());
             this.pickMeal.launch(intent);
         }
     }
@@ -273,10 +274,10 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
         try {
             selectedItem = this.savedItem;
-            converter = new UnitConverter(selectedItem.getUnit(), selectedItem.getQuantity(), selectedItem.getEdibleEntry().getCalories());
-            selectedItem.getEdibleEntry().setBaseQuantity(amount);
-            selectedItem.getEdibleEntry().setBaseUnit(Edible.Unit.valueOf(unit));
-            selectedItem.getEdibleEntry().setCalories(converter.getCalories(selectedItem.getUnit(), selectedItem.getQuantity()));
+            converter = new UnitConverter(selectedItem.getUnit(), selectedItem.getQuantity(), selectedItem.getCalories());
+            selectedItem.setBaseQuantity(amount);
+            selectedItem.setBaseUnit(Edible.Unit.valueOf(unit));
+            selectedItem.setCalories(converter.getCalories(selectedItem.getUnit(), selectedItem.getQuantity()));
 
             this.showContextUI(-1);
             this.opExec.updateList(data);

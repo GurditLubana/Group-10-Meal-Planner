@@ -29,9 +29,9 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         ViewHolder viewHolder = null;
 
         switch (viewType) {
-            case 0:
-                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card, viewGroup, false);
-                break;
+            //case 0:
+
+              //  break;
             case 1:
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card_context, viewGroup, false);
                 break;
@@ -39,7 +39,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_add_log, viewGroup, false);
                 break;
             default:
-                view = null;
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card, viewGroup, false);
                 break;
         }
         context = view.getContext();
@@ -78,10 +78,10 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         EdibleLog currentLog;
         if(currentItem instanceof DailyLog) {   //used to be EdibleLog
             currentLog = (EdibleLog)currentItem;
-            itemName.setText(currentLog.getEdibleEntry().getName());
+            itemName.setText(currentLog.getName());
             itemQty.setText(String.format("%3d", currentLog.getQuantity()));
             itemUnit.setText(currentLog.getUnit().name());
-            itemCals.setText(String.format("%3d", currentLog.getEdibleEntry().getCalories()));
+            itemCals.setText(String.format("%3d", currentLog.getCalories()));
             //itemImage.setImageResource(currentLog.getEdibleEntry().getPhotoBytes());
         }
     }

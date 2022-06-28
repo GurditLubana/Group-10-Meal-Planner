@@ -87,7 +87,7 @@ public class DailyLog {
         int currCalories = 0;
 
         for(int i = 0; i < this.edibleLog.size(); i++) {
-            currCalories += this.edibleLog.get(i).getEdibleEntry().getCalories();
+            currCalories += this.edibleLog.get(i).getCalories();
         }
 
         return currCalories - this.exerciseActual;

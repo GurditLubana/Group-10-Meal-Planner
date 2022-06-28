@@ -56,7 +56,7 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
 
         try {
             ArrayList<EdibleLog> logDay = new ArrayList<EdibleLog>();
-            logDay.add(new EdibleLog().init(this.dbRecipeFood.get(0), 1, Edible.Unit.cups));
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(0)).init(1, Edible.Unit.cups));
             logDay.addAll(emptyLog());
 
             this.dbFoodLog.add(new DailyLog().init(today, logDay, 700, 100, 0));
@@ -90,12 +90,13 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
 
     private ArrayList<EdibleLog> emptyLog() {
         ArrayList<EdibleLog> edibleLog = new ArrayList<EdibleLog>();
-        EdibleLog emptyLog = new EdibleLog();
         Food addLog = new Food();
+        EdibleLog emptyLog = new EdibleLog(addLog);
+
 
         try {
             addLog.setFragmentType(ListItem.FragmentType.diaryAdd);
-            emptyLog.setEdibleEntry(addLog);
+            //emptyLog.setEdibleEntry(addLog);
             edibleLog.add(emptyLog);
         }
         catch(Exception e) {

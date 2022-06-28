@@ -61,6 +61,11 @@ public class MealDiaryOps { //this needs to select the correct fragment
                 currLog.init(calendarToInt(date), emptyLog(), this.opUser.getUser().getCalorieGoal(), 0, 0);
                 db.addLog(currLog);
             }
+            else {
+                for(int i = 0; i < currLog.getEdibleList().size() - 1; i++) {
+                    currLog.getEdibleList().get(i).setFragmentType(ListItem.FragmentType.diaryEntry);
+                }
+            }
         }
         catch(Exception e) {
             System.out.println(e);
@@ -168,12 +173,13 @@ public class MealDiaryOps { //this needs to select the correct fragment
 
     private ArrayList<EdibleLog> emptyLog() {
         ArrayList<EdibleLog> edibleLog = new ArrayList<EdibleLog>();
-        EdibleLog emptyLog = new EdibleLog();
         Food addLog = new Food();
+        EdibleLog emptyLog = new EdibleLog(addLog);
+
 
         try {
             addLog.setFragmentType(ListItem.FragmentType.diaryAdd);
-            emptyLog.setEdibleEntry(addLog);
+            //emptyLog.setEdibleEntry(addLog);
             edibleLog.add(emptyLog);
         }
         catch(Exception e) {
@@ -206,12 +212,12 @@ public class MealDiaryOps { //this needs to select the correct fragment
 
     public void addByKey(int dbkey) {
         Edible tempEdible = db.findEdibleByKey(dbkey);
-        EdibleLog tempLog = new EdibleLog();
+        EdibleLog tempLog = new EdibleLog(tempEdible);
 
         try {
             if (tempEdible != null) {
                 tempEdible.setFragmentType(ListItem.FragmentType.diaryEntry);
-                tempLog.setEdibleEntry(tempEdible);
+//                tempLog.setEdibleEntry(tempEdible);
                 this.currLog.getEdibleList().add(this.currLog.getEdibleList().size() - 1, tempLog);
                 this.updateProgress();
             }
