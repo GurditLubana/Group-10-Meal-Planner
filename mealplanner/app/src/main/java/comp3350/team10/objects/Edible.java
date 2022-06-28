@@ -51,7 +51,7 @@ public abstract class Edible implements ListItem {
 
         this.isCustom = false;
         this.photoBytes = null;
-        this.fragmentType = FragmentType.recipe;
+        this.fragmentType = null;
     }
 
     
@@ -189,7 +189,7 @@ public abstract class Edible implements ListItem {
         }
     }
 
-    public void setFragmentType(ListItem.FragmentType newFragmentType) throws IOException {
+    public void setFragmentType(FragmentType newFragmentType) throws IOException {
         if(newFragmentType != null) {
             this.fragmentType = newFragmentType;
         }

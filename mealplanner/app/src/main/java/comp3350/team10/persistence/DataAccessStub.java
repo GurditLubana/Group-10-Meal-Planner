@@ -57,8 +57,6 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         try {
             ArrayList<EdibleLog> logDay = new ArrayList<EdibleLog>();
             logDay.add(new EdibleLog(this.dbRecipeFood.get(0)).init(1, Edible.Unit.cups));
-            logDay.addAll(emptyLog());
-
             this.dbFoodLog.add(new DailyLog().init(today, logDay, 700, 100, 0));
 
             this.sortDBFoodLog();
@@ -88,24 +86,6 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         });
     }
 
-    private ArrayList<EdibleLog> emptyLog() {
-        ArrayList<EdibleLog> edibleLog = new ArrayList<EdibleLog>();
-        Food addLog = new Food();
-        EdibleLog emptyLog = new EdibleLog(addLog);
-
-
-        try {
-            addLog.setFragmentType(ListItem.FragmentType.diaryAdd);
-            //emptyLog.setEdibleEntry(addLog);
-            edibleLog.add(emptyLog);
-        }
-        catch(Exception e) {
-            System.out.println(e);
-        }
-
-        return edibleLog;
-    }
-
     private void loadRecipeDrinks() {
         this.dbRecipeDrink = new ArrayList<Edible>();
         ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
@@ -119,21 +99,21 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
                     .initDetails(1, "drink", "desc", 1, Edible.Unit.cups)
                     .initNutrition(1, 1, 1, 1)
                     .initCategories(false, false, false, false, false)
-                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.recipe)
+                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.diaryEntry)
             );
             ((Drink)this.dbRecipeDrink.get(0)).setIngredients(ingredients);
             this.dbRecipeDrink.add(new Drink()
                     .initDetails(2, "drink", "desc", 1, Edible.Unit.cups)
                     .initNutrition(1, 1, 1, 1)
                     .initCategories(false, false, false, false, false)
-                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.recipe)
+                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.diaryEntry)
             );
             ((Drink)this.dbRecipeDrink.get(1)).setIngredients(ingredients);
             this.dbRecipeDrink.add(new Drink()
                     .initDetails(3, "drink", "desc", 1, Edible.Unit.cups)
                     .initNutrition(1, 1, 1, 1)
                     .initCategories(false, false, false, false, false)
-                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.recipe)
+                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.diaryEntry)
             );
             ((Drink)this.dbRecipeDrink.get(2)).setIngredients(ingredients);
         }
@@ -150,25 +130,25 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
                     .initDetails(4, "food", "desc", 1, Edible.Unit.cups)
                     .initNutrition(1, 1, 1, 1)
                     .initCategories(false, false, false, false, false)
-                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.recipe)
+                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.diaryEntry)
             );
             this.dbRecipeFood.add(new Food()
                     .initDetails(5, "food", "desc", 1, Edible.Unit.cups)
                     .initNutrition(1, 1, 1, 1)
                     .initCategories(false, false, false, false, false)
-                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.recipe)
+                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.diaryEntry)
             );
             this.dbRecipeFood.add(new Food()
                     .initDetails(6, "food", "desc", 1, Edible.Unit.cups)
                     .initNutrition(1, 1, 1, 1)
                     .initCategories(false, false, false, false, false)
-                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.recipe)
+                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.diaryEntry)
             );
             this.dbRecipeFood.add(new Food()
                     .initDetails(7, "food", "desc", 1, Edible.Unit.cups)
                     .initNutrition(1, 1, 1, 1)
                     .initCategories(false, false, false, false, false)
-                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.recipe)
+                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.diaryEntry)
             );
         }
         catch(Exception e) {
@@ -189,21 +169,21 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
                     .initDetails(8, "meal", "desc", 1, Edible.Unit.cups)
                     .initNutrition(1, 1, 1, 1)
                     .initCategories(false, false, false, false, false)
-                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.recipe)
+                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.diaryEntry)
             );
             ((Meal)this.dbRecipeMeal.get(0)).setIngredients(ingredients);
             this.dbRecipeMeal.add(new Meal()
                     .initDetails(9, "meal", "desc", 1, Edible.Unit.cups)
                     .initNutrition(1, 1, 1, 1)
                     .initCategories(false, false, false, false, false)
-                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.recipe)
+                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.diaryEntry)
             );
             ((Meal)this.dbRecipeMeal.get(1)).setIngredients(ingredients);
             this.dbRecipeMeal.add(new Meal()
                     .initDetails(10, "meal", "desc", 1, Edible.Unit.cups)
                     .initNutrition(1, 1, 1, 1)
                     .initCategories(false, false, false, false, false)
-                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.recipe)
+                    .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.diaryEntry)
             );
             ((Meal)this.dbRecipeMeal.get(2)).setIngredients(ingredients);
         }

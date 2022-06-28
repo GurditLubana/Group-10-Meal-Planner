@@ -54,15 +54,15 @@ public class RVAMealDiary extends RecyclerViewAdapter {
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
         switch (viewHolder.getItemViewType()) {
-            case 0:
-                setDiaryEntryData(viewHolder, position);
-                setDiaryEntryListeners(viewHolder);
-                break;
             case 1:
                 setDiaryContextListeners(viewHolder);
                 break;
             case 2:
                 setDiaryAddListeners(viewHolder);
+                break;
+            default:
+                setDiaryEntryData(viewHolder, position);
+                setDiaryEntryListeners(viewHolder);
                 break;
         }
     }

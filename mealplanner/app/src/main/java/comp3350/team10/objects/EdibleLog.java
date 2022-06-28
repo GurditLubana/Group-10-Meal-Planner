@@ -20,6 +20,16 @@ public class EdibleLog extends Edible {
         }
     }
 
+    public EdibleLog(FragmentType fragType) {
+        super();
+
+        try {
+            this.setFragmentType(fragType);
+        }
+        catch (Exception e) {
+            System.out.println(e + "\n\n");
+        }
+    }
     //need to create a relative calorie function
 
     public EdibleLog init(int quantity, Edible.Unit unit) throws IOException{
