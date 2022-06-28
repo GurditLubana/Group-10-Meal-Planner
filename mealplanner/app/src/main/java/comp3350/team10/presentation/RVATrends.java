@@ -5,13 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
 import java.util.ArrayList;
 
 import comp3350.team10.R;
 import comp3350.team10.objects.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RVATrends extends RecyclerViewAdapter {
     ArrayList<DataFrame> dataSet = null;
+    FragToTrends send;
 
     public RVATrends(ArrayList<DataFrame> dataSet) {
         super(null);
@@ -29,15 +37,15 @@ public class RVATrends extends RecyclerViewAdapter {
         Context context = null;
         View view = null;
 
-        switch (viewType) {
-            default:
+//        switch (viewType) {
+//            default:
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_trend_chart, viewGroup, false);
-                break;
-        }
+//                break;
+//        }
 
         context = view.getContext();
-        if (context instanceof FragToRecipeBook) {
-            //this.sendToRecipeBook = (FragToRecipeBook) context;
+        if (context instanceof FragToTrends) {
+            this.send = (FragToTrends) context;
         }
 
         viewHolder = new ViewHolder(view);
@@ -47,17 +55,23 @@ public class RVATrends extends RecyclerViewAdapter {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        switch (viewHolder.getItemViewType()) {
-            case 4:
-                setCardSelectionListeners(viewHolder, position);
-                break;
-            default:
-                setRecipeData(viewHolder, position);
-                setCardListeners(viewHolder, position);
-                break;
-        }
+//        switch (viewHolder.getItemViewType()) {
+//            default:
+                setChartData(viewHolder, position);
+                //setCardListeners(viewHolder, position);
+//                break;
+//        }
     }
 
+    @Override
+    public int getItemCount() {
+        return this.dataSet.size();
+    }
+
+    @Override
+    public int getItemViewType(int pos) {
+        return 0;
+    }
 
     private void setCardListeners(ViewHolder viewHolder, int position) {
 //        viewHolder.getView().findViewById(R.id.cardView2).setOnClickListener(new View.OnClickListener() {
@@ -70,16 +84,17 @@ public class RVATrends extends RecyclerViewAdapter {
 //        });
     }
 
-    private void setRecipeData(ViewHolder viewHolder, int position) {
-//        ImageView itemImage = viewHolder.getView().findViewById(R.id.mealImage);
-//        TextView textDesc = viewHolder.getView().findViewById(R.id.mealDesc);
-//        TextView mealCalories = viewHolder.getView().findViewById(R.id.mealCals);
-//
-//        Edible currentFood = super.getDataset().get(position);
-//
-//        itemImage.setImageResource(currentFood.getIconPath());
-//        textDesc.setText(currentFood.getName());
-//        mealCalories.setText(Integer.toString(currentFood.getCalories()));
+    private void setChartData(ViewHolder viewHolder, int position) {
+        GraphView graph = (GraphView) viewHolder.getView().findViewById(R.id.graph);
+        DataFrame dataFrame = this.dataSet.get(position);
+        DataPoint[] dataPointArray = new DataPoint[dataFrame.size()];
+        ArrayList<Double> dataArray = dataFrame.getData();
+        for(int i =0; i < dataArray.size(); i++){
+            dataPointArray[i] = new DataPoint(i, dataArray.get(i).doubleValue());
+        }
+
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPointArray);
+        graph.addSeries(series);
     }
 
     private void setCardSelectionListeners(ViewHolder viewHolder, int position) {

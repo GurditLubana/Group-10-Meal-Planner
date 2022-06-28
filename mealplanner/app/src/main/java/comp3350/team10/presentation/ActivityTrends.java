@@ -2,7 +2,7 @@ package comp3350.team10.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import comp3350.team10.R;
@@ -16,7 +16,7 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-public class ActivityTrends extends AppCompatActivity {
+public class ActivityTrends extends AppCompatActivity implements FragToTrends{
     private RecyclerView trendsRecyclerView;      //Houses a recycle view for diary entries
     private RVATrends recyclerViewAdapter;
     private ArrayList<DataFrame> data;
@@ -29,6 +29,7 @@ public class ActivityTrends extends AppCompatActivity {
         setContentView(R.layout.activity_trends);
         this.initToolbar();
         this.initData();
+        this.initRecyclerView();
     }
 
     private void initToolbar() {
@@ -50,13 +51,13 @@ public class ActivityTrends extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        View object = findViewById(R.id.recipeRecyclerView);
+        View object = findViewById(R.id.trendsRecyclerView);
 
         if (this.data != null && object instanceof RecyclerView) {
             this.trendsRecyclerView = (RecyclerView) object;
-            this.recyclerViewAdapter = new RVATrends(data);
+            this.recyclerViewAdapter = new RVATrends(this.data);
             this.trendsRecyclerView.setAdapter(recyclerViewAdapter);
-            this.trendsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+            this.trendsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
     }
 

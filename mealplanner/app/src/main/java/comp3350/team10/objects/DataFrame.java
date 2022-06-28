@@ -8,6 +8,7 @@ public class DataFrame {
     private ArrayList<Double> data;
     private DataType dataType;
     private Span span;
+    private int size;
 
     public DataFrame(DataType dataType, Span span) throws NullPointerException{
         if( dataType != null ){
@@ -32,12 +33,21 @@ public class DataFrame {
         return this.dataType;
     }
 
+    public int size(){
+        return this.size;
+    }
+
     public void setData(ArrayList<Double> data) throws NullPointerException{
         if( data != null ){
-
+            this.size = data.size();
+            this.data = data;
         }
         else{
             throw new NullPointerException("DataFrame ArrayList<Double> cannot be null");
         }
+    }
+
+    public ArrayList<Double> getData(){
+        return this.data;
     }
 }

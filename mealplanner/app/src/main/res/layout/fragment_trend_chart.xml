@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame_container"
     android:layout_width="match_parent"
     android:layout_height="500dp"
     tools:context=".presentation.FragmentTrendChart">
@@ -12,9 +13,11 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/trendsChartCard"
-            android:layout_width="550dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="75dp"
+            android:layout_marginEnd="16dp"
             app:cardBackgroundColor="#4A4848"
             app:cardCornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -26,8 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.anychart.AnyChartView
-                    android:id="@+id/any_chart_view"
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/graph"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layout_constraintBottom_toBottomOf="parent"
