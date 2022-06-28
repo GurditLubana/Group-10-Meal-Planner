@@ -40,7 +40,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     private ArrayList<Edible> data;            //The data for the diary entries
     private int savedItemPosition;              //Saves the position of an item for temporary removal
-    private EdibleLog savedItem;                   //Saves the item for temporary removal
+    private Edible savedItem;                   //Saves the item for temporary removal
     private EntryMode mode;                     //This tracks the type of input dialog when launched
 
 
@@ -70,9 +70,11 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     private void initRecyclerView() {
-        ArrayList<Edible> tempList;
+        //ArrayList<Edible> tempList;
+        EdibleLog addButton = new EdibleLog(ListItem.FragmentType.diaryAdd);
 
         if (this.data != null) {
+            this.data.add(addButton);
             this.recyclerViewAdapter = new RVAMealDiary(this.data);
             this.mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
             this.mealRecyclerView.setAdapter(this.recyclerViewAdapter);
@@ -256,7 +258,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public void setEntryQty(Integer amount, String unit) {
-        EdibleLog selectedItem = null;
+        Edible selectedItem = null;
         UnitConverter converter = null;
 
         try {
