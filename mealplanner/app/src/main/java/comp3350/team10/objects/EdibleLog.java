@@ -13,7 +13,7 @@ public class EdibleLog extends Edible {
             this.initDetails(edible.getDbkey(), edible.getName(), edible.getDesciprtion(), edible.getQuantity(), edible.getUnit());
             this.initNutrition(edible.getCalories(), edible.getProtein(), edible.getCarbs(), edible.getFat());
             this.initCategories(edible.getIsAlcoholic(), edible.getIsSpicy(), edible.getIsVegan(), edible.getIsVegetarian(), edible.getIsGlutenFree());
-            this.initMetadata(true, edible.getPhotoBytes(), FragmentType.diaryEntry);
+            this.initMetadata(true, edible.getPhotoBytes(), edible.getFragmentType());
         }
         catch(Exception e) {
             System.out.println(e);

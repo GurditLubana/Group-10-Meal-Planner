@@ -38,7 +38,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     private MealDiaryOps opExec;                //Business logic for MealDiary
     private Toolbar toolbar;                    //app title
 
-    private ArrayList<EdibleLog> data;            //The data for the diary entries
+    private ArrayList<Edible> data;            //The data for the diary entries
     private int savedItemPosition;              //Saves the position of an item for temporary removal
     private EdibleLog savedItem;                   //Saves the item for temporary removal
     private EntryMode mode;                     //This tracks the type of input dialog when launched
@@ -70,11 +70,11 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     private void initRecyclerView() {
-        ArrayList<ListItem> tempList;
+        ArrayList<Edible> tempList;
 
         if (this.data != null) {
-            tempList = convertToListItem(this.data);
-            this.recyclerViewAdapter = new RVAMealDiary(tempList);
+            //tempList = convertToListItem(this.data);
+            this.recyclerViewAdapter = new RVAMealDiary(this.data);
             this.mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
             this.mealRecyclerView.setAdapter(this.recyclerViewAdapter);
             this.mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -251,8 +251,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
 
         if (this.recyclerViewAdapter != null) {
-            tempList = convertToListItem(this.data);
-            this.recyclerViewAdapter.changeData(tempList);
+            //tempList = convertToListItem(this.data);
+            this.recyclerViewAdapter.changeData(this.data);
             this.recyclerViewAdapter.notifyDataSetChanged();
         }
     }
