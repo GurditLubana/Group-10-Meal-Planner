@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import comp3350.team10.R;
 import comp3350.team10.business.TrendsOps;
 import comp3350.team10.objects.*;
+import comp3350.team10.persistence.SharedDB;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -38,7 +39,14 @@ public class ActivityTrends extends AppCompatActivity {
     }
 
     private void initData(){
-        this.data = this.opExec.getDataFrame();
+        this.opExec = new TrendsOps(SharedDB.getSharedDB());
+        try {
+            this.data = this.opExec.getDataFrames(DataFrame.Span.Week);
+        }
+        catch(Exception e){
+            System.out.println(e);
+            System.exit(1);
+        }
     }
 
     private void initRecyclerView() {
