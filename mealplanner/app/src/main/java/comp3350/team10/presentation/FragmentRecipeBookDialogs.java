@@ -38,6 +38,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,8 +63,11 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
     private Button btnOk;                    // OK button
     private Button btnCancel;                // Cancel Button
     private Button btnChooseItemImage;       // Import a picture for the Edible item.
+    private RadioGroup isAlcoholicGroupBtn;  // check if Edible item contains alcohol.
+    private RadioGroup isSpicyGroupBtn;      // check if Edible item contains alcohol.
+    private RadioGroup isVegetarianCtgryBtn; // check if Edible item contains alcohol.
     private ImageView EdibleItemImage;       // Image of the edible item.
-    private ImageView cameraIcon;
+    private ImageView cameraIcon;            // The camera Icon in Add Edible interface.
     private FragToRecipeBook send;           // Interface for communication with parent activity
     private FragToRecipeBook.EntryMode mode; // the type of dialog to show
     public static String TAG = "AddRecipe";  // tag name of this fragment for reference in the fragment manager
@@ -73,7 +77,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
     private String instructions;             // value of instructions input
     private String ingredients;              // value of ingredients input
     private Edible.Unit unit;                // value of units input
-    private static final int PERMISSION_REQUEST_CODE = 1 ;
+    private static final int REQUEST_CODE = 1 ;    // Request code for the edible's image
 
 
     public FragmentRecipeBookDialogs() {
@@ -117,6 +121,9 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         this.btnChooseItemImage = view.findViewById(R.id.dialogRecipePhotoBtn);
         this.EdibleItemImage= view.findViewById(R.id.dialogRecipePhoto);
         this.cameraIcon = view.findViewById(R.id.dialogRecipePhotoIcon);
+        this.isAlcoholicGroupBtn= view.findViewById(R.id.alcoholicRadioGroup);
+        this.isSpicyGroupBtn= view.findViewById(R.id.spicyRadioGroup);
+        this.isVegetarianCtgryBtn= view.findViewById(R.id.isVegRadioGroup);
 
 
         if (context != null && context instanceof FragToRecipeBook) {
@@ -152,6 +159,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         this.inputInstructions.setVisibility(View.GONE);
         this.inputIngredients.setVisibility(View.GONE);
         this.labelIngredients.setVisibility(View.GONE);
+        this.isAlcoholicGroupBtn.setVisibility(View.GONE);
     }
 
     private void setMealDialogFieldDefaults() {
@@ -161,6 +169,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         this.inputName.setHint("Meal Name");
         this.inputInstructions.setHint("Cooking Instructions");
         this.inputIngredients.setHint("Meal Ingredients\n(, comma separated)");
+        this.isAlcoholicGroupBtn.setVisibility(View.GONE);
     }
 
     private void setDrinkDialogFieldDefaults() {
@@ -170,6 +179,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         this.inputName.setHint("Drink Name");
         this.inputInstructions.setHint("Mixing Instructions");
         this.inputIngredients.setHint("Drink Ingredients\n(, comma separated)");
+        this.isVegetarianCtgryBtn.setVisibility(View.GONE);
     }
 
     private void setSpinner() {
@@ -218,7 +228,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
                     try {
 
                         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
                             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
                         } else {
 //
