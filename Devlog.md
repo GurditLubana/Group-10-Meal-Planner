@@ -1052,7 +1052,7 @@ Duration: 11hrs
 ### 2022-06-28
      Dev:
       - Josef
-Duration: 4hrs
+Duration: 6hrs
    Tasks:
    - new Activity Trends long term trend charts
    - TrendOps Business class
@@ -1060,4 +1060,8 @@ Duration: 4hrs
    - chart fragments
    - trend activity layout
    - Scrollable view of multiple charts
+   - UI color scheme update
+   - chart labels
+   - data time span switching
+   - trendlines
    - Stable build
