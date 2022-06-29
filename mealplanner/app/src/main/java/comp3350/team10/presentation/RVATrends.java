@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -27,24 +28,27 @@ public class RVATrends extends RecyclerViewAdapter {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-
+        View view = null;
         ViewHolder viewHolder = null;
-        Context context = null;
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_trend_chart, viewGroup, false);
-
-        context = view.getContext();
-        if (context instanceof FragToTrends) {
-            this.send = (FragToTrends) context;
+        Context context = viewGroup.getContext();
+        if(context instanceof ActivityTrends) {
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_trend_chart, viewGroup, false);
+        }else if(context instanceof ActivityDailyProgress){
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card, viewGroup, false);
         }
-
         viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-
-        setChartData(viewHolder, position);
+        View view = viewHolder.getView();
+        Context context = view.getContext();
+        if (context instanceof ActivityTrends) {
+            setTrendData(viewHolder, position);
+        }else if(context instanceof ActivityDailyProgress){
+            setDailyData(viewHolder,position);
+        }
     }
 
     @Override
@@ -62,7 +66,7 @@ public class RVATrends extends RecyclerViewAdapter {
         this.notifyDataSetChanged();
     }
 
-    private void setChartData(ViewHolder viewHolder, int position) {
+    private void setTrendData(ViewHolder viewHolder, int position) {
         GraphView graph = (GraphView) viewHolder.getView().findViewById(R.id.graph);
         DataFrame dataFrame = this.dataSet.get(position);
         DataPoint[] dataPointArray = new DataPoint[dataFrame.size()];
@@ -97,5 +101,22 @@ public class RVATrends extends RecyclerViewAdapter {
 
     }
 
+    private void setDailyData(ViewHolder viewHolder, int position) {
+        GraphView graph = (GraphView) viewHolder.getView().findViewById(R.id.graph);
+        DataFrame dataFrame = this.dataSet.get(position);
+        DataPoint[] dataPointArray = new DataPoint[dataFrame.size()];
+        ArrayList<Double> dataArray = dataFrame.getData();
+        double chartMin = DataFrame.xAxisLimits[dataFrame.getSpan().ordinal()];
+
+        for (int i = 0; i < dataArray.size(); i++) {
+            dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
+        }
+
+        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dataPointArray);
+        LineGraphSeries<DataPoint> seriesTrend = new LineGraphSeries<>(new DataPoint[]{
+                new DataPoint(chartMin, dataFrame.getTrendPointA()),
+                new DataPoint(0, dataFrame.getTrendPointB())
+        });
+    }
 
 }

@@ -42,7 +42,6 @@ public class ActivityTrends extends AppCompatActivity implements FragToTrends{
         this.toolbar.setTitleTextColor(Color.WHITE);
         this.toolbar.setElevation(0);
     }
-
     private void initData(){
         this.opExec = new TrendsOps(SharedDB.getSharedDB());
         try {
@@ -64,6 +63,7 @@ public class ActivityTrends extends AppCompatActivity implements FragToTrends{
             this.trendsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
     }
+
 
     private void setTabListeners() {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
