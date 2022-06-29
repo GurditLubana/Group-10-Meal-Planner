@@ -2,7 +2,14 @@ package comp3350.team10.objects;
 
 import java.io.IOException;
 
+import comp3350.team10.business.UnitConverter;
+
 public class EdibleLog extends Edible {
+    //private UnitConverter baseConverter;  originally wanted to use a single converter but variables need to be reset
+    private Unit baseUnit;
+    private int baseCalories;
+    private int baseQuantity;
+
     private int quantity;
     private Edible.Unit unit;
     private int calories;
@@ -10,13 +17,17 @@ public class EdibleLog extends Edible {
     public EdibleLog(Edible edible) {
         super();
 
+        this.baseUnit = edible.getUnit();
+        this.baseQuantity = edible.getQuantity();
+        this.baseCalories = edible.getCalories();
+
         try {
+            //baseConverter = new UnitConverter(edible.getUnit(), edible.getQuantity(), edible.getCalories());
             this.initDetails(edible.getDbkey(), edible.getName(), edible.getDesciprtion(), edible.getQuantity(), edible.getUnit());
             this.initNutrition(edible.getCalories(), edible.getProtein(), edible.getCarbs(), edible.getFat());
             this.initCategories(edible.getIsAlcoholic(), edible.getIsSpicy(), edible.getIsVegan(), edible.getIsVegetarian(), edible.getIsGlutenFree());
             this.initMetadata(true, edible.getPhotoBytes(), edible.getFragmentType());
             this.init(edible.getQuantity(), edible.getUnit());
-            this.setCalories(edible.getCalories()); //logic here should be calculated and added inside init based on baseQuantity and baseUnit
         }
         catch(Exception e) {
             System.out.println(e);
@@ -35,11 +46,11 @@ public class EdibleLog extends Edible {
             System.exit(1);
         }
     }
-    //need to create a relative calorie function
 
-    public EdibleLog init(int quantity, Edible.Unit unit) throws IOException{
+    public EdibleLog init(int quantity, Edible.Unit unit) throws IOException {
         this.setQuantity(quantity);
         this.setUnit(unit);
+        this.setCalories();
 
         return this;
     }
@@ -53,7 +64,10 @@ public class EdibleLog extends Edible {
         }
     }
 
-    public void setCalories(int newCalories) throws IOException {
+    public void setCalories() throws IOException {
+        UnitConverter converter = new UnitConverter(this.baseUnit, this.baseQuantity, this.baseCalories);
+        int newCalories = converter.getCalories(unit, quantity).intValue();
+
         if(newCalories >= 0 && newCalories <= Constant.ENTRY_MAX_VALUE) {
             this.calories = newCalories;
         }
@@ -65,6 +79,7 @@ public class EdibleLog extends Edible {
     public void setUnit(Edible.Unit newUnit) throws IOException {
         if(newUnit != null) {
             this.unit = newUnit;
+            //this.setCalories(baseConverter.getCalories(this.unit, this.quantity));
         }
         else {
             throw new IOException("Invalid log unit");

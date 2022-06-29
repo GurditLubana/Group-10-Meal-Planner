@@ -214,7 +214,6 @@ public abstract class Edible implements ListItem {
         else {
             throw new IOException("Invalid unit");
         }
-        System.out.println(this.baseUnit);
     }
 
     public void setBaseQuantity(int newQuantity) throws IOException {

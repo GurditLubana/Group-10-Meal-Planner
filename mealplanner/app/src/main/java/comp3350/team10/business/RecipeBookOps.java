@@ -17,7 +17,7 @@ public class RecipeBookOps { //this needs to select the corect fragment
     private RecipeBook selectedType;            //The selected Edible type view (see enum on line 18)
     private DataAccessStub db;                  //Accesses the database
 
-    public RecipeBookOps(DataAccessStub db) { //will need cache added
+    public RecipeBookOps(DataAccessStub db) {
         this.selectedType = RecipeBook.FOOD;
         this.selectedList = null;
         this.db = db;
