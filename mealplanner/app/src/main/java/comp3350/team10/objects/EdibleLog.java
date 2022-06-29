@@ -5,6 +5,7 @@ import java.io.IOException;
 public class EdibleLog extends Edible {
     private int quantity;
     private Edible.Unit unit;
+    private int calories;
 
     public EdibleLog(Edible edible) {
         super();
@@ -15,6 +16,7 @@ public class EdibleLog extends Edible {
             this.initCategories(edible.getIsAlcoholic(), edible.getIsSpicy(), edible.getIsVegan(), edible.getIsVegetarian(), edible.getIsGlutenFree());
             this.initMetadata(true, edible.getPhotoBytes(), edible.getFragmentType());
             this.init(edible.getQuantity(), edible.getUnit());
+            this.setCalories(edible.getCalories()); //logic here should be calculated and added inside init based on baseQuantity and baseUnit
         }
         catch(Exception e) {
             System.out.println(e);
@@ -51,6 +53,15 @@ public class EdibleLog extends Edible {
         }
     }
 
+    public void setCalories(int newCalories) throws IOException {
+        if(newCalories >= 0 && newCalories <= Constant.ENTRY_MAX_VALUE) {
+            this.calories = newCalories;
+        }
+        else {
+            throw new IOException("Invalid log calories");
+        }
+    }
+
     public void setUnit(Edible.Unit newUnit) throws IOException {
         if(newUnit != null) {
             this.unit = newUnit;
@@ -66,5 +77,9 @@ public class EdibleLog extends Edible {
 
     public Edible.Unit getUnit() {
         return this.unit;
+    }
+
+    public int getCalories() {
+        return this.calories;
     }
 }

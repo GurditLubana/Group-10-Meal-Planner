@@ -41,7 +41,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     private ArrayList<Edible> data;            //The data for the diary entries
     private int savedItemPosition;              //Saves the position of an item for temporary removal
-    private Edible savedItem;                   //Saves the item for temporary removal
+    private EdibleLog savedItem;                   //Saves the item for temporary removal
     private EntryMode mode;                     //This tracks the type of input dialog when launched
 
 
@@ -108,8 +108,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
 
         if (position >= 0) {
-            if (this.data.get(position).getFragmentType() == ListItem.FragmentType.diaryEntry) {
-                this.savedItem = this.data.remove(position);
+            if (this.data.get(position).getFragmentType() == ListItem.FragmentType.diaryEntry && this.data.get(position) instanceof EdibleLog) {
+                this.savedItem = (EdibleLog)this.data.remove(position);
                 this.savedItemPosition = position;
                 this.data.add(position, modifyLog);
             }
@@ -251,14 +251,14 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public void setEntryQty(Integer amount, String unit) {
-        Edible selectedItem = null;
+        EdibleLog selectedItem = null;
         UnitConverter converter = null;
 
         try {
             selectedItem = this.savedItem;
             converter = new UnitConverter(selectedItem.getUnit(), selectedItem.getQuantity(), selectedItem.getCalories());
-            selectedItem.setBaseQuantity(amount);
-            selectedItem.setBaseUnit(Edible.Unit.valueOf(unit));
+            selectedItem.setQuantity(amount);
+            selectedItem.setUnit(Edible.Unit.valueOf(unit));
             selectedItem.setCalories(converter.getCalories(selectedItem.getUnit(), selectedItem.getQuantity()));
 
             this.showContextUI(-1);
