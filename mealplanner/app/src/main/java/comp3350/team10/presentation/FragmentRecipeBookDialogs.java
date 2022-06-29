@@ -36,6 +36,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -63,9 +65,12 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
     private Button btnOk;                    // OK button
     private Button btnCancel;                // Cancel Button
     private Button btnChooseItemImage;       // Import a picture for the Edible item.
-    private RadioGroup isAlcoholicGroupBtn;  // check if Edible item contains alcohol.
-    private RadioGroup isSpicyGroupBtn;      // check if Edible item contains alcohol.
-    private RadioGroup isVegetarianCtgryBtn; // check if Edible item contains alcohol.
+    private CheckBox isAlcoholicCheckBox;    // check if Edible item contains alcohol.
+    private CheckBox isSpicyCheckBox;        // check if Edible item contains alcohol.
+    private CheckBox isVegetarianCheckBox;   // check if Edible item contains alcohol.
+    private CheckBox isVeganCheckBox;
+    private CheckBox isNonVegCheckBox;
+    private CheckBox isGluteenFree;
     private ImageView EdibleItemImage;       // Image of the edible item.
     private ImageView cameraIcon;            // The camera Icon in Add Edible interface.
     private FragToRecipeBook send;           // Interface for communication with parent activity
@@ -75,7 +80,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
     private int quantity;                    // value of quantity input
     private String name;                     // value of name input
     private String instructions;             // value of instructions input
-    private String ingredients;              // value of ingredients input
+    private String ingredients;            // value of ingredients input
     private Edible.Unit unit;                // value of units input
     private static final int REQUEST_CODE = 1 ;    // Request code for the edible's image
 
@@ -121,9 +126,13 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         this.btnChooseItemImage = view.findViewById(R.id.dialogRecipePhotoBtn);
         this.EdibleItemImage= view.findViewById(R.id.dialogRecipePhoto);
         this.cameraIcon = view.findViewById(R.id.dialogRecipePhotoIcon);
-        this.isAlcoholicGroupBtn= view.findViewById(R.id.alcoholicRadioGroup);
-        this.isSpicyGroupBtn= view.findViewById(R.id.spicyRadioGroup);
-        this.isVegetarianCtgryBtn= view.findViewById(R.id.isVegRadioGroup);
+        this.isAlcoholicCheckBox= view.findViewById(R.id.isAlcoholic);
+        this.isSpicyCheckBox= view.findViewById(R.id.isSpicy);
+        this.isGluteenFree = view.findViewById(R.id.isGluteenFree);
+        this.isVegetarianCheckBox = view.findViewById(R.id.isVegetarian);
+        this.isVeganCheckBox = view.findViewById(R.id.isVegan);
+        this.isNonVegCheckBox = view.findViewById(R.id.isNonVegetarian);
+        this.isGluteenFree = view.findViewById(R.id.isGluteenFree);
 
 
         if (context != null && context instanceof FragToRecipeBook) {
@@ -159,7 +168,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         this.inputInstructions.setVisibility(View.GONE);
         this.inputIngredients.setVisibility(View.GONE);
         this.labelIngredients.setVisibility(View.GONE);
-        this.isAlcoholicGroupBtn.setVisibility(View.GONE);
+        this.isAlcoholicCheckBox.setVisibility(View.GONE);
     }
 
     private void setMealDialogFieldDefaults() {
@@ -169,7 +178,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         this.inputName.setHint("Meal Name");
         this.inputInstructions.setHint("Cooking Instructions");
         this.inputIngredients.setHint("Meal Ingredients\n(, comma separated)");
-        this.isAlcoholicGroupBtn.setVisibility(View.GONE);
+        this.isAlcoholicCheckBox.setVisibility(View.GONE);
     }
 
     private void setDrinkDialogFieldDefaults() {
@@ -179,7 +188,9 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
         this.inputName.setHint("Drink Name");
         this.inputInstructions.setHint("Mixing Instructions");
         this.inputIngredients.setHint("Drink Ingredients\n(, comma separated)");
-        this.isVegetarianCtgryBtn.setVisibility(View.GONE);
+        this.isVegetarianCheckBox.setVisibility(View.GONE);
+        this.isVeganCheckBox.setVisibility(View.GONE);
+        this.isNonVegCheckBox.setVisibility(View.GONE);
     }
 
     private void setSpinner() {
@@ -252,7 +263,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
                     if (result) {
                         openGallery();
                     } else {
-                        // PERMISSION NOT GRANTED
+                        Toast.makeText(getContext(), "Please allow read external storage permission", Toast.LENGTH_LONG);
                     }
                 }
             }
@@ -284,7 +295,7 @@ private void openGallery()
         Uri imageUri = result.getData().getData();
 
         EdibleItemImage.setImageURI(imageUri);
-        cameraIcon.setVisibility(View.INVISIBLE);
+        cameraIcon.setVisibility(View.GONE);
 
     }
 
@@ -308,6 +319,12 @@ private void openGallery()
 
         if (this.mode != FragToRecipeBook.EntryMode.ADD_FOOD) {
             if (check(this.inputIngredients)) {
+                String[] tempIngredients = (this.inputIngredients.getText().toString().trim()).split(",");
+                for(int i = 0; i <tempIngredients.length;i++)
+                {
+                    System.out.println(tempIngredients[i]);
+                }
+
                 this.ingredients = this.inputIngredients.getText().toString().trim();
                 success += 1;
             }
