@@ -74,6 +74,7 @@ public abstract class Edible implements ListItem {
         return this;
     }
 
+
     public Edible initCategories(boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree) {
         this.setAlcoholic(alcoholic);
         this.setSpicy(spicy);
