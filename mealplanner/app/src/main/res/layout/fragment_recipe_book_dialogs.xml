@@ -382,14 +382,6 @@
                             android:layout_margin="4dp"
                             android:text="Vegan" />
 
-                        <CheckBox
-                            android:id="@+id/isNonVegetarian"
-                            android:layout_width="132dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="?colorSecondaryVariant"
-                            android:layout_margin="4dp"
-                            android:text="Non Vegetarian" />
 
 
                     </LinearLayout>
