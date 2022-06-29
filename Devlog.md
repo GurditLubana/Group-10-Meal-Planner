@@ -1104,7 +1104,7 @@ Duration: 4hrs
    - Calories need their own variables (food accumulated calories and exercise should be seperated) (fixed)
    - Data stub data should appear normally on the UI (fixed)
    - Data stub should have more interesting data (get bytes from an image should be written)
-   - "" needs to be checked before parsing for calories and workout calories (crashes)
+   - "" needs to be checked before parsing for calories and workout calories (crashes) (fixed)
    - Should probably change quantity from int to double
 
 ### 2022-06-27

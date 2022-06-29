@@ -13,7 +13,7 @@
 // import java.util.Calendar;
 // import java.util.ArrayList;
 
-// public class TestMealDiaryOps {
+// public class TestMealDiaryOps {         //////////////////////////Add a test for when "" is entered into a character input
 
 //     @Nested
 //     @DisplayName("Initial Object state")
