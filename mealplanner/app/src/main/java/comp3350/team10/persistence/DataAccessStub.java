@@ -295,7 +295,7 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
         DailyLog currEntry = searchFoodLogByDate(date);
         try {
             this.dbFoodLog.remove(currEntry);
-            currEntry.setCalorieGoal(exerciseActual);
+            currEntry.setExerciseActual(exerciseActual);
             this.dbFoodLog.add(currEntry);
         }
         catch(Exception e) {

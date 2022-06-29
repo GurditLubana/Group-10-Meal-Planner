@@ -189,9 +189,6 @@ public class MealDiaryOps { //this needs to select the correct fragment
     }
 
     private void netCalories() {
-        System.out.println("Calorie goal " + this.currLog.getCalorieGoal());
-        System.out.println("edible calories " + this.currLog.getEdibleCalories());
-        System.out.println("exercise " + this.currLog.getExerciseActual());
         this.calorieNet = this.currLog.getCalorieGoal() - (this.currLog.getEdibleCalories() - this.currLog.getExerciseActual());
     }
 
@@ -208,14 +205,4 @@ public class MealDiaryOps { //this needs to select the correct fragment
             System.out.println(e);
         }
     }
-
-    //System.out.println("trying to change edible log!");
-    //ArrayList<Edible> temp = this.opExec.getCurrLog().getEdibleList();
-    //temp.add(temp.size() - 2, (EdibleLog)(this.data.get(pos)));
-    //try {
-    //    this.opExec.getCurrLog().setEdibleList(temp);
-    //}
-    //catch (Exception e) {
-    //    System.out.println(e);
-    //}
 }
