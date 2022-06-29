@@ -29,7 +29,20 @@ public abstract class PreparedItem extends Edible {
         return this.instructions;
     }
 
-    public void calcCalories(ArrayList<Ingredient> ingredients) throws IOException {
+
+    public void updateEdibleFromIngredients(ArrayList<Ingredient> ingredients) throws IOException {
+        this.calcCalories(ingredients);
+        this.calcProtein(ingredients);
+        this.calcCarbs(ingredients);
+        this.calcFat(ingredients);
+        this.checkIfAlcoholic(ingredients);
+        this.checkIfSpicy(ingredients);
+        this.checkIfVegan(ingredients);
+        this.checkIfVegetarian(ingredients);
+        this.checkIfGlutenFree(ingredients);
+    }
+
+    private void calcCalories(ArrayList<Ingredient> ingredients) throws IOException {
         int calculatedCalories = 0;
 
         for(int i = 0; i < ingredients.size(); i++) {
@@ -39,7 +52,7 @@ public abstract class PreparedItem extends Edible {
         this.setCalories(calculatedCalories);
     }
 
-    public void calcProtein(ArrayList<Ingredient> ingredients) throws IOException {
+    private void calcProtein(ArrayList<Ingredient> ingredients) throws IOException {
         int calculatedProtein = 0;
 
         for(int i = 0; i < ingredients.size(); i++) {
@@ -49,7 +62,7 @@ public abstract class PreparedItem extends Edible {
         this.setProtein(calculatedProtein);
     }
 
-    public void calcCarbs(ArrayList<Ingredient> ingredients) throws IOException {
+    private void calcCarbs(ArrayList<Ingredient> ingredients) throws IOException {
         int calculatedCarbs = 0;
 
         for(int i = 0; i < ingredients.size(); i++) {
@@ -59,7 +72,7 @@ public abstract class PreparedItem extends Edible {
         this.setCarbs(calculatedCarbs);
     }
 
-    public void calcFat(ArrayList<Ingredient> ingredients) throws IOException {
+    private void calcFat(ArrayList<Ingredient> ingredients) throws IOException {
         int calculatedFat = 0;
 
         for(int i = 0; i < ingredients.size(); i++) {
@@ -69,7 +82,7 @@ public abstract class PreparedItem extends Edible {
         this.setFat(calculatedFat);
     }
 
-    public void checkIfAlcoholic(ArrayList<Ingredient> ingredients) {
+    private void checkIfAlcoholic(ArrayList<Ingredient> ingredients) {
         boolean isAlcoholic = false;
 
         for(int i = 0 ; i < ingredients.size() && !isAlcoholic; i++) {
@@ -81,7 +94,7 @@ public abstract class PreparedItem extends Edible {
         this.setAlcoholic(isAlcoholic);
     }
 
-    public void checkIfSpicy(ArrayList<Ingredient> ingredients) {
+    private void checkIfSpicy(ArrayList<Ingredient> ingredients) {
         boolean isSpicy = false;
 
         for(int i = 0 ; i < ingredients.size() && !isSpicy; i++) {
@@ -93,7 +106,7 @@ public abstract class PreparedItem extends Edible {
         this.setSpicy(isSpicy);
     }
 
-    public void checkIfVegan(ArrayList<Ingredient> ingredients) {
+    private void checkIfVegan(ArrayList<Ingredient> ingredients) {
         boolean isVegan = true;
 
         for(int i = 0 ; i < ingredients.size() && isVegan; i++) {
@@ -105,7 +118,7 @@ public abstract class PreparedItem extends Edible {
         this.setVegan(isVegan);
     }
 
-    public void checkIfVegetarian(ArrayList<Ingredient> ingredients) {
+    private void checkIfVegetarian(ArrayList<Ingredient> ingredients) {
         boolean isVegetarian = true;
 
         for(int i = 0 ; i < ingredients.size() && isVegetarian; i++) {
@@ -117,7 +130,7 @@ public abstract class PreparedItem extends Edible {
         this.setVegetarian(isVegetarian);
     }
 
-    public void checkIfGlutenFree(ArrayList<Ingredient> ingredients) {
+    private void checkIfGlutenFree(ArrayList<Ingredient> ingredients) {
         boolean isGlutenFree = true;
 
         for(int i = 0 ; i < ingredients.size() && isGlutenFree; i++) {

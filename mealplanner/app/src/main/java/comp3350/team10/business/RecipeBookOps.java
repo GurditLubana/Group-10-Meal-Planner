@@ -84,27 +84,13 @@ public class RecipeBookOps { //this needs to select the corect fragment
             newMeal.setIngredients(ingredients);
             newMeal.setCustom(true);
             newMeal.setPhotoBytes(photo);
-
-            this.checkIngredients(newMeal, ingredients);
-
+            newMeal.updateEdibleFromIngredients(ingredients);
             db.addMealToRecipeBook(newMeal);
         }
         catch(Exception e) {
             System.out.println(e);
             System.exit(1);
         }
-    }
-
-    private void checkIngredients(PreparedItem currEdible, ArrayList<Ingredient> ingredients) throws IOException {
-        currEdible.calcCalories(ingredients);
-        currEdible.calcProtein(ingredients);
-        currEdible.calcCarbs(ingredients);
-        currEdible.calcFat(ingredients);
-        currEdible.checkIfAlcoholic(ingredients);
-        currEdible.checkIfSpicy(ingredients);
-        currEdible.checkIfVegan(ingredients);
-        currEdible.checkIfVegetarian(ingredients);
-        currEdible.checkIfGlutenFree(ingredients);
     }
 
     public void addSimpleDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat,
@@ -138,12 +124,10 @@ public class RecipeBookOps { //this needs to select the corect fragment
             newDrink.setPhotoBytes(photo);
 
             for(int i = 0; i < ingredients.size(); i++) {
-                if(ingredients.get(i) instanceof Ingredient) {
-                    tempList.add((Ingredient)ingredients.get(i));
-                }
+                tempList.add(ingredients.get(i));
             }
-            this.checkIngredients(newDrink, tempList);
 
+            newDrink.updateEdibleFromIngredients(tempList);
             db.addDrinkToRecipeBook(newDrink);
         }
         catch(Exception e) {

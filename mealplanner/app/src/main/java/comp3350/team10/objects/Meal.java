@@ -18,6 +18,7 @@ public class Meal extends PreparedItem {
     public void setIngredients(ArrayList<Ingredient> newIngredients) throws IOException {
         if (newIngredients != null && !newIngredients.contains(null)) {
             this.ingredients = newIngredients;
+            this.updateEdibleFromIngredients(newIngredients);
         }
         else {
             throw new IOException("Invalid meal ingredients");
