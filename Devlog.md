@@ -1049,3 +1049,19 @@ Duration: 11hrs
    - Created DB controller class to swap between the two (dependency injection)
    - Changed exercise goals and calorie goals to affect subsequent entries/past non-entries once changed
    - Created User class and UserOps (this 100% needs refactoring in the future, might not even be needed)
+### 2022-06-28
+     Dev:
+      - Josef
+Duration: 6hrs
+   Tasks:
+   - new Activity Trends long term trend charts
+   - TrendOps Business class
+   - DataFrame Object class
+   - chart fragments
+   - trend activity layout
+   - Scrollable view of multiple charts
+   - UI color scheme update
+   - chart labels
+   - data time span switching
+   - trendlines
+   - Stable build

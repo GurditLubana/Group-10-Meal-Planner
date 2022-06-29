@@ -69,19 +69,19 @@
         tools:layout_editor_absoluteX="0dp">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/Tab1"
+            android:id="@+id/trendWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Food" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/Tab2"
+            android:id="@+id/trendMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Meal" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/Tab3"
+            android:id="@+id/trendThreeMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Drink" />
@@ -102,7 +102,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container_nav"
+        android:id="@+id/diaryNav"
         android:name="comp3350.team10.presentation.FragmentNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
