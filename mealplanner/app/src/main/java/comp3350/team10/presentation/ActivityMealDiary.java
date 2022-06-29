@@ -3,7 +3,6 @@ package comp3350.team10.presentation;
 import comp3350.team10.R;
 import comp3350.team10.business.MealDiaryOps;
 import comp3350.team10.business.UnitConverter;
-import comp3350.team10.business.UserDataOps;
 import comp3350.team10.objects.*;
 import comp3350.team10.persistence.*;
 
@@ -70,7 +69,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     private void initRecyclerView() {
         if (this.data != null) {
             this.recyclerViewAdapter = new RVAMealDiary(this.data);
-            this.mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
+            this.mealRecyclerView = (RecyclerView) findViewById(R.id.trendsRecyclerView);
             this.mealRecyclerView.setAdapter(this.recyclerViewAdapter);
             this.mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         }

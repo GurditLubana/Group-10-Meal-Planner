@@ -1,7 +1,5 @@
 package comp3350.team10.presentation;
 
-import static android.graphics.Color.parseColor;
-
 import comp3350.team10.R;
 
 import android.content.Context;
@@ -21,7 +19,7 @@ public class FragmentNavigation extends Fragment {
     ImageButton mealButton = null;    // button to launch the diary screen
     ImageButton dailyButton = null;   // button to launch the multi goal daily charts screen
     ImageButton recipeButton = null;  // button to launch the recipebook screen
-    ImageButton chartsButton = null;  // button to launch the long term charts screen
+    ImageButton trendsButton = null;  // button to launch the long term charts screen
     ImageButton socialButton = null;  // button to launch the social screen
 
     public FragmentNavigation() {
@@ -47,7 +45,7 @@ public class FragmentNavigation extends Fragment {
         mealButton = (ImageButton) view.findViewById(R.id.mealDiaryNav);
         dailyButton = (ImageButton) view.findViewById(R.id.dailyNav);
         recipeButton = (ImageButton) view.findViewById(R.id.recipeBookNav);
-        chartsButton = (ImageButton) view.findViewById(R.id.chartsNav);
+        trendsButton = (ImageButton) view.findViewById(R.id.chartsNav);
         socialButton = (ImageButton) view.findViewById(R.id.socialNav);
 
 
@@ -83,6 +81,19 @@ public class FragmentNavigation extends Fragment {
                 }
             }
         });
+
+        trendsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() != null && !(getActivity() instanceof ActivityTrends)) {
+                    Intent intent = new Intent(getActivity(), ActivityTrends.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("Source", "NAV");
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void setActiveButton(View view) {
@@ -94,6 +105,9 @@ public class FragmentNavigation extends Fragment {
         } else if (context instanceof ActivityRecipeBook) {
             recipeButton.setColorFilter(Color.parseColor("#FFFFBB33"));
             recipeButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#5885AF")));
+        }else if (context instanceof ActivityTrends) {
+            trendsButton.setColorFilter(Color.parseColor("#FFFFBB33"));
+            trendsButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#5885AF")));
         }
     }
 }
