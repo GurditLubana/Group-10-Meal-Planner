@@ -1117,3 +1117,21 @@ Duration: 10hrs
    - Fixed bugs so that refactor can run
    - Added new stub data
    - Generated the custom table concept (not finalized yet)
+
+### 2022-06-28
+     Dev:
+      - Dane
+Duration: 4hrs
+   Tasks:
+   - Will update this later
+
+### 2022-06-29
+     Dev:
+      - Dane
+Duration: 5hrs
+   Tasks:
+   - Tried to load byte array from images had issues accessing the resources from the app
+   - Tried to create a seperate class to load an image as bytes, this crashed though as the program got too long
+   - Researched alternatives and ways to ensure stub database could be decoupled from android to no prevail
+   - Researched online options for getting byte array from actual images
+   - Updated stub db data

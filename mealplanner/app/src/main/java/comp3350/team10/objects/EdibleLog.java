@@ -5,7 +5,7 @@ import java.io.IOException;
 import comp3350.team10.business.UnitConverter;
 
 public class EdibleLog extends Edible {
-    //private UnitConverter baseConverter;  originally wanted to use a single converter but variables need to be reset
+    //private UnitConverter baseConverter;  originally wanted to use a single converter but variables need to be reset so this breaks life
     private Unit baseUnit;
     private int baseCalories;
     private int baseQuantity;
@@ -64,7 +64,7 @@ public class EdibleLog extends Edible {
         }
     }
 
-    public void setCalories() throws IOException {
+    public void setCalories() throws IOException { //cannot call super because these are shadowed and is not supported in java
         UnitConverter converter = new UnitConverter(this.baseUnit, this.baseQuantity, this.baseCalories);
         int newCalories = converter.getCalories(unit, quantity).intValue();
 
@@ -79,7 +79,6 @@ public class EdibleLog extends Edible {
     public void setUnit(Edible.Unit newUnit) throws IOException {
         if(newUnit != null) {
             this.unit = newUnit;
-            //this.setCalories(baseConverter.getCalories(this.unit, this.quantity));
         }
         else {
             throw new IOException("Invalid log unit");

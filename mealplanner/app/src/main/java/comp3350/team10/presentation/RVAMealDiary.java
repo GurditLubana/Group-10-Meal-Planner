@@ -1,6 +1,8 @@
 package comp3350.team10.presentation;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +81,10 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         itemQty.setText(String.format("%3d", currentItem.getQuantity()));
         itemUnit.setText(currentItem.getUnit().toString());
         itemCals.setText(String.format("%3d", currentItem.getCalories()));
+
+        //Bitmap bmp = BitmapFactory.decodeByteArray(currentItem.getPhotoBytes(), 0, currentItem.getPhotoBytes().length);
+        //itemImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, itemImage.getWidth(), itemImage.getHeight(), false));
+
         //itemImage.setImageResource(currentLog.getEdibleEntry().getPhotoBytes());
     }
 
