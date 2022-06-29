@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 import comp3350.team10.R;
 import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.EdibleLog;
+import comp3350.team10.objects.ListItem;
 
 public class RVARecipeBook extends RecyclerViewAdapter {
     private FragToRecipeBook sendToRecipeBook;          // interface to pass data to recipebook
@@ -72,15 +74,19 @@ public class RVARecipeBook extends RecyclerViewAdapter {
     }
 
     private void setRecipeData(ViewHolder viewHolder, int position) {
-        ImageView itemImage = viewHolder.getView().findViewById(R.id.mealImage);
+        //ImageView itemImage = viewHolder.getView().findViewById(R.id.mealImage);
         TextView textDesc = viewHolder.getView().findViewById(R.id.mealDesc);
         TextView mealCalories = viewHolder.getView().findViewById(R.id.mealCals);
 
-        Edible currentFood = super.getDataSet().get(position);
+        ListItem currentItem = super.getDataset().get(position);
+        Edible currentFood;
 
-        itemImage.setImageResource(currentFood.getIconPath());
-        textDesc.setText(currentFood.getName());
-        mealCalories.setText(Integer.toString(currentFood.getCalories()));
+        if(currentItem instanceof Edible) {
+            currentFood = (Edible)currentItem;
+            //itemImage.setImageResource(currentFood.getIconPath());
+            textDesc.setText(currentFood.getName());
+            mealCalories.setText(Integer.toString(currentFood.getCalories()));
+        }
     }
 
     private void setCardSelectionListeners(ViewHolder viewHolder, int position) {

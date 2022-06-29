@@ -15,7 +15,7 @@ import comp3350.team10.objects.User;
 
 public class DBSelector {
     private HSqlDB hsql;                //An active instance of the HSQL database
-    private DataAccessStub stub;        //An active instance of the DataAccessStub database
+    private DataAccessStub stub;        //An active instance of the DataAccessStub database (switch to shared)
 
     private UserDBInterface userDB;     //The database we would like to process user operations on
     private DiaryDBInterface diaryDB;   //The database we would like to process diary operations on

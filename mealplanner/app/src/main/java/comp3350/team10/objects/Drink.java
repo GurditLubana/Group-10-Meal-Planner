@@ -1,35 +1,36 @@
 package comp3350.team10.objects;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Drink extends PreparedItem {
-    private String ingredients;                 //A list of ingredients for the given drink
+    private ArrayList<DrinkIngredient> ingredients;     //A list of ingredients for the given drink
 
     public Drink() {
         super();
 
-        this.ingredients = null;
+        this.ingredients = new ArrayList<DrinkIngredient>();
     }
 
 
-    public boolean init(String name, int iconPath, int cals, String instructions, String ingredients, ListItem.FragmentType type, Edible.Unit baseUnit, int quantity, int dbkey) {
-        return super.init(name, iconPath, cals, instructions, type, baseUnit, quantity, dbkey) && setIngredients(ingredients);
+    public void setIngredients(ArrayList<DrinkIngredient> newIngredients) throws IOException {
+        ArrayList<Ingredient> temp = new ArrayList<Ingredient>();
+
+        if (newIngredients != null && !newIngredients.contains(null)) {
+            this.ingredients = newIngredients;
+
+            //Downcast to ingredients because ArrayLists are finiky!
+            for(int i = 0; i < newIngredients.size(); i++) {
+                temp.add(newIngredients.get(i));
+            }
+            this.updateEdibleFromIngredients(temp);
+        }
+        else {
+            throw new IOException("Invalid drink ingredients");
+        }
     }
 
-
-    public String getIngredients() {
+    public ArrayList<DrinkIngredient> getIngredients() {
         return this.ingredients;
     }
-
-    public boolean setIngredients(String newIngredients) {
-        boolean results = false;
-
-        if (newIngredients != null) {
-            this.ingredients = newIngredients;
-            results = true;
-        }
-
-        return results;
-    }
-
 }

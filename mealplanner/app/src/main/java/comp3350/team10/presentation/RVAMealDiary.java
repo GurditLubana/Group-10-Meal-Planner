@@ -1,6 +1,8 @@
 package comp3350.team10.presentation;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import comp3350.team10.R;
+import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.EdibleLog;
+import comp3350.team10.objects.ListItem;
 
 public class RVAMealDiary extends RecyclerViewAdapter {
     private FragToMealDiary sendToMealDiary;            // interface to pass data to mealdiary
@@ -51,15 +56,15 @@ public class RVAMealDiary extends RecyclerViewAdapter {
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
         switch (viewHolder.getItemViewType()) {
-            case 0:
-                setDiaryEntryData(viewHolder, position);
-                setDiaryEntryListeners(viewHolder);
-                break;
             case 1:
                 setDiaryContextListeners(viewHolder);
                 break;
             case 2:
                 setDiaryAddListeners(viewHolder);
+                break;
+            default:
+                setDiaryEntryData(viewHolder, position);
+                setDiaryEntryListeners(viewHolder);
                 break;
         }
     }
@@ -70,13 +75,17 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         TextView itemUnit = viewHolder.getView().findViewById(R.id.itemUnitBox);
         TextView itemCals = viewHolder.getView().findViewById(R.id.itemCalsBox);
         ImageView itemImage = viewHolder.getView().findViewById(R.id.itemImage);
+        Edible currentItem = super.getDataset().get(position);
 
-        Edible currentItem = super.getDataSet().get(position);
         itemName.setText(currentItem.getName());
         itemQty.setText(String.format("%3d", currentItem.getQuantity()));
-        itemUnit.setText(currentItem.getBaseUnit().name());
+        itemUnit.setText(currentItem.getUnit().toString());
         itemCals.setText(String.format("%3d", currentItem.getCalories()));
-        itemImage.setImageResource(currentItem.getIconPath());
+
+        //Bitmap bmp = BitmapFactory.decodeByteArray(currentItem.getPhotoBytes(), 0, currentItem.getPhotoBytes().length);
+        //itemImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, itemImage.getWidth(), itemImage.getHeight(), false));
+
+        //itemImage.setImageResource(currentLog.getEdibleEntry().getPhotoBytes());
     }
 
 

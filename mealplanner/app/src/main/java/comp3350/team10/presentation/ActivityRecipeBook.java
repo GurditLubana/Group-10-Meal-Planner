@@ -75,13 +75,26 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     private void initRecyclerView() {
         View object = findViewById(R.id.recipeRecyclerView);
+        //ArrayList<ListItem> tempList = convertToListItem(this.data);
 
         if (this.data != null && object instanceof RecyclerView) {
             this.recipeRecyclerView = (RecyclerView) object;
-            this.recyclerViewAdapter = new RVARecipeBook(data);
+            this.recyclerViewAdapter = new RVARecipeBook(this.data);
             this.recipeRecyclerView.setAdapter(recyclerViewAdapter);
             this.recipeRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         }
+    }
+
+    private ArrayList<ListItem> convertToListItem(ArrayList<Edible> currList) {
+        ArrayList<ListItem> tempList = new ArrayList<ListItem>();
+
+        for(int i = 0; i < currList.size(); i++) {
+            if(currList.get(i) instanceof ListItem) {
+                tempList.add(this.data.get(i));
+            }
+        }
+
+        return tempList;
     }
 
     private void setTabListeners() {
@@ -176,7 +189,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     @Override
     public void showContextUI(int position) {
-        Food modifyUIcard = null;
+        Food modifyUIcard = new Food();
         if (position != this.savedPosition && this.saved != null) {
             this.data.remove(this.savedPosition);
             this.data.add(this.savedPosition, this.saved);
@@ -185,10 +198,17 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         if (this.data.get(position).getFragmentType() != ListItem.FragmentType.cardSelection) {
             this.saved = this.data.remove(position);
             this.savedPosition = position;
-            modifyUIcard = new Food();
-            modifyUIcard.init("ui", 0, 0, ListItem.FragmentType.cardSelection, Edible.Unit.g, 1, 0);
-            this.data.add(position, modifyUIcard);
-        } else {
+
+            try {
+                modifyUIcard.setFragmentType(ListItem.FragmentType.cardSelection);
+                this.data.add(position, modifyUIcard);
+            }
+            catch(Exception e) {
+                System.out.println(e);
+                System.exit(1);
+            }
+        } 
+        else {
             this.data.remove(position);
             this.data.add(position, this.saved);
             this.saved = null;
@@ -214,29 +234,38 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     private void updateRVA() {
+        //ArrayList<ListItem> tempList;
+
         if (this.recyclerViewAdapter != null) {
+            //tempList = convertToListItem(this.data);
             this.recyclerViewAdapter.changeData(this.data);
             this.recyclerViewAdapter.notifyDataSetChanged();
         }
     }
 
-    @Override
-    public void addDrink(String name, int iconPath, int calories, String ingredients, String instructions, Edible.Unit baseUnit, int quantity) {
-        this.opExec.addDrink(name, iconPath, calories, instructions, ingredients, baseUnit, quantity);
+    public void addDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,
+            boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, byte[] photo, String instructions, ArrayList<DrinkIngredient> ingredients) {
+        if(ingredients.size() > 0) {
+            this.opExec.addPreparedDrink(name, desc, qty, unit, photo, instructions, ingredients);
+        }
+        else {
+            this.opExec.addSimpleDrink(name, desc, qty, unit, calories, protein, carbs, fat, alcoholic, spicy, vegan, vegetarian, glutenFree, photo);
+        }
+
         this.data = this.opExec.getDrinkRecipes();
         this.updateRVA();
     }
 
-    @Override
-    public void addFood(String name, int iconPath, int calories, Edible.Unit baseUnit, int quantity) {
-        opExec.addFood(name, iconPath, calories, baseUnit, quantity);
+    public void addFood(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,
+            boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, byte[] photo) {
+
+        opExec.addFood(name, desc, qty, unit, calories, protein, carbs, fat, alcoholic, spicy, vegan, vegetarian, glutenFree, photo);
         this.data = this.opExec.getFoodRecipes();
         this.updateRVA();
     }
 
-    @Override
-    public void addMeal(String name, int iconPath, int calories, String ingredients, String instructions, Edible.Unit baseUnit, int quantity) {
-        this.opExec.addMeal(name, iconPath, calories, ingredients, instructions, baseUnit, quantity);
+    public void addMeal(String name, String desc, int qty, Edible.Unit unit, byte[] photo, String instructions, ArrayList<Ingredient> ingredients) {
+        this.opExec.addMeal(name, desc, qty, unit, photo, instructions, ingredients);
         this.data = opExec.getMealRecipes();
         this.updateRVA();
     }

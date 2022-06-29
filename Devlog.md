@@ -1037,7 +1037,7 @@ Duration: 2hrs
    - layout, cards
    - classes discussion/setup
 
-### 2022-06-24
+### 2022-06-25
      Dev:
       - Dane
 Duration: 11hrs
@@ -1049,6 +1049,7 @@ Duration: 11hrs
    - Created DB controller class to swap between the two (dependency injection)
    - Changed exercise goals and calorie goals to affect subsequent entries/past non-entries once changed
    - Created User class and UserOps (this 100% needs refactoring in the future, might not even be needed)
+
 ### 2022-06-28
      Dev:
       - Josef
@@ -1065,3 +1066,89 @@ Duration: 6hrs
    - data time span switching
    - trendlines
    - Stable build
+
+### 2022-06-26
+     Dev:
+      - Dane
+Duration: 8hrs
+   Tasks:
+   - Refactored stub db
+   - Updated object schema
+   - Started refactoring buisness and presentation layers to meet new object requirements
+
+### 2022-06-26
+     Dev:
+      - Dane
+      - Josef
+Duration: 2hrs
+   Tasks:
+   - Found a bug where changing the portion of an ingredient affected all common edible entries
+   - Discussed object structure and expectations for ingredient classes
+   - Disccused general object heirarchy to ensure cohesion
+   - Edibles will now house categories as well
+   - Discussed how the latest refactors will affect the code base
+   - Discussed plans for inputing a new Edible Ingredient (if it has ingredients adds all its ingredients/calories etc...)
+
+### 2022-06-27
+     Dev:
+      - Dane
+      - Josef
+Duration: 1hr
+   Tasks:
+   - Discussed system scalability and the idea of a seperate custom DB - which we will are now implementing
+   - Discussed object structure further and how changes would affect the object structure
+   - Discussed how HSQL and how it operates inside android studio
+   - Discussed how images should be represented (for system independence) decided on byte arrays 
+   
+### 2022-06-27
+     Dev:
+      - Dane
+      - Josef
+Duration: 4hrs
+   Tasks:
+   - Refactored the refactoring (some changes needed to be reverted)
+   - Refactoring introduced a bug where the correct fragment types would not display
+   - Added Edible Log to the hierarchy
+   - Fixed an issue where false information was getting assigned to an edible in the Edible Log instance (crashed)
+   - Fixed ArrayLists, entires need to be downcasted to a single type to go in (shifted from ListItem, to EdibleLog to Edible)
+   - Fixed an issue where the add button would reappear multiple times
+   - Made the add button get added in the UI as opposed to the database
+   - Fixed a bug where the add button would not appear in the list
+   - Fixed a bug where an empty list was not accepted in an EdibleLog food's list, this is now true since empty logs are possible
+   
+   Remaining bugs:
+   - Calories do not get updated as the log gets updated (fixed)
+   - Calories need their own variables (food accumulated calories and exercise should be seperated) (fixed)
+   - Data stub data should appear normally on the UI (fixed)
+   - Data stub should have more interesting data (get bytes from an image should be written)
+   - "" needs to be checked before parsing for calories and workout calories (crashes) (fixed)
+   - Should probably change quantity from int to double
+
+### 2022-06-27
+     Dev:
+      - Dane
+Duration: 10hrs
+   Tasks:
+   - Updated all object structures again
+   - Refactored all classes
+   - Fixed bugs so that refactor can run
+   - Added new stub data
+   - Generated the custom table concept (not finalized yet)
+
+### 2022-06-28
+     Dev:
+      - Dane
+Duration: 4hrs
+   Tasks:
+   - Will update this later
+
+### 2022-06-29
+     Dev:
+      - Dane
+Duration: 5hrs
+   Tasks:
+   - Tried to load byte array from images had issues accessing the resources from the app
+   - Tried to create a seperate class to load an image as bytes, this crashed though as the program got too long
+   - Researched alternatives and ways to ensure stub database could be decoupled from android to no prevail
+   - Researched online options for getting byte array from actual images
+   - Updated stub db data

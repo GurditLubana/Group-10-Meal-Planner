@@ -140,25 +140,30 @@ public class FragmentDiaryDialogs extends DialogFragment {
         this.btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Integer value = Integer.parseInt(quantity.getText().toString());
+                Integer value;
 
-                if (value >= Constant.ENTRY_MIN_VALUE && value <= Constant.ENTRY_MAX_VALUE) {
-                    if (send != null && send instanceof FragToMealDiary) {
-                        switch (mode) {
-                            case EDIT_QTY:
-                                send.setEntryQty(value, unitSpinner.getSelectedItem().toString());
-                                break;
-                            case GOAL_CALORIE:
-                                send.setGoalCalories(value);
-                                break;
-                            case ACTUAL_EXERCISE:
-                                send.setExerciseCalories(value);
-                                break;
+                if(!quantity.getText().toString().equals("")) {
+                    value = Integer.parseInt(quantity.getText().toString());
+
+                    if (value >= Constant.ENTRY_MIN_VALUE && value <= Constant.ENTRY_MAX_VALUE) {
+                        if (send != null && send instanceof FragToMealDiary) {
+                            switch (mode) {
+                                case EDIT_QTY:
+                                    send.setEntryQty(value, unitSpinner.getSelectedItem().toString());
+                                    break;
+                                case GOAL_CALORIE:
+                                    send.setGoalCalories(value);
+                                    break;
+                                case ACTUAL_EXERCISE:
+                                    send.setExerciseCalories(value);
+                                    break;
+                            }
+                            dismiss();
                         }
-                        dismiss();
                     }
-                } else {
-                    quantity.setError("Invalid input must be between 0 and 9999 inclusive");
+                    else {
+                        quantity.setError("Invalid input must be between 0 and 9999 inclusive");
+                    }
                 }
             }
         });

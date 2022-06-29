@@ -1,31 +1,31 @@
 package comp3350.team10.objects;
 
+import android.widget.ImageView;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Meal extends PreparedItem {
-    private String strIngredients;   //The ingredients in the meal
+    private ArrayList<Ingredient> ingredients;  //The ingredients in the meal
 
     public Meal() {
         super();
 
-        this.strIngredients = null;
+        this.ingredients = new ArrayList<Ingredient>();
     }
 
 
-    public boolean init(String name, int iconPath, int calories, String ingredients, String instructions, ListItem.FragmentType type, Edible.Unit baseUnit, int quantity, int dbkey) {
-        return super.init(name, iconPath, calories, instructions, type, baseUnit, quantity, dbkey) && this.setIngredients(ingredients);
-    }
-
-    public String getIngredients() {
-        return strIngredients;
-    }
-
-    public boolean setIngredients(String newIngredients) {
-        boolean results = false;
-
-        if (newIngredients != null) {
-            this.strIngredients = newIngredients;
-            results = true;
+    public void setIngredients(ArrayList<Ingredient> newIngredients) throws IOException {
+        if (newIngredients != null && !newIngredients.contains(null)) {
+            this.ingredients = newIngredients;
+            this.updateEdibleFromIngredients(newIngredients);
         }
+        else {
+            throw new IOException("Invalid meal ingredients");
+        }
+    }
 
-        return results;
+    public ArrayList<Ingredient> getIngredients() {
+        return this.ingredients;
     }
 }
