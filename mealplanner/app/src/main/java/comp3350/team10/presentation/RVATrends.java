@@ -109,7 +109,7 @@ public class RVATrends extends RecyclerViewAdapter {
         double chartMin = DataFrame.xAxisLimits[dataFrame.getSpan().ordinal()];
 
         for (int i = 0; i < dataArray.size(); i++) {
-            dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
+            dataPointArray[i] = new DataPoint(i, dataArray.get(i).doubleValue());
         }
 
 
