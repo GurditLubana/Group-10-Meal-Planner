@@ -11,7 +11,6 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import comp3350.team10.R;
 import comp3350.team10.objects.*;
@@ -68,13 +67,22 @@ public class RVATrends extends RecyclerViewAdapter {
         DataFrame dataFrame = this.dataSet.get(position);
         DataPoint[] dataPointArray = new DataPoint[dataFrame.size()];
         ArrayList<Double> dataArray = dataFrame.getData();
+        double chartMin = DataFrame.xAxisLimits[dataFrame.getSpan().ordinal()];
+
         for (int i = 0; i < dataArray.size(); i++) {
             dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
         }
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPointArray);
+        LineGraphSeries<DataPoint> seriesTrend = new LineGraphSeries<>(new DataPoint[]{
+                new DataPoint(chartMin, dataFrame.getTrendPointA()),
+                new DataPoint(0, dataFrame.getTrendPointB())
+        });
+
+        seriesTrend.setColor(Color.LTGRAY);
         graph.removeAllSeries();
         graph.addSeries(series);
+        graph.addSeries(seriesTrend);
         graph.setTitle(dataFrame.getDataType().name());
         graph.setTitleTextSize(72);
         graph.setTitleColor(Color.WHITE);
@@ -85,26 +93,8 @@ public class RVATrends extends RecyclerViewAdapter {
         graph.getGridLabelRenderer().setNumHorizontalLabels(8);
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMaxX(1);
-        switch(dataFrame.getSpan().ordinal()){
-            case 0:
-                graph.getViewport().setMinX(-7);
-                break;
-            case 1:
-                graph.getViewport().setMinX(-28);
-                break;
-            case 2:
-                graph.getViewport().setMinX(-74);
-                break;
-            case 3:
-                graph.getViewport().setMinX(-128);
-                break;
-            case 4:
-                graph.getViewport().setMinX(-350);
-                break;
-            default:
-                graph.getViewport().setMinX(-700);
-                break;
-        }
+        graph.getViewport().setMinX(chartMin);
+
     }
 
 
