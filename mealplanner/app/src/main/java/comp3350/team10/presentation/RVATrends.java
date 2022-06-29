@@ -102,7 +102,7 @@ public class RVATrends extends RecyclerViewAdapter {
     }
 
     private void setDailyData(ViewHolder viewHolder, int position) {
-        GraphView graph = (GraphView) viewHolder.getView().findViewById(R.id.graph);
+        GraphView graph = (GraphView) viewHolder.getView().findViewById(R.id.graph2);
         DataFrame dataFrame = this.dataSet.get(position);
         DataPoint[] dataPointArray = new DataPoint[dataFrame.size()];
         ArrayList<Double> dataArray = dataFrame.getData();
@@ -112,11 +112,13 @@ public class RVATrends extends RecyclerViewAdapter {
             dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
         }
 
+
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dataPointArray);
         LineGraphSeries<DataPoint> seriesTrend = new LineGraphSeries<>(new DataPoint[]{
                 new DataPoint(chartMin, dataFrame.getTrendPointA()),
                 new DataPoint(0, dataFrame.getTrendPointB())
         });
+        graph.addSeries(series);
     }
 
 }
