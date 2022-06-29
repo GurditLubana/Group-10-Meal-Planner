@@ -19,7 +19,7 @@ import comp3350.team10.objects.*;
 
 public class RVATrends extends RecyclerViewAdapter {
     ArrayList<DataFrame> dataSet = null;
-    FragToTrends send;
+    Context context;
 
     public RVATrends(ArrayList<DataFrame> dataSet) {
         super(null);
@@ -30,7 +30,7 @@ public class RVATrends extends RecyclerViewAdapter {
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = null;
         ViewHolder viewHolder = null;
-        Context context = viewGroup.getContext();
+        this.context = viewGroup.getContext();
         if(context instanceof ActivityTrends) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_trend_chart, viewGroup, false);
         }else if(context instanceof ActivityDailyProgress){
@@ -42,8 +42,8 @@ public class RVATrends extends RecyclerViewAdapter {
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        View view = viewHolder.getView();
-        Context context = viewHolder.getContext();
+        //View view = viewHolder.getView();
+        //Context context = viewHolder.getContext();
         if (context instanceof ActivityTrends) {
             setTrendData(viewHolder, position);
         }else if(context instanceof ActivityDailyProgress){
