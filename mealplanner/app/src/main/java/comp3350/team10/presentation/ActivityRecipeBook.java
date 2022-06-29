@@ -35,8 +35,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private RecyclerView recipeRecyclerView;        // Houses a recycle view for recipes
     private RecipeBookOps opExec;                   // Buisness logic for RecipeBook
     private Toolbar toolbar;                        // app title
-
     private ArrayList<Edible> data;                // The data for the recipe book
+
     private boolean modMenuIsOpen;                  // Represents whether the menu to add/edit recipes is toggled on
     private int savedPosition;                      // Saves the position of an item for temporary removal
     private Edible saved;                           // Saves the item for temporary removal
