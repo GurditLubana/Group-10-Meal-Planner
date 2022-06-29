@@ -50,4 +50,5 @@ public class DataFrame {
     public ArrayList<Double> getData(){
         return this.data;
     }
+
 }

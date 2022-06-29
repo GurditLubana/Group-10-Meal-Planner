@@ -1,6 +1,7 @@
 package comp3350.team10.presentation;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import comp3350.team10.R;
 import comp3350.team10.objects.*;
@@ -67,11 +69,42 @@ public class RVATrends extends RecyclerViewAdapter {
         DataPoint[] dataPointArray = new DataPoint[dataFrame.size()];
         ArrayList<Double> dataArray = dataFrame.getData();
         for (int i = 0; i < dataArray.size(); i++) {
-            dataPointArray[i] = new DataPoint(i, dataArray.get(i).doubleValue());
+            dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
         }
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPointArray);
+        graph.removeAllSeries();
         graph.addSeries(series);
+        graph.setTitle(dataFrame.getDataType().name());
+        graph.setTitleTextSize(72);
+        graph.setTitleColor(Color.WHITE);
+        graph.getGridLabelRenderer().setPadding(40);
+        graph.getGridLabelRenderer().setGridColor(Color.GRAY);
+        graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.WHITE);
+        graph.getGridLabelRenderer().setVerticalLabelsColor(Color.WHITE);
+        graph.getGridLabelRenderer().setNumHorizontalLabels(8);
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setMaxX(1);
+        switch(dataFrame.getSpan().ordinal()){
+            case 0:
+                graph.getViewport().setMinX(-7);
+                break;
+            case 1:
+                graph.getViewport().setMinX(-28);
+                break;
+            case 2:
+                graph.getViewport().setMinX(-74);
+                break;
+            case 3:
+                graph.getViewport().setMinX(-128);
+                break;
+            case 4:
+                graph.getViewport().setMinX(-350);
+                break;
+            default:
+                graph.getViewport().setMinX(-700);
+                break;
+        }
     }
 
 
