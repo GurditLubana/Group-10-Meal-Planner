@@ -55,7 +55,7 @@ public class ActivityTrends extends AppCompatActivity implements FragToTrends{
     }
 
     private void initRecyclerView() {
-        View object = findViewById(R.id.trendsRecyclerView);
+        View object = findViewById(R.id.mealRecyclerView);
 
         if (this.data != null && object instanceof RecyclerView) {
             this.trendsRecyclerView = (RecyclerView) object;
