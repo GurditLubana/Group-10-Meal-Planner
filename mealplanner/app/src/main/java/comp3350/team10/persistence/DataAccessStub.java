@@ -127,7 +127,7 @@ public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, User
 
         try {
             this.dbRecipeFood.add(new Food()
-                    .initDetails(4, "food", "desc", 10, Edible.Unit.serving)
+                    .initDetails(4, "food", "desc", 10, Edible.Unit.cups)
                     .initNutrition(100, 30, 45, 25)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, new byte[] {10, 10}, ListItem.FragmentType.diaryEntry)

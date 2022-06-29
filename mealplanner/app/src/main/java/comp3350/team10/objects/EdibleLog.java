@@ -14,6 +14,7 @@ public class EdibleLog extends Edible {
             this.initNutrition(edible.getCalories(), edible.getProtein(), edible.getCarbs(), edible.getFat());
             this.initCategories(edible.getIsAlcoholic(), edible.getIsSpicy(), edible.getIsVegan(), edible.getIsVegetarian(), edible.getIsGlutenFree());
             this.initMetadata(true, edible.getPhotoBytes(), edible.getFragmentType());
+            this.init(edible.getQuantity(), edible.getUnit());
         }
         catch(Exception e) {
             System.out.println(e);

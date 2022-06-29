@@ -1100,8 +1100,9 @@ Duration: 4hrs
    - Fixed a bug where an empty list was not accepted in an EdibleLog food's list, this is now true since empty logs are possible
    
    Remaining bugs:
-   - Calories do not get updated as the log gets updated
-   - Calories need their own variables (food accumulated calories and exercise should be seperated)
+   - Calories do not get updated as the log gets updated (fixed)
+   - Calories need their own variables (food accumulated calories and exercise should be seperated) (fixed)
+   - Data stub data should appear normally on the UI
    - Data stub should have more interesting data (get bytes from an image should be written)
    - "" needs to be checked before parsing for calories and workout calories (crashes)
    - Should probably change quantity from int to double
