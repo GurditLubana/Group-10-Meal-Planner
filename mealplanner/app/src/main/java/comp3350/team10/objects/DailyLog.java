@@ -11,11 +11,11 @@ import comp3350.team10.objects.Constant;
 
 public class DailyLog {
     private int date;                          //The date of this particular log    
-    private ArrayList<Edible> edibleLog;    //The edibles present in the given log for a given date
+    private ArrayList<Edible> edibleLog;       //The edibles present in the given log for a given date
     private int calorieGoal;                   //The calorie goal for a given date 
     private int exerciseGoal;                  //The calorie goal for exercising for a given date
     private int exerciseActual;                //The calories burnt while exercising for a given date
-    private int calorieActual;                 //The calorie total (between all edibles and exercise) for a given date
+    private int edibleCalories;                //The calorie total for a list of edibles for a given date
 
     public DailyLog() {
         this.date = -1;
@@ -23,7 +23,7 @@ public class DailyLog {
         this.calorieGoal = -1;
         this.exerciseGoal = -1;
         this.exerciseActual = 0;
-        this.calorieActual = 0;
+        this.edibleCalories = 0;
     }
 
 
@@ -33,7 +33,6 @@ public class DailyLog {
         this.setCalorieGoal(calGoal);
         this.setExerciseGoal(excGoal);
         this.setExerciseActual(excActual);
-        this.setCalorieActual(this.calculateCalories());
 
         return this;
     }
@@ -50,6 +49,7 @@ public class DailyLog {
     public void setEdibleList(ArrayList<Edible> newLog) throws IOException {
         if (newLog != null && newLog.size() >= 0 && !newLog.contains(null)) {
             this.edibleLog = newLog;
+            this.calculateEdibleCalories();
         }
         else {
             throw new IOException("Invalid edible log");
@@ -83,19 +83,15 @@ public class DailyLog {
         }
     }
 
-    public int calculateCalories() {
-        int currCalories = 0;
+    private void calculateEdibleCalories() throws IOException {
+        int calculatedCalories = 0;
 
         for(int i = 0; i < this.edibleLog.size(); i++) {
-            currCalories += this.edibleLog.get(i).getCalories();
+            calculatedCalories += this.edibleLog.get(i).getCalories();
         }
 
-        return currCalories - this.exerciseActual;
-    }
-
-    private void setCalorieActual(int calculatedCalories) throws IOException {
         if(calculatedCalories >= 0 && calculatedCalories <= Constant.ENTRY_MAX_VALUE) {
-            this.calorieActual = calculatedCalories;
+            this.edibleCalories = calculatedCalories;
         }
         else {
             throw new IOException("invalid calorie actual value");
@@ -118,8 +114,8 @@ public class DailyLog {
         return this.calorieGoal;
     }
 
-    public int getCalorieActual() {
-        return this.calorieActual;
+    public int getEdibleCalories() {
+        return this.edibleCalories;
     }
 
     public int getDate() {

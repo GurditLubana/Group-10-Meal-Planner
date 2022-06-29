@@ -189,13 +189,33 @@ public class MealDiaryOps { //this needs to select the correct fragment
     }
 
     private void netCalories() {
-        this.calorieNet = this.currLog.getCalorieGoal() - this.currLog.getCalorieActual();
+        System.out.println("Calorie goal " + this.currLog.getCalorieGoal());
+        System.out.println("edible calories " + this.currLog.getEdibleCalories());
+        System.out.println("exercise " + this.currLog.getExerciseActual());
+        this.calorieNet = this.currLog.getCalorieGoal() - (this.currLog.getEdibleCalories() - this.currLog.getExerciseActual());
     }
 
-    public void addByKey(int dbkey) {
+    public void addByKey(int dbkey) { //This gets called when adding stuff from mealDiary
         EdibleLog tempLog = new EdibleLog(db.findEdibleByKey(dbkey));
+        ArrayList<Edible> newEdibleList = this.currLog.getEdibleList();
 
-        this.currLog.getEdibleList().add(this.currLog.getEdibleList().size() - 1, tempLog);
-        this.updateProgress();
+        try {
+            newEdibleList.add(this.currLog.getEdibleList().size() - 1, tempLog);
+            this.currLog.setEdibleList(newEdibleList);
+            this.updateProgress();
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
     }
+
+    //System.out.println("trying to change edible log!");
+    //ArrayList<Edible> temp = this.opExec.getCurrLog().getEdibleList();
+    //temp.add(temp.size() - 2, (EdibleLog)(this.data.get(pos)));
+    //try {
+    //    this.opExec.getCurrLog().setEdibleList(temp);
+    //}
+    //catch (Exception e) {
+    //    System.out.println(e);
+    //}
 }
