@@ -30,10 +30,8 @@ public class ActivityDailyProgress extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_progress);
         this.initToolbar();
-        this.initRecyclerView();
         this.initData();
-
-
+        this.initRecyclerView();
     }
     private void initToolbar() {
         this.toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -55,7 +53,7 @@ public class ActivityDailyProgress extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        View object = findViewById(R.id.mealRecyclerView);
+        View object = findViewById(R.id.progressrecyclerview);
 
         if (this.data != null && object instanceof RecyclerView) {
             this.trendsRecyclerView = (RecyclerView) object;

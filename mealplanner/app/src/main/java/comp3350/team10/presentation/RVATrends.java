@@ -34,7 +34,7 @@ public class RVATrends extends RecyclerViewAdapter {
         if(context instanceof ActivityTrends) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_trend_chart, viewGroup, false);
         }else if(context instanceof ActivityDailyProgress){
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card, viewGroup, false);
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_progressfile, viewGroup, false);
         }
         viewHolder = new ViewHolder(view);
         return viewHolder;
@@ -43,7 +43,7 @@ public class RVATrends extends RecyclerViewAdapter {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         View view = viewHolder.getView();
-        Context context = view.getContext();
+        Context context = viewHolder.getContext();
         if (context instanceof ActivityTrends) {
             setTrendData(viewHolder, position);
         }else if(context instanceof ActivityDailyProgress){
