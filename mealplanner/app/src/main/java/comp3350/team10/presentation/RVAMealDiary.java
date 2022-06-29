@@ -75,7 +75,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         TextView itemUnit = viewHolder.getView().findViewById(R.id.itemUnitBox);
         TextView itemCals = viewHolder.getView().findViewById(R.id.itemCalsBox);
         ImageView itemImage = viewHolder.getView().findViewById(R.id.itemImage);
-        Edible currentItem = super.getDataset().get(position);
+        Edible currentItem = super.getDataSet().get(position);
 
         itemName.setText(currentItem.getName());
         itemQty.setText(String.format("%3d", currentItem.getQuantity()));
