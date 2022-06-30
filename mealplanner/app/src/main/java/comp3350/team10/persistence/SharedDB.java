@@ -4,7 +4,7 @@ import android.content.Context;
 
 public class SharedDB {
     //DBSelector(Context context)
-    private static DBSelector db = null;   //Represents whether or not the database has already been accessed or not
+    private static DBSelector db = null;       //Represents whether or not the database has already been accessed or not
     public static String dbName;               //The name of the given database
 
     public static void start(Context context) {

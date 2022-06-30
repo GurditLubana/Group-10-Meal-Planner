@@ -40,7 +40,7 @@ public class DBSelector {
         
         this.stub.open("");
     }
-
+    
 
     //User interface
     public void addUser(String name, int height, int weight) {

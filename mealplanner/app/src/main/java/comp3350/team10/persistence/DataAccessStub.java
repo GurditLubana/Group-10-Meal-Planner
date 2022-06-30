@@ -285,6 +285,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
     public void setExerciseActual(int exerciseActual, Calendar date) {
         DailyLog currEntry = searchFoodLogByDate(date);
+        
         try {
             this.dbFoodLog.remove(currEntry);
             currEntry.setExerciseActual(exerciseActual);
