@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class DataAccessStub implements DiaryDBInterface, RecipeDBInterface, UserDBInterface {
+public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDBInterface {
     //Database info and data variables
     private Calendar calendar = Calendar.getInstance();
     private Integer currKey;                    //The current database key

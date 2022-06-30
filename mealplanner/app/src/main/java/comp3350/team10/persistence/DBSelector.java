@@ -17,8 +17,8 @@ public class DBSelector {
     private HSqlDB hsql;                //An active instance of the HSQL database
     private DataAccessStub stub;        //An active instance of the DataAccessStub database (switch to shared)
 
+    private LogDBInterface logDB;       //The database we would like to process log operations on
     private UserDBInterface userDB;     //The database we would like to process user operations on
-    private DiaryDBInterface diaryDB;   //The database we would like to process diary operations on
     private RecipeDBInterface recipeDB; //The database we would like to process recipe operations on
     
 
@@ -26,15 +26,15 @@ public class DBSelector {
         this.hsql = new HSqlDB(context);
         this.stub = new DataAccessStub("stub");
 
+        this.logDB = this.hsql;
         this.userDB = this.hsql;
-        this.diaryDB = this.hsql;
         this.recipeDB = this.hsql;
     }
 
 
     void moveToStubDB() { //Point all interfaces towards the Stub
+        this.logDB = this.stub;
         this.userDB = this.stub;
-        this.diaryDB = this.stub;
         this.recipeDB = this.stub;
     }
 
@@ -67,15 +67,15 @@ public class DBSelector {
 
     //Log interface
     public DailyLog searchFoodLogByDate(Calendar date) {
-        return this.diaryDB.searchFoodLogByDate(date);
+        return this.logDB.searchFoodLogByDate(date);
     }
 
     public void addLog(DailyLog newLog) {
-        this.diaryDB.addLog(newLog);
+        this.logDB.addLog(newLog);
     }
 
     public void deleteLog(DailyLog delLog) {
-        this.diaryDB.deleteLog(delLog);
+        this.logDB.deleteLog(delLog);
     }
 
 

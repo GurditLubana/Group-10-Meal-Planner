@@ -150,7 +150,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
                     setDrinkDialogFieldDefaults();
                     break;
             }
-            setSpinner();
+            //setSpinner();
             setOnClickListeners();
         }
 
@@ -192,7 +192,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
 //        this.isNonVegCheckBox.setVisibility(View.GONE);
     }
 
-    private void setSpinner() {
+    private void E() {
 
         int size = Edible.Unit.values().length;
         ArrayAdapter<String> adapter = null;

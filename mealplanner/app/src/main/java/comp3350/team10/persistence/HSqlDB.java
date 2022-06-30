@@ -15,7 +15,7 @@ import comp3350.team10.objects.Food;
 import comp3350.team10.objects.Meal;
 import comp3350.team10.objects.User;
 
-public class HSqlDB extends SQLiteOpenHelper implements DiaryDBInterface, RecipeDBInterface, UserDBInterface {
+public class HSqlDB extends SQLiteOpenHelper implements LogDBInterface, RecipeDBInterface, UserDBInterface {
     private static final int CURR_VERSION = 1;
     private static final String DB_NAME = "HSqlDB";
 

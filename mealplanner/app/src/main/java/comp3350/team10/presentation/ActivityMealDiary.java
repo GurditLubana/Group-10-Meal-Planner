@@ -28,15 +28,13 @@ import java.util.Calendar;
 import java.util.List;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToMealDiary {
-    private static enum EDIBLES_TYPES {FOOD, MEAL, DRINK} //The different types of food types
-    private EdibleLog addButton;
-
     private ActivityResultLauncher<Intent> pickMeal; // call back listener when recipebook activity is launched for meal selection
     private RVAMealDiary recyclerViewAdapter;   //Houses the logic for a recycle view with diary entries
     private MealDiaryLiveData mealDiaryData;    //Enables persistent data
     private RecyclerView mealRecyclerView;      //Houses a recycle view for diary entries
     private MealDiaryOps opExec;                //Business logic for MealDiary
     private Toolbar toolbar;                    //app title
+    private EdibleLog addButton;
 
     private ArrayList<Edible> data;            //The data for the diary entries
     private int savedItemPosition;              //Saves the position of an item for temporary removal

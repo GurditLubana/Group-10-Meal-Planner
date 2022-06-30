@@ -6,7 +6,7 @@ import java.util.Calendar;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;
 
-public interface DiaryDBInterface {
+public interface LogDBInterface {
     public final static int GOAL_LIMIT = 9999;         //Goal limit (standalone variable as per MealDiaryLog)
     
     public DailyLog searchFoodLogByDate(Calendar date);
