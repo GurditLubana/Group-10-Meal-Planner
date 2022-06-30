@@ -15,9 +15,9 @@ public class RecipeBookOps { //this needs to select the corect fragment
 
     private ArrayList<Edible> selectedList;    //The recipes available for the current view
     private RecipeBook selectedType;            //The selected Edible type view (see enum on line 18)
-    private DataAccessStub db;                  //Accesses the database
+    private DBSelector db;                  //Accesses the database
 
-    public RecipeBookOps(DataAccessStub db) {
+    public RecipeBookOps(DBSelector db) {
         this.selectedType = RecipeBook.FOOD;
         this.selectedList = null;
         this.db = db;
@@ -84,7 +84,7 @@ public class RecipeBookOps { //this needs to select the corect fragment
             newMeal.setIngredients(ingredients);
             newMeal.setCustom(true);
             newMeal.setPhotoBytes(photo);
-            newMeal.updateEdibleFromIngredients(ingredients);
+
             db.addMealToRecipeBook(newMeal);
         }
         catch(Exception e) {
@@ -113,7 +113,6 @@ public class RecipeBookOps { //this needs to select the corect fragment
 
     public void addPreparedDrink(String name, String desc, int qty, Edible.Unit unit, byte[] photo, String instructions,
             ArrayList<DrinkIngredient> ingredients) {
-        ArrayList<Ingredient> tempList = new ArrayList<Ingredient>();
         Drink newDrink = new Drink();
 
         try {
@@ -123,11 +122,6 @@ public class RecipeBookOps { //this needs to select the corect fragment
             newDrink.setCustom(true);
             newDrink.setPhotoBytes(photo);
 
-            for(int i = 0; i < ingredients.size(); i++) {
-                tempList.add(ingredients.get(i));
-            }
-
-            newDrink.updateEdibleFromIngredients(tempList);
             db.addDrinkToRecipeBook(newDrink);
         }
         catch(Exception e) {

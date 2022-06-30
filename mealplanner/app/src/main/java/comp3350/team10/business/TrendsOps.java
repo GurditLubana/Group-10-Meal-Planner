@@ -7,10 +7,10 @@ import comp3350.team10.persistence.*;
 
 public class TrendsOps {
     private ArrayList<DataFrame> dataFrames;
-    private DataAccessStub db;
+    private DBSelector db;
     private DataFrame.Span span;
 
-    public TrendsOps(DataAccessStub db) throws NullPointerException {
+    public TrendsOps(DBSelector db) throws NullPointerException {
         if (db != null) {
             this.db = db;
         } else {

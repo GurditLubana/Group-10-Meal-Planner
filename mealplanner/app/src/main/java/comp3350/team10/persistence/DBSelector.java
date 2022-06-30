@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.EdibleLog;
 import comp3350.team10.objects.Food;
 import comp3350.team10.objects.Meal;
 import comp3350.team10.objects.User;
@@ -33,9 +34,11 @@ public class DBSelector {
 
 
     void moveToStubDB() { //Point all interfaces towards the Stub
-        this.logDB = this.stub;
-        this.userDB = this.stub;
         this.recipeDB = this.stub;
+        this.userDB = this.stub;
+        this.logDB = this.stub;
+        
+        this.stub.open("");
     }
 
 
@@ -78,8 +81,20 @@ public class DBSelector {
         this.logDB.deleteLog(delLog);
     }
 
+    public EdibleLog findEdibleByKey(int dbkey) {
+        return findEdibleByKey(dbkey);
+    }
+
+    public void setExerciseActual(int newExercise, Calendar logDate) {
+        this.logDB.setExerciseActual(newExercise, logDate);
+    }
+
 
     //Recipe interface
+    public int getNextKey() {
+        return this.recipeDB.getNextKey();
+    }
+
     public ArrayList<Edible> getFoodRecipes() {
         return this.recipeDB.getFoodRecipes();
     }

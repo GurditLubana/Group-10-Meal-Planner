@@ -11,6 +11,7 @@ import java.util.Calendar;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.EdibleLog;
 import comp3350.team10.objects.Food;
 import comp3350.team10.objects.Meal;
 import comp3350.team10.objects.User;
@@ -220,27 +221,32 @@ public class HSqlDB extends SQLiteOpenHelper implements LogDBInterface, RecipeDB
 
 
     public ArrayList<Edible> getFoodList(Calendar date) {
-        return null;
+        return new ArrayList<Edible>();
     }
 
     public ArrayList<Edible> getMealList(Calendar date) {
-        return null;
+        return new ArrayList<Edible>();
     }
 
     public ArrayList<Edible> getDrinkList(Calendar date) {
-        return null;
+        return new ArrayList<Edible>();
     }
 
     public ArrayList<Edible> getFoodRecipes() {
-        return null;
+        return new ArrayList<Edible>();
     }
 
     public ArrayList<Edible> getMealRecipes() {
-        return null;
+        return new ArrayList<Edible>();
     }
 
     public ArrayList<Edible> getDrinkRecipes() {
-        return null;
+        return new ArrayList<Edible>();
+
+    }
+
+    public int getNextKey() {
+        return 1;
     }
 
     public void addFoodToRecipeBook(Food newFood) {
@@ -256,6 +262,23 @@ public class HSqlDB extends SQLiteOpenHelper implements LogDBInterface, RecipeDB
     }
 
     public DailyLog searchFoodLogByDate(Calendar date) {
+        int today = calendarToInt(Calendar.getInstance());
+        DailyLog log = new DailyLog();
+        try {
+            log.init(today, new ArrayList<Edible>(), 700, 100, 0);
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+
+        return log;
+    }
+
+    private Integer calendarToInt(Calendar date) {
+        return Integer.parseInt(String.valueOf(date.get(Calendar.YEAR)) + String.valueOf(date.get(Calendar.DAY_OF_YEAR)));
+    }
+
+    public Edible findEdibleByKey(int dbkey) {
         return null;
     }
 
@@ -264,6 +287,10 @@ public class HSqlDB extends SQLiteOpenHelper implements LogDBInterface, RecipeDB
     }
 
     public void deleteLog(DailyLog delLog) {
+
+    }
+
+    public void setExerciseActual(int newExercise, Calendar logDate) {
 
     }
 
@@ -288,7 +315,7 @@ public class HSqlDB extends SQLiteOpenHelper implements LogDBInterface, RecipeDB
     }
 
     public User getUser() {
-        return null;
+        return new User("USER", 1, 666, 666, 666, 666);
     }
 
     public void setHeight(int newHeight) {

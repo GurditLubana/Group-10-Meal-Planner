@@ -13,7 +13,7 @@ public interface RecipeDBInterface {
     public ArrayList<Edible> getFoodRecipes();
     public ArrayList<Edible> getMealRecipes();
     public ArrayList<Edible> getDrinkRecipes();
-    
+    public int getNextKey();
     public void addFoodToRecipeBook(Food newFood);
     public void addMealToRecipeBook(Meal newMeal);
     public void addDrinkToRecipeBook(Drink newDrink);

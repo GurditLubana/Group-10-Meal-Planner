@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.datepicker.*;
 
@@ -48,7 +49,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
         this.addButton = new EdibleLog(ListItem.FragmentType.diaryAdd);
         setContentView(R.layout.activity_meal_diary);
-        SharedDB.start("EaTen");
+        SharedDB.start(this);
         this.initToolbar();
         this.opExec = new MealDiaryOps(SharedDB.getSharedDB());
         this.initLiveData();

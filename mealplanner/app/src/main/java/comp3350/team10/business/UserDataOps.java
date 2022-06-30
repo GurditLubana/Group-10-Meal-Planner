@@ -1,14 +1,15 @@
 package comp3350.team10.business;
 
 import comp3350.team10.objects.User;
+import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.DataAccessStub;
 
 public class UserDataOps {
-    private DataAccessStub db;      //References the current database
+    private DBSelector db;      //References the current database
     private boolean infoAvailible;  //Can be used so that if vital user is not availible a prompt will appear
     private User currUser;          //The current user's details
 
-    public UserDataOps(DataAccessStub db) {
+    public UserDataOps(DBSelector db) {
         this.db = db;
         this.currUser = db.getUser();
         this.infoAvailible = currUser != null;

@@ -19,7 +19,7 @@ public class MealDiaryOps { //this needs to select the correct fragment
     //Database variables
     private DailyLog currLog;           //The food in the planner for the given day
     private Calendar logDate;           //The date the planner is set to
-    private DataAccessStub db;          //Accesses the database
+    private DBSelector db;          //Accesses the database
 
     //Progress bar variables
     private UserDataOps opUser;         //Buisness logic for handling the app's user
@@ -28,7 +28,7 @@ public class MealDiaryOps { //this needs to select the correct fragment
     private int calorieNet;             //Represents the consumed calories - exercise calories burnt
 
     //dependency injectable constructor
-    public MealDiaryOps(DataAccessStub db) {
+    public MealDiaryOps(DBSelector db) {
         this.logDate = Calendar.getInstance();
 
         this.progressExcess = -1;

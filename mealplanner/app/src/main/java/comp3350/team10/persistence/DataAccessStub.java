@@ -209,12 +209,12 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         return result;
     }
 
-    public Integer getNextKey() {
+    public int getNextKey() {
         Integer result = this.currKey.intValue();
 
         this.currKey += 1;
 
-        return result;
+        return result.intValue();
     }
 
     public void close() {
@@ -366,6 +366,4 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             this.dbFoodLog.remove(delLog);
         }
     }
-
-
 }
