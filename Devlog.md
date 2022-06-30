@@ -1152,3 +1152,28 @@ Duration: 5hrs
    - Researched alternatives and ways to ensure stub database could be decoupled from android to no prevail
    - Researched online options for getting byte array from actual images
    - Updated stub db data
+
+### 2022-06-29
+     Dev:
+      - Zhou
+Duration: 5hrs
+   Tasks:
+   - Design Food.java unit test
+   - finished simple test of Food.java update at brench test-Zhou
+   - finished complex test of Food.java at update brench test-Zhou
+
+### 2022-06-29
+     Dev:
+      - Josef
+      - Manraj
+Duration: 4hrs
+   Tasks:
+   - Daily progress activity
+   - layout, test data
+
+### 2022-06-30
+     Dev:
+      - Zhou
+Duration: 1hrs
+   Tasks:
+   - finished empty test of Food.java update at brench test-Zhou
