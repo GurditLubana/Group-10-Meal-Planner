@@ -25,11 +25,10 @@ public abstract class Edible implements ListItem {
     private boolean isVegan;                    //Flag that represents whether this Edible is vegan or not
     private boolean isVegetarian;               //Flag that represents whether this Edible is vegetarian or not
     private boolean isGlutenFree;               //Flag that represents whether this Edible is glutenFree or not
-    private boolean isCustom;                   //Flag that represents whether this Edible is custom or not
 
     //Metadata
-    private byte[] photoBytes;                  //The image path for a given edible
-    private ListItem.FragmentType fragmentType; //How it should appear on recycler views                        
+    private boolean isCustom;                   //Flag that represents whether this Edible is custom or not
+    private byte[] photoBytes;                  //The image path for a given edible                     
 
     public Edible() {
         this.edibleID = -1;
@@ -85,7 +84,7 @@ public abstract class Edible implements ListItem {
         return this;
     }
 
-    public Edible initMetadata(boolean custom, byte[] photo, ListItem.FragmentType view) throws IOException {
+    public Edible initMetadata(boolean custom, byte[] photo) throws IOException {
         this.setCustom(custom);
         this.setPhotoBytes(photo);
         this.setFragmentType(view);

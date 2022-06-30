@@ -47,11 +47,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Can be used to reset db
-        //this.deleteDatabase("HSqlDB");
-        //System.out.println("reseting db");
-        //System.exit(1);
-
         this.addButton = new EdibleLog(ListItem.FragmentType.diaryAdd);
         setContentView(R.layout.activity_meal_diary);
         SharedDB.start(this);
