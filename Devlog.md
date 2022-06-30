@@ -1162,6 +1162,15 @@ Duration: 5hrs
    - finished simple test of Food.java update at brench test-Zhou
    - finished complex test of Food.java at update brench test-Zhou
 
+### 2022-06-29
+     Dev:
+      - Josef
+      - Manraj
+Duration: 4hrs
+   Tasks:
+   - Daily progress activity
+   - layout, test data
+
 ### 2022-06-30
      Dev:
       - Zhou
