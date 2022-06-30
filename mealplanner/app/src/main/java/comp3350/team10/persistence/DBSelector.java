@@ -30,6 +30,7 @@ public class DBSelector {
         this.logDB = this.hsql;
         this.userDB = this.hsql;
         this.recipeDB = this.hsql;
+        this.moveToStubDB();
     }
 
 

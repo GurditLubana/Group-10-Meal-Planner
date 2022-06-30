@@ -28,7 +28,8 @@ public abstract class Edible implements ListItem {
 
     //Metadata
     private boolean isCustom;                   //Flag that represents whether this Edible is custom or not
-    private byte[] photoBytes;                  //The image path for a given edible                     
+    private byte[] photoBytes;                  //The image path for a given edible
+    private ListItem.FragmentType fragmentType;
 
     public Edible() {
         this.edibleID = -1;
@@ -84,7 +85,7 @@ public abstract class Edible implements ListItem {
         return this;
     }
 
-    public Edible initMetadata(boolean custom, byte[] photo) throws IOException {
+    public Edible initMetadata(boolean custom, byte[] photo, ListItem.FragmentType view) throws IOException {
         this.setCustom(custom);
         this.setPhotoBytes(photo);
         this.setFragmentType(view);
