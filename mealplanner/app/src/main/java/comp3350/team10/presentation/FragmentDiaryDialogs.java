@@ -30,17 +30,11 @@ public class FragmentDiaryDialogs extends FragmentDialogCommon {
     public static String TAG = "MealEntryDialog"; // tag name of this fragment for reference in the fragment manager
     private FragToMealDiary send;                 // Interface for communication with parent activity
     private FragToMealDiary.EntryMode mode;       // the type of dialog to show
-    private Button btnCancel;                     // Cancel Button
-    private Button btnOk;                         // OK button
-    private TextView title;                       // Dialog Title
-    private EditText quantity;                    // input field for quantity
     private TextView unitText;                    // static unit label
-    private Spinner unitSpinner;                  // input field for quantity units
 
     public FragmentDiaryDialogs() {
-        // Required empty public constructor
+        super();
     }
-
 
     public static FragmentDiaryDialogs newInstance(String param1, String param2) {
         FragmentDiaryDialogs fragment = new FragmentDiaryDialogs();
@@ -60,13 +54,12 @@ public class FragmentDiaryDialogs extends FragmentDialogCommon {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_diary_dialogs, null);
         Context context = view.getContext();
-        this.btnCancel = view.findViewById(R.id.btnCancel);
-        this.btnOk = view.findViewById(R.id.btnOk);
-        this.title = view.findViewById(R.id.dialogTitle);
-        this.quantity = view.findViewById(R.id.inputQty);
+        super.setBtnCancel(view.findViewById(R.id.btnCancel));
+        super.setBtnOk(view.findViewById(R.id.btnOk));
+        super.setTitle(view.findViewById(R.id.dialogTitle));
+        super.setUnitSpinner(view.findViewById(R.id.inputUnit));
+        super.setInputQuantity(view.findViewById(R.id.inputQty));
         this.unitText = view.findViewById(R.id.inputUnitText);
-        this.unitSpinner = view.findViewById(R.id.inputUnit);
-        ;
 
         if (context != null && context instanceof FragToMealDiary) {
             this.send = (FragToMealDiary) context;
@@ -95,61 +88,57 @@ public class FragmentDiaryDialogs extends FragmentDialogCommon {
         int size = Edible.Unit.values().length;
         ArrayAdapter<String> adapter = null;
         String quantity = "null";
-        String[] items = new String[size];
 
-        this.title.setText("Edit Quantity");
-        for (int i = 0; i < size; i++) {
-            items[i] = Edible.Unit.values()[i].name();
-        }
-
-        adapter = new ArrayAdapter<String>(getActivity().getBaseContext(), R.layout.spinner_unit_items, items);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        super.getTitle().setText("Edit Quantity");
 
         if (this.send != null && send instanceof FragToMealDiary) {
             quantity = this.send.getEntryQty();
             unit = this.send.getEntryUnit();
 
-            this.quantity.setText(quantity);
-            this.unitSpinner.setAdapter(adapter);
-            this.unitSpinner.setSelection(adapter.getPosition(unit.name()));
-            this.unitSpinner.setVisibility(View.VISIBLE);
+            super.getInputQuantity().setText(quantity);
+            super.initSpinner();
+            if(super.getUnitSpinner().getAdapter() instanceof ArrayAdapter) {
+                adapter = (ArrayAdapter) super.getUnitSpinner().getAdapter();
+                super.getUnitSpinner().setSelection(adapter.getPosition(unit.name()));
+            }
+            super.getUnitSpinner().setVisibility(View.VISIBLE);
             this.unitText.setVisibility(View.INVISIBLE);
         }
     }
 
     private void setCalorieGoalFieldDefaults() {
         if (this.send != null && send instanceof FragToMealDiary) {
-            this.title.setText("Set New Calorie Goal");
-            this.unitSpinner.setVisibility(View.INVISIBLE);
+            super.getTitle().setText("Set New Calorie Goal");
+            super.getUnitSpinner().setVisibility(View.INVISIBLE);
             this.unitText.setVisibility(View.VISIBLE);
-            this.quantity.setText(this.send.getGoalCalories());
+            super.getInputQuantity().setText(this.send.getGoalCalories());
         }
     }
 
     private void setExerciseActualFieldDefaults() {
         if (this.send != null && send instanceof FragToMealDiary) {
-            this.title.setText("Set Exercise Calories");
-            this.unitSpinner.setVisibility(View.INVISIBLE);
+            super.getTitle().setText("Set Exercise Calories");
+            super.getUnitSpinner().setVisibility(View.INVISIBLE);
             this.unitText.setVisibility(View.VISIBLE);
-            this.quantity.setText(this.send.getExerciseCalories());
+            super.getInputQuantity().setText(this.send.getExerciseCalories());
         }
     }
 
     private void setOnClickListeners() {
 
-        this.btnOk.setOnClickListener(new View.OnClickListener() {
+        super.getBtnOk().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Integer value;
 
-                if(!quantity.getText().toString().equals("")) {
-                    value = Integer.parseInt(quantity.getText().toString());
+                if(!getInputQuantity().getText().toString().equals("")) {
+                    value = Integer.parseInt(getInputQuantity().getText().toString());
 
                     if (value >= Constant.ENTRY_MIN_VALUE && value <= Constant.ENTRY_MAX_VALUE) {
                         if (send != null && send instanceof FragToMealDiary) {
                             switch (mode) {
                                 case EDIT_QTY:
-                                    send.setEntryQty(value, unitSpinner.getSelectedItem().toString());
+                                    send.setEntryQty(value, getUnitSpinner().getSelectedItem().toString());
                                     break;
                                 case GOAL_CALORIE:
                                     send.setGoalCalories(value);
@@ -162,13 +151,13 @@ public class FragmentDiaryDialogs extends FragmentDialogCommon {
                         }
                     }
                     else {
-                        quantity.setError("Invalid input must be between 0 and 9999 inclusive");
+                        getInputQuantity().setError("Invalid input must be between 0 and 9999 inclusive");
                     }
                 }
             }
         });
 
-        this.btnCancel.setOnClickListener(new View.OnClickListener() {
+        super.getBtnCancel().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();

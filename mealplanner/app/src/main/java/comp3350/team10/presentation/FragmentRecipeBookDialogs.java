@@ -52,8 +52,6 @@ import java.io.InputStream;
 
 public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
 
-
-    private TextView title;                  // Dialog Title
     private TextView labelName;              // Label of name field
     private TextView labelCalories;          // Label of calories field
     private TextView labelIngredients;       // Label of ingredients field
@@ -61,10 +59,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private EditText inputName;              // input field for item name
     private EditText inputCalories;          // input field for item calories
     private EditText inputIngredients;       // input field for item ingredients
-    private EditText inputQuantity;          // input field for item quantity
-    private Spinner inputSpinner;            // input field for quantity units
-    private Button btnOk;                    // OK button
-    private Button btnCancel;                // Cancel Button
     private Button btnChooseItemImage;       // Import a picture for the Edible item.
     private CheckBox isAlcoholicCheckBox;    // check if Edible item contains alcohol.
     private CheckBox isSpicyCheckBox;        // check if Edible item contains alcohol.
@@ -112,7 +106,11 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
 
         Context context = view.getContext();
 
-        this.title = view.findViewById(R.id.dialogRecipeTitle);
+        super.setTitle(view.findViewById(R.id.dialogRecipeTitle));
+        super.setInputQuantity(view.findViewById(R.id.dialogRecipeQuantityInput));
+        super.setUnitSpinner(view.findViewById(R.id.dialogRecipeSpinner));
+        super.setBtnOk(view.findViewById(R.id.dialogRecipeBtnOk));
+        super.setBtnCancel(view.findViewById(R.id.dialogRecipeBtnCancel));
         this.labelName = view.findViewById(R.id.dialogRecipeNameLabel);
         this.labelCalories = view.findViewById(R.id.dialogRecipeCaloriesLabel);
         this.labelIngredients = view.findViewById(R.id.dialogRecipeIngredientsLabel);
@@ -120,10 +118,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.inputName = view.findViewById(R.id.dialogRecipeNameInput);
         this.inputCalories = view.findViewById(R.id.dialogRecipeCaloriesInput);
         this.inputIngredients = view.findViewById(R.id.dialogRecipeIngredientsInput);
-        this.inputQuantity = view.findViewById(R.id.dialogRecipeQuantityInput);
-        this.inputSpinner = view.findViewById(R.id.dialogRecipeSpinner);
-        this.btnOk = view.findViewById(R.id.dialogRecipeBtnOk);
-        this.btnCancel = view.findViewById(R.id.dialogRecipeBtnCancel);
         this.btnChooseItemImage = view.findViewById(R.id.dialogRecipePhotoBtn);
         this.EdibleItemImage= view.findViewById(R.id.dialogRecipePhoto);
         this.cameraIcon = view.findViewById(R.id.dialogRecipePhotoIcon);
@@ -138,7 +132,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         if (context != null && context instanceof FragToRecipeBook) {
             this.send = (FragToRecipeBook) context;
             this.mode = this.send.getEntryMode();
-            this.inputQuantity.setHint("0 - 9999");
+            super.getInputQuantity().setHint("0 - 9999");
             this.inputCalories.setHint("0 - 9999");
             switch (mode) {
                 case ADD_FOOD:
@@ -162,7 +156,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     }
 
     private void setFoodDialogFieldDefaults() {
-        this.title.setText("Add New Food");
+        super.getTitle().setText("Add New Food");
         this.labelName.setText("Food Name");
         this.inputName.setHint("Food Name");
         this.inputInstructions.setVisibility(View.GONE);
@@ -173,7 +167,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
 
     private void setMealDialogFieldDefaults() {
 
-        this.title.setText("Add New Meal");
+        super.getTitle().setText("Add New Meal");
         this.labelName.setText("Meal Name");
         this.inputName.setHint("Meal Name");
         this.inputInstructions.setHint("Cooking Instructions");
@@ -183,7 +177,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
 
     private void setDrinkDialogFieldDefaults() {
 
-        this.title.setText("Add New Drink");
+        super.getTitle().setText("Add New Drink");
         this.labelName.setText("Drink Name");
         this.inputName.setHint("Drink Name");
         this.inputInstructions.setHint("Mixing Instructions");
@@ -194,25 +188,20 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     }
 
     private void setSpinner() {
-
-        int size = Edible.Unit.values().length;
         ArrayAdapter<String> adapter = null;
-        String[] items = new String[size];
 
-        for (int i = 0; i < size; i++) {
-            items[i] = Edible.Unit.values()[i].name();
+        super.initSpinner();
+
+        if(super.getUnitSpinner().getAdapter() instanceof ArrayAdapter) {
+            adapter = (ArrayAdapter) super.getUnitSpinner().getAdapter();
+            super.getUnitSpinner().setSelection(adapter.getPosition(Edible.Unit.serving.name()));
         }
-
-        adapter = new ArrayAdapter<String>(getActivity().getBaseContext(), R.layout.spinner_unit_items, items);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        this.inputSpinner.setAdapter(adapter);
-        this.inputSpinner.setSelection(adapter.getPosition(Edible.Unit.serving.name()));
 
     }
 
     private void setOnClickListeners() {
 
-        this.btnOk.setOnClickListener(new View.OnClickListener() {
+        super.getBtnOk().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (validateData()) {
@@ -222,7 +211,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
             }
         });
 
-        this.btnCancel.setOnClickListener(new View.OnClickListener() {
+        super.getBtnCancel().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();
@@ -312,8 +301,8 @@ private void openGallery()
             this.calories = Integer.parseInt(this.inputCalories.getText().toString().trim());
             success += 1;
         }
-        if (check(this.inputQuantity)) {
-            this.quantity = Integer.parseInt(this.inputQuantity.getText().toString().trim());
+        if (check(super.getInputQuantity())) {
+            this.quantity = Integer.parseInt(super.getInputQuantity().getText().toString().trim());
             success += 1;
         }
 
@@ -334,7 +323,7 @@ private void openGallery()
             }
         }
 
-        this.unit = Edible.Unit.valueOf(this.inputSpinner.getSelectedItem().toString());
+        this.unit = Edible.Unit.valueOf(super.getUnitSpinner().getSelectedItem().toString());
 
         return (success == 3 || (this.mode != FragToRecipeBook.EntryMode.ADD_FOOD && success == 5));
     }
@@ -356,7 +345,7 @@ private void openGallery()
                 result = false;
             }
         }
-        if (result && (view == this.inputQuantity)) {
+        if (result && (view == super.getInputQuantity())) {
             intValue = Integer.parseInt(value);
             if (intValue < 1 || intValue > Constant.ENTRY_MAX_VALUE) {
                 view.setError("Must be between 1 and 9999 inclusive");
