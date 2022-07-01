@@ -87,7 +87,6 @@ public class DBSelector {
         }
         catch(Exception e) {
             System.out.println(e);
-            System.exit(1);
         }
         return result;
     }

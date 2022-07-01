@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.NoSuchElementException;
 
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Drink;
@@ -192,7 +193,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
-    public Edible findEdibleByKey(int key) {
+    public Edible findEdibleByKey(int key) throws NoSuchElementException{
         Edible result = null;
         System.out.println("key: " + key);
 
@@ -211,7 +212,9 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
                 result = this.dbRecipeDrink.get(i);
             }
         }
-
+        if(result == null){
+            throw new NoSuchElementException("Requested item for dbkey does not exist");
+        }
         return result;
     }
 
@@ -355,7 +358,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
                 foundLog = dbFoodLog.get(i);
             }
         }
-        
+
         if( foundLog == null ){
             foundLog = new DailyLog().init(date, new ArrayList<Edible>(), 1500, 600, 0);
 

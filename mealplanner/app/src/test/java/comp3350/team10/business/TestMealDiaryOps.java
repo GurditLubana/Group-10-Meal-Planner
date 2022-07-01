@@ -14,6 +14,7 @@
  import java.time.temporal.ChronoUnit;
  import java.util.Calendar;
  import java.util.ArrayList;
+ import java.util.NoSuchElementException;
 
  public class TestMealDiaryOps {         //////////////////////////Add a test for when "" is entered into a character input
 
@@ -48,7 +49,6 @@
             ops.prevDate();
             testDate = ops.getCurrLog().getDate();
             assertEquals(currDate.get(Calendar.DAY_OF_YEAR) - 1, testDate.get(Calendar.DAY_OF_YEAR));
-             //TODO Persistence needs to generate empty DailyLogs for nonexistent dates
          }
 
          @Test
@@ -57,7 +57,6 @@
              ops.nextDate();
              testDate = ops.getCurrLog().getDate();
              assertEquals(currDate.get(Calendar.DAY_OF_YEAR) + 1, testDate.get(Calendar.DAY_OF_YEAR));
-             //TODO Persistence needs to generate empty DailyLogs for nonexistent dates
          }
 
          @Test
@@ -85,7 +84,6 @@
          @Test
          @DisplayName("we should be able to set a date within 2 years")
          void anyDate(){
-             //TODO Persistence needs to generate empty DailyLogs for nonexistent dates
              Calendar newDate = Calendar.getInstance();
              newDate.set(2021, 12, 1);
 
@@ -121,14 +119,22 @@
              DailyLog currLog = ops.getCurrLog();
 
              int prevLogSize = currLog.getEdibleList().size();
-             ops.addByKey(1);
+             ops.addByKey(2);
              assertEquals(prevLogSize+1,currLog.getEdibleList().size());
+         }
+
+         @Test
+         @DisplayName("We should be able to commit modified Logs to persistent storage")
+         void commitLogToDB(){
+             DailyLog currLog = ops.getCurrLog();
+
+             //TODO test logchangedupdatedb
          }
 
      }
 
      @Nested
-     @DisplayName("Edge case Tests")
+     @DisplayName("Edge case Tests should pass")
      class mealDiaryEdge {
          MealDiaryOps ops;
          Calendar currDate;
@@ -140,8 +146,84 @@
              currDate = Calendar.getInstance();
              testDate = Calendar.getInstance();
          }
+
+         @Test
+         @DisplayName("we should be able to set a date within 2 years inclusive")
+         void anyDate(){
+             Calendar newDate = Calendar.getInstance();
+             newDate.set(currDate.get(Calendar.YEAR) - 2, currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE));
+
+             ops.setListDate(newDate);
+             testDate = ops.getCurrLog().getDate();
+             assertEquals(newDate.get(Calendar.YEAR),testDate.get(Calendar.YEAR));
+             assertEquals(newDate.get(Calendar.MONTH),testDate.get(Calendar.MONTH));
+             assertEquals(newDate.get(Calendar.DATE),testDate.get(Calendar.DATE));
+
+             newDate.set(currDate.get(Calendar.YEAR) + 2, currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE));
+             ops.setListDate(newDate);
+             testDate = ops.getCurrLog().getDate();
+             assertEquals(newDate.get(Calendar.YEAR),testDate.get(Calendar.YEAR));
+             assertEquals(newDate.get(Calendar.MONTH),testDate.get(Calendar.MONTH));
+             assertEquals(newDate.get(Calendar.DATE),testDate.get(Calendar.DATE));
+         }
+
+         @Test
+         @DisplayName("We should be able to add the first food item in the db to the DailyLog")
+         void addFoodToLog(){
+             DailyLog currLog = ops.getCurrLog();
+
+             int prevLogSize = currLog.getEdibleList().size();
+             ops.addByKey(1);
+             assertEquals(prevLogSize+1,currLog.getEdibleList().size());
+         }
      }
 
+
+     @Nested
+     @DisplayName("Tests that should fail")
+     class mealDiaryFail {
+         MealDiaryOps ops;
+         Calendar currDate;
+         Calendar testDate;
+
+         @BeforeEach
+         void setup() {
+             ops = new MealDiaryOps();
+             currDate = Calendar.getInstance();
+             testDate = Calendar.getInstance();
+         }
+
+         @Test
+         @DisplayName("any date request beyond 2 years of current date")
+         void anyDate(){
+             Calendar newDate = Calendar.getInstance();
+             newDate.set(currDate.get(Calendar.YEAR) - 3, currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE));
+             assertThrows(IllegalArgumentException.class, () -> {
+                 ops.setListDate(newDate);
+             });
+
+             newDate.set(currDate.get(Calendar.YEAR) + 3, currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE));
+             assertThrows(IllegalArgumentException.class, () -> {
+                 ops.setListDate(newDate);
+             });
+         }
+
+         @Test
+         @DisplayName("requests for dbkeys that do not exist")
+         void dbKey(){
+
+             assertThrows(NoSuchElementException.class, () -> {
+                 ops.addByKey(-5);
+             });
+
+
+             assertThrows(NoSuchElementException.class, () -> {
+                 ops.addByKey(999999999);
+             });
+         }
+
+     }
+ }
 //     @Nested
 //     @DisplayName("Setting Goals")
 //     class goals{
@@ -283,4 +365,3 @@
 //             assertEquals(prevExercise, ops.getCalorieExercise());
 //         }
 //     }
- }
