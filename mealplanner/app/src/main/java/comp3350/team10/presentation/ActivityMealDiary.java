@@ -113,7 +113,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             data = result.getData();
                             dbkey = data.getExtras().getInt("DBKEY");
-
+                            currLog.getEdibleList().remove(currLog.getEdibleList().size()-1);
                             opExec.addByKey(dbkey);
                             updateLiveData();
                         }
@@ -226,6 +226,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             this.recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
             this.recyclerViewAdapter.notifyDataSetChanged();
             this.currLog.setEdibleList(data);
+            this.currLog.getEdibleList().remove(currLog.getEdibleList().size()-1);
             this.opExec.logChangedUpdateDB();
             this.updateLiveData();
         }

@@ -17,4 +17,5 @@ public interface RecipeDBInterface {
     public void addFoodToRecipeBook(Edible newFood);
     public void addMealToRecipeBook(Meal newMeal);
     public void addDrinkToRecipeBook(Drink newDrink);
+    public Edible findEdibleByKey(int key);
 }

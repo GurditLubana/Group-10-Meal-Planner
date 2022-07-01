@@ -89,7 +89,6 @@ public class MealDiaryOps {
     public void addByKey(int dbkey) throws NoSuchElementException {
         EdibleLog foundEdible = new EdibleLog(db.findEdibleByKey(dbkey));
 
-
         if (foundEdible != null) {
             try {
                 this.currLog.addEdibleToLog(foundEdible);

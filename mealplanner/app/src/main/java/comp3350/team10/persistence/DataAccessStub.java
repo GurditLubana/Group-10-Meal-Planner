@@ -355,6 +355,11 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
                 foundLog = dbFoodLog.get(i);
             }
         }
+        
+        if( foundLog == null ){
+            foundLog = new DailyLog().init(date, new ArrayList<Edible>(), 1500, 600, 0);
+
+        }
 
         return foundLog;
     }

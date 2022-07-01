@@ -79,9 +79,17 @@ public class DBSelector {
         this.logDB.deleteLog(delLog);
     }
 
-    public Edible findEdibleByKey(int dbkey) {
+    public EdibleLog findEdibleByKey(int dbkey) {
         //return this.recipeDB.findEdibleByKey(dbkey);
-        return new Edible();
+        EdibleLog result = null;
+        try{
+            result = new EdibleLog(this.recipeDB.findEdibleByKey(dbkey)).init(10, Edible.Unit.cups);
+        }
+        catch(Exception e) {
+            System.out.println(e);
+            System.exit(1);
+        }
+        return result;
     }
 
     public void setExerciseActual(int newExercise, Calendar logDate) {
