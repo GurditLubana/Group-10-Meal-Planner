@@ -1120,7 +1120,7 @@ Duration: 4hrs
    - Calories do not get updated as the log gets updated (fixed)
    - Calories need their own variables (food accumulated calories and exercise should be seperated) (fixed)
    - Data stub data should appear normally on the UI (fixed)
-   - Data stub should have more interesting data (get bytes from an image should be written)
+   - Data stub should have more interesting data (fixed)
    - "" needs to be checked before parsing for calories and workout calories (crashes) (fixed)
    - Should probably change quantity from int to double
 
@@ -1155,6 +1155,17 @@ Duration: 5hrs
 
 ### 2022-06-29
      Dev:
+      - Dane
+Duration: 8hrs
+   Tasks:
+   - Setup SQL queries
+   - Setup SelectorDB (to swap between databases at run time)
+   - Test and ran the project with the new database which worked!
+   - Minor Database table refactoring
+   - Improved data in the stub database
+
+### 2022-06-29
+     Dev:
       - Zhou
 Duration: 5hrs
    Tasks:
@@ -1177,3 +1188,18 @@ Duration: 4hrs
 Duration: 1hrs
    Tasks:
    - finished empty test of Food.java update at brench test-Zhou
+
+### 2022-06-30
+     Dev:
+      - Dane
+Duration: 15hrs
+   Tasks:
+   - Generated statements for database seeding
+   - Refactored tables to fix an issue with Ingredients not having 2 potential edible keys (to join them)
+   - Database was dependent on android - refactored according to the sample project
+   - Created db.script for database loading
+   - Wrote all SQL statements using utils.sql in java *except for edible getters from database*
+   - Refactored codebase with Josef (removed extra information that Edible didnt need)
+   - Refactored DailyLog which now gets the UserID of whoever it belongs to
+   - Refactored RecipeOps and fixed bug where the wrong information was being loaded in drink/meal tabs
+   - Refactored RecipeActivity - now when an image is null an eggplant is displayed otherwise the image gets displayed
