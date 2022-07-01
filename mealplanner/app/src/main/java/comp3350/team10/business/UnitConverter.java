@@ -1,6 +1,6 @@
 package comp3350.team10.business;
 
-import comp3350.team10.objects.*;
+import comp3350.team10.objects.Edible;
 
 public class UnitConverter {
     private final static Double factorGPerCup = 224.0;      //Ratio between g and cups

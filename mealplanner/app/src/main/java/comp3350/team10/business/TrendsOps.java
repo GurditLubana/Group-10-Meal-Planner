@@ -2,8 +2,9 @@ package comp3350.team10.business;
 
 import java.util.ArrayList;
 
-import comp3350.team10.objects.*;
-import comp3350.team10.persistence.*;
+import comp3350.team10.objects.DataFrame;
+import comp3350.team10.persistence.DBSelector;
+import comp3350.team10.persistence.SharedDB;
 
 public class TrendsOps {
     private ArrayList<DataFrame> dataFrames;
