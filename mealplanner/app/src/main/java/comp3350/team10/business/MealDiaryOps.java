@@ -20,7 +20,7 @@ public class MealDiaryOps {
     private DBSelector db;          //Accesses the database
 
     //Progress bar variables
-    private UserDataOps opUser;         //Buisness logic for handling the app's user
+    private UserDataOps opUser;         //Business logic for handling the app's user
 
     public MealDiaryOps() throws NullPointerException {
         SharedDB.start();
@@ -37,8 +37,7 @@ public class MealDiaryOps {
     }
 
     public void nextDate() throws IllegalArgumentException {
-        Calendar newDate = Calendar.getInstance();
-        newDate.set(logDate.get(Calendar.YEAR), logDate.get(Calendar.MONTH), logDate.get(Calendar.DATE));
+        Calendar newDate = calendarDeepCopy(this.logDate);
         newDate.add(Calendar.DAY_OF_YEAR, INCREMENT);
         try {
             this.setListDate(newDate);
@@ -48,8 +47,7 @@ public class MealDiaryOps {
     }
 
     public void prevDate() throws IllegalArgumentException {
-        Calendar newDate = Calendar.getInstance();
-        newDate.set(logDate.get(Calendar.YEAR), logDate.get(Calendar.MONTH), logDate.get(Calendar.DATE));
+        Calendar newDate = calendarDeepCopy(this.logDate);
         newDate.add(Calendar.DAY_OF_YEAR, -INCREMENT);
         try {
             this.setListDate(newDate);
@@ -65,12 +63,18 @@ public class MealDiaryOps {
             this.logDate = newDate;
             this.dateChangedUpdateList();
         } else {
-            throw new IllegalArgumentException("MealDiaryOps setListDate requires dates within " + Constant.DATE_LIMIT + " years of the current date");
+            throw new IllegalArgumentException("MealDiaryOps requires dates within " + Constant.DATE_LIMIT + " years of the current date");
         }
     }
 
+    private Calendar calendarDeepCopy(Calendar date){
+        Calendar copy = Calendar.getInstance();
+        copy.set(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DATE));
+        return copy;
+    }
+
     private void dateChangedUpdateList() {
-        // persistence method required push currlog to db before changing
+        this.logChangedUpdateDB();
         this.currLog = this.db.searchFoodLogByDate(this.logDate);
     }
 
@@ -79,7 +83,7 @@ public class MealDiaryOps {
     }
 
     public void logChangedUpdateDB(){
-
+        //TODO: persistence method push current dailylog to db
     }
 
     public void addByKey(int dbkey) throws NoSuchElementException {
