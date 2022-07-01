@@ -91,7 +91,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) { //tab.getPosition() tab 0 = food, 1 = meal, 2 = drink
+            public void onTabSelected(TabLayout.Tab tab) {
                 currTab = tab.getPosition();
                 if (currTab == 0) {
                     data = opExec.getFoodRecipes();
