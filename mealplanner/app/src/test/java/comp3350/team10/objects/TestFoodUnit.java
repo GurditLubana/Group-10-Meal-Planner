@@ -81,7 +81,7 @@ package comp3350.team10.objects;
 	 // test all int variable
 	 void  testIntWithInput(Food food, int expect){//test set, quality calories,  protein,  carbs,  fat
 		 try{
-			 food.initDetails(0, "food", "lala", expect, Unit.cups);
+			 food.initDetails(1, "food", "lala", expect, Unit.cups);
 			 food.initNutrition(expect, expect, expect, expect);
 		 }
 		 catch (Exception e)
@@ -89,7 +89,7 @@ package comp3350.team10.objects;
 			 System.out.println(e.getMessage());
 			 fail("Should not catch any exception, input is number is invalid");
 		 }
-		 testDetail(food,0,"food","lala",expect, Unit.cups);
+		 testDetail(food,1,"food","lala",expect, Unit.cups);
 		 testNutrition(food,expect,expect,expect,expect);
 	 }
 
@@ -286,6 +286,27 @@ package comp3350.team10.objects;
 		 @Test
 		 void testRightEdge(){ // input is equal to MAX
 			 testIntWithInput(testFood,Constant.ENTRY_MAX_VALUE);
+		 }
+
+		 @Test
+		 void testDBKey(){
+			 try {
+				 testFood.initDetails(0, "food", "lala", 5, Unit.cups);
+				 assertEquals(0,testFood.getDbkey());
+			 }
+			 catch (Exception e)
+			 {
+				 fail("Should not throw execption, invalid DBkey");
+			 }
+
+			 try {
+				 testFood.initDetails(Integer.MAX_VALUE, "food", "lala", 5, Unit.cups);
+				 assertEquals(Integer.MAX_VALUE,testFood.getDbkey());
+			 }
+			 catch (Exception e)
+			 {
+				 fail("Should not throw execption, invalid DBkey");
+			 }
 		 }
 	 }
 
