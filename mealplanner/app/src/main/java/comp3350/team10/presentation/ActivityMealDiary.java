@@ -74,9 +74,10 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     private void initRecyclerView() {
-        if (this.data != null) {
+        View view = findViewById(R.id.mealRecyclerView);
+        if (this.data != null && view instanceof RecyclerView) {
             this.recyclerViewAdapter = new RVAMealDiary(this.data);
-            this.mealRecyclerView = (RecyclerView) findViewById(R.id.mealRecyclerView);
+            this.mealRecyclerView = (RecyclerView) view;
             this.mealRecyclerView.setAdapter(this.recyclerViewAdapter);
             this.mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         }

@@ -39,8 +39,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private final String RECIPEMODIFYCARD = "recipeModify";
 
     private boolean modMenuIsOpen;                  // Represents whether the menu to add/edit recipes is toggled on
-    private int savedPosition;                      // Saves the position of an item for temporary removal
-    private Edible saved;                           // Saves the item for temporary removal
+    private int savedItemPosition;                      // Saves the position of an item for temporary removal
+    private Edible savedItem;                           // Saves the item for temporary removal
     private int currTab;                            // The tab that is currently displayed
     private EntryMode mode;                         // The type of dialog to show
     private boolean detailsFlag = false;            // flag to show detailed recipes
@@ -76,11 +76,11 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     private void initRecyclerView() {
-        View object = findViewById(R.id.recipeRecyclerView);
+        View view = findViewById(R.id.recipeRecyclerView);
 
-        if (this.data != null && object instanceof RecyclerView) {
-            this.recipeRecyclerView = (RecyclerView) object;
+        if (this.data != null && view instanceof RecyclerView) {
             this.recyclerViewAdapter = new RVARecipeBook(this.data);
+            this.recipeRecyclerView = (RecyclerView) view;
             this.recipeRecyclerView.setAdapter(recyclerViewAdapter);
             this.recipeRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         }
@@ -159,7 +159,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     private void initUICardObjects() {
-        
+        this.savedItemPosition = -1;
         this.modifyUICard = new Edible();
         
         try {
@@ -189,34 +189,44 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         }
     }
 
-    @Override
     public void showContextUI(int position) {
-        if (position != this.savedPosition && this.saved != null) {
-            this.data.remove(this.savedPosition);
-            this.data.add(this.savedPosition, this.saved);
-        }
-
-        if (this.data.get(position).getName() != RECIPEMODIFYCARD) {
-            this.saved = this.data.remove(position);
-            this.savedPosition = position;
-
-            try {
-                this.data.add(position, this.modifyUICard);
+        int otherPosition = -1;
+        if (position >= 0 && position != this.savedItemPosition ) {
+            if(this.savedItem == null) {
+                saveItem(position);
+            } else {
+                otherPosition = this.savedItemPosition;
+                swapSaved(position);
+                this.recyclerViewAdapter.notifyItemChanged(otherPosition);
             }
-            catch(Exception e) {
-                System.out.println(e);
-                System.exit(1);
-            }
-        } 
-        else {
             this.data.remove(position);
-            this.data.add(position, this.saved);
-            this.saved = null;
+            this.data.add(position, modifyUICard);
+        } else {
+            restoreSaved();
         }
-
-        this.recyclerViewAdapter.notifyItemRemoved(position);
-        this.recyclerViewAdapter.notifyItemRangeChanged(position, data.size());
+        this.recyclerViewAdapter.notifyItemChanged(position);
         this.recyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    private void restoreSaved() {
+        if (savedItem != null) {
+            this.data.remove(this.savedItemPosition);
+            this.data.add(this.savedItemPosition, this.savedItem);
+            this.savedItemPosition = -1;
+            this.savedItem = null;
+        }
+    }
+
+    private void saveItem(int position) {
+        this.savedItemPosition = position;
+        this.savedItem = this.data.get(position);
+    }
+
+    private void swapSaved(int position) {
+        Edible temp = this.data.get(position);
+        restoreSaved();
+        this.savedItemPosition = position;
+        this.savedItem = temp;
     }
 
     @Override
@@ -224,8 +234,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         Intent intent = new Intent();
         int dbkey = -1;
 
-        if (this.saved != null) {
-            dbkey = this.saved.getDbkey();
+        if (this.savedItem != null) {
+            dbkey = this.savedItem.getDbkey();
         }
 
         intent.putExtra("DBKEY", dbkey);
