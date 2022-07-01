@@ -7,8 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import comp3350.team10.R;
 import comp3350.team10.business.TrendsOps;
-import comp3350.team10.objects.*;
-import comp3350.team10.persistence.SharedDB;
+import comp3350.team10.objects.DataFrame;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -43,7 +42,7 @@ public class ActivityTrends extends AppCompatActivity implements FragToTrends{
         this.toolbar.setElevation(0);
     }
     private void initData(){
-        this.opExec = new TrendsOps(SharedDB.getSharedDB());
+        this.opExec = new TrendsOps();
         try {
             this.data = this.opExec.getDataFrames(DataFrame.Span.Week);
         }

@@ -53,7 +53,9 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
         try {
             ArrayList<Edible> logDay = new ArrayList<Edible>();
-            logDay.add(new EdibleLog(this.dbRecipeFood.get(0)).init(1, Edible.Unit.cups));
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(0)).init(10, Edible.Unit.cups));
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(1)).init(20, Edible.Unit.g));
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(2)).init(30, Edible.Unit.ml));
             this.dbFoodLog.add(new DailyLog().init(today, logDay, 700, 100, 0));
 
             this.sortDBFoodLog();

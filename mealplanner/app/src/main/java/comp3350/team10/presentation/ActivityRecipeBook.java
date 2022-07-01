@@ -2,8 +2,9 @@ package comp3350.team10.presentation;
 
 import comp3350.team10.R;
 import comp3350.team10.business.RecipeBookOps;
-import comp3350.team10.objects.*;
-import comp3350.team10.persistence.*;
+import comp3350.team10.objects.DrinkIngredient;
+import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.Ingredient;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -70,7 +71,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     private void initLiveData() {
-        this.opExec = new RecipeBookOps(SharedDB.getSharedDB());
+        this.opExec = new RecipeBookOps();
         this.data = opExec.getFoodRecipes();
     }
 

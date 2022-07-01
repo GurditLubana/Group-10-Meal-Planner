@@ -82,6 +82,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     private void initUICardObjects() {
 
+        this.savedItemPosition = -1;
         this.addButton = new Edible();
         this.modifyLog = new Edible();
         try {
@@ -118,27 +119,43 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     public void showContextUI(int position) {
+        int otherPosition = -1;
+        if (position >= 0 && position != this.savedItemPosition ) {
+            if(this.savedItem == null) {
+                saveItem(position);
+            } else {
+                otherPosition = this.savedItemPosition;
+                swapSaved(position);
+                this.recyclerViewAdapter.notifyItemChanged(otherPosition);
+            }
+            this.data.remove(position);
+            this.data.add(position, modifyLog);
+        } else {
+            restoreSaved();
+        }
+        this.recyclerViewAdapter.notifyItemChanged(position);
+        this.recyclerViewAdapter.notifyDataSetChanged();
+    }
 
-        if (position != this.savedItemPosition && this.savedItem != null) {
+    private void restoreSaved() {
+        if (savedItem != null) {
             this.data.remove(this.savedItemPosition);
             this.data.add(this.savedItemPosition, this.savedItem);
+            this.savedItemPosition = -1;
+            this.savedItem = null;
         }
+    }
 
-        if (position >= 0) {
-            if (this.data.get(position).getName() == DIARYADDCARD && this.data.get(position) instanceof Edible) {
-                this.savedItem = (Edible) this.data.remove(position);
-                this.savedItemPosition = position;
-                this.data.add(position, modifyLog);
-            } else {
-                this.data.remove(position);
-                this.data.add(position, this.savedItem);
-                this.savedItem = null;
-            }
-        }
+    private void saveItem(int position) {
+            this.savedItemPosition = position;
+            this.savedItem = this.data.get(position);
+    }
 
-        this.recyclerViewAdapter.notifyItemRemoved(position);
-        this.recyclerViewAdapter.notifyItemRangeChanged(position, data.size());
-        this.recyclerViewAdapter.notifyDataSetChanged();
+    private void swapSaved(int position) {
+        Edible temp = this.data.get(position);
+        restoreSaved();
+        this.savedItemPosition = position;
+        this.savedItem = temp;
     }
 
     @Override
@@ -163,17 +180,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                     }
                 }
         );
-    }
-
-    public void restoreSaved() {
-        if (savedItem != null) {
-            this.data.remove(this.savedItemPosition);
-            this.data.add(this.savedItemPosition, this.savedItem);
-            this.savedItemPosition = -1;
-            this.savedItem = null;
-        }
-
-        updateLiveData();
     }
 
     @Override

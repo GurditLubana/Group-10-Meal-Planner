@@ -10,9 +10,9 @@ public class TrendsOps {
     private DBSelector db;
     private DataFrame.Span span;
 
-    public TrendsOps(DBSelector db) throws NullPointerException {
-        if (db != null) {
-            this.db = db;
+    public TrendsOps() throws NullPointerException {
+        if (SharedDB.getSharedDB() != null) {
+            this.db = SharedDB.getSharedDB();
         } else {
             throw new NullPointerException("TrendsOps Database cannot be null");
         }

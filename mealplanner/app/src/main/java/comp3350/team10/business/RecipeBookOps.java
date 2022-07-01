@@ -17,10 +17,10 @@ public class RecipeBookOps { //this needs to select the corect fragment
     private RecipeBook selectedType;            //The selected Edible type view (see enum on line 18)
     private DBSelector db;                  //Accesses the database
 
-    public RecipeBookOps(DBSelector db) {
+    public RecipeBookOps() {
         this.selectedType = RecipeBook.FOOD;
         this.selectedList = null;
-        this.db = db;
+        this.db = SharedDB.getSharedDB();
 
         this.pullDBdata();
     }
