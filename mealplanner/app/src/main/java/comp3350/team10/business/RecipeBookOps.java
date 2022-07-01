@@ -27,37 +27,21 @@ public class RecipeBookOps { //this needs to select the corect fragment
         this.selectedList = null;
         this.db = SharedDB.getSharedDB();
 
-        this.pullDBdata();
-    }
-
-    private void pullDBdata() {
-        if (this.selectedType == RecipeBook.FOOD) {
-            this.selectedList = db.getFoodRecipes();
-        } else if (this.selectedType == RecipeBook.MEALS) {
-            this.selectedList = db.getMealRecipes();
-        } else {
-            this.selectedList = db.getDrinkRecipes();
-        }
+        this.getFoodRecipes();
     }
 
     public ArrayList<Edible> getFoodRecipes() {
-        this.selectedType = RecipeBook.FOOD;
-        this.pullDBdata();
-
+        this.selectedList = db.getFoodRecipes();
         return this.selectedList;
     }
 
     public ArrayList<Edible> getDrinkRecipes() {
-        this.selectedType = RecipeBook.DRINKS;
-        this.pullDBdata();
-
+        this.selectedList = db.getMealRecipes();
         return this.selectedList;
     }
 
     public ArrayList<Edible> getMealRecipes() {
-        this.selectedType = RecipeBook.MEALS;
-        this.pullDBdata();
-
+       this.selectedList = db.getDrinkRecipes();
         return this.selectedList;
     }
     //might want to just pass the object in here later?

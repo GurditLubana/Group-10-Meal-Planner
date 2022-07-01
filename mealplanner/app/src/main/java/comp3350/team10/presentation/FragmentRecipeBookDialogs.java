@@ -50,7 +50,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class FragmentRecipeBookDialogs extends DialogFragment {
+public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
 
 
     private TextView title;                  // Dialog Title

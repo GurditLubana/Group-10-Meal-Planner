@@ -26,7 +26,7 @@ import android.widget.TextView;
  * Use the {@link FragmentDiaryDialogs#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentDiaryDialogs extends DialogFragment {
+public class FragmentDiaryDialogs extends FragmentDialogCommon {
     public static String TAG = "MealEntryDialog"; // tag name of this fragment for reference in the fragment manager
     private FragToMealDiary send;                 // Interface for communication with parent activity
     private FragToMealDiary.EntryMode mode;       // the type of dialog to show
