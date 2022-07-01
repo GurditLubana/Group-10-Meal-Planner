@@ -1,7 +1,7 @@
 package comp3350.team10.presentation;
 
 import comp3350.team10.R;
-import comp3350.team10.objects.*;
+import comp3350.team10.objects.Edible;
 
 
 import android.view.View;
