@@ -16,7 +16,6 @@ import comp3350.team10.business.DailyProgressOps;
 import comp3350.team10.business.TrendsOps;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.DataFrame;
-import comp3350.team10.persistence.SharedDB;
 
 public class ActivityDailyProgress extends AppCompatActivity {
     private Toolbar toolbar;                    //app title

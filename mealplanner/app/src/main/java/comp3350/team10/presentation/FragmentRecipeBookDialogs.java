@@ -3,7 +3,8 @@ package comp3350.team10.presentation;
 import static android.app.Activity.RESULT_OK;
 
 import comp3350.team10.R;
-import comp3350.team10.objects.*;
+import comp3350.team10.objects.Constant;
+import comp3350.team10.objects.Edible;
 
 import android.Manifest;
 import android.app.Activity;
@@ -150,7 +151,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
                     setDrinkDialogFieldDefaults();
                     break;
             }
-            //setSpinner();
+            setSpinner();
             setOnClickListeners();
         }
 
@@ -192,7 +193,7 @@ public class FragmentRecipeBookDialogs extends DialogFragment {
 //        this.isNonVegCheckBox.setVisibility(View.GONE);
     }
 
-    private void E() {
+    private void setSpinner() {
 
         int size = Edible.Unit.values().length;
         ArrayAdapter<String> adapter = null;
