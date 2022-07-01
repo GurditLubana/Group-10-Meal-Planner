@@ -1184,6 +1184,17 @@ Duration: 4hrs
 
 ### 2022-06-30
      Dev:
+      - Josef
+Duration: 8hrs
+   Tasks:
+   - refactor code implementation according to iter1 feedback
+   - removed * imports
+   - placed presentation dialog classes into a heirarchy to remove code duplication
+   - refactored showcontextui method in mealdiary
+   - refactored mealdiaryops db access process
+
+### 2022-06-30
+     Dev:
       - Zhou
 Duration: 1hrs
    Tasks:
@@ -1203,3 +1214,26 @@ Duration: 15hrs
    - Refactored DailyLog which now gets the UserID of whoever it belongs to
    - Refactored RecipeOps and fixed bug where the wrong information was being loaded in drink/meal tabs
    - Refactored RecipeActivity - now when an image is null an eggplant is displayed otherwise the image gets displayed
+
+### 2022-07-01
+     Dev:
+      - Zhou
+Duration: 1hrs
+   Tasks:
+   - finished edge test of Food.java update at brench test-Zhou
+   - find when interger properties input use ENTRY_MIN_VALUE will fail, it should not throw execption, it may brake principle of least astornishemnt
+
+### 2022-07-01
+     Dev:
+      - Josef
+Duration: 6hrs
+   Tasks:
+   - YuJa videos review, identify potential project areas to refactor
+   - 
+   -
+     
+
+     
+
+
+
