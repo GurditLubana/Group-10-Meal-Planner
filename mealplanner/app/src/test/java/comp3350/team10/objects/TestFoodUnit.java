@@ -59,7 +59,7 @@ package comp3350.team10.objects;
 		 assertEquals(viewExpect, food.getFragmentType());
 	 }
 
-	 void testSetName(Food food, String newName){
+	 void testSetName(Food food, String newName){//test correct
 		 try{
 			 food.setName(newName);
 			 assertEquals(newName,food.getName());
@@ -69,7 +69,7 @@ package comp3350.team10.objects;
 		 }
 	 }
 
-	 void testSetDescription(Food food, String newDescription){
+	 void testSetDescription(Food food, String newDescription){//test correct
 		 try{
 			 food.setDescription(newDescription);
 			 assertEquals(newDescription,food.getDesciprtion());
@@ -77,6 +77,20 @@ package comp3350.team10.objects;
 		 catch (IOException e){
 			 fail("Can not set Description " + newDescription + "\n");
 		 }
+	 }
+	 // test all int variable
+	 void  testIntWithInput(Food food, int expect){//test set, quality calories,  protein,  carbs,  fat
+		 try{
+			 food.initDetails(0, "food", "lala", expect, Unit.cups);
+			 food.initNutrition(expect, expect, expect, expect);
+		 }
+		 catch (Exception e)
+		 {
+			 System.out.println(e.getMessage());
+			 fail("Should not catch any exception, input is number is invalid");
+		 }
+		 testDetail(food,0,"food","lala",expect, Unit.cups);
+		 testNutrition(food,expect,expect,expect,expect);
 	 }
 
 	 //some test function
@@ -253,61 +267,30 @@ package comp3350.team10.objects;
 		 }
 	 }
 
+
+	 @Nested
+	 @DisplayName("Edge case tests")
+	 class Test_EdgeCases {
+		 private Food testFood;
+
+		 @BeforeEach
+		 void setUp() {
+			 testFood = new Food();
+		 }
+		 @Test
+		 void testLeftEdge(){ // input is equal to minimum
+		testIntWithInput(testFood,Constant.ENTRY_MIN_VALUE);
+		 }
+
+
+		 @Test
+		 void testRightEdge(){ // input is equal to MAX
+			 testIntWithInput(testFood,Constant.ENTRY_MAX_VALUE);
+		 }
+	 }
+
  }
 
-// 	@Nested
-// 	@DisplayName("Edge case tests")
-// 	class Test_EdgeCases {
-// 		private Food testFood;
-//
-// 		@BeforeEach
-// 		void setUp() {
-// 			testFood = new Food();
-// 		}
-//
-// 		@Test
-// 		void testEdgeCasesInCreation() {
-// 			assertTrue(testFood.init("\n", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertFalse(testFood.init("", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init(" ", 1, 1,  ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init("food", Constant.ENTRY_MAX_VALUE, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init("food", 1, Constant.ENTRY_MAX_VALUE, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 1, Constant.ENTRY_MAX_VALUE));
-// 			assertTrue(testFood.init("food", Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE));
-// 		}
-//
-// 		@Test
-// 		void testSetCalories() {
-// 			assertTrue(testFood.setCalories(Constant.ENTRY_MAX_VALUE));
-// 		}
-//
-// 		@Test
-// 		void testModCalories() {
-// 			assertTrue(testFood.modifyCalories(Constant.ENTRY_MAX_VALUE));
-// 			assertEquals(Constant.ENTRY_MAX_VALUE, testFood.getCalories());
-// 			assertTrue(testFood.modifyCalories(-Constant.ENTRY_MAX_VALUE));
-// 			assertEquals(0, testFood.getCalories());
-// 		}
-//
-// 		@Test
-// 		void testSetIconPath() {
-// 			assertTrue(testFood.setIconPath(Constant.ENTRY_MAX_VALUE));
-// 		}
-//
-// 		@Test
-// 		void testSetName() {
-// 			assertFalse(testFood.setName(""));
-// 		}
-//
-// 		@Test
-// 		void testSetQuantity() {
-// 			assertTrue(testFood.setQuantity(Constant.ENTRY_MAX_VALUE));
-// 			assertTrue(testFood.setQuantity(1));
-// 		}
-// 	}
-//
 // 	@Nested
 // 	@DisplayName("Invalid tests")
 // 	class Test_Invalid {
