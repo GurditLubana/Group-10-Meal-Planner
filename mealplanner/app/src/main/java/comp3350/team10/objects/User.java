@@ -1,18 +1,18 @@
 package comp3350.team10.objects;
 
-public class User {    
+public class User { 
+    private int userID;         //the users id   
     private String name;        //the users name
-    private int userID;         //the users id
     private int height;         //the users height
     private int weight;         //the users weight
     private int calorieGoal;    //the users calorie goal
     private int exerciseGoal;   //the users exercise goal
 
-    public User(String name, int userID, int height, int weight, int calorieGoal, int exerciseGoal) {
+    public User(int userID, String name, int height, int weight, int calorieGoal, int exerciseGoal) {
+        this.userID = userID;
         this.name = name;
         this.height = height;
         this.weight = weight;
-        this.userID = userID;
         this.calorieGoal = calorieGoal;
         this.exerciseGoal = exerciseGoal;
     }

@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLWarning;
 import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
@@ -32,15 +33,8 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
     public HSqlDB() {
         this.reqHandler = currConn.createStatement();
         this.open();
-
-        if(this.isEmpty()) {
-            this.seedDB();
-        } 
     }
 
-    private boolean isEmpty() {
-        return this.reqHandler.executeQuery("SELECT * FROM Edible, CustomEdible, User, History") == null;
-    }
 
     public void open() {
 		Class.forName("org.hsqldb.jdbcDriver").newInstance();
@@ -61,336 +55,528 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
     }
 
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        //Creates company stock recipe tables
-        this.createEdibleTable(db);
-        this.createFoodTable(db);
-        this.createMealTable(db);
-        this.createDrinkTable(db);
-
-        //Creates individual user's custom recipe tables
-        this.createCustomEdibleTable(db);
-        this.createCustomFoodTable(db);
-        this.createCustomMealTable(db);
-        this.createCustomDrinkTable(db);
-
-        //Creates ingredient tables
-        this.createMealIngredientTable(db);
-        this.createDrinkIngredientTable(db);
-
-        //creates user data tables
-        this.createUserTable(db);
-        this.createHistoryTable(db);
-        this.createEdibleHistoryTable(db);
-        this.createWorkoutHistoryTable(db);
-
-        //seed the database on startup
-        this.seedDB();
-    }
-
-
-    private void createCustomEdibleTable(SQLiteDatabase db) {
-        db.execSQL("create table CustomEdible (" +
-            "CustomEdibleID     INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "UserID             INTEGER         not null," +
-            "Name               VARCHAR(9999)   not null," +
-            "Description        VARCHAR(9999)," +
-            "Quantity           INTEGER         not null," +
-            "Unit               VARCHAR(9999)   not null," +
-            "Calories           INTEGER         not null," +
-            "Protein            INTEGER         not null," +
-            "Carbs              INTEGER         not null," +
-            "Fat                INTEGER         not null," +
-            "Photo              BLOB," +
-            "IsAlcoholic        BOOLEAN         not null," +
-            "IsSpicy            BOOLEAN         not null," +
-            "IsVegan            BOOLEAN         not null," +
-            "IsVegetarian       BOOLEAN         not null," +
-            "IsGlutenFree       BOOLEAN         not null);"
-        );
-    }
-
-    private void createCustomDrinkTable(SQLiteDatabase db) {
-        db.execSQL("create table CustomDrink (" +
-            "CustomEdibleID     INTEGER         not null," +
-            "Instructions       VARCHAR(9999)," +
-
-            "FOREIGN KEY(CustomEdibleID) REFERENCES CustomEdible(CustomEdibleID));"
-        );
-    }
-
-    private void createCustomMealTable(SQLiteDatabase db) {
-        db.execSQL("create table CustomMeal (" +
-            "CustomEdibleID     INTEGER         not null," +
-            "Instructions       VARCHAR(9999)," +
-
-            "FOREIGN KEY(CustomEdibleID) REFERENCES CustomEdible(CustomEdibleID));"
-        );
-    }
-
-    private void createCustomFoodTable(SQLiteDatabase db) {
-        db.execSQL("create table    CustomFood (" +
-            "CustomEdibleID         INTEGER     not null," +
-
-            "FOREIGN KEY(CustomEdibleID) REFERENCES CustomEdible(CustomEdibleID));"
-        );
-    }
-
-    private void createEdibleTable(SQLiteDatabase db) {
-        db.execSQL("create table Edible (" +
-            "EdibleID       INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "Name           VARCHAR(9999)   not null," +
-            "Description    VARCHAR(9999)," +
-            "Quantity       INTEGER         not null," +
-            "Unit           VARCHAR(9999)   not null," +
-            "Calories       INTEGER         not null," +
-            "Protein        INTEGER         not null," +
-            "Carbs          INTEGER         not null," +
-            "Fat            INTEGER         not null," +
-            "Photo          BLOB," +
-            "IsAlcoholic    BOOLEAN         not null," +
-            "IsSpicy        BOOLEAN         not null," +
-            "IsVegan        BOOLEAN         not null," +
-            "IsVegetarian   BOOLEAN         not null," +
-            "IsGlutenFree   BOOLEAN         not null);"
-        );
-    }
-
-    private void createFoodTable(SQLiteDatabase db) {
-        db.execSQL("create table Food (" +
-            "EdibleID       INTEGER     not null," +
-
-            "FOREIGN KEY(EdibleID) REFERENCES Edible(EdibleID));"
-        );
-    }
-
-    private void createMealTable(SQLiteDatabase db) {
-        db.execSQL("create table Meal (" +
-            "EdibleID       INTEGER     not null," +
-            "Instructions   VARCHAR(9999)," +
-
-            "FOREIGN KEY(EdibleID) REFERENCES Edible(EdibleID));"
-        );
-    }
-
-    private void createDrinkTable(SQLiteDatabase db) {
-        db.execSQL("create table Drink (" +
-            "EdibleID       INTEGER     not null," +
-            "Instructions   VARCHAR(9999)," +
-
-            "FOREIGN KEY(EdibleID) REFERENCES Edible(EdibleID));"
-        );
-    }
-
-    private void createDrinkIngredientTable(SQLiteDatabase db) {
-        db.execSQL("create table DrinkIngredient (" +
-            "PreparedID         INTEGER," +
-            "PreparedCustomID   INTEGER," +
-            "EdibleID           INTEGER," +
-            "CustomEdibleID     INTEGER," +
-            "Quantity           INTEGER       not null," +
-            "Unit               VARCHAR(9999) not null," +
-            "Substitute         BOOLEAN       not null," +
-
-            "FOREIGN KEY(PreparedID) REFERENCES Edible(EdibleID)," +
-            "FOREIGN KEY(PreparedCustomID) REFERENCES CustomEdible(CustomEdibleID)," +
-            "FOREIGN KEY(EdibleID) REFERENCES Edible(EdibleID)," +
-            "FOREIGN KEY(CustomEdibleID) REFERENCES CustomEdible(CustomEdibleID));"
-        );
-    }
-
-    private void createMealIngredientTable(SQLiteDatabase db) {
-        db.execSQL("create table MealIngredient (" +
-            "PreparedID         INTEGER," +
-            "PreparedCustomID   INTEGER," +
-            "EdibleID           INTEGER," +
-            "CustomEdibleID     INTEGER," +
-            "Quantity           INTEGER       not null," +
-            "Unit               VARCHAR(9999) not null," +
-
-            "FOREIGN KEY(PreparedID) REFERENCES Edible(EdibleID)," +
-            "FOREIGN KEY(PreparedCustomID) REFERENCES CustomEdible(CustomEdibleID)," +
-            "FOREIGN KEY(EdibleID) REFERENCES Edible(EdibleID)," +
-            "FOREIGN KEY(CustomEdibleID) REFERENCES CustomEdible(CustomEdibleID));"
-        );
-    }
-
-    private void createUserTable(SQLiteDatabase db) {
-        db.execSQL("create table User (" +
-            "UserID         INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "Name           VARCHAR(9999)," +
-            "Height         INTEGER," +
-            "Weight         INTEGER," +
-            "CalorieGoal    INTEGER     not null," +
-            "ExerciseGoal   INTEGER);"
-        );
-    }
-
-    private void createHistoryTable(SQLiteDatabase db) {
-        db.execSQL("create table History (" +
-            "HistoryID      INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "UserID         INTEGER not null," +
-            "Date           DATE    not null," +
-            "CalorieGoal    INTEGER not null," +
-            "CalorieActual  INTEGER not null," +
-
-            "FOREIGN KEY(UserID) REFERENCES User(UserID));"
-        );
-    }
-
-    private void createWorkoutHistoryTable(SQLiteDatabase db) {
-        db.execSQL("create table WorkoutHistory (" +
-            "HistoryID      INTEGER not null," +
-            "ExerciseActual INTEGER not null," +
-
-            "FOREIGN KEY(HistoryID) REFERENCES History(HistoryID));"
-        );
-    }
-
-    private void createEdibleHistoryTable(SQLiteDatabase db) {
-        db.execSQL("create table EdibleHistory (" +
-            "HistoryID          INTEGER         not null," +
-            "EdibleID           INTEGER," +
-            "CustomEdibleID     INTEGER ," +
-            "Quantity           INTEGER         not null," +
-            "Unit               VARCHAR(9999)   not null," +
-
-            "FOREIGN KEY(HistoryID) REFERENCES History(HistoryID)," +
-            "FOREIGN KEY(CustomEdibleID) REFERENCES CustomEdible(CustomEdibleID)," +
-            "FOREIGN KEY(EdibleID) REFERENCES Edible(EdibleID));"
-        );
-    }
-
-    @Override //used when the a new version is created
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-    }
-
-
     public ArrayList<Edible> getFoodList(Calendar date) {
-        return new ArrayList<Edible>();
+        PreparedStatement getFoodList = currConn.prepareStatement("GET * FROM Food");
+        PreparedStatement getCustomFoodList = currConn.prepareStatement("GET * FROM CustomFood");
+        ArrayList<Edible> foodList = new ArrayList<Edible>();
+        ResultSet results = getFoodList.executeQuery();
+        boolean ediblesRemain = results.next();
+        
+        while(ediblesRemain) {
+            foodList.add(readEdible(results, false));
+            ediblesRemain = results.next();
+		}
+
+        results.close();
+
+        results = getCustomFoodList.executeQuery();
+        ediblesRemain = results.next();
+
+        while(ediblesRemain) {
+            foodList.add(readEdible(results, true));
+            ediblesRemain = results.next();
+		}
+
+        results.close();
+
+
+        return foodList;
+    }
+
+    private Edible readEdible(ResultSet results, boolean isCustom) {
+        Edible currEdible = new Edible();
+
+        String name, description, unit;
+        int id, quantity, calories, protein, carbs, fat;
+        bytes[] photo;
+        boolean isAlcoholic, isSpicy, isVegan, isVegetarian, isGlutenFree;
+        
+        id = results.getInt("EdibleID");
+        name = results.getString("Name");
+        description = results.getString("Description");
+        quantity = results.getInt("Quantity");
+        unit = results.getString("Unit");
+        calories = results.getInt("Calories");
+        protein = results.getInt("Protein");
+        carbs = results.getInt("Carbs");
+        fat = results.getInt("Fat");
+        isAlcoholic = results.getBoolean("IsAlcoholic");
+        isSpicy = results.getBoolean("IsSpicy");
+        isVegan = results.getBoolean("IsVegan");
+        isVegetarian = results.getBoolean("IsVegetarian");
+        isGlutenFree = results.getBoolean("IsGlutenFree");
+        photo = results.getBytes("Photo");
+
+        currEdible.initDetails(id, name, description, quantity, this.findEnum(unit));
+        currEdible.initNutrition(calories, protein, carbs, fat);
+        currEdible.initCategories(isAlcoholic, isSpicy, isVegan, isVegetarian, isGlutenFree);
+        currEdible.initMetadata(isCustom, photo);
+
+        return currEdible;
+    }
+
+    private Edible.Unit findEnum(String enumName) {
+        Edible.Unit currUnit = null;
+
+        for (Edible.Unit unit : Edible.Unit.values()) { 
+            if(unit.toString().equals(enumName)) {
+                currUnit = unit;
+                break;
+            } 
+        }
+
+        return currUnit;
     }
 
     public ArrayList<Edible> getMealList(Calendar date) {
-        return new ArrayList<Edible>();
+        PreparedStatement getMealList = currConn.prepareStatement("GET * FROM Meal");   //join ingredients
+        PreparedStatement getCustomMealList = currConn.prepareStatement("GET * FROM CustomMeal");
+        ArrayList<Edible> mealList = new ArrayList<Edible>();
+        ResultSet results = getMealList.executeQuery();
+        boolean ediblesRemain = results.next();
+        Meal currEdible;
+        
+        while(ediblesRemain) {
+            currEdible = readEdible(results, false);
+            currEdible.setInstructions(results.getString("Instructions"));
+            currEdible.setIngredients(findIngredients("Meal", false));
+            mealList.add(currEdible);
+            ediblesRemain = results.next();
+		}
+
+        results.close();
+
+        // results = getCustomFoodList.executeQuery();
+        // ediblesRemain = results.next();
+
+        // while(ediblesRemain) {
+        //     foodList.add(readEdible(results, true));
+        //     ediblesRemain = results.next();
+		// }
+
+        // results.close();
+
+
+        return foodList;
+    }
+
+    public ArrayList<Ingredient> findIngredients(String edibleType, boolean custom) {
+        PreparedStatement getMealList = currConn.prepareStatement("GET * FROM Meal");   //join ingredients
+        PreparedStatement getCustomMealList = currConn.prepareStatement("GET * FROM CustomMeal");
+        //PreparedStatement getMealList = currConn.prepareStatement("GET * FROM Meal");   //join ingredients
+        //PreparedStatement getCustomMealList = currConn.prepareStatement("GET * FROM CustomMeal");
+        ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+        Edible currIngredient;
+
+        if(edibleType.equals("meal")) {
+
+        }
+        else if(edibleType.equals("drink")) {
+
+        }
+
+        return ingredients;
     }
 
     public ArrayList<Edible> getDrinkList(Calendar date) {
         return new ArrayList<Edible>();
     }
 
-    public ArrayList<Edible> getFoodRecipes() {
-        return new ArrayList<Edible>();
-    }
-
-    public ArrayList<Edible> getMealRecipes() {
-        return new ArrayList<Edible>();
-    }
-
-    public ArrayList<Edible> getDrinkRecipes() {
-        return new ArrayList<Edible>();
-
-    }
-
     public int getNextKey() {
         return 1;
     }
 
-    public void addFoodToRecipeBook(Food newFood) {
+    public void addFoodToRecipeBook(Edible newFood) {
+        PreparedStatement addFood = currConn.prepareStatement("INSERT INTO Food (?)");
+        PreparedStatement addCustomFood = currConn.prepareStatement("INSERT INTO CustomFood (?)");
+        boolean isCustom = newFood.isCustom();
+        int edibleID;
 
+        if(isCustom) {
+            edibleID = this.addEdible(newFood, true);
+            addFood.setInt(1, edibleID);
+            addFood.executeQuery();
+        }
+        else {
+            edibleID = this.addEdible(newFood, false);
+            addCustomFood.setInt(1, edibleID);
+            addCustomFood.executeQuery();
+        }
+    }
+
+    private int addEdible(Edible newEdible, boolean isCustom) {
+        PreparedStatement addEdible = currConn.prepareStatement("INSERT INTO Edible (Name, Description, Quantity, " +
+            "Unit, Calories, Protein, Carbs, Fat, Photo, Alcoholic, Spicy, Vegan, Vegetarian, GluteFree) VALUES (" + 
+            "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        PreparedStatement addCustomEdible = currConn.prepareStatement("INSERT INTO CustomEdible (Name, Description, " +
+            "Quantity, Unit, Calories, Protein, Carbs, Fat, Photo, Alcoholic, Spicy, Vegan, Vegetarian, GluteFree) VALUES (" + 
+            "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        ResultSet results;
+        int edibleID;
+
+        if(isCustom) {
+            addCustomEdible.setString(1, newEdible.getName());
+            addCustomEdible.setString(2, newEdible.getDescription());
+            addCustomEdible.setInt(3, newEdible.getQuantity());
+            addCustomEdible.setString(4, newEdible.getUnit());
+            addCustomEdible.setInt(5, newEdible.getCalories());
+            addCustomEdible.setInt(6, newEdible.getProtein());
+            addCustomEdible.setInt(7, newEdible.getCarbs());
+            addCustomEdible.setInt(8, newEdible.getFat());
+            addCustomEdible.setBytes(9, newEdible.getPhotoBytes());
+            addCustomEdible.setBoolean(10, newEdible.getIsAlcoholic());
+            addCustomEdible.setBoolean(11, newEdible.getIsSpicy());
+            addCustomEdible.setBoolean(12, newEdible.getIsVegan());
+            addCustomEdible.setBoolean(13, newEdible.getIsVegetarian());
+            addCustomEdible.setBoolean(14, newEdible.getIsGlutenFree());
+            addCustomEdible.executeQuery();
+            results.getRowId("CustomEdibleID");
+        }
+        else {
+            addEdible.setString(1, newEdible.getName());
+            addEdible.setString(2, newEdible.getDescription());
+            addEdible.setInt(3, newEdible.getQuantity());
+            addEdible.setString(4, newEdible.getUnit());
+            addEdible.setInt(5, newEdible.getCalories());
+            addEdible.setInt(6, newEdible.getProtein());
+            addEdible.setInt(7, newEdible.getCarbs());
+            addEdible.setInt(8, newEdible.getFat());
+            addEdible.setBytes(9, newEdible.getPhotoBytes());
+            addEdible.setBoolean(10, newEdible.getIsAlcoholic());
+            addEdible.setBoolean(11, newEdible.getIsSpicy());
+            addEdible.setBoolean(12, newEdible.getIsVegan());
+            addEdible.setBoolean(13, newEdible.getIsVegetarian());
+            addEdible.setBoolean(14, newEdible.getIsGlutenFree());
+            addEdible.executeQuery();
+            results.getRowId("EdibleID");
+        }
+
+        results.close();
+
+        return edibleID;
     }
 
     public void addMealToRecipeBook(Meal newMeal) {
+        PreparedStatement addMeal = currConn.prepareStatement("INSERT INTO Meal VALUES (?, ?)");
+        PreparedStatement addCustomMeal = currConn.prepareStatement("INSERT INTO CustomMeal VALUES (?, ?)");
+        PreparedStatement addIngredient = currConn.prepareStatement("INSERT INTO MealIngredient (PreparedID, " +
+            "EdibleID, Quantity, Unit), VALUES (?, ?, ?, ?)");
+        PreparedStatement addCustomIngredientToMeal = currConn.prepareStatement("INSERT INTO MealIngredient " +
+            "(PreparedID, CustomEdibleID, Quantity, Unit), VALUES (?, ?, ?, ?)");
+        PreparedStatement addCustomIngredientToCustomMeal = currConn.prepareStatement("INSERT INTO MealIngredient " +
+            "(CustomPreparedID, CustomEdibleID, Quantity, Unit), VALUES (?, ?, ?, ?)");
 
+        Meal currMeal;
+        Ingredients currIngredients;
+        boolean isCustom = newMeal.isCustom();
+        boolean edibleID = this.addEdible(newMeal, isCustom);
+
+        if(isCustom) {
+            addCustomMeal.setInt(1, edibleID);
+            addCustomMeal.setString(2, newMeal.getInstructions());
+            addCustomMeal.executeQuery();
+
+            currIngredients = newMeal.getIngredients();
+            for(int i = 0; i < currIngredients.size(); i++) {
+                currMeal = currIngredients.get(i);
+
+                if(!currMeal.isCustom()) {
+                    addCustomIngredientToMeal.setInt(1, edibleID);
+                    addCustomIngredientToMeal.setInt(2, currMeal.getDBKey());
+                    addCustomIngredientToMeal.setInt(3, currMeal.getQuantity());
+                    addCustomIngredientToMeal.setString(4, currMeal.getUnit());
+                    addCustomIngredientToMeal.executeQuery();
+                }
+                else {
+                    addCustomIngredientToCustomMeal.setInt(1, edibleID);
+                    addCustomIngredientToCustomMeal.setInt(2, currMeal.getDBKey());
+                    addCustomIngredientToCustomMeal.setInt(3, currMeal.getQuantity());
+                    addCustomIngredientToCustomMeal.setString(4, currMeal.getUnit());
+                    addCustomIngredientToCustomMeal.executeQuery();
+                }
+            }
+        }
+        else {
+            addMeal.setInt(1, edibleID);
+            addMeal.setString(2, newMeal.getInstructions());
+            addMeal.executeQuery();
+
+            currIngredients = newMeal.getIngredients();
+            for(int i = 0; i < currIngredients.size(); i++) {
+                currMeal = currIngredients.get(i);
+
+                addIngredient.setInt(1, edibleID);
+                addIngredient.setInt(2, currMeal.getDBKey());
+                addIngredient.setInt(3, currMeal.getQuantity());
+                addIngredient.setString(4, currMeal.getUnit());
+                addIngredient.executeQuery();
+            }
+        }
     }
 
     public void addDrinkToRecipeBook(Drink newDrink) {
+        PreparedStatement addDrink = currConn.prepareStatement("INSERT INTO Drink VALUES (?, ?)");
+        PreparedStatement addCustomDrink = currConn.prepareStatement("INSERT INTO CustomDrink VALUES (?, ?)");
+        PreparedStatement addIngredient = currConn.prepareStatement("INSERT INTO DrinkIngredient (PreparedID, " +
+            "EdibleID, Quantity, Unit, Substitute), VALUES (?, ?, ?, ?, ?)");
+        PreparedStatement addCustomIngredientToDrink = currConn.prepareStatement("INSERT INTO DrinkIngredient " +
+            "(PreparedID, CustomEdibleID, Quantity, Unit, Substitute), VALUES (?, ?, ?, ?, ?)");
+        PreparedStatement addCustomIngredientToCustomDrink = currConn.prepareStatement("INSERT INTO DrinkIngredient " +
+            "(CustomPreparedID, CustomEdibleID, Quantity, Unit, Substitute), VALUES (?, ?, ?, ?, ?)");
 
+        Drink currDrink;
+        Ingredients currIngredients;
+        boolean isCustom = currMeal.isCustom();
+        boolean edibleID = this.addEdible(currDrink, isCustom);
+
+        if(isCustom) {
+            addCustomDrink.setInt(1, edibleID);
+            addCustomDrink.setString(2, newDrink.getInstructions());
+            addCustomDrink.executeQuery();
+
+            currIngredients = newDrink.getIngredients();
+            for(int i = 0; i < currIngredients.size(); i++) {
+                currDrink = currIngredients.get(i);
+
+                if(!currDrink.isCustom()) {
+                    addCustomIngredientToDrink.setInt(1, edibleID);
+                    addCustomIngredientToDrink.setInt(2, currDrink.getDBKey());
+                    addCustomIngredientToDrink.setInt(3, currDrink.getQuantity());
+                    addCustomIngredientToDrink.setString(4, currDrink.getUnit());
+                    addCustomIngredientToDrink.setString(5, currDrink.getIsSubstitute());
+                    addCustomIngredientToDrink.executeQuery();
+                }
+                else {
+                    addCustomIngredientToCustomDrink.setInt(1, edibleID);
+                    addCustomIngredientToCustomDrink.setInt(2, currDrink.getDBKey());
+                    addCustomIngredientToCustomDrink.setInt(3, currDrink.getQuantity());
+                    addCustomIngredientToCustomDrink.setString(4, currDrink.getUnit());
+                    addCustomIngredientToCustomDrink.setString(5, currDrink.getIsSubstitute());
+                    addCustomIngredientToCustomDrink.executeQuery();
+                }
+            }
+        }
+        else {
+            addDrink.setInt(1, edibleID);
+            addDrink.setString(2, newDrink.getInstructions());
+            addDrink.executeQuery();
+
+            currIngredients = newDrink.getIngredients();
+            for(int i = 0; i < currIngredients.size(); i++) {
+                currDrink = currIngredients.get(i);
+
+                addIngredient.setInt(1, edibleID);
+                addIngredient.setInt(2, currDrink.getDBKey());
+                addIngredient.setInt(3, currDrink.getQuantity());
+                addIngredient.setString(4, currDrink.getUnit());
+                addIngredient.setString(5, currDrink.getIsSubstitute());
+                addIngredient.executeQuery();
+            }
+        }
     }
 
-    public DailyLog searchFoodLogByDate(Calendar date) {
-        int today = calendarToInt(Calendar.getInstance());
-        DailyLog log = new DailyLog();
-        try {
-            log.init(today, new ArrayList<Edible>(), 700, 100, 0);
-        }
-        catch(Exception e) {
-            System.out.println(e);
+    public DailyLog searchFoodLogByDate(int userID, Calendar date) {
+        PreparedStatement findLog = currConn.prepareStatement("GET * FROM History, WHERE UserID = ? AND Date = ?");
+        ResultSet results;
+        DailyLog log = null;
+        int exerciseActual;
+        ArrayList<Edible> edibleLog;
+
+        findLog.setInt(1, userID);
+        findLog.setDate(2, date);
+        results = findLog.executeQuery();
+
+        if(results.next()) {
+            edibleLog = this.getEdibleLog(results.getInt("HistoryID"));
+            exerciseActual = this.getExerciseActual(results.getInt("HistoryID"));
+            log = new DailyLog().init(date, edibleLog, results.getInt("CalorieGoal"), userID, results.getInt("ExerciseGoal"), 
+                exerciseActual);
         }
 
         return log;
     }
 
-    private Integer calendarToInt(Calendar date) {
-        return Integer.parseInt(String.valueOf(date.get(Calendar.YEAR)) + String.valueOf(date.get(Calendar.DAY_OF_YEAR)));
+    private ArrayList<Edible> getEdibleLog(int historyID) {
+        PreparedStatement findLog = currConn.prepareStatement("GET * FROM EdibleHistory, HistoryID = ?");
+        ResultSet results;
+        ArrayList<Edible> edibleLog = new ArrayList<Edible>();
+
+        findLog.setInt(1, historyID);
+        results = findLog.executeQuery();
+
+        while(results.next()) {
+            //do a thing to pass foods/drinks/meals
+        }
+
+        return edibleLog;
     }
 
-    public Edible findEdibleByKey(int dbkey) {
+    private int getExerciseActual(int HistoryID) {
+        PreparedStatement getExerciseActual = currConn.prepareStatement("GET * FROM WorkoutHistory, WHERE HistoryID = ?");
+        int exerciseActual = 0;
+        ResultSet results;
+
+        getExerciseActual.setInt(1, HistoryID);
+        results = getExerciseActual.executeQuery();
+
+        if(results.next()) {
+            exerciseActual = results.getInt("ExerciseActual");
+        }
+        results.close();
+
+        return exerciseActual;
+    }
+
+    public Edible findEdibleByKey(int dbkey, boolean isCustom) {
+        PreparedStatement addCustomEdibleHistory = currConn.prepareStatement("INSERT INTO EdibleHistory (HistoryID, " +
+        "CustomEdibleID, Quantity, Unit) VALUES (?, ?, ?, ?)");
+//look for in drink, meal, food and custom stuff
+    Edible currEdible;
+    ResultSet results;
         return null;
     }
 
     public void addLog(DailyLog newLog) {
+        PreparedStatement addHistory = currConn.prepareStatement("INSERT INTO History (UserID, Date, CalorieGoal, " +
+            "CalorieActual) VALUES (?, ?, ?, 0)");
+        PreparedStatement addEdibleHistory = currConn.prepareStatement("INSERT INTO EdibleHistory (HistoryID, " +
+            "EdibleID, Quantity, Unit) VALUES (?, ?, ?, ?)");
+        PreparedStatement addCustomEdibleHistory = currConn.prepareStatement("INSERT INTO EdibleHistory (HistoryID, " +
+            "CustomEdibleID, Quantity, Unit) VALUES (?, ?, ?, ?)");
 
+        ArrayList<Edible> edibles = newLog.getEdibleList();
+        Edible currEdible;
+        ResultSet results;
+        int historyID;
+
+        addHistory.setInt(1, currLog.getUserID());
+        addHistory.setDate(2, currLog.getDate());
+        addHistory.setInt(3, currLog.getCalorieGoal());
+        results = addHistory.executeQuery();
+        historyID = results.getRowId("HistoryID");
+        results.close();
+        
+        for(int i = 0; i < edibles.size(); i++) {
+            currEdible = edibles.get(i);
+
+            if(currEdible.isCustom()) {
+                addCustomEdibleHistory.setInt(historyID);
+                addCustomEdibleHistory.setInt(currEdible.getDBKey());
+                addCustomEdibleHistory.setInt(currEdible.getQuantity());
+                addCustomEdibleHistory.setString(currEdible.getUnit());
+                addCustomEdibleHistory.executeQuery();
+            }
+            else {
+                addEdibleHistory.setInt(historyID);
+                addEdibleHistory.setInt(currEdible.getDBKey());
+                addEdibleHistory.setInt(currEdible.getQuantity());
+                addEdibleHistory.setInt(currEdible.getUnit());
+                addEdibleHistory.executeQuery();
+            }
+        }
+
+        if(newLog.getExerciseActual() != 0) {
+            this.setExerciseActual(newLog, newLog.getExerciseActual());
+        }
     }
 
     public void deleteLog(DailyLog delLog) {
+        PreparedStatement setExerciseActual = currConn.prepareStatement("DELETE History WHERE Date = ? AND UserID = ?");
 
+        setExerciseActual.setDate(1, currLog.getDate());
+        setExerciseActual.setInt(1, currLog.getUserID());
+        setExerciseActual.executeQuery();
     }
 
-    public void setExerciseActual(int newExercise, Calendar logDate) {
+    public void setExerciseActual(DailyLog currLog, int newExercise) {
+        int logID = getHistoryID(currLog);
+        PreparedStatement setExerciseActual = currConn.prepareStatement("CASE " +
+            "WHEN COUNT(SELECT * FROM WorkoutHistory WHERE HistoryID = ?) = 0 THEN INSERT INTO WorkoutHistory VALUES (?, ?) " +
+            "ELSE UPDATE WorkoutHistory SET ExerciseActual = ?, WHERE HistoryID = ?"); 
 
+        setExerciseActual.setInt(1, logID);
+        setExerciseActual.setInt(2, logID);
+        setExerciseActual.setInt(3, newExercise);
+        setExerciseActual.setInt(4, newExercise);
+        setExerciseActual.setInt(5, logID);
+        setExerciseActual.executeQuery();
     }
 
-    public void addLog(Edible newEdible) {
+    private int getHistoryID(DailyLog currLog) {
+        PreparedStatement getHistoryID = currConn.prepareStatement("GET HistoryID FROM History WHERE UserID = ? AND Date = ?");
+        ResultSet results;
 
+        setExerciseActual.setDate(1, currLog.getDate());
+        setExerciseActual.setInt(1, currLog.getUserID());
+        results = setExerciseActual.executeQuery();
+        results.next();
+
+        return results.getInt("HistoryID");
     }
 
-    public void deleteLog(Edible delEdible) {
-
-    }
-
-    public void addEdible(Edible newEdible) {
-
-    }
-
-    public void updateEdible(Edible modEdible) {
-
-    }
 
     public void addUser(String name, int height, int weight) {
+        PreparedStatement addUser = currConn.prepareStatement("INSERT * INTO User (Name, Height, Weight) VALUES (?, ?, ?)");
 
+        addUser.setString(1, name);
+        addUser.setInt(1, height);
+        addUser.setInt(1, weight);
+        addUser.executeQuery();
     }
 
     public User getUser() {
-        return new User("USER", 1, 666, 666, 666, 666);
+        PreparedStatement getUser = currConn.prepareStatement("GET * FROM User");
+        ResultSet results = getUser.executeQuery();
+        User currUser;
+
+        int userID, height, weight, calorieGoal, exerciseGoal;
+        String name;
+
+        results.next();
+        currUser = new User(results.getInt("UserID"), results.getString("Name"), results.getInt("Height"),  
+        results.getInt("Weight"), results.getInt("CalorieGoal"), results.getInt("ExerciseGoal"));
+
+
+        return currUser;
     }
 
-    public void setHeight(int newHeight) {
-
+    public void setHeight(int userID, int newHeight) {
+        PreparedStatement setHeight = currConn.prepareStatement("Update User SET Height = ?, WHERE UserID = ?");
+        
+        setHeight.setInt(1, newHeight);
+        setHeight.setInt(2, userID);
+        setHeight.executeQuery();
     }
 
-    public void setWeight(int newWeight) {
-
+    public void setWeight(int userID, int newWeight) {
+        PreparedStatement setWeight = currConn.prepareStatement("Update User SET Weight = ?, WHERE UserID = ?");
+        
+        setWeight.setInt(1, newWeight);
+        setWeight.setInt(2, userID);
+        setWeight.executeQuery();
     }
 
-    public void setCalorieGoal(int goal, Calendar date) {
-
+    public void setCalorieGoal(int userID, int goal, Calendar date) {
+        PreparedStatement setCalorieGoal = currConn.prepareStatement("UPDATE History SET CalorieGoal = ? " +
+            "WHERE UserID = ? AND Date >= ?");
+            
+        setCalorieGoal.setInt(1, goal);
+        setCalorieGoal.setInt(2, userID);
+        setCalorieGoal.setDate(2, date);
+        setCalorieGoal.executeQuery();
     }
 
-    public void setExerciseGoal(int goal, Calendar date) {
+    public void setExerciseGoal(int userID, int goal, Calendar date) {
+        PreparedStatement setExerciseGoal = currConn.prepareStatement("UPDATE History SET ExerciseGoal = ? " +
+            "WHERE UserID = ? AND Date >= ?");
 
+        setExerciseGoal.setInt(1, goal);
+        setExerciseGoal.setInt(2, userID);
+        setExerciseGoal.setDate(2, date);
+        setExerciseGoal.executeQuery();
     }
 
-    public void setCalorieGoal(int goal) {
-
-    }
-
-    public void setExerciseGoal(int goal) {
-
-    }
-
-    private void seedDB() {
+    private void seedDB() { //just do this easy in 
         SQLiteDatabase db = this.getReadableDatabase();
         
         //Used to add data to each respective table

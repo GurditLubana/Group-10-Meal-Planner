@@ -132,7 +132,7 @@ CREATE MEMORY TABLE "EdibleHistory"."EdibleHistory" (
     Quantity           INTEGER         not null,
     Unit               VARCHAR(9999)   not null,
 
-    FOREIGN KEY(HistoryID) REFERENCES History(HistoryID),
+    FOREIGN KEY(HistoryID) REFERENCES History(HistoryID) ON DELETE CASCADE,
     FOREIGN KEY(EdibleID) REFERENCES Edible(EdibleID),
     FOREIGN KEY(CustomEdibleID) REFERENCES CustomEdible(CustomEdibleID)
 )

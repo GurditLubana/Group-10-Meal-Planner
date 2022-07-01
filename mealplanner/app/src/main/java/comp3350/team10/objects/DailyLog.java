@@ -13,6 +13,7 @@ public class DailyLog {
     private int date;                          //The date of this particular log    
     private ArrayList<Edible> edibleLog;       //The edibles present in the given log for a given date
     private int calorieGoal;                   //The calorie goal for a given date 
+    private int userID;
     private int exerciseGoal;                  //The calorie goal for exercising for a given date
     private int exerciseActual;                //The calories burnt while exercising for a given date
     private int edibleCalories;                //The calorie total for a list of edibles for a given date
@@ -27,9 +28,10 @@ public class DailyLog {
     }
 
 
-    public DailyLog init(int date, ArrayList<Edible> log, int calGoal, int excGoal, int excActual) throws IOException {
+    public DailyLog init(int date, ArrayList<Edible> log, int calGoal, int userID, int excGoal, int excActual) throws IOException {
         this.setDate(date);
         this.setEdibleList(log);
+        this.serUserID(userID);
         this.setCalorieGoal(calGoal);
         this.setExerciseGoal(excGoal);
         this.setExerciseActual(excActual);
@@ -44,6 +46,19 @@ public class DailyLog {
         else {
             throw new IOException("Invalid date");
         }
+    }
+
+    private void setUserID(int newUserID) throws IOException{
+        if(newUserID >= 0) {
+            this.userID = newUserID;
+        }
+        else {
+            throw new IOException("Invalid date");
+        }
+    }
+
+    public int getUserID() {
+        return this.userID;
     }
 
     public void setEdibleList(ArrayList<Edible> newLog) throws IOException {
