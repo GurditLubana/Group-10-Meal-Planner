@@ -1,14 +1,17 @@
 package comp3350.team10.persistence;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import androidx.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+import java.sql.SQLWarning;
+import java.sql.DatabaseMetaData;
+import java.util.ArrayList;
+import java.util.List;
 
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Drink;
@@ -18,12 +21,43 @@ import comp3350.team10.objects.Food;
 import comp3350.team10.objects.Meal;
 import comp3350.team10.objects.User;
 
-public class HSqlDB extends SQLiteOpenHelper implements LogDBInterface, RecipeDBInterface, UserDBInterface {
-    private static final int CURR_VERSION = 1;
-    private static final String DB_NAME = "HSqlDB";
+public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterface {
+    private static final String SHUTDOWN_CMD = "shutdown compact";
+    private Connection currConn;
+    private Statement reqHandler;
+    private String dbPath; //		url = "jdbc:hsqldb:file:" + dbPath; // stored on disk mode
+    private String dbName;
+    private String dbType = "HSQL";
+    
+    public HSqlDB() {
+        this.reqHandler = currConn.createStatement();
+        this.open();
 
-    public HSqlDB(@Nullable Context context) {
-        super(context, DB_NAME, null, CURR_VERSION);
+        if(this.isEmpty()) {
+            this.seedDB();
+        } 
+    }
+
+    private boolean isEmpty() {
+        return this.reqHandler.executeQuery("SELECT * FROM Edible, CustomEdible, User, History") == null;
+    }
+
+    public void open() {
+		Class.forName("org.hsqldb.jdbcDriver").newInstance();
+
+		currConn = DriverManager.getConnection(dbPath, "user", "pass");
+        System.out.println("Opened " + this.dbType +" database named " + this.dbName + " @dbPath " + this.dbPath);
+    }
+
+    public String getDBType() {
+        return this.dbType;
+    }
+
+    public void close() {
+        if(currConn != null) {
+		    reqHandler.executeQuery(SHUTDOWN_CMD);
+			currConn.close();
+        }
     }
 
 
