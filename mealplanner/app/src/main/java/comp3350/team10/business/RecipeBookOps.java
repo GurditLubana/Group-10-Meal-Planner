@@ -15,35 +15,26 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class RecipeBookOps { //this needs to select the corect fragment
-    private static enum RecipeBook {FOOD, DRINKS, MEALS} ; //Possible Edible type views
-
-    private ArrayList<Edible> selectedList;    //The recipes available for the current view
-    private RecipeBook selectedType;            //The selected Edible type view (see enum on line 18)
-    private DBSelector db;                  //Accesses the database
+public class RecipeBookOps {
+    private DBSelector db;      //Access to the database
 
     public RecipeBookOps() {
-        this.selectedType = RecipeBook.FOOD;
-        this.selectedList = null;
         this.db = SharedDB.getSharedDB();
-
-        this.getFoodRecipes();
     }
 
+
     public ArrayList<Edible> getFoodRecipes() {
-        this.selectedList = db.getFoodRecipes();
-        return this.selectedList;
+        return db.getFoodRecipes();
     }
 
     public ArrayList<Edible> getDrinkRecipes() {
-        this.selectedList = db.getMealRecipes();
-        return this.selectedList;
+        return db.getDrinkRecipes();
     }
 
     public ArrayList<Edible> getMealRecipes() {
-       this.selectedList = db.getDrinkRecipes();
-        return this.selectedList;
+       return db.getMealRecipes();
     }
+
     //might want to just pass the object in here later?
     public void addFood(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat,
             boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, byte[] photo) {

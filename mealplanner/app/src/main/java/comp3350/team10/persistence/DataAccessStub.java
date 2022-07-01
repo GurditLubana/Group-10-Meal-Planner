@@ -173,19 +173,19 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             ingredients.add(ingredient);
 
             this.dbRecipeMeal.add(new Meal()
-                    .initDetails(8, "meal", "desc", 10, Edible.Unit.ml)
+                    .initDetails(8, "meal1", "desc", 10, Edible.Unit.ml)
                     .initNutrition(100, 30, 45, 25)
                     .initMetadata(false, null)
             );
             ((Meal)this.dbRecipeMeal.get(0)).setIngredients(ingredients);
             this.dbRecipeMeal.add(new Meal()
-                    .initDetails(9, "meal", "desc", 20, Edible.Unit.oz)
+                    .initDetails(9, "meal2", "desc", 20, Edible.Unit.oz)
                     .initNutrition(200, 25, 40, 35)
                     .initMetadata(false, null)
             );
             ((Meal)this.dbRecipeMeal.get(1)).setIngredients(ingredients);
             this.dbRecipeMeal.add(new Meal()
-                    .initDetails(10, "meal", "desc", 30, Edible.Unit.cups)
+                    .initDetails(10, "Another meal!", "desc", 30, Edible.Unit.cups)
                     .initNutrition(300, 40, 50, 10)
                     .initMetadata(false, null)
             );

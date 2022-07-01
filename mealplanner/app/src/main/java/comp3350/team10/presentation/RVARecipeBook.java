@@ -1,6 +1,8 @@
 package comp3350.team10.presentation;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,19 +75,23 @@ public class RVARecipeBook extends RecyclerViewAdapter {
     }
 
     private void setRecipeData(ViewHolder viewHolder, int position) {
-        //ImageView itemImage = viewHolder.getView().findViewById(R.id.mealImage);
+        ImageView itemImage = viewHolder.getView().findViewById(R.id.mealImage);
         TextView textDesc = viewHolder.getView().findViewById(R.id.mealDesc);
         TextView mealCalories = viewHolder.getView().findViewById(R.id.mealCals);
+        Edible currentFood = getDataSet().get(position);
+        byte[] recipeImage = currentFood.getPhotoBytes();
+        Bitmap bmp;
 
-        Edible currentItem = getDataSet().get(position);
-        Edible currentFood;
-
-        if(currentItem instanceof Edible) {
-            currentFood = (Edible)currentItem;
-            //itemImage.setImageResource(currentFood.getIconPath());
-            textDesc.setText(currentFood.getName());
-            mealCalories.setText(Integer.toString(currentFood.getCalories()));
+        if(recipeImage == null) {
+            itemImage.setImageResource(R.drawable.ic_eggplant);
         }
+        else {
+            bmp = BitmapFactory.decodeByteArray(recipeImage, 0, recipeImage.length);
+            itemImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, itemImage.getWidth(), itemImage.getHeight(), false));
+        }
+
+        textDesc.setText(currentFood.getName());
+        mealCalories.setText(Integer.toString(currentFood.getCalories()));
     }
 
     private void setCardSelectionListeners(ViewHolder viewHolder, int position) {
