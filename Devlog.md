@@ -1177,3 +1177,11 @@ Duration: 4hrs
 Duration: 1hrs
    Tasks:
    - finished empty test of Food.java update at brench test-Zhou
+
+### 2022-07-01
+     Dev:
+      - Zhou
+Duration: 1hrs
+   Tasks:
+   - finished edge test of Food.java update at brench test-Zhou
+   - find when interger properties input use ENTRY_MIN_VALUE will fail, it should not throw execption, it may brake principle of least astornishemnt
