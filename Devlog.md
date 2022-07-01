@@ -1129,6 +1129,7 @@ Duration: 4hrs
       - Dane
 Duration: 10hrs
    Tasks:
+   - Added relative calorie counter to EdibleLog
    - Updated all object structures again
    - Refactored all classes
    - Fixed bugs so that refactor can run
