@@ -2,17 +2,18 @@ package comp3350.team10.presentation;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import comp3350.team10.objects.Edible;
 
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.ArrayList;
 
-import comp3350.team10.objects.ListItem;
+
 
 public class MealDiaryLiveData extends ViewModel {
 
     private MutableLiveData<Calendar> activityDate;             //The current date 
-    private MutableLiveData<ArrayList<ListItem>> mealsOnDate;  //The given meals on the current date
+    private MutableLiveData<ArrayList<Edible>> mealsOnDate;  //The given meals on the current date
     private MutableLiveData<Integer> goalCalories;              //The calorie goal for the current date
     private MutableLiveData<Integer> consumedCalories;          //The calories consumed for the current date
     private MutableLiveData<Integer> exerciseCalories;          //The calories burnt during exercise for the current date
@@ -27,9 +28,9 @@ public class MealDiaryLiveData extends ViewModel {
         return activityDate;
     }
 
-    public MutableLiveData<ArrayList<ListItem>> getMealsOnDate() {
+    public MutableLiveData<ArrayList<Edible>> getMealsOnDate() {
         if (mealsOnDate == null) {
-            mealsOnDate = new MutableLiveData<ArrayList<ListItem>>(new ArrayList<ListItem>());
+            mealsOnDate = new MutableLiveData<ArrayList<Edible>>(new ArrayList<Edible>());
         }
 
         return mealsOnDate;

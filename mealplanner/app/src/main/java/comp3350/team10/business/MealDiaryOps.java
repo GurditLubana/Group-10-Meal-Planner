@@ -27,10 +27,11 @@ public class MealDiaryOps { //this needs to select the correct fragment
     private Integer progressBar;        //Represents the calories on the progress bar
     private int calorieNet;             //Represents the consumed calories - exercise calories burnt
 
-    //dependency injectable constructor
-    public MealDiaryOps(DBSelector db) {
+    public MealDiaryOps() {
+        SharedDB.start();
+        this.db = SharedDB.getSharedDB();
         this.logDate = Calendar.getInstance();
-
+        
         this.progressExcess = -1;
         this.progressBar = -1;
         this.calorieNet = -1;

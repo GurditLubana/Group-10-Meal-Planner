@@ -3,8 +3,9 @@ package comp3350.team10.objects;
 import android.widget.ImageView;
 import java.io.IOException;
 
-public abstract class Edible implements ListItem {
+public class Edible {
     public enum Unit {cups, oz, g, serving, tbsp, tsp, ml, liter}; //All possible units for a given edible
+    private final int MIN_BYTE_LENGTH_PER_PHOTO = 35;
 
     //Edible details
     private int edibleID;                       //This edibles database key
@@ -29,7 +30,6 @@ public abstract class Edible implements ListItem {
     //Metadata
     private boolean isCustom;                   //Flag that represents whether this Edible is custom or not
     private byte[] photoBytes;                  //The image path for a given edible
-    private ListItem.FragmentType fragmentType;
 
     public Edible() {
         this.edibleID = -1;
@@ -51,7 +51,6 @@ public abstract class Edible implements ListItem {
 
         this.isCustom = false;
         this.photoBytes = null;
-        this.fragmentType = null;
     }
 
     
@@ -85,10 +84,9 @@ public abstract class Edible implements ListItem {
         return this;
     }
 
-    public Edible initMetadata(boolean custom, byte[] photo, ListItem.FragmentType view) throws IOException {
+    public Edible initMetadata(boolean custom, byte[] photo) throws IOException {
         this.setCustom(custom);
         this.setPhotoBytes(photo);
-        this.setFragmentType(view);
 
         return this;
     }
@@ -190,15 +188,6 @@ public abstract class Edible implements ListItem {
         }
     }
 
-    public void setFragmentType(FragmentType newFragmentType) throws IOException {
-        if(newFragmentType != null) {
-            this.fragmentType = newFragmentType;
-        }
-        else {
-            throw new IOException("Invalid fragment type");
-        }
-    }
-
     public void setCalories(int newCalories) throws IOException {
         if(newCalories <= Constant.ENTRY_MAX_VALUE && newCalories >= Constant.ENTRY_MIN_VALUE) {
             this.calories = newCalories;
@@ -235,7 +224,7 @@ public abstract class Edible implements ListItem {
         }
     }
 
-    public void setName(String name) throws IOException{
+    public void setName(String name) throws IOException {
         if(name != null && !name.equals("")) {
             this.name = name;
         }
@@ -245,7 +234,7 @@ public abstract class Edible implements ListItem {
     }
 
     public void setPhotoBytes(byte[] newPhoto) throws IOException {
-        if(newPhoto != null && newPhoto.length != 0) {
+        if(newPhoto == null || newPhoto.length >= MIN_BYTE_LENGTH_PER_PHOTO) {
             this.photoBytes = newPhoto;
         }
         else {
@@ -267,10 +256,6 @@ public abstract class Edible implements ListItem {
 
     public byte[] getPhotoBytes() {
         return this.photoBytes;
-    }
-
-    public ListItem.FragmentType getFragmentType() {
-        return this.fragmentType;
     }
 
     public Edible.Unit getUnit() {

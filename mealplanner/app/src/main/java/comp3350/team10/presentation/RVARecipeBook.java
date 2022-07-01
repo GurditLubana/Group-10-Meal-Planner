@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import comp3350.team10.R;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
-import comp3350.team10.objects.ListItem;
+
 
 public class RVARecipeBook extends RecyclerViewAdapter {
     private FragToRecipeBook sendToRecipeBook;          // interface to pass data to recipebook
@@ -29,13 +29,13 @@ public class RVARecipeBook extends RecyclerViewAdapter {
         Context context = null;
         View view = null;
 
-        switch (viewType) {
-            case 4:
+        if (viewType == FragmentType.recipeModify.ordinal())
+        { 
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_recipe_book_card_context, viewGroup, false);
-                break;
-            default:
+        } else {
+            
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_recipe_book_card, viewGroup, false);
-                break;
+                
         }
 
         context = view.getContext();
@@ -50,14 +50,13 @@ public class RVARecipeBook extends RecyclerViewAdapter {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        switch (viewHolder.getItemViewType()) {
-            case 4:
+        if (super.getViewType() == FragmentType.recipeModify.ordinal())
+        { 
                 setCardSelectionListeners(viewHolder, position);
-                break;
-            default:
+            } else {
                 setRecipeData(viewHolder, position);
                 setCardListeners(viewHolder, position);
-                break;
+                
         }
     }
 

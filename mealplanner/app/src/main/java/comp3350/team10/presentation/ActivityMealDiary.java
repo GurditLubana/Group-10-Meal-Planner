@@ -3,9 +3,8 @@ package comp3350.team10.presentation;
 import comp3350.team10.R;
 import comp3350.team10.business.MealDiaryOps;
 import comp3350.team10.business.UnitConverter;
-import comp3350.team10.objects.*;
-import comp3350.team10.objects.ListItem;
-import comp3350.team10.persistence.*;
+import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.EdibleLog;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -16,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -35,11 +35,14 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     private RecyclerView mealRecyclerView;      //Houses a recycle view for diary entries
     private MealDiaryOps opExec;                //Business logic for MealDiary
     private Toolbar toolbar;                    //app title
-    private EdibleLog addButton;
+    private Edible addButton;
+    private Edible modifyLog;
+    private final String DIARYADDCARD = "diaryAdd";
+    private final String DIARYMODIFYCARD = "diaryModify";
 
     private ArrayList<Edible> data;            //The data for the diary entries
     private int savedItemPosition;              //Saves the position of an item for temporary removal
-    private EdibleLog savedItem;                   //Saves the item for temporary removal
+    private Edible savedItem;                   //Saves the item for temporary removal
     private EntryMode mode;                     //This tracks the type of input dialog when launched
 
 
@@ -47,11 +50,10 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.addButton = new EdibleLog(ListItem.FragmentType.diaryAdd);
         setContentView(R.layout.activity_meal_diary);
-        SharedDB.start(this);
         this.initToolbar();
-        this.opExec = new MealDiaryOps(SharedDB.getSharedDB());
+        this.opExec = new MealDiaryOps();
+        this.initUICardObjects();
         this.initLiveData();
         this.initRecyclerView();
         this.createActivityCallbackListener();
@@ -78,6 +80,24 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
     }
 
+    private void initUICardObjects() {
+
+        this.addButton = new Edible();
+        this.modifyLog = new Edible();
+        try {
+            this.addButton.setName(DIARYADDCARD);
+        } catch (Exception e) {
+            System.out.println(e);
+            System.exit(1);
+        }
+        try {
+            this.modifyLog.setName(DIARYMODIFYCARD);
+        } catch (Exception e) {
+            System.out.println(e);
+            System.exit(1);
+        }
+    }
+
     private void createActivityCallbackListener() {
         this.pickMeal = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -98,7 +118,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     public void showContextUI(int position) {
-        EdibleLog modifyLog = new EdibleLog(ListItem.FragmentType.diaryModify);
 
         if (position != this.savedItemPosition && this.savedItem != null) {
             this.data.remove(this.savedItemPosition);
@@ -106,12 +125,11 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
 
         if (position >= 0) {
-            if (this.data.get(position).getFragmentType() == ListItem.FragmentType.diaryEntry && this.data.get(position) instanceof EdibleLog) {
-                this.savedItem = (EdibleLog)this.data.remove(position);
+            if (this.data.get(position).getName() == DIARYADDCARD && this.data.get(position) instanceof Edible) {
+                this.savedItem = (Edible) this.data.remove(position);
                 this.savedItemPosition = position;
                 this.data.add(position, modifyLog);
-            }
-            else {
+            } else {
                 this.data.remove(position);
                 this.data.add(position, this.savedItem);
                 this.savedItem = null;
@@ -147,8 +165,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         );
     }
 
-    public void restoreSaved(){
-        if(savedItem != null){
+    public void restoreSaved() {
+        if (savedItem != null) {
             this.data.remove(this.savedItemPosition);
             this.data.add(this.savedItemPosition, this.savedItem);
             this.savedItemPosition = -1;
@@ -206,18 +224,15 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     @Override
     public void addEntry(int pos) { //launch recipebook use ActivityResultLauncher to allow data passing
         Intent intent = new Intent(this, ActivityRecipeBook.class);
-
-        if(this.data.get(pos) instanceof EdibleLog) {
-            intent.putExtra("DBKEY", ((EdibleLog)(this.data.get(pos))).getDbkey());
-            this.pickMeal.launch(intent);
-        }
+        intent.putExtra("DBKEY", this.data.get(pos).getDbkey());
+        this.pickMeal.launch(intent);
     }
 
     public void updateLiveData() {
         if (this.mealDiaryData != null && this.opExec != null) {
             this.data = this.opExec.getList();
-            
-            if(!this.data.contains(this.addButton)) {
+
+            if (!this.data.contains(this.addButton)) {
                 this.data.add(this.addButton);
             }
 
@@ -253,17 +268,18 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         UnitConverter converter = null;
 
         try {
-            selectedItem = this.savedItem;
-            //converter = new UnitConverter(selectedItem.getUnit(), selectedItem.getQuantity(), selectedItem.getCalories());
-            selectedItem.setQuantity(amount);
-            selectedItem.setUnit(Edible.Unit.valueOf(unit));
-            selectedItem.setCalories();
+            if (this.savedItem instanceof EdibleLog) {
+                selectedItem = (EdibleLog) this.savedItem;
+                //converter = new UnitConverter(selectedItem.getUnit(), selectedItem.getQuantity(), selectedItem.getCalories());
+                selectedItem.setQuantity(amount);
+                selectedItem.setUnit(Edible.Unit.valueOf(unit));
+                selectedItem.setCalories();
 
-            this.showContextUI(-1);
-            this.opExec.updateList(data);
-            this.updateLiveData();
-        }
-        catch (Exception e) {
+                this.showContextUI(-1);
+                this.opExec.updateList(data);
+                this.updateLiveData();
+            }
+        } catch (Exception e) {
             System.out.println(e);
         }
     }

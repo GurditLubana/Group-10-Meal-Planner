@@ -34,6 +34,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private RecipeBookOps opExec;                   // Buisness logic for RecipeBook
     private Toolbar toolbar;                        // app title
     private ArrayList<Edible> data;                // The data for the recipe book
+    private Edible modifyUICard;
+    private final String RECIPEMODIFYCARD = "recipeModify";
 
     private boolean modMenuIsOpen;                  // Represents whether the menu to add/edit recipes is toggled on
     private int savedPosition;                      // Saves the position of an item for temporary removal
@@ -49,10 +51,11 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.modMenuIsOpen = false;
         this.currTab = 0;
         this.initToolbar();
+        this.initUICardObjects();
         this.initLiveData();
         this.initRecyclerView();
         this.setTabListeners();
-        this.initActionButtons();       //Make floating action button work.
+        this.initActionButtons();
     }
 
     private void initToolbar() {
@@ -73,7 +76,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     private void initRecyclerView() {
         View object = findViewById(R.id.recipeRecyclerView);
-        //ArrayList<ListItem> tempList = convertToListItem(this.data);
 
         if (this.data != null && object instanceof RecyclerView) {
             this.recipeRecyclerView = (RecyclerView) object;
@@ -81,18 +83,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
             this.recipeRecyclerView.setAdapter(recyclerViewAdapter);
             this.recipeRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         }
-    }
-
-    private ArrayList<ListItem> convertToListItem(ArrayList<Edible> currList) {
-        ArrayList<ListItem> tempList = new ArrayList<ListItem>();
-
-        for(int i = 0; i < currList.size(); i++) {
-            if(currList.get(i) instanceof ListItem) {
-                tempList.add(this.data.get(i));
-            }
-        }
-
-        return tempList;
     }
 
     private void setTabListeners() {
@@ -167,6 +157,19 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         });
     }
 
+    private void initUICardObjects() {
+        
+        this.modifyUICard = new Edible();
+        
+        try {
+            this.modifyUICard.setName(RECIPEMODIFYCARD);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            System.exit(1);
+        }
+    }
+
     private void animateButton() {
         if (this.modMenuIsOpen) {
             this.openFab.startAnimation(rotateForward);
@@ -187,19 +190,17 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     @Override
     public void showContextUI(int position) {
-        Food modifyUIcard = new Food();
         if (position != this.savedPosition && this.saved != null) {
             this.data.remove(this.savedPosition);
             this.data.add(this.savedPosition, this.saved);
         }
 
-        if (this.data.get(position).getFragmentType() != ListItem.FragmentType.cardSelection) {
+        if (this.data.get(position).getName() != RECIPEMODIFYCARD) {
             this.saved = this.data.remove(position);
             this.savedPosition = position;
 
             try {
-                modifyUIcard.setFragmentType(ListItem.FragmentType.cardSelection);
-                this.data.add(position, modifyUIcard);
+                this.data.add(position, this.modifyUICard);
             }
             catch(Exception e) {
                 System.out.println(e);

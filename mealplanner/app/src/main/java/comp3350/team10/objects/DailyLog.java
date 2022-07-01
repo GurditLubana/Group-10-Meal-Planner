@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import comp3350.team10.objects.Edible;
-import comp3350.team10.objects.ListItem;
+
 import comp3350.team10.objects.Constant;
 
 public class DailyLog {
