@@ -7,12 +7,12 @@ import comp3350.team10.business.UnitConverter;
 public class EdibleLog extends Edible {
     //private UnitConverter baseConverter;  originally wanted to use a single converter but variables need to be reset so this breaks life
     private Unit baseUnit;
-    private int baseCalories;
-    private int baseQuantity;
+    private double baseCalories;
+    private double baseQuantity;
 
-    private int quantity;
+    private double quantity;
     private Edible.Unit unit;
-    private int calories;
+    private double calories;
 
     public EdibleLog(Edible edible) {
         super();
@@ -35,7 +35,7 @@ public class EdibleLog extends Edible {
         }
     }
 
-    public EdibleLog init(int quantity, Edible.Unit unit) throws IOException {
+    public EdibleLog init(double quantity, Edible.Unit unit) throws IOException {
         this.setQuantity(quantity);
         this.setUnit(unit);
         this.setCalories();
@@ -43,7 +43,7 @@ public class EdibleLog extends Edible {
         return this;
     }
 
-    public void setQuantity(int newQuantity) throws IOException {
+    public void setQuantity(double newQuantity) throws IOException {
         if(newQuantity > 0 && newQuantity <= Constant.ENTRY_MAX_VALUE) {
             this.quantity = newQuantity;
         }
@@ -73,7 +73,7 @@ public class EdibleLog extends Edible {
         }
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return this.quantity;
     }
 
@@ -81,7 +81,7 @@ public class EdibleLog extends Edible {
         return this.unit;
     }
 
-    public int getCalories() {
+    public double getCalories() {
         return this.calories;
     }
 }

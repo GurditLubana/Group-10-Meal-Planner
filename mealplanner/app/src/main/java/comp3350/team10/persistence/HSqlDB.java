@@ -275,10 +275,10 @@ public class HSqlDB extends SQLiteOpenHelper implements LogDBInterface, RecipeDB
     }
 
     public DailyLog searchFoodLogByDate(Calendar date) {
-        int today = calendarToInt(Calendar.getInstance());
+        //int today = calendarToInt(Calendar.getInstance());
         DailyLog log = new DailyLog();
         try {
-            log.init(today, new ArrayList<Edible>(), 700, 100, 0);
+            log.init(date, new ArrayList<Edible>(), 700, 100, 0);
         }
         catch(Exception e) {
             System.out.println(e);

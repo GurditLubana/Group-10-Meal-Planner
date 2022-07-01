@@ -85,7 +85,6 @@ public class FragmentDiaryDialogs extends FragmentDialogCommon {
 
     private void setEditDialogFieldDefaults() {
         Edible.Unit unit = Edible.Unit.serving;
-        int size = Edible.Unit.values().length;
         ArrayAdapter<String> adapter = null;
         String quantity = "null";
 
@@ -129,10 +128,10 @@ public class FragmentDiaryDialogs extends FragmentDialogCommon {
         super.getBtnOk().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Integer value;
+                Double value;
 
                 if(!getInputQuantity().getText().toString().equals("")) {
-                    value = Integer.parseInt(getInputQuantity().getText().toString());
+                    value = Double.parseDouble(getInputQuantity().getText().toString());
 
                     if (value >= Constant.ENTRY_MIN_VALUE && value <= Constant.ENTRY_MAX_VALUE) {
                         if (send != null && send instanceof FragToMealDiary) {

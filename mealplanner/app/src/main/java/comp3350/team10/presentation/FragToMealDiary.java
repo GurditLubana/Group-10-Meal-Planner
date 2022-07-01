@@ -27,15 +27,15 @@ public interface FragToMealDiary {
 
     public Edible.Unit getEntryUnit();
 
-    public void setEntryQty(Integer amount, String unit);
+    public void setEntryQty(Double amount, String unit);
 
     public String getExerciseCalories();
 
-    public void setExerciseCalories(Integer value);
+    public void setExerciseCalories(Double value);
 
     public String getGoalCalories();
 
-    public void setGoalCalories(Integer value);
+    public void setGoalCalories(Double value);
 
     public EntryMode getEntryMode();
 }

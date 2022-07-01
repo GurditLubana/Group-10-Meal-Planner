@@ -11,11 +11,11 @@ public class Edible {
     private int edibleID;                       //This edibles database key
     private String name;                        //The name
     private String description;                 //A brief description
-    private int baseQuantity;                   //The quantity
+    private double baseQuantity;                   //The quantity
     private Unit baseUnit;                      //The unit of the given quantity
 
     //Nutritional content
-    private int calories;                       //The calories for a given edible
+    private double calories;                       //The calories for a given edible
     private int protein;                        //The protein value
     private int carbs;                          //the carb value
     private int fat;                            //The fat value
@@ -54,7 +54,7 @@ public class Edible {
     }
 
     
-    public Edible initDetails(int id, String name, String description, int quantity, Unit unit) throws IOException {
+    public Edible initDetails(int id, String name, String description, double quantity, Unit unit) throws IOException {
         this.setDBKey(id);
         this.setName(name);
         this.setDescription(description);
@@ -64,7 +64,7 @@ public class Edible {
         return this;
     }
     
-    public Edible initNutrition(int calories, int protein, int carbs, int fat) throws IOException {
+    public Edible initNutrition(double calories, int protein, int carbs, int fat) throws IOException {
         this.setCalories(calories);
         this.setProtein(protein);
         this.setCarbs(carbs);
@@ -188,7 +188,7 @@ public class Edible {
         }
     }
 
-    public void setCalories(int newCalories) throws IOException {
+    public void setCalories(double newCalories) throws IOException {
         if(newCalories <= Constant.ENTRY_MAX_VALUE && newCalories >= Constant.ENTRY_MIN_VALUE) {
             this.calories = newCalories;
         }
@@ -206,7 +206,7 @@ public class Edible {
         }
     }
 
-    public void setBaseQuantity(int newQuantity) throws IOException {
+    public void setBaseQuantity(double newQuantity) throws IOException {
         if (newQuantity <= Constant.ENTRY_MAX_VALUE && newQuantity > Constant.ENTRY_MIN_VALUE) {
             this.baseQuantity = newQuantity;
         }
@@ -246,7 +246,7 @@ public class Edible {
         return this.description;
     }
     
-    public int getCalories() {
+    public double getCalories() {
         return this.calories;
     }
 
@@ -262,7 +262,7 @@ public class Edible {
         return this.baseUnit;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return this.baseQuantity;
     }
 

@@ -132,30 +132,30 @@ public class FragmentDiaryProgress extends Fragment {
             }
         });
 
-        mealDiaryLiveData.getGoalCalories().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        mealDiaryLiveData.getGoalCalories().observe(getViewLifecycleOwner(), new Observer<Double>() {
             @Override
-            public void onChanged(Integer goalCalories) {
-                ((TextView) view.findViewById(R.id.goalCalorie)).setText(goalCalories.toString());
+            public void onChanged(Double goalCalories) {
+                ((TextView) view.findViewById(R.id.goalCalorie)).setText(String.valueOf(goalCalories.intValue()));
             }
         });
 
-        mealDiaryLiveData.getConsumedCalories().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        mealDiaryLiveData.getConsumedCalories().observe(getViewLifecycleOwner(), new Observer<Double>() {
             @Override
-            public void onChanged(Integer foodConsumed) {
-                ((TextView) view.findViewById(R.id.foodConsumed)).setText(foodConsumed.toString());
+            public void onChanged(Double foodConsumed) {
+                ((TextView) view.findViewById(R.id.foodConsumed)).setText(String.valueOf(foodConsumed.intValue()));
             }
         });
 
-        mealDiaryLiveData.getExerciselCalories().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        mealDiaryLiveData.getExerciselCalories().observe(getViewLifecycleOwner(), new Observer<Double>() {
             @Override
-            public void onChanged(Integer exerciseCalories) {
-                ((TextView) view.findViewById(R.id.exerciseProgress)).setText(exerciseCalories.toString());
+            public void onChanged(Double exerciseCalories) {
+                ((TextView) view.findViewById(R.id.exerciseProgress)).setText(String.valueOf(exerciseCalories.intValue()));
             }
         });
 
-        mealDiaryLiveData.getNetCalories().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        mealDiaryLiveData.getNetCalories().observe(getViewLifecycleOwner(), new Observer<Double>() {
             @Override
-            public void onChanged(Integer netCalories) {
+            public void onChanged(Double netCalories) {
                 ((TextView) view.findViewById(R.id.netCalories)).setText(String.valueOf(Math.abs(netCalories.intValue())));
 
                 if (netCalories < 0) {
@@ -166,17 +166,17 @@ public class FragmentDiaryProgress extends Fragment {
             }
         });
 
-        mealDiaryLiveData.getProgressBar().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        mealDiaryLiveData.getProgressBar().observe(getViewLifecycleOwner(), new Observer<Double>() {
             @Override
-            public void onChanged(Integer progressBar) {
-                ((ProgressBar) view.findViewById(R.id.progressBar)).setProgress(progressBar);
+            public void onChanged(Double progressBar) {
+                ((ProgressBar) view.findViewById(R.id.progressBar)).setProgress(progressBar.intValue());
             }
         });
 
-        mealDiaryLiveData.getProgressExcess().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        mealDiaryLiveData.getProgressExcess().observe(getViewLifecycleOwner(), new Observer<Double>() {
             @Override
-            public void onChanged(Integer progressExcess) {
-                ((ProgressBar) view.findViewById(R.id.progressExcess)).setProgress(progressExcess);
+            public void onChanged(Double progressExcess) {
+                ((ProgressBar) view.findViewById(R.id.progressExcess)).setProgress(progressExcess.intValue());
             }
         });
     }

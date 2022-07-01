@@ -2,6 +2,7 @@ package comp3350.team10.objects;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -10,115 +11,166 @@ import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Constant;
 
 public class DailyLog {
-    private int date;                          //The date of this particular log    
+    private final static double MAX_PROGRESS = 100;    //Scales the progress bar (percentage)
+    private final static double MAX_EXCESS = 100;      //How many calories a user can exceed their goal by
+    private Calendar date;                          //The date of this particular log
     private ArrayList<Edible> edibleLog;       //The edibles present in the given log for a given date
-    private int calorieGoal;                   //The calorie goal for a given date 
-    private int exerciseGoal;                  //The calorie goal for exercising for a given date
-    private int exerciseActual;                //The calories burnt while exercising for a given date
-    private int edibleCalories;                //The calorie total for a list of edibles for a given date
+    private double calorieGoal;                   //The calorie goal for a given date
+    private double exerciseGoal;                  //The calorie goal for exercising for a given date
+    private double exerciseActual;                //The calories burnt while exercising for a given date
+    private double edibleCalories;                //The calorie total for a list of edibles for a given date
+    private double progressExcess;            //Represents the overflow of calories on the progress bar
+    private double progressBar;               //Represents the calories on the progress bar
+    private double calorieNet;                    //Represents the consumed calories - exercise calories burnt
 
     public DailyLog() {
-        this.date = -1;
+        this.date = Calendar.getInstance();
         this.edibleLog = null;
         this.calorieGoal = -1;
         this.exerciseGoal = -1;
         this.exerciseActual = 0;
         this.edibleCalories = 0;
+        this.progressExcess = -1;
+        this.progressBar = -1;
+        this.calorieNet = -1;
     }
 
 
-    public DailyLog init(int date, ArrayList<Edible> log, int calGoal, int excGoal, int excActual) throws IOException {
-        this.setDate(date);
-        this.setEdibleList(log);
-        this.setCalorieGoal(calGoal);
-        this.setExerciseGoal(excGoal);
-        this.setExerciseActual(excActual);
-
+    public DailyLog init(Calendar date, ArrayList<Edible> log, int calGoal, int excGoal, int excActual) throws IllegalArgumentException, NullPointerException {
+        try {
+            this.setDate(date);
+            this.setEdibleList(log);
+            this.setCalorieGoal(calGoal);
+            this.setExerciseGoal(excGoal);
+            this.setExerciseActual(excActual);
+            this.updateProgress();
+        } catch (Exception e) {
+            throw e;
+        }
         return this;
     }
 
-    private void setDate(int date) throws IOException {
-        if(date >= 0) {
+    private void setDate(Calendar date) throws NullPointerException {
+        if (date != null) {
             this.date = date;
-        }
-        else {
-            throw new IOException("Invalid date");
+        } else {
+            throw new NullPointerException("DailyLog setDate cannot be null");
         }
     }
 
-    public void setEdibleList(ArrayList<Edible> newLog) throws IOException {
+    public void setEdibleList(ArrayList<Edible> newLog) throws NullPointerException {
         if (newLog != null && newLog.size() >= 0 && !newLog.contains(null)) {
             this.edibleLog = newLog;
             this.calculateEdibleCalories();
-        }
-        else {
-            throw new IOException("Invalid edible log");
+            this.updateProgress();
+        } else {
+            throw new NullPointerException("DailyLog setEdibleList must be initialized and cannot have null elements");
         }
     }
 
-    public void setExerciseActual(Integer newExerciseActual) throws IOException {
-        if (newExerciseActual != null && newExerciseActual >= Constant.ENTRY_MIN_VALUE && newExerciseActual <= Constant.ENTRY_MAX_VALUE) {
+    public void setExerciseActual(double newExerciseActual) throws IllegalArgumentException {
+        if (newExerciseActual >= Constant.ENTRY_MIN_VALUE && newExerciseActual <= Constant.ENTRY_MAX_VALUE) {
             this.exerciseActual = newExerciseActual;
-        }
-        else {
-            throw new IOException("Invalid exercise actual value");
+        } else {
+            throw new IllegalArgumentException("DailyLog setExerciseActual requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
         }
     }
 
-    public void setCalorieGoal(Integer newCalorieGoal) throws IOException {
-        if (newCalorieGoal != null && newCalorieGoal >= Constant.ENTRY_MIN_VALUE && newCalorieGoal <= Constant.ENTRY_MAX_VALUE) {
+    public void setCalorieGoal(double newCalorieGoal) throws IllegalArgumentException {
+        if (newCalorieGoal >= Constant.ENTRY_MIN_VALUE && newCalorieGoal <= Constant.ENTRY_MAX_VALUE) {
             this.calorieGoal = newCalorieGoal;
-        }
-        else {
-            throw new IOException("Invalid calorie goal");
+        } else {
+            throw new IllegalArgumentException("DailyLog setCalorieGoal requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
         }
     }
 
-    public void setExerciseGoal(Integer newExerciseGoal) throws IOException {
-        if (newExerciseGoal != null && newExerciseGoal >= Constant.ENTRY_MIN_VALUE && newExerciseGoal <= Constant.ENTRY_MAX_VALUE) {
+    public void setExerciseGoal(double newExerciseGoal) throws IllegalArgumentException {
+        if (newExerciseGoal >= Constant.ENTRY_MIN_VALUE && newExerciseGoal <= Constant.ENTRY_MAX_VALUE) {
             this.exerciseGoal = newExerciseGoal;
-        }
-        else {
-            throw new IOException("Invalid exercise goal");
+        } else {
+            throw new IllegalArgumentException("DailyLog setExerciseGoal requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
         }
     }
 
-    private void calculateEdibleCalories() throws IOException {
-        int calculatedCalories = 0;
+    public void addEdibleToLog(Edible newEdible) throws NullPointerException {
+        if (newEdible != null) {
+            this.edibleLog.add(newEdible);
+        } else {
+            throw new NullPointerException("DailyLog AddEdibleToLog requires an initialized Edible object");
+        }
 
-        for(int i = 0; i < this.edibleLog.size(); i++) {
+    }
+
+    private void calculateEdibleCalories() {
+        double calculatedCalories = 0;
+
+        for (int i = 0; i < this.edibleLog.size(); i++) {
             calculatedCalories += this.edibleLog.get(i).getCalories();
         }
 
-        if(calculatedCalories >= 0 && calculatedCalories <= Constant.ENTRY_MAX_VALUE) {
-            this.edibleCalories = calculatedCalories;
+        this.edibleCalories = calculatedCalories;
+
+    }
+
+    private void updateProgress() {
+        this.netCalories();
+        this.calcProgress();
+    }
+
+    private void calcProgress() {
+        if (this.calorieNet > 0) {
+            this.progressExcess = 0;
+            this.progressBar = (this.calorieGoal - this.calorieNet) * MAX_PROGRESS / this.calorieGoal;
+        } else {
+            this.progressBar = MAX_PROGRESS;
+            this.progressExcess = -this.calorieNet * MAX_PROGRESS / this.calorieGoal;
+
+            if (this.progressExcess > MAX_EXCESS) {
+                this.progressExcess = MAX_EXCESS;
+            }
         }
-        else {
-            throw new IOException("invalid calorie actual value");
+        if (this.progressBar < 0) {
+            this.progressBar = 0;
         }
+    }
+
+    private void netCalories() {
+        this.calorieNet = this.calorieGoal - (this.edibleCalories - this.exerciseActual);
     }
 
     public ArrayList<Edible> getEdibleList() {
         return this.edibleLog;
     }
 
-    public int getExerciseActual() {
+    public double getExerciseActual() {
         return this.exerciseActual;
     }
 
-    public int getExerciseGoal() {
+    public double getExerciseGoal() {
         return this.exerciseGoal;
     }
 
-    public int getCalorieGoal() {
+    public double getCalorieGoal() {
         return this.calorieGoal;
     }
 
-    public int getEdibleCalories() {
+    public double getEdibleCalories() {
         return this.edibleCalories;
     }
 
-    public int getDate() {
+    public Calendar getDate() {
         return this.date;
+    }
+
+    public double getCalorieNet() {
+        return this.calorieNet;
+    }
+
+    public double getProgressBar() {
+        return this.progressBar;
+    }
+
+    public double getProgressExcess() {
+        return this.progressExcess;
     }
 }

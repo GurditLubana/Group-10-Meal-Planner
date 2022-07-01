@@ -86,9 +86,9 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         Edible currentItem = super.getDataSet().get(position);
 
         itemName.setText(currentItem.getName());
-        itemQty.setText(String.format("%3d", currentItem.getQuantity()));
+        itemQty.setText(String.format("%3.2f", currentItem.getQuantity()));
         itemUnit.setText(currentItem.getUnit().toString());
-        itemCals.setText(String.format("%3d", currentItem.getCalories()));
+        itemCals.setText(String.format("%3d", (int) currentItem.getCalories()));
 
         // Bitmap bmp = BitmapFactory.decodeByteArray(currentItem.getPhotoBytes(), 0,
         // currentItem.getPhotoBytes().length);

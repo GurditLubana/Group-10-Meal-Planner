@@ -19,13 +19,13 @@ public class UnitConverter {
     private Double newCalories = -1.0;  //New calorie amount for the given quantity
     private Double calsPerUnit = 0.0;   //The ratio of calories per unit
 
-    public UnitConverter(Edible.Unit prevUnit, Integer prevQuantity, Integer prevCalories) {
+    public UnitConverter(Edible.Unit prevUnit, Double prevQuantity, Double prevCalories) {
         this.prevUnit = prevUnit;
         this.prevQuantity = prevQuantity.doubleValue();
         this.prevCalories = prevCalories.doubleValue();
     }
 
-    public Integer getCalories(Edible.Unit newUnit, Integer newQuantity) {
+    public Integer getCalories(Edible.Unit newUnit, Double newQuantity) {
         this.newQuantity = newQuantity.doubleValue();
 
         calculateCaloriesPerUnit();

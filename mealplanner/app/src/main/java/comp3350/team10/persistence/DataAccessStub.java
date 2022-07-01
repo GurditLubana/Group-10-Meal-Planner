@@ -1,7 +1,6 @@
 package comp3350.team10.persistence;
 
 
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.ArrayList;
@@ -65,11 +64,10 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             logDay.add(new EdibleLog(this.dbRecipeFood.get(0)).init(10, Edible.Unit.cups));
             logDay.add(new EdibleLog(this.dbRecipeFood.get(1)).init(20, Edible.Unit.g));
             logDay.add(new EdibleLog(this.dbRecipeFood.get(2)).init(30, Edible.Unit.ml));
-            this.dbFoodLog.add(new DailyLog().init(today, logDay, 700, 100, 0));
+            this.dbFoodLog.add(new DailyLog().init(calendar, logDay, 700, 100, 0));
 
             this.sortDBFoodLog();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -77,16 +75,16 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     private Integer calendarToInt(Calendar date) {
         return Integer.parseInt(String.valueOf(date.get(Calendar.YEAR)) + String.valueOf(date.get(Calendar.DAY_OF_YEAR)));
     }
-    
+
     private void sortDBFoodLog() {
         Collections.sort(dbFoodLog, new Comparator<DailyLog>() {
-    
+
             public int compare(DailyLog left, DailyLog right) {
                 int result = 0;
 
-                if (left.getDate() < right.getDate()) {
+                if (calendarToInt(left.getDate()) < calendarToInt(right.getDate())) {
                     result = -1;
-                } else if (left.getDate() < right.getDate()) {
+                } else if (calendarToInt(left.getDate()) > calendarToInt(right.getDate())) {
                     result = 1;
                 }
                 return result;
@@ -99,7 +97,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
 
         try {
-            DrinkIngredient ingredient = (DrinkIngredient)new DrinkIngredient().init(this.dbRecipeFood.get(1), 1.1, Edible.Unit.cups);
+            DrinkIngredient ingredient = (DrinkIngredient) new DrinkIngredient().init(this.dbRecipeFood.get(1), 1.1, Edible.Unit.cups);
             ingredients.add(ingredient);
             ingredients.add(ingredient);
 
@@ -108,21 +106,20 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
                     .initNutrition(100, 30, 45, 25)
                     .initMetadata(false, null)
             );
-            ((Drink)this.dbRecipeDrink.get(0)).setIngredients(ingredients);
+            ((Drink) this.dbRecipeDrink.get(0)).setIngredients(ingredients);
             this.dbRecipeDrink.add(new Drink()
                     .initDetails(2, "Ceasar", "People who siracha in this are gross", 20, Edible.Unit.tbsp)
                     .initNutrition(200, 25, 40, 35)
                     .initMetadata(false, null)
             );
-            ((Drink)this.dbRecipeDrink.get(1)).setIngredients(ingredients);
+            ((Drink) this.dbRecipeDrink.get(1)).setIngredients(ingredients);
             this.dbRecipeDrink.add(new Drink()
                     .initDetails(3, "Mai-Tai", "Also amazing", 30, Edible.Unit.g)
                     .initNutrition(300, 40, 50, 10)
                     .initMetadata(false, null)
             );
-            ((Drink)this.dbRecipeDrink.get(2)).setIngredients(ingredients);
-        }
-        catch(Exception e) {
+            ((Drink) this.dbRecipeDrink.get(2)).setIngredients(ingredients);
+        } catch (Exception e) {
             System.out.println(e);
             System.exit(1);
         }
@@ -156,8 +153,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, null)
             );
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
             System.exit(1);
         }
@@ -177,21 +173,20 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
                     .initNutrition(100, 30, 45, 25)
                     .initMetadata(false, null)
             );
-            ((Meal)this.dbRecipeMeal.get(0)).setIngredients(ingredients);
+            ((Meal) this.dbRecipeMeal.get(0)).setIngredients(ingredients);
             this.dbRecipeMeal.add(new Meal()
                     .initDetails(9, "meal2", "desc", 20, Edible.Unit.oz)
                     .initNutrition(200, 25, 40, 35)
                     .initMetadata(false, null)
             );
-            ((Meal)this.dbRecipeMeal.get(1)).setIngredients(ingredients);
+            ((Meal) this.dbRecipeMeal.get(1)).setIngredients(ingredients);
             this.dbRecipeMeal.add(new Meal()
                     .initDetails(10, "Another meal!", "desc", 30, Edible.Unit.cups)
                     .initNutrition(300, 40, 50, 10)
                     .initMetadata(false, null)
             );
-            ((Meal)this.dbRecipeMeal.get(2)).setIngredients(ingredients);
-        }
-        catch(Exception e) {
+            ((Meal) this.dbRecipeMeal.get(2)).setIngredients(ingredients);
+        } catch (Exception e) {
             System.out.println(e);
             System.exit(1);
         }
@@ -232,7 +227,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         System.out.println("Closed " + this.dbType + " database " + this.dbName);
     }
 
-   
+
     //This section implements UserDBInterface'
     public void addUser(String name, int height, int weight) {
         System.out.println("Service not implemented yet");
@@ -265,8 +260,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
                 currEntry.setCalorieGoal(goal);
                 this.dbFoodLog.add(i, currEntry);
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
             System.exit(1);
         }
@@ -287,8 +281,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
                 currEntry.setCalorieGoal(goal);
                 this.dbFoodLog.add(i, currEntry);
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
             System.exit(1);
         }
@@ -296,13 +289,12 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
     public void setExerciseActual(int exerciseActual, Calendar date) {
         DailyLog currEntry = searchFoodLogByDate(date);
-        
+
         try {
             this.dbFoodLog.remove(currEntry);
             currEntry.setExerciseActual(exerciseActual);
             this.dbFoodLog.add(currEntry);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
             System.exit(1);
         }
@@ -312,7 +304,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     //This section implements RecipeDBInterface
     public ArrayList<Edible> getFoodRecipes() {
         ArrayList<Edible> currFood = new ArrayList<Edible>();
-        
+
         currFood.addAll(this.dbRecipeFood);
 
         return currFood;
@@ -320,7 +312,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
     public ArrayList<Edible> getMealRecipes() {
         ArrayList<Edible> currMeals = new ArrayList<Edible>();
-        
+
         currMeals.addAll(this.dbRecipeMeal);
 
         return currMeals;
@@ -328,7 +320,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
     public ArrayList<Edible> getDrinkRecipes() {
         ArrayList<Edible> currDrinks = new ArrayList<Edible>();
-        
+
         currDrinks.addAll(this.dbRecipeDrink);
 
         return currDrinks;
@@ -359,7 +351,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         DailyLog foundLog = null;
 
         for (int i = 0; i < this.dbFoodLog.size() && foundLog == null; i++) {
-            if (intDate.intValue() == this.dbFoodLog.get(i).getDate()) {
+            if (intDate.intValue() == calendarToInt(this.dbFoodLog.get(i).getDate()).intValue()) {
                 foundLog = dbFoodLog.get(i);
             }
         }
@@ -368,13 +360,13 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     }
 
     public void addLog(DailyLog newLog) {
-        if(this.dbFoodLog != null) {
+        if (this.dbFoodLog != null) {
             this.dbFoodLog.add(newLog);
         }
     }
 
     public void deleteLog(DailyLog delLog) {
-        if(this.dbFoodLog != null) {
+        if (this.dbFoodLog != null) {
             this.dbFoodLog.remove(delLog);
         }
     }

@@ -3,6 +3,7 @@ package comp3350.team10.presentation;
 import comp3350.team10.R;
 import comp3350.team10.business.MealDiaryOps;
 import comp3350.team10.business.UnitConverter;
+import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
 
@@ -34,6 +35,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     private MealDiaryLiveData mealDiaryData;    //Enables persistent data
     private RecyclerView mealRecyclerView;      //Houses a recycle view for diary entries
     private MealDiaryOps opExec;                //Business logic for MealDiary
+    private DailyLog currLog;
     private Toolbar toolbar;                    //app title
     private Edible addButton;
     private Edible modifyLog;
@@ -222,7 +224,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             this.recyclerViewAdapter.notifyItemRemoved(pos);
             this.recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
             this.recyclerViewAdapter.notifyDataSetChanged();
-            this.opExec.updateList(this.data);
+            this.currLog.setEdibleList(data);
+            this.opExec.logChangedUpdateDB();
             this.updateLiveData();
         }
     }
@@ -236,19 +239,20 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     public void updateLiveData() {
         if (this.mealDiaryData != null && this.opExec != null) {
-            this.data = this.opExec.getList();
+            this.currLog = this.opExec.getCurrLog();
+            this.data = this.currLog.getEdibleList();
 
             if (!this.data.contains(this.addButton)) {
                 this.data.add(this.addButton);
             }
 
-            this.mealDiaryData.getActivityDate().setValue(this.opExec.getListDate());
-            this.mealDiaryData.getGoalCalories().setValue(this.opExec.getCalorieGoal());
-            this.mealDiaryData.getConsumedCalories().setValue(this.opExec.getCurrLog().getEdibleCalories());
-            this.mealDiaryData.getExerciselCalories().setValue(this.opExec.getCurrLog().getExerciseActual());
-            this.mealDiaryData.getNetCalories().setValue(this.opExec.getCalorieNet());
-            this.mealDiaryData.getProgressBar().setValue(this.opExec.getProgressBar());
-            this.mealDiaryData.getProgressExcess().setValue(this.opExec.getProgressExcess());
+            this.mealDiaryData.getActivityDate().setValue(this.currLog.getDate());
+            this.mealDiaryData.getGoalCalories().setValue(this.currLog.getCalorieGoal());
+            this.mealDiaryData.getConsumedCalories().setValue(this.currLog.getEdibleCalories());
+            this.mealDiaryData.getExerciselCalories().setValue(this.currLog.getExerciseActual());
+            this.mealDiaryData.getNetCalories().setValue(this.currLog.getCalorieNet());
+            this.mealDiaryData.getProgressBar().setValue(this.currLog.getProgressBar());
+            this.mealDiaryData.getProgressExcess().setValue(this.currLog.getProgressExcess());
         }
 
         if (this.recyclerViewAdapter != null) {
@@ -269,7 +273,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     @Override
-    public void setEntryQty(Integer amount, String unit) {
+    public void setEntryQty(Double amount, String unit) {
         EdibleLog selectedItem = null;
         UnitConverter converter = null;
 
@@ -282,7 +286,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                 selectedItem.setCalories();
 
                 this.showContextUI(-1);
-                this.opExec.updateList(data);
+                this.currLog.setEdibleList(data);
+                this.opExec.logChangedUpdateDB();
                 this.updateLiveData();
             }
         } catch (Exception e) {
@@ -296,19 +301,31 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     @Override
-    public void setExerciseCalories(Integer value) {
-        this.opExec.setCalorieExercise(value);
+    public void setExerciseCalories(Double value) {
+        try {
+            this.currLog.setExerciseActual(value);
+        }
+        catch (Exception e){
+            System.out.println(e);
+            System.exit(1);
+        }
         this.updateLiveData();
     }
 
     @Override
     public String getGoalCalories() {
-        return "" + opExec.getCalorieGoal();
+        return "" + this.currLog.getCalorieGoal();
     }
 
     @Override
-    public void setGoalCalories(Integer value) { //only on current day
-        this.opExec.setCalorieGoal(value);
+    public void setGoalCalories(Double value) { //only on current day
+        try {
+        this.currLog.setCalorieGoal(value);
+        }
+        catch (Exception e){
+            System.out.println(e);
+            System.exit(1);
+        }
         this.updateLiveData();
     }
 

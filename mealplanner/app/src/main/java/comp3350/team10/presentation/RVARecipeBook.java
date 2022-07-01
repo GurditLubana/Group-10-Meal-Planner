@@ -91,7 +91,7 @@ public class RVARecipeBook extends RecyclerViewAdapter {
         }
 
         textDesc.setText(currentFood.getName());
-        mealCalories.setText(Integer.toString(currentFood.getCalories()));
+        mealCalories.setText(String.format("%3d", (int) currentFood.getCalories()));
     }
 
     private void setCardSelectionListeners(ViewHolder viewHolder, int position) {
