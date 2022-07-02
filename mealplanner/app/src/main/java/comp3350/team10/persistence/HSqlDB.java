@@ -17,6 +17,7 @@ import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 import java.util.List;
 
+import comp3350.team10.application.Main;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.DrinkIngredient;
@@ -28,10 +29,10 @@ import comp3350.team10.objects.User;
 
 public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterface {
     private static final String SHUTDOWN_CMD = "shutdown compact";
-    private Connection currConn;//jdbc:hsqldb:file:D:/Eatdatabase/db.script
-    private Statement reqHandler;//
-    private String dbPath = "jdbc:hsqldb:mem:db/db;hsqldb.lock_file=false";
-    private String dbName = "Superior DB";
+    private Connection currConn;
+    private Statement reqHandler;
+    private String dbPath = "jdbc:hsqldb:file:" + Main.getDBPathName(); // stored on disk mode
+    private String dbName;
     private String dbType = "HSQL";
 
     public HSqlDB() {
@@ -55,8 +56,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             System.out.println("Opened " + this.dbType + " database named " + this.dbName + " @dbPath " + this.dbPath);
         }
         catch(Exception e) {
-            System.out.println(e);
-            System.out.println("hsqldb open");
+            System.out.println("hsqldb open " + e);
             //System.exit(1);
         }
     }
@@ -73,9 +73,8 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             }
         }
         catch (Exception e) {
-            System.out.println(e);
-            System.out.println("close");
-            System.exit(1);
+            System.out.println("hsqldb close " + e);
+            //System.exit(1);
         }
     }
 
@@ -850,7 +849,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         System.out.println("YEs");
         User currUser = null;
         try {
-            PreparedStatement getUser = currConn.prepareStatement("SELECT * FROM User");
+            PreparedStatement getUser = currConn.prepareStatement("SELECT * FROM user");
             ResultSet results = getUser.executeQuery();
             System.out.println(results);
             int userID, height, weight, calorieGoal, exerciseGoal;
