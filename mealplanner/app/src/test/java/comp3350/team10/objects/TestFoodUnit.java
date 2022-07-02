@@ -277,13 +277,13 @@ package comp3350.team10.objects;
 		 }
 		 @Test
 		 void testLeftEdge(){ // input is equal to minimum
-		testIntWithInput(testFood,Constant.ENTRY_MIN_VALUE);
+		testIntWithInput(testFood,0);
 		 }
 
 
 		 @Test
 		 void testRightEdge(){ // input is equal to MAX
-			 testIntWithInput(testFood,Constant.ENTRY_MAX_VALUE);
+			 testIntWithInput(testFood,9999);
 		 }
 
 		 @Test
