@@ -1,5 +1,6 @@
-//create by zhihao Zhou
-// 2022/6/29
+//create by Zhihao Zhou
+// 2022/7/2
+// have test simple,complex,empty,edge and invalid
 
 package comp3350.team10.objects;
 
@@ -328,6 +329,154 @@ package comp3350.team10.objects;
 			 }
 		 }
 	 }
+
+
+ 	@Nested
+ 	@DisplayName("Invalid tests")
+ 	class Test_Invalid {
+		private Food testFood;
+
+		@BeforeEach
+		void setUp() {
+			testFood = new Food();
+		}
+
+		@Test
+		void testSetDbkey()
+		{
+			try {
+				testFood.initDetails(-1, "food", "lala", 5, Unit.cups);
+				fail("Should throw IO exception, id <0 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid DB key",e.getMessage());
+			}
+		}
+
+		@Test
+		void testSetProtein()
+		{
+			try {
+				testFood.setProtein(-1);
+				fail("Should throw IO exception, Protein <0 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid protein value",e.getMessage());
+			}
+
+			try {
+				testFood.setProtein(10000);
+				fail("Should throw IO exception, Protein >9999 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid protein value",e.getMessage());
+			}
+		}
+
+		@Test
+		void testSetFat()
+		{
+			try {
+				testFood.setFat(-1);
+				fail("Should throw IO exception, Fat <0 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid fat value",e.getMessage());
+			}
+
+			try {
+				testFood.setFat(10000);
+				fail("Should throw IO exception, Fat > 9999 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid fat value",e.getMessage());
+			}
+		}
+
+		@Test
+		void testSetCarbs()
+		{
+			try {
+				testFood.setCarbs(-1);
+				fail("Should throw IO exception, Carbs <0 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid carb value",e.getMessage());
+			}
+
+			try {
+				testFood.setCarbs(10000);
+				fail("Should throw IO exception, Carbs > 9999 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid carb value",e.getMessage());
+			}
+		}
+
+		@Test
+		void testSetCalories()
+		{
+			try {
+				testFood.setCalories(-1);
+				fail("Should throw IO exception, Calories <0 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid calorie value",e.getMessage());
+			}
+
+			try {
+				testFood.setCalories(10000);
+				fail("Should throw IO exception, Calories > 9999 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid calorie value",e.getMessage());
+			}
+		}
+
+		@Test
+		void testSetBaseQuantity()
+		{
+			try {
+				testFood.setBaseQuantity(-1);
+				fail("Should throw IO exception, BaseQuantity <0 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid quantity",e.getMessage());
+			}
+
+			try {
+				testFood.setBaseQuantity(10000);
+				fail("Should throw IO exception, BaseQuantity > 9999 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid quantity",e.getMessage());
+			}
+		}
+
+
+	}
 
  }
 
