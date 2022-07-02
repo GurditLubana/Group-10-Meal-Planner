@@ -21,8 +21,8 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
     
 
     DBSelector() { //Creates both databases then points all interfaces towards hsql
-        //startHsqlDB();
-        startStubDB();
+        startHsqlDB();
+        //startStubDB();
     }
 
     public void startHsqlDB() {
@@ -40,6 +40,15 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
         this.recipeDB = this.stub;
         this.userDB = this.stub;
         this.logDB = this.stub;
+    }
+
+    public void close(){
+        if(this.hsql != null){
+            this.hsql.close();
+        }
+        else if (this.stub != null){
+            this.stub.close();
+        }
     }
     
 
