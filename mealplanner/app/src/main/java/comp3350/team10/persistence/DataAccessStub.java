@@ -362,11 +362,19 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
 
         if( foundLog == null ){
-            foundLog = new DailyLog().init(date, new ArrayList<Edible>(), 1500, 600, 0);
-
+            foundLog = new DailyLog().init(date, new ArrayList<Edible>(), this.getUserCalorieGoal(userID), this.getUserExerciseGoal(userID), 0);
+            this.dbFoodLog.add(foundLog);
         }
 
         return foundLog;
+    }
+
+    private double getUserCalorieGoal(int userID) {
+        return this.currUser.getCalorieGoal();
+    }
+
+    private double getUserExerciseGoal(int userID) {
+        return this.currUser.getExerciseGoal();
     }
 
     public void addLog(DailyLog newLog, int userID) {
