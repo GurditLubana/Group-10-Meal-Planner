@@ -15,6 +15,7 @@
 
  import java.util.ArrayList;
  import java.util.Calendar;
+ import java.util.NoSuchElementException;
 
  public class TestDailyLogUnit {
 
@@ -564,7 +565,7 @@
              }
 
              @Test
-             @DisplayName("we can set calorie goal to zero and get correct progress")
+             @DisplayName("we can init calorie goal to zero and get correct progress")
              void testInitCalorieGoalZero() {
                  Calendar newDate = Calendar.getInstance();
                  newDate.set(2021, 12, 1);
@@ -587,7 +588,7 @@
              }
 
              @Test
-             @DisplayName("we can set exercise goal to zero and get correct progress")
+             @DisplayName("we can init exercise goal to zero and get correct progress")
              void testInitExerciseGoalZero() {
                  Calendar newDate = Calendar.getInstance();
                  newDate.set(2021, 12, 1);
@@ -610,7 +611,7 @@
              }
 
              @Test
-             @DisplayName("we can set exercise goal to zero and get correct progress")
+             @DisplayName("we can init exercise actual to zero and get correct progress")
              void testInitExerciseActualZero() {
                  Calendar newDate = Calendar.getInstance();
                  newDate.set(2021, 12, 1);
@@ -633,7 +634,7 @@
              }
 
              @Test
-             @DisplayName("we can set everything to zero and get correct progress")
+             @DisplayName("we can init everything to zero and get correct progress")
              void testInitSetEverythingZero() {
                  ArrayList<Edible> edibleList = new ArrayList<Edible>();
                  Calendar newDate = Calendar.getInstance();
@@ -666,7 +667,7 @@
              }
 
              @Test
-             @DisplayName("setDate should take typical values")
+             @DisplayName("we can set calorie goal to zero and get correct progress")
              void testCalorieGoalZero() {
                  setTestLog();
                  testLog.setCalorieGoal(0);
@@ -683,7 +684,7 @@
              }
 
              @Test
-             @DisplayName("setDate should take typical values")
+             @DisplayName("we can set exercise goal to zero and get correct progress")
              void testExerciseGoalZero() {
                  setTestLog();
                  testLog.setExerciseGoal(0);
@@ -700,7 +701,7 @@
              }
 
              @Test
-             @DisplayName("setDate should take typical values")
+             @DisplayName("we can set exercise actual to zero and get correct progress")
              void testExerciseActualZero() {
                  setTestLog();
                  testLog.setExerciseActual(0);
@@ -731,6 +732,12 @@
                  currDate = Calendar.getInstance();
                  edibleList = new ArrayList<Edible>();
                  seedEdibleList();
+                 try {
+                     testLog.init(currDate, edibleList, 1400, 600, 200);
+                 }
+                 catch(Exception e) {
+                     System.out.println(e);
+                 }
              }
 
              void seedEdibleList() {
@@ -761,30 +768,57 @@
                      System.out.println(e);
                  }
              }
-         }
 
-         @Test
-         @DisplayName("setDate should take typical values")
-         void testEdibleList() {
+             @Test
+             @DisplayName("we can set calorie goal to upper limit and get correct progress")
+             void testCalorieGoalUpperLimit() {
+                 testLog.setCalorieGoal(Constant.ENTRY_MAX_VALUE);
+                 assertEquals(currDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
+                 assertEquals(currDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
+                 assertEquals(currDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
+                 assertEquals(Constant.ENTRY_MAX_VALUE, testLog.getCalorieGoal());
+                 assertEquals(600, testLog.getExerciseGoal());
+                 assertEquals(200, testLog.getExerciseActual());
+                 assertEquals(900, testLog.getEdibleCalories());
+                 assertEquals(0, testLog.getProgressExcess());
+                 assertEquals(7, (int) testLog.getProgressBar());
+                 assertEquals(9299, testLog.getCalorieNet());
 
-         }
+             }
 
-         @Test
-         @DisplayName("setDate should take typical values")
-         void testCalorieGoal() {
+             @Test
+             @DisplayName("we can set exercise goal to upper limit and get correct progress")
+             void testExerciseGoalUpperLimit() {
+                 testLog.setExerciseGoal(Constant.ENTRY_MAX_VALUE);
+                 assertEquals(currDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
+                 assertEquals(currDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
+                 assertEquals(currDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
+                 assertEquals(1400, testLog.getCalorieGoal());
+                 assertEquals(Constant.ENTRY_MAX_VALUE, testLog.getExerciseGoal());
+                 assertEquals(200, testLog.getExerciseActual());
+                 assertEquals(900, testLog.getEdibleCalories());
+                 assertEquals(0, testLog.getProgressExcess());
+                 assertEquals(50, testLog.getProgressBar());
+                 assertEquals(700, testLog.getCalorieNet());
 
-         }
+             }
 
-         @Test
-         @DisplayName("setDate should take typical values")
-         void testExerciseGoal() {
+             @Test
+             @DisplayName("we can set exercise actual to upper limit and get correct progress")
+             void testExerciseActualUpperLimit() {
+                 testLog.setExerciseActual(Constant.ENTRY_MAX_VALUE);
+                 assertEquals(currDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
+                 assertEquals(currDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
+                 assertEquals(currDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
+                 assertEquals(1400, testLog.getCalorieGoal());
+                 assertEquals(600, testLog.getExerciseGoal());
+                 assertEquals(Constant.ENTRY_MAX_VALUE, testLog.getExerciseActual());
+                 assertEquals(900, testLog.getEdibleCalories());
+                 assertEquals(0, testLog.getProgressExcess());
+                 assertEquals(0, testLog.getProgressBar());
+                 assertEquals(10499, testLog.getCalorieNet());
 
-         }
-
-         @Test
-         @DisplayName("setDate should take typical values")
-         void testExerciseActual() {
-
+             }
          }
      }
 
@@ -832,291 +866,144 @@
              }
          }
 
-         @Test
-         @DisplayName("object state at construction")
-         void testDefaultValues() {
-             assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testLog.getDate().get(Calendar.DAY_OF_YEAR));
-             assertEquals(currDate.get(Calendar.YEAR), testLog.getDate().get(Calendar.YEAR));
-             assertEquals(currDate.get(Calendar.MONTH), testLog.getDate().get(Calendar.MONTH));
-             assertNull(testLog.getEdibleList());
-             assertEquals(-1, testLog.getCalorieGoal());
-             assertEquals(-1, testLog.getExerciseGoal());
-             assertEquals(0, testLog.getExerciseActual());
-             assertEquals(0, testLog.getEdibleCalories());
-             assertEquals(-1, testLog.getProgressExcess());
-             assertEquals(-1, testLog.getProgressBar());
-             assertEquals(-1, testLog.getCalorieNet());
-         }
-
-         @Test
-         @DisplayName("init should take typical values")
-         void testInit() {
-             Calendar newDate = Calendar.getInstance();
-             newDate.set(2021, 12, 1);
+         private void setTestLog(){
              try {
-                 testLog.init(newDate, edibleList, 1400, 600, 200);
-             } catch (Exception e) {
+                 testLog.init(currDate, edibleList, 1400, 600, 200);
+             }
+             catch(Exception e) {
                  System.out.println(e);
              }
-             assertEquals(newDate.get(Calendar.DAY_OF_YEAR), testLog.getDate().get(Calendar.DAY_OF_YEAR));
-             assertEquals(newDate.get(Calendar.YEAR), testLog.getDate().get(Calendar.YEAR));
-             assertEquals(newDate.get(Calendar.MONTH), testLog.getDate().get(Calendar.MONTH));
-             assertEquals(edibleList, testLog.getEdibleList());
-             assertEquals(1400, testLog.getCalorieGoal());
-             assertEquals(600, testLog.getExerciseGoal());
-             assertEquals(200, testLog.getExerciseActual());
-             assertEquals(900, testLog.getEdibleCalories());
-             assertEquals(0, testLog.getProgressExcess());
-             assertEquals(50, testLog.getProgressBar());
-             assertEquals(700, testLog.getCalorieNet());
          }
 
-         @Test
-         @DisplayName("setDate should take typical values")
-         void testSetDate() {
+         @Nested
+         @DisplayName("Null should fail")
+         class DailyLogFailNull {
+             @Test
+             @DisplayName("init null date")
+             void testInitNullDate() {
+                 assertThrows(NullPointerException.class, () -> {
+                     testLog.init(null, edibleList, 1400, 600, 200);
+                 });
+             }
+
+             @Test
+             @DisplayName("init null list")
+             void testInitNullList() {
+                 assertThrows(NullPointerException.class, () -> {
+                     testLog.init(currDate, null, 1400, 600, 200);
+                 });
+             }
+
+             @Test
+             @DisplayName("set null list")
+             void testSetNullList() {
+                 setTestLog();
+                 assertThrows(NullPointerException.class, () -> {
+                     testLog.setEdibleList(null);
+                 });
+             }
+         }
+
+         @Nested
+         @DisplayName("Negative should fail")
+         class DailyLogFailNegative {
+             @Test
+             @DisplayName("init negative calorie goal")
+             void testInitNegativeCalorieGoal() {
+                 assertThrows(IllegalArgumentException.class, () -> {
+                     testLog.init(currDate, edibleList, -1400, 600, 200);
+                 });
+             }
+             @Test
+             @DisplayName("init negative exercise goal")
+             void testInitNegativeExerciseGoal() {
+                 assertThrows(IllegalArgumentException.class, () -> {
+                     testLog.init(currDate, edibleList, 1400, -600, 200);
+                 });
+             }
+             @Test
+             @DisplayName("init negative exercise actual")
+             void testInitNegativeExerciseActual() {
+                 assertThrows(IllegalArgumentException.class, () -> {
+                     testLog.init(currDate, edibleList, 1400, 600, -200);
+                 });
+             }
+             @Test
+             @DisplayName("Set negative calorie goal")
+             void testSetNegativeCalorieGoal() {
+                 setTestLog();
+                 assertThrows(IllegalArgumentException.class, () -> {
+                     testLog.setCalorieGoal(-1);
+                 });
+             }
+             @Test
+             @DisplayName("init negative exercise goal")
+             void testSetNegativeExerciseGoal() {
+                 setTestLog();
+                 assertThrows(IllegalArgumentException.class, () -> {
+                     testLog.setExerciseGoal(-1);
+                 });
+             }
+             @Test
+             @DisplayName("init negative exercise actual")
+             void testSetNegativeExerciseActual() {
+                 setTestLog();
+                 assertThrows(IllegalArgumentException.class, () -> {
+                     testLog.setExerciseActual(-1);
+                 });
+             }
 
          }
 
-         @Test
-         @DisplayName("setDate should take typical values")
-         void testEdibleList() {
-
-         }
-
-         @Test
-         @DisplayName("setDate should take typical values")
-         void testCalorieGoal() {
-
-         }
-
-         @Test
-         @DisplayName("setDate should take typical values")
-         void testExerciseGoal() {
-
-         }
-
-         @Test
-         @DisplayName("setDate should take typical values")
-         void testExerciseActual() {
-
+         @Nested
+         @DisplayName("Beyond Upper Limit should fail")
+         class DailyLogFailPastUpper {
+             @Test
+             @DisplayName("init too high calorie goal")
+             void testInitTooHighCalorieGoal() {
+                 assertThrows(IllegalArgumentException.class, () -> {
+                     testLog.init(currDate, edibleList, Constant.ENTRY_MAX_VALUE + 1, 600, 200);
+                 });
+             }
+             @Test
+             @DisplayName("init too high exercise goal")
+             void testInitTooHighExerciseGoal() {
+                 assertThrows(IllegalArgumentException.class, () -> {
+                     testLog.init(currDate, edibleList, 1400, Constant.ENTRY_MAX_VALUE + 1, 200);
+                 });
+             }
+             @Test
+             @DisplayName("init too high exercise actual")
+             void testInitTooHighExerciseActual() {
+                 assertThrows(IllegalArgumentException.class, () -> {
+                     testLog.init(currDate, edibleList, 1400, 600, Constant.ENTRY_MAX_VALUE + 1);
+                 });
+             }
+             @Test
+             @DisplayName("Set too high calorie goal")
+             void testSetTooHighCalorieGoal() {
+                 setTestLog();
+                 assertThrows(IllegalArgumentException.class, () -> {
+                     testLog.setCalorieGoal(Constant.ENTRY_MAX_VALUE + 1);
+                 });
+             }
+             @Test
+             @DisplayName("init too high exercise goal")
+             void testSetTooHighExerciseGoal() {
+                 setTestLog();
+                 assertThrows(IllegalArgumentException.class, () -> {
+                     testLog.setExerciseGoal(Constant.ENTRY_MAX_VALUE + 1);
+                 });
+             }
+             @Test
+             @DisplayName("init too high exercise actual")
+             void testSetTooHighExerciseActual() {
+                 setTestLog();
+                 assertThrows(IllegalArgumentException.class, () -> {
+                     testLog.setExerciseActual(Constant.ENTRY_MAX_VALUE + 1);
+                 });
+             }
+             
          }
      }
-//     @Nested
-//     @DisplayName("Complex tests")
-//     class Test_Complex {
-//         private DailyLog testLog;
-//
-//         @BeforeEach
-//         void setup(){
-//             testLog = new DailyLog();
-//         }
-//
-//         @Test
-//         void testLogOverriding() {
-//             ArrayList<Edible> logs = new ArrayList<Edible>();
-//             logs.add(new Drink());
-//             logs.add(new Drink());
-//
-//             assertTrue(testLog.init(5, 100, 50, 1, logs));
-//
-//             logs = new ArrayList<Edible>();
-//             logs.add(new Drink());
-//             logs.add(new Drink());
-//             logs.add(new Drink());
-//
-//             assertEquals(testLog.getFoodList().size(), 2);
-//
-//             assertTrue(testLog.setFoodList(logs));
-//             for(int i = 0; i < testLog.getFoodList().size(); i++) {
-//                 assertNotNull(testLog.getFoodList().get(i));
-//             }
-//
-//             assertEquals(testLog.getFoodList().size(), 3);
-//         }
-//
-//         @Test
-//         void testSetAVarietyOfEdiblesLog() {
-//             ArrayList<Edible> logs = new ArrayList<Edible>();
-//             logs.add(new Drink());
-//             logs.add(new Meal());
-//             logs.add(new Food());
-//
-//             assertTrue(testLog.setFoodList(logs));
-//             for(int i = 0; i < testLog.getFoodList().size(); i++) {
-//                 assertNotNull(testLog.getFoodList().get(i));
-//             }
-//
-//             assertEquals(testLog.getFoodList().size(), 3);
-//         }
-//
-//         @Test
-//         void testLongFoodLog() {
-//             ArrayList<Edible> logs = new ArrayList<Edible>();
-//             logs.add(new Meal());
-//             logs.add(new Meal());
-//             logs.add(new Meal());
-//             logs.add(new Meal());
-//             logs.add(new Meal());
-//             logs.add(new Meal());
-//             logs.add(new Meal());
-//             logs.add(new Meal());
-//             logs.add(new Meal());
-//
-//             assertTrue(testLog.setFoodList(logs));
-//             for(int i = 0; i < testLog.getFoodList().size(); i++) {
-//                 assertNotNull(testLog.getFoodList().get(i));
-//             }
-//
-//             assertEquals(testLog.getFoodList().size(), 9);
-//         }
-//
-//         @Test
-//         void testSetExcerciseActual() {
-//             assertTrue(testLog.setExcActual(500));
-//             assertTrue(testLog.setExcActual(50));
-//             assertTrue(testLog.setExcActual(900));
-//         }
-//
-//         @Test
-//         void testSetCalGoal() {
-//             assertTrue(testLog.setCalGoal(500));
-//             assertTrue(testLog.setCalGoal(50));
-//             assertTrue(testLog.setCalGoal(900));
-//         }
-//
-//         @Test
-//         void testSetExcerciseGoal() {
-//             assertTrue(testLog.setExcGoal(500));
-//             assertTrue(testLog.setExcGoal(50));
-//             assertTrue(testLog.setExcGoal(900));
-//         }
-//     }
-//     @Nested
-//     @DisplayName("Empty tests")
-//     class Test_Empty {
-//         private DailyLog testLog;
-//
-//         @BeforeEach
-//         void setup() {
-//             testLog = new DailyLog();
-//         }
-//
-//         @Test
-//         void testLogCreation() {
-//             assertFalse(testLog.init(null, 0, 0, 0, null));
-//             assertFalse(testLog.init(null, 0, 0, 0, new ArrayList<Edible>()));
-//         }
-//
-//         @Test
-//         void testSetFoodList() {
-//             assertFalse(testLog.setFoodList(null));
-//             assertFalse(testLog.setFoodList(new ArrayList<Edible>()));
-//         }
-//
-//         @Test
-//         void testNullInsideFoodList() {
-//             ArrayList<Edible> newLog = new ArrayList<Edible>();
-//             newLog.add(new Meal());
-//             newLog.add(null);
-//             newLog.add(new Meal());
-//
-//             assertFalse(testLog.setFoodList(newLog));
-//         }
-//
-//         @Test
-//         void testSetExcerciseActual() {
-//             assertTrue(testLog.setExcActual(0));
-//         }
-//
-//         @Test
-//         void testSetCalGoal() {
-//             assertTrue(testLog.setCalGoal(0));
-//         }
-//
-//         @Test
-//         void testSetExcerciseGoal() {
-//             assertTrue(testLog.setExcGoal(0));
-//         }
-//
-//     }
-//     @Nested
-//     @DisplayName("Edge case tests")
-//     class Test_EdgeCases {
-//         private DailyLog testLog;
-//
-//         @BeforeEach
-//         void setup(){
-//             testLog = new DailyLog();
-//         }
-//
-//         @Test
-//         void testBasicLogCreation() {
-//             ArrayList<Edible> newLog = new ArrayList<Edible>();
-//             newLog.add(new Food());
-//
-//             assertTrue(testLog.init(0, 0, 0, 0, newLog));
-//             assertTrue(testLog.init(0, Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, newLog));
-//         }
-//
-//         @Test
-//         void testSetExcerciseActual() {
-//             assertTrue(testLog.setExcActual(0));
-//             assertTrue(testLog.setExcActual(Constant.ENTRY_MAX_VALUE));
-//         }
-//
-//         @Test
-//         void testSetCalGoal() {
-//             assertTrue(testLog.setCalGoal(0));
-//             assertTrue(testLog.setCalGoal(Constant.ENTRY_MAX_VALUE));
-//         }
-//
-//         @Test
-//         void testSetExcerciseGoal() {
-//             assertTrue(testLog.setExcGoal(0));
-//             assertTrue(testLog.setExcGoal(Constant.ENTRY_MAX_VALUE));
-//         }
-//     }
-//
-//     @Nested
-//     @DisplayName("Invalid tests")
-//     class Test_Invalid {
-//         private DailyLog testLog;
-//
-//         @BeforeEach
-//         void setup(){
-//             testLog = new DailyLog();
-//         }
-//
-//         @Test
-//         void testBasicLogCreation() {
-//             assertFalse(testLog.init(-1, 20, 20, 20, new ArrayList<Edible>()));
-//             assertFalse(testLog.init(null, 20, 20, 20, new ArrayList<Edible>()));
-//             assertFalse(testLog.init(20, -1, 20, 20, new ArrayList<Edible>()));
-//             assertFalse(testLog.init(20, Constant.ENTRY_MAX_VALUE + 1, 20, 20, new ArrayList<Edible>()));
-//             assertFalse(testLog.init(20, 20, -1, 20, new ArrayList<Edible>()));
-//             assertFalse(testLog.init(20, 20, Constant.ENTRY_MAX_VALUE + 1, 20, new ArrayList<Edible>()));
-//             assertFalse(testLog.init(20, 20, 5, -1, new ArrayList<Edible>()));
-//             assertFalse(testLog.init(20, 20, 20, Constant.ENTRY_MAX_VALUE + 1, new ArrayList<Edible>()));
-//             assertFalse(testLog.init(-1, Constant.ENTRY_MAX_VALUE + 1, Constant.ENTRY_MAX_VALUE + 1, Constant.ENTRY_MAX_VALUE + 1, null));
-//             assertFalse(testLog.init(-1, -1, -1, -1, null));
-//         }
-//
-//         @Test
-//         void testSetExcerciseActual() {
-//             assertFalse(testLog.setExcActual(-1));
-//             assertFalse(testLog.setExcActual(Constant.ENTRY_MAX_VALUE + 1));
-//         }
-//
-//         @Test
-//         void testSetCalGoal() {
-//             assertFalse(testLog.setCalGoal(-1));
-//             assertFalse(testLog.setCalGoal(Constant.ENTRY_MAX_VALUE + 1));
-//         }
-//
-//         @Test
-//         void testSetExcerciseGoal() {
-//             assertFalse(testLog.setExcGoal(-1));
-//             assertFalse(testLog.setExcGoal(Constant.ENTRY_MAX_VALUE + 1));
-//         }
-//     }
  }
