@@ -390,49 +390,377 @@
              }
          }
 
-         @Test
-         @DisplayName("object state at construction")
-         void testDefaultValues() {
-             assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testLog.getDate().get(Calendar.DAY_OF_YEAR));
-             assertEquals(currDate.get(Calendar.YEAR), testLog.getDate().get(Calendar.YEAR));
-             assertEquals(currDate.get(Calendar.MONTH), testLog.getDate().get(Calendar.MONTH));
-             assertNull(testLog.getEdibleList());
-             assertEquals(-1, testLog.getCalorieGoal());
-             assertEquals(-1, testLog.getExerciseGoal());
-             assertEquals(0, testLog.getExerciseActual());
-             assertEquals(0, testLog.getEdibleCalories());
-             assertEquals(-1, testLog.getProgressExcess());
-             assertEquals(-1, testLog.getProgressBar());
-             assertEquals(-1, testLog.getCalorieNet());
-         }
+         @Nested
+         @DisplayName("Edge case tests empty list")
+         class DailyLogEdgeZeroList {
+             private DailyLog testLog;
+             private Calendar currDate;
+             private ArrayList<Edible> edibleList;
 
-         @Test
-         @DisplayName("init should take typical values")
-         void testInit() {
-             Calendar newDate = Calendar.getInstance();
-             newDate.set(2021, 12, 1);
-             try {
-                 testLog.init(newDate, edibleList, 1400, 600, 200);
-             } catch (Exception e) {
-                 System.out.println(e);
+             @BeforeEach
+             void setup() {
+                 testLog = new DailyLog();
+                 currDate = Calendar.getInstance();
+                 edibleList = new ArrayList<Edible>();
              }
-             assertEquals(newDate.get(Calendar.DAY_OF_YEAR), testLog.getDate().get(Calendar.DAY_OF_YEAR));
-             assertEquals(newDate.get(Calendar.YEAR), testLog.getDate().get(Calendar.YEAR));
-             assertEquals(newDate.get(Calendar.MONTH), testLog.getDate().get(Calendar.MONTH));
-             assertEquals(edibleList, testLog.getEdibleList());
-             assertEquals(1400, testLog.getCalorieGoal());
-             assertEquals(600, testLog.getExerciseGoal());
-             assertEquals(200, testLog.getExerciseActual());
-             assertEquals(900, testLog.getEdibleCalories());
-             assertEquals(0, testLog.getProgressExcess());
-             assertEquals(50, testLog.getProgressBar());
-             assertEquals(700, testLog.getCalorieNet());
+
+             @Test
+             @DisplayName("init should accept empty edible list")
+             void testInitZeroList() {
+                 try {
+                     testLog.init(currDate, edibleList, 1400, 600, 0);
+                 } catch (Exception e) {
+                     System.out.println(e);
+                 }
+                 assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testLog.getDate().get(Calendar.DAY_OF_YEAR));
+                 assertEquals(currDate.get(Calendar.YEAR), testLog.getDate().get(Calendar.YEAR));
+                 assertEquals(currDate.get(Calendar.MONTH), testLog.getDate().get(Calendar.MONTH));
+                 assertEquals(edibleList, testLog.getEdibleList());
+                 assertEquals(1400, testLog.getCalorieGoal());
+                 assertEquals(600, testLog.getExerciseGoal());
+                 assertEquals(0, testLog.getExerciseActual());
+                 assertEquals(0, testLog.getEdibleCalories());
+                 assertEquals(0, testLog.getProgressExcess());
+                 assertEquals(0, testLog.getProgressBar());
+                 assertEquals(1400, testLog.getCalorieNet());
+             }
+
+             @Test
+             @DisplayName("init with empty edible list and positive exercise results in 0 progress")
+             void testInitZeroListZeroExercise() {
+                 try {
+                     testLog.init(currDate, edibleList, 1400, 600, 200);
+                 } catch (Exception e) {
+                     System.out.println(e);
+                 }
+                 assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testLog.getDate().get(Calendar.DAY_OF_YEAR));
+                 assertEquals(currDate.get(Calendar.YEAR), testLog.getDate().get(Calendar.YEAR));
+                 assertEquals(currDate.get(Calendar.MONTH), testLog.getDate().get(Calendar.MONTH));
+                 assertEquals(edibleList, testLog.getEdibleList());
+                 assertEquals(1400, testLog.getCalorieGoal());
+                 assertEquals(600, testLog.getExerciseGoal());
+                 assertEquals(200, testLog.getExerciseActual());
+                 assertEquals(0, testLog.getEdibleCalories());
+                 assertEquals(0, testLog.getProgressExcess());
+                 assertEquals(0, testLog.getProgressBar());
+                 assertEquals(1600, testLog.getCalorieNet());
+             }
+
+             @Test
+             @DisplayName("init with empty edible list and one edible results in correct progress")
+             void testInitZeroListAddOneEdible() {
+                 ArrayList<Edible> edibleList = new ArrayList<Edible>();
+                 Edible newEdible = null;
+
+                 try {
+                     testLog.init(currDate, edibleList, 1400, 600, 200);
+                 } catch (Exception e) {
+                     System.out.println(e);
+                 }
+                 try {
+                     newEdible = new Edible()
+                             .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
+                             .initNutrition(200, 30, 20, 50)
+                             .initCategories(false, false, false, false, false)
+                             .initMetadata(false, null);
+                 }
+                 catch(Exception e) {
+                     System.out.println(e);
+                 }
+                 testLog.addEdibleToLog(newEdible);
+                 assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testLog.getDate().get(Calendar.DAY_OF_YEAR));
+                 assertEquals(currDate.get(Calendar.YEAR), testLog.getDate().get(Calendar.YEAR));
+                 assertEquals(currDate.get(Calendar.MONTH), testLog.getDate().get(Calendar.MONTH));
+                 assertEquals(edibleList, testLog.getEdibleList());
+                 assertEquals(1400, testLog.getCalorieGoal());
+                 assertEquals(600, testLog.getExerciseGoal());
+                 assertEquals(200, testLog.getExerciseActual());
+                 assertEquals(200, testLog.getEdibleCalories());
+                 assertEquals(0, testLog.getProgressExcess());
+                 assertEquals(0, testLog.getProgressBar());
+                 assertEquals(1400, testLog.getCalorieNet());
+             }
+
+             @Test
+             @DisplayName("removing the last edible in list results in correct progress")
+             void testRemoveLastEdible() {
+                 ArrayList<Edible> edibleList = new ArrayList<Edible>();
+                 Edible newEdible = null;
+
+                 try {
+                     testLog.init(currDate, edibleList, 1400, 600, 200);
+                 } catch (Exception e) {
+                     System.out.println(e);
+                 }
+                 try {
+                     newEdible = new Edible()
+                             .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
+                             .initNutrition(200, 30, 20, 50)
+                             .initCategories(false, false, false, false, false)
+                             .initMetadata(false, null);
+                 }
+                 catch(Exception e) {
+                     System.out.println(e);
+                 }
+                 testLog.addEdibleToLog(newEdible);
+                 testLog.getEdibleList().remove(0);
+                 testLog.updateProgress();
+                 assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testLog.getDate().get(Calendar.DAY_OF_YEAR));
+                 assertEquals(currDate.get(Calendar.YEAR), testLog.getDate().get(Calendar.YEAR));
+                 assertEquals(currDate.get(Calendar.MONTH), testLog.getDate().get(Calendar.MONTH));
+                 assertEquals(edibleList, testLog.getEdibleList());
+                 assertEquals(1400, testLog.getCalorieGoal());
+                 assertEquals(600, testLog.getExerciseGoal());
+                 assertEquals(200, testLog.getExerciseActual());
+                 assertEquals(0, testLog.getEdibleCalories());
+                 assertEquals(0, testLog.getProgressExcess());
+                 assertEquals(0, testLog.getProgressBar());
+                 assertEquals(1600, testLog.getCalorieNet());
+             }
          }
 
-         @Test
-         @DisplayName("setDate should take typical values")
-         void testSetDate() {
+         @Nested
+         @DisplayName("Edge case tests set zero")
+         class DailyLogEdgeZeroGoals {
+             private DailyLog testLog;
+             private Calendar currDate;
+             private ArrayList<Edible> edibleList;
 
+             @BeforeEach
+             void setup() {
+                 testLog = new DailyLog();
+                 currDate = Calendar.getInstance();
+                 edibleList = new ArrayList<Edible>();
+                 seedEdibleList();
+             }
+
+             void seedEdibleList() {
+                 try {
+                     edibleList.add(new EdibleLog(
+                             new Edible()
+                                     .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
+                                     .initNutrition(400, 30, 20, 50)
+                                     .initCategories(false, false, false, false, false)
+                                     .initMetadata(false, null)
+                     ).init(40, Edible.Unit.tbsp));
+                     edibleList.add(new EdibleLog(
+                             new Edible()
+                                     .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
+                                     .initNutrition(300, 40, 50, 10)
+                                     .initCategories(false, false, true, true, false)
+                                     .initMetadata(false, null)
+                     ).init(30, Edible.Unit.g));
+                     edibleList.add(new EdibleLog(
+                             new Edible()
+                                     .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
+                                     .initNutrition(200, 25, 40, 35)
+                                     .initCategories(false, false, false, false, true)
+                                     .initMetadata(false, null)
+                     ).init(20, Edible.Unit.tsp));
+
+                 } catch (Exception e) {
+                     System.out.println(e);
+                 }
+             }
+
+             @Test
+             @DisplayName("we can set calorie goal to zero and get correct progress")
+             void testInitCalorieGoalZero() {
+                 Calendar newDate = Calendar.getInstance();
+                 newDate.set(2021, 12, 1);
+                 try {
+                     testLog.init(newDate, edibleList, 0, 600, 200);
+                 }
+                 catch(Exception e) {
+                     System.out.println(e);
+                 }
+                 assertEquals(newDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
+                 assertEquals(newDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
+                 assertEquals(newDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
+                 assertEquals(0, testLog.getCalorieGoal());
+                 assertEquals(600, testLog.getExerciseGoal());
+                 assertEquals(200, testLog.getExerciseActual());
+                 assertEquals(900, testLog.getEdibleCalories());
+                 assertEquals(100, testLog.getProgressExcess());
+                 assertEquals(100, testLog.getProgressBar());
+                 assertEquals(-700, testLog.getCalorieNet());
+             }
+
+             @Test
+             @DisplayName("we can set exercise goal to zero and get correct progress")
+             void testInitExerciseGoalZero() {
+                 Calendar newDate = Calendar.getInstance();
+                 newDate.set(2021, 12, 1);
+                 try {
+                     testLog.init(newDate, edibleList, 1400, 0, 200);
+                 }
+                 catch(Exception e) {
+                     System.out.println(e);
+                 }
+                 assertEquals(newDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
+                 assertEquals(newDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
+                 assertEquals(newDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
+                 assertEquals(1400, testLog.getCalorieGoal());
+                 assertEquals(0, testLog.getExerciseGoal());
+                 assertEquals(200, testLog.getExerciseActual());
+                 assertEquals(900, testLog.getEdibleCalories());
+                 assertEquals(0, testLog.getProgressExcess());
+                 assertEquals(50, testLog.getProgressBar());
+                 assertEquals(700, testLog.getCalorieNet());
+             }
+
+             @Test
+             @DisplayName("we can set exercise goal to zero and get correct progress")
+             void testInitExerciseActualZero() {
+                 Calendar newDate = Calendar.getInstance();
+                 newDate.set(2021, 12, 1);
+                 try {
+                     testLog.init(newDate, edibleList, 1800, 600, 0);
+                 }
+                 catch(Exception e) {
+                     System.out.println(e);
+                 }
+                 assertEquals(newDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
+                 assertEquals(newDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
+                 assertEquals(newDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
+                 assertEquals(1800, testLog.getCalorieGoal());
+                 assertEquals(600, testLog.getExerciseGoal());
+                 assertEquals(0, testLog.getExerciseActual());
+                 assertEquals(900, testLog.getEdibleCalories());
+                 assertEquals(0, testLog.getProgressExcess());
+                 assertEquals(50, testLog.getProgressBar());
+                 assertEquals(900, testLog.getCalorieNet());
+             }
+
+             @Test
+             @DisplayName("we can set everything to zero and get correct progress")
+             void testInitSetEverythingZero() {
+                 ArrayList<Edible> edibleList = new ArrayList<Edible>();
+                 Calendar newDate = Calendar.getInstance();
+                 newDate.set(2021, 12, 1);
+                 try {
+                     testLog.init(newDate, edibleList, 0, 0, 0);
+                 }
+                 catch(Exception e) {
+                     System.out.println(e);
+                 }
+                 assertEquals(newDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
+                 assertEquals(newDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
+                 assertEquals(newDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
+                 assertEquals(0, testLog.getCalorieGoal());
+                 assertEquals(0, testLog.getExerciseGoal());
+                 assertEquals(0, testLog.getExerciseActual());
+                 assertEquals(0, testLog.getEdibleCalories());
+                 assertEquals(100, testLog.getProgressExcess());
+                 assertEquals(100, testLog.getProgressBar());
+                 assertEquals(0, testLog.getCalorieNet());
+             }
+
+             private void setTestLog(){
+                 try {
+                     testLog.init(currDate, edibleList, 1400, 600, 200);
+                 }
+                 catch(Exception e) {
+                     System.out.println(e);
+                 }
+             }
+
+             @Test
+             @DisplayName("setDate should take typical values")
+             void testCalorieGoalZero() {
+                 setTestLog();
+                 testLog.setCalorieGoal(0);
+                 assertEquals(currDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
+                 assertEquals(currDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
+                 assertEquals(currDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
+                 assertEquals(0, testLog.getCalorieGoal());
+                 assertEquals(600, testLog.getExerciseGoal());
+                 assertEquals(200, testLog.getExerciseActual());
+                 assertEquals(900, testLog.getEdibleCalories());
+                 assertEquals(100, testLog.getProgressExcess());
+                 assertEquals(100, testLog.getProgressBar());
+                 assertEquals(-700, testLog.getCalorieNet());
+             }
+
+             @Test
+             @DisplayName("setDate should take typical values")
+             void testExerciseGoalZero() {
+                 setTestLog();
+                 testLog.setExerciseGoal(0);
+                 assertEquals(currDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
+                 assertEquals(currDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
+                 assertEquals(currDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
+                 assertEquals(1400, testLog.getCalorieGoal());
+                 assertEquals(0, testLog.getExerciseGoal());
+                 assertEquals(200, testLog.getExerciseActual());
+                 assertEquals(900, testLog.getEdibleCalories());
+                 assertEquals(0, testLog.getProgressExcess());
+                 assertEquals(50, testLog.getProgressBar());
+                 assertEquals(700, testLog.getCalorieNet());
+             }
+
+             @Test
+             @DisplayName("setDate should take typical values")
+             void testExerciseActualZero() {
+                 setTestLog();
+                 testLog.setExerciseActual(0);
+                 assertEquals(currDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
+                 assertEquals(currDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
+                 assertEquals(currDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
+                 assertEquals(1400, testLog.getCalorieGoal());
+                 assertEquals(600, testLog.getExerciseGoal());
+                 assertEquals(0, testLog.getExerciseActual());
+                 assertEquals(900, testLog.getEdibleCalories());
+                 assertEquals(0, testLog.getProgressExcess());
+                 assertEquals(64, (int) testLog.getProgressBar());
+                 assertEquals(500, testLog.getCalorieNet());
+
+             }
+         }
+
+         @Nested
+         @DisplayName("Edge case tests set upperlimit")
+         class DailyLogEdgeGoalsUpperLimit {
+             private DailyLog testLog;
+             private Calendar currDate;
+             private ArrayList<Edible> edibleList;
+
+             @BeforeEach
+             void setup() {
+                 testLog = new DailyLog();
+                 currDate = Calendar.getInstance();
+                 edibleList = new ArrayList<Edible>();
+                 seedEdibleList();
+             }
+
+             void seedEdibleList() {
+                 try {
+                     edibleList.add(new EdibleLog(
+                             new Edible()
+                                     .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
+                                     .initNutrition(400, 30, 20, 50)
+                                     .initCategories(false, false, false, false, false)
+                                     .initMetadata(false, null)
+                     ).init(40, Edible.Unit.tbsp));
+                     edibleList.add(new EdibleLog(
+                             new Edible()
+                                     .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
+                                     .initNutrition(300, 40, 50, 10)
+                                     .initCategories(false, false, true, true, false)
+                                     .initMetadata(false, null)
+                     ).init(30, Edible.Unit.g));
+                     edibleList.add(new EdibleLog(
+                             new Edible()
+                                     .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
+                                     .initNutrition(200, 25, 40, 35)
+                                     .initCategories(false, false, false, false, true)
+                                     .initMetadata(false, null)
+                     ).init(20, Edible.Unit.tsp));
+
+                 } catch (Exception e) {
+                     System.out.println(e);
+                 }
+             }
          }
 
          @Test
