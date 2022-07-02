@@ -15,6 +15,18 @@ public class SharedDB {
         return db;
     }
 
+    public static LogDBInterface getLogDB() {
+        return db;
+    }
+
+    public static RecipeDBInterface getRecipeDB() {
+        return db;
+    }
+
+    public static UserDBInterface getUserDB() {
+        return db;
+    }
+    
     public static void close() {
         if (db != null) {
             db = null;
