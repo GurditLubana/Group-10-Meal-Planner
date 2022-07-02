@@ -17,7 +17,7 @@
  import java.util.Calendar;
  import java.util.NoSuchElementException;
 
- public class TestDailyLogUnit {
+ public class TestDailyLog {
 
      @Nested
      @DisplayName("Typical cases should pass")
@@ -1003,7 +1003,7 @@
                      testLog.setExerciseActual(Constant.ENTRY_MAX_VALUE + 1);
                  });
              }
-             
+
          }
      }
  }
