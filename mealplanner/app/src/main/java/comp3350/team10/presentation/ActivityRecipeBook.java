@@ -232,13 +232,16 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     @Override
     public void addToMealDiary() {
         Intent intent = new Intent();
+        boolean isCustom = false;
         int dbkey = -1;
 
         if (this.savedItem != null) {
             dbkey = this.savedItem.getDbkey();
+            isCustom = this.savedItem.getIsCustom();
         }
 
         intent.putExtra("DBKEY", dbkey);
+        intent.putExtra("IsCustom", isCustom);
         setResult(RESULT_OK, intent);
         finish();
     }

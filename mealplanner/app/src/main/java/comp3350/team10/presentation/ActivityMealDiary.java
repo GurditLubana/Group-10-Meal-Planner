@@ -108,13 +108,16 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         Intent data;
+                        boolean isCustom;
                         int dbkey;
 
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             data = result.getData();
-                            dbkey = data.getExtras().getInt("DBKEY");
+                            dbkey = data.getExtras().getInt("DBKEY"); //rva recipe book
+                            isCustom = data.getExtras().getBoolean("IsCustom");
+
                             currLog.getEdibleList().remove(currLog.getEdibleList().size()-1);
-                            opExec.addByKey(dbkey);
+                            opExec.addByKey(dbkey, isCustom);
                             updateLiveData();
                         }
                     }
@@ -323,7 +326,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     @Override
     public void setGoalCalories(Double value) { //only on current day
         try {
-        this.currLog.setCalorieGoal(value);
+            this.currLog.setCalorieGoal(value);
+            this.opExec.setCalorieGoal(this.currLog, value);
         }
         catch (Exception e){
             System.out.println(e);

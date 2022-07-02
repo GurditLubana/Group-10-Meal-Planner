@@ -35,7 +35,6 @@ public class RecipeBookOps {
        return db.getMealRecipes();
     }
 
-    //might want to just pass the object in here later?
     public void addFood(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat,
             boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, byte[] photo) {
         Edible newFood = new Edible();
