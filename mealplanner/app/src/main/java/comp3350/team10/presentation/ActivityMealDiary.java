@@ -222,11 +222,12 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         if (this.data.size() > 0) {
             this.data.remove(pos);
             this.savedItem = null;
+            this.savedItemPosition = -1;
             this.recyclerViewAdapter.notifyItemRemoved(pos);
             this.recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
             this.recyclerViewAdapter.notifyDataSetChanged();
+            this.data.remove(data.size()-1);
             this.currLog.setEdibleList(data);
-            this.currLog.getEdibleList().remove(currLog.getEdibleList().size()-1);
             this.opExec.logChangedUpdateDB();
             this.updateLiveData();
         }

@@ -36,7 +36,7 @@ public class DailyLog {
     }
 
 
-    public DailyLog init(Calendar date, ArrayList<Edible> log, int calGoal, int excGoal, int excActual) throws IllegalArgumentException, NullPointerException {
+    public DailyLog init(Calendar date, ArrayList<Edible> log, double calGoal, double excGoal, double excActual) throws IllegalArgumentException, NullPointerException {
         try {
             this.setDate(date);
             this.setEdibleList(log);
@@ -61,7 +61,6 @@ public class DailyLog {
     public void setEdibleList(ArrayList<Edible> newLog) throws NullPointerException {
         if (newLog != null && newLog.size() >= 0 && !newLog.contains(null)) {
             this.edibleLog = newLog;
-            this.calculateEdibleCalories();
             this.updateProgress();
         } else {
             throw new NullPointerException("DailyLog setEdibleList must be initialized and cannot have null elements");
@@ -71,6 +70,7 @@ public class DailyLog {
     public void setExerciseActual(double newExerciseActual) throws IllegalArgumentException {
         if (newExerciseActual >= Constant.ENTRY_MIN_VALUE && newExerciseActual <= Constant.ENTRY_MAX_VALUE) {
             this.exerciseActual = newExerciseActual;
+            this.updateProgress();
         } else {
             throw new IllegalArgumentException("DailyLog setExerciseActual requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
         }
@@ -79,6 +79,7 @@ public class DailyLog {
     public void setCalorieGoal(double newCalorieGoal) throws IllegalArgumentException {
         if (newCalorieGoal >= Constant.ENTRY_MIN_VALUE && newCalorieGoal <= Constant.ENTRY_MAX_VALUE) {
             this.calorieGoal = newCalorieGoal;
+            this.updateProgress();
         } else {
             throw new IllegalArgumentException("DailyLog setCalorieGoal requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
         }
@@ -95,6 +96,7 @@ public class DailyLog {
     public void addEdibleToLog(Edible newEdible) throws NullPointerException {
         if (newEdible != null) {
             this.edibleLog.add(newEdible);
+            this.updateProgress();
         } else {
             throw new NullPointerException("DailyLog AddEdibleToLog requires an initialized Edible object");
         }
@@ -112,7 +114,8 @@ public class DailyLog {
 
     }
 
-    private void updateProgress() {
+    public void updateProgress() {
+        this.calculateEdibleCalories();
         this.netCalories();
         this.calcProgress();
     }

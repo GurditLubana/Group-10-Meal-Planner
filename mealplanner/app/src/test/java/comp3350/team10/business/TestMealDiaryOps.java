@@ -16,14 +16,14 @@
  import java.util.ArrayList;
  import java.util.NoSuchElementException;
 
- public class TestMealDiaryOps {         //////////////////////////Add a test for when "" is entered into a character input
+ public class TestMealDiaryOps {
 
      @Nested
      @DisplayName("Simple Tests")
      class mealDiarySimple {
-         MealDiaryOps ops;
-         Calendar currDate;
-         Calendar testDate;
+         private MealDiaryOps ops;
+         private Calendar currDate;
+         private Calendar testDate;
 
          @BeforeEach
          void setup() {
@@ -136,9 +136,9 @@
      @Nested
      @DisplayName("Edge case Tests should pass")
      class mealDiaryEdge {
-         MealDiaryOps ops;
-         Calendar currDate;
-         Calendar testDate;
+         private MealDiaryOps ops;
+         private Calendar currDate;
+         private Calendar testDate;
 
          @BeforeEach
          void setup() {
@@ -182,9 +182,9 @@
      @Nested
      @DisplayName("Tests that should fail")
      class mealDiaryFail {
-         MealDiaryOps ops;
-         Calendar currDate;
-         Calendar testDate;
+         private MealDiaryOps ops;
+         private Calendar currDate;
+         private Calendar testDate;
 
          @BeforeEach
          void setup() {
