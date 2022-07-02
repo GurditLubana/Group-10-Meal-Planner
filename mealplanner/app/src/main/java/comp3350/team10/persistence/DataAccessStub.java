@@ -347,7 +347,6 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
-
     //This section implements DiaryDBInterface
     public DailyLog searchFoodLogByDate(Calendar date) {
         Integer intDate = calendarToInt(date);
@@ -361,7 +360,6 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
         if( foundLog == null ){
             foundLog = new DailyLog().init(date, new ArrayList<Edible>(), 1500, 600, 0);
-
         }
 
         return foundLog;
