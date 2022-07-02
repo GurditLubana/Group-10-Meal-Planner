@@ -848,9 +848,9 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
     public User getUser() {
         User currUser = null;
         try {
-            PreparedStatement getUser = currConn.prepareStatement("SELECT * FROM WorkoutHistory");
+            PreparedStatement getUser = currConn.prepareStatement("SELECT * FROM user");
             ResultSet results = getUser.executeQuery();
-
+            results.next();
             int userID, height, weight, calorieGoal, exerciseGoal;
             String name;
 
