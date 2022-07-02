@@ -242,7 +242,7 @@ public class Edible {
         }
     }
 
-    public String getDesciprtion() {
+    public String getDescription() {
         return this.description;
     }
     

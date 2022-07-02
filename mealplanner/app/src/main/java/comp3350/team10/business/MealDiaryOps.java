@@ -56,6 +56,10 @@ public class MealDiaryOps {
         }
     }
 
+    public void setCalorieGoal(DailyLog currLog, double newCalorieGoal) {
+        this.db.setCalorieGoal(opUser.getUser().getUserID(), newCalorieGoal, currLog.getDate());
+    }
+
     public void setListDate(Calendar newDate) throws IllegalArgumentException {
         int diff = logDate.get(Calendar.YEAR) - newDate.get(Calendar.YEAR);
 
@@ -75,7 +79,7 @@ public class MealDiaryOps {
 
     private void dateChangedUpdateList() {
         this.logChangedUpdateDB();
-        this.currLog = this.db.searchFoodLogByDate(this.logDate);
+        this.currLog = this.db.searchFoodLogByDate(this.logDate, opUser.getUser().getUserID());
     }
 
     public DailyLog getCurrLog() {
@@ -86,11 +90,11 @@ public class MealDiaryOps {
         //TODO: persistence method push current dailylog to db
     }
 
-    public void addByKey(int dbkey) throws NoSuchElementException {
+    public void addByKey(int dbkey, boolean isCustom) throws NoSuchElementException {
         EdibleLog newItem = null;
         Edible foundEdible = null;
         try {
-            newItem = db.findEdibleByKey(dbkey);
+            newItem = db.findEdibleByKey(dbkey, isCustom);
         }
         catch (Exception e){
             System.out.println(e);

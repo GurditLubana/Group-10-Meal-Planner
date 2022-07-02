@@ -49,50 +49,42 @@ public class DBSelector {
         return this.userDB.getUser();
     }
 
-    public void setHeight(int newHeight) {
-        this.userDB.setHeight(newHeight);
+    public void setHeight(int userID, int newHeight) {
+        this.userDB.setHeight(userID, newHeight);
     }
 
-    public void setWeight(int newWeight) {
-        this.userDB.setWeight(newWeight);
+    public void setWeight(int userID, int newWeight) {
+        this.userDB.setWeight(userID, newWeight);
     }
 
-    public void setCalorieGoal(int goal, Calendar date) {
-        this.userDB.setCalorieGoal(goal, date);
+    public void setCalorieGoal(int userID, double goal, Calendar date) {
+        this.userDB.setCalorieGoal(userID, goal, date);
     }
 
-    public void setExerciseGoal(int goal, Calendar date) {
-        this.userDB.setExerciseGoal(goal, date);
+    public void setExerciseGoal(int userID, int goal, Calendar date) {
+        this.userDB.setExerciseGoal(userID, goal, date);
     }
 
 
     //Log interface
-    public DailyLog searchFoodLogByDate(Calendar date) {
-        return this.logDB.searchFoodLogByDate(date);
+    public DailyLog searchFoodLogByDate(Calendar date, int userID) {
+        return this.logDB.searchFoodLogByDate(date, userID);
     }
 
-    public void addLog(DailyLog newLog) {
-        this.logDB.addLog(newLog);
+    public void addLog(DailyLog newLog, int userID) {
+        this.logDB.addLog(newLog, userID);
     }
 
-    public void deleteLog(DailyLog delLog) {
-        this.logDB.deleteLog(delLog);
+    public void deleteLog(DailyLog delLog, int userID) {
+        this.logDB.deleteLog(delLog, userID);
     }
 
-    public EdibleLog findEdibleByKey(int dbkey) {
-        //return this.recipeDB.findEdibleByKey(dbkey);
-        EdibleLog result = null;
-        try{
-            result = new EdibleLog(this.recipeDB.findEdibleByKey(dbkey)).init(10, Edible.Unit.cups);
-        }
-        catch(Exception e) {
-            System.out.println(e);
-        }
-        return result;
+    public EdibleLog findEdibleByKey(int dbkey, boolean isCustom) {
+        return this.recipeDB.findEdibleByKey(dbkey, isCustom);
     }
 
-    public void setExerciseActual(int newExercise, Calendar logDate) {
-        this.logDB.setExerciseActual(newExercise, logDate);
+    public void setExerciseActual(double newExercise, DailyLog logDate, int userID) {
+        this.logDB.setExerciseActual(newExercise, logDate, userID);
     }
 
 

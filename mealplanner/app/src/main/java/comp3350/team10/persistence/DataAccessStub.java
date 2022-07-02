@@ -52,7 +52,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     }
 
     private void loadUser() {
-        currUser = new User("USER", USER_ID, 666, 666, 666, 666);
+        currUser = new User(USER_ID, "USER", 666, 666, 666, 666);
     }
 
     private void loadFoodlog() {
@@ -193,28 +193,30 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
-    public Edible findEdibleByKey(int key) throws NoSuchElementException{
-        Edible result = null;
+    public EdibleLog findEdibleByKey(int key, boolean isCustom) throws NoSuchElementException{
+        EdibleLog result = null;
         System.out.println("key: " + key);
 
         for (int i = 0; i < this.dbRecipeFood.size() && result == null; i++) {
             if (this.dbRecipeFood.get(i).getDbkey() == key) {
-                result = this.dbRecipeFood.get(i);
+                result = new EdibleLog(this.dbRecipeFood.get(i));
             }
         }
         for (int i = 0; i < this.dbRecipeMeal.size() && result == null; i++) {
             if (this.dbRecipeMeal.get(i).getDbkey() == key) {
-                result = this.dbRecipeMeal.get(i);
+                result = new EdibleLog(this.dbRecipeMeal.get(i));
             }
         }
         for (int i = 0; i < this.dbRecipeDrink.size() && result == null; i++) {
             if (this.dbRecipeDrink.get(i).getDbkey() == key) {
-                result = this.dbRecipeDrink.get(i);
+                result =  new EdibleLog(this.dbRecipeDrink.get(i));
             }
         }
+
         if(result == null){
             throw new NoSuchElementException("Requested item for dbkey does not exist");
         }
+
         return result;
     }
 
@@ -240,16 +242,16 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         return this.currUser;
     }
 
-    public void setHeight(int newHeight) {
+    public void setHeight(int userID, int newHeight) {
         this.currUser.setHeight(newHeight);
     }
 
-    public void setWeight(int newWeight) {
+    public void setWeight(int userID, int newWeight) {
         this.currUser.setHeight(newWeight);
     }
 
-    public void setCalorieGoal(int goal, Calendar date) {
-        DailyLog currEntry = searchFoodLogByDate(date);
+    public void setCalorieGoal(int userID, double goal, Calendar date) {
+        DailyLog currEntry = searchFoodLogByDate(date, userID);
         int currLogIndex;
 
         try {
@@ -269,8 +271,8 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
-    public void setExerciseGoal(int goal, Calendar date) {
-        DailyLog currEntry = searchFoodLogByDate(date);
+    public void setExerciseGoal(int userID, double goal, Calendar date) {
+        DailyLog currEntry = searchFoodLogByDate(date, userID);
         int currLogIndex;
 
         try {
@@ -290,8 +292,8 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
-    public void setExerciseActual(int exerciseActual, Calendar date) {
-        DailyLog currEntry = searchFoodLogByDate(date);
+    public void setExerciseActual(double exerciseActual, DailyLog currLog, int userID) {
+        DailyLog currEntry = searchFoodLogByDate(currLog.getDate(), userID);
 
         try {
             this.dbFoodLog.remove(currEntry);
@@ -349,7 +351,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
 
     //This section implements DiaryDBInterface
-    public DailyLog searchFoodLogByDate(Calendar date) {
+    public DailyLog searchFoodLogByDate(Calendar date, int userID) {
         Integer intDate = calendarToInt(date);
         DailyLog foundLog = null;
 
@@ -367,13 +369,13 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         return foundLog;
     }
 
-    public void addLog(DailyLog newLog) {
+    public void addLog(DailyLog newLog, int userID) {
         if (this.dbFoodLog != null) {
             this.dbFoodLog.add(newLog);
         }
     }
 
-    public void deleteLog(DailyLog delLog) {
+    public void deleteLog(DailyLog delLog, int userID) {
         if (this.dbFoodLog != null) {
             this.dbFoodLog.remove(delLog);
         }

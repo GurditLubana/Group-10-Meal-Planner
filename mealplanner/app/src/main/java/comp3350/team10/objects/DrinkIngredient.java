@@ -10,11 +10,11 @@ public class DrinkIngredient extends Ingredient {
     }
 
 
-    private void setSubtitute(boolean isSubstitute) {
+    public void setSubstitute(boolean isSubstitute) {
         this.substitute = isSubstitute;
     }
 
-    public boolean isSubstitute() {
+    public boolean getIsSubstitute() {
         return this.substitute;
     }
 }

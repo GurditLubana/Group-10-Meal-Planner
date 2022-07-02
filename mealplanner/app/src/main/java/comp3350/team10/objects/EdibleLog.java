@@ -23,7 +23,7 @@ public class EdibleLog extends Edible {
 
         try {
             //baseConverter = new UnitConverter(edible.getUnit(), edible.getQuantity(), edible.getCalories());
-            this.initDetails(edible.getDbkey(), edible.getName(), edible.getDesciprtion(), edible.getQuantity(), edible.getUnit());
+            this.initDetails(edible.getDbkey(), edible.getName(), edible.getDescription(), edible.getQuantity(), edible.getUnit());
             this.initNutrition(edible.getCalories(), edible.getProtein(), edible.getCarbs(), edible.getFat());
             this.initCategories(edible.getIsAlcoholic(), edible.getIsSpicy(), edible.getIsVegan(), edible.getIsVegetarian(), edible.getIsGlutenFree());
             this.initMetadata(true, edible.getPhotoBytes());

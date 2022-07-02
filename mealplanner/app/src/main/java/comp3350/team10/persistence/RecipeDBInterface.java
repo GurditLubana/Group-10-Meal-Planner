@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.Edible;
 
+import comp3350.team10.objects.EdibleLog;
 import comp3350.team10.objects.Meal;
 
 public interface RecipeDBInterface {
@@ -17,5 +18,5 @@ public interface RecipeDBInterface {
     public void addFoodToRecipeBook(Edible newFood);
     public void addMealToRecipeBook(Meal newMeal);
     public void addDrinkToRecipeBook(Drink newDrink);
-    public Edible findEdibleByKey(int key);
+    public EdibleLog findEdibleByKey(int key, boolean isCustom);
 }
