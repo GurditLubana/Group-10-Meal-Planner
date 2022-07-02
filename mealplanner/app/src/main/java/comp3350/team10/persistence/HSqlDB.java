@@ -17,6 +17,7 @@ import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 import java.util.List;
 
+import comp3350.team10.application.Main;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.DrinkIngredient;
@@ -30,7 +31,7 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
     private static final String SHUTDOWN_CMD = "shutdown compact";
     private Connection currConn;
     private Statement reqHandler;
-    private String dbPath = "jdbc:hsqldb:file:database/db"; // stored on disk mode
+    private String dbPath = "jdbc:hsqldb:file:" + Main.getDBPathName(); // stored on disk mode
     private String dbName;
     private String dbType = "HSQL";
 
@@ -55,8 +56,7 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
             System.out.println("Opened " + this.dbType + " database named " + this.dbName + " @dbPath " + this.dbPath);
         }
         catch(Exception e) {
-            System.out.println(e);
-            System.out.println("hsqldb open");
+            System.out.println("hsqldb open " + e);
             //System.exit(1);
         }
     }
@@ -73,9 +73,8 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
             }
         }
         catch (Exception e) {
-            System.out.println(e);
-            System.out.println("close");
-            System.exit(1);
+            System.out.println("hsqldb close " + e);
+            //System.exit(1);
         }
     }
 
