@@ -1,5 +1,4 @@
-CREATE SCHEMA EATEN
-
+CREATE SCHEMA EATEN AUTHORIZATION DBA
 CREATE MEMORY TABLE Edible (
     EdibleID       INTEGER PRIMARY KEY AUTOINCREMENT,
     Name           VARCHAR(9999)   not null,
@@ -15,8 +14,7 @@ CREATE MEMORY TABLE Edible (
     IsSpicy        BOOLEAN         not null,
     IsVegan        BOOLEAN         not null,
     IsVegetarian   BOOLEAN         not null,
-    IsGlutenFree   BOOLEAN         not null
-)
+    IsGlutenFree   BOOLEANnot null)
 
 CREATE MEMORY TABLE Food (
     EdibleID       INTEGER     not null,

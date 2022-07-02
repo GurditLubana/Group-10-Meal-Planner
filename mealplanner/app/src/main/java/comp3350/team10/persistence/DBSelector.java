@@ -21,8 +21,8 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
     
 
     DBSelector() { //Creates both databases then points all interfaces towards hsql
-        //startHsqlDB();
-        startStubDB();
+        startHsqlDB();
+        //startStubDB();
     }
 
     public void startHsqlDB() {
