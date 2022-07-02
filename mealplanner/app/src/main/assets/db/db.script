@@ -14,7 +14,6 @@ CREATE TABLE History(HistoryID INTEGER IDENTITY PRIMARY KEY,UserID INTEGER not n
 CREATE TABLE EdibleHistory(HistoryID INTEGER not null,EdibleID INTEGER,CustomEdibleID INTEGER,Quantity INTEGER not null,Unit VARCHAR(9999) not null,FOREIGN KEY(HistoryID) REFERENCES History(HistoryID) ON DELETE CASCADE,FOREIGN KEY(EdibleID) REFERENCES Edible(EdibleID),FOREIGN KEY(CustomEdibleID) REFERENCES CustomEdible(CustomEdibleID))
 CREATE TABLE WorkoutHistory(HistoryID INTEGER not null,ExerciseActual INTEGER not null,FOREIGN KEY(HistoryID) REFERENCES History(HistoryID))
 CREATE USER SA PASSWORD ""
-GRANT DBA SA
+GRANT DBA TO SA
 SET WRITE_DELAY 20
 SET SCHEMA PUBLIC
-INSERT INTO User ('Name','Height','Weight','CalorieGoal','ExerciseGoal') VALUES('GIVE ME A+',100,100,1000,50)
