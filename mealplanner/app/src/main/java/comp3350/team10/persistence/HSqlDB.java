@@ -847,6 +847,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     }
 
     public User getUser() {
+        System.out.println("YEs");
         User currUser = null;
         try {
             PreparedStatement getUser = currConn.prepareStatement("SELECT * FROM User");

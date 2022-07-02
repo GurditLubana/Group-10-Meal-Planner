@@ -26,7 +26,6 @@ public class MealDiaryOps {
         this.logDate = Calendar.getInstance();
 
         if (db != null) {
-            this.db = db;
             this.opUser = new UserDataOps(db);
             this.dateChangedUpdateList();
         } else {
