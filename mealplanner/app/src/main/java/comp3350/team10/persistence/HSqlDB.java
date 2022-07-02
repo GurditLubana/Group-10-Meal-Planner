@@ -51,7 +51,7 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
         try {
             Class.forName("org.hsqldb.jdbcDriver").newInstance();
 
-            currConn = DriverManager.getConnection(dbPath, "user", "pass");
+            currConn = DriverManager.getConnection(dbPath, "SA", "");
             System.out.println("Opened " + this.dbType + " database named " + this.dbName + " @dbPath " + this.dbPath);
         }
         catch(Exception e) {
