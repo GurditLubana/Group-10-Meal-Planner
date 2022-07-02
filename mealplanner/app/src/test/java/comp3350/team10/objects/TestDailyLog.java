@@ -1,12 +1,6 @@
  package comp3350.team10.objects;
 
- import comp3350.team10.objects.*;
- import comp3350.team10.objects.Edible.Unit;
- import comp3350.team10.persistence.SharedDB;
-
  import static org.junit.jupiter.api.Assertions.*;
-
- import android.icu.util.Freezable;
 
  import org.junit.jupiter.api.BeforeEach;
  import org.junit.jupiter.api.DisplayName;
@@ -15,7 +9,6 @@
 
  import java.util.ArrayList;
  import java.util.Calendar;
- import java.util.NoSuchElementException;
 
  public class TestDailyLog {
 

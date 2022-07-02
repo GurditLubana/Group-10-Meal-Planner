@@ -2,16 +2,12 @@ package comp3350.team10.objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-
-import comp3350.team10.business.TrendsOps;
-import comp3350.team10.persistence.SharedDB;
 
 class TestDataFrame {
 

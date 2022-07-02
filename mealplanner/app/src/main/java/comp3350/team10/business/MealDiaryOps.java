@@ -8,7 +8,6 @@ import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.SharedDB;
 
 import java.util.Calendar;
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class MealDiaryOps {
@@ -23,7 +22,6 @@ public class MealDiaryOps {
     private UserDataOps opUser;         //Business logic for handling the app's user
 
     public MealDiaryOps() throws NullPointerException {
-        SharedDB.start();
         this.db = SharedDB.getSharedDB();
         this.logDate = Calendar.getInstance();
 
