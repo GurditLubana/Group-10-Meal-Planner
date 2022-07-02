@@ -30,7 +30,7 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
     private static final String SHUTDOWN_CMD = "shutdown compact";
     private Connection currConn;
     private Statement reqHandler;
-    private String dbPath; //		url = "jdbc:hsqldb:file:" + dbPath; // stored on disk mode
+    private String dbPath = "jdbc:hsqldb:file:database/db"; // stored on disk mode
     private String dbName;
     private String dbType = "HSQL";
 
