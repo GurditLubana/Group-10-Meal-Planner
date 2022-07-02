@@ -79,9 +79,8 @@ package comp3350.team10.objects;
 		 }
 	 }
 	 // test all int variable
-	 void  testIntWithInput(Food food, int expect){//test set, quality calories,  protein,  carbs,  fat
+	 void  testIntWithInput(Food food, int expect){//test set calories,  protein,  carbs,  fat
 		 try{
-			 food.initDetails(1, "food", "lala", expect, Unit.cups);
 			 food.initNutrition(expect, expect, expect, expect);
 		 }
 		 catch (Exception e)
@@ -89,7 +88,6 @@ package comp3350.team10.objects;
 			 System.out.println(e.getMessage());
 			 fail("Should not catch any exception, input is number is invalid");
 		 }
-		 testDetail(food,1,"food","lala",expect, Unit.cups);
 		 testNutrition(food,expect,expect,expect,expect);
 	 }
 
@@ -306,6 +304,27 @@ package comp3350.team10.objects;
 			 catch (Exception e)
 			 {
 				 fail("Should not throw execption, invalid DBkey");
+			 }
+		 }
+
+		 @Test
+		 void testQuality(){
+			 try {
+				 testFood.initDetails(5, "food", "lala", 1, Unit.cups);
+				 assertEquals(1,testFood.getQuantity());
+			 }
+			 catch (Exception e)
+			 {
+				 fail("Should not throw execption, invalid Quality");
+			 }
+
+			 try {
+				 testFood.initDetails(5, "food", "lala", 9999, Unit.cups);
+				 assertEquals(9999, testFood.getQuantity());
+			 }
+			 catch (Exception e)
+			 {
+				 fail("Should not throw execption, invalid Quality");
 			 }
 		 }
 	 }
