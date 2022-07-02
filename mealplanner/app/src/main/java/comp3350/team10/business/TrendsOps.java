@@ -46,7 +46,7 @@ public class TrendsOps {
         return dataFrame;
     }
 
-    private ArrayList<Double> stubData(DataFrame.DataType dataType) { // stub, remove when persistence is ready
+    private ArrayList<Double> stubData(DataFrame.DataType dataType) { // TODO this is stub, remove when persistence is ready
         ArrayList<Double> stubArray = new ArrayList<Double>();
         int[] multiplier = {1,4,12,24,48,96};
         for(int i = 0;  i < multiplier[this.span.ordinal()]; i++) {

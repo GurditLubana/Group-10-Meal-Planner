@@ -12,35 +12,7 @@ class TestDataFrame {
     void setUp() {
     }
 
-    @AfterEach
-    void tearDown() {
-    }
-
-    @Test
-    void getSpan() {
-    }
-
-    @Test
-    void getDataType() {
-    }
-
-    @Test
-    void size() {
-    }
-
     @Test
     void setData() {
-    }
-
-    @Test
-    void getData() {
-    }
-
-    @Test
-    void getTrendPointA() {
-    }
-
-    @Test
-    void getTrendPointB() {
     }
 }
