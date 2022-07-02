@@ -2,63 +2,43 @@ package comp3350.team10.business;
 
 import android.widget.ImageView;
 
-import comp3350.team10.objects.*;
+
+import comp3350.team10.objects.Drink;
+import comp3350.team10.objects.DrinkIngredient;
+import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
-import comp3350.team10.persistence.*;
+import comp3350.team10.objects.Meal;
+import comp3350.team10.persistence.DBSelector;
+import comp3350.team10.persistence.SharedDB;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class RecipeBookOps { //this needs to select the corect fragment
-    private static enum RecipeBook {FOOD, DRINKS, MEALS} ; //Possible Edible type views
+public class RecipeBookOps {
+    private DBSelector db;      //Access to the database
 
-    private ArrayList<Edible> selectedList;    //The recipes available for the current view
-    private RecipeBook selectedType;            //The selected Edible type view (see enum on line 18)
-    private DBSelector db;                  //Accesses the database
-
-    public RecipeBookOps(DBSelector db) {
-        this.selectedType = RecipeBook.FOOD;
-        this.selectedList = null;
-        this.db = db;
-
-        this.pullDBdata();
+    public RecipeBookOps() {
+        this.db = SharedDB.getSharedDB();
     }
 
-    private void pullDBdata() {
-        if (this.selectedType == RecipeBook.FOOD) {
-            this.selectedList = db.getFoodRecipes();
-        } else if (this.selectedType == RecipeBook.MEALS) {
-            this.selectedList = db.getMealRecipes();
-        } else {
-            this.selectedList = db.getDrinkRecipes();
-        }
-    }
 
     public ArrayList<Edible> getFoodRecipes() {
-        this.selectedType = RecipeBook.FOOD;
-        this.pullDBdata();
-
-        return this.selectedList;
+        return db.getFoodRecipes();
     }
 
     public ArrayList<Edible> getDrinkRecipes() {
-        this.selectedType = RecipeBook.DRINKS;
-        this.pullDBdata();
-
-        return this.selectedList;
+        return db.getDrinkRecipes();
     }
 
     public ArrayList<Edible> getMealRecipes() {
-        this.selectedType = RecipeBook.MEALS;
-        this.pullDBdata();
-
-        return this.selectedList;
+       return db.getMealRecipes();
     }
+
     //might want to just pass the object in here later?
     public void addFood(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat,
             boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, byte[] photo) {
-        Food newFood = new Food();
+        Edible newFood = new Edible();
 
         try {
             newFood.initDetails(db.getNextKey(), name, desc, qty, unit);

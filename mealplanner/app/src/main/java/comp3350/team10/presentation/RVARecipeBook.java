@@ -1,6 +1,8 @@
 package comp3350.team10.presentation;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 import comp3350.team10.R;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
-import comp3350.team10.objects.ListItem;
+
 
 public class RVARecipeBook extends RecyclerViewAdapter {
     private FragToRecipeBook sendToRecipeBook;          // interface to pass data to recipebook
@@ -29,13 +31,13 @@ public class RVARecipeBook extends RecyclerViewAdapter {
         Context context = null;
         View view = null;
 
-        switch (viewType) {
-            case 4:
+        if (viewType == FragmentType.recipeModify.ordinal())
+        { 
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_recipe_book_card_context, viewGroup, false);
-                break;
-            default:
+        } else {
+            
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_recipe_book_card, viewGroup, false);
-                break;
+                
         }
 
         context = view.getContext();
@@ -50,14 +52,13 @@ public class RVARecipeBook extends RecyclerViewAdapter {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        switch (viewHolder.getItemViewType()) {
-            case 4:
+        if (super.getViewType() == FragmentType.recipeModify.ordinal())
+        { 
                 setCardSelectionListeners(viewHolder, position);
-                break;
-            default:
+            } else {
                 setRecipeData(viewHolder, position);
                 setCardListeners(viewHolder, position);
-                break;
+                
         }
     }
 
@@ -74,19 +75,23 @@ public class RVARecipeBook extends RecyclerViewAdapter {
     }
 
     private void setRecipeData(ViewHolder viewHolder, int position) {
-        //ImageView itemImage = viewHolder.getView().findViewById(R.id.mealImage);
+        ImageView itemImage = viewHolder.getView().findViewById(R.id.mealImage);
         TextView textDesc = viewHolder.getView().findViewById(R.id.mealDesc);
         TextView mealCalories = viewHolder.getView().findViewById(R.id.mealCals);
+        Edible currentFood = getDataSet().get(position);
+        byte[] recipeImage = currentFood.getPhotoBytes();
+        Bitmap bmp;
 
-        Edible currentItem = getDataSet().get(position);
-        Edible currentFood;
-
-        if(currentItem instanceof Edible) {
-            currentFood = (Edible)currentItem;
-            //itemImage.setImageResource(currentFood.getIconPath());
-            textDesc.setText(currentFood.getName());
-            mealCalories.setText(Integer.toString(currentFood.getCalories()));
+        if(recipeImage == null) {
+            itemImage.setImageResource(R.drawable.ic_eggplant);
         }
+        else {
+            bmp = BitmapFactory.decodeByteArray(recipeImage, 0, recipeImage.length);
+            itemImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, itemImage.getWidth(), itemImage.getHeight(), false));
+        }
+
+        textDesc.setText(currentFood.getName());
+        mealCalories.setText(String.format("%3d", (int) currentFood.getCalories()));
     }
 
     private void setCardSelectionListeners(ViewHolder viewHolder, int position) {

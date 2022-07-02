@@ -1,19 +1,17 @@
 package comp3350.team10.business;
 
-import androidx.annotation.NonNull;
-
-import comp3350.team10.objects.*;
-import comp3350.team10.persistence.*;
+import comp3350.team10.objects.Constant;
+import comp3350.team10.objects.DailyLog;
+import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.EdibleLog;
+import comp3350.team10.persistence.DBSelector;
+import comp3350.team10.persistence.SharedDB;
 
 import java.util.Calendar;
 import java.util.ArrayList;
-import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
-public class MealDiaryOps { //this needs to select the correct fragment
-    private final static Integer MAX_PROGRESS = 100;    //Scales the progress bar (percentage)
-    private final static Integer GOAL_LIMIT = 9999;     //The highest number of calories a user should aim for
-    private final static Integer MAX_EXCESS = 100;      //How many calories a user can exceed their goal by
-    private final static Integer DATE_LIMIT = 2;        //Limits the quantity of data saved by years
+public class MealDiaryOps {
     private final static Integer INCREMENT = 1;         //Directional arrow increments
 
     //Database variables
@@ -22,187 +20,87 @@ public class MealDiaryOps { //this needs to select the correct fragment
     private DBSelector db;          //Accesses the database
 
     //Progress bar variables
-    private UserDataOps opUser;         //Buisness logic for handling the app's user
-    private Integer progressExcess;     //Represents the overflow of calories on the progress bar
-    private Integer progressBar;        //Represents the calories on the progress bar
-    private int calorieNet;             //Represents the consumed calories - exercise calories burnt
+    private UserDataOps opUser;         //Business logic for handling the app's user
 
-    //dependency injectable constructor
-    public MealDiaryOps(DBSelector db) {
+    public MealDiaryOps() throws NullPointerException {
+        SharedDB.start();
+        this.db = SharedDB.getSharedDB();
         this.logDate = Calendar.getInstance();
-
-        this.progressExcess = -1;
-        this.progressBar = -1;
-        this.calorieNet = -1;
 
         if (db != null) {
             this.db = db;
             this.opUser = new UserDataOps(db);
-            this.pullDBdata();
-            this.updateProgress();
-        }    
+            this.dateChangedUpdateList();
+        } else {
+            throw new NullPointerException("MealDiaryOps requires an initialized database in SharedDB");
+        }
     }
 
-
-    private Integer calendarToInt(Calendar date) {
-        return Integer.parseInt(String.valueOf(date.get(Calendar.YEAR)) + String.valueOf(date.get(Calendar.DAY_OF_YEAR)));
-    }
-
-    private void pullDBdata() {
-        this.currLog = this.selectFoodLogByDate(logDate);
-    }
-
-    private DailyLog selectFoodLogByDate(Calendar date) { //creates a new one but it does not exist in the list so it breaks for days not already in list
-        DailyLog currLog = this.db.searchFoodLogByDate(date); //search for food log
-
+    public void nextDate() throws IllegalArgumentException {
+        Calendar newDate = calendarDeepCopy(this.logDate);
+        newDate.add(Calendar.DAY_OF_YEAR, INCREMENT);
         try {
-            if (currLog == null) { //If doesnt exist generate a new one
-                currLog = new DailyLog();
-                currLog.init(calendarToInt(date), new ArrayList<Edible>(), this.opUser.getUser().getUserID(), this.opUser.getUser().getCalorieGoal(), 0, 0);
-                db.addLog(currLog);
-            }
+            this.setListDate(newDate);
+        } catch (Exception e) {
+            throw e;
         }
-        catch(Exception e) {
-            System.out.println(e);
-            System.exit(1);
+    }
+
+    public void prevDate() throws IllegalArgumentException {
+        Calendar newDate = calendarDeepCopy(this.logDate);
+        newDate.add(Calendar.DAY_OF_YEAR, -INCREMENT);
+        try {
+            this.setListDate(newDate);
+        } catch (Exception e) {
+            throw e;
         }
-
-        return currLog;
     }
 
-    public void nextDate() {
-        logDate.add(Calendar.DAY_OF_YEAR, INCREMENT);
-        this.dateChangedUpdateList();
-    }
+    public void setListDate(Calendar newDate) throws IllegalArgumentException {
+        int diff = logDate.get(Calendar.YEAR) - newDate.get(Calendar.YEAR);
 
-    public void prevDate() {
-        logDate.add(Calendar.DAY_OF_YEAR, -INCREMENT);
-        this.dateChangedUpdateList();
-    }
-
-    public void setListDate(Calendar newDate) {
-        Integer diff = logDate.get(Calendar.YEAR) - newDate.get(Calendar.YEAR);
-
-        if (diff <= DATE_LIMIT && diff >= -DATE_LIMIT) { //if within 2 years
+        if (diff <= Constant.DATE_LIMIT && diff >= -Constant.DATE_LIMIT) {
             this.logDate = newDate;
             this.dateChangedUpdateList();
+        } else {
+            throw new IllegalArgumentException("MealDiaryOps requires dates within " + Constant.DATE_LIMIT + " years of the current date");
         }
     }
 
-    private void dateChangedUpdateList() { //update before you change
-        this.pullDBdata();
-        this.updateProgress();
+    private Calendar calendarDeepCopy(Calendar date){
+        Calendar copy = Calendar.getInstance();
+        copy.set(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DATE));
+        return copy;
     }
 
-    public void setCalorieGoal(int newGoal) {
-        try {
-            if (newGoal >= 0 && newGoal <= GOAL_LIMIT) {
-                this.currLog.setCalorieGoal(newGoal);
-                db.setCalorieGoal(newGoal, logDate);
-                this.updateProgress();
-            }
-        }
-        catch(Exception e) {
-            System.out.println(e);
-            System.exit(1);
-        }
-    }
-
-    public void setCalorieExercise(Integer newExercise) {
-        try {
-            if (newExercise != null && newExercise >= 0 && newExercise <= GOAL_LIMIT) {
-                this.currLog.setExerciseActual(newExercise);
-                db.setExerciseActual(newExercise, logDate);
-                this.updateProgress();
-            }
-        }
-        catch(Exception e) {
-            System.out.println(e);
-            System.exit(1);
-        }
-    }
-
-    public void updateList(ArrayList<Edible> newList) {
-        try {
-            if (newList != null) {
-                this.db.deleteLog(currLog);
-                this.currLog.setEdibleList(newList);
-                this.db.addLog(currLog);
-                this.updateProgress();
-            }
-        }
-        catch(Exception e) {
-            System.out.println(e);
-            System.exit(1);
-        }
-    }
-
-    public Calendar getListDate() {
-        return this.logDate;
-    }
-
-    public int getCalorieGoal() {
-        return this.currLog.getCalorieGoal();
-    }
-
-    public Integer getCalorieNet() {
-        return this.calorieNet;
-    }
-
-    public Integer getProgressBar() {
-        return this.progressBar;
-    }
-
-    public Integer getProgressExcess() {
-        return this.progressExcess;
-    }
-
-    public ArrayList<Edible> getList() {
-        return this.currLog.getEdibleList();
+    private void dateChangedUpdateList() {
+        this.logChangedUpdateDB();
+        this.currLog = this.db.searchFoodLogByDate(this.logDate);
     }
 
     public DailyLog getCurrLog() {
         return this.currLog;
     }
 
-    private void updateProgress() {
-        this.netCalories();
-        this.calcProgress();
+    public void logChangedUpdateDB(){
+        //TODO: persistence method push current dailylog to db
     }
 
-    private void calcProgress() { //
-        if (this.calorieNet > 0) {
-            this.progressExcess = 0;
-            this.progressBar = (this.currLog.getCalorieGoal() - this.calorieNet) * MAX_PROGRESS / this.currLog.getCalorieGoal();
-        }
-        else {
-            this.progressBar = MAX_PROGRESS;
-            this.progressExcess = -this.calorieNet * MAX_PROGRESS / this.currLog.getCalorieGoal();
-
-            if (this.progressExcess > MAX_EXCESS) {
-                this.progressExcess = MAX_EXCESS;
-            }
-        }
-        if (this.progressBar < 0) {
-            this.progressBar = 0;
-        }
-    }
-
-    private void netCalories() {
-        this.calorieNet = this.currLog.getCalorieGoal() - (this.currLog.getEdibleCalories() - this.currLog.getExerciseActual());
-    }
-
-    public void addByKey(int dbkey) { //This gets called when adding stuff from mealDiary
-        EdibleLog tempLog = new EdibleLog(db.findEdibleByKey(dbkey));
-        ArrayList<Edible> newEdibleList = this.currLog.getEdibleList();
-
+    public void addByKey(int dbkey) throws NoSuchElementException {
+        EdibleLog newItem = null;
+        Edible foundEdible = null;
         try {
-            newEdibleList.add(this.currLog.getEdibleList().size() - 1, tempLog);
-            this.currLog.setEdibleList(newEdibleList);
-            this.updateProgress();
+            newItem = db.findEdibleByKey(dbkey);
         }
-        catch(Exception e) {
+        catch (Exception e){
             System.out.println(e);
+            throw new NoSuchElementException("MealDiaryOps addByKey the supplied dbkey does not match any db entry");
         }
+            try {
+                foundEdible = new EdibleLog(newItem).init(newItem.getQuantity(), newItem.getUnit());
+                this.currLog.addEdibleToLog(foundEdible);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
     }
 }

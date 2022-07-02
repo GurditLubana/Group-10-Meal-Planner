@@ -1120,7 +1120,7 @@ Duration: 4hrs
    - Calories do not get updated as the log gets updated (fixed)
    - Calories need their own variables (food accumulated calories and exercise should be seperated) (fixed)
    - Data stub data should appear normally on the UI (fixed)
-   - Data stub should have more interesting data (get bytes from an image should be written)
+   - Data stub should have more interesting data (fixed)
    - "" needs to be checked before parsing for calories and workout calories (crashes) (fixed)
    - Should probably change quantity from int to double
 
@@ -1129,6 +1129,7 @@ Duration: 4hrs
       - Dane
 Duration: 10hrs
    Tasks:
+   - Added relative calorie counter to EdibleLog
    - Updated all object structures again
    - Refactored all classes
    - Fixed bugs so that refactor can run
@@ -1152,3 +1153,88 @@ Duration: 5hrs
    - Researched alternatives and ways to ensure stub database could be decoupled from android to no prevail
    - Researched online options for getting byte array from actual images
    - Updated stub db data
+
+### 2022-06-29
+     Dev:
+      - Dane
+Duration: 8hrs
+   Tasks:
+   - Setup SQL queries
+   - Setup SelectorDB (to swap between databases at run time)
+   - Test and ran the project with the new database which worked!
+   - Minor Database table refactoring
+   - Improved data in the stub database
+
+### 2022-06-29
+     Dev:
+      - Zhou
+Duration: 5hrs
+   Tasks:
+   - Design Food.java unit test
+   - finished simple test of Food.java update at brench test-Zhou
+   - finished complex test of Food.java at update brench test-Zhou
+
+### 2022-06-29
+     Dev:
+      - Josef
+      - Manraj
+Duration: 4hrs
+   Tasks:
+   - Daily progress activity
+   - layout, test data
+
+### 2022-06-30
+     Dev:
+      - Josef
+Duration: 8hrs
+   Tasks:
+   - refactor code implementation according to iter1 feedback
+   - removed * imports
+   - placed presentation dialog classes into a heirarchy to remove code duplication
+   - refactored showcontextui method in mealdiary
+   - refactored mealdiaryops db access process
+
+### 2022-06-30
+     Dev:
+      - Zhou
+Duration: 1hrs
+   Tasks:
+   - finished empty test of Food.java update at brench test-Zhou
+
+### 2022-06-30
+     Dev:
+      - Dane
+Duration: 15hrs
+   Tasks:
+   - Generated statements for database seeding
+   - Refactored tables to fix an issue with Ingredients not having 2 potential edible keys (to join them)
+   - Database was dependent on android - refactored according to the sample project
+   - Created db.script for database loading
+   - Wrote all SQL statements using utils.sql in java *except for edible getters from database*
+   - Refactored codebase with Josef (removed extra information that Edible didnt need)
+   - Refactored DailyLog which now gets the UserID of whoever it belongs to
+   - Refactored RecipeOps and fixed bug where the wrong information was being loaded in drink/meal tabs
+   - Refactored RecipeActivity - now when an image is null an eggplant is displayed otherwise the image gets displayed
+
+### 2022-07-01
+     Dev:
+      - Zhou
+Duration: 1hrs
+   Tasks:
+   - finished edge test of Food.java update at brench test-Zhou
+   - find when interger properties input use ENTRY_MIN_VALUE will fail, it should not throw execption, it may brake principle of least astornishemnt
+
+### 2022-07-01
+     Dev:
+      - Josef
+Duration: 6hrs
+   Tasks:
+   - YuJa videos review, identify potential project areas to refactor
+   - 
+   -
+     
+
+     
+
+
+

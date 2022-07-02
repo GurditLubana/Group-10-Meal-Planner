@@ -1,7 +1,5 @@
 package comp3350.team10.persistence;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ArrayList;
@@ -10,7 +8,6 @@ import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
-import comp3350.team10.objects.Food;
 import comp3350.team10.objects.Meal;
 import comp3350.team10.objects.User;
 
@@ -23,8 +20,8 @@ public class DBSelector {
     private RecipeDBInterface recipeDB; //The database we would like to process recipe operations on
     
 
-    DBSelector(Context context) { //Creates both databases then points all interfaces towards hsql
-        this.hsql = new HSqlDB(context);
+    DBSelector() { //Creates both databases then points all interfaces towards hsql
+        //this.hsql = new HSqlDB();
         this.stub = new DataAccessStub("stub");
 
         this.logDB = this.hsql;
@@ -83,7 +80,15 @@ public class DBSelector {
     }
 
     public EdibleLog findEdibleByKey(int dbkey) {
-        return findEdibleByKey(dbkey);
+        //return this.recipeDB.findEdibleByKey(dbkey);
+        EdibleLog result = null;
+        try{
+            result = new EdibleLog(this.recipeDB.findEdibleByKey(dbkey)).init(10, Edible.Unit.cups);
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+        return result;
     }
 
     public void setExerciseActual(int newExercise, Calendar logDate) {
@@ -108,7 +113,7 @@ public class DBSelector {
         return this.recipeDB.getDrinkRecipes();
     }
 
-    public void addFoodToRecipeBook(Food newFood) {
+    public void addFoodToRecipeBook(Edible newFood) {
         this.recipeDB.addFoodToRecipeBook(newFood);
     }
 

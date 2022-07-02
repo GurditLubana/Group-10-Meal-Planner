@@ -2,17 +2,18 @@ package comp3350.team10.business;
 
 import java.util.ArrayList;
 
-import comp3350.team10.objects.*;
-import comp3350.team10.persistence.*;
+import comp3350.team10.objects.DataFrame;
+import comp3350.team10.persistence.DBSelector;
+import comp3350.team10.persistence.SharedDB;
 
 public class TrendsOps {
     private ArrayList<DataFrame> dataFrames;
     private DBSelector db;
     private DataFrame.Span span;
 
-    public TrendsOps(DBSelector db) throws NullPointerException {
-        if (db != null) {
-            this.db = db;
+    public TrendsOps() throws NullPointerException {
+        if (SharedDB.getSharedDB() != null) {
+            this.db = SharedDB.getSharedDB();
         } else {
             throw new NullPointerException("TrendsOps Database cannot be null");
         }

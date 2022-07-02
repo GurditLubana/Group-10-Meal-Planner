@@ -2,8 +2,9 @@ package comp3350.team10.presentation;
 
 import comp3350.team10.R;
 import comp3350.team10.business.RecipeBookOps;
-import comp3350.team10.objects.*;
-import comp3350.team10.persistence.*;
+import comp3350.team10.objects.DrinkIngredient;
+import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.Ingredient;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -34,10 +35,12 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private RecipeBookOps opExec;                   // Buisness logic for RecipeBook
     private Toolbar toolbar;                        // app title
     private ArrayList<Edible> data;                // The data for the recipe book
+    private Edible modifyUICard;
+    private final String RECIPEMODIFYCARD = "recipeModify";
 
     private boolean modMenuIsOpen;                  // Represents whether the menu to add/edit recipes is toggled on
-    private int savedPosition;                      // Saves the position of an item for temporary removal
-    private Edible saved;                           // Saves the item for temporary removal
+    private int savedItemPosition;                      // Saves the position of an item for temporary removal
+    private Edible savedItem;                           // Saves the item for temporary removal
     private int currTab;                            // The tab that is currently displayed
     private EntryMode mode;                         // The type of dialog to show
     private boolean detailsFlag = false;            // flag to show detailed recipes
@@ -49,10 +52,11 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.modMenuIsOpen = false;
         this.currTab = 0;
         this.initToolbar();
+        this.initUICardObjects();
         this.initLiveData();
         this.initRecyclerView();
         this.setTabListeners();
-        this.initActionButtons();       //Make floating action button work.
+        this.initActionButtons();
     }
 
     private void initToolbar() {
@@ -67,32 +71,19 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     private void initLiveData() {
-        this.opExec = new RecipeBookOps(SharedDB.getSharedDB());
+        this.opExec = new RecipeBookOps();
         this.data = opExec.getFoodRecipes();
     }
 
     private void initRecyclerView() {
-        View object = findViewById(R.id.recipeRecyclerView);
-        //ArrayList<ListItem> tempList = convertToListItem(this.data);
+        View view = findViewById(R.id.recipeRecyclerView);
 
-        if (this.data != null && object instanceof RecyclerView) {
-            this.recipeRecyclerView = (RecyclerView) object;
+        if (this.data != null && view instanceof RecyclerView) {
             this.recyclerViewAdapter = new RVARecipeBook(this.data);
+            this.recipeRecyclerView = (RecyclerView) view;
             this.recipeRecyclerView.setAdapter(recyclerViewAdapter);
             this.recipeRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         }
-    }
-
-    private ArrayList<ListItem> convertToListItem(ArrayList<Edible> currList) {
-        ArrayList<ListItem> tempList = new ArrayList<ListItem>();
-
-        for(int i = 0; i < currList.size(); i++) {
-            if(currList.get(i) instanceof ListItem) {
-                tempList.add(this.data.get(i));
-            }
-        }
-
-        return tempList;
     }
 
     private void setTabListeners() {
@@ -100,7 +91,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) { //tab.getPosition() tab 0 = food, 1 = meal, 2 = drink
+            public void onTabSelected(TabLayout.Tab tab) {
                 currTab = tab.getPosition();
                 if (currTab == 0) {
                     data = opExec.getFoodRecipes();
@@ -167,6 +158,19 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         });
     }
 
+    private void initUICardObjects() {
+        this.savedItemPosition = -1;
+        this.modifyUICard = new Edible();
+        
+        try {
+            this.modifyUICard.setName(RECIPEMODIFYCARD);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            System.exit(1);
+        }
+    }
+
     private void animateButton() {
         if (this.modMenuIsOpen) {
             this.openFab.startAnimation(rotateForward);
@@ -185,36 +189,44 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         }
     }
 
-    @Override
     public void showContextUI(int position) {
-        Food modifyUIcard = new Food();
-        if (position != this.savedPosition && this.saved != null) {
-            this.data.remove(this.savedPosition);
-            this.data.add(this.savedPosition, this.saved);
-        }
-
-        if (this.data.get(position).getFragmentType() != ListItem.FragmentType.cardSelection) {
-            this.saved = this.data.remove(position);
-            this.savedPosition = position;
-
-            try {
-                modifyUIcard.setFragmentType(ListItem.FragmentType.cardSelection);
-                this.data.add(position, modifyUIcard);
+        int otherPosition = -1;
+        if (position >= 0 && position != this.savedItemPosition ) {
+            if(this.savedItem == null) {
+                saveItem(position);
+            } else {
+                otherPosition = this.savedItemPosition;
+                swapSaved(position);
+                this.recyclerViewAdapter.notifyItemChanged(otherPosition);
             }
-            catch(Exception e) {
-                System.out.println(e);
-                System.exit(1);
-            }
-        } 
-        else {
             this.data.remove(position);
-            this.data.add(position, this.saved);
-            this.saved = null;
+            this.data.add(position, modifyUICard);
+        } else {
+            restoreSaved();
         }
-
-        this.recyclerViewAdapter.notifyItemRemoved(position);
-        this.recyclerViewAdapter.notifyItemRangeChanged(position, data.size());
+        this.recyclerViewAdapter.notifyItemChanged(position);
         this.recyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    private void restoreSaved() {
+        if (savedItem != null) {
+            this.data.remove(this.savedItemPosition);
+            this.data.add(this.savedItemPosition, this.savedItem);
+            this.savedItemPosition = -1;
+            this.savedItem = null;
+        }
+    }
+
+    private void saveItem(int position) {
+        this.savedItemPosition = position;
+        this.savedItem = this.data.get(position);
+    }
+
+    private void swapSaved(int position) {
+        Edible temp = this.data.get(position);
+        restoreSaved();
+        this.savedItemPosition = position;
+        this.savedItem = temp;
     }
 
     @Override
@@ -222,8 +234,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         Intent intent = new Intent();
         int dbkey = -1;
 
-        if (this.saved != null) {
-            dbkey = this.saved.getDbkey();
+        if (this.savedItem != null) {
+            dbkey = this.savedItem.getDbkey();
         }
 
         intent.putExtra("DBKEY", dbkey);

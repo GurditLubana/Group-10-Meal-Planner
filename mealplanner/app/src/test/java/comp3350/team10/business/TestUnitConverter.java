@@ -14,7 +14,7 @@
 
 // import comp3350.team10.objects.DailyLog;
 // import comp3350.team10.objects.Edible;
-// import comp3350.team10.objects.ListItem;
+// 
 // import comp3350.team10.persistence.DataAccessStub;
 // import comp3350.team10.persistence.SharedDB;
 

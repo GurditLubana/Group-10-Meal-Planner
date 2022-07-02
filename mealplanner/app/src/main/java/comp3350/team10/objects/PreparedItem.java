@@ -43,7 +43,7 @@ public abstract class PreparedItem extends Edible {
     }
 
     private void calcCalories(ArrayList<Ingredient> ingredients) throws IOException {
-        int calculatedCalories = 0;
+        double calculatedCalories = 0;
 
         for(int i = 0; i < ingredients.size(); i++) {
             calculatedCalories = ingredients.get(i).getIngredient().getCalories();
