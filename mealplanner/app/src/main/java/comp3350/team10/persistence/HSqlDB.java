@@ -31,7 +31,7 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
     private static final String SHUTDOWN_CMD = "shutdown compact";
     private Connection currConn;
     private Statement reqHandler;
-    private String dbPath = "jdbc:hsqldb:file:" + Main.getDBPathName(); // stored on disk mode
+    private String dbPath = "jdbc:hsqldb:file:" + Main.getDBPathName() + ";shutdown=true"; // stored on disk mode
     private String dbName;
     private String dbType = "HSQL";
 
@@ -848,7 +848,7 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
     public User getUser() {
         User currUser = null;
         try {
-            PreparedStatement getUser = currConn.prepareStatement("SELECT * FROM user");
+            PreparedStatement getUser = currConn.prepareStatement("SELECT * FROM WorkoutHistory");
             ResultSet results = getUser.executeQuery();
 
             int userID, height, weight, calorieGoal, exerciseGoal;
@@ -860,7 +860,7 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
         catch (Exception e) {
             System.out.println(e);
             System.out.println("getUser");
-            System.exit(1);
+            //System.exit(1);
         }
 
         return currUser;
