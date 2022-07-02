@@ -26,11 +26,11 @@ import comp3350.team10.objects.Ingredient;
 import comp3350.team10.objects.Meal;
 import comp3350.team10.objects.User;
 
-public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterface {
+public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterface {
     private static final String SHUTDOWN_CMD = "shutdown compact";
     private Connection currConn;//jdbc:hsqldb:file:D:/Eatdatabase/db.script
     private Statement reqHandler;//
-    private String dbPath = "jdbc:hsqldb:mem:db/db.script;hsqldb.lock_file=false";
+    private String dbPath = "jdbc:hsqldb:mem:db/db;hsqldb.lock_file=false";
     private String dbName = "Superior DB";
     private String dbType = "HSQL";
 
@@ -56,8 +56,8 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
         }
         catch(Exception e) {
             System.out.println(e);
-            System.out.println("open");
-            System.exit(1);
+            System.out.println("hsqldb open");
+            //System.exit(1);
         }
     }
 
@@ -83,8 +83,8 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
     public ArrayList<Edible> getFoodRecipes() {
         ArrayList<Edible> foodList = new ArrayList<Edible>();
         try {
-            PreparedStatement getFoodList = currConn.prepareStatement("GET * FROM Food");
-            PreparedStatement getCustomFoodList = currConn.prepareStatement("GET * FROM CustomFood");
+            PreparedStatement getFoodList = currConn.prepareStatement("SELECT * FROM Food");
+            PreparedStatement getCustomFoodList = currConn.prepareStatement("SELECT * FROM CustomFood");
             ResultSet results = getFoodList.executeQuery();
             boolean ediblesRemain = results.next();
 
@@ -507,7 +507,7 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
     public DailyLog searchFoodLogByDate(Calendar date, int userID) {
         DailyLog log = null;
         try {
-            PreparedStatement findLog = currConn.prepareStatement("GET * FROM History, WHERE UserID = ? AND Date = ?");
+            PreparedStatement findLog = currConn.prepareStatement("SELECT * FROM History, WHERE UserID = ? AND Date = ?");
             ResultSet results;
             int exerciseActual;
             ArrayList<Edible> edibleLog;
@@ -595,7 +595,7 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
     private ArrayList<Edible> getEdibleLog(int historyID) {
         ArrayList<Edible> edibleLog = new ArrayList<Edible>();
         try {
-            PreparedStatement findLog = currConn.prepareStatement("GET EdibleID, CustomEdibleID FROM EdibleHistory, " +
+            PreparedStatement findLog = currConn.prepareStatement("SELECT EdibleID, CustomEdibleID FROM EdibleHistory, " +
                     "WHERE HistoryID = ?");
             ResultSet results;
 
@@ -625,7 +625,7 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
     private int getExerciseActual(int HistoryID) {
         int exerciseActual = 0;
         try {
-            PreparedStatement getExerciseActual = currConn.prepareStatement("GET * FROM WorkoutHistory, WHERE HistoryID = ?");
+            PreparedStatement getExerciseActual = currConn.prepareStatement("SELECT * FROM WorkoutHistory, WHERE HistoryID = ?");
             ResultSet results;
 
             getExerciseActual.setInt(1, HistoryID);
@@ -648,7 +648,7 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
     public EdibleLog findEdibleByKey(int dbkey, boolean isCustom) {
         EdibleLog edibleLog = null;
         try {
-            PreparedStatement findEdibleByKey = currConn.prepareStatement("GET * FROM ?, WHERE EdibleID = ?");
+            PreparedStatement findEdibleByKey = currConn.prepareStatement("SELECT * FROM ?, WHERE EdibleID = ?");
             ResultSet results;
 
             if (isCustom) {
@@ -673,8 +673,8 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
     private boolean isMeal(int dbkey, boolean isCustom) {
         boolean found = false;
         try {
-            PreparedStatement checkIfMeal = currConn.prepareStatement("GET * FROM Meal, WHERE EdibleID = ?");
-            PreparedStatement checkIfCustomMeal = currConn.prepareStatement("GET * FROM CustomMeal, WHERE CustomEdibleID = ?");
+            PreparedStatement checkIfMeal = currConn.prepareStatement("SELECT * FROM Meal, WHERE EdibleID = ?");
+            PreparedStatement checkIfCustomMeal = currConn.prepareStatement("SELECT * FROM CustomMeal, WHERE CustomEdibleID = ?");
             found = false;
             ResultSet results;
 
@@ -701,8 +701,8 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
     private boolean isDrink(int dbkey, boolean isCustom) {
         boolean found = false;
         try {
-            PreparedStatement checkIfDrink = currConn.prepareStatement("GET * FROM Drink, WHERE EdibleID = ?");
-            PreparedStatement checkIfCustomDrink = currConn.prepareStatement("GET * FROM CustomDrink, WHERE CustomEdibleID = ?");
+            PreparedStatement checkIfDrink = currConn.prepareStatement("SELECT * FROM Drink, WHERE EdibleID = ?");
+            PreparedStatement checkIfCustomDrink = currConn.prepareStatement("SELECT * FROM CustomDrink, WHERE CustomEdibleID = ?");
             ResultSet results;
 
             if (isCustom) {
@@ -814,7 +814,7 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
     private int getHistoryID(DailyLog currLog, int userID) {
         int historyID = -1;
         try {
-            PreparedStatement getHistoryID = currConn.prepareStatement("GET HistoryID FROM History WHERE UserID = ? AND Date = ?");
+            PreparedStatement getHistoryID = currConn.prepareStatement("SELECT HistoryID FROM History WHERE UserID = ? AND Date = ?");
             ResultSet results;
 
             getHistoryID.setString(1, convertDateToString(currLog.getDate()));

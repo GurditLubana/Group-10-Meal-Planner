@@ -349,7 +349,6 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
-
     //This section implements DiaryDBInterface
     public DailyLog searchFoodLogByDate(Calendar date, int userID) {
         Integer intDate = calendarToInt(date);

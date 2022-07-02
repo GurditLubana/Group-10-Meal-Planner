@@ -120,13 +120,21 @@ public class DailyLog {
         this.calcProgress();
     }
 
-    private void calcProgress() {
+    private void calcProgress() { //TODO refactor
         if (this.calorieNet > 0) {
             this.progressExcess = 0;
-            this.progressBar = (this.calorieGoal - this.calorieNet) * MAX_PROGRESS / this.calorieGoal;
+            if (this.calorieGoal > 0) {
+                this.progressBar = (this.calorieGoal - this.calorieNet) * MAX_PROGRESS / this.calorieGoal;
+            } else {
+                this.progressBar = 0;
+            }
         } else {
             this.progressBar = MAX_PROGRESS;
-            this.progressExcess = -this.calorieNet * MAX_PROGRESS / this.calorieGoal;
+            if (this.calorieGoal > 0) {
+                this.progressExcess = -this.calorieNet * MAX_PROGRESS / this.calorieGoal;
+            } else {
+                this.progressExcess = MAX_EXCESS;
+            }
 
             if (this.progressExcess > MAX_EXCESS) {
                 this.progressExcess = MAX_EXCESS;

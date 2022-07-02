@@ -21,21 +21,25 @@ public class DBSelector {
     
 
     DBSelector() { //Creates both databases then points all interfaces towards hsql
+        //startHsqlDB();
+        startStubDB();
+    }
+
+    public void startHsqlDB() {
         this.hsql = new HSqlDB();
-        this.stub = new DataAccessStub("stub");
 
         this.logDB = this.hsql;
         this.userDB = this.hsql;
         this.recipeDB = this.hsql;
     }
 
+    public void startStubDB() {
+        this.stub = new DataAccessStub("stub");
 
-    void moveToStubDB() { //Point all interfaces towards the Stub
+        this.stub.open("");
         this.recipeDB = this.stub;
         this.userDB = this.stub;
         this.logDB = this.stub;
-        
-        this.stub.open("");
     }
     
 

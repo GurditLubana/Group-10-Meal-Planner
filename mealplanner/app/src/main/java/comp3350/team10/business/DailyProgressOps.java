@@ -3,17 +3,15 @@ package comp3350.team10.business;
 import java.util.Calendar;
 import java.util.LinkedList;
 
-import comp3350.team10.objects.Edible;
-import comp3350.team10.persistence.DBSelector;
-import comp3350.team10.persistence.DataAccessStub;
+import comp3350.team10.persistence.SharedDB;
 
 public class DailyProgressOps {
 
     private LinkedList<Integer> currentProgress; //The food in the planner for the given day
     private Calendar listDate;
-    private DBSelector db;
+    private SharedDB db;
 
-    public DailyProgressOps(DBSelector db) {
+    public DailyProgressOps(SharedDB db) {
         this.listDate = Calendar.getInstance();
 
         if (db != null) {
