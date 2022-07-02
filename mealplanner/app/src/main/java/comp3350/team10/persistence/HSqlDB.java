@@ -28,16 +28,16 @@ import comp3350.team10.objects.User;
 
 public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterface {
     private static final String SHUTDOWN_CMD = "shutdown compact";
-    private Connection currConn;
-    private Statement reqHandler;
-    private String dbPath; //		url = "jdbc:hsqldb:file:" + dbPath; // stored on disk mode
-    private String dbName;
+    private Connection currConn;//jdbc:hsqldb:file:D:/Eatdatabase/db.script
+    private Statement reqHandler;//
+    private String dbPath = "jdbc:hsqldb:mem:db/db.script;hsqldb.lock_file=false";
+    private String dbName = "Superior DB";
     private String dbType = "HSQL";
 
     public HSqlDB() {
         try {
-            this.reqHandler = currConn.createStatement();
             this.open();
+            this.reqHandler = currConn.createStatement();
         }
         catch(Exception e) {
             System.out.println(e);
@@ -51,7 +51,7 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
         try {
             Class.forName("org.hsqldb.jdbcDriver").newInstance();
 
-            currConn = DriverManager.getConnection(dbPath, "user", "pass");
+            currConn = DriverManager.getConnection(dbPath, "SA", "");
             System.out.println("Opened " + this.dbType + " database named " + this.dbName + " @dbPath " + this.dbPath);
         }
         catch(Exception e) {
@@ -849,9 +849,9 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
     public User getUser() {
         User currUser = null;
         try {
-            PreparedStatement getUser = currConn.prepareStatement("GET * FROM User");
+            PreparedStatement getUser = currConn.prepareStatement("SELECT * FROM User");
             ResultSet results = getUser.executeQuery();
-
+            System.out.println(results);
             int userID, height, weight, calorieGoal, exerciseGoal;
             String name;
 
