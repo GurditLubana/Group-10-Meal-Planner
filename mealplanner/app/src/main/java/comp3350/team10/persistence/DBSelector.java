@@ -11,7 +11,7 @@ import comp3350.team10.objects.EdibleLog;
 import comp3350.team10.objects.Meal;
 import comp3350.team10.objects.User;
 
-public class DBSelector {
+public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInterface{
     private HSqlDB hsql;                //An active instance of the HSQL database
     private DataAccessStub stub;        //An active instance of the DataAccessStub database (switch to shared)
 
@@ -31,7 +31,6 @@ public class DBSelector {
         this.logDB = this.hsql;
         this.userDB = this.hsql;
         this.recipeDB = this.hsql;
-
     }
 
     public void startStubDB() {
@@ -65,7 +64,7 @@ public class DBSelector {
         this.userDB.setCalorieGoal(userID, goal, date);
     }
 
-    public void setExerciseGoal(int userID, int goal, Calendar date) {
+    public void setExerciseGoal(int userID, double goal, Calendar date) {
         this.userDB.setExerciseGoal(userID, goal, date);
     }
 
