@@ -36,8 +36,8 @@ public class HSqlDB  implements LogDBInterface, RecipeDBInterface, UserDBInterfa
 
     public HSqlDB() {
         try {
-            this.reqHandler = currConn.createStatement();
             this.open();
+            this.reqHandler = currConn.createStatement();
         }
         catch(Exception e) {
             System.out.println(e);

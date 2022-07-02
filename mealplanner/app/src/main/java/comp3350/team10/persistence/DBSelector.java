@@ -21,13 +21,13 @@ public class DBSelector {
     
 
     DBSelector() { //Creates both databases then points all interfaces towards hsql
-        //this.hsql = new HSqlDB();
-        this.stub = new DataAccessStub("stub");
+        this.hsql = new HSqlDB();
+        //this.stub = new DataAccessStub("stub");
 
         this.logDB = this.hsql;
         this.userDB = this.hsql;
         this.recipeDB = this.hsql;
-        this.moveToStubDB();
+        //this.moveToStubDB();
     }
 
 
