@@ -1231,7 +1231,16 @@ Duration: 6hrs
    Tasks:
    - YuJa videos review, identify potential project areas to refactor
    - 
-   -
+  
+  
+### 2022-07-02
+     Dev:
+      - Zhou
+Duration: 2hrs
+   Tasks:
+   - finished Invalid test of Food.java update at brench test-Zhou
+   - all test case is done in TestFoodUnit.java, need other people review
+
      
 
      
