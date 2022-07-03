@@ -82,8 +82,8 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     public ArrayList<Edible> getFoodRecipes() {
         ArrayList<Edible> foodList = new ArrayList<Edible>();
         try {
-            PreparedStatement getFoodList = currConn.prepareStatement("SELECT * FROM Food");
-            PreparedStatement getCustomFoodList = currConn.prepareStatement("SELECT * FROM CustomFood");
+            PreparedStatement getFoodList = currConn.prepareStatement("SELECT * FROM Food INNER JOIN EDIBLE ON EDIBLE.EDIBLEID = FOOD.EDIBLEID");
+            PreparedStatement getCustomFoodList = currConn.prepareStatement("SELECT * FROM CustomFood INNER JOIN CUSTOMEDIBLE ON CUSTOMEDIBLE.CUSTOMEDIBLEID = CUSTOMFOOD.CUSTOMEDIBLEID");
             ResultSet results = getFoodList.executeQuery();
             boolean ediblesRemain = results.next();
 
@@ -123,7 +123,12 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         boolean isAlcoholic, isSpicy, isVegan, isVegetarian, isGlutenFree;
 
         try {
-            id = results.getInt("EDIBLEID");
+            if(isCustom) {
+                id = results.getInt("CUSTOMEDIBLEID");
+            }
+            else {
+                id = results.getInt("EDIBLEID");
+            }
             name = results.getString("NAME");
             description = results.getString("Description");
             quantity = results.getInt("Quantity");
@@ -169,16 +174,21 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     public ArrayList<Edible> getMealRecipes() {
         ArrayList<Edible> mealList = new ArrayList<Edible>();
         try {
-            PreparedStatement getMeals = this.currConn.prepareStatement("SELECT * FROM ?");
+            PreparedStatement getMeals = this.currConn.prepareStatement("SELECT * FROM Meal INNER JOIN Edible ON Meal.EdibleID = Edible.EdibleID");
+            PreparedStatement getCustomMeals = this.currConn.prepareStatement("SELECT * FROM CustomMeal INNER JOIN CustomEdible ON CustomEdible.CustomEdibleID = CustomMeal.CustomEdibleID");
             ResultSet results;
             Meal currMeal;
+            Edible currEdible;
 
-            //Query custom
-            getMeals.setString(1, "CustomMeal");
-            results = getMeals.executeQuery();
+            results = getCustomMeals.executeQuery();
 
             while (results.next()) {
-                currMeal = (Meal)this.readEdible(results, true);
+                currEdible = this.readEdible(results, true);
+                currMeal = new Meal();
+                currMeal.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
+                currMeal.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
+                currMeal.initNutrition(currEdible.getCalories(), currEdible.getProtein(), currEdible.getCarbs(), currEdible.getFat());
+                currMeal.initMetadata(true, currEdible.getPhotoBytes());
                 currMeal.setIngredients(this.getMealIngredients(currMeal));
                 currMeal.setInstructions(this.getInstructions(currMeal));
                 mealList.add(currMeal);
@@ -186,11 +196,15 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             results.close();
 
             //Query regular
-            getMeals.setString(1, "Meal");
             results = getMeals.executeQuery();
 
             while (results.next()) {
-                currMeal = (Meal)this.readEdible(results, false);
+                currEdible = this.readEdible(results, false);
+                currMeal = new Meal();
+                currMeal.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
+                currMeal.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
+                currMeal.initNutrition(currEdible.getCalories(), currEdible.getProtein(), currEdible.getCarbs(), currEdible.getFat());
+                currMeal.initMetadata(false, currEdible.getPhotoBytes());
                 currMeal.setIngredients(this.getMealIngredients(currMeal));
                 currMeal.setInstructions(this.getInstructions(currMeal));
                 mealList.add(currMeal);
@@ -209,16 +223,22 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     public ArrayList<Edible> getDrinkRecipes() {
         ArrayList<Edible> drinkList = new ArrayList<Edible>();
         try {
-            PreparedStatement getDrinks = this.currConn.prepareStatement("SELECT * FROM ?");
+            PreparedStatement getDrinks = this.currConn.prepareStatement("SELECT * FROM Drink INNER JOIN Edible ON Drink.EdibleID = Edible.EdibleID");
+            PreparedStatement getCustomDrinks = this.currConn.prepareStatement("SELECT * FROM CustomDrink INNER JOIN CustomEdible ON CustomEdible.CustomEdibleID = CustomDrink.CustomEdibleID");
             ResultSet results;
             Drink currDrink;
+            Edible currEdible;
 
             //Query custom
-            getDrinks.setString(1, "CustomDrink");
-            results = getDrinks.executeQuery();
+            results = getCustomDrinks.executeQuery();
 
             while (results.next()) {
-                currDrink = (Drink)this.readEdible(results, true);
+                currEdible = this.readEdible(results, true);
+                currDrink = new Drink();
+                currDrink.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
+                currDrink.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
+                currDrink.initNutrition(currEdible.getCalories(), currEdible.getProtein(), currEdible.getCarbs(), currEdible.getFat());
+                currDrink.initMetadata(true, currEdible.getPhotoBytes());
                 currDrink.setIngredients(this.getDrinkIngredients(currDrink));
                 currDrink.setInstructions(this.getInstructions(currDrink));
                 drinkList.add(currDrink);
@@ -226,11 +246,15 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             results.close();
 
             //Query regular
-            getDrinks.setString(1, "Drink");
             results = getDrinks.executeQuery();
 
             while (results.next()) {
-                currDrink = (Drink)this.readEdible(results, false);
+                currEdible = this.readEdible(results, false);
+                currDrink = new Drink();
+                currDrink.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
+                currDrink.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
+                currDrink.initNutrition(currEdible.getCalories(), currEdible.getProtein(), currEdible.getCarbs(), currEdible.getFat());
+                currDrink.initMetadata(false, currEdible.getPhotoBytes());
                 currDrink.setIngredients(this.getDrinkIngredients(currDrink));
                 currDrink.setInstructions(this.getInstructions(currDrink));
                 drinkList.add(currDrink);
@@ -249,23 +273,20 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     private String getInstructions(Edible currEdible) {
         String instructions = "";
         try {
-            PreparedStatement getInstructions = this.currConn.prepareStatement("SELECT Instructions FROM ?, ?, WHERE ? = ?");
+            PreparedStatement getInstructions = this.currConn.prepareStatement("SELECT Instructions FROM Meal, Drink WHERE EdibleID = ?");
+            PreparedStatement getCustomInstructions = this.currConn.prepareStatement("SELECT Instructions FROM CustomMeal, CustomDrink WHERE CustomEdibleID = ?");
             ResultSet results;
-
+            getInstructions.setInt(1, currEdible.getDbkey());
             String foundInstructions;
 
             if (currEdible.getIsCustom()) {
-                getInstructions.setString(1, "CustomMeal");
-                getInstructions.setString(2, "CustomDrink");
-                getInstructions.setString(3, "CustomEdibleID");
+                results = getCustomInstructions.executeQuery();
             } else {
-                getInstructions.setString(1, "Meal");
-                getInstructions.setString(2, "Drink");
-                getInstructions.setString(3, "EdibleID");
+                results = getInstructions.executeQuery();
             }
 
-            getInstructions.setInt(4, currEdible.getDbkey());
-            results = getInstructions.executeQuery();
+            results.next();
+
             foundInstructions = results.getString("Instructions");
             results.close();
 
@@ -276,7 +297,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("getInstructions");
-            System.exit(1);
         }
 
         return instructions;
@@ -539,7 +559,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
         try {
             PreparedStatement getIngredients = currConn.prepareStatement("SELECT * FROM DrinkIngredient INNER JOIN Edible " +
-                    "ON Edible.EdibleID = DrinkIngredient.EdibleID, WHERE PreparedID = ? OR CustomPreparedID = ?");
+                    "ON Edible.EdibleID = DrinkIngredient.EdibleID WHERE PreparedID = ? OR PreparedCustomID = ?");
             ResultSet results;
 
             DrinkIngredient currIngredient;
@@ -569,8 +589,8 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     private ArrayList<Ingredient> getMealIngredients(Edible currEdible) {   //save all as things without ingredients
         ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
         try {
-            PreparedStatement getIngredients = currConn.prepareStatement("SELECT * FROM Ingredient INNER JOIN Edible " +
-                    "ON Edible.EdibleID = Ingredient.EdibleID, WHERE PreparedID = ? OR CustomPreparedID = ?");
+            PreparedStatement getIngredients = currConn.prepareStatement("SELECT * FROM MealIngredient INNER JOIN Edible " +
+                    "ON Edible.EdibleID = MealIngredient.EdibleID WHERE PreparedID = ? OR PreparedCustomID = ?");
             ResultSet results;
 
             Ingredient currIngredient;
@@ -676,8 +696,8 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     private boolean isMeal(int dbkey, boolean isCustom) {
         boolean found = false;
         try {
-            PreparedStatement checkIfMeal = currConn.prepareStatement("SELECT * FROM Meal, WHERE EdibleID = ?");
-            PreparedStatement checkIfCustomMeal = currConn.prepareStatement("SELECT * FROM CustomMeal, WHERE CustomEdibleID = ?");
+            PreparedStatement checkIfMeal = currConn.prepareStatement("SELECT * FROM Meal WHERE EdibleID = ?");
+            PreparedStatement checkIfCustomMeal = currConn.prepareStatement("SELECT * FROM CustomMeal WHERE CustomEdibleID = ?");
             found = false;
             ResultSet results;
 
@@ -704,8 +724,8 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     private boolean isDrink(int dbkey, boolean isCustom) {
         boolean found = false;
         try {
-            PreparedStatement checkIfDrink = currConn.prepareStatement("SELECT * FROM Drink, WHERE EdibleID = ?");
-            PreparedStatement checkIfCustomDrink = currConn.prepareStatement("SELECT * FROM CustomDrink, WHERE CustomEdibleID = ?");
+            PreparedStatement checkIfDrink = currConn.prepareStatement("SELECT * FROM Drink WHERE EdibleID = ?");
+            PreparedStatement checkIfCustomDrink = currConn.prepareStatement("SELECT * FROM CustomDrink WHERE CustomEdibleID = ?");
             ResultSet results;
 
             if (isCustom) {
@@ -798,7 +818,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             int logID = getHistoryID(currLog, userID);
             PreparedStatement setExerciseActual = currConn.prepareStatement("CASE " +
                     "WHEN COUNT(SELECT * FROM WorkoutHistory WHERE HistoryID = ?) = 0 THEN INSERT INTO WorkoutHistory VALUES (?, ?) " +
-                    "ELSE UPDATE WorkoutHistory SET ExerciseActual = ?, WHERE HistoryID = ?");
+                    "ELSE UPDATE WorkoutHistory SET ExerciseActual = ? WHERE HistoryID = ?");
 
             setExerciseActual.setInt(1, logID);
             setExerciseActual.setInt(2, logID);
@@ -875,7 +895,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
 
     public void setHeight(int userID, int newHeight) {
         try {
-            PreparedStatement setHeight = currConn.prepareStatement("Update User SET Height = ?, WHERE UserID = ?");
+            PreparedStatement setHeight = currConn.prepareStatement("Update User SET Height = ? WHERE UserID = ?");
 
             setHeight.setInt(1, newHeight);
             setHeight.setInt(2, userID);
@@ -890,7 +910,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
 
     public void setWeight(int userID, int newWeight) {
         try {
-            PreparedStatement setWeight = currConn.prepareStatement("Update User SET Weight = ?, WHERE UserID = ?");
+            PreparedStatement setWeight = currConn.prepareStatement("Update User SET Weight = ? WHERE UserID = ?");
 
             setWeight.setInt(1, newWeight);
             setWeight.setInt(2, userID);

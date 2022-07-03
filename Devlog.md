@@ -1230,8 +1230,44 @@ Duration: 1hrs
 Duration: 6hrs
    Tasks:
    - YuJa videos review, identify potential project areas to refactor
-   - 
-  
+
+### 2022-07-01
+     Dev:
+      - Dane
+      - Josef
+Duration: 10hrs
+   Tasks:
+   - Generated Unit tests for four classes and discussed testing
+   - Refactored Edible and EdibleLog classes
+   - Struggled with HSQL setup, lots of research to get it to work - db.script formating and table errors
+   - Moved empty log creation into DB
+   - Fixed bug where new edibles were not getting added to the DB
+   - Finished SQL statements
+   - Fixed compiler run time errors in generated HSQL db file
+   - Questioned our degree choice
+
+### 2022-07-02
+     Dev:
+      - Dane
+      - Josef
+Duration: hrs start time 12.30
+   Tasks:
+   - Debug the .script file for the database
+   - Researched .log and what it does
+   - Researched required properties
+   - Researched .script requirements for db loading
+   - created a function that loaded device database with data
+   - added default data to .script file
+   - Debugged SQL statements
+   - Watched Yuja videos 
+   - Refactored DB implementation in SharedDB
+   
+   - Bugs:
+   - Instructions do not get loaded properly with SQL
+   - New entires need to be added to database and generated in HSQL file
+   - EdibleLog food items do not get displayed properly
+   - SQL should be refactored
+   - SQL needs to be better tested
   
 ### 2022-07-02
      Dev:

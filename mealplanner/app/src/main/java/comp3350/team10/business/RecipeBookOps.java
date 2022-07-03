@@ -7,20 +7,21 @@ import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
 import comp3350.team10.objects.Meal;
 import comp3350.team10.persistence.DBSelector;
+import comp3350.team10.persistence.RecipeDBInterface;
 import comp3350.team10.persistence.SharedDB;
 
 import java.util.ArrayList;
 
 public class RecipeBookOps {
-    private DBSelector db;      //Access to the database
+    private RecipeDBInterface db;      //Access to the database
 
     public RecipeBookOps() {
-        this.db = SharedDB.getSharedDB();
+        this.db = SharedDB.getRecipeDB();
     }
 
 
     public ArrayList<Edible> getFoodRecipes() {
-        return db.getFoodRecipes();
+        return this.db.getFoodRecipes();
     }
 
     public ArrayList<Edible> getDrinkRecipes() {
