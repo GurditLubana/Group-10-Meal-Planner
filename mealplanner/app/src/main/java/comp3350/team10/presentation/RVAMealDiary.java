@@ -1,6 +1,7 @@
 package comp3350.team10.presentation;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import comp3350.team10.R;
@@ -89,13 +91,23 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         itemQty.setText(String.format("%3.2f", currentItem.getQuantity()));
         itemUnit.setText(currentItem.getUnit().toString());
         itemCals.setText(String.format("%3d", (int) currentItem.getCalories()));
+        itemImage.setImageBitmap(getBitmapFromFile("food.jpg")); //TODO currentItem.getFilePath()
 
-        // Bitmap bmp = BitmapFactory.decodeByteArray(currentItem.getPhotoBytes(), 0,
-        // currentItem.getPhotoBytes().length);
-        // itemImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, itemImage.getWidth(),
-        // itemImage.getHeight(), false));
+    }
 
-        // itemImage.setImageResource(currentLog.getEdibleEntry().getPhotoBytes());
+    private Bitmap getBitmapFromFile(String fileName){
+        InputStream istr = null;
+        Bitmap bitmap = null;
+        AssetManager assetManager = context.getAssets();
+        try {
+            istr = assetManager.open("images/" + fileName);
+            bitmap = BitmapFactory.decodeStream(istr);
+            istr.close();
+        } catch (Exception e){
+            System.out.println(e);
+        }
+
+        return bitmap;
     }
 
 

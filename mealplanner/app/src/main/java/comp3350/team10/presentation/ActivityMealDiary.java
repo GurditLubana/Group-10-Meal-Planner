@@ -134,7 +134,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                 });
     }
 
-    private void copyFilesToDevice(String path) {
+    private void copyFilesToDevice(String path) { //TODO refactor this and associated methods
 
         String[] assetNames;
         Context context = getApplicationContext();
@@ -155,7 +155,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
     }
 
-    private void copyImagesToDevice() {
+    private void copyImagesToDevice() {//TODO refactor this and associated methods
         final String IMAGE_PATH = "images";
 
         Context context = getApplicationContext();
@@ -170,7 +170,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
     }
 
-    private void copyDatabaseToDevice() {
+    private void copyDatabaseToDevice() {//TODO refactor this and associated methods
         final String DB_PATH = "db";
 
         Context context = getApplicationContext();
