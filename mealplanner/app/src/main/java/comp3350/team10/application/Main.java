@@ -9,13 +9,12 @@ public class Main
 {
 	public static final String dbName = "db";
 	private static String dbPathName = "database/db";
+	private static String imagesPathName = "images";
 
 	public static void main(String[] args)
 	{
 		startUp();
-
 		shutDown();
-		System.out.println("All done");
 	}
 
 	public static void startUp()
@@ -37,7 +36,14 @@ public class Main
 	}
 
 	public static void setDBPathName(String pathName) {
-		System.out.println("Setting DB path to: " + pathName);
 		dbPathName = pathName;
+	}
+
+	public static void setImagesPathName(String pathName){
+		imagesPathName = pathName;
+	}
+
+	public static String getImagesPathName() {
+		return imagesPathName;
 	}
 }

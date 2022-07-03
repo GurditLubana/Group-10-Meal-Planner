@@ -1,6 +1,7 @@
 package comp3350.team10.persistence;
 
 
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.ArrayList;
@@ -219,6 +220,14 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
         return result;
     }
+
+//    public byte[] getImageAsBytes() {
+//        byte[] imageBytes;
+//        InputStream ims = getAssets().open("avatar.jpg");
+//        BufferedImage img = ImageIO.read(getClass().getResource("/path/to/image"));
+//
+//        return imageBytes;
+//    }
 
     public int getNextKey() {
         Integer result = this.currKey.intValue();

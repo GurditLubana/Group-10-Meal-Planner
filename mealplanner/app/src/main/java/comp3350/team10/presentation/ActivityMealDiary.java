@@ -62,6 +62,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         setContentView(R.layout.activity_meal_diary);
         this.initToolbar();
         this.copyDatabaseToDevice();
+        this.copyImagesToDevice();
         Main.startUp();
         this.opExec = new MealDiaryOps();
         this.initUICardObjects();
@@ -133,23 +134,50 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                 });
     }
 
-    private void copyDatabaseToDevice() {
-        final String DB_PATH = "db";
+    private void copyFilesToDevice(String path) {
 
         String[] assetNames;
         Context context = getApplicationContext();
-        File dataDirectory = context.getDir(DB_PATH, Context.MODE_PRIVATE);
+        File dataDirectory = context.getDir(path, Context.MODE_PRIVATE);
         AssetManager assetManager = getAssets();
 
         try {
 
-            assetNames = assetManager.list(DB_PATH);
+            assetNames = assetManager.list(path);
             for (int i = 0; i < assetNames.length; i++) {
-                assetNames[i] = DB_PATH + "/" + assetNames[i];
+                assetNames[i] = path + "/" + assetNames[i];
             }
 
             copyAssetsToDirectory(assetNames, dataDirectory);
 
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    private void copyImagesToDevice() {
+        final String IMAGE_PATH = "images";
+
+        Context context = getApplicationContext();
+        File dataDirectory = context.getDir(IMAGE_PATH, Context.MODE_PRIVATE);
+
+        try {
+            copyFilesToDevice(IMAGE_PATH);
+            Main.setImagesPathName(dataDirectory.toString() + "/" + IMAGE_PATH);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    private void copyDatabaseToDevice() {
+        final String DB_PATH = "db";
+
+        Context context = getApplicationContext();
+        File dataDirectory = context.getDir(DB_PATH, Context.MODE_PRIVATE);
+
+        try {
+            copyFilesToDevice(DB_PATH);
             Main.setDBPathName(dataDirectory.toString() + "/" + Main.dbName);
 
         } catch (Exception e) {
@@ -157,7 +185,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
     }
 
-    public void copyAssetsToDirectory(String[] assets, File directory) throws IOException {
+    private void copyAssetsToDirectory(String[] assets, File directory) throws IOException {
         AssetManager assetManager = getAssets();
 
         for (String asset : assets) {

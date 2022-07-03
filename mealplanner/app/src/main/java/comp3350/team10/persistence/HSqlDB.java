@@ -875,7 +875,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         try {
             PreparedStatement getUser = currConn.prepareStatement("SELECT * FROM USER");
             ResultSet results = getUser.executeQuery();
-            System.out.println(results);
+
             int userID, height, weight, calorieGoal, exerciseGoal;
             String name;
             results.next();
