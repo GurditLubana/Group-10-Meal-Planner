@@ -1029,6 +1029,14 @@ Duration: 4hrs
 
 ### 2022-06-25
      Dev:
+      - Zhou
+Duration: 10hrs
+   Tasks:
+   - review U0 U1 and U2 course material;
+   - summary note and send it to discord
+
+### 2022-06-25
+     Dev:
       - Josef
       - Manraj
 Duration: 2hrs
@@ -1049,6 +1057,14 @@ Duration: 11hrs
    - Created DB controller class to swap between the two (dependency injection)
    - Changed exercise goals and calorie goals to affect subsequent entries/past non-entries once changed
    - Created User class and UserOps (this 100% needs refactoring in the future, might not even be needed)
+
+### 2022-06-26
+     Dev:
+      - Zhou
+Duration: 8hrs
+   Tasks:
+   - review U3, U4 course material;
+   - summary note and send it to discord
 
 ### 2022-06-28
      Dev:
@@ -1142,6 +1158,14 @@ Duration: 10hrs
 Duration: 4hrs
    Tasks:
    - Will update this later
+
+### 2022-06-26
+     Dev:
+      - Zhou
+Duration: 4 hrs
+   Tasks:
+   - review U5 course material, to lecture 35;
+   - summary note and send it to discord
 
 ### 2022-06-29
      Dev:
