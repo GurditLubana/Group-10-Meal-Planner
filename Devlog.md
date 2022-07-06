@@ -1308,8 +1308,15 @@ Duration: 1hrs
    Tasks:
    - upload all note(1-35) to github folder, with some modify
 
-     
-
+### 2022-07-06
+     Dev:
+      - Zhou
+Duration: 15 hrs
+   Tasks:
+   - finished the Test Ingredient Unit test Found some problems
+     - some error message have spelling error, I just copy the message not change it
+     - the Quantity type. I leave some comments and a fail() message about detail
+     - set un-initial ingredient obj is success, should not success
      
 
 
