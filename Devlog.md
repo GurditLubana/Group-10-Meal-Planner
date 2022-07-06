@@ -1277,6 +1277,13 @@ Duration: 2hrs
    - finished Invalid test of Food.java update at brench test-Zhou
    - all test case is done in TestFoodUnit.java, need other people review
 
+### 2022-07-05
+     Dev:
+      - Zhou
+Duration: 1hrs
+   Tasks:
+   - upload all note(1-35) to github folder, with some modify
+
      
 
      
