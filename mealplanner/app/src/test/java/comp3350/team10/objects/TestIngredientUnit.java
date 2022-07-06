@@ -1,11 +1,12 @@
 // Test Ingredient Unit
 // created by Zhihao Zhou, 7904125
-// created at 2022/07/06 
+// created at 2022/07/06
 
 // something need to notice
-// some error message have spelling error, I just copy the message not change it
-// the Quantity type. I leave some comments and a fail() there need to change
-// set an un-initial ingredient
+//
+// 1,some error message have spelling error, I just copy the message not change it
+// 2,the Quantity type. I leave some comments and a fail() message about the quality type; after check delete the fail()
+// 3,set an un-initial ingredient it can set, but should throw exception, it should fail set ingredient
 package comp3350.team10.objects;
 
 import comp3350.team10.objects.*;
