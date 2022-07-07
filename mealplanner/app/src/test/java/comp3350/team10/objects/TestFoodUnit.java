@@ -1,331 +1,495 @@
-// package comp3350.team10.objects;
+//create by Zhihao Zhou
+// 2022/7/2
+// have test simple,complex,empty,edge and invalid
 
-// import comp3350.team10.objects.*;
-// import comp3350.team10.objects.ListItem.FragmentType;
-// import comp3350.team10.objects.Edible.Unit;
+package comp3350.team10.objects;
 
-// import static org.junit.jupiter.api.Assertions.*;
+ import comp3350.team10.objects.*;
+ import comp3350.team10.objects.ListItem.FragmentType;
+ import comp3350.team10.objects.Edible.Unit;
 
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.DisplayName;
-// import org.junit.jupiter.api.Nested;
-// import org.junit.jupiter.api.Test;
+ import static org.junit.jupiter.api.Assertions.*;
 
-// public class TestFoodUnit {
+ import android.app.LauncherActivity;
 
-// 	@Nested
-// 	@DisplayName("Simple tests")
-// 	class Test_Simple {
-// 		private Food testFood;
-		
-// 		@BeforeEach
-// 		void setUp() {
-// 			testFood = new Food();
-// 		}
+ import org.junit.jupiter.api.BeforeEach;
+ import org.junit.jupiter.api.DisplayName;
+ import org.junit.jupiter.api.Nested;
+ import org.junit.jupiter.api.Test;
 
-// 		@Test
-// 		void testDiffFrags() {
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryModify, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryAdd, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.recipe, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.cardSelection, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.noType, Edible.Unit.cups, 5, 1));
-// 		}
+ import java.io.IOException;
 
-// 		@Test
-// 		void testDiffUnits() {
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryModify, Edible.Unit.oz, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryAdd, Edible.Unit.g, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.recipe, Edible.Unit.serving, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.cardSelection, Edible.Unit.tbsp, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.noType, Edible.Unit.tsp, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.cardSelection, Edible.Unit.ml, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.noType, Edible.Unit.liter, 5, 1));
-// 		}
+ public class TestFoodUnit {
 
-// 		@Test
-// 		void testDefaultVals() {
-// 			assertNull(testFood.getName());
-// 			assertEquals(-1, testFood.getIconPath());
-// 			assertNull(testFood.getFragmentType());
-// 			assertNull(testFood.getBaseUnit());
-// 			assertEquals(-1, testFood.getQuantity());
-// 			assertEquals(-1, testFood.getDbkey());
-// 			assertEquals(0, testFood.getCalories());
-// 		}
-			
-// 		@Test
-// 		void testSetCaloies() {
-// 			assertTrue(testFood.setCalories(100));
-// 			assertEquals(100, testFood.getCalories());
-// 		}
+	 //some test function
 
-// 		@Test
-// 		void testModCalories() {
-// 			assertTrue(testFood.modifyCalories(100));
-// 			assertEquals(100, testFood.getCalories());
-// 			assertTrue(testFood.modifyCalories(-5));
-// 			assertEquals(95, testFood.getCalories());
-// 		}
+	 void testPhotoBytes(Edible food, byte[] expect) {
+		 assertEquals(expect.length, food.getPhotoBytes().length);
+		 for (int i = 0; i < expect.length; i++) {
+			 assertEquals(expect[i], (food.getPhotoBytes())[i]);
+		 }
 
-// 		@Test
-// 		void testSetUnit() {
-// 			assertTrue(testFood.setBaseUnit(Edible.Unit.cups));
-// 			assertTrue(testFood.setBaseUnit(Edible.Unit.oz));
-// 			assertTrue(testFood.setBaseUnit(Edible.Unit.g));
-// 			assertTrue(testFood.setBaseUnit(Edible.Unit.serving));
-// 			assertTrue(testFood.setBaseUnit(Edible.Unit.tbsp));
-// 			assertTrue(testFood.setBaseUnit(Edible.Unit.tsp));
-// 			assertTrue(testFood.setBaseUnit(Edible.Unit.ml));
-// 			assertTrue(testFood.setBaseUnit(Unit.liter));
-// 		}
-			
-// 		@Test
-// 		void testSetDBKey() {
-// 			assertTrue(testFood.setDbkey(1));
-// 			assertTrue(testFood.setDbkey(10));
-// 		}
+	 }
 
-// 		@Test
-// 		void testSetFragType() {
-// 			assertTrue(testFood.setFragmentType(ListItem.FragmentType.diaryModify));
-// 			assertTrue(testFood.setFragmentType(ListItem.FragmentType.diaryAdd));
-// 			assertTrue(testFood.setFragmentType(ListItem.FragmentType.recipe));
-// 			assertTrue(testFood.setFragmentType(ListItem.FragmentType.cardSelection));
-// 			assertTrue(testFood.setFragmentType(ListItem.FragmentType.noType));
-// 			assertTrue(testFood.setFragmentType(ListItem.FragmentType.cardSelection));
-// 			assertTrue(testFood.setFragmentType(ListItem.FragmentType.noType));
-// 		}
+	 void testDetail(Edible food, int idExpect, String nameExpect, String descriptionExpect, int quantityExpect, Unit unitExpect) {
+		 assertEquals(idExpect,food.getDbkey());// not get id fucntion
+		 assertEquals(nameExpect, food.getName());
+		 assertEquals(descriptionExpect, food.getDesciprtion());
+		 assertEquals(quantityExpect, food.getQuantity());
+		 assertEquals(unitExpect, food.getUnit());
+	 }
 
-// 		@Test
-// 		void testSetIconPath() {
-// 			assertTrue(testFood.setIconPath(5));
-// 			assertTrue(testFood.setIconPath(15));
-// 		}	
+	 void testNutrition(Edible food, int caloriesExpect, int proteinExpect, int carbsExpect, int fatExpect) {
+		 assertEquals(caloriesExpect, food.getCalories());
+		 assertEquals(proteinExpect, food.getProtein());
+		 assertEquals(carbsExpect, food.getCarbs());
+		 assertEquals(fatExpect, food.getFat());
+	 }
 
-// 		@Test
-// 		void testSetName() {
-// 			assertTrue(testFood.setName("name"));
-// 			assertTrue(testFood.setName("diffName"));
-// 		}
+	 void testCategories(Edible food, boolean alcoholicExpect, boolean spicyExpect, boolean veganExpect, boolean vegetarianExpect, boolean glutenFreeExpect) {
+		 assertEquals(alcoholicExpect, food.getIsAlcoholic());
+		 assertEquals(spicyExpect, food.getIsSpicy());
+		 assertEquals(veganExpect, food.getIsVegan());
+		 assertEquals(vegetarianExpect, food.getIsVegetarian());
+		 assertEquals(glutenFreeExpect, food.getIsGlutenFree());
+	 }
 
-// 		@Test
-// 		void testSetQuantity() {	
-// 			assertTrue(testFood.setQuantity(100));
-// 			assertEquals(100, testFood.getQuantity());
-// 			assertTrue(testFood.setQuantity(300));
-// 			assertEquals(300, testFood.getQuantity());
-// 		}
-// 	}
+	 void testMetadata(Edible food, boolean customExpect, byte[] photoExpect, ListItem.FragmentType viewExpect) {
+		 assertEquals(customExpect, food.getIsCustom());
+		 testPhotoBytes(food, photoExpect);
+		 assertEquals(viewExpect, food.getFragmentType());
+	 }
 
-// 	@Nested
-// 	@DisplayName("Complex tests")
-// 	class Test_Complex {
-// 		private Food testFood;
-		
-// 		@BeforeEach
-// 		void setUp() {
-// 			testFood = new Food();
-// 		}
+	 void testSetName(Edible food, String newName){//test correct
+		 try{
+			 food.setName(newName);
+			 assertEquals(newName,food.getName());
+		 }
+		 catch (IOException e){
+			 fail("Can not set Name " + newName + "\n");
+		 }
+	 }
 
-// 		@Test
-// 		void testComplexMealCreations() {
-// 			assertTrue(testFood.init("very long food name", 10, 400, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 504, 700));
-// 			assertTrue(testFood.init("even longer longggg\ng \nfood name", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 500, 100));
-// 			assertTrue(testFood.init("12345555", 10, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 580, 900));
-// 			assertTrue(testFood.init("#$%!!!+=[][][][[", 10, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 50, 4));
-// 			assertTrue(testFood.init(" ", 10, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 150, 14));
-// 			assertTrue(testFood.init("  $ ", 10, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 590, 666));
-// 		}
+	 void testSetDescription(Edible food, String newDescription){//test correct
+		 try{
+			 food.setDescription(newDescription);
+			 assertEquals(newDescription,food.getDesciprtion());
+		 }
+		 catch (IOException e){
+			 fail("Can not set Description " + newDescription + "\n");
+		 }
+	 }
+	 // test all int variable
+	 void  testIntWithInput(Edible food, int expect){//test set calories,  protein,  carbs,  fat
+		 try{
+			 food.initNutrition(expect, expect, expect, expect);
+		 }
+		 catch (Exception e)
+		 {
+			 System.out.println(e.getMessage());
+			 fail("Should not catch any exception, input is number is invalid");
+		 }
+		 testNutrition(food,expect,expect,expect,expect);
+	 }
 
-// 		@Test
-// 		void testModCalories() {
-// 			assertTrue(testFood.modifyCalories(600));
-// 			assertEquals(600, testFood.getCalories());
-// 			assertTrue(testFood.modifyCalories(-500));
-// 			assertEquals(100, testFood.getCalories());
-// 		}
+	 //some test function
 
-// 		@Test
-// 		void testSetCalories() {
-// 			assertTrue(testFood.setCalories(500));
-// 			assertEquals(500, testFood.getCalories());
-// 			assertTrue(testFood.setCalories(999));
-// 			assertEquals(999, testFood.getCalories());
-// 		}
 
-// 		@Test
-// 		void testModCaloriesAfterSettingCalories() {
-// 			assertTrue(testFood.setCalories(500));
-// 			assertTrue(testFood.modifyCalories(600));
-// 			assertEquals(1100, testFood.getCalories());
-// 			assertTrue(testFood.modifyCalories(-600));
-// 			assertEquals(500, testFood.getCalories());
-// 		}
+	 @Nested
+	 @DisplayName("Simple tests")
+	 class Test_Simple {
+		 private Food testFood;
+		 private byte[] testPic = {(byte) 12, (byte) 59, (byte) 96};
 
-// 		@Test
-// 		void testSetIconPath() {
-// 			assertTrue(testFood.setIconPath(500));
-// 		}	
+		 @BeforeEach
+		 void setUp() {
 
-// 		@Test
-// 		void testSetName() {
-// 			assertTrue(testFood.setName("even longerrrrrrrrrrrrrrrrrrrrrr\n\nrrrrrrr food name"));
-// 			assertTrue(testFood.setName("12345555"));
-// 			assertTrue(testFood.setName("#$%!!!+=[][][][["));
-// 		}
+			 testFood = new Food();
+			 try {
+				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
+				 testFood.initNutrition(5, 5, 5, 5);
+				 testFood.initCategories(true, false, true, false, true);
+				 testFood.initMetadata(true, testPic, FragmentType.diaryAdd);
+			 } catch (Exception e) {
+				 fail("initial fail");
+			 }
+		 }
 
-// 		@Test
-// 		void testSetQuantity() {
-// 			assertTrue(testFood.setQuantity(600));
-// 		}
-// 	}
+		 @Test
+		 void testSimple() {
+			 testDetail(testFood, 1, "food", "lala", 5, Unit.cups);
+			 testNutrition(testFood, 5, 5, 5, 5);
+			 testCategories(testFood, true, false, true, false, true);
+			 testMetadata(testFood, true, testPic, FragmentType.diaryAdd);
+		 }
+	 }
 
-// 	@Nested
-// 	@DisplayName("Empty tests")
-// 	class Test_Empty {
-// 		private Food testFood;
-		
-// 		@BeforeEach
-// 		void setUp() {
-// 			testFood = new Food();
-// 		}
+	 @Nested
+ 	 @DisplayName("Complex tests")
+	 class Test_Complex{
+		 private Food testFood;
+		 private byte[] testPic = {(byte) 12, (byte) 59, (byte) 96};
 
-// 		@Test
-// 		void testSingleEmptysInCreation() {
-// 			assertFalse(testFood.init(null, 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init("food", 0, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 0, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertFalse(testFood.init("food", 1, 1, null, Edible.Unit.cups, 5, 1));
-// 			assertFalse(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, null, 5, 1));
-// 			assertFalse(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 0, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 0));
-// 		}
+		 @BeforeEach
+		 void setUp() {
 
-// 		@Test
-// 		void testMultiEmptyInCreation() { 
-// 			assertFalse(testFood.init(null, 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertFalse(testFood.init(null, 0, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertFalse(testFood.init(null, 0, 0, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertFalse(testFood.init(null, 0, 0, null, Edible.Unit.cups, 5, 1));
-// 			assertFalse(testFood.init(null, 0, 0, null, null, 5, 1));
-// 			assertFalse(testFood.init(null, 0, 0, null, null, 0, 1));
-// 			assertFalse(testFood.init(null, 0, 0, null, null, 0, 0));
-// 		}
+			 testFood = new Food();
+			 try {
+				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
+				 testFood.initNutrition(5, 5, 5, 5);
+				 testFood.initCategories(true, false, true, false, true);
+				 testFood.initMetadata(true, testPic, FragmentType.diaryAdd);
+			 } catch (Exception e) {
+				 fail("initial fail");
+			 }
+		 }
 
-// 		@Test
-// 		void testEmptyValues() {
-// 			assertFalse(testFood.init(null, 0, 0, null, null, 0, 0));
-// 			assertNull(testFood.getName());
-// 			assertEquals(-1, testFood.getIconPath());
-// 			assertEquals(0, testFood.getCalories());
-// 			assertNull(testFood.getFragmentType());
-// 			assertNull(testFood.getBaseUnit());
-// 			assertEquals(-1, testFood.getQuantity());
-// 			assertEquals(-1, testFood.getDbkey());
-// 		}
+		 @Test
+		 void testSetNameComplex(){
+			 testSetName(testFood,"very long food name");
+			 testSetName(testFood,"even longer longggg\\ng \\nfood name");
+			 testSetName(testFood,"12345555");
+			 testSetName(testFood,"#$%!!!+=[][][][[");
+			 testSetName(testFood," ");
+			 testSetName(testFood," $");
+		 }
 
-// 		@Test 
-// 		void testModCalories() {
-// 			assertTrue(testFood.modifyCalories(0));
-// 		}
+		@Test
+		 void testSetDescrptionComplex(){
+			testSetDescription(testFood,"very long food Description");
+			testSetDescription(testFood,"even longgfagewgawfd ggg\\ng sfeer longggg\\ng \\nfood Description");
+			testSetDescription(testFood,"1234555545435214635695");
+			testSetDescription(testFood,"#$%!!!+=[][][*/-*/-/-+*/][[");
+			testSetDescription(testFood," ");
+			testSetDescription(testFood," $");
+		 }
+	 }
 
-// 		@Test 
-// 		void testSetBaseUnit() {
-// 			assertFalse(testFood.setBaseUnit(null));
-// 		}
+	 @Nested
+ 	@DisplayName("Empty tests")
+ 	class Test_Empty {
+		 private Food testFood;
 
-// 		@Test
-// 		void testSetCaloies() {
-// 			assertTrue(testFood.setCalories(0));
-// 		}
+		 @BeforeEach
+ 		void setUp() {
+ 			testFood = new Food();
+ 		}
 
-// 		@Test
-// 		void testSetFragType() {
-// 			assertFalse(testFood.setFragmentType(null));
-// 		}
+		 @Test
+		 void testSetName()
+		 {
+			 try{
+				 testFood.initDetails(1, null, "lala", 5, Unit.cups);
+				 fail("Should throw IO exception");
+			 }
+			 catch (Exception e){
+				 assertTrue(e instanceof IOException);
+				 assertEquals("Invalid name",e.getMessage());
+			 }
 
-// 		@Test
-// 		void testSetIconPath() {
-// 			assertTrue(testFood.setIconPath(0));
-// 		}
+			 try{
+				 testFood.initDetails(1, "", "lala", 5, Unit.cups);
+				 fail("Should throw IO exception");
+			 }
+			 catch (Exception e){
+				 assertTrue(e instanceof IOException);
+				 assertEquals("Invalid name",e.getMessage());
+			 }
 
-// 		@Test
-// 		void testSetName() {
-// 			assertFalse(testFood.setName(null));
-// 		}
+		 }
+		 @Test
+		 void testSetDescription()
+		 {
+			 try{
+				 testFood.initDetails(1, "food", null, 5, Unit.cups);
+				 fail("Should throw IO exception");
+			 }
+			 catch (Exception e){
+				 assertTrue(e instanceof IOException);
+				 assertEquals("Invalid description",e.getMessage());
+			 }
 
-// 		@Test
-// 		void testSetQuantity() {
-// 			assertFalse(testFood.setQuantity(0));
-// 		}
-// 	}
+		 }
 
-// 	@Nested
-// 	@DisplayName("Edge case tests")
-// 	class Test_EdgeCases {
-// 		private Food testFood;
-		
-// 		@BeforeEach
-// 		void setUp() {
-// 			testFood = new Food();
-// 		}
-		
-// 		@Test
-// 		void testEdgeCasesInCreation() {
-// 			assertTrue(testFood.init("\n", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertFalse(testFood.init("", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init(" ", 1, 1,  ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init("food", Constant.ENTRY_MAX_VALUE, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init("food", 1, Constant.ENTRY_MAX_VALUE, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE, 1));
-// 			assertTrue(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 1, Constant.ENTRY_MAX_VALUE));
-// 			assertTrue(testFood.init("food", Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE));
-// 		}
+		 @Test
+		 void testSetUnit()
+		 {
+			 try{
+				 testFood.initDetails(1, "food", "lala", 5, null);
+				 fail("Should throw IO exception");
+			 }
+			 catch (Exception e){
+				 assertTrue(e instanceof IOException);
+				 assertEquals("Invalid unit",e.getMessage());
+			 }
+		 }
 
-// 		@Test
-// 		void testSetCalories() {
-// 			assertTrue(testFood.setCalories(Constant.ENTRY_MAX_VALUE));
-// 		}
+		 @Test
+		 void testSetphoto()
+		 {
+			 byte[] testPic =null;
+			 try{
+				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
+				 testFood.initMetadata(true, testPic, FragmentType.diaryAdd);
+				 fail("Should throw IO exception");
+			 }
+			 catch (Exception e){
+				 assertTrue(e instanceof IOException);
+				 assertEquals("Invalid photo",e.getMessage());
+			 }
 
-// 		@Test
-// 		void testModCalories() {
-// 			assertTrue(testFood.modifyCalories(Constant.ENTRY_MAX_VALUE));
-// 			assertEquals(Constant.ENTRY_MAX_VALUE, testFood.getCalories());
-// 			assertTrue(testFood.modifyCalories(-Constant.ENTRY_MAX_VALUE));
-// 			assertEquals(0, testFood.getCalories());
-// 		}
+			 testPic = new byte[0];
+			 try{
+				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
+				 testFood.initMetadata(true, testPic, FragmentType.diaryAdd);
+				 fail("Should throw IO exception");
+			 }
+			 catch (Exception e){
+				 assertTrue(e instanceof IOException);
+				 assertEquals("Invalid photo",e.getMessage());
+			 }
+		 }
 
-// 		@Test
-// 		void testSetIconPath() {
-// 			assertTrue(testFood.setIconPath(Constant.ENTRY_MAX_VALUE));
-// 		}
+		 @Test
+		 void testSetFragmentType()
+		 {
+			 byte[] testPic = {(byte) 12, (byte) 59, (byte) 96};
+			 try{
+				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
+				 testFood.initMetadata(true, testPic, null);
+				 fail("Should throw IO exception");
+			 }
+			 catch (Exception e){
+				 assertTrue(e instanceof IOException);
+				 assertEquals("Invalid fragment type",e.getMessage());
+			 }
+		 }
+	 }
 
-// 		@Test
-// 		void testSetName() {
-// 			assertFalse(testFood.setName(""));
-// 		}
 
-// 		@Test
-// 		void testSetQuantity() {
-// 			assertTrue(testFood.setQuantity(Constant.ENTRY_MAX_VALUE));
-// 			assertTrue(testFood.setQuantity(1));
-// 		}
-// 	}
+	 @Nested
+	 @DisplayName("Edge case tests")
+	 class Test_EdgeCases {
+		 private Food testFood;
+
+		 @BeforeEach
+		 void setUp() {
+			 testFood = new Food();
+		 }
+		 @Test
+		 void testLeftEdge(){ // input is equal to minimum
+		testIntWithInput(testFood,0);
+		 }
+
+
+		 @Test
+		 void testRightEdge(){ // input is equal to MAX
+			 testIntWithInput(testFood,9999);
+		 }
+
+		 @Test
+		 void testDBKey(){
+			 try {
+				 testFood.initDetails(0, "food", "lala", 5, Unit.cups);
+				 assertEquals(0,testFood.getDbkey());
+			 }
+			 catch (Exception e)
+			 {
+				 fail("Should not throw execption, invalid DBkey");
+			 }
+
+			 try {
+				 testFood.initDetails(Integer.MAX_VALUE, "food", "lala", 5, Unit.cups);
+				 assertEquals(Integer.MAX_VALUE,testFood.getDbkey());
+			 }
+			 catch (Exception e)
+			 {
+				 fail("Should not throw execption, invalid DBkey");
+			 }
+		 }
+
+		 @Test
+		 void testQuality(){
+			 try {
+				 testFood.initDetails(5, "food", "lala", 1, Unit.cups);
+				 assertEquals(1,testFood.getQuantity());
+			 }
+			 catch (Exception e)
+			 {
+				 fail("Should not throw execption, invalid Quality");
+			 }
+
+			 try {
+				 testFood.initDetails(5, "food", "lala", 9999, Unit.cups);
+				 assertEquals(9999, testFood.getQuantity());
+			 }
+			 catch (Exception e)
+			 {
+				 fail("Should not throw execption, invalid Quality");
+			 }
+		 }
+	 }
+
+
+ 	@Nested
+ 	@DisplayName("Invalid tests")
+ 	class Test_Invalid {
+		private Food testFood;
+
+		@BeforeEach
+		void setUp() {
+			testFood = new Food();
+		}
+
+		@Test
+		void testSetDbkey()
+		{
+			try {
+				testFood.initDetails(-1, "food", "lala", 5, Unit.cups);
+				fail("Should throw IO exception, id <0 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid DB key",e.getMessage());
+			}
+		}
+
+		@Test
+		void testSetProtein()
+		{
+			try {
+				testFood.setProtein(-1);
+				fail("Should throw IO exception, Protein <0 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid protein value",e.getMessage());
+			}
+
+			try {
+				testFood.setProtein(10000);
+				fail("Should throw IO exception, Protein >9999 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid protein value",e.getMessage());
+			}
+		}
+
+		@Test
+		void testSetFat()
+		{
+			try {
+				testFood.setFat(-1);
+				fail("Should throw IO exception, Fat <0 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid fat value",e.getMessage());
+			}
+
+			try {
+				testFood.setFat(10000);
+				fail("Should throw IO exception, Fat > 9999 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid fat value",e.getMessage());
+			}
+		}
+
+		@Test
+		void testSetCarbs()
+		{
+			try {
+				testFood.setCarbs(-1);
+				fail("Should throw IO exception, Carbs <0 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid carb value",e.getMessage());
+			}
+
+			try {
+				testFood.setCarbs(10000);
+				fail("Should throw IO exception, Carbs > 9999 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid carb value",e.getMessage());
+			}
+		}
+
+		@Test
+		void testSetCalories()
+		{
+			try {
+				testFood.setCalories(-1);
+				fail("Should throw IO exception, Calories <0 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid calorie value",e.getMessage());
+			}
+
+			try {
+				testFood.setCalories(10000);
+				fail("Should throw IO exception, Calories > 9999 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid calorie value",e.getMessage());
+			}
+		}
+
+		@Test
+		void testSetBaseQuantity()
+		{
+			try {
+				testFood.setBaseQuantity(-1);
+				fail("Should throw IO exception, BaseQuantity <0 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid quantity",e.getMessage());
+			}
+
+			try {
+				testFood.setBaseQuantity(10000);
+				fail("Should throw IO exception, BaseQuantity > 9999 throw IO exception");
+			}
+			catch (Exception e)
+			{
+				assertTrue(e instanceof IOException);
+				assertEquals("Invalid quantity",e.getMessage());
+			}
+		}
+
+
+	}
+
+ }
 
 // 	@Nested
 // 	@DisplayName("Invalid tests")
 // 	class Test_Invalid {
 // 		private Food testFood;
-		
+//
 // 		@BeforeEach
 // 		void setUp() {
 // 			testFood = new Food();
-// 		}	
-
+// 		}
+//
 // 		@Test
 // 		void testInvalidNameCreation() {
 // 			assertFalse(testFood.init("", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
@@ -337,7 +501,7 @@
 // 			assertEquals(-1, testFood.getQuantity());
 // 			assertEquals(-1, testFood.getDbkey());
 // 		}
-
+//
 // 		@Test
 // 		void testInvalidIconPathCreation() {
 // 			assertFalse(testFood.init("food", -1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
@@ -349,7 +513,7 @@
 // 			assertEquals(-1, testFood.getQuantity());
 // 			assertEquals(-1, testFood.getDbkey());
 // 		}
-
+//
 // 		@Test
 // 		void testInvalidCaloriesCreation() {
 // 			assertFalse(testFood.init("food", 1, -1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
@@ -360,7 +524,7 @@
 // 			assertNull(testFood.getBaseUnit());
 // 			assertEquals(-1, testFood.getQuantity());
 // 			assertEquals(-1, testFood.getDbkey());
-
+//
 // 			assertFalse(testFood.init("food", 1, Constant.ENTRY_MAX_VALUE + 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, 1));
 // 			assertSame("food", testFood.getName());
 // 			assertEquals(1, testFood.getIconPath());
@@ -370,7 +534,7 @@
 // 			assertEquals(-1, testFood.getQuantity());
 // 			assertEquals(-1, testFood.getDbkey());
 // 		}
-
+//
 // 		@Test
 // 		void testInvalidFragmentCreation() {
 // 			assertFalse(testFood.init("food", 1, 1, null, Edible.Unit.cups, 5, 1));
@@ -382,7 +546,7 @@
 // 			assertEquals(-1, testFood.getQuantity());
 // 			assertEquals(-1, testFood.getDbkey());
 // 		}
-
+//
 // 		@Test
 // 		void testInvalidUnitCreation() {
 // 			assertFalse(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, null, 5, 1));
@@ -394,7 +558,7 @@
 // 			assertEquals(-1, testFood.getQuantity());
 // 			assertEquals(-1, testFood.getDbkey());
 // 		}
-
+//
 // 		@Test
 // 		void testInvalidQuantityCreation() {
 // 			assertFalse(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, -1, 1));
@@ -405,7 +569,7 @@
 // 			assertSame(testFood.getBaseUnit(), Unit.cups);
 // 			assertEquals(-1, testFood.getQuantity());
 // 			assertEquals(-1, testFood.getDbkey());
-
+//
 // 			assertFalse(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE + 1, 1));
 // 			assertEquals("food", testFood.getName());
 // 			assertEquals(1, testFood.getIconPath());
@@ -415,7 +579,7 @@
 // 			assertEquals(-1, testFood.getQuantity());
 // 			assertEquals(-1, testFood.getDbkey());
 // 		}
-
+//
 // 		@Test
 // 		void testInvalidDBKeyCreation() {
 // 			assertFalse(testFood.init("food", 1, 1, ListItem.FragmentType.diaryEntry, Edible.Unit.cups, 5, -1));
@@ -427,26 +591,26 @@
 // 			assertEquals(5, testFood.getQuantity());
 // 			assertEquals(-1, testFood.getDbkey());
 // 		}
-
+//
 // 		@Test
 // 		void testModCalories() {
 // 			assertFalse(testFood.modifyCalories(Constant.ENTRY_MAX_VALUE + 1));
 // 			assertFalse(testFood.modifyCalories(-1));
 // 		}
-
+//
 // 		@Test
 // 		void testSetCaloies() {
 // 			assertFalse(testFood.setCalories(Constant.ENTRY_MAX_VALUE + 1));
 // 			assertFalse(testFood.setCalories(-1));
 // 		}
-
+//
 // 		@Test
 // 		void testSetIconPath() {
 // 			assertFalse(testFood.setIconPath(-1));
 // 		}
-
+//
 // 		@Test
-// 		void testSetQuantity() {	
+// 		void testSetQuantity() {
 // 			assertFalse(testFood.setQuantity(Constant.ENTRY_MAX_VALUE + 1));
 // 			assertFalse(testFood.setQuantity(-1));
 // 		}
