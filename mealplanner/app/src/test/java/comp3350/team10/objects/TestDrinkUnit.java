@@ -3,6 +3,7 @@
  import comp3350.team10.objects.*;
  import comp3350.team10.objects.ListItem.FragmentType;
  import comp3350.team10.objects.Edible.Unit;
+ import comp3350.team10.objects.*;
 
  import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,11 +11,27 @@
  import org.junit.jupiter.api.DisplayName;
  import org.junit.jupiter.api.Nested;
  import org.junit.jupiter.api.Test;
+ import org.junit.platform.suite.api.SelectClasses;
 
  import java.util.ArrayList;
 
+
  public class TestDrinkUnit {
 
+     void testNutrition(Edible food, int caloriesExpect, int proteinExpect, int carbsExpect, int fatExpect) {
+         assertEquals(caloriesExpect, food.getCalories());
+         assertEquals(proteinExpect, food.getProtein());
+         assertEquals(carbsExpect, food.getCarbs());
+         assertEquals(fatExpect, food.getFat());
+     }
+
+     void testCategories(Edible food, boolean alcoholicExpect, boolean spicyExpect, boolean veganExpect, boolean vegetarianExpect, boolean glutenFreeExpect) {
+         assertEquals(alcoholicExpect, food.getIsAlcoholic());
+         assertEquals(spicyExpect, food.getIsSpicy());
+         assertEquals(veganExpect, food.getIsVegan());
+         assertEquals(vegetarianExpect, food.getIsVegetarian());
+         assertEquals(glutenFreeExpect, food.getIsGlutenFree());
+     }
      @Nested
  	@DisplayName("Simple tests")
  	class Test_Simple {
@@ -55,6 +72,8 @@
              try {
                  testDrink.initNutrition(15,35,45,10);
                  testDrink.initCategories(true,false,false,false,false);
+                 testNutrition(testDrink,15,35,45,10);
+                 testCategories(testDrink,true,false,false,false,false);
 
                  testFood.initNutrition(10,10,10,10);
                  testFood.initCategories(false,false,false,false,true);
@@ -62,14 +81,93 @@
                  testIngredients.add(testDrinkIngredient);
 
                  testDrink.setIngredients(testIngredients);
+
+             }
+             catch (Exception e)
+             {
+                 fail("Should not throw exception");
+             }
+             testNutrition(testDrink,10,10,10,10);
+             testCategories(testDrink,false,false,false,false,true);
+         }
+
+
+     }
+
+     @Nested
+     @DisplayName("Complex tests")
+     class Test_Complex {
+
+         private Drink testDrink;
+         // this is for Edible class for Ingredient class
+         private Food testFood;
+         // this is for Edible class for Ingredient class
+         private DrinkIngredient testDrinkIngredient;
+         private ArrayList<DrinkIngredient> testIngredients;
+
+         @BeforeEach
+         void setup(){
+             testDrink = new Drink();
+             testFood = new Food();
+             testDrinkIngredient = new DrinkIngredient();
+             testIngredients = new ArrayList<DrinkIngredient>();
+
+         }
+
+         @Test
+         void test_setInstructions(){
+             try {
+                 String test_instruction="very long instructions sdakjlfhadsljfkhldsakjhfiuweasdhyfuiklewahearewrw" +
+                         "adsjfkghbewakjdshfljkaewhdflkaewj\njewifhewl\r isdfauhjljkewf\n\\wieosuhjrfiol;ewk" +
+                         "53465687-/34324o90ukljo&$^#$^@#$%@#^%$*#$#%@@$#@$@!$@#";
+                 testDrink.setInstructions(test_instruction);
+                 assertNotNull(testDrink.getInstructions());
+                 assertEquals(test_instruction,testDrink.getInstructions());
              }
              catch (Exception e)
              {
                  fail("Should not throw exception");
              }
 
+         }
 
+         @Test
+         void test_setIngredient()
+         {
+             try {
+                 testDrink.initNutrition(15,35,45,10);
+                 testDrink.initCategories(true,false,false,false,false);
+                 testNutrition(testDrink,15,35,45,10);
+                 testCategories(testDrink,true,false,false,false,false);
+                //set 4 ingredient
+                 testFood.initNutrition(10,10,10,10);
+                 testFood.initCategories(false,false,false,false,true);
+                 testDrinkIngredient.setIngredient(testFood);
 
+                 testFood.initNutrition(20,20,20,20);
+                 testFood.initCategories(false,false,false,true,true);
+                 testDrinkIngredient.setIngredient(testFood);
+
+                 testFood.initNutrition(30,30,30,30);
+                 testFood.initCategories(false,false,true,false,true);
+                 testDrinkIngredient.setIngredient(testFood);
+
+                 testFood.initNutrition(40,40,40,40);
+                 testFood.initCategories(false,true,false,false,true);
+                 testDrinkIngredient.setIngredient(testFood);
+                 //set 4 ingredient
+
+                 testIngredients.add(testDrinkIngredient);
+
+                 testDrink.setIngredients(testIngredients);
+
+             }
+             catch (Exception e)
+             {
+                 fail("Should not throw exception");
+             }
+             testNutrition(testDrink,100,100,100,100);
+             testCategories(testDrink,false,true,true,true,true);
          }
 
 
