@@ -10,7 +10,7 @@
 package comp3350.team10.objects;
 
 import comp3350.team10.objects.*;
-import comp3350.team10.objects.ListItem.FragmentType;
+
 import comp3350.team10.objects.Edible.Unit;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,11 +31,11 @@ public class TestIngredientUnit {
     @DisplayName("Simple tests")
     class Test_Simple {
         // this is for Edible class for Ingredient class
-        private Food testEdible;
+        private Edible testEdible;
         private Ingredient testIngredient;
         @BeforeEach
         void setup() {
-        testEdible = new Food();
+        testEdible = new Edible();
         testIngredient = new Ingredient();
         }
 
@@ -54,8 +54,8 @@ public class TestIngredientUnit {
 
             try {
                 // some problem here
-                fail("the Quality is int in edible class here is double, I think may need to change, I give 2 test for int and double, Int is comment. " +
-                        "If you gus change that comment the double one and uncomment");
+//                fail("the Quality is int in edible class here is double, I think may need to change, I give 2 test for int and double, Int is comment. " +
+//                        "If you gus change that comment the double one and uncomment");
                 // for quality is double
                 testIngredient.init(testEdible,25.9,Unit.g);
                 // for int
@@ -65,7 +65,7 @@ public class TestIngredientUnit {
                 fail("Should not throw exception");
             }
             assertNotNull(testIngredient.getIngredient());
-            assertTrue(testIngredient.getIngredient() instanceof  Food);
+            assertTrue(testIngredient.getIngredient() instanceof  Edible);
             assertEquals(testEdible, testIngredient.getIngredient());
             assertEquals(25.9,testIngredient.getQuantity());
             assertEquals(Unit.g,testIngredient.getQuantityUnits());
@@ -130,12 +130,12 @@ public class TestIngredientUnit {
     @DisplayName("test Empty")
     class Test_Empty {
         private Ingredient testIngredient;
-        private Food testEdible;
+        private Edible testEdible;
 
         @BeforeEach
         void setup() {
             testIngredient = new Ingredient();
-            testEdible = new Food();
+            testEdible = new Edible();
         }
 
         @Test
