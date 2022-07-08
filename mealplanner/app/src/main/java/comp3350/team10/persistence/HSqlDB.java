@@ -526,10 +526,12 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     public DailyLog searchFoodLogByDate(Calendar date, int userID) {
         DailyLog log = null;
         try {
+            System.out.println("trying to get food log");
             PreparedStatement findLog = currConn.prepareStatement("SELECT * FROM HISTORY INNER JOIN USER ON USER.USERID = HISTORY.USERID WHERE USERID = ? AND DATE = ?");
             ResultSet results;
             int exerciseActual;
             ArrayList<Edible> edibleLog;
+            User currUser = null;
 
             findLog.setInt(1, userID);
             String hi = this.convertDateToString(date);
@@ -543,7 +545,12 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
                         exerciseActual);
             }
             else {
-                System.out.println("create new log");
+                System.out.println("starting else");
+                currUser = this.getUser();
+                log = new DailyLog().init(date, new ArrayList<Edible>(), currUser.getCalorieGoal(), currUser.getExerciseGoal(), 0);
+                System.out.println("creating log");
+                this.addLog(log, currUser.getUserID());
+                System.out.println("adding log");
             }
         }
         catch (Exception e) {
@@ -551,7 +558,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             System.out.println("searchFoodLogByDate");
             System.exit(1);
         }
-
+        System.out.println("after");
         return log;
     }
 
@@ -618,23 +625,37 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     private ArrayList<Edible> getEdibleLog(int historyID) {
         ArrayList<Edible> edibleLog = new ArrayList<Edible>();
         try {
-            PreparedStatement findLog = currConn.prepareStatement("SELECT EdibleID, CustomEdibleID FROM EdibleHistory " +
-                    "INNER JOIN EDIBLE ON EDIBLE.EdibleID = EdibleHistory.EDIBLEID INNER JOIN CUSTOMEDIBLE ON CUSTOMEDIBLE.CUSTOMEDIBLEID = EdibleHistory.CUSTOMEDIBLEID WHERE HistoryID = ?");
+            PreparedStatement fineEdibles = currConn.prepareStatement("SELECT * FROM EdibleHistory " +
+                    "INNER JOIN EDIBLE ON EDIBLE.EdibleID = EdibleHistory.EDIBLEID WHERE HistoryID = ?");
+            PreparedStatement findCustomEdibles = currConn.prepareStatement("SELECT * FROM EdibleHistory " +
+                    "INNER JOIN CUSTOMEDIBLE ON CUSTOMEDIBLE.CUSTOMEDIBLEID = EdibleHistory.CUSTOMEDIBLEID WHERE HistoryID = ?");
             ResultSet results;
 
             Edible currEdible;
             EdibleLog currLog;
             Edible.Unit unit;
 
-            findLog.setInt(1, historyID);
-            results = findLog.executeQuery();
-
+            fineEdibles.setInt(1, historyID);
+            results = fineEdibles.executeQuery();
+            //non custom
             while (results.next()) {
-                currEdible = this.readEdible(results, results.getInt("EdibleID") == 0); //this will return true when id = 0 on first one
+                currEdible = this.readEdible(results, true); //this will return true when id = 0 on first one
                 unit = this.findUnit(results.getString("Unit"));
                 currLog = new EdibleLog(currEdible).init(results.getInt("Quantity"), unit);
                 edibleLog.add(currLog);
             }
+            results.close();
+
+            findCustomEdibles.setInt(1, historyID);
+            results = findCustomEdibles.executeQuery();
+            //custom
+            while (results.next()) {
+                currEdible = this.readEdible(results, true); //this will return true when id = 0 on first one
+                unit = this.findUnit(results.getString("Unit"));
+                currLog = new EdibleLog(currEdible).init(results.getInt("Quantity"), unit);
+                edibleLog.add(currLog);
+            }
+            results.close();
         }
         catch (Exception e) {
             System.out.println(e);
@@ -670,18 +691,22 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
 
     public EdibleLog findEdibleByKey(int dbkey, boolean isCustom) {
         EdibleLog edibleLog = null;
+
         try {
-            PreparedStatement findEdibleByKey = currConn.prepareStatement("SELECT * FROM ? WHERE EdibleID = ?");
+            PreparedStatement findEdibleByKey = currConn.prepareStatement("SELECT * FROM Edible WHERE EdibleID = ?");
+            PreparedStatement findCustomEdibleByKey = currConn.prepareStatement("SELECT * FROM CustomEdible WHERE CustomEdibleID = ?");
             ResultSet results;
 
             if (isCustom) {
-                findEdibleByKey.setString(1, "CustomEdibleID");
+                findCustomEdibleByKey.setInt(1, dbkey);
+                results = findCustomEdibleByKey.executeQuery();
             } else {
-                findEdibleByKey.setString(1, "EdibleID");
+                findEdibleByKey.setInt(1, dbkey);
+                results = findEdibleByKey.executeQuery();
             }
 
-            findEdibleByKey.setInt(2, dbkey);
-            results = findEdibleByKey.executeQuery();
+            results.next();
+
             edibleLog = new EdibleLog(this.readEdible(results, isCustom));
         }
         catch (Exception e) {
@@ -759,15 +784,14 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
 
             ArrayList<Edible> edibles = newLog.getEdibleList();
             Edible currEdible;
-            ResultSet results;
             int historyID;
 
             addHistory.setInt(1, userID);
-            addHistory.setString(2, this.convertDateToString(newLog.getDate()));
+            String hi = this.convertDateToString(newLog.getDate());
+            addHistory.setString(2, hi);
             addHistory.setDouble(3, newLog.getCalorieGoal());
-            results = addHistory.executeQuery();
-            historyID = results.getRow();
-            results.close();
+            addHistory.executeUpdate();
+            historyID = getHistoryID(newLog, userID);
 
             for (int i = 0; i < edibles.size(); i++) {
                 currEdible = edibles.get(i);
@@ -839,11 +863,15 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         try {
             PreparedStatement getHistoryID = currConn.prepareStatement("SELECT HistoryID FROM History WHERE UserID = ? AND Date = ?");
             ResultSet results;
-
-            getHistoryID.setString(1, convertDateToString(currLog.getDate()));
+            Calendar date = currLog.getDate();
+            String currDate = convertDateToString(date);
+            getHistoryID.setString(2, currDate);
             getHistoryID.setInt(1, userID);
             results = getHistoryID.executeQuery();
-            historyID = results.getInt("HistoryID");
+
+            if(results.next()) {
+                historyID = results.getInt("HistoryID");
+            }
         }
         catch (Exception e) {
             System.out.println(e);
@@ -928,6 +956,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         System.out.println(date.get(date.MONTH));
         System.out.println(date.DAY_OF_MONTH);
         String test = date.get(date.YEAR) + "-" + (date.get(date.MONTH) + 1) + "-" + date.get(date.DAY_OF_MONTH);
+        //test.trim("\"");
         System.out.println(test);
         return test;
     }
