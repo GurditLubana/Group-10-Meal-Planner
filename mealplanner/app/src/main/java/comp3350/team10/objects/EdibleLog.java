@@ -51,23 +51,18 @@ public class EdibleLog extends Edible {
         }
     }
 
-    public void setCalories() throws IllegalArgumentException, Exception { //cannot call super because these are shadowed and is not supported in java
+    public void setCalories() throws Exception { //cannot call super because these are shadowed and is not supported in java
         UnitConverter converter = new UnitConverter();
         double newCalories = 0;
         try{
-            converter.convert(this.baseUnit, this.baseQuantity, this.baseCalories, this.unit, this.quantity);
+            newCalories = converter.convert(this.baseUnit, this.baseQuantity, this.baseCalories, this.unit, this.quantity);
         }
         catch(Exception e) {
             System.out.println(e);
             throw e;
         }
 
-        if(newCalories >= 0 && newCalories <= Constant.ENTRY_MAX_VALUE) {
-            this.calories = newCalories;
-        }
-        else {
-            throw new IllegalArgumentException("Invalid log calories");
-        }
+        this.calories = newCalories;
     }
 
     public void setUnit(Edible.Unit newUnit) throws IllegalArgumentException {

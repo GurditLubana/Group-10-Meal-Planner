@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import comp3350.team10.objects.DataFrame;
 import comp3350.team10.persistence.SharedDB;
 
-class TestTrendsOps {
+public class TestTrendsOps {
 
     @Nested
     @DisplayName("Simple Tests")

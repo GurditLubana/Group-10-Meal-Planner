@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-class TestDataFrame {
+public class TestDataFrame {
 
     @Nested
     @DisplayName("Tests that should fail")
-    class DataFrameFail {
+    private class DataFrameFail {
 
         @Test
         @DisplayName("instance creation should fail if type is null")

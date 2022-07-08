@@ -29,6 +29,7 @@ public class SharedDB {
     }
 
     public static void close() {
-        //db.close();
+        db.close();
+        db = null;
     }
 }

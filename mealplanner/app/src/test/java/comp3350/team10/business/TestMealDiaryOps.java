@@ -1,11 +1,15 @@
  package comp3350.team10.business;
 
  import static org.junit.jupiter.api.Assertions.*;
+
+ import org.junit.jupiter.api.AfterAll;
+ import org.junit.jupiter.api.AfterEach;
  import org.junit.jupiter.api.DisplayName;
  import org.junit.jupiter.api.BeforeEach;
  import org.junit.jupiter.api.Nested;
  import org.junit.jupiter.api.Test;
 
+ import comp3350.team10.application.Main;
  import comp3350.team10.objects.DailyLog;
  import java.util.Calendar;
  import java.util.NoSuchElementException;
@@ -21,9 +25,15 @@
 
          @BeforeEach
          void setup() {
+             Main.startUp();
              ops = new MealDiaryOps();
              currDate = Calendar.getInstance();
              testDate = Calendar.getInstance();
+         }
+
+         @AfterEach
+         void shutdown() {
+             Main.shutDown();
          }
 
          @Test
@@ -136,9 +146,15 @@
 
          @BeforeEach
          void setup() {
+             Main.startUp();
              ops = new MealDiaryOps();
              currDate = Calendar.getInstance();
              testDate = Calendar.getInstance();
+         }
+
+         @AfterEach
+         void shutdown() {
+             Main.shutDown();
          }
 
          @Test
@@ -182,9 +198,15 @@
 
          @BeforeEach
          void setup() {
+             Main.startUp();
              ops = new MealDiaryOps();
              currDate = Calendar.getInstance();
              testDate = Calendar.getInstance();
+         }
+
+         @AfterEach
+         void shutdown() {
+             Main.shutDown();
          }
 
          @Test
