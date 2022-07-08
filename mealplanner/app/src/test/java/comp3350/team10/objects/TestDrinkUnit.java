@@ -1,9 +1,5 @@
  package comp3350.team10.objects;
 
- import comp3350.team10.objects.*;
- import comp3350.team10.objects.ListItem.FragmentType;
- import comp3350.team10.objects.Edible.Unit;
- import comp3350.team10.objects.*;
 
  import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,7 +34,7 @@
 
          private Drink testDrink;
          // this is for Edible class for Ingredient class
-         private Food testFood;
+         private Edible testFood;
          // this is for Edible class for Ingredient class
          private DrinkIngredient testDrinkIngredient;
          private ArrayList<DrinkIngredient> testIngredients;
@@ -46,7 +42,7 @@
          @BeforeEach
          void setup(){
              testDrink = new Drink();
-             testFood = new Food();
+             testFood = new Edible();
              testDrinkIngredient = new DrinkIngredient();
              testIngredients = new ArrayList<DrinkIngredient>();
 
@@ -100,7 +96,7 @@
 
          private Drink testDrink;
          // this is for Edible class for Ingredient class
-         private Food testFood;
+         private Edible testFood;
          // this is for Edible class for Ingredient class
          private DrinkIngredient testDrinkIngredient;
          private ArrayList<DrinkIngredient> testIngredients;
@@ -108,7 +104,7 @@
          @BeforeEach
          void setup(){
              testDrink = new Drink();
-             testFood = new Food();
+             testFood = new Edible();
              testDrinkIngredient = new DrinkIngredient();
              testIngredients = new ArrayList<DrinkIngredient>();
 
