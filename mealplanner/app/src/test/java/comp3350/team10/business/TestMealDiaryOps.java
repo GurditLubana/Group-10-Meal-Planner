@@ -1,317 +1,242 @@
-// package comp3350.team10.business;
+ package comp3350.team10.business;
 
-// import static org.junit.jupiter.api.Assertions.*;
-// import org.junit.jupiter.api.DisplayName;
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.Nested;
-// import org.junit.jupiter.api.Test;
-// import comp3350.team10.persistence.*;
-// import comp3350.team10.business.MealDiaryOps;
-// import comp3350.team10.objects.Edible;
+ import static org.junit.jupiter.api.Assertions.*;
 
-// import java.time.temporal.ChronoUnit;
-// import java.util.Calendar;
-// import java.util.ArrayList;
+ import org.junit.jupiter.api.AfterAll;
+ import org.junit.jupiter.api.AfterEach;
+ import org.junit.jupiter.api.DisplayName;
+ import org.junit.jupiter.api.BeforeEach;
+ import org.junit.jupiter.api.Nested;
+ import org.junit.jupiter.api.Test;
 
-// public class TestMealDiaryOps {         //////////////////////////Add a test for when "" is entered into a character input
+ import comp3350.team10.application.Main;
+ import comp3350.team10.objects.DailyLog;
+ import java.util.Calendar;
+ import java.util.NoSuchElementException;
 
-//     @Nested
-//     @DisplayName("Initial Object state")
-//     class constructor {
-//         MealDiaryOps ops;
+ public class TestMealDiaryOps {
 
-//         @BeforeEach
-//         void setup() {
-//             SharedDB.start("test");
-//             ops = new MealDiaryOps(SharedDB.getSharedDB());
-//         }
+     @Nested
+     @DisplayName("Simple Tests")
+     class mealDiarySimple {
+         private MealDiaryOps ops;
+         private Calendar currDate;
+         private Calendar testDate;
 
-//         @Test
-//         void calories_consumed(){
-//             assertTrue(ops.getCalorieConsumed() >= 0);
-//             assertTrue(ops.getCalorieConsumed() <= 9999);
-//         }
+         @BeforeEach
+         void setup() {
+             Main.startUp();
+             ops = new MealDiaryOps();
+             currDate = Calendar.getInstance();
+             testDate = Calendar.getInstance();
+         }
 
-//         @Test
-//         void calories_exercise(){
-//             assertTrue(ops.getCalorieExercise() >= 0);
-//             assertTrue(ops.getCalorieExercise() <= 9999);
-//         }
+         @AfterEach
+         void shutdown() {
+             Main.shutDown();
+         }
 
-//         @Test
-//         void list_date(){
-//             assertEquals(ops.getListDate().YEAR, Calendar.getInstance().YEAR);
-//             assertEquals(ops.getListDate().DAY_OF_YEAR, Calendar.getInstance().DAY_OF_YEAR);
-//         }
+         @Test
+         @DisplayName("object state at construction")
+         void objectStateAtConstruction(){
+             DailyLog currLog = ops.getCurrLog();
 
-//         @Test
-//         void calorie_goal(){
-//             assertTrue(ops.getCalorieGoal() >= 0 );
-//             assertTrue(ops.getCalorieGoal() <= 9999 );
-//         }
+             assertEquals(currDate.get(Calendar.YEAR),currLog.getDate().get(Calendar.YEAR));
+             assertEquals(currDate.get(Calendar.MONTH),currLog.getDate().get(Calendar.MONTH));
+             assertEquals(currDate.get(Calendar.DATE),currLog.getDate().get(Calendar.DATE));
 
-//         @Test
-//         void calorie_net(){
-//             assertTrue(ops.getCalorieNet() > -19999);
-//             assertTrue(ops.getCalorieNet() < 19999);
-//         }
+         }
 
-//         @Test
-//         void progress_bar(){
-//             assertTrue(ops.getProgressBar() >= 0 );
-//             assertTrue(ops.getProgressBar() <= 100 );
-//         }
+         @Test
+         @DisplayName("prevDate Should Decrement Date by 1 day")
+         void prev(){
+            ops.prevDate();
+            testDate = ops.getCurrLog().getDate();
+            assertEquals(currDate.get(Calendar.DAY_OF_YEAR) - 1, testDate.get(Calendar.DAY_OF_YEAR));
+         }
 
-//         @Test
-//         void progress_excess(){
-//             assertTrue(ops.getProgressExcess() >= 0 );
-//             assertTrue(ops.getProgressExcess() <= 100 );
-//         }
+         @Test
+         @DisplayName("nextDate Should Increment Date by 1 day")
+         void next(){
+             ops.nextDate();
+             testDate = ops.getCurrLog().getDate();
+             assertEquals(currDate.get(Calendar.DAY_OF_YEAR) + 1, testDate.get(Calendar.DAY_OF_YEAR));
+         }
 
-//         @Test
-//         void initial_list(){
-//             assertNotNull(ops.getList());
-//         }
-//     }
+         @Test
+         @DisplayName("prevDate nextDate can return to a previous date")
+         void prevnext(){
+             ops.prevDate();
+             ops.prevDate();
+             ops.nextDate();
+             ops.nextDate();
+             testDate = ops.getCurrLog().getDate();
+             assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testDate.get(Calendar.DAY_OF_YEAR));
+         }
 
-//     @Nested
-//     @DisplayName("Date traversal")
-//     class date {
-//         DataAccessStub db;
-//         MealDiaryOps ops;
-//         Calendar currDate;
+         @Test
+         @DisplayName("prevDate prevDate can return to a previous date")
+         void nextprev(){
+             ops.nextDate();
+             ops.nextDate();
+             ops.prevDate();
+             ops.prevDate();
+             testDate = ops.getCurrLog().getDate();
+             assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testDate.get(Calendar.DAY_OF_YEAR));
+         }
 
-//         @BeforeEach
-//         void setup() {
-//             SharedDB.start("test");
-//             db =SharedDB.getSharedDB();
-//             ops = new MealDiaryOps(db);
-//             currDate = (Calendar) ops.getListDate().clone();
-//         }
+         @Test
+         @DisplayName("we should be able to set a date within 2 years")
+         void anyDate(){
+             Calendar newDate = Calendar.getInstance();
+             newDate.set(2021, 12, 1);
 
-//         @Test
-//         @DisplayName("prevDate Should Decrement Date by 1")
-//         void prev(){
-//             long diff = 0;
-//             for(int i = 1; i < 6; i++) {
-//                 ops.prevDate();
-//                 diff = ChronoUnit.DAYS.between(currDate.toInstant(), ops.getListDate().toInstant());
-//                 assertEquals(diff, -i);
-//             }
-//         }
+             ops.setListDate(newDate);
+             testDate = ops.getCurrLog().getDate();
+             assertEquals(newDate.get(Calendar.YEAR),testDate.get(Calendar.YEAR));
+             assertEquals(newDate.get(Calendar.MONTH),testDate.get(Calendar.MONTH));
+             assertEquals(newDate.get(Calendar.DATE),testDate.get(Calendar.DATE));
 
-//         @Test
-//         @DisplayName("nextDate Should Increment Date by 1")
-//         void next(){
-//             long diff = 0;
-//             for(int i = 1; i < 6; i++) {
-//                 ops.nextDate();
-//                 diff = ChronoUnit.DAYS.between(currDate.toInstant(), ops.getListDate().toInstant());
-//                 assertEquals(diff, i);
-//             }
-//         }
+             newDate.set(2023, 4, 1);
+             ops.setListDate(newDate);
+             testDate = ops.getCurrLog().getDate();
+             assertEquals(newDate.get(Calendar.YEAR),testDate.get(Calendar.YEAR));
+             assertEquals(newDate.get(Calendar.MONTH),testDate.get(Calendar.MONTH));
+             assertEquals(newDate.get(Calendar.DATE),testDate.get(Calendar.DATE));
+         }
 
-//         @Test
-//         @DisplayName("prevDate nextDate can return to a previous date")
-//         void prevnext(){
-//             long diff = 0;
-//             for(int i = 1; i < 6; i++) {
-//                 ops.prevDate();
-//                 diff = ChronoUnit.DAYS.between(currDate.toInstant(), ops.getListDate().toInstant());
-//                 assertEquals(diff, -i);
-//             }
-//             for(int i = 4; i > 0; i--) {
-//                 ops.nextDate();
-//                 diff = ChronoUnit.DAYS.between(currDate.toInstant(), ops.getListDate().toInstant());
-//                 assertEquals(diff, -i);
-//             }
+         @Test
+         @DisplayName("Switching dates results in updated food log")
+         void newDateNewLog(){
+             DailyLog currLog = ops.getCurrLog();
+             DailyLog newLog = null;
 
-//         }
-//         @Test
-//         @DisplayName("we should be able to set a date within 2 years")
-//         void anyDate(){
-//             long diff = 0;
-//             Calendar newDate = Calendar.getInstance();
-//             Calendar testDate = Calendar.getInstance();
-//             newDate.set(2020, 12, 1);
-//             testDate.set(2020, 12, 1);
-//             diff = ChronoUnit.DAYS.between(currDate.toInstant(), ops.getListDate().toInstant());
-//             assertEquals(diff, 0);
+             ops.prevDate();
+             newLog = ops.getCurrLog();
 
-//             ops.setListDate(newDate);
-//             diff = ChronoUnit.DAYS.between(testDate.toInstant(), ops.getListDate().toInstant());
-//             assertEquals(diff, 0);
+             assertNotEquals(currLog,newLog);
+         }
 
-//             newDate.set(2024, 4, 1);
-//             testDate.set(2024, 4, 1);
-//             diff = ChronoUnit.DAYS.between(testDate.toInstant(), ops.getListDate().toInstant());
-//             assertEquals(diff, 0);
-//         }
+         @Test
+         @DisplayName("We should be able to add a food item from the db to the DailyLog")
+         void addFoodToLog(){
+             DailyLog currLog = ops.getCurrLog();
 
-//         @Test
-//         @DisplayName("Switching dates results in updated food log")
-//         void newDate(){
-//             boolean identical = true;
-//             ArrayList testList = null;
-//             ArrayList todayList = ops.getList();
-//             Calendar newDate = Calendar.getInstance();
-//             newDate.set(Calendar.DAY_OF_YEAR, newDate.get(Calendar.DAY_OF_YEAR)-1);
-//             ops.setListDate(newDate);
-//             testList = ops.getList();
+             int prevLogSize = currLog.getEdibleList().size();
+             ops.addByKey(2, false);
+             assertEquals(prevLogSize+1,currLog.getEdibleList().size());
+         }
 
-//             if(todayList.size() != testList.size()){
-//                 identical = false;
-//             }
-//             if(identical){
-//                 for(int i = 0 ; i < testList.size() && identical; i++){
-//                     if(((Edible) testList.get(i)).getDbkey() != ((Edible) todayList.get(i)).getDbkey()){
-//                         identical = false;
-//                     }
-//                 }
-//             }
-//             assertFalse(identical);
-//         }
-//     }
+         @Test
+         @DisplayName("We should be able to commit modified Logs to persistent storage")
+         void commitLogToDB(){
+             DailyLog currLog = ops.getCurrLog();
 
-//     @Nested
-//     @DisplayName("Setting Goals")
-//     class goals{
-//         DataAccessStub db;
-//         MealDiaryOps ops;
-//         Calendar currDate;
+             //TODO test logchangedupdatedb
+         }
 
-//         @BeforeEach
-//         void setup() {
-//             SharedDB.start("test");
-//             db =SharedDB.getSharedDB();
-//             ops = new MealDiaryOps(db);
-//             currDate = (Calendar) ops.getListDate().clone();
-//         }
+     }
 
-//         @Test
-//         @DisplayName("Can set new calorie goal")
-//         void canSetCal() {
-//             ops.setCalorieGoal(500);
-//             assertEquals(500, ops.getCalorieGoal());
-//         }
+     @Nested
+     @DisplayName("Edge case Tests should pass")
+     class mealDiaryEdge {
+         private MealDiaryOps ops;
+         private Calendar currDate;
+         private Calendar testDate;
 
-//         @Test
-//         @DisplayName("Can input new actual exercise calories")
-//         void canSetExcAct() {
-//             ops.setCalorieExercise(200);
-//             assertEquals(200, ops.getCalorieExercise());
-//         }
+         @BeforeEach
+         void setup() {
+             Main.startUp();
+             ops = new MealDiaryOps();
+             currDate = Calendar.getInstance();
+             testDate = Calendar.getInstance();
+         }
 
-//         @Test
-//         @DisplayName("Set new calorie goal causes progress update")
-//         void setCalUpdates() {
-//             Integer prevProgress = ops.getProgressBar();
-//             Integer newProgress = 0;
-//             Integer prevGoal = ops.getCalorieGoal();
+         @AfterEach
+         void shutdown() {
+             Main.shutDown();
+         }
 
-//             if( prevProgress > 0 ) {
-//                 if (prevProgress < 99) {
-//                     ops.setCalorieGoal(prevGoal + 1000);
-//                     newProgress = ops.getProgressBar();
-//                 } else {
-//                     prevProgress = ops.getProgressExcess();
-//                     ops.setCalorieGoal(prevGoal + 1000);
-//                     newProgress = ops.getProgressExcess();
-//                 }
-//                 assertTrue(prevProgress.intValue() > newProgress.intValue());
-//             }
-//             else {
-//                 assertEquals(prevProgress.intValue(), newProgress.intValue());
-//             }
-//         }
+         @Test
+         @DisplayName("we should be able to set a date within 2 years inclusive")
+         void anyDate(){
+             Calendar newDate = Calendar.getInstance();
+             newDate.set(currDate.get(Calendar.YEAR) - 2, currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE));
 
-//         @Test
-//         @DisplayName("Set new actual exercise calories causes progress update")
-//         void setExcActUpdates() {
-//             Integer prevProgress = ops.getProgressBar();
-//             Integer newProgress = 0;
+             ops.setListDate(newDate);
+             testDate = ops.getCurrLog().getDate();
+             assertEquals(newDate.get(Calendar.YEAR),testDate.get(Calendar.YEAR));
+             assertEquals(newDate.get(Calendar.MONTH),testDate.get(Calendar.MONTH));
+             assertEquals(newDate.get(Calendar.DATE),testDate.get(Calendar.DATE));
 
-//             if( prevProgress > 0 ) {
-//                 if (prevProgress < 100) {
-//                     ops.setCalorieExercise(1000);
-//                     newProgress = ops.getProgressBar();
-//                 } else {
-//                     prevProgress = ops.getProgressExcess();
-//                     ops.setCalorieExercise(1000);
-//                     newProgress = ops.getProgressExcess();
-//                 }
-//                 assertNotEquals(prevProgress.intValue(), newProgress.intValue());
-//             }
-//             else {
-//                 assertEquals(prevProgress.intValue(), newProgress.intValue());
-//             }
+             newDate.set(currDate.get(Calendar.YEAR) + 2, currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE));
+             ops.setListDate(newDate);
+             testDate = ops.getCurrLog().getDate();
+             assertEquals(newDate.get(Calendar.YEAR),testDate.get(Calendar.YEAR));
+             assertEquals(newDate.get(Calendar.MONTH),testDate.get(Calendar.MONTH));
+             assertEquals(newDate.get(Calendar.DATE),testDate.get(Calendar.DATE));
+         }
 
-//         }
-//     }
+         @Test
+         @DisplayName("We should be able to add the first food item in the db to the DailyLog")
+         void addFoodToLog(){
+             DailyLog currLog = ops.getCurrLog();
 
-//     @Nested
-//     @DisplayName("Tests that should fail")
-//     class testShouldfail{
-//         DataAccessStub db;
-//         MealDiaryOps ops;
-//         Calendar currDate;
+             int prevLogSize = currLog.getEdibleList().size();
+             ops.addByKey(1, false);
+             assertEquals(prevLogSize+1,currLog.getEdibleList().size());
+         }
+     }
 
-//         @BeforeEach
-//         void setup() {
-//             SharedDB.start("test");
-//             db =SharedDB.getSharedDB();
-//             ops = new MealDiaryOps(db);
-//             currDate = (Calendar) ops.getListDate().clone();
-//         }
 
-//         @Test
-//         @DisplayName("Dates that more than 2 years older than current date")
-//         void testBadDate1(){
-//             Calendar badDate = Calendar.getInstance();
-//             badDate.set(Calendar.YEAR, badDate.get(Calendar.YEAR) -3);
-//             ops.setListDate(badDate);
-//             assertEquals(currDate, ops.getListDate());
-//         }
+     @Nested
+     @DisplayName("Tests that should fail")
+     class mealDiaryFail {
+         private MealDiaryOps ops;
+         private Calendar currDate;
+         private Calendar testDate;
 
-//         @Test
-//         @DisplayName("Date that is zero")
-//         void testBadDate2(){
-//             Calendar badDate = Calendar.getInstance();
-//             badDate.set(Calendar.YEAR, 0);
-//             ops.setListDate(badDate);
-//             assertEquals(currDate, ops.getListDate());
-//         }
+         @BeforeEach
+         void setup() {
+             Main.startUp();
+             ops = new MealDiaryOps();
+             currDate = Calendar.getInstance();
+             testDate = Calendar.getInstance();
+         }
 
-//         @Test
-//         @DisplayName("Calorie goal negative")
-//         void canSetCal() {
-//             int prevGoal = ops.getCalorieGoal();
-//             ops.setCalorieGoal(-5);
-//             assertEquals(prevGoal, ops.getCalorieGoal());
-//         }
+         @AfterEach
+         void shutdown() {
+             Main.shutDown();
+         }
 
-//         @Test
-//         @DisplayName("Exercise actual negative")
-//         void canSetExcAct() {
-//             int prevExercise = ops.getCalorieExercise();
-//             ops.setCalorieExercise(-5);
-//             assertEquals(prevExercise, ops.getCalorieExercise());
-//         }
+         @Test
+         @DisplayName("any date request beyond 2 years of current date")
+         void anyDate(){
+             Calendar newDate = Calendar.getInstance();
+             newDate.set(currDate.get(Calendar.YEAR) - 3, currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE));
+             assertThrows(IllegalArgumentException.class, () -> {
+                 ops.setListDate(newDate);
+             });
 
-//         @Test
-//         @DisplayName("Calorie goal 99999")
-//         void canSetCal1() {
-//             int prevGoal = ops.getCalorieGoal();
-//             ops.setCalorieGoal(-5);
-//             assertEquals(prevGoal, ops.getCalorieGoal());
-//         }
+             newDate.set(currDate.get(Calendar.YEAR) + 3, currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE));
+             assertThrows(IllegalArgumentException.class, () -> {
+                 ops.setListDate(newDate);
+             });
+         }
 
-//         @Test
-//         @DisplayName("Exercise actual 99999")
-//         void canSetExcAct1() {
-//             int prevExercise = ops.getCalorieExercise();
-//             ops.setCalorieExercise(-5);
-//             assertEquals(prevExercise, ops.getCalorieExercise());
-//         }
-//     }
-// }
+         @Test
+         @DisplayName("requests for dbkeys that do not exist")
+         void dbKey(){
+
+             assertThrows(NoSuchElementException.class, () -> {
+                 ops.addByKey(-5, false);
+             });
+
+
+             assertThrows(NoSuchElementException.class, () -> {
+                 ops.addByKey(999999999, false);
+             });
+         }
+
+     }
+ }

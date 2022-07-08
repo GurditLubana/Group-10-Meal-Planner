@@ -7,12 +7,12 @@ import comp3350.team10.business.UnitConverter;
 public class EdibleLog extends Edible {
     //private UnitConverter baseConverter;  originally wanted to use a single converter but variables need to be reset so this breaks life
     private Unit baseUnit;
-    private int baseCalories;
-    private int baseQuantity;
+    private double baseCalories;
+    private double baseQuantity;
 
-    private int quantity;
+    private double quantity;
     private Edible.Unit unit;
-    private int calories;
+    private double calories;
 
     public EdibleLog(Edible edible) {
         super();
@@ -22,11 +22,10 @@ public class EdibleLog extends Edible {
         this.baseCalories = edible.getCalories();
 
         try {
-            //baseConverter = new UnitConverter(edible.getUnit(), edible.getQuantity(), edible.getCalories());
-            this.initDetails(edible.getDbkey(), edible.getName(), edible.getDesciprtion(), edible.getQuantity(), edible.getUnit());
+            this.initDetails(edible.getDbkey(), edible.getName(), edible.getDescription(), edible.getQuantity(), edible.getUnit());
             this.initNutrition(edible.getCalories(), edible.getProtein(), edible.getCarbs(), edible.getFat());
             this.initCategories(edible.getIsAlcoholic(), edible.getIsSpicy(), edible.getIsVegan(), edible.getIsVegetarian(), edible.getIsGlutenFree());
-            this.initMetadata(true, edible.getPhotoBytes(), edible.getFragmentType());
+            this.initMetadata(true, edible.getPhotoBytes());
             this.init(edible.getQuantity(), edible.getUnit());
         }
         catch(Exception e) {
@@ -35,19 +34,7 @@ public class EdibleLog extends Edible {
         }
     }
 
-    public EdibleLog(FragmentType fragType) {
-        super();
-
-        try {
-            this.setFragmentType(fragType);
-        }
-        catch (Exception e) {
-            System.out.println(e);
-            System.exit(1);
-        }
-    }
-
-    public EdibleLog init(int quantity, Edible.Unit unit) throws IOException {
+    public EdibleLog init(double quantity, Edible.Unit unit) throws IllegalArgumentException, Exception {
         this.setQuantity(quantity);
         this.setUnit(unit);
         this.setCalories();
@@ -55,37 +42,39 @@ public class EdibleLog extends Edible {
         return this;
     }
 
-    public void setQuantity(int newQuantity) throws IOException {
+    public void setQuantity(double newQuantity) throws IllegalArgumentException {
         if(newQuantity > 0 && newQuantity <= Constant.ENTRY_MAX_VALUE) {
             this.quantity = newQuantity;
         }
         else {
-            throw new IOException("Invalid log quantity");
+            throw new IllegalArgumentException("Invalid log quantity");
         }
     }
 
-    public void setCalories() throws IOException { //cannot call super because these are shadowed and is not supported in java
-        UnitConverter converter = new UnitConverter(this.baseUnit, this.baseQuantity, this.baseCalories);
-        int newCalories = converter.getCalories(unit, quantity).intValue();
+    public void setCalories() throws Exception { //cannot call super because these are shadowed and is not supported in java
+        UnitConverter converter = new UnitConverter();
+        double newCalories = 0;
+        try{
+            newCalories = converter.convert(this.baseUnit, this.baseQuantity, this.baseCalories, this.unit, this.quantity);
+        }
+        catch(Exception e) {
+            System.out.println(e);
+            throw e;
+        }
 
-        if(newCalories >= 0 && newCalories <= Constant.ENTRY_MAX_VALUE) {
-            this.calories = newCalories;
-        }
-        else {
-            throw new IOException("Invalid log calories");
-        }
+        this.calories = newCalories;
     }
 
-    public void setUnit(Edible.Unit newUnit) throws IOException {
+    public void setUnit(Edible.Unit newUnit) throws IllegalArgumentException {
         if(newUnit != null) {
             this.unit = newUnit;
         }
         else {
-            throw new IOException("Invalid log unit");
+            throw new IllegalArgumentException("Invalid log unit");
         }
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return this.quantity;
     }
 
@@ -93,7 +82,7 @@ public class EdibleLog extends Edible {
         return this.unit;
     }
 
-    public int getCalories() {
+    public double getCalories() {
         return this.calories;
     }
 }

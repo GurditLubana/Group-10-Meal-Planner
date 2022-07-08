@@ -1029,6 +1029,14 @@ Duration: 4hrs
 
 ### 2022-06-25
      Dev:
+      - Zhou
+Duration: 10hrs
+   Tasks:
+   - review U0 U1 and U2 course material;
+   - summary note and send it to discord
+
+### 2022-06-25
+     Dev:
       - Josef
       - Manraj
 Duration: 2hrs
@@ -1049,6 +1057,14 @@ Duration: 11hrs
    - Created DB controller class to swap between the two (dependency injection)
    - Changed exercise goals and calorie goals to affect subsequent entries/past non-entries once changed
    - Created User class and UserOps (this 100% needs refactoring in the future, might not even be needed)
+
+### 2022-06-26
+     Dev:
+      - Zhou
+Duration: 8hrs
+   Tasks:
+   - review U3, U4 course material;
+   - summary note and send it to discord
 
 ### 2022-06-28
      Dev:
@@ -1120,7 +1136,7 @@ Duration: 4hrs
    - Calories do not get updated as the log gets updated (fixed)
    - Calories need their own variables (food accumulated calories and exercise should be seperated) (fixed)
    - Data stub data should appear normally on the UI (fixed)
-   - Data stub should have more interesting data (get bytes from an image should be written)
+   - Data stub should have more interesting data (fixed)
    - "" needs to be checked before parsing for calories and workout calories (crashes) (fixed)
    - Should probably change quantity from int to double
 
@@ -1129,6 +1145,7 @@ Duration: 4hrs
       - Dane
 Duration: 10hrs
    Tasks:
+   - Added relative calorie counter to EdibleLog
    - Updated all object structures again
    - Refactored all classes
    - Fixed bugs so that refactor can run
@@ -1142,6 +1159,14 @@ Duration: 4hrs
    Tasks:
    - Will update this later
 
+### 2022-06-26
+     Dev:
+      - Zhou
+Duration: 4 hrs
+   Tasks:
+   - review U5 course material, to lecture 35;
+   - summary note and send it to discord
+
 ### 2022-06-29
      Dev:
       - Dane
@@ -1152,3 +1177,170 @@ Duration: 5hrs
    - Researched alternatives and ways to ensure stub database could be decoupled from android to no prevail
    - Researched online options for getting byte array from actual images
    - Updated stub db data
+
+### 2022-06-29
+     Dev:
+      - Dane
+Duration: 8hrs
+   Tasks:
+   - Setup SQL queries
+   - Setup SelectorDB (to swap between databases at run time)
+   - Test and ran the project with the new database which worked!
+   - Minor Database table refactoring
+   - Improved data in the stub database
+
+### 2022-06-29
+     Dev:
+      - Zhou
+Duration: 5hrs
+   Tasks:
+   - Design Food.java unit test
+   - finished simple test of Food.java update at brench test-Zhou
+   - finished complex test of Food.java at update brench test-Zhou
+
+### 2022-06-29
+     Dev:
+      - Josef
+      - Manraj
+Duration: 4hrs
+   Tasks:
+   - Daily progress activity
+   - layout, test data
+
+### 2022-06-30
+     Dev:
+      - Josef
+Duration: 8hrs
+   Tasks:
+   - refactor code implementation according to iter1 feedback
+   - removed * imports
+   - placed presentation dialog classes into a heirarchy to remove code duplication
+   - refactored showcontextui method in mealdiary
+   - refactored mealdiaryops db access process
+
+### 2022-06-30
+     Dev:
+      - Zhou
+Duration: 1hrs
+   Tasks:
+   - finished empty test of Food.java update at brench test-Zhou
+
+### 2022-06-30
+     Dev:
+      - Dane
+Duration: 15hrs
+   Tasks:
+   - Generated statements for database seeding
+   - Refactored tables to fix an issue with Ingredients not having 2 potential edible keys (to join them)
+   - Database was dependent on android - refactored according to the sample project
+   - Created db.script for database loading
+   - Wrote all SQL statements using utils.sql in java *except for edible getters from database*
+   - Refactored codebase with Josef (removed extra information that Edible didnt need)
+   - Refactored DailyLog which now gets the UserID of whoever it belongs to
+   - Refactored RecipeOps and fixed bug where the wrong information was being loaded in drink/meal tabs
+   - Refactored RecipeActivity - now when an image is null an eggplant is displayed otherwise the image gets displayed
+
+### 2022-07-01
+     Dev:
+      - Zhou
+Duration: 1hrs
+   Tasks:
+   - finished edge test of Food.java update at brench test-Zhou
+   - find when interger properties input use ENTRY_MIN_VALUE will fail, it should not throw execption, it may brake principle of least astornishemnt
+
+### 2022-07-01
+     Dev:
+      - Josef
+Duration: 6hrs
+   Tasks:
+   - YuJa videos review, identify potential project areas to refactor
+
+### 2022-07-01
+     Dev:
+      - Dane
+      - Josef
+Duration: 10hrs
+   Tasks:
+   - Generated Unit tests for four classes and discussed testing
+   - Refactored Edible and EdibleLog classes
+   - Struggled with HSQL setup, lots of research to get it to work - db.script formating and table errors
+   - Moved empty log creation into DB
+   - Fixed bug where new edibles were not getting added to the DB
+   - Finished SQL statements
+   - Fixed compiler run time errors in generated HSQL db file
+   - Questioned our degree choice
+
+### 2022-07-02
+     Dev:
+      - Dane
+      - Josef
+Duration: hrs start time 12.30
+   Tasks:
+   - Debug the .script file for the database
+   - Researched .log and what it does
+   - Researched required properties
+   - Researched .script requirements for db loading
+   - created a function that loaded device database with data
+   - added default data to .script file
+   - Debugged SQL statements
+   - Watched Yuja videos 
+   - Refactored DB implementation in SharedDB
+   
+   - Bugs:
+   - Instructions do not get loaded properly with SQL
+   - New entires need to be added to database and generated in HSQL file
+   - EdibleLog food items do not get displayed properly
+   - SQL should be refactored
+   - SQL needs to be better tested
+  
+### 2022-07-02
+     Dev:
+      - Zhou
+Duration: 2hrs
+   Tasks:
+   - finished Invalid test of Food.java update at brench test-Zhou
+   - all test case is done in TestFoodUnit.java, need other people review
+
+### 2022-07-05
+     Dev:
+      - Zhou
+Duration: 1hrs
+   Tasks:
+   - upload all note(1-35) to github folder, with some modify
+
+### 2022-07-06
+     Dev:
+      - Zhou
+Duration: 15 hrs
+   Tasks:
+   - finished the Test Ingredient Unit test Found some problems
+     - some error message have spelling error, I just copy the message not change it
+     - the Quantity type. I leave some comments and a fail() message about detail
+     - set un-initial ingredient obj is success, should not success
+     
+### 2022-07-07
+     Dev:
+      - Zhou
+Duration: 10 hrs
+   Tasks:
+   -modify food object unit test
+   -design drink object unit test
+   -finished simple and complex test for drink object 
+   
+   ### 2022-07-08 recieve the structure change, not food class in project, change the all food object to edible
+     Dev:
+      - Zhou
+Duration: 5 hrs
+   Tasks:
+   - recieve the structure change, not food class in project, change the all food object to edible
+   - change the old TestFoodUnit.java to TestEdibleUnit.java and fund problem
+   - change the food obj in TestIngredinetsTest. java to Edible. the problem found at 2022/07/06 is not solved
+   - deteail of found at 2022/07/06
+     - some error message have spelling error, I just copy the message not change it
+     - the Quantity type. I leave some comments and a fail() message about detail
+     - set un-initial ingredient obj is success, should not success    
+
+     
+
+
+

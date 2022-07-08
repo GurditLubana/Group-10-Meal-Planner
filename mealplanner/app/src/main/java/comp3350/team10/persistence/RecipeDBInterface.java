@@ -6,15 +6,17 @@ import java.util.ArrayList;
 
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.Edible;
-import comp3350.team10.objects.Food;
+
+import comp3350.team10.objects.EdibleLog;
 import comp3350.team10.objects.Meal;
 
 public interface RecipeDBInterface {
     public ArrayList<Edible> getFoodRecipes();
     public ArrayList<Edible> getMealRecipes();
     public ArrayList<Edible> getDrinkRecipes();
-    
-    public void addFoodToRecipeBook(Food newFood);
+    public int getNextKey();
+    public void addFoodToRecipeBook(Edible newFood);
     public void addMealToRecipeBook(Meal newMeal);
     public void addDrinkToRecipeBook(Drink newDrink);
+    public EdibleLog findEdibleByKey(int key, boolean isCustom);
 }

@@ -1,24 +1,35 @@
 package comp3350.team10.persistence;
 
 public class SharedDB {
-    private static DataAccessStub db = null;   //Represents whether or not the database has already been accessed or not
+    private static DBSelector db = null;       //Represents whether or not the database has already been accessed or not
     public static String dbName;               //The name of the given database
 
-    public static void start(String dbname) {
+    public static void start() {
         if (db == null) {
-            db = new DataAccessStub(dbname);
-            SharedDB.dbName = dbname;
-            db.open(dbname);
+            db = new DBSelector();
         }
+        System.out.println(db);
+        System.out.println("set!!");
     }
 
-    public static DataAccessStub getSharedDB() {
+    public static DBSelector getSharedDB() {
+        return db;
+    }
+
+    public static LogDBInterface getLogDB() {
+        return db;
+    }
+
+    public static RecipeDBInterface getRecipeDB() {
+        return db;
+    }
+
+    public static UserDBInterface getUserDB() {
         return db;
     }
 
     public static void close() {
-        if (db != null) {
-            db = null;
-        }
+        db.close();
+        db = null;
     }
 }

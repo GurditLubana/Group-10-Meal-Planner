@@ -1,6 +1,7 @@
 package comp3350.team10.presentation;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -9,16 +10,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import comp3350.team10.R;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
-import comp3350.team10.objects.ListItem;
+
 
 public class RVAMealDiary extends RecyclerViewAdapter {
-    private FragToMealDiary sendToMealDiary;            // interface to pass data to mealdiary
+    private FragToMealDiary sendToMealDiary; // interface to pass data to mealdiary
+    private Context context;
 
     public RVAMealDiary(ArrayList<Edible> dataSet) {
         super(dataSet);
@@ -27,25 +30,28 @@ public class RVAMealDiary extends RecyclerViewAdapter {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = null;
-        Context context = null;
         ViewHolder viewHolder = null;
+        this.context = viewGroup.getContext();
 
-        switch (viewType) {
-            case 0:
-                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card, viewGroup, false);
-                break;
-            case 1:
-                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card_context, viewGroup, false);
-                break;
-            case 2:
-                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_add_log, viewGroup, false);
-                break;
-            default:
-                view = null;
-                break;
+        if (viewType == FragmentType.diaryModify.ordinal())
+        {
+            view = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.fragment_diary_card_context, viewGroup, false);
         }
+        else if (viewType == FragmentType.diaryAdd.ordinal())
+        {
+            view = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.fragment_diary_add_log, viewGroup, false);
+        }
+        else
+        {
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card,
+                    viewGroup, false);
+        }
+
         context = view.getContext();
-        if (context instanceof FragToMealDiary) {
+        if (context instanceof FragToMealDiary)
+        {
             this.sendToMealDiary = (FragToMealDiary) context;
         }
         viewHolder = new ViewHolder(view);
@@ -55,19 +61,23 @@ public class RVAMealDiary extends RecyclerViewAdapter {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        switch (viewHolder.getItemViewType()) {
-            case 1:
-                setDiaryContextListeners(viewHolder);
-                break;
-            case 2:
-                setDiaryAddListeners(viewHolder);
-                break;
-            default:
-                setDiaryEntryData(viewHolder, position);
-                setDiaryEntryListeners(viewHolder);
-                break;
+        // switch (viewHolder.getItemViewType()) {
+        if (super.getViewType() == FragmentType.diaryModify.ordinal())
+        {
+            setDiaryContextListeners(viewHolder);
+        }
+        else if (super.getViewType() == FragmentType.diaryAdd.ordinal())
+        {
+            setDiaryAddListeners(viewHolder);
+        }
+        else
+        {
+            setDiaryEntryData(viewHolder, position);
+            setDiaryEntryListeners(viewHolder);
         }
     }
+
+
 
     private void setDiaryEntryData(ViewHolder viewHolder, final int position) {
         TextView itemName = viewHolder.getView().findViewById(R.id.itemNameBox);
@@ -78,14 +88,26 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         Edible currentItem = super.getDataSet().get(position);
 
         itemName.setText(currentItem.getName());
-        itemQty.setText(String.format("%3d", currentItem.getQuantity()));
+        itemQty.setText(String.format("%3.2f", currentItem.getQuantity()));
         itemUnit.setText(currentItem.getUnit().toString());
-        itemCals.setText(String.format("%3d", currentItem.getCalories()));
+        itemCals.setText(String.format("%3d", (int) currentItem.getCalories()));
+        itemImage.setImageBitmap(getBitmapFromFile("food.jpg")); //TODO currentItem.getFilePath()
 
-        //Bitmap bmp = BitmapFactory.decodeByteArray(currentItem.getPhotoBytes(), 0, currentItem.getPhotoBytes().length);
-        //itemImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, itemImage.getWidth(), itemImage.getHeight(), false));
+    }
 
-        //itemImage.setImageResource(currentLog.getEdibleEntry().getPhotoBytes());
+    private Bitmap getBitmapFromFile(String fileName){
+        InputStream istr = null;
+        Bitmap bitmap = null;
+        AssetManager assetManager = context.getAssets();
+        try {
+            istr = assetManager.open("images/" + fileName);
+            bitmap = BitmapFactory.decodeStream(istr);
+            istr.close();
+        } catch (Exception e){
+            System.out.println(e);
+        }
+
+        return bitmap;
     }
 
 
@@ -95,7 +117,8 @@ public class RVAMealDiary extends RecyclerViewAdapter {
             public void onClick(View view) {
                 int position = viewHolder.getAbsoluteAdapterPosition();
 
-                if (sendToMealDiary != null) {
+                if (sendToMealDiary != null)
+                {
                     sendToMealDiary.showContextUI(position);
                 }
             }
@@ -103,49 +126,57 @@ public class RVAMealDiary extends RecyclerViewAdapter {
     }
 
     private void setDiaryContextListeners(ViewHolder viewHolder) {
-        viewHolder.getView().findViewById(R.id.btnBackMealLog).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = viewHolder.getAbsoluteAdapterPosition();
+        viewHolder.getView().findViewById(R.id.btnBackMealLog)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int position = viewHolder.getAbsoluteAdapterPosition();
 
-                if (sendToMealDiary != null) {
-                    sendToMealDiary.showContextUI(position);
-                }
-            }
-        });
+                        if (sendToMealDiary != null)
+                        {
+                            sendToMealDiary.showContextUI(position);
+                        }
+                    }
+                });
 
-        viewHolder.getView().findViewById(R.id.btnDeleteMeal).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = viewHolder.getAbsoluteAdapterPosition();
+        viewHolder.getView().findViewById(R.id.btnDeleteMeal)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int position = viewHolder.getAbsoluteAdapterPosition();
 
-                if (sendToMealDiary != null) {
-                    sendToMealDiary.removeItem(position);
-                }
-            }
-        });
+                        if (sendToMealDiary != null)
+                        {
+                            sendToMealDiary.removeItem(position);
+                        }
+                    }
+                });
 
-        viewHolder.getView().findViewById(R.id.btnModifyMeal).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        viewHolder.getView().findViewById(R.id.btnModifyMeal)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-                if (sendToMealDiary != null) {
-                    sendToMealDiary.editItem();
-                }
-            }
-        });
+                        if (sendToMealDiary != null)
+                        {
+                            sendToMealDiary.editItem();
+                        }
+                    }
+                });
     }
 
     private void setDiaryAddListeners(ViewHolder viewHolder) {
-        viewHolder.getView().findViewById(R.id.btnAddMeal).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = viewHolder.getAbsoluteAdapterPosition();
+        viewHolder.getView().findViewById(R.id.btnAddMeal)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int position = viewHolder.getAbsoluteAdapterPosition();
 
-                if (sendToMealDiary != null) {
-                    sendToMealDiary.addEntry(position);
-                }
-            }
-        });
+                        if (sendToMealDiary != null)
+                        {
+                            sendToMealDiary.addEntry(position);
+                        }
+                    }
+                });
     }
 }

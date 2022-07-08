@@ -1,7 +1,5 @@
 package comp3350.team10.persistence;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ArrayList;
@@ -9,35 +7,50 @@ import java.util.ArrayList;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.Edible;
-import comp3350.team10.objects.Food;
+import comp3350.team10.objects.EdibleLog;
 import comp3350.team10.objects.Meal;
 import comp3350.team10.objects.User;
 
-public class DBSelector {
+public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInterface{
     private HSqlDB hsql;                //An active instance of the HSQL database
     private DataAccessStub stub;        //An active instance of the DataAccessStub database (switch to shared)
 
+    private LogDBInterface logDB;       //The database we would like to process log operations on
     private UserDBInterface userDB;     //The database we would like to process user operations on
-    private DiaryDBInterface diaryDB;   //The database we would like to process diary operations on
     private RecipeDBInterface recipeDB; //The database we would like to process recipe operations on
     
 
-    DBSelector(Context context) { //Creates both databases then points all interfaces towards hsql
-        this.hsql = new HSqlDB(context);
-        this.stub = new DataAccessStub("stub");
+    DBSelector() { //Creates both databases then points all interfaces towards hsql
+        //startHsqlDB();
+        startStubDB();
+    }
 
+    public void startHsqlDB() {
+        this.hsql = new HSqlDB();
+
+        this.logDB = this.hsql;
         this.userDB = this.hsql;
-        this.diaryDB = this.hsql;
         this.recipeDB = this.hsql;
     }
 
+    public void startStubDB() {
+        this.stub = new DataAccessStub("stub");
 
-    void moveToStubDB() { //Point all interfaces towards the Stub
-        this.userDB = this.stub;
-        this.diaryDB = this.stub;
+        this.stub.open("");
         this.recipeDB = this.stub;
+        this.userDB = this.stub;
+        this.logDB = this.stub;
     }
 
+    public void close(){
+        if(this.hsql != null){
+            this.hsql.close();
+        }
+        else if (this.stub != null){
+            this.stub.close();
+        }
+    }
+    
 
     //User interface
     public void addUser(String name, int height, int weight) {
@@ -48,38 +61,50 @@ public class DBSelector {
         return this.userDB.getUser();
     }
 
-    public void setHeight(int newHeight) {
-        this.userDB.setHeight(newHeight);
+    public void setHeight(int userID, int newHeight) {
+        this.userDB.setHeight(userID, newHeight);
     }
 
-    public void setWeight(int newWeight) {
-        this.userDB.setWeight(newWeight);
+    public void setWeight(int userID, int newWeight) {
+        this.userDB.setWeight(userID, newWeight);
     }
 
-    public void setCalorieGoal(int goal, Calendar date) {
-        this.userDB.setCalorieGoal(goal, date);
+    public void setCalorieGoal(int userID, double goal, Calendar date) {
+        this.userDB.setCalorieGoal(userID, goal, date);
     }
 
-    public void setExerciseGoal(int goal, Calendar date) {
-        this.userDB.setExerciseGoal(goal, date);
+    public void setExerciseGoal(int userID, double goal, Calendar date) {
+        this.userDB.setExerciseGoal(userID, goal, date);
     }
 
 
     //Log interface
-    public DailyLog searchFoodLogByDate(Calendar date) {
-        return this.diaryDB.searchFoodLogByDate(date);
+    public DailyLog searchFoodLogByDate(Calendar date, int userID) {
+        return this.logDB.searchFoodLogByDate(date, userID);
     }
 
-    public void addLog(DailyLog newLog) {
-        this.diaryDB.addLog(newLog);
+    public void addLog(DailyLog newLog, int userID) {
+        this.logDB.addLog(newLog, userID);
     }
 
-    public void deleteLog(DailyLog delLog) {
-        this.diaryDB.deleteLog(delLog);
+    public void deleteLog(DailyLog delLog, int userID) {
+        this.logDB.deleteLog(delLog, userID);
+    }
+
+    public EdibleLog findEdibleByKey(int dbkey, boolean isCustom) {
+        return this.recipeDB.findEdibleByKey(dbkey, isCustom);
+    }
+
+    public void setExerciseActual(double newExercise, DailyLog logDate, int userID) {
+        this.logDB.setExerciseActual(newExercise, logDate, userID);
     }
 
 
     //Recipe interface
+    public int getNextKey() {
+        return this.recipeDB.getNextKey();
+    }
+
     public ArrayList<Edible> getFoodRecipes() {
         return this.recipeDB.getFoodRecipes();
     }
@@ -92,7 +117,7 @@ public class DBSelector {
         return this.recipeDB.getDrinkRecipes();
     }
 
-    public void addFoodToRecipeBook(Food newFood) {
+    public void addFoodToRecipeBook(Edible newFood) {
         this.recipeDB.addFoodToRecipeBook(newFood);
     }
 

@@ -1,18 +1,19 @@
 package comp3350.team10.objects;
 
-public class User {    
+public class User { 
+    private int userID;         //the users id   
     private String name;        //the users name
-    private int userID;         //the users id
     private int height;         //the users height
     private int weight;         //the users weight
-    private int calorieGoal;    //the users calorie goal
-    private int exerciseGoal;   //the users exercise goal
+    private double calorieGoal;    //the users calorie goal
+    private double exerciseGoal;   //the users exercise goal
 
-    public User(String name, int userID, int height, int weight, int calorieGoal, int exerciseGoal) {
+    public User(int userID, String name, int height, int weight, int calorieGoal, int exerciseGoal) {
+        this.userID = userID;
         this.name = name;
         this.height = height;
         this.weight = weight;
-        this.userID = userID;
+        this.weight = weight;
         this.calorieGoal = calorieGoal;
         this.exerciseGoal = exerciseGoal;
     }
@@ -30,11 +31,11 @@ public class User {
         this.weight = newWeight;
     }
 
-    public void setCalorieGoal(int newCalorieGoal) {
+    public void setCalorieGoal(double newCalorieGoal) {
         this.calorieGoal = newCalorieGoal;
     }
 
-    public void setExerciseGoal(int newExerciseGoal) {
+    public void setExerciseGoal(double newExerciseGoal) {
         this.exerciseGoal = newExerciseGoal;
     }
 
@@ -54,11 +55,11 @@ public class User {
         return this.weight;
     }
 
-    public int getCalorieGoal() {
+    public double getCalorieGoal() {
         return this.calorieGoal;
     }
 
-    public int getExerciseGoal() {
+    public double getExerciseGoal() {
         return this.exerciseGoal;
     }
 }

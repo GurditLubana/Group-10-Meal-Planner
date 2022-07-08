@@ -1,8 +1,8 @@
 package comp3350.team10.presentation;
 
 import comp3350.team10.R;
-import comp3350.team10.objects.*;
-import comp3350.team10.objects.ListItem;
+import comp3350.team10.objects.Edible;
+
 
 import android.view.View;
 import android.widget.FrameLayout;
@@ -11,12 +11,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipeBook.ViewHolder> {
-    private ArrayList<Edible> localDataSet;            // the list Recyclerview renders
-    //private Edible saved;                               // var to save a meal entry when we show context UI
+    public enum FragmentType {
+        noType, diaryAdd, diaryModify, recipeModify
+    };
+
+    private ArrayList<Edible> localDataSet; // the list Recyclerview renders
+    private int viewType;
 
     @Override
     public int getItemViewType(int pos) {
-        return localDataSet.get(pos).getFragmentType().ordinal();
+        int result = -1;
+        String identifier = localDataSet.get(pos).getName();
+        if ( identifier.equals(FragmentType.diaryAdd.name()) ) {
+            result = FragmentType.diaryAdd.ordinal();
+        } else if ( identifier.equals(FragmentType.diaryModify.name()) ) {
+            result = FragmentType.diaryModify.ordinal();
+        } else if ( identifier.equals(FragmentType.recipeModify.name()) ){
+            result = FragmentType.recipeModify.ordinal();
+        } else {
+            result = FragmentType.noType.ordinal();
+        }
+        this.viewType = result;
+        return result;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -49,5 +65,9 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
 
     public ArrayList<Edible> getDataSet() {
         return this.localDataSet;
+    }
+
+    public int getViewType(){
+        return this.viewType;
     }
 }

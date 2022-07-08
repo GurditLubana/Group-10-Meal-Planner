@@ -14,7 +14,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.util.ArrayList;
 
 import comp3350.team10.R;
-import comp3350.team10.objects.*;
+import comp3350.team10.objects.DataFrame;
 
 
 public class RVATrends extends RecyclerViewAdapter {
@@ -34,7 +34,7 @@ public class RVATrends extends RecyclerViewAdapter {
         if(context instanceof ActivityTrends) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_trend_chart, viewGroup, false);
         }else if(context instanceof ActivityDailyProgress){
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_progressfile, viewGroup, false);
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_daily_progress, viewGroup, false);
         }
         viewHolder = new ViewHolder(view);
         return viewHolder;

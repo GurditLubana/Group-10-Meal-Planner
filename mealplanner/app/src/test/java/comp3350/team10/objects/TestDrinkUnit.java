@@ -1,9 +1,5 @@
  package comp3350.team10.objects;
 
- import comp3350.team10.objects.*;
-
- import comp3350.team10.objects.Edible.Unit;
- import comp3350.team10.objects.*;
 
  import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,11 +14,13 @@
 
  public class TestDrinkUnit {
 
+
      void testIngredentsList(Drink drink, ArrayList<DrinkIngredient> expect){
          ArrayList<DrinkIngredient> getIngredients = drink.getIngredients();
 
 
      }
+
 
      void testNutrition(Edible food, int caloriesExpect, int proteinExpect, int carbsExpect, int fatExpect) {
          assertEquals(caloriesExpect, food.getCalories());

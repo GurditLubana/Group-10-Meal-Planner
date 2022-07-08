@@ -2,17 +2,18 @@ package comp3350.team10.business;
 
 import java.util.ArrayList;
 
-import comp3350.team10.objects.*;
-import comp3350.team10.persistence.*;
+import comp3350.team10.objects.DataFrame;
+import comp3350.team10.persistence.DBSelector;
+import comp3350.team10.persistence.SharedDB;
 
 public class TrendsOps {
     private ArrayList<DataFrame> dataFrames;
-    private DataAccessStub db;
+    private DBSelector db;
     private DataFrame.Span span;
 
-    public TrendsOps(DataAccessStub db) throws NullPointerException {
-        if (db != null) {
-            this.db = db;
+    public TrendsOps() throws NullPointerException {
+        if (SharedDB.getSharedDB() != null) {
+            this.db = SharedDB.getSharedDB();
         } else {
             throw new NullPointerException("TrendsOps Database cannot be null");
         }
@@ -45,7 +46,7 @@ public class TrendsOps {
         return dataFrame;
     }
 
-    private ArrayList<Double> stubData(DataFrame.DataType dataType) { // stub, remove when persistence is ready
+    private ArrayList<Double> stubData(DataFrame.DataType dataType) { // TODO this is stub, remove when persistence is ready
         ArrayList<Double> stubArray = new ArrayList<Double>();
         int[] multiplier = {1,4,12,24,48,96};
         for(int i = 0;  i < multiplier[this.span.ordinal()]; i++) {
