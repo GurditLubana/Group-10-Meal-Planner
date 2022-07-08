@@ -113,7 +113,7 @@
              DailyLog currLog = ops.getCurrLog();
 
              int prevLogSize = currLog.getEdibleList().size();
-             ops.addByKey(2);
+             ops.addByKey(2,false);
              assertEquals(prevLogSize+1,currLog.getEdibleList().size());
          }
 
@@ -167,7 +167,7 @@
              DailyLog currLog = ops.getCurrLog();
 
              int prevLogSize = currLog.getEdibleList().size();
-             ops.addByKey(1);
+//             ops.addByKey(1);
              assertEquals(prevLogSize+1,currLog.getEdibleList().size());
          }
      }
@@ -207,12 +207,12 @@
          void dbKey(){
 
              assertThrows(NoSuchElementException.class, () -> {
-                 ops.addByKey(-5);
+                 ops.addByKey(-5,false);
              });
 
 
              assertThrows(NoSuchElementException.class, () -> {
-                 ops.addByKey(999999999);
+                 ops.addByKey(999999999,false);
              });
          }
 
