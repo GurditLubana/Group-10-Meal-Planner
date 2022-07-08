@@ -11,7 +11,7 @@ public class UnitConverter {
 
     }
 
-    public double convert(Edible.Unit prevUnit, double prevQuantity, double prevCalories, Edible.Unit newUnit, double newQuantity) throws IllegalArgumentException {
+    public double convert(Edible.Unit prevUnit, double prevQuantity, double prevCalories, Edible.Unit newUnit, double newQuantity) throws IllegalArgumentException, Exception {
         if (prevQuantity <= 0.0 || newQuantity <= 0) {
             throw new IllegalArgumentException("UnitConverter convert quantity must be > 0");
         }
@@ -19,18 +19,26 @@ public class UnitConverter {
             throw new IllegalArgumentException("UnitConverter convert base calories must be >= 0");
         }
         this.normalizeToPerGram(prevUnit, prevQuantity, prevCalories);
-        return getNewCalories(newUnit, newQuantity);
+        try {
+            return getNewCalories(newUnit, newQuantity);
+        }
+        catch (Exception e){
+            throw e;
+        }
     }
 
     private void normalizeToPerGram(Edible.Unit prevUnit, double prevQuantity, double prevCalories) {
         this.calsPerGram = (prevCalories / prevQuantity) * (1.0 / factor[prevUnit.ordinal()]);
     }
 
-    private double getNewCalories(Edible.Unit newUnit, double newQuantity) {
+    private double getNewCalories(Edible.Unit newUnit, double newQuantity) throws Exception{
         double result = 0;
-
-        result = newQuantity * this.calsPerGram * factor[newUnit.ordinal()];
-
+        try {
+            result = newQuantity * this.calsPerGram * factor[newUnit.ordinal()];
+        }
+        catch(Exception e){
+            throw e;
+        }
         return result;
     }
 }

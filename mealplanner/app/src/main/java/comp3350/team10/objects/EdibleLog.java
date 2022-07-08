@@ -35,7 +35,7 @@ public class EdibleLog extends Edible {
         }
     }
 
-    public EdibleLog init(double quantity, Edible.Unit unit) throws IOException {
+    public EdibleLog init(double quantity, Edible.Unit unit) throws IOException, Exception {
         this.setQuantity(quantity);
         this.setUnit(unit);
         this.setCalories();
@@ -52,9 +52,16 @@ public class EdibleLog extends Edible {
         }
     }
 
-    public void setCalories() throws IOException { //cannot call super because these are shadowed and is not supported in java
+    public void setCalories() throws IOException, Exception { //cannot call super because these are shadowed and is not supported in java
         UnitConverter converter = new UnitConverter();
-        double newCalories = converter.convert(this.baseUnit, this.baseQuantity, this.baseCalories, this.unit, this.quantity);
+        double newCalories = 0;
+        try{
+            converter.convert(this.baseUnit, this.baseQuantity, this.baseCalories, this.unit, this.quantity);
+        }
+        catch(Exception e) {
+            System.out.println(e);
+            throw e;
+        }
 
         if(newCalories >= 0 && newCalories <= Constant.ENTRY_MAX_VALUE) {
             this.calories = newCalories;

@@ -127,7 +127,6 @@ class TestTrendsOps {
             assertEquals(DataFrame.DataType.values().length, dataFrames.size());
             assertEquals(672, dataFrames.get(0).size());
         }
-
     }
 
     @Nested
@@ -153,6 +152,5 @@ class TestTrendsOps {
                 ops.getDataFrames(null);
             });
         }
-
     }
 }
