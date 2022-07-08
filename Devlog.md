@@ -1318,6 +1318,15 @@ Duration: 15 hrs
      - the Quantity type. I leave some comments and a fail() message about detail
      - set un-initial ingredient obj is success, should not success
      
+### 2022-07-07
+     Dev:
+      - Zhou
+Duration: 10 hrs
+   Tasks:
+   -modify food object unit test
+   -design drink object unit test
+   -finished simple and complex test for drink object 
+     
 
 
 
