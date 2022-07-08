@@ -5,8 +5,6 @@
 
 package comp3350.team10.objects;
 
- import comp3350.team10.objects.*;
- import comp3350.team10.objects.ListItem.FragmentType;
  import comp3350.team10.objects.Edible.Unit;
 
  import static org.junit.jupiter.api.Assertions.*;
@@ -24,7 +22,7 @@ package comp3350.team10.objects;
 
 	 //some test function
 
-	 void testPhotoBytes(Food food, byte[] expect) {
+	 void testPhotoBytes(Edible food, byte[] expect) {
 		 assertEquals(expect.length, food.getPhotoBytes().length);
 		 for (int i = 0; i < expect.length; i++) {
 			 assertEquals(expect[i], (food.getPhotoBytes())[i]);
@@ -32,22 +30,22 @@ package comp3350.team10.objects;
 
 	 }
 
-	 void testDetail(Food food, int idExpect, String nameExpect, String descriptionExpect, int quantityExpect, Unit unitExpect) {
+	 void testDetail(Edible food, int idExpect, String nameExpect, String descriptionExpect, int quantityExpect, Unit unitExpect) {
 		 assertEquals(idExpect,food.getDbkey());// not get id fucntion
 		 assertEquals(nameExpect, food.getName());
-		 assertEquals(descriptionExpect, food.getDesciprtion());
+		 assertEquals(descriptionExpect, food.getDescription());
 		 assertEquals(quantityExpect, food.getQuantity());
 		 assertEquals(unitExpect, food.getUnit());
 	 }
 
-	 void testNutrition(Food food, int caloriesExpect, int proteinExpect, int carbsExpect, int fatExpect) {
+	 void testNutrition(Edible food, int caloriesExpect, int proteinExpect, int carbsExpect, int fatExpect) {
 		 assertEquals(caloriesExpect, food.getCalories());
 		 assertEquals(proteinExpect, food.getProtein());
 		 assertEquals(carbsExpect, food.getCarbs());
 		 assertEquals(fatExpect, food.getFat());
 	 }
 
-	 void testCategories(Food food, boolean alcoholicExpect, boolean spicyExpect, boolean veganExpect, boolean vegetarianExpect, boolean glutenFreeExpect) {
+	 void testCategories(Edible food, boolean alcoholicExpect, boolean spicyExpect, boolean veganExpect, boolean vegetarianExpect, boolean glutenFreeExpect) {
 		 assertEquals(alcoholicExpect, food.getIsAlcoholic());
 		 assertEquals(spicyExpect, food.getIsSpicy());
 		 assertEquals(veganExpect, food.getIsVegan());
@@ -55,13 +53,12 @@ package comp3350.team10.objects;
 		 assertEquals(glutenFreeExpect, food.getIsGlutenFree());
 	 }
 
-	 void testMetadata(Food food, boolean customExpect, byte[] photoExpect, ListItem.FragmentType viewExpect) {
+	 void testMetadata(Edible food, boolean customExpect, byte[] photoExpect) {
 		 assertEquals(customExpect, food.getIsCustom());
 		 testPhotoBytes(food, photoExpect);
-		 assertEquals(viewExpect, food.getFragmentType());
 	 }
 
-	 void testSetName(Food food, String newName){//test correct
+	 void testSetName(Edible food, String newName){//test correct
 		 try{
 			 food.setName(newName);
 			 assertEquals(newName,food.getName());
@@ -71,17 +68,17 @@ package comp3350.team10.objects;
 		 }
 	 }
 
-	 void testSetDescription(Food food, String newDescription){//test correct
+	 void testSetDescription(Edible food, String newDescription){//test correct
 		 try{
 			 food.setDescription(newDescription);
-			 assertEquals(newDescription,food.getDesciprtion());
+			 assertEquals(newDescription,food.getDescription());
 		 }
 		 catch (IOException e){
 			 fail("Can not set Description " + newDescription + "\n");
 		 }
 	 }
 	 // test all int variable
-	 void  testIntWithInput(Food food, int expect){//test set calories,  protein,  carbs,  fat
+	 void  testIntWithInput(Edible food, int expect){//test set calories,  protein,  carbs,  fat
 		 try{
 			 food.initNutrition(expect, expect, expect, expect);
 		 }
@@ -99,18 +96,18 @@ package comp3350.team10.objects;
 	 @Nested
 	 @DisplayName("Simple tests")
 	 class Test_Simple {
-		 private Food testFood;
+		 private Edible testFood;
 		 private byte[] testPic = {(byte) 12, (byte) 59, (byte) 96};
 
 		 @BeforeEach
 		 void setUp() {
 
-			 testFood = new Food();
+			 testFood = new Edible();
 			 try {
 				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
 				 testFood.initNutrition(5, 5, 5, 5);
 				 testFood.initCategories(true, false, true, false, true);
-				 testFood.initMetadata(true, testPic, FragmentType.diaryAdd);
+				 testFood.initMetadata(true, testPic);
 			 } catch (Exception e) {
 				 fail("initial fail");
 			 }
@@ -121,25 +118,25 @@ package comp3350.team10.objects;
 			 testDetail(testFood, 1, "food", "lala", 5, Unit.cups);
 			 testNutrition(testFood, 5, 5, 5, 5);
 			 testCategories(testFood, true, false, true, false, true);
-			 testMetadata(testFood, true, testPic, FragmentType.diaryAdd);
+			 testMetadata(testFood, true, testPic);
 		 }
 	 }
 
 	 @Nested
  	 @DisplayName("Complex tests")
 	 class Test_Complex{
-		 private Food testFood;
+		 private Edible testFood;
 		 private byte[] testPic = {(byte) 12, (byte) 59, (byte) 96};
 
 		 @BeforeEach
 		 void setUp() {
 
-			 testFood = new Food();
+			 testFood = new Edible();
 			 try {
 				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
 				 testFood.initNutrition(5, 5, 5, 5);
 				 testFood.initCategories(true, false, true, false, true);
-				 testFood.initMetadata(true, testPic, FragmentType.diaryAdd);
+				 testFood.initMetadata(true, testPic);
 			 } catch (Exception e) {
 				 fail("initial fail");
 			 }
@@ -169,11 +166,11 @@ package comp3350.team10.objects;
 	 @Nested
  	@DisplayName("Empty tests")
  	class Test_Empty {
-		 private Food testFood;
+		 private Edible testFood;
 
 		 @BeforeEach
  		void setUp() {
- 			testFood = new Food();
+ 			testFood = new Edible();
  		}
 
 		 @Test
@@ -231,7 +228,7 @@ package comp3350.team10.objects;
 			 byte[] testPic =null;
 			 try{
 				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
-				 testFood.initMetadata(true, testPic, FragmentType.diaryAdd);
+				 testFood.initMetadata(true, testPic);
 				 fail("Should throw IO exception");
 			 }
 			 catch (Exception e){
@@ -242,7 +239,7 @@ package comp3350.team10.objects;
 			 testPic = new byte[0];
 			 try{
 				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
-				 testFood.initMetadata(true, testPic, FragmentType.diaryAdd);
+				 testFood.initMetadata(true, testPic);
 				 fail("Should throw IO exception");
 			 }
 			 catch (Exception e){
@@ -257,7 +254,7 @@ package comp3350.team10.objects;
 			 byte[] testPic = {(byte) 12, (byte) 59, (byte) 96};
 			 try{
 				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
-				 testFood.initMetadata(true, testPic, null);
+				 testFood.initMetadata(true, testPic);
 				 fail("Should throw IO exception");
 			 }
 			 catch (Exception e){
@@ -271,11 +268,11 @@ package comp3350.team10.objects;
 	 @Nested
 	 @DisplayName("Edge case tests")
 	 class Test_EdgeCases {
-		 private Food testFood;
+		 private Edible testFood;
 
 		 @BeforeEach
 		 void setUp() {
-			 testFood = new Food();
+			 testFood = new Edible();
 		 }
 		 @Test
 		 void testLeftEdge(){ // input is equal to minimum
@@ -335,11 +332,11 @@ package comp3350.team10.objects;
  	@Nested
  	@DisplayName("Invalid tests")
  	class Test_Invalid {
-		private Food testFood;
+		private Edible testFood;
 
 		@BeforeEach
 		void setUp() {
-			testFood = new Food();
+			testFood = new Edible();
 		}
 
 		@Test
