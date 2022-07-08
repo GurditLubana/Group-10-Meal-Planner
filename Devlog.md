@@ -1326,6 +1326,20 @@ Duration: 10 hrs
    -modify food object unit test
    -design drink object unit test
    -finished simple and complex test for drink object 
+   
+   ### 2022-07-08 recieve the structure change, not food class in project, change the all food object to edible
+     Dev:
+      - Zhou
+Duration: 5 hrs
+   Tasks:
+   - recieve the structure change, not food class in project, change the all food object to edible
+   - change the old TestFoodUnit.java to TestEdibleUnit.java and fund problem
+   - change the food obj in TestIngredinetsTest. java to Edible. the problem found at 2022/07/06 is not solved
+   - deteail of found at 2022/07/06
+     - some error message have spelling error, I just copy the message not change it
+     - the Quantity type. I leave some comments and a fail() message about detail
+     - set un-initial ingredient obj is success, should not success    
+
      
 
 
