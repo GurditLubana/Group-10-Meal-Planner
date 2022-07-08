@@ -14,6 +14,14 @@
 
  public class TestDrinkUnit {
 
+
+     void testIngredentsList(Drink drink, ArrayList<DrinkIngredient> expect){
+         ArrayList<DrinkIngredient> getIngredients = drink.getIngredients();
+
+
+     }
+
+
      void testNutrition(Edible food, int caloriesExpect, int proteinExpect, int carbsExpect, int fatExpect) {
          assertEquals(caloriesExpect, food.getCalories());
          assertEquals(proteinExpect, food.getProtein());
