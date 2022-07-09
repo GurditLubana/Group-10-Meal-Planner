@@ -135,9 +135,6 @@ public class TestRecipeBookOps {
             String description = "dfhjdhsgsdjjkds\nidfdshf\ndfh";
             ArrayList<DrinkIngredient> ingredients = new ArrayList<>();
 
-//            addSimpleDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat,
-//            boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, byte[] photo)
-
             ops.addSimpleDrink("Pepsi",description, 2, Edible.Unit.ml, 350, 400, 74, 89,
                     false, true,false, true, false, null);
 
@@ -152,6 +149,7 @@ public class TestRecipeBookOps {
         {
             int initialSize = 5;
             String description = "dfhjdhsgsdjjkds\nidfdshf\ndfh";
+
             ops.addFood("Pizza",description, 3, Edible.Unit.g, 250, 500, 70, 89,
             false, true,false, true, false, null);
 
@@ -166,10 +164,11 @@ public class TestRecipeBookOps {
 
             assertEquals(initialSize + 3, ops.getFoodRecipes().size());
         }
-
-
-
     }
+
+
+
+
 
 
     @Nested
@@ -211,30 +210,125 @@ public class TestRecipeBookOps {
             ops.addFood("food2","\n\n", 2, Edible.Unit.g, 99, 405, 74, 89,
                     false, false,false, false, false, null);
 
-            assertEquals(initialSize + 6,ops.getFoodRecipes().size());
+            ops.addFood("food2","\t\t", 2, Edible.Unit.g, 99, 405, 74, 89,
+                    false, false,false, false, false, null);
+
+            ops.addFood("food2","\t\t", 2, Edible.Unit.g, 9, 9999, 9999, 9999,
+                    false, false,false, false, false, null);
+
+            ops.addFood("food2","Hello world", 2, Edible.Unit.g, 1, 1, 1, 1,
+                    false, false,false, false, false, null);
+
+            ops.addFood(" !!!!!!! * @@@ +++=="," ____", 2, Edible.Unit.g, 1, 1, 1, 1,
+                    false, false,false, false, false, null);
+
+            assertEquals(initialSize + 10,ops.getFoodRecipes().size());
         }
 
+
         @Test
+        @DisplayName("Testing edge cases for addDrinks")
+        void testAddDrinks()
+        {
+            int initialSize = ops.getDrinkRecipes().size();
+
+            String description = "dfhjdhsgsdjjkds\n\n\nidfdshf\ndfh";
+
+            String instruction = "sdfhosdhgl\ngjkdsjggk\ndfdgdg";
+
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<>();
+
+            ops.addPreparedDrink("Banana Smoothy",description, 2, Edible.Unit.ml, null, instruction,ingredients);
+
+            ops.addPreparedDrink(" ",description, 2, Edible.Unit.ml, null, instruction,ingredients);
+
+            ops.addPreparedDrink("\t\t\t\nSmoothy",description, 2, Edible.Unit.ml, null, instruction,ingredients);
+
+            ops.addPreparedDrink("9876!!",description, 1, Edible.Unit.ml, null, instruction,ingredients);
+
+            ops.addPreparedDrink("%^&%#$@",description, 9, Edible.Unit.ml, null, instruction,ingredients);
+
+            ops.addPreparedDrink("\n\n\n",description, 97, Edible.Unit.ml, null, "\t\t\t",ingredients);
+
+            ops.addPreparedDrink("drink",description, 8, Edible.Unit.ml, null, "\n\n\n",ingredients);
+
+            ops.addPreparedDrink("drink",description, 4, Edible.Unit.ml, null, " __!1!@@\n",ingredients);
+
+            ops.addPreparedDrink("drink",description, 2, Edible.Unit.ml, null, "123344",ingredients);
+
+            ops.addSimpleDrink("drink"," hello world", 30, Edible.Unit.ml, 3, 400, 74, 89,
+                    false, true,false, true, false, null);
+
+            ops.addSimpleDrink("drink","                          678", 30, Edible.Unit.ml, 0, 400, 74, 89,
+                    false, true,false, true, false, null);
+
+            ops.addSimpleDrink("drink","12345", 30, Edible.Unit.ml, 0, 400, 74, 89,
+                    false, true,false, false, false, null);
+
+            ops.addSimpleDrink("drink","12345", 30, Edible.Unit.ml, 0, 400, 74, 89,
+                    true, true,true, true, true, null);
+
+            assertEquals(initialSize + 13,ops.getDrinkRecipes().size());
+
+
+        }
+
+
+        @Test
+        @DisplayName("Testing edge cases for addMeals")
+        void testAddMeals() {
+            int initialSize = ops.getDrinkRecipes().size();
+
+            String description = "dfhjdhsgsdjjkds\n\n\nidfdshf\ndfh";
+
+            String instruction = "sdfhosdhgl\ngjkdsjggk\ndfdgdg";
+            ArrayList<Ingredient> ingredients = new ArrayList<>();
+
+            ops.addMeal("A k k d ","                      ", 2, Edible.Unit.serving, null, instruction,ingredients);
+
+            ops.addMeal(" . ","hello world", 2, Edible.Unit.serving, null, instruction,ingredients);
+
+            ops.addMeal("meal","\t\t\t\t", 2, Edible.Unit.serving, null, instruction,ingredients);
+
+            ops.addMeal("!@#$%^&*","hello world\nfdd\n", 2, Edible.Unit.serving, null, instruction,ingredients);
+
+            ops.addMeal("meal",")(**&&^^%%", 2, Edible.Unit.serving, null, instruction,ingredients);
+
+            ops.addMeal("1234566","09876554", 2, Edible.Unit.serving, null, instruction,ingredients);
+
+            ops.addMeal(" . ","hell0", 9999, Edible.Unit.serving, null, instruction,ingredients);
+
+            ops.addMeal(" . ","h", 1, Edible.Unit.oz, null, "\t\t\t",ingredients);
+
+            ops.addMeal(" . ","HELLO", 1, Edible.Unit.oz, null, "\n\n\n",ingredients);
+
+            ops.addMeal(" . ","1!!!DDD", 1, Edible.Unit.oz, null, " __!1!@@\n",ingredients);
+
+            ops.addMeal(" . ","ghkvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv", 1, Edible.Unit.oz, null, "123344",ingredients);
+
+
+            assertEquals(initialSize + 11,ops.getMealRecipes().size());
+        }
+
+
+            @Test
         @DisplayName("Adding calories more than the limit")
         void testMaxCalories()
         {
             int initialSize = ops.getDrinkRecipes().size();
 
             String description = "dfhjdhsgsdjjkds\nidfdshf\ndfh";
-            String instruction = "sdfhosdhgl\ngjkdsjggk\ndfdgdg";
-            ArrayList<DrinkIngredient> ingredients = new ArrayList<>();
 
             // calories = 0 (minimum value)
             ops.addSimpleDrink("drink",description, 30, Edible.Unit.ml, 0, 400, 74, 89,
                     false, true,false, true, false, null);
 
             //calories = 9999 (Maximum value)
-            ops.addSimpleDrink("drink",description, 2, Edible.Unit.ml, 350, 400, 74, 89,
+            ops.addSimpleDrink("drink",description, 2, Edible.Unit.ml, 9999, 400, 74, 89,
                     false, true,false, true, false, null);
 
-            ops.addPreparedDrink("Banana Smoothy",description, 2, Edible.Unit.ml, null, instruction,ingredients);
 
-            assertEquals(initialSize + 3,ops.getDrinkRecipes().size());
+            assertEquals(initialSize + 2,ops.getDrinkRecipes().size());
         }
 
 
