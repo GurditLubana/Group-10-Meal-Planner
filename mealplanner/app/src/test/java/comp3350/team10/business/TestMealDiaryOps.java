@@ -42,10 +42,15 @@
              DailyLog currLog = ops.getCurrLog();
 
              assertNotNull(currLog);
+             assertEquals(currLog.getCalorieGoal(), 2000);
+             assertEquals((int)currLog.getEdibleCalories(), 274);
+             assertEquals((int)currLog.getExerciseActual(), 0);
+             assertEquals((int)currLog.getCalorieNet(), 1726);
+             assertEquals((int)currLog.getExerciseGoal(), 600);
+             assertEquals(currLog.getEdibleList().size(), 3);
              assertEquals(currDate.get(Calendar.YEAR),currLog.getDate().get(Calendar.YEAR));
              assertEquals(currDate.get(Calendar.MONTH),currLog.getDate().get(Calendar.MONTH));
              assertEquals(currDate.get(Calendar.DATE),currLog.getDate().get(Calendar.DATE));
-
          }
 
          @Test
@@ -132,7 +137,7 @@
 
      @Nested
      @DisplayName("Complex Tests should pass")
-     class mealDiaryEdge {
+     class mealDiaryComplex {
          private MealDiaryOps ops;
          private Calendar currDate;
          private Calendar testDate;
@@ -151,22 +156,95 @@
          }
 
          @Test
-         @DisplayName("We should be able to commit modified Logs to persistent storage")
-         void commitLogToDB() {
+         @DisplayName("We should be able to commit Logs with a single modification to persistent storage")
+         void commitMinorModdedLogToDB() {
              DailyLog currLog = ops.getCurrLog();
 
-             //Test updating a bunch of featyres
-             //Test updating a bunch of featyres
-             //Test updating a bunch of featyres
-             fail("logchangedupdatedb");
-         }
-        ////Test updating a bunch of featyres simultaneously
+             currLog.setCalorieGoal(3000);
+             ops.logChangedUpdateDB();
+             ops.prevDate();
+             ops.nextDate();
+             currLog = ops.getCurrLog();
 
-        //  @Test //Test
-        //  @DisplayName("we should be able to set a date within 2 years inclusive")
-        //  void anyDate() {
-        //      Calendar newDate = Calendar.getInstance();
-        //      newDate.set(currDate.get(Calendar.YEAR) - 2, currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE));
+             assertNotNull(currLog);
+             assertEquals(currLog.getCalorieGoal(), 3000);
+             assertEquals((int)currLog.getEdibleCalories(), 274);
+             assertEquals((int)currLog.getExerciseActual(), 0);
+             assertEquals((int)currLog.getCalorieNet(), 2726);
+             assertEquals((int)currLog.getExerciseGoal(), 600);
+             assertEquals(currLog.getEdibleList().size(), 3);
+
+             currLog.setExerciseActual(5);
+             ops.logChangedUpdateDB();
+             ops.prevDate();
+             ops.nextDate();
+             currLog = ops.getCurrLog();
+
+             assertNotNull(currLog);
+             assertEquals(currLog.getCalorieGoal(), 3000);
+             assertEquals((int)currLog.getEdibleCalories(), 274);
+             assertEquals((int)currLog.getExerciseActual(), 5);
+             assertEquals((int)currLog.getCalorieNet(), 2731);
+             assertEquals((int)currLog.getExerciseGoal(), 600);
+             assertEquals(currLog.getEdibleList().size(), 3);
+
+             currLog.setExerciseGoal(15);
+             ops.logChangedUpdateDB();
+             ops.prevDate();
+             ops.nextDate();
+             currLog = ops.getCurrLog();
+
+             assertNotNull(currLog);
+             assertEquals(currLog.getCalorieGoal(), 3000);
+             assertEquals((int)currLog.getEdibleCalories(), 274);
+             assertEquals((int)currLog.getExerciseActual(), 5);
+             assertEquals((int)currLog.getCalorieNet(), 2731);
+             assertEquals((int)currLog.getExerciseGoal(), 15);
+             assertEquals(currLog.getEdibleList().size(), 3);
+         }
+
+         @Test
+         @DisplayName("We should be able to commit Logs with a multiple modification to persistent storage")
+         void commitHeavilyModdedLogToDB() {
+             DailyLog currLog = ops.getCurrLog();
+
+             currLog.setCalorieGoal(3000);
+             currLog.setExerciseActual(5);
+             ops.logChangedUpdateDB();
+             ops.prevDate();
+             ops.nextDate();
+             currLog = ops.getCurrLog();
+
+             assertNotNull(currLog);
+             assertEquals(currLog.getCalorieGoal(), 3000);
+             assertEquals((int)currLog.getEdibleCalories(), 274);
+             assertEquals((int)currLog.getExerciseActual(), 5);
+             assertEquals((int)currLog.getCalorieNet(), 2731);
+             assertEquals((int)currLog.getExerciseGoal(), 600);
+             assertEquals(currLog.getEdibleList().size(), 3);
+         }
+
+         @Test
+         @DisplayName("We should be able to commit Logs where all immediate data has been modified to persistent storage")
+         void commitTotallyChangedLogToDB() {
+             DailyLog currLog = ops.getCurrLog();
+
+             currLog.setCalorieGoal(3000);
+             currLog.setExerciseActual(5);
+             currLog.setExerciseGoal(15);
+             ops.logChangedUpdateDB();
+             ops.prevDate();
+             ops.nextDate();
+             currLog = ops.getCurrLog();
+
+             assertNotNull(currLog);
+             assertEquals(currLog.getCalorieGoal(), 3000);
+             assertEquals((int)currLog.getEdibleCalories(), 274);
+             assertEquals((int)currLog.getExerciseActual(), 5);
+             assertEquals((int)currLog.getCalorieNet(), 2731);
+             assertEquals((int)currLog.getExerciseGoal(), 15);
+             assertEquals(currLog.getEdibleList().size(), 3);
+         }
      }
 
 
@@ -193,7 +271,20 @@
          @Test
          @DisplayName("we should recieve the same data if nothing is chagned and the log gets updated in the database")
          void updateDBWithNoChanges() {
+             DailyLog currLog;
 
+             ops.logChangedUpdateDB();
+             ops.prevDate();
+             ops.nextDate();
+             currLog = ops.getCurrLog();
+
+             assertNotNull(currLog);
+             assertEquals(currLog.getCalorieGoal(), 2000);
+             assertEquals((int)currLog.getEdibleCalories(), 274);
+             assertEquals((int)currLog.getExerciseActual(), 0);
+             assertEquals((int)currLog.getCalorieNet(), 1726);
+             assertEquals((int)currLog.getExerciseGoal(), 600);
+             assertEquals(currLog.getEdibleList().size(), 3);
          }
 
          @Test
@@ -217,13 +308,45 @@
          }
 
          @Test
-         @DisplayName("We should be able to add the first food item in the db to the DailyLog")
-         void addFoodToLog(){
+         @DisplayName("We should be able to add the first food item in the db to a DailyLog with an odd number of entries")
+         void addFoodToOddNumberedLog(){
              DailyLog currLog = ops.getCurrLog();
 
              int prevLogSize = currLog.getEdibleList().size();
              ops.addByKey(1, false);
              assertEquals(prevLogSize+1,currLog.getEdibleList().size());
+             assertEquals(currLog.getEdibleList().get(0).getName(), "Apple");
+             assertEquals(currLog.getEdibleList().get(1).getName(), "Pear");
+             assertEquals(currLog.getEdibleList().get(2).getName(), "Cracker");
+             assertEquals(currLog.getEdibleList().get(3).getName(), "Apple");
+             assertEquals((int)currLog.getCalorieNet(), 1626);
+             assertEquals((int)currLog.getEdibleCalories(), 374);
+         }
+
+         @Test
+         @DisplayName("We should be able to add the first food item in the db to a DailyLog with an even number of entries")
+         void addFoodToEvenNumberedLog(){
+             DailyLog currLog = ops.getCurrLog();
+
+             int prevLogSize = currLog.getEdibleList().size();
+             ops.addByKey(1, false);
+             assertEquals(prevLogSize+1,currLog.getEdibleList().size());
+             assertEquals(currLog.getEdibleList().get(0).getName(), "Apple");
+             assertEquals(currLog.getEdibleList().get(1).getName(), "Pear");
+             assertEquals(currLog.getEdibleList().get(2).getName(), "Cracker");
+             assertEquals(currLog.getEdibleList().get(3).getName(), "Apple");
+             assertEquals((int)currLog.getCalorieNet(), 1626);
+             assertEquals((int)currLog.getEdibleCalories(), 374);
+
+             ops.addByKey(1, false);
+             assertEquals(prevLogSize+2,currLog.getEdibleList().size());
+             assertEquals(currLog.getEdibleList().get(0).getName(), "Apple");
+             assertEquals(currLog.getEdibleList().get(1).getName(), "Pear");
+             assertEquals(currLog.getEdibleList().get(2).getName(), "Cracker");
+             assertEquals(currLog.getEdibleList().get(3).getName(), "Apple");
+             assertEquals(currLog.getEdibleList().get(4).getName(), "Apple");
+             assertEquals((int)currLog.getCalorieNet(), 1526);
+             assertEquals((int)currLog.getEdibleCalories(), 474);
          }
      }
 
@@ -276,6 +399,5 @@
                  ops.addByKey(999999999, false);
              });
          }
-
      }
  }
