@@ -102,22 +102,27 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         EdibleLog result = null;
         System.out.println("key: " + key);
 
-        for (int i = 0; i < this.dbRecipeFood.size() && result == null; i++) {
-            if (this.dbRecipeFood.get(i).getDbkey() == key) {
-                result = new EdibleLog(this.dbRecipeFood.get(i));
+        try {
+            for (int i = 0; i < this.dbRecipeFood.size() && result == null; i++) {
+                if (this.dbRecipeFood.get(i).getDbkey() == key) {
+                    result = new EdibleLog(this.dbRecipeFood.get(i));
+                }
+            }
+            for (int i = 0; i < this.dbRecipeMeal.size() && result == null; i++) {
+                if (this.dbRecipeMeal.get(i).getDbkey() == key) {
+                    result = new EdibleLog(this.dbRecipeMeal.get(i));
+                }
+            }
+            for (int i = 0; i < this.dbRecipeDrink.size() && result == null; i++) {
+                if (this.dbRecipeDrink.get(i).getDbkey() == key) {
+                    result = new EdibleLog(this.dbRecipeDrink.get(i));
+                }
             }
         }
-        for (int i = 0; i < this.dbRecipeMeal.size() && result == null; i++) {
-            if (this.dbRecipeMeal.get(i).getDbkey() == key) {
-                result = new EdibleLog(this.dbRecipeMeal.get(i));
-            }
+        catch(Exception e) {
+            System.out.println("findEdibleByKey error creating a new EdibleLog " + e);
+            result = null;
         }
-        for (int i = 0; i < this.dbRecipeDrink.size() && result == null; i++) {
-            if (this.dbRecipeDrink.get(i).getDbkey() == key) {
-                result =  new EdibleLog(this.dbRecipeDrink.get(i));
-            }
-        }
-
         if(result == null){
             throw new NoSuchElementException("Requested item for dbkey does not exist");
         }

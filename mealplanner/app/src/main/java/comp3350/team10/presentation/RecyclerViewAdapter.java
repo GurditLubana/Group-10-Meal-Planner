@@ -21,8 +21,6 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
         noType, diaryAdd, diaryModify, recipeModify
     }
 
-    ;
-
     private ArrayList<Edible> localDataSet; // the list Recyclerview renders
     private int viewType;
 
