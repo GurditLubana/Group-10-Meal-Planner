@@ -154,7 +154,7 @@ public class Edible {
             this.description = newDescription;
         }
         else {
-            throw new IllegalArgumentException("Invalid description");
+            throw new IllegalArgumentException("Edible setDescription description cannot be null");
         }
     }
 
@@ -163,7 +163,7 @@ public class Edible {
             this.protein = newProtein;
         }
         else {
-            throw new IllegalArgumentException("Invalid protein value");
+            throw new IllegalArgumentException("Edible setProtein requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
         }
     }
 
@@ -180,7 +180,7 @@ public class Edible {
             this.fat = newFat;
         }
         else {
-            throw new IllegalArgumentException("Invalid fat value");
+            throw new IllegalArgumentException("Edible setFat requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
         }
     }
 
@@ -193,7 +193,7 @@ public class Edible {
             this.carbs = newCarbs;
         }
         else {
-            throw new IllegalArgumentException("Invalid carb value");
+            throw new IllegalArgumentException("Edible setCarbs requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
         }
     }
 
@@ -202,7 +202,7 @@ public class Edible {
             this.calories = newCalories;
         }
         else {
-            throw new IllegalArgumentException("Invalid calorie value");
+            throw new IllegalArgumentException("Edible setCalories requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
         }
     }
 
@@ -211,7 +211,7 @@ public class Edible {
             this.baseUnit = newUnit;
         }
         else {
-            throw new IllegalArgumentException("Invalid unit");
+            throw new IllegalArgumentException("Edible setBaseUnit cannot be null");
         }
     }
 
@@ -220,7 +220,7 @@ public class Edible {
             this.baseQuantity = newQuantity;
         }
         else {
-            throw new IllegalArgumentException("Invalid quantity");
+            throw new IllegalArgumentException("Edible setBaseQuantity requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
         }
     }
 
@@ -229,7 +229,7 @@ public class Edible {
             this.edibleID = dbkey;
         }
         else {
-            throw new IllegalArgumentException("Invalid DB key");
+            throw new IllegalArgumentException("Edible setDBkey cannot be negative");
         }
     }
 
@@ -238,11 +238,11 @@ public class Edible {
             this.name = name;
         }
         else {
-            throw new IllegalArgumentException("Invalid name");
+            throw new IllegalArgumentException("Edible setName cannot be null or empty");
         }
     }
 
-    public void setPhotoBytes(byte[] newPhoto) throws IllegalArgumentException {
+    public void setPhotoBytes(byte[] newPhoto) throws IllegalArgumentException { //TODO deprecate
         if(newPhoto == null || newPhoto.length >= MIN_BYTE_LENGTH_PER_PHOTO) {
             this.photoBytes = newPhoto;
         }
@@ -256,7 +256,7 @@ public class Edible {
             this.name = name;
         }
         else {
-            throw new IllegalArgumentException("Invalid name");
+            throw new IllegalArgumentException("Edible setPhoto cannot be null or empty");
         }
     }
 
