@@ -38,7 +38,6 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     private User currUser;                      //The current user
 
 
-
     public DataAccessStub(String dbName) {
         this.calendar = Calendar.getInstance();
         this.dbName = dbName;
@@ -98,7 +97,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         });
     }
 
-    public EdibleLog findEdibleByKey(int key, boolean isCustom) throws NoSuchElementException{
+    public EdibleLog findEdibleByKey(int key, boolean isCustom) throws NoSuchElementException {
         EdibleLog result = null;
         System.out.println("key: " + key);
 
@@ -118,25 +117,16 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
                     result = new EdibleLog(this.dbRecipeDrink.get(i));
                 }
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("findEdibleByKey error creating a new EdibleLog " + e);
             result = null;
         }
-        if(result == null){
+        if (result == null) {
             throw new NoSuchElementException("Requested item for dbkey does not exist");
         }
 
         return result;
     }
-
-//    public byte[] getImageAsBytes() {
-//        byte[] imageBytes;
-//        InputStream ims = getAssets().open("avatar.jpg");
-//        BufferedImage img = ImageIO.read(getClass().getResource("/path/to/image"));
-//
-//        return imageBytes;
-//    }
 
     public int getNextKey() {
         Integer result = this.currKey.intValue();
@@ -278,7 +268,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             }
         }
 
-        if( foundLog == null ){
+        if (foundLog == null) {
             foundLog = new DailyLog().init(date, new ArrayList<Edible>(), this.getUserCalorieGoal(userID), this.getUserExerciseGoal(userID), 0);
             this.dbFoodLog.add(foundLog);
         }
@@ -369,30 +359,31 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     private void loadRecipeDrinksSolo() {
 
         try {
-        this.dbRecipeDrink.add(new Drink()
-                .initDetails(31, "Orange Juice", "OJ", 100, Edible.Unit.ml)
-                .initNutrition(100, 30, 45, 25)
-                .initMetadata(false, "orangejuice.jpg")
-        );
-        this.dbRecipeDrink.add(new Drink()
-                .initDetails(32, "Vodka", "Water", 10, Edible.Unit.ml)
-                .initNutrition(100, 30, 45, 25)
-                .initMetadata(false, "vodka.jpg")
-        );
-        this.dbRecipeDrink.add(new Drink()
-                .initDetails(33, "Tonic", "Tonic Water", 10, Edible.Unit.ml)
-                .initNutrition(100, 30, 45, 25)
-                .initMetadata(false, "tonic.jpg")
-        );
-        this.dbRecipeDrink.add(new Drink()
-                .initDetails(34, "White Rum", "Skyrim City", 1, Edible.Unit.oz)
-                .initNutrition(200, 30, 45, 25)
-                .initMetadata(false, "whiterum.jpg")
-        );
+            this.dbRecipeDrink.add(new Drink()
+                    .initDetails(31, "Orange Juice", "OJ", 100, Edible.Unit.ml)
+                    .initNutrition(100, 30, 45, 25)
+                    .initMetadata(false, "orangejuice.jpg")
+            );
+            this.dbRecipeDrink.add(new Drink()
+                    .initDetails(32, "Vodka", "Water", 10, Edible.Unit.ml)
+                    .initNutrition(100, 30, 45, 25)
+                    .initMetadata(false, "vodka.jpg")
+            );
+            this.dbRecipeDrink.add(new Drink()
+                    .initDetails(33, "Tonic", "Tonic Water", 10, Edible.Unit.ml)
+                    .initNutrition(100, 30, 45, 25)
+                    .initMetadata(false, "tonic.jpg")
+            );
+            this.dbRecipeDrink.add(new Drink()
+                    .initDetails(34, "White Rum", "Skyrim City", 1, Edible.Unit.oz)
+                    .initNutrition(200, 30, 45, 25)
+                    .initMetadata(false, "whiterum.jpg")
+            );
         } catch (Exception e) {
             System.out.println("DataAccessStub loadRecipeDrinksSolo failed " + e);
         }
     }
+
     private void loadRecipeMeals() {
         this.dbRecipeMeal = new ArrayList<Edible>();
         ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
@@ -409,7 +400,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             this.dbRecipeMeal.add(new Meal()
                     .initDetails(41, "Meal 2items", "desc", 10, Edible.Unit.ml)
                     .initNutrition(100, 30, 45, 25)
-                    .initMetadata(false, "photo.jpg")
+                    .initMetadata(false, "spaghetti.jpg")
             );
             ((Meal) this.dbRecipeMeal.get(41 - OFFSET_MEAL)).setIngredients(ingredients);
 
@@ -425,7 +416,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             this.dbRecipeMeal.add(new Meal()
                     .initDetails(42, "Meal 3items", "desc", 20, Edible.Unit.oz)
                     .initNutrition(200, 25, 40, 35)
-                    .initMetadata(false, "photo.jpg")
+                    .initMetadata(false, "lasagna.jpg")
             );
             ((Meal) this.dbRecipeMeal.get(42 - OFFSET_MEAL)).setIngredients(ingredients);
 
@@ -438,7 +429,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             this.dbRecipeMeal.add(new Meal()
                     .initDetails(43, "Meal 67", "desc", 30, Edible.Unit.cups)
                     .initNutrition(300, 40, 50, 10)
-                    .initMetadata(false, "photo.jpg")
+                    .initMetadata(false, "salmon.jpg")
             );
             ((Meal) this.dbRecipeMeal.get(43 - OFFSET_MEAL)).setIngredients(ingredients);
 
@@ -451,7 +442,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             this.dbRecipeMeal.add(new Meal()
                     .initDetails(44, "Meal 89", "desc", 30, Edible.Unit.cups)
                     .initNutrition(300, 40, 50, 10)
-                    .initMetadata(false, "photo.jpg")
+                    .initMetadata(false, "chickenfingers.jpg")
             );
             ((Meal) this.dbRecipeMeal.get(44 - OFFSET_MEAL)).setIngredients(ingredients);
 
@@ -464,7 +455,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             this.dbRecipeMeal.add(new Meal()
                     .initDetails(45, "Meal 1011", "desc", 30, Edible.Unit.cups)
                     .initNutrition(300, 40, 50, 10)
-                    .initMetadata(false, "photo.jpg")
+                    .initMetadata(false, "ribsmash.jpg")
             );
             ((Meal) this.dbRecipeMeal.get(45 - OFFSET_MEAL)).setIngredients(ingredients);
 
@@ -477,7 +468,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             this.dbRecipeMeal.add(new Meal()
                     .initDetails(46, "Meal 1213", "desc", 30, Edible.Unit.cups)
                     .initNutrition(300, 40, 50, 10)
-                    .initMetadata(false, "photo.jpg")
+                    .initMetadata(false, "hotdog.jpg")
             );
             ((Meal) this.dbRecipeMeal.get(46 - OFFSET_MEAL)).setIngredients(ingredients);
         } catch (Exception e) {
@@ -641,6 +632,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             );
         } catch (Exception e) {
             System.out.println("DataAccessStub loadFoodRecipes failed " + e);
+
         }
     }
 
