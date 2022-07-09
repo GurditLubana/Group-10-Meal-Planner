@@ -167,15 +167,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
         try {
             sortDBFoodLog();
-            currLogIndex = this.dbFoodLog.indexOf(currEntry);
-            this.currUser.setCalorieGoal(goal);
-
-            for (int i = currLogIndex; i < this.dbFoodLog.size(); i++) {
-                currEntry = this.dbFoodLog.get(i);
-                this.dbFoodLog.remove(currEntry);
-                currEntry.setCalorieGoal(goal);
-                this.dbFoodLog.add(i, currEntry);
-            }
+            currEntry.setCalorieGoal(goal);
         } catch (Exception e) {
             System.out.println(e);
             System.exit(1);
@@ -184,19 +176,10 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
     public void setExerciseGoal(int userID, double goal, Calendar date) {
         DailyLog currEntry = searchFoodLogByDate(date, userID);
-        int currLogIndex;
 
         try {
             sortDBFoodLog();
-            currLogIndex = this.dbFoodLog.indexOf(currEntry);
-            this.currUser.setExerciseGoal(goal);
-
-            for (int i = currLogIndex; i < this.dbFoodLog.size(); i++) {
-                currEntry = this.dbFoodLog.get(i);
-                this.dbFoodLog.remove(currEntry);
-                currEntry.setCalorieGoal(goal);
-                this.dbFoodLog.add(i, currEntry);
-            }
+            currEntry.setExerciseGoal(goal);
         } catch (Exception e) {
             System.out.println(e);
             System.exit(1);

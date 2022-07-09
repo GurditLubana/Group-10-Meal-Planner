@@ -1413,3 +1413,5 @@ Duration: started at 1 currently 11, still going
    - Fixed adding edible log entries in HSQL
    - Fixed changing edible log entries in HSQL
    - Fixed calorie actual based on edibles - cannot use aliases in preparedStatements, took awhile to the duplicate naming scheme was an issue
+   - Fixed an issue where changing calorie and exercise goal caused a crash in HSQL
+   - Future calorie goals are no longer pushed to other logs - this should be done is userOps

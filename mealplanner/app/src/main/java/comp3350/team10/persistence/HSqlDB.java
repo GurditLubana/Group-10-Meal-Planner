@@ -126,9 +126,8 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     private Edible readEdible(ResultSet results, boolean isCustom) {
         Edible currEdible = new Edible();
 
-        String name, description, unit;
+        String name, description, unit, photo;
         int id, quantity, calories, protein, carbs, fat;
-        byte[] photo;
         boolean isAlcoholic, isSpicy, isVegan, isVegetarian, isGlutenFree;
 
         try {
@@ -152,7 +151,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             isVegan = results.getBoolean("IsVegan");
             isVegetarian = results.getBoolean("IsVegetarian");
             isGlutenFree = results.getBoolean("IsGlutenFree");
-            photo = results.getBytes("Photo");
+            photo = results.getString("Photo");
 
             currEdible.initDetails(id, name, description, quantity, this.findUnit(unit));
             currEdible.initNutrition(calories, protein, carbs, fat);
@@ -999,12 +998,12 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     public void setCalorieGoal(int userID, double goal, Calendar date) {
         try {
             PreparedStatement setCalorieGoal = currConn.prepareStatement("UPDATE History SET CalorieGoal = ? " +
-                    "WHERE UserID = ? AND Date >= ?");
+                    "WHERE UserID = ? AND Date = ?");
 
             setCalorieGoal.setDouble(1, goal);
             setCalorieGoal.setInt(2, userID);
-            setCalorieGoal.setString(2, this.convertDateToString(date));
-            setCalorieGoal.executeQuery();
+            setCalorieGoal.setString(3, this.convertDateToString(date));
+            setCalorieGoal.executeUpdate();
         }
         catch (Exception e) {
             System.out.println(e);
@@ -1016,12 +1015,12 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     public void setExerciseGoal(int userID, double goal, Calendar date) {
         try {
             PreparedStatement setExerciseGoal = currConn.prepareStatement("UPDATE History SET ExerciseGoal = ? " +
-                    "WHERE UserID = ? AND Date >= ?");
+                    "WHERE UserID = ? AND Date = ?");
 
             setExerciseGoal.setDouble(1, goal);
             setExerciseGoal.setInt(2, userID);
-            setExerciseGoal.setString(2, this.convertDateToString(date));
-            setExerciseGoal.executeQuery();
+            setExerciseGoal.setString(3, this.convertDateToString(date));
+            setExerciseGoal.executeUpdate();
         }
         catch (Exception e) {
             System.out.println(e);
