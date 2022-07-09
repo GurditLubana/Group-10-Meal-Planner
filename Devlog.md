@@ -1338,8 +1338,28 @@ Duration: 5 hrs
    - deteail of found at 2022/07/06
      - some error message have spelling error, I just copy the message not change it
      - the Quantity type. I leave some comments and a fail() message about detail
-     - set un-initial ingredient obj is success, should not success    
+     - set un-initial ingredient obj is success, should not success 
 
+  
+### 2022-07-08 follow the Josef request to change the test edible unit test
+     Dev:
+      - Zhou
+Duration: 1 hrs
+   Tasks:
+   follow the Josef request to change the test edible unit test
+    - change all combine assert method like testDetail to simple assert and find a problem
+    - problem 1. if I set a null photo to set in it, it should throw a exception, but it actually not.
+    
+### 2022-07-08 finished the drink object unit test, object code have problem need to slove
+     Dev:
+      - Zhou
+Duration: 7 hrs
+   Tasks:
+   finished the drink obj unit test. problem need to solve
+   - detail:
+   - the problem need to fix, problem about setInstructions()
+     - 1. cannot update the correct value to the drink, there have problem about the about a update the data form the array list,"my array of all input is nutrition is total in 100 but the update result is 40"
+     - 2.if the input ingredients arraylist the size is 0 should let all the Nutrition and categories to default, but some of Categories is not set to default
      
 
 
