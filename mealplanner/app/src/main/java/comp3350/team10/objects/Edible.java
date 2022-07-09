@@ -208,6 +208,7 @@ public class Edible {
 
     public void setBaseQuantity(double newQuantity) throws IOException {
         if (newQuantity <= Constant.ENTRY_MAX_VALUE && newQuantity > Constant.ENTRY_MIN_VALUE) {
+
             this.baseQuantity = newQuantity;
         }
         else {
