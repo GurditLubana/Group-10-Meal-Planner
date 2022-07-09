@@ -4,16 +4,24 @@ import comp3350.team10.R;
 import comp3350.team10.objects.Edible;
 
 
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.FrameLayout;
+
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipeBook.ViewHolder> {
     public enum FragmentType {
         noType, diaryAdd, diaryModify, recipeModify
-    };
+    }
+
+    ;
 
     private ArrayList<Edible> localDataSet; // the list Recyclerview renders
     private int viewType;
@@ -22,11 +30,11 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
     public int getItemViewType(int pos) {
         int result = -1;
         String identifier = localDataSet.get(pos).getName();
-        if ( identifier.equals(FragmentType.diaryAdd.name()) ) {
+        if (identifier.equals(FragmentType.diaryAdd.name())) {
             result = FragmentType.diaryAdd.ordinal();
-        } else if ( identifier.equals(FragmentType.diaryModify.name()) ) {
+        } else if (identifier.equals(FragmentType.diaryModify.name())) {
             result = FragmentType.diaryModify.ordinal();
-        } else if ( identifier.equals(FragmentType.recipeModify.name()) ){
+        } else if (identifier.equals(FragmentType.recipeModify.name())) {
             result = FragmentType.recipeModify.ordinal();
         } else {
             result = FragmentType.noType.ordinal();
@@ -67,7 +75,21 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
         return this.localDataSet;
     }
 
-    public int getViewType(){
+    public int getViewType() {
         return this.viewType;
+    }
+
+    public Bitmap getBitmapFromFile(Context context, String fileName) {
+        InputStream istr = null;
+        Bitmap bitmap = null;
+        AssetManager assetManager = context.getAssets();
+        try {
+            istr = assetManager.open("images/" + fileName);
+            bitmap = BitmapFactory.decodeStream(istr);
+            istr.close();
+        } catch (Exception e) {
+            bitmap = null;
+        }
+        return bitmap;
     }
 }

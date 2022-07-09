@@ -252,8 +252,8 @@ public class Edible {
     }
 
     public void setPhoto(String filename) throws IllegalArgumentException {
-        if(name != null && !name.equals("")) {
-            this.name = name;
+        if(filename != null && !filename.equals("")) {
+            this.photo = filename;
         }
         else {
             throw new IllegalArgumentException("Edible setPhoto cannot be null or empty");
@@ -286,5 +286,9 @@ public class Edible {
 
     public int getDbkey() {
         return this.edibleID;
+    }
+
+    public String getPhoto(){
+        return this.photo;
     }
 }

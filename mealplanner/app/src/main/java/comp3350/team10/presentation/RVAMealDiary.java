@@ -86,30 +86,21 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         TextView itemCals = viewHolder.getView().findViewById(R.id.itemCalsBox);
         ImageView itemImage = viewHolder.getView().findViewById(R.id.itemImage);
         Edible currentItem = super.getDataSet().get(position);
+        Bitmap image = null;
 
         itemName.setText(currentItem.getName());
         itemQty.setText(String.format("%3.2f", currentItem.getQuantity()));
         itemUnit.setText(currentItem.getUnit().toString());
         itemCals.setText(String.format("%3d", (int) currentItem.getCalories()));
-        itemImage.setImageBitmap(getBitmapFromFile("food.jpg")); //TODO currentItem.getFilePath()
-
-    }
-
-    private Bitmap getBitmapFromFile(String fileName){
-        InputStream istr = null;
-        Bitmap bitmap = null;
-        AssetManager assetManager = context.getAssets();
-        try {
-            istr = assetManager.open("images/" + fileName);
-            bitmap = BitmapFactory.decodeStream(istr);
-            istr.close();
-        } catch (Exception e){
-            System.out.println(e);
+        image = super.getBitmapFromFile(this.context, currentItem.getPhoto());
+        if (image != null) {
+            itemImage.setImageBitmap(image);
+        }
+        else {
+            itemImage.setImageResource(R.drawable.ic_eggplant);
         }
 
-        return bitmap;
     }
-
 
     private void setDiaryEntryListeners(ViewHolder viewHolder) {
         viewHolder.getView().setOnClickListener(new View.OnClickListener() {
