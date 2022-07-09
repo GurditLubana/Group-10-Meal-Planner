@@ -20,11 +20,13 @@ public class TestLogDBInterface {
 
     @Nested
     @DisplayName("Simple Tests")
-    class testSimple {
+    class caseSimple {
+        LogDBInterface db;
 
         @BeforeEach
         void setup() {
             Main.startUp();
+            this.db = SharedDB.getLogDB();
         }
 
         @AfterEach
@@ -43,11 +45,13 @@ public class TestLogDBInterface {
 
     @Nested
     @DisplayName("Complex Tests should pass")
-    class testComplex {
+    class caseComplex {
+        LogDBInterface db;
 
         @BeforeEach
         void setup() {
             Main.startUp();
+            this.db = SharedDB.getLogDB();
         }
 
         @AfterEach
@@ -65,11 +69,13 @@ public class TestLogDBInterface {
 
     @Nested
     @DisplayName("Edge case Tests should pass")
-    class testEdge {
+    class caseEdge {
+        LogDBInterface db;
 
         @BeforeEach
         void setup() {
             Main.startUp();
+            this.db = SharedDB.getLogDB();
         }
 
         @AfterEach
@@ -86,7 +92,7 @@ public class TestLogDBInterface {
 
     @Nested
     @DisplayName("Tests that should fail")
-    class testFail {
+    class caseFail {
 
         @BeforeEach
         void setup() {

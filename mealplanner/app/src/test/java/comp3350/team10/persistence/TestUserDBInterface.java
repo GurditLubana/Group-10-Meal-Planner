@@ -12,11 +12,13 @@ public class TestUserDBInterface {
 
     @Nested
     @DisplayName("Simple Tests")
-    class testSimple {
+    class caseSimple {
+        UserDBInterface db;
 
         @BeforeEach
         void setup() {
             Main.startUp();
+            this.db = SharedDB.getUserDB();
         }
 
         @AfterEach
@@ -35,11 +37,13 @@ public class TestUserDBInterface {
 
     @Nested
     @DisplayName("Complex Tests should pass")
-    class testComplex {
+    class caseComplex {
+        UserDBInterface db;
 
         @BeforeEach
         void setup() {
             Main.startUp();
+            this.db = SharedDB.getUserDB();
         }
 
         @AfterEach
@@ -57,11 +61,13 @@ public class TestUserDBInterface {
 
     @Nested
     @DisplayName("Edge case Tests should pass")
-    class testEdge {
+    class caseEdge {
+        UserDBInterface db;
 
         @BeforeEach
         void setup() {
             Main.startUp();
+            this.db = SharedDB.getUserDB();
         }
 
         @AfterEach
@@ -78,7 +84,7 @@ public class TestUserDBInterface {
 
     @Nested
     @DisplayName("Tests that should fail")
-    class testFail {
+    class caseFail {
 
         @BeforeEach
         void setup() {

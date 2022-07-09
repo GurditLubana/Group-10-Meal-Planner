@@ -189,30 +189,28 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
+    private ArrayList<Edible> getDeepCopy(ArrayList<Edible> source){
+        ArrayList<Edible> arrayCopy= new ArrayList<Edible>();
+        Edible copy = null;
 
+        for(int i = 0; i < source.size(); i++) {
+            copy = (Edible) source.get(i).clone();
+            arrayCopy.add(copy);
+        }
+
+        return arrayCopy;
+    }
     //This section implements RecipeDBInterface
     public ArrayList<Edible> getFoodRecipes() {
-        ArrayList<Edible> currFood = new ArrayList<Edible>();
-
-        currFood.addAll(this.dbRecipeFood);
-
-        return currFood;
+        return getDeepCopy(this.dbRecipeFood);
     }
 
     public ArrayList<Edible> getMealRecipes() {
-        ArrayList<Edible> currMeals = new ArrayList<Edible>();
-
-        currMeals.addAll(this.dbRecipeMeal);
-
-        return currMeals;
+        return getDeepCopy(this.dbRecipeMeal);
     }
 
     public ArrayList<Edible> getDrinkRecipes() {
-        ArrayList<Edible> currDrinks = new ArrayList<Edible>();
-
-        currDrinks.addAll(this.dbRecipeDrink);
-
-        return currDrinks;
+        return getDeepCopy(this.dbRecipeDrink);
     }
 
     public void addFoodToRecipeBook(Edible newFood) {
