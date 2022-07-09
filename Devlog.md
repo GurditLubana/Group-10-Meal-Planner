@@ -1358,7 +1358,7 @@ Duration: 5 hrs
      - set un-initial ingredient obj is success, should not success 
 
   
-### 2022-07-08 follow the Josef request to change the comboine assert function to separate assert
+### 2022-07-08 4PM follow the Josef request to change the comboine assert function to separate assert
      Dev:
       - Zhou
 Duration: 2 hrs
@@ -1369,7 +1369,7 @@ Duration: 2 hrs
    Problem found in TestEdibeUnit.java
     - problem 1. if I set a null photo to set in it, it should throw a exception, but it actually not.
     
-### 2022-07-08 finished the drink object unit test, object code have problem need to slove
+### 2022-07-08 8PM finished the drink object unit test, object code have problem need to slove
      Dev:
       - Zhou
 Duration: 8 hrs
@@ -1417,3 +1417,12 @@ Duration: 12 hrs
    - Future calorie goals are no longer pushed to other logs (now consistant in HSQL and stubDB) - this should be done is userOps
    - Refactored Edible class so that photos are handled by string paths
    - fixed conflictions accross files
+
+### 2022-07-09 12：15AM to 1:00AM
+     Dev:
+      - Zhou
+Duration: 0.75 hrs
+   Tasks:
+   - I commit the edible unit test at 2022-07-08 around 4 pm at2022-07-09 12：15AM Dane said they change the function of setPhotoByte(byte[]) to setPhoto after I submit my work
+   - I review all the code and find there are some code need to change to change like rebuild a function change some exception type
+   - today may need 2 or 3 hours to redesign and rebuild the test, 2022-07-08 around 12PM I found rest of group memeber they change the in put range of function setPhotoByte(byte[]), I update my test edge case when commit.  2022-07-09 12:15AM Dane said my edible unit test is not for function setPhoto(String s), it update the function after I commit the edible unit test.
