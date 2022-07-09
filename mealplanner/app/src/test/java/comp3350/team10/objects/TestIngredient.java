@@ -48,7 +48,7 @@ public class TestIngredientUnit {
                 testEdible.initDetails(1,"lala","lala",1,Unit.cups);
                 testEdible.initNutrition(5,5,5,5);
             }
-            catch (IllegalArgumentException e){
+            catch (IOException e){
                 fail("testEdible initial fail");
             }
 
