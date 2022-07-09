@@ -21,8 +21,8 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
     
 
     DBSelector() { //Creates both databases then points all interfaces towards hsql
-        startHsqlDB();
-        //startStubDB();
+        //startHsqlDB();
+        startStubDB();
     }
 
     public void startHsqlDB() {
@@ -98,6 +98,10 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
 
     public void deleteLog(DailyLog delLog, int userID) {
         this.logDB.deleteLog(delLog, userID);
+    }
+
+    public ArrayList<Double> getDataFrame(String dataType, String span){
+        return this.logDB.getDataFrame(dataType, span);
     }
 
     public EdibleLog findEdibleByKey(int dbkey, boolean isCustom) {

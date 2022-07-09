@@ -264,6 +264,12 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
+    public ArrayList<Double> getDataFrame(String dataType, String span){
+        ArrayList<Double> result = new ArrayList<>();
+
+        return result;
+    }
+
     private void loadFoodlog() {
         Calendar today = (Calendar) this.calendar.clone();
 

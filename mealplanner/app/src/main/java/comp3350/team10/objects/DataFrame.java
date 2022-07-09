@@ -14,6 +14,7 @@ public class DataFrame {
     private int size;
     private double trendPointA;
     private double trendPointB;
+    private SimpleRegression regression;
 
     public DataFrame(DataType dataType, Span span) throws NullPointerException {
         if (dataType != null) {
@@ -45,6 +46,14 @@ public class DataFrame {
         if (data != null) {
             this.size = data.size();
             this.data = data;
+            this.regression = new SimpleRegression(true);
+            if (this.data.size() > 1) {
+                for (int i = 0; i < this.size; i++) {
+                    if( this.data.get(i) != null ) {
+                        regression.addData(i - this.size, this.data.get(i));
+                    }
+                }
+            }
             calculateTrend();
         } else {
             throw new NullPointerException("DataFrame ArrayList<Double> cannot be null");
@@ -56,11 +65,7 @@ public class DataFrame {
     }
 
     private void calculateTrend() {
-        SimpleRegression regression = new SimpleRegression(true);
         if (this.data.size() > 1) {
-            for (int i = 0; i < this.size; i++) {
-                regression.addData(i - this.size, this.data.get(i));
-            }
             this.trendPointB = regression.predict(0);
             this.trendPointA = regression.predict(xAxisLimits[this.span.ordinal()]);
         } else {
