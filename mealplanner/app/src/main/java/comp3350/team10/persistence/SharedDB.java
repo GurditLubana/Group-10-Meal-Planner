@@ -8,8 +8,6 @@ public class SharedDB {
         if (db == null) {
             db = new DBSelector();
         }
-        System.out.println(db);
-        System.out.println("set!!");
     }
 
     public static DBSelector getSharedDB() {
@@ -18,6 +16,10 @@ public class SharedDB {
 
     public static LogDBInterface getLogDB() {
         return db;
+    }
+
+    public static void saveDB() {
+        db.save();
     }
 
     public static RecipeDBInterface getRecipeDB() {
@@ -29,6 +31,6 @@ public class SharedDB {
     }
 
     public static void close() {
-        //db.close();
+        db.close();
     }
 }

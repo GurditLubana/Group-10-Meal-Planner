@@ -29,6 +29,7 @@ import comp3350.team10.objects.User;
 
 public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterface {
     private static final String SHUTDOWN_CMD = "shutdown compact";
+    private static final String SAVE_CMD = "CHECKPOINT";
     private Connection currConn;
     private Statement reqHandler;
     private String dbPath = "jdbc:hsqldb:file:" + Main.getDBPathName() + ";shutdown=true"; // stored on disk mode
@@ -47,6 +48,17 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
     }
 
+
+    public void save() {
+        try {
+            reqHandler.executeQuery(SAVE_CMD);
+            System.out.println("Saved the database");
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            System.exit(1);
+        }
+    }
 
     public void open() {
         try {

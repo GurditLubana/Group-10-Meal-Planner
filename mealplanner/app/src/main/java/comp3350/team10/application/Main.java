@@ -10,22 +10,22 @@ public class Main
 	public static final String dbName = "db";
 	private static String dbPathName = "database/db";
 
-	public static void main(String[] args)
-	{
-		startUp();
-
-		shutDown();
-		System.out.println("All done");
-	}
 
 	public static void startUp()
 	{
+		System.out.println("starting database");
 		SharedDB.start();
 	}
 
 	public static void shutDown()
 	{
+		System.out.println("closing database");
 		SharedDB.close();
+	}
+
+	public static void saveDB() {
+		System.out.println("saving database...");
+		SharedDB.saveDB();
 	}
 
 

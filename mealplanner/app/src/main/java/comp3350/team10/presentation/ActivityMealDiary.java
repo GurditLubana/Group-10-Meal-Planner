@@ -187,8 +187,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        //Main.shutDown();
+        Main.saveDB();
+        Main.shutDown();
     }
 
     public void showContextUI(int position) {

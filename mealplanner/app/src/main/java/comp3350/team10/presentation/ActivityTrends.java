@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import comp3350.team10.R;
+import comp3350.team10.application.Main;
 import comp3350.team10.business.TrendsOps;
 import comp3350.team10.objects.DataFrame;
 
@@ -33,6 +34,13 @@ public class ActivityTrends extends AppCompatActivity implements FragToTrends{
         this.initData();
         this.initRecyclerView();
         this.setTabListeners();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Main.saveDB();
+//        Main.shutDown();
     }
 
     private void initToolbar() {

@@ -1,6 +1,7 @@
 package comp3350.team10.presentation;
 
 import comp3350.team10.R;
+import comp3350.team10.application.Main;
 import comp3350.team10.business.RecipeBookOps;
 import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
@@ -113,6 +114,13 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Main.saveDB();
+//        Main.shutDown();
     }
 
     private void initActionButtons() {
