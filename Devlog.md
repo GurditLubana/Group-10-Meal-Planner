@@ -1426,3 +1426,15 @@ Duration: 0.75 hrs
    - I commit the edible unit test at 2022-07-08 around 4 pm at2022-07-09 12：15AM Dane said they change the function of setPhotoByte(byte[]) to setPhoto after I submit my work
    - I review all the code and find there are some code need to change to change like rebuild a function change some exception type
    - today may need 2 or 3 hours to redesign and rebuild the test, 2022-07-08 around 12PM I found rest of group memeber they change the in put range of function setPhotoByte(byte[]), I update my test edge case when commit.  2022-07-09 12:15AM Dane said my edible unit test is not for function setPhoto(String s), it update the function after I commit the edible unit test.
+
+
+### 2022-07-09 follow Dane`s request at today 12:15AM request, change and testsuit for function setPhotoByte(byte[]) to test suit setPhoto(String)
+     Dev:
+      - Zhou
+Duration: 3.5 hrs
+   Tasks:
+   - a. follow Dane `s request at today 12:15AM, change  testsuit for function setPhotoByte(byte[]) to setPhoto(String) and add new empty case. Because he modifyt the edible class, delete the function setPhotoByte(byte[]), getPhotoByte() and add new setPhoto(String), getPhoto(). So I need add more test for those function and change something for the TestEdibleUnit. java to ensure the test suit is meet the request 
+   - b. change the all test exception from IOException to IllegalArgumentException or Exeption ensure it can suit for all test relative Edible class in TestEdibleUnit.java ,TestDrinkUnit.java, TestIngredientUnit.java and TestMealUnit.java
+   - all test is passed at this time in TestEdibleUnit.java
+
+
