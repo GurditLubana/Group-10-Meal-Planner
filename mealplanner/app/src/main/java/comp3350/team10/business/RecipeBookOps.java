@@ -10,6 +10,7 @@ import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.RecipeDBInterface;
 import comp3350.team10.persistence.SharedDB;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class RecipeBookOps {
@@ -33,7 +34,7 @@ public class RecipeBookOps {
     }
 
     public void addFood(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat,
-            boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, byte[] photo) {
+            boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, byte[] photo) throws IllegalArgumentException{
         Edible newFood = new Edible();
 
         try {
@@ -44,14 +45,13 @@ public class RecipeBookOps {
             newFood.setPhotoBytes(photo);
             db.addFoodToRecipeBook(newFood);
         }
-        catch(Exception e) {
-            System.out.println(e);
-            System.exit(1);
+        catch(IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
         }
     }
 
     public void addMeal(String name, String desc, int qty, Edible.Unit unit, byte[] photo, String instructions,
-            ArrayList<Ingredient> ingredients) {
+            ArrayList<Ingredient> ingredients) throws IllegalArgumentException {
         Meal newMeal = new Meal();
 
         try {
@@ -63,14 +63,13 @@ public class RecipeBookOps {
 
             db.addMealToRecipeBook(newMeal);
         }
-        catch(Exception e) {
-            System.out.println(e);
-            System.exit(1);
+        catch(IllegalArgumentException | IOException e) {
+            throw new IllegalArgumentException(e);
         }
     }
 
     public void addSimpleDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat,
-            boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, byte[] photo) {
+            boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, byte[] photo) throws IllegalArgumentException{
         Drink newDrink = new Drink();
 
         try {
@@ -81,14 +80,14 @@ public class RecipeBookOps {
             newDrink.setPhotoBytes(photo);
             db.addDrinkToRecipeBook(newDrink);
         }
-        catch(Exception e) {
-            System.out.println(e);
-            System.exit(1);
+        catch(IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
+
         }
     }
 
     public void addPreparedDrink(String name, String desc, int qty, Edible.Unit unit, byte[] photo, String instructions,
-            ArrayList<DrinkIngredient> ingredients) {
+            ArrayList<DrinkIngredient> ingredients) throws IllegalArgumentException{
         Drink newDrink = new Drink();
 
         try {
@@ -100,9 +99,8 @@ public class RecipeBookOps {
 
             db.addDrinkToRecipeBook(newDrink);
         }
-        catch(Exception e) {
-            System.out.println(e);
-            System.exit(1);
+        catch(IllegalArgumentException | IOException e) {
+            throw new IllegalArgumentException(e);
         }
     }
 }

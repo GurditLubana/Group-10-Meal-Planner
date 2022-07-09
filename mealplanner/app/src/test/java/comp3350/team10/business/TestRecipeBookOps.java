@@ -272,10 +272,8 @@ public class TestRecipeBookOps {
         @Test
         @DisplayName("Testing edge cases for addMeals")
         void testAddMeals() {
+
             int initialSize = ops.getDrinkRecipes().size();
-
-            String description = "dfhjdhsgsdjjkds\n\n\nidfdshf\ndfh";
-
             String instruction = "sdfhosdhgl\ngjkdsjggk\ndfdgdg";
             ArrayList<Ingredient> ingredients = new ArrayList<>();
 
@@ -351,9 +349,61 @@ public class TestRecipeBookOps {
         void testAddFoods() {
 
 
-            assertThrows(java.io.IOException.class, () -> {
-                ops.addSimpleDrink("drink", " .....     ", 99999, Edible.Unit.ml, 0, 400, 74, 89,
-                        false, true, false, true, false, null);
+            assertThrows(IllegalArgumentException.class, () -> {
+                ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 40000, 74, 89,
+                        false, false, false, false, false, null);
+
+                ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99999, 405, 74, 89,
+                        false, false, false, false, false, null);
+
+                ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 74888, 89,
+                        false, false, false, false, false, null);
+
+                ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 74, 89000,
+                        false, false, false, false, false, null);
+
+                ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 7, 89,
+                        false, false, false, false, false, null);
+
+                ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 74, 8,
+                        false, false, false, false, false, null);
+            });
+
+        }
+
+
+        @Test
+        @DisplayName("Testing some edge cases for addDrinks method")
+
+        void testAddDrinks() {
+
+            String description = "dfhjdhsgsdjjkds\n\n\nidfdshf\ndfh";
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<>();
+
+            assertThrows(IllegalArgumentException.class, () -> {
+
+                ops.addPreparedDrink("drink", description, 200000, Edible.Unit.ml, null, "123344", ingredients);
+                ops.addPreparedDrink("drink", description, 999999, Edible.Unit.ml, null, "123344", ingredients);
+                ops.addPreparedDrink("drink", description, 989898, Edible.Unit.ml, null, "123344", ingredients);
+                ops.addPreparedDrink("drink", description, 76543, Edible.Unit.ml, null, "123344", ingredients);
+
+
+            });
+
+        }
+
+        @Test
+        @DisplayName("Testing some edge cases for addDrinks method")
+
+        void testAddMeals() {
+
+            String description = "dfhjdhsgsdjjkds\n\n\nidfdshf\ndfh";
+            ArrayList<Ingredient> ingredients = new ArrayList<>();
+
+            assertThrows(IllegalArgumentException.class, () -> {
+
+                ops.addMeal("failedMeal", "hello world", 20000, Edible.Unit.serving, null, "sfdhosdfh ", ingredients);
+                ops.addMeal("failedMeal", "hello world", 20, Edible.Unit.serving, null, "sfdhosdfh ", ingredients);
             });
 
         }

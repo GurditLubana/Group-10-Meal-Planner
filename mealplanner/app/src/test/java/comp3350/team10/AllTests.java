@@ -21,14 +21,14 @@
  @SelectClasses({
          TestMealDiaryOps.class,
          //TestRecipeBookOps.class,
-         TestTrendsOps.class,
-         TestUnitConverter.class,
-         TestDailyLog.class,
+//         TestTrendsOps.class,
+//         TestUnitConverter.class,
+//         TestDailyLog.class,
          TestDataFrame.class,
          TestDrinkUnit.class,
-         TestFoodUnit.class,
-         TestEdibleUnit.class,
-         TestIngredientUnit.class,
+//         TestFoodUnit.class,
+//         TestEdibleUnit.class,
+//         TestIngredientUnit.class,
          //TestMealUnit.class
  })
  public class AllTests {
