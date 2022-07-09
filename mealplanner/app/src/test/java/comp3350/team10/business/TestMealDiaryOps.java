@@ -41,6 +41,7 @@
          void objectStateAtConstruction(){
              DailyLog currLog = ops.getCurrLog();
 
+             assertNotNull(currLog);
              assertEquals(currDate.get(Calendar.YEAR),currLog.getDate().get(Calendar.YEAR));
              assertEquals(currDate.get(Calendar.MONTH),currLog.getDate().get(Calendar.MONTH));
              assertEquals(currDate.get(Calendar.DATE),currLog.getDate().get(Calendar.DATE));
@@ -126,17 +127,48 @@
              ops.addByKey(2, false);
              assertEquals(prevLogSize+1,currLog.getEdibleList().size());
          }
+     }
+
+
+     @Nested
+     @DisplayName("Complex Tests should pass")
+     class mealDiaryEdge {
+         private MealDiaryOps ops;
+         private Calendar currDate;
+         private Calendar testDate;
+
+         @BeforeEach
+         void setup() {
+             Main.startUp();
+             ops = new MealDiaryOps();
+             currDate = Calendar.getInstance();
+             testDate = Calendar.getInstance();
+         }
+
+         @AfterEach
+         void shutdown() {
+             Main.shutDown();
+         }
 
          @Test
          @DisplayName("We should be able to commit modified Logs to persistent storage")
-         void commitLogToDB(){
+         void commitLogToDB() {
              DailyLog currLog = ops.getCurrLog();
 
-             //TODO test logchangedupdatedb
+             //Test updating a bunch of featyres
+             //Test updating a bunch of featyres
+             //Test updating a bunch of featyres
              fail("logchangedupdatedb");
          }
+        ////Test updating a bunch of featyres simultaneously
 
+        //  @Test //Test
+        //  @DisplayName("we should be able to set a date within 2 years inclusive")
+        //  void anyDate() {
+        //      Calendar newDate = Calendar.getInstance();
+        //      newDate.set(currDate.get(Calendar.YEAR) - 2, currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE));
      }
+
 
      @Nested
      @DisplayName("Edge case Tests should pass")
@@ -159,8 +191,14 @@
          }
 
          @Test
+         @DisplayName("we should recieve the same data if nothing is chagned and the log gets updated in the database")
+         void updateDBWithNoChanges() {
+
+         }
+
+         @Test
          @DisplayName("we should be able to set a date within 2 years inclusive")
-         void anyDate(){
+         void anyDate() {
              Calendar newDate = Calendar.getInstance();
              newDate.set(currDate.get(Calendar.YEAR) - 2, currDate.get(Calendar.MONTH), currDate.get(Calendar.DATE));
 

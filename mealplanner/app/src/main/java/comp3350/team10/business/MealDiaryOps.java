@@ -16,7 +16,7 @@ public class MealDiaryOps {
     //Database variables
     private DailyLog currLog;           //The food in the planner for the given day
     private Calendar logDate;           //The date the planner is set to
-    private DBSelector db;          //Accesses the database
+    private DBSelector db;              //Accesses the database
 
     //Progress bar variables
     private UserDataOps opUser;         //Business logic for handling the app's user
@@ -54,7 +54,7 @@ public class MealDiaryOps {
     }
 
     public void setCalorieGoal(DailyLog currLog, double newCalorieGoal) {
-        this.db.setCalorieGoal(opUser.getUser().getUserID(), newCalorieGoal, currLog.getDate());
+        this.db.setLogCalorieGoal(opUser.getUser().getUserID(), newCalorieGoal, currLog.getDate());
     }
 
     public void setListDate(Calendar newDate) throws IllegalArgumentException {
@@ -82,7 +82,7 @@ public class MealDiaryOps {
         return this.currLog;
     }
 
-    public void logChangedUpdateDB(){
+    public void logChangedUpdateDB() {
         this.db.deleteLog(this.currLog, opUser.getUser().getUserID());
         this.db.addLog(this.currLog, opUser.getUser().getUserID());
     }

@@ -78,12 +78,12 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
         this.userDB.setWeight(userID, newWeight);
     }
 
-    public void setCalorieGoal(int userID, double goal, Calendar date) {
-        this.userDB.setCalorieGoal(userID, goal, date);
+    public void setCalorieGoal(int userID, double goal) {
+        this.userDB.setCalorieGoal(userID, goal);
     }
 
-    public void setExerciseGoal(int userID, double goal, Calendar date) {
-        this.userDB.setExerciseGoal(userID, goal, date);
+    public void setExerciseGoal(int userID, double goal) {
+        this.userDB.setExerciseGoal(userID, goal);
     }
 
 
@@ -98,6 +98,14 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
 
     public void deleteLog(DailyLog delLog, int userID) {
         this.logDB.deleteLog(delLog, userID);
+    }
+
+    public void setLogCalorieGoal(int userID, double goal, Calendar date) {
+        this.logDB.setLogCalorieGoal(userID, goal, date);
+    }
+
+    public void setLogExerciseGoal(int userID, double goal, Calendar date) {
+        this.logDB.setLogExerciseGoal(userID, goal, date);
     }
 
     public ArrayList<Double> getDataFrame(String dataType, String span){

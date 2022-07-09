@@ -143,7 +143,15 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         this.currUser.setHeight(newWeight);
     }
 
-    public void setCalorieGoal(int userID, double goal, Calendar date) {
+    public void setCalorieGoal(int userID, double goal) {
+        this.currUser.setCalorieGoal(goal);
+    }
+
+    public void setExerciseGoal(int userID, double goal) {
+        this.currUser.setExerciseGoal(goal);
+    }
+
+    public void setLogCalorieGoal(int userID, double goal, Calendar date) {
         DailyLog currEntry = searchFoodLogByDate(date, userID);
         int currLogIndex;
 
@@ -156,7 +164,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
-    public void setExerciseGoal(int userID, double goal, Calendar date) {
+    public void setLogExerciseGoal(int userID, double goal, Calendar date) {
         DailyLog currEntry = searchFoodLogByDate(date, userID);
 
         try {

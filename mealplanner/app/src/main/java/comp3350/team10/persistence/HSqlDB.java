@@ -931,6 +931,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
 
             int userID, height, weight, calorieGoal, exerciseGoal;
             String name;
+            
             results.next();
             System.out.println("Get USER ID");
             System.out.println(results.getString("NAME"));
@@ -995,7 +996,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         return calendarDate;
     }
 
-    public void setCalorieGoal(int userID, double goal, Calendar date) {
+    public void setLogCalorieGoal(int userID, double goal, Calendar date) {
         try {
             PreparedStatement setCalorieGoal = currConn.prepareStatement("UPDATE History SET CalorieGoal = ? " +
                     "WHERE UserID = ? AND Date = ?");
@@ -1012,7 +1013,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
     }
 
-    public void setExerciseGoal(int userID, double goal, Calendar date) {
+    public void setLogExerciseGoal(int userID, double goal, Calendar date) {
         try {
             PreparedStatement setExerciseGoal = currConn.prepareStatement("UPDATE History SET ExerciseGoal = ? " +
                     "WHERE UserID = ? AND Date = ?");
@@ -1029,10 +1030,33 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
     }
 
+    public void setCalorieGoal(int userID, double goal) {
+        try {
+            PreparedStatement setCalorieGoal = currConn.prepareStatement("UPDATE USER SET CalorieGoal = ? WHERE UserID = ?");
+            setCalorieGoal.setInt(1, userID);
+            setCalorieGoal.setInt(2, (int)goal);
+            setCalorieGoal.executeUpdate();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void setExerciseGoal(int userID, double goal) {
+        try {
+            PreparedStatement setExerciseGoal = currConn.prepareStatement("UPDATE USER SET ExerciseGoal = ? WHERE UserID = ?");
+            setExerciseGoal.setInt(1, userID);
+            setExerciseGoal.setInt(2, (int)goal);
+            setExerciseGoal.executeUpdate();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     public ArrayList<Double> getDataFrame(String dataType, String span){
         ArrayList<Double> result = new ArrayList<>();
 
         return result;
     }
-
 }
