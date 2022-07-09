@@ -1029,4 +1029,10 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
     }
 
+    public ArrayList<Double> getDataFrame(String dataType, String span){
+        ArrayList<Double> result = new ArrayList<>();
+
+        return result;
+    }
+
 }

@@ -4,16 +4,17 @@ import java.util.ArrayList;
 
 import comp3350.team10.objects.DataFrame;
 import comp3350.team10.persistence.DBSelector;
+import comp3350.team10.persistence.LogDBInterface;
 import comp3350.team10.persistence.SharedDB;
 
 public class TrendsOps {
     private ArrayList<DataFrame> dataFrames;
-    private DBSelector db;
+    private LogDBInterface db;
     private DataFrame.Span span;
 
     public TrendsOps() throws NullPointerException {
         if (SharedDB.getSharedDB() != null) {
-            this.db = SharedDB.getSharedDB();
+            this.db = SharedDB.getLogDB();
         } else {
             throw new NullPointerException("TrendsOps Database cannot be null");
         }
@@ -41,8 +42,8 @@ public class TrendsOps {
 
     private DataFrame getDataFromDB(DataFrame.DataType dataType) {
         DataFrame dataFrame = new DataFrame(dataType, this.span);
-        dataFrame.setData(stubData(dataType));
-
+        //dataFrame.setData(stubData(dataType));
+        dataFrame.setData(this.db.getDataFrame(dataType.name(), this.span.name()));
         return dataFrame;
     }
 

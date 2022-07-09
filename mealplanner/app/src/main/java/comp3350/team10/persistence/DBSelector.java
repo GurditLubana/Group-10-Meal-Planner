@@ -100,6 +100,10 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
         this.logDB.deleteLog(delLog, userID);
     }
 
+    public ArrayList<Double> getDataFrame(String dataType, String span){
+        return this.logDB.getDataFrame(dataType, span);
+    }
+
     public EdibleLog findEdibleByKey(int dbkey, boolean isCustom) {
         return this.recipeDB.findEdibleByKey(dbkey, isCustom);
     }
