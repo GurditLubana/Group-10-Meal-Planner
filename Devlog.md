@@ -1341,13 +1341,15 @@ Duration: 5 hrs
      - set un-initial ingredient obj is success, should not success 
 
   
-### 2022-07-08 follow the Josef request to change the test edible unit test
+### 2022-07-08 follow the Josef request to change the comboine assert function to separate assert
      Dev:
       - Zhou
-Duration: 1 hrs
+Duration: 2 hrs
    Tasks:
-   follow the Josef request to change the test edible unit test
+   Include TestEdibeUnit.java TestMealUnit.java TestDrinkUnit.java
+   follow the Josef request to change the comboine assert function to separate assert
     - change all combine assert method like testDetail to simple assert and find a problem
+   Problem found in TestEdibeUnit.java
     - problem 1. if I set a null photo to set in it, it should throw a exception, but it actually not.
     
 ### 2022-07-08 finished the drink object unit test, object code have problem need to slove
