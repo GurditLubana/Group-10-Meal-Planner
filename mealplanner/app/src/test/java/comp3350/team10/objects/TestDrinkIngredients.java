@@ -322,11 +322,10 @@ public class TestDrinkIngredients {
 
             edibleItem.initMetadata(false,"!!!!!#$%^&*()ghj");
 
-            ingredient.setQuantity(70.99);
 
             assertThrows(IllegalArgumentException.class, () -> {
 
-                edibleItem.initDetails(2,"Edible ","hello\n\n\nWorld\n",4000, Edible.Unit.tbsp);
+                edibleItem.initDetails(200000000,"Edible ","hello\n\n\nWorld\n",4000, Edible.Unit.tbsp);
 
                 edibleItem.initNutrition(9999999,1,1,0);
 
@@ -338,7 +337,15 @@ public class TestDrinkIngredients {
 
                 ingredient.getIngredient().setCarbs(0000100001);
 
+                ingredient.getIngredient().setProtein(2333333);
+
+                ingredient.getIngredient().setFat(-23);
+
+                ingredient.getIngredient().setCalories(-455555.98765);
+
                 assertFalse(ingredient.getIsSubstitute());
+
+
 
             });
 
