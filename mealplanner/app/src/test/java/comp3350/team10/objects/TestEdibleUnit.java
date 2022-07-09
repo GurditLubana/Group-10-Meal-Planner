@@ -31,7 +31,7 @@
 //        for (int i = 0; i < expect.length; i++) {
 //            assertEquals(expect[i], (food.getPhotoBytes())[i]);
 //        }
-//
+
 //    }
 //
 //    void testDetail(Edible food, int idExpect, String nameExpect, String descriptionExpect, int quantityExpect, Unit unitExpect) {
