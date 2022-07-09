@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class TestIngredientUnit {
+public class TestIngredient {
 
 
     @Nested
