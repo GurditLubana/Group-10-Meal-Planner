@@ -5,17 +5,16 @@ import java.io.IOException;
 
 public class Edible {
     public enum Unit {cups, oz, g, serving, tbsp, tsp, ml, liter}; //All possible units for a given edible
-    private final int MIN_BYTE_LENGTH_PER_PHOTO = 35;
 
     //Edible details
     private int edibleID;                       //This edibles database key
     private String name;                        //The name
     private String description;                 //A brief description
-    private double baseQuantity;                   //The quantity
+    private double baseQuantity;                //The quantity
     private Unit baseUnit;                      //The unit of the given quantity
 
     //Nutritional content
-    private double calories;                       //The calories for a given edible
+    private double calories;                    //The calories for a given edible
     private int protein;                        //The protein value
     private int carbs;                          //the carb value
     private int fat;                            //The fat value
@@ -29,8 +28,7 @@ public class Edible {
 
     //Metadata
     private boolean isCustom;                   //Flag that represents whether this Edible is custom or not
-    private byte[] photoBytes;                  //The image path for a given edible
-    private String photo;
+    private String photo;                       //The image path for a given edible
 
     public Edible() {
         this.edibleID = -1;
@@ -51,7 +49,6 @@ public class Edible {
         this.isGlutenFree = false;
 
         this.isCustom = false;
-        this.photoBytes = null;
         this.photo = null;
     }
 
@@ -82,13 +79,6 @@ public class Edible {
         this.setVegan(vegan);
         this.setVegetarian(vegetarian);
         this.setGlutenFree(glutenFree);
-
-        return this;
-    }
-
-    public Edible initMetadata(boolean custom, byte[] photo) throws IOException { //TODO deprecate
-        this.setCustom(custom);
-        this.setPhotoBytes(photo);
 
         return this;
     }
@@ -242,15 +232,6 @@ public class Edible {
         }
     }
 
-    public void setPhotoBytes(byte[] newPhoto) throws IllegalArgumentException { //TODO deprecate
-        if(newPhoto == null || newPhoto.length >= MIN_BYTE_LENGTH_PER_PHOTO) {
-            this.photoBytes = newPhoto;
-        }
-        else {
-            throw new IllegalArgumentException("Invalid photo");
-        }
-    }
-
     public void setPhoto(String filename) throws IllegalArgumentException {
         if(filename != null && !filename.equals("")) {
             this.photo = filename;
@@ -271,11 +252,7 @@ public class Edible {
     public String getName() {
         return this.name;
     }
-
-    public byte[] getPhotoBytes() {
-        return this.photoBytes;
-    }
-
+    
     public Edible.Unit getUnit() {
         return this.baseUnit;
     }

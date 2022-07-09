@@ -197,7 +197,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
                 currMeal.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
                 currMeal.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
                 currMeal.initNutrition(currEdible.getCalories(), currEdible.getProtein(), currEdible.getCarbs(), currEdible.getFat());
-                currMeal.initMetadata(true, currEdible.getPhotoBytes());
+                currMeal.initMetadata(true, currEdible.getPhoto());
                 currMeal.setIngredients(this.getMealIngredients(currMeal));
                 currMeal.setInstructions(this.getInstructions(currMeal));
                 mealList.add(currMeal);
@@ -213,7 +213,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
                 currMeal.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
                 currMeal.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
                 currMeal.initNutrition(currEdible.getCalories(), currEdible.getProtein(), currEdible.getCarbs(), currEdible.getFat());
-                currMeal.initMetadata(false, currEdible.getPhotoBytes());
+                currMeal.initMetadata(false, currEdible.getPhoto());
                 currMeal.setIngredients(this.getMealIngredients(currMeal));
                 currMeal.setInstructions(this.getInstructions(currMeal));
                 mealList.add(currMeal);
@@ -247,7 +247,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
                 currDrink.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
                 currDrink.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
                 currDrink.initNutrition(currEdible.getCalories(), currEdible.getProtein(), currEdible.getCarbs(), currEdible.getFat());
-                currDrink.initMetadata(true, currEdible.getPhotoBytes());
+                currDrink.initMetadata(true, currEdible.getPhoto());
                 currDrink.setIngredients(this.getDrinkIngredients(currDrink));
                 currDrink.setInstructions(this.getInstructions(currDrink));
                 drinkList.add(currDrink);
@@ -263,7 +263,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
                 currDrink.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
                 currDrink.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
                 currDrink.initNutrition(currEdible.getCalories(), currEdible.getProtein(), currEdible.getCarbs(), currEdible.getFat());
-                currDrink.initMetadata(false, currEdible.getPhotoBytes());
+                currDrink.initMetadata(false, currEdible.getPhoto());
                 currDrink.setIngredients(this.getDrinkIngredients(currDrink));
                 currDrink.setInstructions(this.getInstructions(currDrink));
                 drinkList.add(currDrink);
@@ -359,7 +359,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
                 addCustomEdible.setInt(6, newEdible.getProtein());
                 addCustomEdible.setInt(7, newEdible.getCarbs());
                 addCustomEdible.setInt(8, newEdible.getFat());
-                addCustomEdible.setBytes(9, newEdible.getPhotoBytes());
+                addCustomEdible.setString(9, newEdible.getPhoto());
                 addCustomEdible.setBoolean(10, newEdible.getIsAlcoholic());
                 addCustomEdible.setBoolean(11, newEdible.getIsSpicy());
                 addCustomEdible.setBoolean(12, newEdible.getIsVegan());
@@ -376,7 +376,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
                 addEdible.setInt(6, newEdible.getProtein());
                 addEdible.setInt(7, newEdible.getCarbs());
                 addEdible.setInt(8, newEdible.getFat());
-                addEdible.setBytes(9, newEdible.getPhotoBytes());
+                addEdible.setString(9, newEdible.getPhoto());
                 addEdible.setBoolean(10, newEdible.getIsAlcoholic());
                 addEdible.setBoolean(11, newEdible.getIsSpicy());
                 addEdible.setBoolean(12, newEdible.getIsVegan());

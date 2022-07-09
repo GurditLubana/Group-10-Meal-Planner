@@ -33,7 +33,7 @@ public class RecipeBookOps {
     }
 
     public void addFood(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat,
-            boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, byte[] photo) {
+            boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, String photo) {
         Edible newFood = new Edible();
 
         try {
@@ -41,7 +41,7 @@ public class RecipeBookOps {
             newFood.initNutrition(calories, protein, carbs, fat);
             newFood.initCategories(alcoholic, spicy, vegan, vegetarian, glutenFree);
             newFood.setCustom(true);
-            newFood.setPhotoBytes(photo);
+            newFood.setPhoto(photo);
             db.addFoodToRecipeBook(newFood);
         }
         catch(Exception e) {
@@ -50,7 +50,7 @@ public class RecipeBookOps {
         }
     }
 
-    public void addMeal(String name, String desc, int qty, Edible.Unit unit, byte[] photo, String instructions,
+    public void addMeal(String name, String desc, int qty, Edible.Unit unit, String photo, String instructions,
             ArrayList<Ingredient> ingredients) {
         Meal newMeal = new Meal();
 
@@ -59,7 +59,7 @@ public class RecipeBookOps {
             newMeal.setInstructions(instructions);
             newMeal.setIngredients(ingredients);
             newMeal.setCustom(true);
-            newMeal.setPhotoBytes(photo);
+            newMeal.setPhoto(photo);
 
             db.addMealToRecipeBook(newMeal);
         }
@@ -70,7 +70,7 @@ public class RecipeBookOps {
     }
 
     public void addSimpleDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat,
-            boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, byte[] photo) {
+            boolean alcoholic, boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, String photo) {
         Drink newDrink = new Drink();
 
         try {
@@ -78,7 +78,7 @@ public class RecipeBookOps {
             newDrink.initNutrition(calories, protein, carbs, fat);
             newDrink.initCategories(alcoholic, spicy, vegan, vegetarian, glutenFree);
             newDrink.setCustom(true);
-            newDrink.setPhotoBytes(photo);
+            newDrink.setPhoto(photo);
             db.addDrinkToRecipeBook(newDrink);
         }
         catch(Exception e) {
@@ -87,7 +87,7 @@ public class RecipeBookOps {
         }
     }
 
-    public void addPreparedDrink(String name, String desc, int qty, Edible.Unit unit, byte[] photo, String instructions,
+    public void addPreparedDrink(String name, String desc, int qty, Edible.Unit unit, String photo, String instructions,
             ArrayList<DrinkIngredient> ingredients) {
         Drink newDrink = new Drink();
 
@@ -96,7 +96,7 @@ public class RecipeBookOps {
             newDrink.setInstructions(instructions);
             newDrink.setIngredients(ingredients);
             newDrink.setCustom(true);
-            newDrink.setPhotoBytes(photo);
+            newDrink.setPhoto(photo);
 
             db.addDrinkToRecipeBook(newDrink);
         }
