@@ -18,17 +18,16 @@ package comp3350.team10.objects;
 
  import java.io.IOException;
 
- public class TestFoodUnit {
+ public class TestFood {
 
 	 //some test function
 
-	 void testPhotoBytes(Edible food, byte[] expect) {
-		 assertEquals(expect.length, food.getPhotoBytes().length);
-		 for (int i = 0; i < expect.length; i++) {
-			 assertEquals(expect[i], (food.getPhotoBytes())[i]);
-		 }
-
-	 }
+//	 void testPhotoBytes(Edible food, byte[] expect) {
+//		 assertEquals(expect.length, food.getPhotoBytes().length);
+//		 for (int i = 0; i < expect.length; i++) {
+//			 assertEquals(expect[i], (food.getPhotoBytes())[i]);
+//		 }
+//	 }
 
 	 void testDetail(Edible food, int idExpect, String nameExpect, String descriptionExpect, int quantityExpect, Unit unitExpect) {
 		 assertEquals(idExpect,food.getDbkey());// not get id fucntion
@@ -53,17 +52,12 @@ package comp3350.team10.objects;
 		 assertEquals(glutenFreeExpect, food.getIsGlutenFree());
 	 }
 
-	 void testMetadata(Edible food, boolean customExpect, byte[] photoExpect) {
-		 assertEquals(customExpect, food.getIsCustom());
-		 testPhotoBytes(food, photoExpect);
-	 }
-
 	 void testSetName(Edible food, String newName){//test correct
 		 try{
 			 food.setName(newName);
 			 assertEquals(newName,food.getName());
 		 }
-		 catch (IOException e){
+		 catch (IllegalArgumentException e){
 			 fail("Can not set Name " + newName + "\n");
 		 }
 	 }
@@ -73,7 +67,7 @@ package comp3350.team10.objects;
 			 food.setDescription(newDescription);
 			 assertEquals(newDescription,food.getDescription());
 		 }
-		 catch (IOException e){
+		 catch (IllegalArgumentException e){
 			 fail("Can not set Description " + newDescription + "\n");
 		 }
 	 }
@@ -97,7 +91,6 @@ package comp3350.team10.objects;
 	 @DisplayName("Simple tests")
 	 class Test_Simple {
 		 private Edible testFood;
-		 private byte[] testPic = {(byte) 12, (byte) 59, (byte) 96};
 
 		 @BeforeEach
 		 void setUp() {
@@ -107,7 +100,7 @@ package comp3350.team10.objects;
 				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
 				 testFood.initNutrition(5, 5, 5, 5);
 				 testFood.initCategories(true, false, true, false, true);
-				 testFood.initMetadata(true, testPic);
+				 testFood.initMetadata(true, "testPic");
 			 } catch (Exception e) {
 				 fail("initial fail");
 			 }
@@ -118,7 +111,6 @@ package comp3350.team10.objects;
 			 testDetail(testFood, 1, "food", "lala", 5, Unit.cups);
 			 testNutrition(testFood, 5, 5, 5, 5);
 			 testCategories(testFood, true, false, true, false, true);
-			 testMetadata(testFood, true, testPic);
 		 }
 	 }
 
@@ -136,7 +128,6 @@ package comp3350.team10.objects;
 				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
 				 testFood.initNutrition(5, 5, 5, 5);
 				 testFood.initCategories(true, false, true, false, true);
-				 testFood.initMetadata(true, testPic);
 			 } catch (Exception e) {
 				 fail("initial fail");
 			 }
@@ -228,7 +219,6 @@ package comp3350.team10.objects;
 			 byte[] testPic =null;
 			 try{
 				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
-				 testFood.initMetadata(true, testPic);
 				 fail("Should throw IO exception");
 			 }
 			 catch (Exception e){
@@ -239,7 +229,6 @@ package comp3350.team10.objects;
 			 testPic = new byte[0];
 			 try{
 				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
-				 testFood.initMetadata(true, testPic);
 				 fail("Should throw IO exception");
 			 }
 			 catch (Exception e){
@@ -254,7 +243,6 @@ package comp3350.team10.objects;
 			 byte[] testPic = {(byte) 12, (byte) 59, (byte) 96};
 			 try{
 				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
-				 testFood.initMetadata(true, testPic);
 				 fail("Should throw IO exception");
 			 }
 			 catch (Exception e){

@@ -25,10 +25,10 @@
          TestUnitConverter.class,
          TestDailyLog.class,
          TestDataFrame.class,
-         TestDrinkUnit.class,
+         TestDrink.class,
          //TestFoodUnit.class,
          //TestEdibleUnit.class,
-         TestIngredientUnit.class,
+         TestIngredient.class,
          //TestMealUnit.class
  })
  public class AllTests {

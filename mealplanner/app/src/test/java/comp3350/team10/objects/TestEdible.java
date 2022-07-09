@@ -1,65 +1,12 @@
-//create by Zhihao Zhou
-// 2022/7/2
-// have test simple,complex,empty,edge and invalid
-
-// problem found 
-// 1. if I set a null photo to set in it, it should throw a exception, but it actually not.(sloved2022/07/09 11:31 Am)
-
 package comp3350.team10.objects;
 
-import comp3350.team10.objects.*;
-import comp3350.team10.objects.Edible.Unit;
-
 import static org.junit.jupiter.api.Assertions.*;
-
-import android.app.LauncherActivity;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-
-
-public class TestEdibleUnit {
-
-	//some test function
-
-//	void testPhotoBytes(Edible food, byte[] expect) {
-//		assertEquals(expect.length, food.getPhotoBytes().length);
-//		for (int i = 0; i < expect.length; i++) {
-//			assertEquals(expect[i], (food.getPhotoBytes())[i]);
-//		}
-//
-//	}
-
-//	 void testDetail(Edible food, int idExpect, String nameExpect, String descriptionExpect, int quantityExpect, Unit unitExpect) {
-//		 assertEquals(idExpect,food.getDbkey());// not get id fucntion
-//		 assertEquals(nameExpect, food.getName());
-//		 assertEquals(descriptionExpect, food.getDescription());
-//		 assertEquals(quantityExpect, food.getQuantity());
-//		 assertEquals(unitExpect, food.getUnit());
-//	 }
-//
-//	 void testNutrition(Edible food, int caloriesExpect, int proteinExpect, int carbsExpect, int fatExpect) {
-//		 assertEquals(caloriesExpect, food.getCalories());
-//		 assertEquals(proteinExpect, food.getProtein());
-//		 assertEquals(carbsExpect, food.getCarbs());
-//		 assertEquals(fatExpect, food.getFat());
-//	 }
-//
-//	 void testCategories(Edible food, boolean alcoholicExpect, boolean spicyExpect, boolean veganExpect, boolean vegetarianExpect, boolean glutenFreeExpect) {
-//		 assertEquals(alcoholicExpect, food.getIsAlcoholic());
-//		 assertEquals(spicyExpect, food.getIsSpicy());
-//		 assertEquals(veganExpect, food.getIsVegan());
-//		 assertEquals(vegetarianExpect, food.getIsVegetarian());
-//		 assertEquals(glutenFreeExpect, food.getIsGlutenFree());
-//	 }
-//
-//	 void testMetadata(Edible food, boolean customExpect, byte[] photoExpect) {
-//		 assertEquals(customExpect, food.getIsCustom());
-//		 testPhotoBytes(food, photoExpect);
-//	 }
+public class TestEdible {
 
 	void testSetName(Edible food, String newName){//test correct
 		try{
@@ -104,14 +51,6 @@ public class TestEdibleUnit {
 	@DisplayName("Simple tests")
 	class Test_Simple {
 		private Edible testFood;
-		private byte[] testPic = {(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,};
 		private String photo = "simple";
 
 		@BeforeEach
@@ -119,7 +58,7 @@ public class TestEdibleUnit {
 
 			testFood = new Edible();
 			try {
-				testFood.initDetails(1, "food", "lala", 5, Unit.cups);
+				testFood.initDetails(1, "food", "lala", 5, Edible.Unit.cups);
 				testFood.initNutrition(5, 5, 5, 5);
 				testFood.initCategories(true, false, true, false, true);
 				testFood.initMetadata(true, photo);
@@ -135,7 +74,7 @@ public class TestEdibleUnit {
 			assertEquals("food", testFood.getName());
 			assertEquals("lala", testFood.getDescription());
 			assertEquals(5, testFood.getQuantity());
-			assertEquals(Unit.cups, testFood.getUnit());
+			assertEquals(Edible.Unit.cups, testFood.getUnit());
 
 //			 testNutrition(testFood, 5, 5, 5, 5);
 			assertEquals(5, testFood.getCalories());
@@ -161,14 +100,6 @@ public class TestEdibleUnit {
 	@DisplayName("Complex tests")
 	class Test_Complex{
 		private Edible testFood;
-		private byte[] testPic = {(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,};
 		private  String photo ="String test_instruction=\"very long instructions sdakjlfhadsljfkhldsakjhfiuweasdhyfuiklewahearewrw\" +\n" +
 				"                        \"adsjfkghbewakjdshfljkaewhdflkaewj\\njewifhewl\\r isdfauhjljkewf\\n\\\\wieosuhjrfiol;ewk\" +\n" +
 				"                        \"53465687-/34324o90ukljo&$^#$^@#$%@#^%$*#$#%@@$#@$@!$@#\";";
@@ -178,7 +109,7 @@ public class TestEdibleUnit {
 
 			testFood = new Edible();
 			try {
-				testFood.initDetails(1, "food", "lala", 5, Unit.cups);
+				testFood.initDetails(1, "food", "lala", 5, Edible.Unit.cups);
 				testFood.initNutrition(5, 5, 5, 5);
 				testFood.initCategories(true, false, true, false, true);
 				testFood.initMetadata(true, photo);
@@ -227,7 +158,7 @@ public class TestEdibleUnit {
 		void testSetName()
 		{
 			try{
-				testFood.initDetails(1, null, "lala", 5, Unit.cups);
+				testFood.initDetails(1, null, "lala", 5, Edible.Unit.cups);
 				fail("Should throw IO exception");
 			}
 			catch (Exception e){
@@ -236,7 +167,7 @@ public class TestEdibleUnit {
 			}
 
 			try{
-				testFood.initDetails(1, "", "lala", 5, Unit.cups);
+				testFood.initDetails(1, "", "lala", 5, Edible.Unit.cups);
 				fail("Should throw IO exception");
 			}
 			catch (Exception e){
@@ -249,7 +180,7 @@ public class TestEdibleUnit {
 		void testSetDescription()
 		{
 			try{
-				testFood.initDetails(1, "food", null, 5, Unit.cups);
+				testFood.initDetails(1, "food", null, 5, Edible.Unit.cups);
 				fail("Should throw IO exception");
 			}
 			catch (Exception e){
@@ -278,7 +209,7 @@ public class TestEdibleUnit {
 			byte[] testPic =null;
 			//input a null photo should throw exception
 			try{
-				testFood.initDetails(1, "food", "lala", 5, Unit.cups);
+				testFood.initDetails(1, "food", "lala", 5, Edible.Unit.cups);
 				testFood.initMetadata(true, null);
 				fail("Should throw IO exception");
 			}
@@ -288,7 +219,7 @@ public class TestEdibleUnit {
 			}
 			//re design set photo (string) empty casenew code
 			try{
-				testFood.initDetails(1, "food", "lala", 5, Unit.cups);
+				testFood.initDetails(1, "food", "lala", 5, Edible.Unit.cups);
 				testFood.initMetadata(true, "");
 				fail("Should throw IO exception");
 			}
@@ -349,7 +280,7 @@ public class TestEdibleUnit {
 		@Test
 		void testDBKey(){
 			try {
-				testFood.initDetails(0, "food", "lala", 5, Unit.cups);
+				testFood.initDetails(0, "food", "lala", 5, Edible.Unit.cups);
 				assertEquals(0,testFood.getDbkey());
 			}
 			catch (Exception e)
@@ -358,7 +289,7 @@ public class TestEdibleUnit {
 			}
 
 			try {
-				testFood.initDetails(Integer.MAX_VALUE, "food", "lala", 5, Unit.cups);
+				testFood.initDetails(Integer.MAX_VALUE, "food", "lala", 5, Edible.Unit.cups);
 				assertEquals(Integer.MAX_VALUE,testFood.getDbkey());
 			}
 			catch (Exception e)
@@ -370,7 +301,7 @@ public class TestEdibleUnit {
 		@Test
 		void testQuality(){
 			try {
-				testFood.initDetails(5, "food", "lala", 1, Unit.cups);
+				testFood.initDetails(5, "food", "lala", 1, Edible.Unit.cups);
 				assertEquals(1,testFood.getQuantity());
 			}
 			catch (Exception e)
@@ -379,7 +310,7 @@ public class TestEdibleUnit {
 			}
 
 			try {
-				testFood.initDetails(5, "food", "lala", 9999, Unit.cups);
+				testFood.initDetails(5, "food", "lala", 9999, Edible.Unit.cups);
 				assertEquals(9999, testFood.getQuantity());
 			}
 			catch (Exception e)
@@ -404,7 +335,7 @@ public class TestEdibleUnit {
 		void testSetDbkey()
 		{
 			try {
-				testFood.initDetails(-1, "food", "lala", 5, Unit.cups);
+				testFood.initDetails(-1, "food", "lala", 5, Edible.Unit.cups);
 				fail("Should throw IO exception, id <0 throw IO exception");
 			}
 			catch (Exception e)

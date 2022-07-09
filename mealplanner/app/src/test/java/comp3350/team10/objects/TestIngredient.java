@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class TestIngredientUnit {
+public class TestIngredient {
 
 
     @Nested
@@ -48,7 +48,7 @@ public class TestIngredientUnit {
                 testEdible.initDetails(1,"lala","lala",1,Unit.cups);
                 testEdible.initNutrition(5,5,5,5);
             }
-            catch (IOException e){
+            catch (IllegalArgumentException e){
                 fail("testEdible initial fail");
             }
 

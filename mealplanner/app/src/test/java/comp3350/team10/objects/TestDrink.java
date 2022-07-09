@@ -173,10 +173,7 @@
              testNutrition(testDrink,100,100,100,100);
              testCategories(testDrink,false,true,true,true,true);
          }
-
-
      }
-
  }
 //
 // 	@Nested
