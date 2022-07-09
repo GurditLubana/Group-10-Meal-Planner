@@ -129,6 +129,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             else {
                 id = results.getInt("EDIBLEID");
             }
+
             name = results.getString("NAME");
             description = results.getString("Description");
             quantity = results.getInt("Quantity");
@@ -626,10 +627,13 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         ArrayList<Edible> edibleLog = new ArrayList<Edible>();
         try {
             PreparedStatement fineEdibles = currConn.prepareStatement("SELECT * FROM EdibleHistory " +
-                    "INNER JOIN EDIBLE ON EDIBLE.EdibleID = EdibleHistory.EDIBLEID WHERE HistoryID = ?");
+                    "INNER JOIN EDIBLE ON Edible.EdibleID = EdibleHistory.EDIBLEID WHERE HistoryID = ?");
             PreparedStatement findCustomEdibles = currConn.prepareStatement("SELECT * FROM EdibleHistory " +
                     "INNER JOIN CUSTOMEDIBLE ON CUSTOMEDIBLE.CUSTOMEDIBLEID = EdibleHistory.CUSTOMEDIBLEID WHERE HistoryID = ?");
+            PreparedStatement getBase = currConn.prepareStatement("SELECT Unit, Quantity FROM Edible WHERE EdibleID = ?");
+            PreparedStatement getCustomBase = currConn.prepareStatement("SELECT Unit, Quantity FROM CustomEdible WHERE CustomEdibleID = ?");
             ResultSet results;
+            ResultSet origBase;
 
             Edible currEdible;
             EdibleLog currLog;
@@ -637,12 +641,19 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
 
             fineEdibles.setInt(1, historyID);
             results = fineEdibles.executeQuery();
+
             //non custom
             while (results.next()) {
-                currEdible = this.readEdible(results, true); //this will return true when id = 0 on first one
+                currEdible = this.readEdible(results, false); //this will return true when id = 0 on first one
+                getBase.setInt(1, currEdible.getDbkey());
+                origBase = getBase.executeQuery();
+                origBase.next();
+                currEdible.setBaseQuantity(origBase.getInt("Quantity"));
+                currEdible.setBaseUnit(this.findUnit(origBase.getString("Unit")));
                 unit = this.findUnit(results.getString("Unit"));
                 currLog = new EdibleLog(currEdible).init(results.getInt("Quantity"), unit);
                 edibleLog.add(currLog);
+                origBase.close();
             }
             results.close();
 
@@ -651,9 +662,15 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             //custom
             while (results.next()) {
                 currEdible = this.readEdible(results, true); //this will return true when id = 0 on first one
+                getCustomBase.setInt(1, currEdible.getDbkey());
+                origBase = getCustomBase.executeQuery();
+                origBase.next();
+                currEdible.setBaseQuantity(origBase.getInt("Quantity"));
+                currEdible.setBaseUnit(this.findUnit(origBase.getString("Unit")));
                 unit = this.findUnit(results.getString("Unit"));
                 currLog = new EdibleLog(currEdible).init(results.getInt("Quantity"), unit);
                 edibleLog.add(currLog);
+                origBase.close();
             }
             results.close();
         }
@@ -795,19 +812,19 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
 
             for (int i = 0; i < edibles.size(); i++) {
                 currEdible = edibles.get(i);
-
+                System.out.println(currEdible.getName());
                 if (currEdible.getIsCustom()) {
                     addCustomEdibleHistory.setInt(1, historyID);
                     addCustomEdibleHistory.setInt(2, currEdible.getDbkey());
                     addCustomEdibleHistory.setDouble(3, currEdible.getQuantity());
                     addCustomEdibleHistory.setString(4, currEdible.getUnit().toString());
-                    addCustomEdibleHistory.executeQuery();
+                    addCustomEdibleHistory.executeUpdate();
                 } else {
                     addEdibleHistory.setInt(1, historyID);
                     addEdibleHistory.setInt(2, currEdible.getDbkey());
                     addEdibleHistory.setDouble(3, currEdible.getQuantity());
                     addEdibleHistory.setString(4, currEdible.getUnit().toString());
-                    addEdibleHistory.executeQuery();
+                    addEdibleHistory.executeUpdate();
                 }
             }
 
@@ -824,11 +841,11 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
 
     public void deleteLog(DailyLog delLog, int userID) {
         try {
-            PreparedStatement setExerciseActual = currConn.prepareStatement("DELETE History WHERE Date = ? AND UserID = ?");
+            PreparedStatement setExerciseActual = currConn.prepareStatement("DELETE FROM History WHERE Date = ? AND UserID = ?");
 
             setExerciseActual.setString(1, this.convertDateToString(delLog.getDate()));
             setExerciseActual.setInt(2, userID);
-            setExerciseActual.executeQuery();
+            setExerciseActual.executeUpdate();
         }
         catch (Exception e) {
             System.out.println(e);

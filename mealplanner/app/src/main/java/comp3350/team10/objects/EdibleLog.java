@@ -26,7 +26,7 @@ public class EdibleLog extends Edible {
             this.initDetails(edible.getDbkey(), edible.getName(), edible.getDescription(), edible.getQuantity(), edible.getUnit());
             this.initNutrition(edible.getCalories(), edible.getProtein(), edible.getCarbs(), edible.getFat());
             this.initCategories(edible.getIsAlcoholic(), edible.getIsSpicy(), edible.getIsVegan(), edible.getIsVegetarian(), edible.getIsGlutenFree());
-            this.initMetadata(true, edible.getPhotoBytes());
+            this.initMetadata(edible.getIsCustom(), edible.getPhotoBytes());
             this.init(edible.getQuantity(), edible.getUnit());
         }
         catch(Exception e) {
@@ -55,7 +55,7 @@ public class EdibleLog extends Edible {
     public void setCalories() throws IOException { //cannot call super because these are shadowed and is not supported in java
         UnitConverter converter = new UnitConverter(this.baseUnit, this.baseQuantity, this.baseCalories);
         int newCalories = converter.getCalories(unit, quantity).intValue();
-
+//base unit is units
         if(newCalories >= 0 && newCalories <= Constant.ENTRY_MAX_VALUE) {
             this.calories = newCalories;
         }

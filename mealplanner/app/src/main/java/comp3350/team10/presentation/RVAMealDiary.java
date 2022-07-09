@@ -88,7 +88,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         itemName.setText(currentItem.getName());
         itemQty.setText(String.format("%3.2f", currentItem.getQuantity()));
         itemUnit.setText(currentItem.getUnit().toString());
-        itemCals.setText(String.format("%3d", (int) currentItem.getCalories()));
+        itemCals.setText(String.format("%3d", (int) currentItem.getCalories())); //this is the part thats broken
 
         // Bitmap bmp = BitmapFactory.decodeByteArray(currentItem.getPhotoBytes(), 0,
         // currentItem.getPhotoBytes().length);

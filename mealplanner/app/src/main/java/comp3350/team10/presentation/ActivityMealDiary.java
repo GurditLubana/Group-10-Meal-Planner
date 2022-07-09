@@ -347,20 +347,24 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public void setEntryQty(Double amount, String unit) {
+        ArrayList<Edible> temp = new ArrayList<Edible>();
         EdibleLog selectedItem = null;
         UnitConverter converter = null;
 
         try {
             if (this.savedItem instanceof EdibleLog) {
                 selectedItem = (EdibleLog) this.savedItem;
-                //converter = new UnitConverter(selectedItem.getUnit(), selectedItem.getQuantity(), selectedItem.getCalories());
                 selectedItem.setQuantity(amount);
                 selectedItem.setUnit(Edible.Unit.valueOf(unit));
                 selectedItem.setCalories();
 
                 this.showContextUI(-1);
-                this.currLog.setEdibleList(data);
-                this.opExec.logChangedUpdateDB();
+                for(int i = 0; i < data.size() - 1; i++) {
+                    temp.add(data.get(i));
+                }
+
+                this.currLog.setEdibleList(temp);
+                this.opExec.logChangedUpdateDB(); //crashes because there is the extra one
                 this.updateLiveData();
             }
         } catch (Exception e) {
