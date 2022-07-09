@@ -47,19 +47,4 @@ public class TrendsOps {
         return dataFrame;
     }
 
-    private ArrayList<Double> stubData(DataFrame.DataType dataType) { // TODO this is stub, remove when persistence is ready
-        ArrayList<Double> stubArray = new ArrayList<Double>();
-        int[] multiplier = {1,4,12,24,48,96};
-        for(int i = 0;  i < multiplier[this.span.ordinal()]; i++) {
-            stubArray.add(new Double(1500.00));
-            stubArray.add(new Double(1200.00));
-            stubArray.add(new Double(1300.00));
-            stubArray.add(new Double(1700.00));
-            stubArray.add(new Double(1400.00));
-            stubArray.add(new Double(2500.00));
-            stubArray.add(new Double(2000.00));
-        }
-
-        return stubArray;
-    }
 }
