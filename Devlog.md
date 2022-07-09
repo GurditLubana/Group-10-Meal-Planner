@@ -1340,6 +1340,15 @@ Duration: 5 hrs
      - the Quantity type. I leave some comments and a fail() message about detail
      - set un-initial ingredient obj is success, should not success    
 
+
+### 2022-07-08 follow the Josef request to change the test edible unit test
+     Dev:
+      - Zhou
+Duration: 1 hrs
+   Tasks:
+   follow the Josef request to change the test edible unit test
+    - change all combine assert method like testDetail to simple assert and find a problem
+    - problem 1. if I set a null photo to set in it, it should throw a exception, but it actually not.
      
 
 
