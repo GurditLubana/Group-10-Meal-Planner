@@ -706,14 +706,14 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         Calendar today = (Calendar) this.calendar.clone();
         this.history = new ArrayList<>();
         Integer[] data = null;
-        int calorieGoal = 2000;
         int calorieConsumed = 1200;
         int exerciseCalories = 600;
+        int calorieGoal = 2000;
         int weight = 200;
-        int offsetGoal = 0;
-        int offsetActual = 0;
         int offsetExercise = 0;
+        int offsetActual = 0;
         int offsetWeight = 0;
+        int offsetGoal = 0;
 
         for(int i = 0; i < DataFrame.numDays[DataFrame.Span.All.ordinal()]; i++){
 
@@ -731,7 +731,6 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             data[4] = new Integer(weight + offsetWeight);
             history.add(data);
         }
-
     }
 
 }
