@@ -28,11 +28,15 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     private ArrayList<Edible> dbRecipeDrink;    //Drink recipes
     private ArrayList<Edible> dbRecipeFood;     //Food
     private ArrayList<Edible> dbRecipeMeal;     //Meal recipes
+    private final static int OFFSET_FOOD = 1;
+    private final static int OFFSET_SOLO_DRINKS = 31;
+    private final static int OFFSET_MEAL = 41;
 
     //User and History Database
     private final static int USER_ID = 0;       //Default user id
     private ArrayList<DailyLog> dbFoodLog;      //Logs
     private User currUser;                      //The current user
+
 
 
     public DataAccessStub(String dbName) {
@@ -92,106 +96,6 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
                 return result;
             }
         });
-    }
-
-    private void loadRecipeDrinks() {
-        this.dbRecipeDrink = new ArrayList<Edible>();
-        ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
-
-        try {
-            DrinkIngredient ingredient = (DrinkIngredient) new DrinkIngredient().init(this.dbRecipeFood.get(1), 1.1, Edible.Unit.cups);
-            ingredients.add(ingredient);
-            ingredients.add(ingredient);
-
-            this.dbRecipeDrink.add(new Drink()
-                    .initDetails(1, "Mojito", "The best", 10, Edible.Unit.cups)
-                    .initNutrition(100, 30, 45, 25)
-                    .initMetadata(false, "mojito.jpg")
-            );
-            ((Drink) this.dbRecipeDrink.get(0)).setIngredients(ingredients);
-            this.dbRecipeDrink.add(new Drink()
-                    .initDetails(2, "Ceasar", "People who siracha in this are gross", 20, Edible.Unit.tbsp)
-                    .initNutrition(200, 25, 40, 35)
-                    .initMetadata(false, "ceasar.jpg")
-            );
-            ((Drink) this.dbRecipeDrink.get(1)).setIngredients(ingredients);
-            this.dbRecipeDrink.add(new Drink()
-                    .initDetails(3, "Mai-Tai", "Also amazing", 30, Edible.Unit.g)
-                    .initNutrition(300, 40, 50, 10)
-                    .initMetadata(false, "maitai.jpg")
-            );
-            ((Drink) this.dbRecipeDrink.get(2)).setIngredients(ingredients);
-        } catch (Exception e) {
-            System.out.println(e);
-            System.exit(1);
-        }
-    }
-
-    private void loadRecipeFood() {
-        this.dbRecipeFood = new ArrayList<Edible>();
-
-        try {
-            this.dbRecipeFood.add(new Edible()
-                    .initDetails(4, "Cheese", "desc", 10, Edible.Unit.cups)
-                    .initNutrition(100, 30, 45, 25)
-                    .initCategories(true, false, false, false, false)
-                    .initMetadata(false, "cheese.jpg")
-            );
-            this.dbRecipeFood.add(new Edible()
-                    .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
-                    .initNutrition(200, 25, 40, 35)
-                    .initCategories(false, false, false, false, true)
-                    .initMetadata(false, "chicken.jpg")
-            );
-            this.dbRecipeFood.add(new Edible()
-                    .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
-                    .initNutrition(300, 40, 50, 10)
-                    .initCategories(false, false, true, true, false)
-                    .initMetadata(false, "carrots.jpg")
-            );
-            this.dbRecipeFood.add(new Edible()
-                    .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
-                    .initNutrition(400, 30, 20, 50)
-                    .initCategories(false, false, false, false, false)
-                    .initMetadata(false, "rabbit.jpg")
-            );
-        } catch (Exception e) {
-            System.out.println(e);
-            System.exit(1);
-        }
-    }
-
-    private void loadRecipeMeals() {
-        this.dbRecipeMeal = new ArrayList<Edible>();
-        ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
-
-        try {
-            Ingredient ingredient = new Ingredient().init(this.dbRecipeFood.get(1), 1.1, Edible.Unit.cups);
-            ingredients.add(ingredient);
-            ingredients.add(ingredient);
-
-            this.dbRecipeMeal.add(new Meal()
-                    .initDetails(8, "meal1", "desc", 10, Edible.Unit.ml)
-                    .initNutrition(100, 30, 45, 25)
-                    .initMetadata(false, "photo.jpg")
-            );
-            ((Meal) this.dbRecipeMeal.get(0)).setIngredients(ingredients);
-            this.dbRecipeMeal.add(new Meal()
-                    .initDetails(9, "meal2", "desc", 20, Edible.Unit.oz)
-                    .initNutrition(200, 25, 40, 35)
-                    .initMetadata(false, "photo.jpg")
-            );
-            ((Meal) this.dbRecipeMeal.get(1)).setIngredients(ingredients);
-            this.dbRecipeMeal.add(new Meal()
-                    .initDetails(10, "Another meal!", "desc", 30, Edible.Unit.cups)
-                    .initNutrition(300, 40, 50, 10)
-                    .initMetadata(false, "photo.jpg")
-            );
-            ((Meal) this.dbRecipeMeal.get(2)).setIngredients(ingredients);
-        } catch (Exception e) {
-            System.out.println(e);
-            System.exit(1);
-        }
     }
 
     public EdibleLog findEdibleByKey(int key, boolean isCustom) throws NoSuchElementException{
@@ -396,4 +300,343 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             this.dbFoodLog.remove(delLog);
         }
     }
+
+    private void loadRecipeDrinks() {
+        this.dbRecipeDrink = new ArrayList<Edible>();
+        ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
+        loadRecipeDrinksSolo();
+        DrinkIngredient ingredient = null;
+
+        try {
+
+            ingredient = (DrinkIngredient) new DrinkIngredient().init(this.dbRecipeDrink.get(33 - OFFSET_SOLO_DRINKS), 1, Edible.Unit.oz);
+            ingredients.add(ingredient);
+
+            ingredient = (DrinkIngredient) new DrinkIngredient().init(this.dbRecipeDrink.get(34 - OFFSET_SOLO_DRINKS), 2, Edible.Unit.oz);
+            ingredients.add(ingredient);
+
+            ingredient = (DrinkIngredient) new DrinkIngredient().init(this.dbRecipeFood.get(25 - OFFSET_FOOD), 1, Edible.Unit.oz);
+            ingredients.add(ingredient);
+
+            ingredient = (DrinkIngredient) new DrinkIngredient().init(this.dbRecipeFood.get(24 - OFFSET_FOOD), 1, Edible.Unit.oz);
+            ingredients.add(ingredient);
+
+            this.dbRecipeDrink.add(new Drink()
+                    .initDetails(35, "Mojito", "The best", 10, Edible.Unit.cups)
+                    .initNutrition(100, 30, 45, 25)
+                    .initMetadata(false, "mojito.jpg")
+            );
+            ((Drink) this.dbRecipeDrink.get(35 - OFFSET_SOLO_DRINKS)).setIngredients(ingredients);
+
+            ingredients.clear();
+            ingredient = (DrinkIngredient) new DrinkIngredient().init(this.dbRecipeDrink.get(31 - OFFSET_SOLO_DRINKS), 1, Edible.Unit.oz);
+            ingredients.add(ingredient);
+
+            ingredient = (DrinkIngredient) new DrinkIngredient().init(this.dbRecipeDrink.get(32 - OFFSET_SOLO_DRINKS), 1, Edible.Unit.oz);
+            ingredients.add(ingredient);
+
+            this.dbRecipeDrink.add(new Drink()
+                    .initDetails(36, "Vodka OJ", "basic drink", 20, Edible.Unit.tbsp)
+                    .initNutrition(200, 25, 40, 35)
+                    .initMetadata(false, "vodkaoj.jpg")
+            );
+            ((Drink) this.dbRecipeDrink.get(36 - OFFSET_SOLO_DRINKS)).setIngredients(ingredients);
+
+            ingredients.clear();
+            ingredient = (DrinkIngredient) new DrinkIngredient().init(this.dbRecipeDrink.get(33 - OFFSET_SOLO_DRINKS), 1, Edible.Unit.oz);
+            ingredients.add(ingredient);
+
+            ingredient = (DrinkIngredient) new DrinkIngredient().init(this.dbRecipeDrink.get(32 - OFFSET_SOLO_DRINKS), 1, Edible.Unit.oz);
+            ingredients.add(ingredient);
+
+            this.dbRecipeDrink.add(new Drink()
+                    .initDetails(37, "Vodka Tonic", "basic drink", 20, Edible.Unit.tbsp)
+                    .initNutrition(200, 25, 40, 35)
+                    .initMetadata(false, "vodkatonic.jpg")
+            );
+            ((Drink) this.dbRecipeDrink.get(37 - OFFSET_SOLO_DRINKS)).setIngredients(ingredients);
+
+        } catch (Exception e) {
+            System.out.println("DataAccessStub loadRecipeDrinks failed " + e);
+        }
+    }
+
+    private void loadRecipeDrinksSolo() {
+
+        try {
+        this.dbRecipeDrink.add(new Drink()
+                .initDetails(31, "Orange Juice", "OJ", 100, Edible.Unit.ml)
+                .initNutrition(100, 30, 45, 25)
+                .initMetadata(false, "orangejuice.jpg")
+        );
+        this.dbRecipeDrink.add(new Drink()
+                .initDetails(32, "Vodka", "Water", 10, Edible.Unit.ml)
+                .initNutrition(100, 30, 45, 25)
+                .initMetadata(false, "vodka.jpg")
+        );
+        this.dbRecipeDrink.add(new Drink()
+                .initDetails(33, "Tonic", "Tonic Water", 10, Edible.Unit.ml)
+                .initNutrition(100, 30, 45, 25)
+                .initMetadata(false, "tonic.jpg")
+        );
+        this.dbRecipeDrink.add(new Drink()
+                .initDetails(34, "White Rum", "Skyrim City", 1, Edible.Unit.oz)
+                .initNutrition(200, 30, 45, 25)
+                .initMetadata(false, "whiterum.jpg")
+        );
+        } catch (Exception e) {
+            System.out.println("DataAccessStub loadRecipeDrinksSolo failed " + e);
+        }
+    }
+    private void loadRecipeMeals() {
+        this.dbRecipeMeal = new ArrayList<Edible>();
+        ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+        Ingredient ingredient = null;
+
+        try {
+
+            ingredient = new Ingredient().init(this.dbRecipeFood.get(1 - OFFSET_FOOD), 1, Edible.Unit.cups);
+            ingredients.add(ingredient);
+
+            ingredient = new Ingredient().init(this.dbRecipeFood.get(2 - OFFSET_FOOD), 1, Edible.Unit.cups);
+            ingredients.add(ingredient);
+
+            this.dbRecipeMeal.add(new Meal()
+                    .initDetails(41, "Meal 2items", "desc", 10, Edible.Unit.ml)
+                    .initNutrition(100, 30, 45, 25)
+                    .initMetadata(false, "photo.jpg")
+            );
+            ((Meal) this.dbRecipeMeal.get(41 - OFFSET_MEAL)).setIngredients(ingredients);
+
+            ingredients.clear();
+            ingredient = new Ingredient().init(this.dbRecipeFood.get(3 - OFFSET_FOOD), 1, Edible.Unit.cups);
+            ingredients.add(ingredient);
+
+            ingredient = new Ingredient().init(this.dbRecipeFood.get(4 - OFFSET_FOOD), 1, Edible.Unit.cups);
+            ingredients.add(ingredient);
+
+            ingredient = new Ingredient().init(this.dbRecipeFood.get(5 - OFFSET_FOOD), 1, Edible.Unit.cups);
+            ingredients.add(ingredient);
+            this.dbRecipeMeal.add(new Meal()
+                    .initDetails(42, "Meal 3items", "desc", 20, Edible.Unit.oz)
+                    .initNutrition(200, 25, 40, 35)
+                    .initMetadata(false, "photo.jpg")
+            );
+            ((Meal) this.dbRecipeMeal.get(42 - OFFSET_MEAL)).setIngredients(ingredients);
+
+            ingredients.clear();
+            ingredient = new Ingredient().init(this.dbRecipeFood.get(6 - OFFSET_FOOD), 1, Edible.Unit.cups);
+            ingredients.add(ingredient);
+
+            ingredient = new Ingredient().init(this.dbRecipeFood.get(7 - OFFSET_FOOD), 1, Edible.Unit.cups);
+            ingredients.add(ingredient);
+            this.dbRecipeMeal.add(new Meal()
+                    .initDetails(43, "Meal 67", "desc", 30, Edible.Unit.cups)
+                    .initNutrition(300, 40, 50, 10)
+                    .initMetadata(false, "photo.jpg")
+            );
+            ((Meal) this.dbRecipeMeal.get(43 - OFFSET_MEAL)).setIngredients(ingredients);
+
+            ingredients.clear();
+            ingredient = new Ingredient().init(this.dbRecipeFood.get(8 - OFFSET_FOOD), 1, Edible.Unit.cups);
+            ingredients.add(ingredient);
+
+            ingredient = new Ingredient().init(this.dbRecipeFood.get(9 - OFFSET_FOOD), 1, Edible.Unit.cups);
+            ingredients.add(ingredient);
+            this.dbRecipeMeal.add(new Meal()
+                    .initDetails(44, "Meal 89", "desc", 30, Edible.Unit.cups)
+                    .initNutrition(300, 40, 50, 10)
+                    .initMetadata(false, "photo.jpg")
+            );
+            ((Meal) this.dbRecipeMeal.get(44 - OFFSET_MEAL)).setIngredients(ingredients);
+
+            ingredients.clear();
+            ingredient = new Ingredient().init(this.dbRecipeFood.get(10 - OFFSET_FOOD), 1, Edible.Unit.cups);
+            ingredients.add(ingredient);
+
+            ingredient = new Ingredient().init(this.dbRecipeFood.get(11 - OFFSET_FOOD), 1, Edible.Unit.cups);
+            ingredients.add(ingredient);
+            this.dbRecipeMeal.add(new Meal()
+                    .initDetails(45, "Meal 1011", "desc", 30, Edible.Unit.cups)
+                    .initNutrition(300, 40, 50, 10)
+                    .initMetadata(false, "photo.jpg")
+            );
+            ((Meal) this.dbRecipeMeal.get(45 - OFFSET_MEAL)).setIngredients(ingredients);
+
+            ingredients.clear();
+            ingredient = new Ingredient().init(this.dbRecipeFood.get(12 - OFFSET_FOOD), 1, Edible.Unit.cups);
+            ingredients.add(ingredient);
+
+            ingredient = new Ingredient().init(this.dbRecipeFood.get(13 - OFFSET_FOOD), 1, Edible.Unit.cups);
+            ingredients.add(ingredient);
+            this.dbRecipeMeal.add(new Meal()
+                    .initDetails(46, "Meal 1213", "desc", 30, Edible.Unit.cups)
+                    .initNutrition(300, 40, 50, 10)
+                    .initMetadata(false, "photo.jpg")
+            );
+            ((Meal) this.dbRecipeMeal.get(46 - OFFSET_MEAL)).setIngredients(ingredients);
+        } catch (Exception e) {
+            System.out.println("DataAccessStub loadRecipeMeals failed " + e);
+        }
+    }
+
+    private void loadRecipeFood() {
+        this.dbRecipeFood = new ArrayList<Edible>();
+
+        try {
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(1, "Apple", "Newton's Bane", 100, Edible.Unit.g)
+                    .initNutrition(100, 30, 45, 25)
+                    .initCategories(true, false, false, false, false)
+                    .initMetadata(false, "apple.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(2, "Pear", "This shape bad", 200, Edible.Unit.g)
+                    .initNutrition(200, 25, 40, 35)
+                    .initCategories(false, false, false, false, true)
+                    .initMetadata(false, "pear.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(3, "Cracker", "crack desc", 300, Edible.Unit.g)
+                    .initNutrition(300, 40, 50, 10)
+                    .initCategories(false, false, true, true, false)
+                    .initMetadata(false, "cracker.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(4, "Grain of Rice", "rice desc", 400, Edible.Unit.g)
+                    .initNutrition(400, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "rice.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(5, "Walnut", "not a floor nut", 1, Edible.Unit.tbsp)
+                    .initNutrition(100, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "walnut.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(6, "Molasse", "Molasse desc", 1, Edible.Unit.oz)
+                    .initNutrition(100, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "molasse.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(7, "Cereal", "Cereal desc", 1, Edible.Unit.ml)
+                    .initNutrition(100, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "cereal.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(8, "Nutella", "Nutella desc", 1, Edible.Unit.serving)
+                    .initNutrition(100, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "nutella.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(9, "Steak", "Steak desc", 1, Edible.Unit.cups)
+                    .initNutrition(100, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "steak.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(10, "Banana", "Banana desc", 1, Edible.Unit.liter)
+                    .initNutrition(100, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "banana.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(11, "Burger", "Burger desc", 1, Edible.Unit.tsp)
+                    .initNutrition(100, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "burger.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(12, "Bologna", "Bologna desc", 1, Edible.Unit.tsp)
+                    .initNutrition(100, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "bologna.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(13, "Berry", "Berry desc", 100, Edible.Unit.g)
+                    .initNutrition(100, 30, 45, 25)
+                    .initCategories(true, false, false, false, false)
+                    .initMetadata(false, "berry.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(14, "Burrito", "Burrito desc", 200, Edible.Unit.g)
+                    .initNutrition(200, 25, 40, 35)
+                    .initCategories(false, false, false, false, true)
+                    .initMetadata(false, "burrito.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(15, "Bean", "Bean desc", 300, Edible.Unit.g)
+                    .initNutrition(300, 40, 50, 10)
+                    .initCategories(false, false, true, true, false)
+                    .initMetadata(false, "bean.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(16, "Broccoli", "Broccoli desc", 400, Edible.Unit.g)
+                    .initNutrition(400, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "broccoli.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(17, "Biscotti", "Biscotti desc", 1, Edible.Unit.tbsp)
+                    .initNutrition(100, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "biscotti.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(18, "Bun", "Bun desc", 1, Edible.Unit.oz)
+                    .initNutrition(100, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "bun.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(19, "Risotto", "Risotto desc", 1, Edible.Unit.ml)
+                    .initNutrition(100, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "risotto.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(20, "Ham", "Ham desc", 1, Edible.Unit.serving)
+                    .initNutrition(100, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "ham.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(21, "Pizza", "Pizza desc", 1, Edible.Unit.cups)
+                    .initNutrition(100, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "pizza.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(22, "Potatoes", "Potatoes desc", 1, Edible.Unit.liter)
+                    .initNutrition(100, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "potatoes.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(23, "Carrot", "Carrot desc", 1, Edible.Unit.tsp)
+                    .initNutrition(100, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "carrot.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(24, "Mint", "Mint desc", 1, Edible.Unit.tsp)
+                    .initNutrition(100, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "mint.jpg")
+            );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(25, "Lime", "Mint desc", 1, Edible.Unit.serving)
+                    .initNutrition(50, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "lime.jpg")
+            );
+        } catch (Exception e) {
+            System.out.println("DataAccessStub loadFoodRecipes failed " + e);
+        }
+    }
+
 }
