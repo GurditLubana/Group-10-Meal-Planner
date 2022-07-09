@@ -1400,7 +1400,7 @@ Duration: 15 hrs
 ### 2022-07-08
      Dev:
       - Dane
-Duration: started at 1 currently 11, still going
+Duration: 12 hrs
    Tasks:
    - Added historical dev log entries
    - Added a consistant way to close and save the database
@@ -1414,4 +1414,6 @@ Duration: started at 1 currently 11, still going
    - Fixed changing edible log entries in HSQL
    - Fixed calorie actual based on edibles - cannot use aliases in preparedStatements, took awhile to the duplicate naming scheme was an issue
    - Fixed an issue where changing calorie and exercise goal caused a crash in HSQL
-   - Future calorie goals are no longer pushed to other logs - this should be done is userOps
+   - Future calorie goals are no longer pushed to other logs (now consistant in HSQL and stubDB) - this should be done is userOps
+   - Refactored Edible class so that photos are handled by string paths
+   - fixed conflictions accross files
