@@ -40,21 +40,21 @@
                                  .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
                                  .initNutrition(400, 30, 20, 50)
                                  .initCategories(false, false, false, false, false)
-                                 .initMetadata(false, null)
+                                 .initMetadata(false, "photo.jpg")
                  ).init(40, Edible.Unit.tbsp));
                  edibleList.add( new EdibleLog(
                          new Edible()
                                  .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
                                  .initNutrition(300, 40, 50, 10)
                                  .initCategories(false, false, true, true, false)
-                                 .initMetadata(false, null)
+                                 .initMetadata(false, "photo.jpg")
                  ).init(30, Edible.Unit.g));
                  edibleList.add( new EdibleLog(
                          new Edible()
                                  .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
                                  .initNutrition(200, 25, 40, 35)
                                  .initCategories(false, false, false, false, true)
-                                 .initMetadata(false, null)
+                                 .initMetadata(false, "photo.jpg")
                  ).init(20, Edible.Unit.tsp));
 
              }
@@ -121,28 +121,28 @@
                                      .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
                                      .initNutrition(400, 30, 20, 50)
                                      .initCategories(false, false, false, false, false)
-                                     .initMetadata(false, null)
+                                     .initMetadata(false, "photo.jpg")
                      ).init(40, Edible.Unit.tbsp));
                      newList.add( new EdibleLog(
                              new Edible()
                                      .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
                                      .initNutrition(300, 40, 50, 10)
                                      .initCategories(false, false, true, true, false)
-                                     .initMetadata(false, null)
+                                     .initMetadata(false, "photo.jpg")
                      ).init(30, Edible.Unit.g));
                      newList.add( new EdibleLog(
                              new Edible()
                                      .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
                                      .initNutrition(200, 25, 40, 35)
                                      .initCategories(false, false, false, false, true)
-                                     .initMetadata(false, null)
+                                     .initMetadata(false, "photo.jpg")
                      ).init(20, Edible.Unit.tsp));
                      newList.add( new EdibleLog(
                              new Edible()
                                      .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
                                      .initNutrition(400, 30, 20, 50)
                                      .initCategories(false, false, false, false, false)
-                                     .initMetadata(false, null)
+                                     .initMetadata(false, "photo.jpg")
                      ).init(40, Edible.Unit.tbsp));
                  }
                  catch(Exception e) {
@@ -185,7 +185,7 @@
                              .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
                              .initNutrition(400, 30, 20, 50)
                              .initCategories(false, false, false, false, false)
-                             .initMetadata(false, null);
+                             .initMetadata(false, "photo.jpg");
                  }
                  catch(Exception e) {
                      System.out.println(e);
@@ -214,28 +214,28 @@
                                      .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
                                      .initNutrition(400, 30, 20, 50)
                                      .initCategories(false, false, false, false, false)
-                                     .initMetadata(false, null)
+                                     .initMetadata(false, "photo.jpg")
                      ).init(40, Edible.Unit.tbsp));
                      newList.add( new EdibleLog(
                              new Edible()
                                      .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
                                      .initNutrition(300, 40, 50, 10)
                                      .initCategories(false, false, true, true, false)
-                                     .initMetadata(false, null)
+                                     .initMetadata(false, "photo.jpg")
                      ).init(30, Edible.Unit.g));
                      newList.add( new EdibleLog(
                              new Edible()
                                      .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
                                      .initNutrition(200, 25, 40, 35)
                                      .initCategories(false, false, false, false, true)
-                                     .initMetadata(false, null)
+                                     .initMetadata(false, "photo.jpg")
                      ).init(20, Edible.Unit.tsp));
                      newList.add( new EdibleLog(
                              new Edible()
                                      .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
                                      .initNutrition(400, 30, 20, 50)
                                      .initCategories(false, false, false, false, false)
-                                     .initMetadata(false, null)
+                                     .initMetadata(false, "photo.jpg")
                      ).init(40, Edible.Unit.tbsp));
                  }
                  catch(Exception e) {
@@ -295,7 +295,7 @@
                              .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
                              .initNutrition(350, 30, 20, 50)
                              .initCategories(false, false, false, false, false)
-                             .initMetadata(false, null);
+                             .initMetadata(false, "photo.jpg");
                  }
                  catch(Exception e) {
                      System.out.println(e);
@@ -320,7 +320,7 @@
                              .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
                              .initNutrition(350, 30, 20, 50)
                              .initCategories(false, false, false, false, false)
-                             .initMetadata(false, null);
+                             .initMetadata(false, "photo.jpg");
                  }
                  catch(Exception e) {
                      System.out.println(e);
@@ -362,21 +362,21 @@
                                  .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
                                  .initNutrition(400, 30, 20, 50)
                                  .initCategories(false, false, false, false, false)
-                                 .initMetadata(false, null)
+                                 .initMetadata(false, "photo.jpg")
                  ).init(40, Edible.Unit.tbsp));
                  edibleList.add(new EdibleLog(
                          new Edible()
                                  .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
                                  .initNutrition(300, 40, 50, 10)
                                  .initCategories(false, false, true, true, false)
-                                 .initMetadata(false, null)
+                                 .initMetadata(false, "photo.jpg")
                  ).init(30, Edible.Unit.g));
                  edibleList.add(new EdibleLog(
                          new Edible()
                                  .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
                                  .initNutrition(200, 25, 40, 35)
                                  .initCategories(false, false, false, false, true)
-                                 .initMetadata(false, null)
+                                 .initMetadata(false, "photo.jpg")
                  ).init(20, Edible.Unit.tsp));
 
              } catch (Exception e) {
@@ -456,7 +456,7 @@
                              .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
                              .initNutrition(200, 30, 20, 50)
                              .initCategories(false, false, false, false, false)
-                             .initMetadata(false, null);
+                             .initMetadata(false, "photo.jpg");
                  }
                  catch(Exception e) {
                      System.out.println(e);
@@ -491,7 +491,7 @@
                              .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
                              .initNutrition(200, 30, 20, 50)
                              .initCategories(false, false, false, false, false)
-                             .initMetadata(false, null);
+                             .initMetadata(false, "photo.jpg");
                  }
                  catch(Exception e) {
                      System.out.println(e);
@@ -535,21 +535,21 @@
                                      .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
                                      .initNutrition(400, 30, 20, 50)
                                      .initCategories(false, false, false, false, false)
-                                     .initMetadata(false, null)
+                                     .initMetadata(false, "photo.jpg")
                      ).init(40, Edible.Unit.tbsp));
                      edibleList.add(new EdibleLog(
                              new Edible()
                                      .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
                                      .initNutrition(300, 40, 50, 10)
                                      .initCategories(false, false, true, true, false)
-                                     .initMetadata(false, null)
+                                     .initMetadata(false, "photo.jpg")
                      ).init(30, Edible.Unit.g));
                      edibleList.add(new EdibleLog(
                              new Edible()
                                      .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
                                      .initNutrition(200, 25, 40, 35)
                                      .initCategories(false, false, false, false, true)
-                                     .initMetadata(false, null)
+                                     .initMetadata(false, "photo.jpg")
                      ).init(20, Edible.Unit.tsp));
 
                  } catch (Exception e) {
@@ -740,21 +740,21 @@
                                      .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
                                      .initNutrition(400, 30, 20, 50)
                                      .initCategories(false, false, false, false, false)
-                                     .initMetadata(false, null)
+                                     .initMetadata(false, "photo.jpg")
                      ).init(40, Edible.Unit.tbsp));
                      edibleList.add(new EdibleLog(
                              new Edible()
                                      .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
                                      .initNutrition(300, 40, 50, 10)
                                      .initCategories(false, false, true, true, false)
-                                     .initMetadata(false, null)
+                                     .initMetadata(false, "photo.jpg")
                      ).init(30, Edible.Unit.g));
                      edibleList.add(new EdibleLog(
                              new Edible()
                                      .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
                                      .initNutrition(200, 25, 40, 35)
                                      .initCategories(false, false, false, false, true)
-                                     .initMetadata(false, null)
+                                     .initMetadata(false, "photo.jpg")
                      ).init(20, Edible.Unit.tsp));
 
                  } catch (Exception e) {
@@ -837,21 +837,21 @@
                                  .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
                                  .initNutrition(400, 30, 20, 50)
                                  .initCategories(false, false, false, false, false)
-                                 .initMetadata(false, null)
+                                 .initMetadata(false, "photo.jpg")
                  ).init(40, Edible.Unit.tbsp));
                  edibleList.add(new EdibleLog(
                          new Edible()
                                  .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
                                  .initNutrition(300, 40, 50, 10)
                                  .initCategories(false, false, true, true, false)
-                                 .initMetadata(false, null)
+                                 .initMetadata(false, "photo.jpg")
                  ).init(30, Edible.Unit.g));
                  edibleList.add(new EdibleLog(
                          new Edible()
                                  .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
                                  .initNutrition(200, 25, 40, 35)
                                  .initCategories(false, false, false, false, true)
-                                 .initMetadata(false, null)
+                                 .initMetadata(false, "photo.jpg")
                  ).init(20, Edible.Unit.tsp));
 
              } catch (Exception e) {

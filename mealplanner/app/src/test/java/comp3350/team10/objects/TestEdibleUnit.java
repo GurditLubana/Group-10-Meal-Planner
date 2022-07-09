@@ -67,7 +67,7 @@ public class TestEdibleUnit {
             food.setName(newName);
             assertEquals(newName,food.getName());
         }
-        catch (IOException e){
+        catch (IllegalArgumentException e){
             fail("Can not set Name " + newName + "\n");
         }
     }
@@ -77,7 +77,7 @@ public class TestEdibleUnit {
             food.setDescription(newDescription);
             assertEquals(newDescription,food.getDescription());
         }
-        catch (IOException e){
+        catch (IllegalArgumentException e){
             fail("Can not set Description " + newDescription + "\n");
         }
     }
@@ -86,7 +86,7 @@ public class TestEdibleUnit {
         try{
             food.initNutrition(expect, expect, expect, expect);
         }
-        catch (Exception e)
+        catch (IllegalArgumentException e)
         {
             System.out.println(e.getMessage());
             fail("Should not catch any exception, input is number is invalid");
@@ -222,7 +222,7 @@ public class TestEdibleUnit {
                 fail("Should throw IO exception");
             }
             catch (Exception e){
-                assertTrue(e instanceof IOException);
+                assertTrue(e instanceof IllegalArgumentException);
                 assertEquals("Invalid description",e.getMessage());
             }
 
@@ -236,7 +236,7 @@ public class TestEdibleUnit {
                 fail("Should throw IO exception");
             }
             catch (Exception e){
-                assertTrue(e instanceof IOException);
+                assertTrue(e instanceof IllegalArgumentException);
                 assertEquals("Invalid unit",e.getMessage());
             }
         }
@@ -247,11 +247,11 @@ public class TestEdibleUnit {
 
             try{
                 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
-                testFood.initMetadata(true, null);
+                testFood.initMetadata(true, "photo.jpg");
                 fail("Should throw IO exception");
             }
             catch (Exception e){
-                assertTrue(e instanceof IOException);
+                assertTrue(e instanceof IllegalArgumentException);
                 assertEquals("Invalid photo",e.getMessage());
             }
 
@@ -262,7 +262,7 @@ public class TestEdibleUnit {
                 fail("Should throw IO exception");
             }
             catch (Exception e){
-                assertTrue(e instanceof IOException);
+                assertTrue(e instanceof IllegalArgumentException);
                 assertEquals("Invalid photo",e.getMessage());
             }
 
@@ -273,7 +273,7 @@ public class TestEdibleUnit {
                 fail("Should throw IO exception");
             }
             catch (Exception e){
-                assertTrue(e instanceof IOException);
+                assertTrue(e instanceof IllegalArgumentException);
                 assertEquals("Invalid photo",e.getMessage());
             }
         }
@@ -365,7 +365,7 @@ public class TestEdibleUnit {
            }
            catch (Exception e)
            {
-               assertTrue(e instanceof IOException);
+               assertTrue(e instanceof IllegalArgumentException);
                assertEquals("Invalid DB key",e.getMessage());
            }
        }
@@ -379,7 +379,7 @@ public class TestEdibleUnit {
            }
            catch (Exception e)
            {
-               assertTrue(e instanceof IOException);
+               assertTrue(e instanceof IllegalArgumentException);
                assertEquals("Invalid protein value",e.getMessage());
            }
 
@@ -389,7 +389,7 @@ public class TestEdibleUnit {
            }
            catch (Exception e)
            {
-               assertTrue(e instanceof IOException);
+               assertTrue(e instanceof IllegalArgumentException);
                assertEquals("Invalid protein value",e.getMessage());
            }
        }
@@ -403,7 +403,7 @@ public class TestEdibleUnit {
            }
            catch (Exception e)
            {
-               assertTrue(e instanceof IOException);
+               assertTrue(e instanceof IllegalArgumentException);
                assertEquals("Invalid fat value",e.getMessage());
            }
 
@@ -413,7 +413,7 @@ public class TestEdibleUnit {
            }
            catch (Exception e)
            {
-               assertTrue(e instanceof IOException);
+               assertTrue(e instanceof IllegalArgumentException);
                assertEquals("Invalid fat value",e.getMessage());
            }
        }
@@ -427,7 +427,7 @@ public class TestEdibleUnit {
            }
            catch (Exception e)
            {
-               assertTrue(e instanceof IOException);
+               assertTrue(e instanceof IllegalArgumentException);
                assertEquals("Invalid carb value",e.getMessage());
            }
 
@@ -437,7 +437,7 @@ public class TestEdibleUnit {
            }
            catch (Exception e)
            {
-               assertTrue(e instanceof IOException);
+               assertTrue(e instanceof IllegalArgumentException);
                assertEquals("Invalid carb value",e.getMessage());
            }
        }
@@ -451,7 +451,7 @@ public class TestEdibleUnit {
            }
            catch (Exception e)
            {
-               assertTrue(e instanceof IOException);
+               assertTrue(e instanceof IllegalArgumentException);
                assertEquals("Invalid calorie value",e.getMessage());
            }
 
@@ -461,7 +461,7 @@ public class TestEdibleUnit {
            }
            catch (Exception e)
            {
-               assertTrue(e instanceof IOException);
+               assertTrue(e instanceof IllegalArgumentException);
                assertEquals("Invalid calorie value",e.getMessage());
            }
        }
@@ -475,7 +475,7 @@ public class TestEdibleUnit {
            }
            catch (Exception e)
            {
-               assertTrue(e instanceof IOException);
+               assertTrue(e instanceof IllegalArgumentException);
                assertEquals("Invalid quantity",e.getMessage());
            }
 
@@ -485,7 +485,7 @@ public class TestEdibleUnit {
            }
            catch (Exception e)
            {
-               assertTrue(e instanceof IOException);
+               assertTrue(e instanceof IllegalArgumentException);
                assertEquals("Invalid quantity",e.getMessage());
            }
        }

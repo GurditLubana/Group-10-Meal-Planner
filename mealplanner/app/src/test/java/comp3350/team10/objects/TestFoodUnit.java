@@ -63,7 +63,7 @@ package comp3350.team10.objects;
 			 food.setName(newName);
 			 assertEquals(newName,food.getName());
 		 }
-		 catch (IOException e){
+		 catch (IllegalArgumentException e){
 			 fail("Can not set Name " + newName + "\n");
 		 }
 	 }
@@ -73,7 +73,7 @@ package comp3350.team10.objects;
 			 food.setDescription(newDescription);
 			 assertEquals(newDescription,food.getDescription());
 		 }
-		 catch (IOException e){
+		 catch (IllegalArgumentException e){
 			 fail("Can not set Description " + newDescription + "\n");
 		 }
 	 }
