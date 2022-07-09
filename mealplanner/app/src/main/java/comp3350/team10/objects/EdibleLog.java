@@ -25,11 +25,7 @@ public class EdibleLog extends Edible {
             this.initDetails(edible.getDbkey(), edible.getName(), edible.getDescription(), edible.getQuantity(), edible.getUnit());
             this.initNutrition(edible.getCalories(), edible.getProtein(), edible.getCarbs(), edible.getFat());
             this.initCategories(edible.getIsAlcoholic(), edible.getIsSpicy(), edible.getIsVegan(), edible.getIsVegetarian(), edible.getIsGlutenFree());
-            this.initMetadata(true, edible.getPhoto());
-            this.init(edible.getQuantity(), edible.getUnit());
-        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("EdibleLog init failed " + e);
-        } catch (Exception e) {
             throw new Exception("EdibleLog init setCalories failed " + e);
         }
     }

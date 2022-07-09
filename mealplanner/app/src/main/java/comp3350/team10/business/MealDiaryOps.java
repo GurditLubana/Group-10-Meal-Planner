@@ -75,7 +75,6 @@ public class MealDiaryOps {
     }
 
     private void dateChangedUpdateList() {
-        this.logChangedUpdateDB();
         this.currLog = this.db.searchFoodLogByDate(this.logDate, opUser.getUser().getUserID());
     }
 
@@ -84,12 +83,14 @@ public class MealDiaryOps {
     }
 
     public void logChangedUpdateDB(){
-        //TODO: persistence method push current dailylog to db
+        this.db.deleteLog(this.currLog, opUser.getUser().getUserID());
+        this.db.addLog(this.currLog, opUser.getUser().getUserID());
     }
 
     public void addByKey(int dbkey, boolean isCustom) throws NoSuchElementException {
         EdibleLog newItem = null;
         Edible foundEdible = null;
+
         try {
             newItem = db.findEdibleByKey(dbkey, isCustom);
         }
@@ -97,11 +98,14 @@ public class MealDiaryOps {
             System.out.println(e);
             throw new NoSuchElementException("MealDiaryOps addByKey the supplied dbkey does not match any db entry");
         }
-            try {
-                foundEdible = new EdibleLog(newItem).init(newItem.getQuantity(), newItem.getUnit());
-                this.currLog.addEdibleToLog(foundEdible);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
+            
+        try {
+            foundEdible = new EdibleLog(newItem).init(newItem.getQuantity(), newItem.getUnit());
+            this.currLog.addEdibleToLog(foundEdible); //this needs to change to a db call
+            this.logChangedUpdateDB();
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

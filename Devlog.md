@@ -245,6 +245,22 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
 ---
 <br>
 
+
+### 2022 July 8
+    Attendees:  
+    - Dane  
+    - Josef  
+    - Gurdit  
+    - Zhao  
+
+    Topic: Discussed Iter2 sprint to finish and what remains
+    ----- 
+    Discussions: We started off by discussing iter3 goals, then moved into discussed new code base changes for those who were unfamiliar.  We then drafted up a list of remaining tasks and distributed it amongst ourselves.
+    -----
+    Rationale: Iter2 requirements and works in progress
+---
+<br>
+
 <br>
 
 # Dev tasks 
@@ -1235,7 +1251,7 @@ Duration: 15hrs
    - Database was dependent on android - refactored according to the sample project
    - Created db.script for database loading
    - Wrote all SQL statements using utils.sql in java *except for edible getters from database*
-   - Refactored codebase with Josef (removed extra information that Edible didnt need)
+   - Refactored codebase with Josef (removed extra information that Edible didnt need such as presentation information)
    - Refactored DailyLog which now gets the UserID of whoever it belongs to
    - Refactored RecipeOps and fixed bug where the wrong information was being loaded in drink/meal tabs
    - Refactored RecipeActivity - now when an image is null an eggplant is displayed otherwise the image gets displayed
@@ -1274,7 +1290,7 @@ Duration: 10hrs
      Dev:
       - Dane
       - Josef
-Duration: hrs start time 12.30
+Duration: 14 hrs
    Tasks:
    - Debug the .script file for the database
    - Researched .log and what it does
@@ -1284,7 +1300,8 @@ Duration: hrs start time 12.30
    - added default data to .script file
    - Debugged SQL statements
    - Watched Yuja videos 
-   - Refactored DB implementation in SharedDB
+   - Refactored DB implementation in 
+   - Watched Yuja videos
    
    - Bugs:
    - Instructions do not get loaded properly with SQL
@@ -1364,5 +1381,35 @@ Duration: 8 hrs
      - b.if the input ingredients arraylist the size is 0 should let all the Nutrition and categories to default, but some of Categories is not set to default
      
 
+### 2022-07-03
+     Dev:
+      - Dane
+Duration: 4 hrs
+   Tasks:
+   - Watched Yuja videos
+   - Dedicated time to better learn best software design practices
 
+### 2022-07-04
+     Dev:
+      - Dane
+Duration: 15 hrs
+   Tasks:
+   - Watched Yuja videos
+   - Dedicated time to better learn best software design practices
 
+### 2022-07-08
+     Dev:
+      - Dane
+Duration: started at 1 currently 11, still going
+   Tasks:
+   - Added historical dev log entries
+   - Added a consistant way to close and save the database
+   - Cleaned up application logic 
+   - Fxied get instructions in HSQL 
+   - Fixed HSQL issue where ot would crash on new entries
+   - GetEdibleList now works - there was a bug in the SQL - cannot inject table names in, also needed to SELECT from edible and custom edible individually
+   - Fixed an error where the meal diary was passing the addDiary button (at the end of its display)
+   - Fixed deleting edible log entries in HSQL
+   - Fixed adding edible log entries in HSQL
+   - Fixed changing edible log entries in HSQL
+   - Fixed calorie actual based on edibles - cannot use aliases in preparedStatements, took awhile to the duplicate naming scheme was an issue

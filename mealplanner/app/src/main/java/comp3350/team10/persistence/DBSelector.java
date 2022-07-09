@@ -42,6 +42,15 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
         this.logDB = this.stub;
     }
 
+    public void save() {
+        if(this.hsql != null){
+            this.hsql.save();
+        }
+        else if (this.stub != null){
+            this.stub.save();
+        }
+    }
+
     public void close(){
         if(this.hsql != null){
             this.hsql.close();

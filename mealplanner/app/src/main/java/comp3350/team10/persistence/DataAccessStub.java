@@ -140,6 +140,9 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         System.out.println("Closed " + this.dbType + " database " + this.dbName);
     }
 
+    public void save() {
+        System.out.println("saved datbase");
+    }
 
     //This section implements UserDBInterface'
     public void addUser(String name, int height, int weight) {
