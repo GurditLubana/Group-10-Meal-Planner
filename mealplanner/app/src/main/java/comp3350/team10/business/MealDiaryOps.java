@@ -34,21 +34,21 @@ public class MealDiaryOps {
     }
 
     public void nextDate() throws IllegalArgumentException {
-        Calendar newDate = calendarDeepCopy(this.logDate);
+        Calendar newDate = (Calendar) this.logDate.clone();
         newDate.add(Calendar.DAY_OF_YEAR, INCREMENT);
         try {
             this.setListDate(newDate);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw e;
         }
     }
 
     public void prevDate() throws IllegalArgumentException {
-        Calendar newDate = calendarDeepCopy(this.logDate);
+        Calendar newDate = (Calendar) this.logDate.clone();
         newDate.add(Calendar.DAY_OF_YEAR, -INCREMENT);
         try {
             this.setListDate(newDate);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw e;
         }
     }
@@ -66,12 +66,6 @@ public class MealDiaryOps {
         } else {
             throw new IllegalArgumentException("MealDiaryOps requires dates within " + Constant.DATE_LIMIT + " years of the current date");
         }
-    }
-
-    private Calendar calendarDeepCopy(Calendar date){
-        Calendar copy = Calendar.getInstance();
-        copy.set(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DATE));
-        return copy;
     }
 
     private void dateChangedUpdateList() {
@@ -96,7 +90,7 @@ public class MealDiaryOps {
         }
         catch (Exception e){
             System.out.println(e);
-            throw new NoSuchElementException("MealDiaryOps addByKey the supplied dbkey does not match any db entry");
+            throw new NoSuchElementException("MealDiaryOps addByKey the supplied dbkey does not match any db entry " + e);
         }
             
         try {

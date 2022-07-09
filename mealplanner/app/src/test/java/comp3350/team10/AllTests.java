@@ -26,8 +26,8 @@
          TestDailyLog.class,
          TestDataFrame.class,
          TestDrinkUnit.class,
-         TestFoodUnit.class,
-         TestEdibleUnit.class,
+         //TestFoodUnit.class,
+         //TestEdibleUnit.class,
          TestIngredientUnit.class,
          //TestMealUnit.class
  })
