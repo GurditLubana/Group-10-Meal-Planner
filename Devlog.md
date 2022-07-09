@@ -1345,6 +1345,7 @@ Duration: 5 hrs
      Dev:
       - Zhou
 Duration: 1 hrs
+
    Tasks:
    follow the Josef request to change the test edible unit test
     - change all combine assert method like testDetail to simple assert and find a problem
@@ -1356,8 +1357,8 @@ Duration: 1 hrs
 Duration: 7 hrs
    Tasks:
    - finished the drink obj unit test. problem need to solve
-     - detail:
-     - the problem need to fix, problem about setInstructions()
+   - detail:
+   - the problem need to fix, problem about setInstructions()
      - 1. cannot update the correct value to the drink, there have problem about the about a update the data form the array list,"my array of all input is nutrition is total in 100 but the update result is 40"
      - 2.if the input ingredients arraylist the size is 0 should let all the Nutrition and categories to default, but some of Categories is not set to default
      
