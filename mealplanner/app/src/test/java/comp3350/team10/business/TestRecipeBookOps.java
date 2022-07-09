@@ -393,7 +393,7 @@ public class TestRecipeBookOps {
         }
 
         @Test
-        @DisplayName("Testing some edge cases for addDrinks method")
+        @DisplayName("Some Tests for addDrinks method that should throw an Exception" )
 
         void testAddMeals() {
 
