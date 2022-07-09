@@ -59,24 +59,6 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         currUser = new User(USER_ID, "USER", 666, 666, 666, 666);
     }
 
-    private void loadFoodlog() {
-        int today = calendarToInt(calendar);
-
-        this.dbFoodLog = new ArrayList<DailyLog>(); // key = yyyyddd integer , Calorie goal, Exercise goal, actual exercise, Foodlog
-
-        try {
-            ArrayList<Edible> logDay = new ArrayList<Edible>();
-            logDay.add(new EdibleLog(this.dbRecipeFood.get(0)).init(10, Edible.Unit.cups));
-            logDay.add(new EdibleLog(this.dbRecipeFood.get(1)).init(20, Edible.Unit.g));
-            logDay.add(new EdibleLog(this.dbRecipeFood.get(2)).init(30, Edible.Unit.ml));
-            this.dbFoodLog.add(new DailyLog().init(calendar, logDay, 700, 100, 0));
-
-            this.sortDBFoodLog();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
     private Integer calendarToInt(Calendar date) {
         return Integer.parseInt(String.valueOf(date.get(Calendar.YEAR)) + String.valueOf(date.get(Calendar.DAY_OF_YEAR)));
     }
@@ -296,6 +278,86 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
+    private void loadFoodlog() {
+        Calendar today = (Calendar) this.calendar.clone();
+
+        this.dbFoodLog = new ArrayList<DailyLog>(); // key = yyyyddd integer , Calorie goal, Exercise goal, actual exercise, Foodlog
+        ArrayList<Edible> logDay = null;
+        try {
+            logDay = new ArrayList<Edible>();
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(0)).init(1, Edible.Unit.cups));
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(1)).init(20, Edible.Unit.g));
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(2)).init(30, Edible.Unit.ml));
+            this.dbFoodLog.add(new DailyLog().init(today, logDay, 2000, 600, 0));
+
+            today = (Calendar) this.calendar.clone();
+            today.add(Calendar.DAY_OF_YEAR, -1);
+            logDay = new ArrayList<Edible>();
+            logDay.add(new EdibleLog(this.dbRecipeMeal.get(0)).init(10, Edible.Unit.ml));
+            logDay.add(new EdibleLog(this.dbRecipeMeal.get(1)).init(20, Edible.Unit.oz));
+            logDay.add(new EdibleLog(this.dbRecipeMeal.get(2)).init(30, Edible.Unit.cups));
+            this.dbFoodLog.add(new DailyLog().init(today, logDay, 2000, 600, 0));
+
+            today = (Calendar) this.calendar.clone();
+            today.add(Calendar.DAY_OF_YEAR, -2);
+            logDay = new ArrayList<Edible>();
+            logDay.add(new EdibleLog(this.dbRecipeDrink.get(4)).init(20, Edible.Unit.ml));
+            logDay.add(new EdibleLog(this.dbRecipeDrink.get(5)).init(20, Edible.Unit.oz));
+            logDay.add(new EdibleLog(this.dbRecipeDrink.get(6)).init(30, Edible.Unit.cups));
+            this.dbFoodLog.add(new DailyLog().init(today, logDay, 2000, 600, 0));
+
+            today = (Calendar) this.calendar.clone();
+            today.add(Calendar.DAY_OF_YEAR, -3);
+            logDay = new ArrayList<Edible>();
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(1)).init(20, Edible.Unit.g));
+            logDay.add(new EdibleLog(this.dbRecipeDrink.get(5)).init(20, Edible.Unit.oz));
+            logDay.add(new EdibleLog(this.dbRecipeMeal.get(2)).init(30, Edible.Unit.cups));
+            this.dbFoodLog.add(new DailyLog().init(today, logDay, 2000, 600, 0));
+
+            today = (Calendar) this.calendar.clone();
+            today.add(Calendar.DAY_OF_YEAR, -4);
+            logDay = new ArrayList<Edible>();
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(1)).init(20, Edible.Unit.g));
+            logDay.add(new EdibleLog(this.dbRecipeDrink.get(4)).init(20, Edible.Unit.ml));
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(8)).init(1, Edible.Unit.cups));
+            logDay.add(new EdibleLog(this.dbRecipeMeal.get(0)).init(30, Edible.Unit.ml));
+            this.dbFoodLog.add(new DailyLog().init(today, logDay, 2000, 600, 0));
+
+            today = (Calendar) this.calendar.clone();
+            today.add(Calendar.DAY_OF_YEAR, -6);
+            logDay = new ArrayList<Edible>();
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(1)).init(20, Edible.Unit.g));
+            logDay.add(new EdibleLog(this.dbRecipeDrink.get(5)).init(20, Edible.Unit.oz));
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(11)).init(1.5, Edible.Unit.tsp));
+            logDay.add(new EdibleLog(this.dbRecipeMeal.get(2)).init(30, Edible.Unit.cups));
+            this.dbFoodLog.add(new DailyLog().init(today, logDay, 2000, 600, 0));
+
+            today = (Calendar) this.calendar.clone();
+            today.add(Calendar.DAY_OF_YEAR, -7);
+            logDay = new ArrayList<Edible>();
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(1)).init(20, Edible.Unit.g));
+            logDay.add(new EdibleLog(this.dbRecipeDrink.get(6)).init(20, Edible.Unit.cups));
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(8)).init(1, Edible.Unit.cups));
+            logDay.add(new EdibleLog(this.dbRecipeMeal.get(4)).init(20, Edible.Unit.cups));
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(21)).init(1, Edible.Unit.liter));
+            this.dbFoodLog.add(new DailyLog().init(today, logDay, 2000, 600, 0));
+
+            today = (Calendar) this.calendar.clone();
+            today.add(Calendar.DAY_OF_YEAR, -8);
+            logDay = new ArrayList<Edible>();
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(1)).init(20, Edible.Unit.g));
+            logDay.add(new EdibleLog(this.dbRecipeDrink.get(5)).init(20, Edible.Unit.oz));
+            logDay.add(new EdibleLog(this.dbRecipeFood.get(8)).init(1, Edible.Unit.cups));
+            logDay.add(new EdibleLog(this.dbRecipeMeal.get(1)).init(30, Edible.Unit.oz));
+            logDay.add(new EdibleLog(this.dbRecipeDrink.get(6)).init(30, Edible.Unit.cups));
+            this.dbFoodLog.add(new DailyLog().init(today, logDay, 2000, 600, 0));
+
+            this.sortDBFoodLog();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     private void loadRecipeDrinks() {
         this.dbRecipeDrink = new ArrayList<Edible>();
         ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
@@ -317,7 +379,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             ingredients.add(ingredient);
 
             this.dbRecipeDrink.add(new Drink()
-                    .initDetails(35, "Mojito", "The best", 10, Edible.Unit.cups)
+                    .initDetails(35, "Mojito", "The best", 10, Edible.Unit.ml)
                     .initNutrition(100, 30, 45, 25)
                     .initMetadata(false, "mojito.jpg")
             );
@@ -331,7 +393,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             ingredients.add(ingredient);
 
             this.dbRecipeDrink.add(new Drink()
-                    .initDetails(36, "Vodka OJ", "basic drink", 20, Edible.Unit.tbsp)
+                    .initDetails(36, "Vodka OJ", "basic drink", 20, Edible.Unit.oz)
                     .initNutrition(200, 25, 40, 35)
                     .initMetadata(false, "vodkaoj.jpg")
             );
@@ -345,7 +407,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             ingredients.add(ingredient);
 
             this.dbRecipeDrink.add(new Drink()
-                    .initDetails(37, "Vodka Tonic", "basic drink", 20, Edible.Unit.tbsp)
+                    .initDetails(37, "Vodka Tonic", "basic drink", 20, Edible.Unit.cups)
                     .initNutrition(200, 25, 40, 35)
                     .initMetadata(false, "vodkatonic.jpg")
             );
