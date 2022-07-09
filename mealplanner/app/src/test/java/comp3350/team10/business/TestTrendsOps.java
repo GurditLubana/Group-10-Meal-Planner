@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import comp3350.team10.objects.DataFrame;
 import comp3350.team10.persistence.SharedDB;
 
-class TestTrendsOps {
+public class TestTrendsOps {
 
     @Nested
     @DisplayName("Simple Tests")
@@ -127,7 +127,6 @@ class TestTrendsOps {
             assertEquals(DataFrame.DataType.values().length, dataFrames.size());
             assertEquals(672, dataFrames.get(0).size());
         }
-
     }
 
     @Nested
@@ -153,6 +152,5 @@ class TestTrendsOps {
                 ops.getDataFrames(null);
             });
         }
-
     }
 }
