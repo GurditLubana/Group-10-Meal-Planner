@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.ArrayList;
 
 import comp3350.team10.objects.DailyLog;
+import comp3350.team10.objects.DataFrame;
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
@@ -108,8 +109,8 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
         this.logDB.setLogExerciseGoal(userID, goal, date);
     }
 
-    public ArrayList<Double> getDataFrame(String dataType, String span){
-        return this.logDB.getDataFrame(dataType, span);
+    public ArrayList<Double> getDataFrame(DataFrame.DataType dataType, int days){
+        return this.logDB.getDataFrame(dataType, days);
     }
 
     public EdibleLog findEdibleByKey(int dbkey, boolean isCustom) {

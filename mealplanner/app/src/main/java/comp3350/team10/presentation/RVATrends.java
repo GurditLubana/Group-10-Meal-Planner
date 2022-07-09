@@ -71,7 +71,7 @@ public class RVATrends extends RecyclerViewAdapter {
         DataFrame dataFrame = this.dataSet.get(position);
         DataPoint[] dataPointArray = new DataPoint[dataFrame.size()];
         ArrayList<Double> dataArray = dataFrame.getData();
-        double chartMin = DataFrame.xAxisLimits[dataFrame.getSpan().ordinal()];
+        double chartMin = - DataFrame.numDays[dataFrame.getSpan().ordinal()];
 
         for (int i = 0; i < dataArray.size(); i++) {
             dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
@@ -106,7 +106,7 @@ public class RVATrends extends RecyclerViewAdapter {
         DataFrame dataFrame = this.dataSet.get(position);
         DataPoint[] dataPointArray = new DataPoint[dataFrame.size()];
         ArrayList<Double> dataArray = dataFrame.getData();
-        double chartMin = DataFrame.xAxisLimits[dataFrame.getSpan().ordinal()];
+        double chartMin = - DataFrame.numDays[dataFrame.getSpan().ordinal()];
 
         for (int i = 0; i < dataArray.size(); i++) {
             dataPointArray[i] = new DataPoint(i, dataArray.get(i).doubleValue());

@@ -7,8 +7,10 @@ import java.util.Comparator;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.NoSuchElementException;
+import java.util.concurrent.ThreadLocalRandom;
 
 import comp3350.team10.objects.DailyLog;
+import comp3350.team10.objects.DataFrame;
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
@@ -36,7 +38,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     private final static int USER_ID = 0;       //Default user id
     private ArrayList<DailyLog> dbFoodLog;      //Logs
     private User currUser;                      //The current user
-
+    ArrayList<Integer[]> history;               //user history
 
     public DataAccessStub(String dbName) {
         this.calendar = Calendar.getInstance();
@@ -53,6 +55,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         //Load user data
         this.loadUser();
         this.loadFoodlog();
+        this.loadHistory();
     }
 
     private void loadUser() {
@@ -143,7 +146,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         this.currUser.setHeight(newWeight);
     }
 
-    public void setCalorieGoal(int userID, double goal) {
+    public void setCalorieGoal(int userID, double goal) throws IllegalArgumentException {
         this.currUser.setCalorieGoal(goal);
     }
 
@@ -158,34 +161,31 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         try {
             sortDBFoodLog();
             currEntry.setCalorieGoal(goal);
-        } catch (Exception e) {
-            System.out.println(e);
-            System.exit(1);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("DataAccessStub setCalorieGoal invalid value provided " + e);
         }
     }
 
-    public void setLogExerciseGoal(int userID, double goal, Calendar date) {
+    public void setLogExerciseGoal(int userID, double goal, Calendar date) throws IllegalArgumentException {
         DailyLog currEntry = searchFoodLogByDate(date, userID);
 
         try {
             sortDBFoodLog();
             currEntry.setExerciseGoal(goal);
-        } catch (Exception e) {
-            System.out.println(e);
-            System.exit(1);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("DataAccessStub setCalorieGoal invalid value provided " + e);
         }
     }
 
-    public void setExerciseActual(double exerciseActual, DailyLog currLog, int userID) {
+    public void setExerciseActual(double exerciseActual, DailyLog currLog, int userID) throws IllegalArgumentException {
         DailyLog currEntry = searchFoodLogByDate(currLog.getDate(), userID);
 
         try {
             this.dbFoodLog.remove(currEntry);
             currEntry.setExerciseActual(exerciseActual);
             this.dbFoodLog.add(currEntry);
-        } catch (Exception e) {
-            System.out.println(e);
-            System.exit(1);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("DataAccessStub setCalorieGoal invalid value provided " + e);
         }
     }
 
@@ -272,8 +272,12 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
-    public ArrayList<Double> getDataFrame(String dataType, String span){
+    public ArrayList<Double> getDataFrame(DataFrame.DataType dataType, int days){
         ArrayList<Double> result = new ArrayList<>();
+
+            for(int i = 0; i < days; i++){
+                result.add(this.history.get(i)[dataType.ordinal() + 1].doubleValue());
+            }
 
         return result;
     }
@@ -696,6 +700,38 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             System.out.println("DataAccessStub loadFoodRecipes failed " + e);
 
         }
+    }
+
+    private void loadHistory() {
+        Calendar today = (Calendar) this.calendar.clone();
+        this.history = new ArrayList<>();
+        Integer[] data = null;
+        int calorieGoal = 2000;
+        int calorieConsumed = 1200;
+        int exerciseCalories = 600;
+        int weight = 200;
+        int offsetGoal = 0;
+        int offsetActual = 0;
+        int offsetExercise = 0;
+        int offsetWeight = 0;
+
+        for(int i = 0; i < DataFrame.numDays[DataFrame.Span.All.ordinal()]; i++){
+
+            offsetActual = ThreadLocalRandom.current().nextInt(-200 + i, 400 + i);
+            offsetGoal = ThreadLocalRandom.current().nextInt(-200, 200);
+            offsetExercise = ThreadLocalRandom.current().nextInt(-200, 200);
+            offsetWeight = ThreadLocalRandom.current().nextInt(-1 - (i % 29), 5);
+            today.add(Calendar.DAY_OF_YEAR, -i);
+            data = new Integer[5];
+
+            data[0] = new Integer(calendarToInt(today));
+            data[1] = new Integer(calorieGoal + offsetGoal);
+            data[2] = new Integer(calorieConsumed + offsetActual);
+            data[3] = new Integer(exerciseCalories + offsetExercise);
+            data[4] = new Integer(weight + offsetWeight);
+            history.add(data);
+        }
+
     }
 
 }

@@ -7,14 +7,14 @@ import java.util.ArrayList;
 public class DataFrame {
     public enum DataType {ConsumedCalories, NetCalories, ExerciseCalories, Weight}
     public enum Span {Week, Month, ThreeMonth, SixMonth, Year, All}
-    public static final int[] xAxisLimits = {-7, -28, -74, -128, -350, -700};
+    public static final int[] numDays = {7, 28, 84, 168, 336, 672};
+    private SimpleRegression regression;
     private ArrayList<Double> data;
+    private double trendPointA;
+    private double trendPointB;
     private DataType dataType;
     private Span span;
     private int size;
-    private double trendPointA;
-    private double trendPointB;
-    private SimpleRegression regression;
 
     public DataFrame(DataType dataType, Span span) throws NullPointerException {
         if (dataType != null) {
@@ -67,7 +67,7 @@ public class DataFrame {
     private void calculateTrend() {
         if (this.data.size() > 1) {
             this.trendPointB = regression.predict(0);
-            this.trendPointA = regression.predict(xAxisLimits[this.span.ordinal()]);
+            this.trendPointA = regression.predict(- numDays[this.span.ordinal()]);
         } else {
 
             this.trendPointB = 0;

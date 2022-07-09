@@ -16,5 +16,5 @@ public interface LogDBInterface {
     public void setExerciseActual(double newExercise, DailyLog currLog, int userID);
     public void setLogCalorieGoal(int userID, double goal, Calendar date);
     public void setLogExerciseGoal(int userID, double goal, Calendar date);
-    public ArrayList<Double> getDataFrame(String dataType, String span);
+    public ArrayList<Double> getDataFrame(DataFrame.DataType type, int days);
 }

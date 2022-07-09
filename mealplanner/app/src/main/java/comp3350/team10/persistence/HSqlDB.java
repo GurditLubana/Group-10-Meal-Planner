@@ -16,6 +16,7 @@ import java.util.List;
 
 import comp3350.team10.application.Main;
 import comp3350.team10.objects.DailyLog;
+import comp3350.team10.objects.DataFrame;
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
@@ -931,7 +932,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
 
             int userID, height, weight, calorieGoal, exerciseGoal;
             String name;
-            
+
             results.next();
             System.out.println("Get USER ID");
             System.out.println(results.getString("NAME"));
@@ -1030,6 +1031,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
     }
 
+
     public void setCalorieGoal(int userID, double goal) {
         try {
             PreparedStatement setCalorieGoal = currConn.prepareStatement("UPDATE USER SET CalorieGoal = ? WHERE UserID = ?");
@@ -1054,7 +1056,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
     }
 
-    public ArrayList<Double> getDataFrame(String dataType, String span){
+    public ArrayList<Double> getDataFrame(DataFrame.DataType dataType, int days){
         ArrayList<Double> result = new ArrayList<>();
 
         return result;
