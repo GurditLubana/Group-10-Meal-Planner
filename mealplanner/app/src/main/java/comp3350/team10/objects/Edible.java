@@ -30,6 +30,7 @@ public class Edible {
     //Metadata
     private boolean isCustom;                   //Flag that represents whether this Edible is custom or not
     private byte[] photoBytes;                  //The image path for a given edible
+    private String photo;
 
     public Edible() {
         this.edibleID = -1;
@@ -51,10 +52,11 @@ public class Edible {
 
         this.isCustom = false;
         this.photoBytes = null;
+        this.photo = null;
     }
 
     
-    public Edible initDetails(int id, String name, String description, double quantity, Unit unit) throws IOException {
+    public Edible initDetails(int id, String name, String description, double quantity, Unit unit) throws IllegalArgumentException {
         this.setDBKey(id);
         this.setName(name);
         this.setDescription(description);
@@ -64,7 +66,7 @@ public class Edible {
         return this;
     }
     
-    public Edible initNutrition(double calories, int protein, int carbs, int fat) throws IOException {
+    public Edible initNutrition(double calories, int protein, int carbs, int fat) throws IllegalArgumentException {
         this.setCalories(calories);
         this.setProtein(protein);
         this.setCarbs(carbs);
@@ -84,9 +86,16 @@ public class Edible {
         return this;
     }
 
-    public Edible initMetadata(boolean custom, byte[] photo) throws IOException {
+    public Edible initMetadata(boolean custom, byte[] photo) throws IOException { //TODO deprecate
         this.setCustom(custom);
         this.setPhotoBytes(photo);
+
+        return this;
+    }
+
+    public Edible initMetadata(boolean custom, String photo) throws IllegalArgumentException {
+        this.setCustom(custom);
+        this.setPhoto(photo);
 
         return this;
     }
@@ -140,21 +149,21 @@ public class Edible {
         return this.isGlutenFree;
     }
 
-    public void setDescription(String newDescription) throws IOException {
+    public void setDescription(String newDescription) throws IllegalArgumentException {
         if(newDescription != null) {
             this.description = newDescription;
         }
         else {
-            throw new IOException("Invalid description");
+            throw new IllegalArgumentException("Invalid description");
         }
     }
 
-    public void setProtein(int newProtein) throws IOException {
+    public void setProtein(int newProtein) throws IllegalArgumentException {
         if(newProtein <= Constant.ENTRY_MAX_VALUE && newProtein >= Constant.ENTRY_MIN_VALUE) {
             this.protein = newProtein;
         }
         else {
-            throw new IOException("Invalid protein value");
+            throw new IllegalArgumentException("Invalid protein value");
         }
     }
 
@@ -166,12 +175,12 @@ public class Edible {
         return this.carbs;
     }
 
-    public void setFat(int newFat) throws IOException {
+    public void setFat(int newFat) throws IllegalArgumentException {
         if(newFat <= Constant.ENTRY_MAX_VALUE && newFat >= Constant.ENTRY_MIN_VALUE) {
             this.fat = newFat;
         }
         else {
-            throw new IOException("Invalid fat value");
+            throw new IllegalArgumentException("Invalid fat value");
         }
     }
 
@@ -179,66 +188,75 @@ public class Edible {
         return this.fat;
     }
 
-    public void setCarbs(int newCarbs) throws IOException {
+    public void setCarbs(int newCarbs) throws IllegalArgumentException {
         if(newCarbs <= Constant.ENTRY_MAX_VALUE && newCarbs >= Constant.ENTRY_MIN_VALUE) {
             this.carbs = newCarbs;
         }
         else {
-            throw new IOException("Invalid carb value");
+            throw new IllegalArgumentException("Invalid carb value");
         }
     }
 
-    public void setCalories(double newCalories) throws IOException {
+    public void setCalories(double newCalories) throws IllegalArgumentException {
         if(newCalories <= Constant.ENTRY_MAX_VALUE && newCalories >= Constant.ENTRY_MIN_VALUE) {
             this.calories = newCalories;
         }
         else {
-            throw new IOException("Invalid calorie value");
+            throw new IllegalArgumentException("Invalid calorie value");
         }
     }
 
-    public void setBaseUnit(Unit newUnit) throws IOException {
+    public void setBaseUnit(Unit newUnit) throws IllegalArgumentException {
         if(newUnit != null) {
             this.baseUnit = newUnit;
         }
         else {
-            throw new IOException("Invalid unit");
+            throw new IllegalArgumentException("Invalid unit");
         }
     }
 
-    public void setBaseQuantity(double newQuantity) throws IOException {
+    public void setBaseQuantity(double newQuantity) throws IllegalArgumentException {
         if (newQuantity <= Constant.ENTRY_MAX_VALUE && newQuantity > Constant.ENTRY_MIN_VALUE) {
             this.baseQuantity = newQuantity;
         }
         else {
-            throw new IOException("Invalid quantity");
+            throw new IllegalArgumentException("Invalid quantity");
         }
     }
 
-    private void setDBKey(int dbkey) throws IOException {
+    private void setDBKey(int dbkey) throws IllegalArgumentException {
         if(dbkey >= 0) {
             this.edibleID = dbkey;
         }
         else {
-            throw new IOException("Invalid DB key");
+            throw new IllegalArgumentException("Invalid DB key");
         }
     }
 
-    public void setName(String name) throws IOException {
+    public void setName(String name) throws IllegalArgumentException {
         if(name != null && !name.equals("")) {
             this.name = name;
         }
         else {
-            throw new IOException("Invalid name");
+            throw new IllegalArgumentException("Invalid name");
         }
     }
 
-    public void setPhotoBytes(byte[] newPhoto) throws IOException {
+    public void setPhotoBytes(byte[] newPhoto) throws IllegalArgumentException {
         if(newPhoto == null || newPhoto.length >= MIN_BYTE_LENGTH_PER_PHOTO) {
             this.photoBytes = newPhoto;
         }
         else {
-            throw new IOException("Invalid photo");
+            throw new IllegalArgumentException("Invalid photo");
+        }
+    }
+
+    public void setPhoto(String filename) throws IllegalArgumentException {
+        if(name != null && !name.equals("")) {
+            this.name = name;
+        }
+        else {
+            throw new IllegalArgumentException("Invalid name");
         }
     }
 

@@ -23,7 +23,8 @@ public class UnitConverter {
             return getNewCalories(newUnit, newQuantity);
         }
         catch (Exception e){
-            throw e;
+            throw new Exception("An exception occurred while converting " +
+                    prevUnit + " " + prevQuantity + " to " + newUnit + " " + newQuantity + " " + e);
         }
     }
 

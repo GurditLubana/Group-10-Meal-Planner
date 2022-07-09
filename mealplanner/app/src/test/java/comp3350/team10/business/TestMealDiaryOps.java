@@ -133,6 +133,7 @@
              DailyLog currLog = ops.getCurrLog();
 
              //TODO test logchangedupdatedb
+             fail("logchangedupdatedb");
          }
 
      }
