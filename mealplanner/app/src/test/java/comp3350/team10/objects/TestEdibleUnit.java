@@ -2,36 +2,36 @@
 // 2022/7/2
 // have test simple,complex,empty,edge and invalid
 
-// problem found
-// 1. if I set a null photo to set in it, it should throw a exception, but it actually not.
+// problem found 
+// 1. if I set a null photo to set in it, it should throw a exception, but it actually not.(sloved2022/07/09 11:31 Am)
 
 package comp3350.team10.objects;
 
- import comp3350.team10.objects.*;
- import comp3350.team10.objects.Edible.Unit;
+import comp3350.team10.objects.*;
+import comp3350.team10.objects.Edible.Unit;
 
- import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
- import android.app.LauncherActivity;
+import android.app.LauncherActivity;
 
- import org.junit.jupiter.api.BeforeEach;
- import org.junit.jupiter.api.DisplayName;
- import org.junit.jupiter.api.Nested;
- import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
- import java.io.IOException;
 
- public class TestEdibleUnit {
 
-	 //some test function
+public class TestEdibleUnit {
 
-	 void testPhotoBytes(Edible food, byte[] expect) {
-		 assertEquals(expect.length, food.getPhotoBytes().length);
-		 for (int i = 0; i < expect.length; i++) {
-			 assertEquals(expect[i], (food.getPhotoBytes())[i]);
-		 }
+	//some test function
 
-	 }
+//	void testPhotoBytes(Edible food, byte[] expect) {
+//		assertEquals(expect.length, food.getPhotoBytes().length);
+//		for (int i = 0; i < expect.length; i++) {
+//			assertEquals(expect[i], (food.getPhotoBytes())[i]);
+//		}
+//
+//	}
 
 //	 void testDetail(Edible food, int idExpect, String nameExpect, String descriptionExpect, int quantityExpect, Unit unitExpect) {
 //		 assertEquals(idExpect,food.getDbkey());// not get id fucntion
@@ -61,317 +61,338 @@ package comp3350.team10.objects;
 //		 testPhotoBytes(food, photoExpect);
 //	 }
 
-	 void testSetName(Edible food, String newName){//test correct
-		 try{
-			 food.setName(newName);
-			 assertEquals(newName,food.getName());
-		 }
-		 catch (IOException e){
-			 fail("Can not set Name " + newName + "\n");
-		 }
-	 }
+	void testSetName(Edible food, String newName){//test correct
+		try{
+			food.setName(newName);
+			assertEquals(newName,food.getName());
+		}
+		catch (IllegalArgumentException e){
+			fail("Can not set Name " + newName + "\n");
+		}
+	}
 
-	 void testSetDescription(Edible food, String newDescription){//test correct
-		 try{
-			 food.setDescription(newDescription);
-			 assertEquals(newDescription,food.getDescription());
-		 }
-		 catch (IOException e){
-			 fail("Can not set Description " + newDescription + "\n");
-		 }
-	 }
-	 // test all int variable
-	 void  testIntWithInput(Edible food, int expect){//test set calories,  protein,  carbs,  fat
-		 try{
-			 food.initNutrition(expect, expect, expect, expect);
-		 }
-		 catch (Exception e)
-		 {
-			 System.out.println(e.getMessage());
-			 fail("Should not catch any exception, input is number is invalid");
-		 }
+	void testSetDescription(Edible food, String newDescription){//test correct
+		try{
+			food.setDescription(newDescription);
+			assertEquals(newDescription,food.getDescription());
+		}
+		catch (IllegalArgumentException e){
+			fail("Can not set Description " + newDescription + "\n");
+		}
+	}
+	// test all int variable
+	void  testIntWithInput(Edible food, int expect){//test set calories,  protein,  carbs,  fat
+		try{
+			food.initNutrition(expect, expect, expect, expect);
+		}
+		catch (Exception e)
+		{
+			fail("Should not catch any exception, input is number is invalid");
+		}
 
 //		 testNutrition(food,expect,expect,expect,expect);
-		 assertEquals(expect, food.getCalories());
-		 assertEquals(expect, food.getProtein());
-		 assertEquals(expect, food.getCarbs());
-		 assertEquals(expect, food.getFat());
-	 }
+		assertEquals(expect, food.getCalories());
+		assertEquals(expect, food.getProtein());
+		assertEquals(expect, food.getCarbs());
+		assertEquals(expect, food.getFat());
+	}
 
-	 //some test function
+	//some test function
 
 
-	 @Nested
-	 @DisplayName("Simple tests")
-	 class Test_Simple {
-		 private Edible testFood;
-		 private byte[] testPic = {(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				 (byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				 (byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				 (byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				 (byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				 (byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				 (byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				 (byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,};
+	@Nested
+	@DisplayName("Simple tests")
+	class Test_Simple {
+		private Edible testFood;
+		private byte[] testPic = {(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
+				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
+				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
+				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
+				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
+				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
+				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
+				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,};
+		private String photo = "simple";
 
-		 @BeforeEach
-		 void setUp() {
+		@BeforeEach
+		void setUp() {
 
-			 testFood = new Edible();
-			 try {
-				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
-				 testFood.initNutrition(5, 5, 5, 5);
-				 testFood.initCategories(true, false, true, false, true);
-				 testFood.initMetadata(true, testPic);
-			 } catch (Exception e) {
-				 fail("initial fail");
-			 }
-		 }
-
-		 @Test
-		 void testSimple() {
-//			 testDetail(testFood, 1, "food", "lala", 5, Unit.cups);
-			 assertEquals(1,testFood.getDbkey());// not get id fucntion
-			 assertEquals("food", testFood.getName());
-			 assertEquals("lala", testFood.getDescription());
-			 assertEquals(5, testFood.getQuantity());
-			 assertEquals(Unit.cups, testFood.getUnit());
-
-//			 testNutrition(testFood, 5, 5, 5, 5);
-			 assertEquals(5, testFood.getCalories());
-			 assertEquals(5, testFood.getProtein());
-			 assertEquals(5, testFood.getCarbs());
-			 assertEquals(5, testFood.getFat());
-
-//			 testCategories(testFood, true, false, true, false, true);
-			 assertEquals(true, testFood.getIsAlcoholic());
-			 assertEquals(false, testFood.getIsSpicy());
-			 assertEquals(true, testFood.getIsVegan());
-			 assertEquals(false, testFood.getIsVegetarian());
-			 assertEquals(true, testFood.getIsGlutenFree());
-
-//			 testMetadata(testFood, true, testPic);
-			 assertEquals(true, testFood.getIsCustom());
-			 testPhotoBytes(testFood, testPic);
-		 }
-	 }
-
-	 @Nested
- 	 @DisplayName("Complex tests")
-	 class Test_Complex{
-		 private Edible testFood;
-		 private byte[] testPic = {(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				 (byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				 (byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				 (byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				 (byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				 (byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				 (byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
-				 (byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,};
-
-		 @BeforeEach
-		 void setUp() {
-
-			 testFood = new Edible();
-			 try {
-				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
-				 testFood.initNutrition(5, 5, 5, 5);
-				 testFood.initCategories(true, false, true, false, true);
-				 testFood.initMetadata(true, testPic);
-			 } catch (Exception e) {
-				 fail("initial fail");
-			 }
-		 }
-
-		 @Test
-		 void testSetNameComplex(){
-			 testSetName(testFood,"very long food name");
-			 testSetName(testFood,"even longer longggg\\ng \\nfood name");
-			 testSetName(testFood,"12345555");
-			 testSetName(testFood,"#$%!!!+=[][][][[");
-			 testSetName(testFood," ");
-			 testSetName(testFood," $");
-		 }
+			testFood = new Edible();
+			try {
+				testFood.initDetails(1, "food", "lala", 5, Unit.cups);
+				testFood.initNutrition(5, 5, 5, 5);
+				testFood.initCategories(true, false, true, false, true);
+				testFood.initMetadata(true, photo);
+			} catch (Exception e) {
+				fail("initial fail");
+			}
+		}
 
 		@Test
-		 void testSetDescrptionComplex(){
+		void testSimple() {
+//			 testDetail(testFood, 1, "food", "lala", 5, Unit.cups);
+			assertEquals(1,testFood.getDbkey());// not get id fucntion
+			assertEquals("food", testFood.getName());
+			assertEquals("lala", testFood.getDescription());
+			assertEquals(5, testFood.getQuantity());
+			assertEquals(Unit.cups, testFood.getUnit());
+
+//			 testNutrition(testFood, 5, 5, 5, 5);
+			assertEquals(5, testFood.getCalories());
+			assertEquals(5, testFood.getProtein());
+			assertEquals(5, testFood.getCarbs());
+			assertEquals(5, testFood.getFat());
+
+//			 testCategories(testFood, true, false, true, false, true);
+			assertEquals(true, testFood.getIsAlcoholic());
+			assertEquals(false, testFood.getIsSpicy());
+			assertEquals(true, testFood.getIsVegan());
+			assertEquals(false, testFood.getIsVegetarian());
+			assertEquals(true, testFood.getIsGlutenFree());
+
+//			 testMetadata(testFood, true, testPic);
+			assertEquals(true, testFood.getIsCustom());
+			//testPhotoBytes(testFood, testPic);
+			assertEquals(photo,testFood.getPhoto());
+		}
+	}
+
+	@Nested
+	@DisplayName("Complex tests")
+	class Test_Complex{
+		private Edible testFood;
+		private byte[] testPic = {(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
+				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
+				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
+				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
+				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
+				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
+				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,
+				(byte) 12, (byte) 59, (byte) 96,(byte)54,(byte) 45,};
+		private  String photo ="String test_instruction=\"very long instructions sdakjlfhadsljfkhldsakjhfiuweasdhyfuiklewahearewrw\" +\n" +
+				"                        \"adsjfkghbewakjdshfljkaewhdflkaewj\\njewifhewl\\r isdfauhjljkewf\\n\\\\wieosuhjrfiol;ewk\" +\n" +
+				"                        \"53465687-/34324o90ukljo&$^#$^@#$%@#^%$*#$#%@@$#@$@!$@#\";";
+
+		@BeforeEach
+		void setUp() {
+
+			testFood = new Edible();
+			try {
+				testFood.initDetails(1, "food", "lala", 5, Unit.cups);
+				testFood.initNutrition(5, 5, 5, 5);
+				testFood.initCategories(true, false, true, false, true);
+				testFood.initMetadata(true, photo);
+			} catch (Exception e) {
+				fail("initial fail");
+			}
+		}
+
+		@Test
+		void testSetNameComplex(){
+			testSetName(testFood,"very long food name");
+			testSetName(testFood,"even longer longggg\\ng \\nfood name");
+			testSetName(testFood,"12345555");
+			testSetName(testFood,"#$%!!!+=[][][][[");
+			testSetName(testFood," ");
+			testSetName(testFood," $");
+		}
+
+		@Test
+		void testSetDescrptionComplex(){
 			testSetDescription(testFood,"very long food Description");
 			testSetDescription(testFood,"even longgfagewgawfd ggg\\ng sfeer longggg\\ng \\nfood Description");
 			testSetDescription(testFood,"1234555545435214635695");
 			testSetDescription(testFood,"#$%!!!+=[][][*/-*/-/-+*/][[");
 			testSetDescription(testFood," ");
 			testSetDescription(testFood," $");
-		 }
-	 }
+		}
 
-	 @Nested
- 	@DisplayName("Empty tests")
- 	class Test_Empty {
-		 private Edible testFood;
+		@Test
+		void testSetPhotoComplex(){
+			assertEquals(photo,testFood.getPhoto());
+		}
+	}
 
-		 @BeforeEach
- 		void setUp() {
- 			testFood = new Edible();
- 		}
+	@Nested
+	@DisplayName("Empty tests")
+	class Test_Empty {
+		private Edible testFood;
 
-		 @Test
-		 void testSetName()
-		 {
-			 try{
-				 testFood.initDetails(1, null, "lala", 5, Unit.cups);
-				 fail("Should throw IO exception");
-			 }
-			 catch (Exception e){
-				 assertTrue(e instanceof IOException);
-				 assertEquals("Invalid name",e.getMessage());
-			 }
+		@BeforeEach
+		void setUp() {
+			testFood = new Edible();
+		}
 
-			 try{
-				 testFood.initDetails(1, "", "lala", 5, Unit.cups);
-				 fail("Should throw IO exception");
-			 }
-			 catch (Exception e){
-				 assertTrue(e instanceof IOException);
-				 assertEquals("Invalid name",e.getMessage());
-			 }
+		@Test
+		void testSetName()
+		{
+			try{
+				testFood.initDetails(1, null, "lala", 5, Unit.cups);
+				fail("Should throw IO exception");
+			}
+			catch (Exception e){
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid name",e.getMessage());
+			}
 
-		 }
-		 @Test
-		 void testSetDescription()
-		 {
-			 try{
-				 testFood.initDetails(1, "food", null, 5, Unit.cups);
-				 fail("Should throw IO exception");
-			 }
-			 catch (Exception e){
-				 assertTrue(e instanceof IOException);
-				 assertEquals("Invalid description",e.getMessage());
-			 }
+			try{
+				testFood.initDetails(1, "", "lala", 5, Unit.cups);
+				fail("Should throw IO exception");
+			}
+			catch (Exception e){
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid name",e.getMessage());
+			}
 
-		 }
+		}
+		@Test
+		void testSetDescription()
+		{
+			try{
+				testFood.initDetails(1, "food", null, 5, Unit.cups);
+				fail("Should throw IO exception");
+			}
+			catch (Exception e){
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid description",e.getMessage());
+			}
 
-		 @Test
-		 void testSetUnit()
-		 {
-			 try{
-				 testFood.initDetails(1, "food", "lala", 5, null);
-				 fail("Should throw IO exception");
-			 }
-			 catch (Exception e){
-				 assertTrue(e instanceof IOException);
-				 assertEquals("Invalid unit",e.getMessage());
-			 }
-		 }
+		}
 
-		 @Test
-		 void testSetphoto()
-		 {
-			 byte[] testPic =null;
-			 //input a null photo should throw exception
-			 try{
-				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
-				 testFood.initMetadata(true, null);
-				 fail("Should throw IO exception");
-			 }
-			 catch (Exception e){
-				 assertTrue(e instanceof IOException);
-				 assertEquals("Invalid photo",e.getMessage());
-			 }
+		@Test
+		void testSetUnit()
+		{
+			try{
+				testFood.initDetails(1, "food", "lala", 5, null);
+				fail("Should throw IO exception");
+			}
+			catch (Exception e){
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid unit",e.getMessage());
+			}
+		}
 
-			 testPic = new byte[0];
-			 try{
-				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
-				 testFood.initMetadata(true, testPic);
-				 fail("Should throw IO exception");
-			 }
-			 catch (Exception e){
-				 assertTrue(e instanceof IOException);
-				 assertEquals("Invalid photo",e.getMessage());
-			 }
-
-			 byte[] testPic1 ={(byte) 65};
-			 try{
-				 testFood.initDetails(1, "food", "lala", 5, Unit.cups);
-				 testFood.initMetadata(true, testPic1);
-				 fail("Should throw IO exception");
-			 }
-			 catch (Exception e){
-				 assertTrue(e instanceof IOException);
-				 assertEquals("Invalid photo",e.getMessage());
-			 }
-		 }
+		@Test
+		void testSetphoto()
+		{
+			byte[] testPic =null;
+			//input a null photo should throw exception
+			try{
+				testFood.initDetails(1, "food", "lala", 5, Unit.cups);
+				testFood.initMetadata(true, null);
+				fail("Should throw IO exception");
+			}
+			catch (Exception e){
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid photo",e.getMessage());
+			}
+			//re design set photo (string) empty casenew code
+			try{
+				testFood.initDetails(1, "food", "lala", 5, Unit.cups);
+				testFood.initMetadata(true, "");
+				fail("Should throw IO exception");
+			}
+			catch (Exception e){
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid photo",e.getMessage());
+			}
+			//re design new code
 
 
-	 }
+//			testPic = new byte[0];
+//			try{
+//				testFood.initDetails(1, "food", "lala", 5, Unit.cups);
+//				testFood.initMetadata(true, testPic);
+//				fail("Should throw IO exception");
+//			}
+//			catch (Exception e){
+//				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid photo",e.getMessage());
+//			}
+//
+//			byte[] testPic1 ={(byte) 65};
+//			try{
+//				testFood.initDetails(1, "food", "lala", 5, Unit.cups);
+//				testFood.initMetadata(true, testPic1);
+//				fail("Should throw IO exception");
+//			}
+//			catch (Exception e){
+//				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid photo",e.getMessage());
+//			}
+		}
 
 
-	 @Nested
-	 @DisplayName("Edge case tests")
-	 class Test_EdgeCases {
-		 private Edible testFood;
-
-		 @BeforeEach
-		 void setUp() {
-			 testFood = new Edible();
-		 }
-		 @Test
-		 void testLeftEdge(){ // input is equal to minimum
-		testIntWithInput(testFood,0);
-		 }
+	}
 
 
-		 @Test
-		 void testRightEdge(){ // input is equal to MAX
-			 testIntWithInput(testFood,9999);
-		 }
+	@Nested
+	@DisplayName("Edge case tests")
+	class Test_EdgeCases {
+		private Edible testFood;
 
-		 @Test
-		 void testDBKey(){
-			 try {
-				 testFood.initDetails(0, "food", "lala", 5, Unit.cups);
-				 assertEquals(0,testFood.getDbkey());
-			 }
-			 catch (Exception e)
-			 {
-				 fail("Should not throw execption, invalid DBkey");
-			 }
-
-			 try {
-				 testFood.initDetails(Integer.MAX_VALUE, "food", "lala", 5, Unit.cups);
-				 assertEquals(Integer.MAX_VALUE,testFood.getDbkey());
-			 }
-			 catch (Exception e)
-			 {
-				 fail("Should not throw execption, invalid DBkey");
-			 }
-		 }
-
-		 @Test
-		 void testQuality(){
-			 try {
-				 testFood.initDetails(5, "food", "lala", 1, Unit.cups);
-				 assertEquals(1,testFood.getQuantity());
-			 }
-			 catch (Exception e)
-			 {
-				 fail("Should not throw execption, invalid Quality");
-			 }
-
-			 try {
-				 testFood.initDetails(5, "food", "lala", 9999, Unit.cups);
-				 assertEquals(9999, testFood.getQuantity());
-			 }
-			 catch (Exception e)
-			 {
-				 fail("Should not throw execption, invalid Quality");
-			 }
-		 }
-	 }
+		@BeforeEach
+		void setUp() {
+			testFood = new Edible();
+		}
+		@Test
+		void testLeftEdge(){ // input is equal to minimum
+			testIntWithInput(testFood,0);
+		}
 
 
- 	@Nested
- 	@DisplayName("Invalid tests")
- 	class Test_Invalid {
+		@Test
+		void testRightEdge(){ // input is equal to MAX
+			testIntWithInput(testFood,9999);
+		}
+
+		@Test
+		void testDBKey(){
+			try {
+				testFood.initDetails(0, "food", "lala", 5, Unit.cups);
+				assertEquals(0,testFood.getDbkey());
+			}
+			catch (Exception e)
+			{
+				fail("Should not throw execption, invalid DBkey");
+			}
+
+			try {
+				testFood.initDetails(Integer.MAX_VALUE, "food", "lala", 5, Unit.cups);
+				assertEquals(Integer.MAX_VALUE,testFood.getDbkey());
+			}
+			catch (Exception e)
+			{
+				fail("Should not throw execption, invalid DBkey");
+			}
+		}
+
+		@Test
+		void testQuality(){
+			try {
+				testFood.initDetails(5, "food", "lala", 1, Unit.cups);
+				assertEquals(1,testFood.getQuantity());
+			}
+			catch (Exception e)
+			{
+				fail("Should not throw execption, invalid Quality");
+			}
+
+			try {
+				testFood.initDetails(5, "food", "lala", 9999, Unit.cups);
+				assertEquals(9999, testFood.getQuantity());
+			}
+			catch (Exception e)
+			{
+				fail("Should not throw execption, invalid Quality");
+			}
+		}
+	}
+
+
+	@Nested
+	@DisplayName("Invalid tests")
+	class Test_Invalid {
 		private Edible testFood;
 
 		@BeforeEach
@@ -388,8 +409,8 @@ package comp3350.team10.objects;
 			}
 			catch (Exception e)
 			{
-				assertTrue(e instanceof IOException);
-				assertEquals("Invalid DB key",e.getMessage());
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid DB key",e.getMessage());
 			}
 		}
 
@@ -402,8 +423,8 @@ package comp3350.team10.objects;
 			}
 			catch (Exception e)
 			{
-				assertTrue(e instanceof IOException);
-				assertEquals("Invalid protein value",e.getMessage());
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid protein value",e.getMessage());
 			}
 
 			try {
@@ -412,8 +433,8 @@ package comp3350.team10.objects;
 			}
 			catch (Exception e)
 			{
-				assertTrue(e instanceof IOException);
-				assertEquals("Invalid protein value",e.getMessage());
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid protein value",e.getMessage());
 			}
 		}
 
@@ -426,8 +447,8 @@ package comp3350.team10.objects;
 			}
 			catch (Exception e)
 			{
-				assertTrue(e instanceof IOException);
-				assertEquals("Invalid fat value",e.getMessage());
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid fat value",e.getMessage());
 			}
 
 			try {
@@ -436,8 +457,8 @@ package comp3350.team10.objects;
 			}
 			catch (Exception e)
 			{
-				assertTrue(e instanceof IOException);
-				assertEquals("Invalid fat value",e.getMessage());
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid fat value",e.getMessage());
 			}
 		}
 
@@ -450,8 +471,8 @@ package comp3350.team10.objects;
 			}
 			catch (Exception e)
 			{
-				assertTrue(e instanceof IOException);
-				assertEquals("Invalid carb value",e.getMessage());
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid carb value",e.getMessage());
 			}
 
 			try {
@@ -460,8 +481,8 @@ package comp3350.team10.objects;
 			}
 			catch (Exception e)
 			{
-				assertTrue(e instanceof IOException);
-				assertEquals("Invalid carb value",e.getMessage());
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid carb value",e.getMessage());
 			}
 		}
 
@@ -474,8 +495,8 @@ package comp3350.team10.objects;
 			}
 			catch (Exception e)
 			{
-				assertTrue(e instanceof IOException);
-				assertEquals("Invalid calorie value",e.getMessage());
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid calorie value",e.getMessage());
 			}
 
 			try {
@@ -484,8 +505,8 @@ package comp3350.team10.objects;
 			}
 			catch (Exception e)
 			{
-				assertTrue(e instanceof IOException);
-				assertEquals("Invalid calorie value",e.getMessage());
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid calorie value",e.getMessage());
 			}
 		}
 
@@ -498,8 +519,8 @@ package comp3350.team10.objects;
 			}
 			catch (Exception e)
 			{
-				assertTrue(e instanceof IOException);
-				assertEquals("Invalid quantity",e.getMessage());
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid quantity",e.getMessage());
 			}
 
 			try {
@@ -508,8 +529,8 @@ package comp3350.team10.objects;
 			}
 			catch (Exception e)
 			{
-				assertTrue(e instanceof IOException);
-				assertEquals("Invalid quantity",e.getMessage());
+				assertTrue(e instanceof IllegalArgumentException);
+//				assertEquals("Invalid quantity",e.getMessage());
 			}
 		}
 
@@ -518,8 +539,7 @@ package comp3350.team10.objects;
 
 
 
- }
-
+}
 
 
 
