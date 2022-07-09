@@ -1345,7 +1345,6 @@ Duration: 5 hrs
      Dev:
       - Zhou
 Duration: 1 hrs
-
    Tasks:
    follow the Josef request to change the test edible unit test
     - change all combine assert method like testDetail to simple assert and find a problem
@@ -1354,7 +1353,7 @@ Duration: 1 hrs
 ### 2022-07-08 finished the drink object unit test, object code have problem need to slove
      Dev:
       - Zhou
-Duration: 7 hrs
+Duration: 8 hrs
    Tasks:
    - finished the drink obj unit test. problem need to solve
    - detail:
