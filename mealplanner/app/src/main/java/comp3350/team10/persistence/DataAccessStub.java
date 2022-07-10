@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.NoSuchElementException;
 import java.util.concurrent.ThreadLocalRandom;
 
+import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.DataFrame;
 import comp3350.team10.objects.Drink;
@@ -152,56 +153,75 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         this.currUser.setCalorieGoal(goal);
     }
 
-    public void setExerciseGoal(int userID, double goal) {
+    public void setExerciseGoal(int userID, double goal) throws IllegalArgumentException {
         this.currUser.setExerciseGoal(goal);
     }
 
     public void setLogCalorieGoal(int userID, double goal, Calendar date) {
-        DailyLog currEntry = searchFoodLogByDate(userID, date);
-        int currLogIndex;
+        DailyLog currEntry = null;
 
         try {
-            sortDBFoodLog();
-            currEntry.setCalorieGoal(goal);
+            if (goal >= Constant.ENTRY_MIN_VALUE && goal <= Constant.ENTRY_MAX_VALUE) {
+                currEntry = searchFoodLogByDate(userID, date);
+                findUserByID(userID);
+                sortDBFoodLog();
+                currEntry.setCalorieGoal(goal);
+            } else {
+                throw new IllegalArgumentException("DataAccessStub setCalorieGoal requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
+            }
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("DataAccessStub setCalorieGoal invalid value provided " + e);
         }
     }
 
     public void setLogExerciseGoal(int userID, double goal, Calendar date) throws IllegalArgumentException {
-        DailyLog currEntry = searchFoodLogByDate(userID, date);
+        DailyLog currEntry = null;
 
         try {
-            sortDBFoodLog();
-            currEntry.setExerciseGoal(goal);
+            if (goal >= Constant.ENTRY_MIN_VALUE && goal <= Constant.ENTRY_MAX_VALUE) {
+                currEntry = searchFoodLogByDate(userID, date);
+                findUserByID(userID);
+                sortDBFoodLog();
+                currEntry.setExerciseGoal(goal);
+            } else {
+                throw new IllegalArgumentException("DataAccessStub setLogExerciseGoal requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
+            }
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("DataAccessStub setCalorieGoal invalid value provided " + e);
+            throw new IllegalArgumentException("DataAccessStub setLogExerciseGoal invalid value provided " + e);
         }
     }
 
-    public void setExerciseActual(int userID, double exerciseActual, Calendar date ) throws IllegalArgumentException {
-        DailyLog currEntry = searchFoodLogByDate(userID, date);
+    public void setExerciseActual(int userID, double exerciseActual, Calendar date) throws IllegalArgumentException {
+        DailyLog currEntry = null;
 
         try {
-            this.dbFoodLog.remove(currEntry);
-            currEntry.setExerciseActual(exerciseActual);
-            this.dbFoodLog.add(currEntry);
+            if (exerciseActual >= Constant.ENTRY_MIN_VALUE && exerciseActual <= Constant.ENTRY_MAX_VALUE) {
+                findUserByID(userID);
+                currEntry = searchFoodLogByDate(userID, date);
+                this.dbFoodLog.remove(currEntry);
+                currEntry.setExerciseActual(exerciseActual);
+                this.dbFoodLog.add(currEntry);
+
+            } else {
+                throw new IllegalArgumentException("DataAccessStub setExerciseActual requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
+            }
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("DataAccessStub setCalorieGoal invalid value provided " + e);
+            throw new IllegalArgumentException("DataAccessStub setExerciseActual invalid value provided " + e);
         }
     }
 
-    private ArrayList<Edible> getDeepCopy(ArrayList<Edible> source){
-        ArrayList<Edible> arrayCopy= new ArrayList<Edible>();
+    private ArrayList<Edible> getDeepCopy(ArrayList<Edible> source) {
+        ArrayList<Edible> arrayCopy = new ArrayList<Edible>();
         Edible copy = null;
 
-        for(int i = 0; i < source.size(); i++) {
+        for (int i = 0; i < source.size(); i++) {
             copy = source.get(i).clone();
             arrayCopy.add(copy);
         }
 
         return arrayCopy;
     }
+
     //This section implements RecipeDBInterface
     public ArrayList<Edible> getFoodRecipes() {
         return getDeepCopy(this.dbRecipeFood);
@@ -233,25 +253,41 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
+    private User findUserByID(int userID) throws IllegalArgumentException {
+        User result = null;
+        if (userID == this.currUser.getUserID()) {
+            result = this.currUser;
+        } else {
+            throw new IllegalArgumentException("User does not exist");
+        }
+        return result;
+    }
+
+
     //This section implements DiaryDBInterface
-    public DailyLog searchFoodLogByDate(int userID, Calendar date) throws NoSuchElementException {
-        Integer intDate = calendarToInt(date);
+    public DailyLog searchFoodLogByDate(int userID, Calendar date) throws IllegalArgumentException {
+        Integer intDate = null;
         DailyLog foundLog = null;
 
-        if( userID == currUser.getUserID() ) {
-            for (int i = 0; i < this.dbFoodLog.size() && foundLog == null; i++) {
-                if (intDate.intValue() == calendarToInt(this.dbFoodLog.get(i).getDate()).intValue()) {
-                    foundLog = dbFoodLog.get(i);
+        try {
+            findUserByID(userID);
+            if (date != null) {
+                intDate = calendarToInt(date);
+                for (int i = 0; i < this.dbFoodLog.size() && foundLog == null; i++) {
+                    if (intDate.intValue() == calendarToInt(this.dbFoodLog.get(i).getDate()).intValue()) {
+                        foundLog = dbFoodLog.get(i);
+                    }
                 }
-            }
 
-            if (foundLog == null) {
-                foundLog = new DailyLog().init(date, new ArrayList<Edible>(), this.getUserCalorieGoal(userID), this.getUserExerciseGoal(userID), 0);
-                this.dbFoodLog.add(foundLog);
+                if (foundLog == null) {
+                    foundLog = new DailyLog().init(date, new ArrayList<Edible>(), this.getUserCalorieGoal(userID), this.getUserExerciseGoal(userID), 0);
+                    this.dbFoodLog.add(foundLog);
+                }
+            } else {
+                throw new IllegalArgumentException("DB searchFoodLogByDate Date cannot be null");
             }
-        }
-        else {
-            throw new NoSuchElementException("DB SearchFoodLogByDate User does not exist");
+        } catch (IllegalArgumentException e) {
+            throw e;
         }
 
         return foundLog;
@@ -265,39 +301,51 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         return this.currUser.getExerciseGoal();
     }
 
-    public void replaceLog(int userID, DailyLog newLog) {
-        if(userID == currUser.getUserID() && newLog != null) {
-            if (this.dbFoodLog != null) {
-                this.deleteLog(userID, newLog.getDate());
-                this.dbFoodLog.add(newLog);
+    public void replaceLog(int userID, DailyLog newLog) throws IllegalArgumentException {
+        try {
+            findUserByID(userID);
+            if (newLog != null) {
+                if (this.dbFoodLog != null) {
+                    this.deleteLog(userID, newLog.getDate());
+                    this.dbFoodLog.add(newLog.clone());
+                }
+            } else {
+                throw new IllegalArgumentException("DataAccessStub replaceLog cannot be null");
             }
-        } else {
-            throw new NullPointerException("DataAccessStub replaceLog cannot be null");
+        } catch (IllegalArgumentException e) {
+            throw e;
         }
     }
 
-    public void deleteLog(int userID, Calendar date) {
+    private void deleteLog(int userID, Calendar date) throws IllegalArgumentException {
         int foundLog = -1;
         Calendar currDate = null;
-        if (userID == currUser.getUserID() && this.dbFoodLog != null) {
-            for (int i = 0; i < this.dbFoodLog.size() && foundLog == -1; i++) {
-                currDate = this.dbFoodLog.get(i).getDate();
-                if (calendarToInt(date).intValue() == calendarToInt(currDate).intValue()) {
-                    foundLog = i;
+        try {
+            findUserByID(userID);
+            if (date != null) {
+                for (int i = 0; i < this.dbFoodLog.size() && foundLog == -1; i++) {
+                    currDate = this.dbFoodLog.get(i).getDate();
+                    if (calendarToInt(date).intValue() == calendarToInt(currDate).intValue()) {
+                        foundLog = i;
+                    }
                 }
+                if (foundLog >= 0) {
+                    this.dbFoodLog.remove(foundLog);
+                }
+            } else {
+                throw new IllegalArgumentException("DB searchFoodLogByDate Date cannot be null");
             }
-            if(foundLog >= 0) {
-                this.dbFoodLog.remove(foundLog);
-            }
+        } catch (IllegalArgumentException e) {
+            throw e;
         }
     }
 
-    public ArrayList<Double> getDataFrame(DataFrame.DataType dataType, int days){
+    public ArrayList<Double> getDataFrame(DataFrame.DataType dataType, int days) {
         ArrayList<Double> result = new ArrayList<>();
 
-            for(int i = 0; i < days; i++){
-                result.add(this.history.get(i)[dataType.ordinal() + 1].doubleValue());
-            }
+        for (int i = 0; i < days; i++) {
+            result.add(this.history.get(i)[dataType.ordinal() + 1].doubleValue());
+        }
 
         return result;
     }
@@ -739,7 +787,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         int offsetWeight = 0;
         int offsetGoal = 0;
 
-        for(int i = 0; i < DataFrame.numDays[DataFrame.Span.All.ordinal()]; i++){
+        for (int i = 0; i < DataFrame.numDays[DataFrame.Span.All.ordinal()]; i++) {
 
             offsetActual = ThreadLocalRandom.current().nextInt(-200 + i, 400 + i);
             offsetGoal = ThreadLocalRandom.current().nextInt(-200, 200);

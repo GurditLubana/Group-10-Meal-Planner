@@ -10,11 +10,11 @@ import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
 
 public interface LogDBInterface {
-    public DailyLog searchFoodLogByDate(int userID, Calendar date) throws NoSuchElementException, IllegalArgumentException;
-    public EdibleLog findEdibleByKey(int dbkey, boolean isCustom) throws NoSuchElementException, IllegalArgumentException;
-    public void replaceLog(int userID, DailyLog newLog) throws NoSuchElementException, IllegalArgumentException;
-    public void setExerciseActual(int userID, double newValue, Calendar date) throws NoSuchElementException, IllegalArgumentException;
-    public void setLogCalorieGoal(int userID, double newValue, Calendar date) throws NoSuchElementException, IllegalArgumentException;
-    public void setLogExerciseGoal(int userID, double newValue, Calendar date) throws NoSuchElementException, IllegalArgumentException;
+    public DailyLog searchFoodLogByDate(int userID, Calendar date) throws IllegalArgumentException;
+    public EdibleLog findEdibleByKey(int dbkey, boolean isCustom) throws IllegalArgumentException;
+    public void replaceLog(int userID, DailyLog newLog) throws IllegalArgumentException;
+    public void setExerciseActual(int userID, double newValue, Calendar date) throws IllegalArgumentException;
+    public void setLogCalorieGoal(int userID, double newValue, Calendar date) throws IllegalArgumentException;
+    public void setLogExerciseGoal(int userID, double newValue, Calendar date) throws IllegalArgumentException;
     public ArrayList<Double> getDataFrame(DataFrame.DataType type, int days) throws IllegalArgumentException;
 }

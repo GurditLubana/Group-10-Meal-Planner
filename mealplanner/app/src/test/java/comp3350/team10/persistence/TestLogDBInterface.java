@@ -415,35 +415,106 @@ public class TestLogDBInterface {
         }
 
         @Test
-        @DisplayName("negative user id should fail")
+        @DisplayName("non existent user id should fail")
         void testNegativeuserID(){
             this.setupTestLog();
 
-            assertThrows(NoSuchElementException.class, () -> {
+            assertThrows(IllegalArgumentException.class, () -> {
                 DailyLog result = this.db.searchFoodLogByDate(-1, this.testDate);
             });
 
-            assertThrows(NoSuchElementException.class, () -> {
+            assertEquals(3, testLog.getEdibleList().size());
+            testLog.removeItem(0);
+            assertThrows(IllegalArgumentException.class, () -> {
                 this.db.replaceLog(-1, testLog);
             });
+            assertEquals(3, this.db.searchFoodLogByDate(0, this.testDate).getEdibleList().size());
 
-            assertThrows(NoSuchElementException.class, () -> {
+            assertThrows(IllegalArgumentException.class, () -> {
                 this.db.setExerciseActual(-1, 1111, this.testDate);
             });
+            assertEquals(200, this.db.searchFoodLogByDate(0, this.testDate).getExerciseActual());
 
-            assertThrows(NoSuchElementException.class, () -> {
+            assertThrows(IllegalArgumentException.class, () -> {
                 this.db.setLogCalorieGoal(-1, 1111, this.testDate);
             });
+            assertEquals(1400, this.db.searchFoodLogByDate(0, this.testDate).getCalorieGoal());
 
-            assertThrows(NoSuchElementException.class, () -> {
+            assertThrows(IllegalArgumentException.class, () -> {
                 this.db.setLogExerciseGoal(-1, 1111, this.testDate);
+            });
+            assertEquals(600, this.db.searchFoodLogByDate(0, this.testDate).getExerciseGoal());
+
+            assertThrows(IllegalArgumentException.class, () -> {
+                DailyLog result = this.db.searchFoodLogByDate(5, this.testDate);
+            });
+
+            assertThrows(IllegalArgumentException.class, () -> {
+                this.db.replaceLog(5, testLog);
+            });
+            assertEquals(3, this.db.searchFoodLogByDate(0, this.testDate).getEdibleList().size());
+
+            assertThrows(IllegalArgumentException.class, () -> {
+                this.db.setExerciseActual(5, 1111, this.testDate);
+            });
+            assertEquals(200, this.db.searchFoodLogByDate(0, this.testDate).getExerciseActual());
+
+            assertThrows(IllegalArgumentException.class, () -> {
+                this.db.setLogCalorieGoal(5, 1111, this.testDate);
+            });
+            assertEquals(1400, this.db.searchFoodLogByDate(0, this.testDate).getCalorieGoal());
+
+            assertThrows(IllegalArgumentException.class, () -> {
+                this.db.setLogExerciseGoal(5, 1111, this.testDate);
+            });
+            assertEquals(600, this.db.searchFoodLogByDate(0, this.testDate).getExerciseGoal());
+        }
+
+        @Test
+        @DisplayName("null input should fail")
+        void testNullInput(){
+            this.setupTestLog();
+
+            assertThrows(IllegalArgumentException.class, () -> {
+                DailyLog result = this.db.searchFoodLogByDate(0, null);
+            });
+
+            assertThrows(IllegalArgumentException.class, () -> {
+                this.db.replaceLog(0, null);
+            });
+
+            assertThrows(IllegalArgumentException.class, () -> {
+                this.db.setExerciseActual(0, 1111, null);
+            });
+
+            assertThrows(IllegalArgumentException.class, () -> {
+                this.db.setLogCalorieGoal(0, 1111, null);
+            });
+
+            assertThrows(IllegalArgumentException.class, () -> {
+                this.db.setLogExerciseGoal(0, 1111, null);
             });
         }
 
         @Test
-        @DisplayName("invalid user id should fail")
-        void testInvaliduserID(){
+        @DisplayName("negative input should fail")
+        void testNegInput(){
             this.setupTestLog();
+
+            assertThrows(IllegalArgumentException.class, () -> {
+                this.db.setExerciseActual(-1, -1111, this.testDate);
+            });
+            assertEquals(200, this.db.searchFoodLogByDate(0, this.testDate).getExerciseActual());
+
+            assertThrows(IllegalArgumentException.class, () -> {
+                this.db.setLogCalorieGoal(-1, -1111, this.testDate);
+            });
+            assertEquals(1400, this.db.searchFoodLogByDate(0, this.testDate).getCalorieGoal());
+
+            assertThrows(IllegalArgumentException.class, () -> {
+                this.db.setLogExerciseGoal(-1, -1111, this.testDate);
+            });
+            assertEquals(600, this.db.searchFoodLogByDate(0, this.testDate).getExerciseGoal());
         }
     }
 }
