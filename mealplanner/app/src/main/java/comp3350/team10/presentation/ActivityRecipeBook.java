@@ -175,7 +175,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         }
         catch (Exception e) {
             System.out.println(e);
-            System.exit(1);
+            
         }
     }
 

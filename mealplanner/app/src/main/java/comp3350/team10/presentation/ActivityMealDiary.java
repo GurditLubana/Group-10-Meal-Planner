@@ -102,13 +102,13 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             this.addButton.setName(DIARYADDCARD);
         } catch (Exception e) {
             System.out.println(e);
-            System.exit(1);
+            
         }
         try {
             this.modifyLog.setName(DIARYMODIFYCARD);
         } catch (Exception e) {
             System.out.println(e);
-            System.exit(1);
+            
         }
     }
 
@@ -412,7 +412,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
         catch (Exception e){
             System.out.println(e);
-            System.exit(1);
+            
         }
         this.updateLiveData();
     }
@@ -430,7 +430,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
         catch (Exception e){
             System.out.println(e);
-            System.exit(1);
+            
         }
         this.updateLiveData();
     }

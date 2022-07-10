@@ -46,7 +46,7 @@ public class RecipeBookOps {
         }
         catch(Exception e) {
             System.out.println(e);
-            System.exit(1);
+            
         }
     }
 
@@ -65,7 +65,7 @@ public class RecipeBookOps {
         }
         catch(Exception e) {
             System.out.println(e);
-            System.exit(1);
+            
         }
     }
 
@@ -83,7 +83,7 @@ public class RecipeBookOps {
         }
         catch(Exception e) {
             System.out.println(e);
-            System.exit(1);
+            
         }
     }
 
@@ -102,7 +102,7 @@ public class RecipeBookOps {
         }
         catch(Exception e) {
             System.out.println(e);
-            System.exit(1);
+            
         }
     }
 }

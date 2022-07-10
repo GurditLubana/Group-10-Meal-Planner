@@ -18,7 +18,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
-public class ActivityTrends extends AppCompatActivity implements FragToTrends{
+public class ActivityTrends extends AppCompatActivity {
     private RecyclerView trendsRecyclerView;      //Houses a recycle view for diary entries
     private RVATrends recyclerViewAdapter;
     private ArrayList<DataFrame> data;
@@ -56,7 +56,7 @@ public class ActivityTrends extends AppCompatActivity implements FragToTrends{
         }
         catch(Exception e){
             System.out.println(e);
-            System.exit(1);
+            
         }
     }
 

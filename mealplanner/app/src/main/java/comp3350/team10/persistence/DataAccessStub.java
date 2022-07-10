@@ -189,30 +189,28 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
+    private ArrayList<Edible> getDeepCopy(ArrayList<Edible> source){
+        ArrayList<Edible> arrayCopy= new ArrayList<Edible>();
+        Edible copy = null;
 
+        for(int i = 0; i < source.size(); i++) {
+            copy = source.get(i).clone();
+            arrayCopy.add(copy);
+        }
+
+        return arrayCopy;
+    }
     //This section implements RecipeDBInterface
     public ArrayList<Edible> getFoodRecipes() {
-        ArrayList<Edible> currFood = new ArrayList<Edible>();
-
-        currFood.addAll(this.dbRecipeFood);
-
-        return currFood;
+        return getDeepCopy(this.dbRecipeFood);
     }
 
     public ArrayList<Edible> getMealRecipes() {
-        ArrayList<Edible> currMeals = new ArrayList<Edible>();
-
-        currMeals.addAll(this.dbRecipeMeal);
-
-        return currMeals;
+        return getDeepCopy(this.dbRecipeMeal);
     }
 
     public ArrayList<Edible> getDrinkRecipes() {
-        ArrayList<Edible> currDrinks = new ArrayList<Edible>();
-
-        currDrinks.addAll(this.dbRecipeDrink);
-
-        return currDrinks;
+        return getDeepCopy(this.dbRecipeDrink);
     }
 
     public void addFoodToRecipeBook(Edible newFood) {
@@ -706,14 +704,14 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         Calendar today = (Calendar) this.calendar.clone();
         this.history = new ArrayList<>();
         Integer[] data = null;
-        int calorieGoal = 2000;
         int calorieConsumed = 1200;
         int exerciseCalories = 600;
+        int calorieGoal = 2000;
         int weight = 200;
-        int offsetGoal = 0;
-        int offsetActual = 0;
         int offsetExercise = 0;
+        int offsetActual = 0;
         int offsetWeight = 0;
+        int offsetGoal = 0;
 
         for(int i = 0; i < DataFrame.numDays[DataFrame.Span.All.ordinal()]; i++){
 
@@ -731,7 +729,6 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             data[4] = new Integer(weight + offsetWeight);
             history.add(data);
         }
-
     }
 
 }
