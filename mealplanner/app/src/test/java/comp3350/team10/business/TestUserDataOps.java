@@ -18,11 +18,10 @@ public class TestUserDataOps {
             try{
                 SharedDB.start();
 
-                SharedDB.start();
                 SharedDB.startStub();
                 //SharedDB.startHsql();
                 this.db = SharedDB.getLogDB();
-                currDate = Calendar.getInstance();
+                //currDate = Calendar.getInstance();
                 userOps = new UserDataOps();
             }catch (Exception e){
 
