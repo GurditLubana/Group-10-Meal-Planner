@@ -161,21 +161,48 @@ public class TestLogDBInterface {
         @Test
         @DisplayName("we should be able to set a new calorie goal for specific logs")
         void dbSetANewCalorieGoal() {
+            Calendar newDate = (Calendar) currDate.clone();
+            this.db.setLogCalorieGoal(0, 5000, currDate);
+            this.testLog = this.db.searchFoodLogByDate(0, currDate);
+            assertEquals(5000, this.testLog.getCalorieGoal());
 
-            this.currLog = this.db.searchFoodLogByDate(0, currDate);
+            newDate.add(Calendar.DAY_OF_YEAR, 3);
+            this.db.setLogCalorieGoal(0, 1234, newDate);
+            this.testLog = this.db.searchFoodLogByDate(0, newDate);
+            assertEquals(1234, this.testLog.getCalorieGoal());
 
-            assertEquals(3, this.currLog.getEdibleList().size());
         }
 
+        @Test
+        @DisplayName("we should be able to set a new exercise goal for specific logs")
+        void dbSetANewExerciseGoal() {
+            Calendar newDate = (Calendar) currDate.clone();
+            this.db.setLogExerciseGoal(0, 5000, currDate);
+            this.testLog = this.db.searchFoodLogByDate(0, currDate);
+            assertEquals(5000, this.testLog.getExerciseGoal());
 
-//        public DailyLog searchFoodLogByDate(Calendar date, int userID);
-//        public EdibleLog findEdibleByKey(int dbkey, boolean isCustom);
-//        public void addLog(DailyLog newLog, int userID);
-//        public void deleteLog(DailyLog delLog, int userID);
-//        public void setExerciseActual(double newExercise, DailyLog currLog, int userID);
-//        public void setLogCalorieGoal(int userID, double goal, Calendar date);
-//        public void setLogExerciseGoal(int userID, double goal, Calendar date);
-//        public ArrayList<Double> getDataFrame(DataFrame.DataType type, int days);
+            newDate.add(Calendar.DAY_OF_YEAR, 3);
+            this.db.setLogExerciseGoal(0, 1234, newDate);
+            this.testLog = this.db.searchFoodLogByDate(0, newDate);
+            assertEquals(1234, this.testLog.getExerciseGoal());
+
+        }
+
+        @Test
+        @DisplayName("we should be able to set new exercise calories burned for specific logs")
+        void dbSetANewExerciseCaloriesBurned() {
+            Calendar newDate = (Calendar) currDate.clone();
+            this.db.setExerciseActual(0, 5000, currDate);
+            this.testLog = this.db.searchFoodLogByDate(0, currDate);
+            assertEquals(5000, this.testLog.getExerciseActual());
+
+            newDate.add(Calendar.DAY_OF_YEAR, 3);
+            this.db.setExerciseActual(0, 1234, newDate);
+            this.testLog = this.db.searchFoodLogByDate(0, newDate);
+            assertEquals(1234, this.testLog.getExerciseActual());
+
+        }
+
     }
 
 

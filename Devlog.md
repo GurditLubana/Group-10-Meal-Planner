@@ -1379,6 +1379,15 @@ Duration: 8 hrs
    - the problem need to fix, problem about setInstructions()
      - a. cannot update the correct value to the drink, there have problem about the about a update the data form the array list,"my array of all input is nutrition is total in 100 but the update result is 40"
      - b.if the input ingredients arraylist the size is 0 should let all the Nutrition and categories to default, but some of Categories is not set to default
+
+### 2022-07-08 follow the Josef request to change the test edible unit test
+     Dev:
+      - Zhou
+Duration: 1 hrs
+   Tasks:
+   follow the Josef request to change the test edible unit test
+    - change all combine assert method like testDetail to simple assert and find a problem
+    - problem 1. if I set a null photo to set in it, it should throw a exception, but it actually not.
      
 
 ### 2022-07-03
@@ -1450,3 +1459,21 @@ Duration: 11 hrs
    - those problem should been fix.
    - can delet my comments in test file after all test is pass
 
+### 2022-07-09
+     Dev:
+      - Dane
+Duration: 14 hrs
+   Tasks:
+   - Refactored Edible log so that only a single converter is used as an instance variable
+   - Adjusted prepared functions so that anything above 9999 (calories, protein, carbs, fat) gets set to 9999
+   - Adjusted a catch where calculations were made based on ingredients (if no ingredients set to 0) now must have atleast 1 ingredient to calculate
+   - Processed Zhou's EdibleTests
+   - Adjusted test naming scheme to no longer include Unit at the end (as per Iter1 feedback)
+   - Added extra MealDiaryOps tests
+   - Removed updating all subsequent calorie goals (could not easily keep consistant accross stub and HSQL)
+   - Improved UserOps, changes now get sent to the database as well
+   - Added extra testing to EdibleTests
+   - Created DrinkTests
+   - Created MealTests
+   - Adjusted AllTests by removing all * imports and updating file names
+   - Corrected all function descriptions to be very descriptive and easy to read/follow (which all tests should have)

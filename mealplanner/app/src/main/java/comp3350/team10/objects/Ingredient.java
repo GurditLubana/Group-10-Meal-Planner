@@ -14,7 +14,7 @@ public class Ingredient {
     }
 
 
-    public Ingredient init(Edible ingredient, double quantity, Edible.Unit quantityUnit) throws IOException {
+    public Ingredient init(Edible ingredient, double quantity, Edible.Unit quantityUnit) throws IllegalArgumentException {
         this.setIngredient(ingredient);
         this.setQuantity(quantity);
         this.setQuantityUnit(quantityUnit);
@@ -22,31 +22,31 @@ public class Ingredient {
         return this;
     }
 
-    public void setIngredient(Edible newIngredient) throws IOException {
+    public void setIngredient(Edible newIngredient) throws IllegalArgumentException {
         if(newIngredient != null && newIngredient.getCalories() != -1 && newIngredient.getProtein() != -1 &&
         newIngredient.getCarbs() != -1 && newIngredient.getFat() != -1) {
             this.ingredient = newIngredient;
         }
         else {
-            throw new IOException("Invalid ingredient food");
+            throw new IllegalArgumentException("Invalid ingredient food");
         }
     }
 
-    public void setQuantity(double newQuantity) throws IOException {
+    public void setQuantity(double newQuantity) throws IllegalArgumentException {
         if(newQuantity > 0 && newQuantity <= Constant.ENTRY_MAX_VALUE) {
             this.quantity = newQuantity;
         }
         else {
-            throw new IOException("Invald ingredient quantity");
+            throw new IllegalArgumentException("Invald ingredient quantity");
         }
     }
 
-    public void setQuantityUnit(Edible.Unit newUnit) throws IOException {
+    public void setQuantityUnit(Edible.Unit newUnit) throws IllegalArgumentException {
         if(newUnit != null) {
             this.quantityUnit = newUnit;
         }
         else {
-            throw new IOException("Invald ingredient unit");
+            throw new IllegalArgumentException("Invald ingredient unit");
         }
     }
 
