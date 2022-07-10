@@ -29,14 +29,14 @@
          TestDailyLog.class,
          TestDataFrame.class,
          TestDrink.class,
-         //TestFood.class,
-         //TestEdible.class,
+         TestEdible.class,
          TestIngredient.class,
-         //TestMeal.class,
+         TestMeal.class,
          TestLogDBInterface.class,
          TestUserDBInterface.class,
          TestRecipeDBInterface.class
  })
+ 
  public class AllTests {
 
  }

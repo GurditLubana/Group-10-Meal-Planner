@@ -19,21 +19,7 @@
          private Calendar currDate;
          private ArrayList<Edible> edibleList;
 
-         @BeforeEach
-         void setup(){
-             testLog = new DailyLog();
-             currDate = Calendar.getInstance();
-             edibleList = new ArrayList<Edible>();
-             try {
-                 seedEdibleList();
-             }
-             catch(Exception e) {
-                 System.out.println(e);
-                 
-             }
-         }
-
-         void seedEdibleList() throws Exception{
+         private void seedEdibleList() throws Exception{
              try {
                  edibleList.add( new EdibleLog(
                          new Edible()
@@ -56,10 +42,23 @@
                                  .initCategories(false, false, false, false, true)
                                  .initMetadata(false, "photo.jpg")
                  ).init(20, Edible.Unit.tsp));
-
              }
              catch(Exception e) {
                  throw e;
+             }
+         }
+
+         @BeforeEach
+         void setup(){
+             testLog = new DailyLog();
+             currDate = Calendar.getInstance();
+             edibleList = new ArrayList<Edible>();
+             try {
+                 this.seedEdibleList();
+             }
+             catch(Exception e) {
+                 System.out.println(e);
+                 System.exit(1);
              }
          }
 
@@ -84,12 +83,14 @@
          void testInit() {
              Calendar newDate = Calendar.getInstance();
              newDate.set(2021, 12, 1);
+
              try {
                 testLog.init(newDate, edibleList, 1400, 600, 200);
              }
              catch(Exception e) {
                  System.out.println(e);
              }
+
              assertEquals(newDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
              assertEquals(newDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
              assertEquals(newDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
@@ -102,6 +103,7 @@
              assertEquals(50, testLog.getProgressBar());
              assertEquals(700, testLog.getCalorieNet());
          }
+
          @Nested
          @DisplayName("Simple tests")
          class DailyLogSimple {
@@ -115,6 +117,7 @@
              @DisplayName("Edible List should be replaceable")
              void testEdibleList() {
                  ArrayList<Edible> newList = new ArrayList<Edible>();
+
                  try {
                      newList.add( new EdibleLog(
                              new Edible()
@@ -151,7 +154,6 @@
 
                  testLog.setEdibleList(newList);
                  assertEquals(newList, testLog.getEdibleList());
-
              }
 
              @Test
@@ -178,8 +180,9 @@
              @Test
              @DisplayName("We can add a new edible to the list")
              void testAddEdible() {
-                 Edible newEdible = null;
                  int prevListSize = testLog.getEdibleList().size();
+                 Edible newEdible = null;
+
                  try {
                      newEdible = new Edible()
                              .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
@@ -190,6 +193,7 @@
                  catch(Exception e) {
                      System.out.println(e);
                  }
+
                  testLog.addEdibleToLog(newEdible);
                  assertEquals(prevListSize + 1, testLog.getEdibleList().size());
              }
@@ -208,29 +212,30 @@
              @DisplayName("Edible List should be replaceable")
              void testEdibleList() {
                  ArrayList<Edible> newList = new ArrayList<Edible>();
+
                  try {
-                     newList.add( new EdibleLog(
+                     newList.add(new EdibleLog(
                              new Edible()
                                      .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
                                      .initNutrition(400, 30, 20, 50)
                                      .initCategories(false, false, false, false, false)
                                      .initMetadata(false, "photo.jpg")
                      ).init(40, Edible.Unit.tbsp));
-                     newList.add( new EdibleLog(
+                     newList.add(new EdibleLog(
                              new Edible()
                                      .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
                                      .initNutrition(300, 40, 50, 10)
                                      .initCategories(false, false, true, true, false)
                                      .initMetadata(false, "photo.jpg")
                      ).init(30, Edible.Unit.g));
-                     newList.add( new EdibleLog(
+                     newList.add(new EdibleLog(
                              new Edible()
                                      .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
                                      .initNutrition(200, 25, 40, 35)
                                      .initCategories(false, false, false, false, true)
                                      .initMetadata(false, "photo.jpg")
                      ).init(20, Edible.Unit.tsp));
-                     newList.add( new EdibleLog(
+                     newList.add(new EdibleLog(
                              new Edible()
                                      .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
                                      .initNutrition(400, 30, 20, 50)
@@ -244,7 +249,6 @@
 
                  testLog.setEdibleList(newList);
                  assertEquals(newList, testLog.getEdibleList());
-
              }
 
              @Test
@@ -290,6 +294,7 @@
              @DisplayName("Adding new edible to the list results in correct progress calculation")
              void testAddEdible() {
                  Edible newEdible = null;
+
                  try {
                      newEdible = new Edible()
                              .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
@@ -300,6 +305,7 @@
                  catch(Exception e) {
                      System.out.println(e);
                  }
+
                  testLog.addEdibleToLog(newEdible);
                  assertEquals(1400, testLog.getCalorieGoal());
                  assertEquals(600, testLog.getExerciseGoal());
@@ -313,8 +319,9 @@
              @Test
              @DisplayName("Removing edible from the list results in correct progress calculation")
              void testRemoveEdible() {
-                 Edible newEdible = null;
                  int prevListSize = testLog.getEdibleList().size();
+                 Edible newEdible = null;
+
                  try {
                      newEdible = new Edible()
                              .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
@@ -325,6 +332,7 @@
                  catch(Exception e) {
                      System.out.println(e);
                  }
+
                  testLog.addEdibleToLog(newEdible);
                  testLog.getEdibleList().remove(prevListSize);
                  testLog.updateProgress();
@@ -337,7 +345,6 @@
                  assertEquals(700, testLog.getCalorieNet());
              }
          }
-
      }
 
      @Nested
@@ -347,15 +354,7 @@
          private Calendar currDate;
          private ArrayList<Edible> edibleList;
 
-         @BeforeEach
-         void setup() {
-             testLog = new DailyLog();
-             currDate = Calendar.getInstance();
-             edibleList = new ArrayList<Edible>();
-             seedEdibleList();
-         }
-
-         void seedEdibleList() {
+         private void seedEdibleList() {
              try {
                  edibleList.add(new EdibleLog(
                          new Edible()
@@ -378,10 +377,17 @@
                                  .initCategories(false, false, false, false, true)
                                  .initMetadata(false, "photo.jpg")
                  ).init(20, Edible.Unit.tsp));
-
              } catch (Exception e) {
                  System.out.println(e);
              }
+         }
+
+         @BeforeEach
+         void setup() {
+             testLog = new DailyLog();
+             currDate = Calendar.getInstance();
+             edibleList = new ArrayList<Edible>();
+             this.seedEdibleList();
          }
 
          @Nested
@@ -406,6 +412,7 @@
                  } catch (Exception e) {
                      System.out.println(e);
                  }
+
                  assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testLog.getDate().get(Calendar.DAY_OF_YEAR));
                  assertEquals(currDate.get(Calendar.YEAR), testLog.getDate().get(Calendar.YEAR));
                  assertEquals(currDate.get(Calendar.MONTH), testLog.getDate().get(Calendar.MONTH));
@@ -427,6 +434,7 @@
                  } catch (Exception e) {
                      System.out.println(e);
                  }
+
                  assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testLog.getDate().get(Calendar.DAY_OF_YEAR));
                  assertEquals(currDate.get(Calendar.YEAR), testLog.getDate().get(Calendar.YEAR));
                  assertEquals(currDate.get(Calendar.MONTH), testLog.getDate().get(Calendar.MONTH));
@@ -451,6 +459,7 @@
                  } catch (Exception e) {
                      System.out.println(e);
                  }
+
                  try {
                      newEdible = new Edible()
                              .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
@@ -461,6 +470,7 @@
                  catch(Exception e) {
                      System.out.println(e);
                  }
+
                  testLog.addEdibleToLog(newEdible);
                  assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testLog.getDate().get(Calendar.DAY_OF_YEAR));
                  assertEquals(currDate.get(Calendar.YEAR), testLog.getDate().get(Calendar.YEAR));
@@ -486,6 +496,7 @@
                  } catch (Exception e) {
                      System.out.println(e);
                  }
+
                  try {
                      newEdible = new Edible()
                              .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
@@ -496,6 +507,7 @@
                  catch(Exception e) {
                      System.out.println(e);
                  }
+
                  testLog.addEdibleToLog(newEdible);
                  testLog.getEdibleList().remove(0);
                  testLog.updateProgress();
@@ -520,15 +532,7 @@
              private Calendar currDate;
              private ArrayList<Edible> edibleList;
 
-             @BeforeEach
-             void setup() {
-                 testLog = new DailyLog();
-                 currDate = Calendar.getInstance();
-                 edibleList = new ArrayList<Edible>();
-                 seedEdibleList();
-             }
-
-             void seedEdibleList() {
+             private void seedEdibleList() {
                  try {
                      edibleList.add(new EdibleLog(
                              new Edible()
@@ -557,17 +561,28 @@
                  }
              }
 
+             @BeforeEach
+             void setup() {
+                 testLog = new DailyLog();
+                 currDate = Calendar.getInstance();
+                 edibleList = new ArrayList<Edible>();
+                 this.seedEdibleList();
+             }
+
              @Test
              @DisplayName("we can init calorie goal to zero and get correct progress")
              void testInitCalorieGoalZero() {
                  Calendar newDate = Calendar.getInstance();
+
                  newDate.set(2021, 12, 1);
+
                  try {
                      testLog.init(newDate, edibleList, 0, 600, 200);
                  }
                  catch(Exception e) {
                      System.out.println(e);
                  }
+
                  assertEquals(newDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
                  assertEquals(newDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
                  assertEquals(newDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
@@ -584,13 +599,16 @@
              @DisplayName("we can init exercise goal to zero and get correct progress")
              void testInitExerciseGoalZero() {
                  Calendar newDate = Calendar.getInstance();
+
                  newDate.set(2021, 12, 1);
+
                  try {
                      testLog.init(newDate, edibleList, 1400, 0, 200);
                  }
                  catch(Exception e) {
                      System.out.println(e);
                  }
+
                  assertEquals(newDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
                  assertEquals(newDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
                  assertEquals(newDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
@@ -607,13 +625,16 @@
              @DisplayName("we can init exercise actual to zero and get correct progress")
              void testInitExerciseActualZero() {
                  Calendar newDate = Calendar.getInstance();
+
                  newDate.set(2021, 12, 1);
+
                  try {
                      testLog.init(newDate, edibleList, 1800, 600, 0);
                  }
                  catch(Exception e) {
                      System.out.println(e);
                  }
+
                  assertEquals(newDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
                  assertEquals(newDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
                  assertEquals(newDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
@@ -631,13 +652,16 @@
              void testInitSetEverythingZero() {
                  ArrayList<Edible> edibleList = new ArrayList<Edible>();
                  Calendar newDate = Calendar.getInstance();
+
                  newDate.set(2021, 12, 1);
+
                  try {
                      testLog.init(newDate, edibleList, 0, 0, 0);
                  }
                  catch(Exception e) {
                      System.out.println(e);
                  }
+
                  assertEquals(newDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
                  assertEquals(newDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
                  assertEquals(newDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
@@ -719,21 +743,7 @@
              private Calendar currDate;
              private ArrayList<Edible> edibleList;
 
-             @BeforeEach
-             void setup() {
-                 testLog = new DailyLog();
-                 currDate = Calendar.getInstance();
-                 edibleList = new ArrayList<Edible>();
-                 seedEdibleList();
-                 try {
-                     testLog.init(currDate, edibleList, 1400, 600, 200);
-                 }
-                 catch(Exception e) {
-                     System.out.println(e);
-                 }
-             }
-
-             void seedEdibleList() {
+             private void seedEdibleList() {
                  try {
                      edibleList.add(new EdibleLog(
                              new Edible()
@@ -758,6 +768,20 @@
                      ).init(20, Edible.Unit.tsp));
 
                  } catch (Exception e) {
+                     System.out.println(e);
+                 }
+             }
+
+             @BeforeEach
+             void setup() {
+                 testLog = new DailyLog();
+                 currDate = Calendar.getInstance();
+                 edibleList = new ArrayList<Edible>();
+                 this.seedEdibleList();
+                 try {
+                     testLog.init(currDate, edibleList, 1400, 600, 200);
+                 }
+                 catch(Exception e) {
                      System.out.println(e);
                  }
              }
@@ -822,15 +846,7 @@
          private Calendar currDate;
          private ArrayList<Edible> edibleList;
 
-         @BeforeEach
-         void setup() {
-             testLog = new DailyLog();
-             currDate = Calendar.getInstance();
-             edibleList = new ArrayList<Edible>();
-             seedEdibleList();
-         }
-
-         void seedEdibleList() {
+         private void seedEdibleList() {
              try {
                  edibleList.add(new EdibleLog(
                          new Edible()
@@ -857,6 +873,14 @@
              } catch (Exception e) {
                  System.out.println(e);
              }
+         }
+
+         @BeforeEach
+         void setup() {
+             testLog = new DailyLog();
+             currDate = Calendar.getInstance();
+             edibleList = new ArrayList<Edible>();
+             this.seedEdibleList();
          }
 
          private void setTestLog(){
@@ -907,6 +931,7 @@
                      testLog.init(currDate, edibleList, -1400, 600, 200);
                  });
              }
+
              @Test
              @DisplayName("init negative exercise goal")
              void testInitNegativeExerciseGoal() {
@@ -914,6 +939,7 @@
                      testLog.init(currDate, edibleList, 1400, -600, 200);
                  });
              }
+
              @Test
              @DisplayName("init negative exercise actual")
              void testInitNegativeExerciseActual() {
@@ -921,6 +947,7 @@
                      testLog.init(currDate, edibleList, 1400, 600, -200);
                  });
              }
+
              @Test
              @DisplayName("Set negative calorie goal")
              void testSetNegativeCalorieGoal() {
@@ -929,6 +956,7 @@
                      testLog.setCalorieGoal(-1);
                  });
              }
+
              @Test
              @DisplayName("init negative exercise goal")
              void testSetNegativeExerciseGoal() {
@@ -937,6 +965,7 @@
                      testLog.setExerciseGoal(-1);
                  });
              }
+
              @Test
              @DisplayName("init negative exercise actual")
              void testSetNegativeExerciseActual() {
@@ -945,7 +974,6 @@
                      testLog.setExerciseActual(-1);
                  });
              }
-
          }
 
          @Nested
@@ -958,6 +986,7 @@
                      testLog.init(currDate, edibleList, Constant.ENTRY_MAX_VALUE + 1, 600, 200);
                  });
              }
+
              @Test
              @DisplayName("init too high exercise goal")
              void testInitTooHighExerciseGoal() {
@@ -965,6 +994,7 @@
                      testLog.init(currDate, edibleList, 1400, Constant.ENTRY_MAX_VALUE + 1, 200);
                  });
              }
+
              @Test
              @DisplayName("init too high exercise actual")
              void testInitTooHighExerciseActual() {
@@ -972,6 +1002,7 @@
                      testLog.init(currDate, edibleList, 1400, 600, Constant.ENTRY_MAX_VALUE + 1);
                  });
              }
+
              @Test
              @DisplayName("Set too high calorie goal")
              void testSetTooHighCalorieGoal() {
@@ -980,6 +1011,7 @@
                      testLog.setCalorieGoal(Constant.ENTRY_MAX_VALUE + 1);
                  });
              }
+
              @Test
              @DisplayName("init too high exercise goal")
              void testSetTooHighExerciseGoal() {
@@ -988,6 +1020,7 @@
                      testLog.setExerciseGoal(Constant.ENTRY_MAX_VALUE + 1);
                  });
              }
+
              @Test
              @DisplayName("init too high exercise actual")
              void testSetTooHighExerciseActual() {
@@ -996,7 +1029,6 @@
                      testLog.setExerciseActual(Constant.ENTRY_MAX_VALUE + 1);
                  });
              }
-
          }
      }
  }
