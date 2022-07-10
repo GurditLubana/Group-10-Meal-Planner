@@ -859,8 +859,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("setExerciseActual");
-            
         }
     }
 
@@ -881,8 +879,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getHistoryID");
-            
         }
         return historyID;
     }
@@ -898,8 +894,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("addUser");
-            
         }
     }
 
@@ -921,8 +915,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getUser");
-            //
         }
 
         return currUser;
@@ -938,7 +930,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("setHeight");
             
         }
     }
@@ -953,7 +944,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("setWeight");
             
         }
     }
@@ -984,7 +974,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("setCalorieGoal");
             
         }
     }
@@ -1001,8 +990,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("setExerciseGoal");
-            
         }
     }
 
