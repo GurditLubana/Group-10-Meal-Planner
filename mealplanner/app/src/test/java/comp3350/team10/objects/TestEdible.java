@@ -337,8 +337,8 @@ public class TestEdible {
 		}
 
 		@Test
-		@DisplayName("Tests cloning a simple object with all true or false flags")
-		void testCloneEdible() {
+		@DisplayName("Tests cloning a simple object with all false flags")
+		void testCloneDrinkWithAllFalse() {
 			Edible newEdible;
 
 			testEdible.initDetails(1, "name", "description", 1, Edible.Unit.g)
@@ -364,7 +364,12 @@ public class TestEdible {
 			assertFalse(newEdible.getIsGlutenFree());
 			assertFalse(newEdible.getIsCustom());
 			assertEquals(newEdible.getPhoto(), testString);
+		}
 
+		@Test
+		@DisplayName("Tests cloning a simple object with all true flags")
+		void testCloneDrinkWithAllTrue() {
+			Edible newEdible;
 			testEdible.initDetails(1, "name", "description", 1, Edible.Unit.g)
 					.initNutrition(1, 1, 1, 1)
 					.initCategories(true, true, true, true, true)
@@ -1205,6 +1210,7 @@ public class TestEdible {
 		}
 
 		@Test
+		@DisplayName("Tests setting an invalid db key for an edible")
 		void testSetDBkey() {
 			try {
 				testEdible.setDBKey(-1);
@@ -1224,6 +1230,7 @@ public class TestEdible {
 		}
 
 		@Test
+		@DisplayName("Tests setting an invalid name for an edible")
 		void testSetName() {
 			try {
 				testEdible.setName(longTestString);
@@ -1243,6 +1250,7 @@ public class TestEdible {
 		}
 
 		@Test
+		@DisplayName("Tests setting an invalid description for an edible")
 		void testSetDescription() {
 			try {
 				testEdible.setDescription(longTestString);
@@ -1262,6 +1270,7 @@ public class TestEdible {
 		}
 
 		@Test
+		@DisplayName("Tests setting an invalid quantity for an edible")
 		void testSetQuantity() {
 			try {
 				testEdible.setBaseQuantity(0);
@@ -1293,6 +1302,7 @@ public class TestEdible {
 		}
 
 		@Test
+		@DisplayName("Tests setting an invalid photo for an edible")
 		void testSetPhoto() {
 			try {
 				testEdible.setPhoto(longTestString);
@@ -1312,13 +1322,13 @@ public class TestEdible {
 		}
 
 		@Test
-		@DisplayName("Tests cloning an incomplete or invalid object")
+		@DisplayName("Tests cloning an incomplete or invalid edible")
 		void testCloneEdible() {
-			Edible newEdible;
-
 			testEdible.setDBKey(1);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1326,8 +1336,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setName("name");
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1335,8 +1347,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setDescription("description");
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1344,8 +1358,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setBaseQuantity(5);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1353,8 +1369,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setBaseUnit(Edible.Unit.g);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1362,8 +1380,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setCalories(5);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1371,8 +1391,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setProtein(5);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1380,8 +1402,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setCarbs(5);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1389,8 +1413,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setFat(5);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1398,8 +1424,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setAlcoholic(true);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1407,8 +1435,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setSpicy(true);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1416,8 +1446,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setVegan(true);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1425,8 +1457,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setVegetarian(true);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1434,8 +1468,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setVegan(true);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1443,8 +1479,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setVegetarian(true);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1452,8 +1490,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setGlutenFree(true);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1461,8 +1501,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setCustom(true);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1470,8 +1512,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.setPhoto("photo");
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1479,8 +1523,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.initDetails(1, "name", "description", 5, Edible.Unit.g);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1488,8 +1534,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.initNutrition(5, 5, 5, 5);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1497,8 +1545,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.initCategories(false, false, false, false, false);
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1506,8 +1556,10 @@ public class TestEdible {
 
 			testEdible = new Edible();
 			testEdible.initMetadata(false, "photo");
+
 			try {
-				newEdible = testEdible.clone();
+				testEdible.clone();
+				fail("Should throw an exception, this is an incomplete edible");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
