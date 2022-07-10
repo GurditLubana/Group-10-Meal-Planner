@@ -1,6 +1,6 @@
 package comp3350.team10.objects;
 
-public class User { 
+public class User {
     private final int userID;         //the users id
     private String name;              //the users name
     private int height;               //the users height
@@ -19,61 +19,52 @@ public class User {
     }
 
 
-    public void setName(String newName) throws IllegalArgumentException{
+    public void setName(String newName) throws IllegalArgumentException {
 
-            if (newName != null && newName.length() < Constant.MAX_NAME_LENGTH) {
-
-                this.name = newName;
-            }
-            else {
-                throw new IllegalArgumentException("User's Name can't be null");
-            }
-
-    }
-
-    public void setHeight(int newHeight) throws IllegalArgumentException{
-
-        if (newHeight <= Constant.MAX_HEIGHT_VALUE && newHeight >= Constant.MIN_HEIGHT_VALUE) {
-
-            this.height= newHeight;
-        }
-        else {
-            throw new IllegalArgumentException("New Height requires values " + Constant.MIN_HEIGHT_VALUE + "<= value <=" + Constant.MAX_HEIGHT_VALUE);
+        if (newName != null && newName.length() >= Constant.ENTRY_MIN_VALUE && newName.length() <= Constant.ENTRY_MAX_VALUE) {
+            this.name = newName;
+        } else {
+            throw new IllegalArgumentException("User's Name can't be null or empty");
         }
 
     }
 
-    public void setWeight(int newWeight) throws IllegalArgumentException{
+    public void setHeight(int newHeight) throws IllegalArgumentException {
 
-            if (newWeight <= Constant.MAX_WEIGHT_VALUE && newWeight >= Constant.MIN_WEIGHT_VALUE) {
+        if (newHeight >= Constant.ENTRY_MIN_VALUE && newHeight <= Constant.ENTRY_MAX_VALUE) {
+            this.height = newHeight;
+        } else {
+            throw new IllegalArgumentException("New Height requires values " + Constant.ENTRY_MIN_VALUE + "<= value <= " + Constant.ENTRY_MAX_VALUE);
+        }
 
-                this.weight= newWeight;
-            }
-            else {
-                throw new IllegalArgumentException("New Weight requires values " + Constant.MIN_WEIGHT_VALUE + "<= value <=" + Constant.MAX_WEIGHT_VALUE);
-            }
     }
 
-    public void setCalorieGoal(double newCalorieGoal) throws IllegalArgumentException{
+    public void setWeight(int newWeight) throws IllegalArgumentException {
 
-        if (newCalorieGoal <= Constant.ENTRY_MAX_VALUE && newCalorieGoal >= Constant.ENTRY_MIN_VALUE) {
+        if (newWeight >= Constant.ENTRY_MIN_VALUE && newWeight <= Constant.ENTRY_MAX_VALUE) {
+            this.weight = newWeight;
+        } else {
+            throw new IllegalArgumentException("New Weight requires values " + Constant.ENTRY_MIN_VALUE + "<= value <= " + Constant.ENTRY_MAX_VALUE);
+        }
+    }
 
+    public void setCalorieGoal(double newCalorieGoal) throws IllegalArgumentException {
+
+        if (newCalorieGoal >= Constant.ENTRY_MIN_VALUE && newCalorieGoal <= Constant.ENTRY_MAX_VALUE) {
             this.calorieGoal = newCalorieGoal;
-        }
-        else {
-            throw new IllegalArgumentException("New Weight requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
+        } else {
+            throw new IllegalArgumentException("New Weight requires values " + Constant.ENTRY_MIN_VALUE + "<= value <= " + Constant.ENTRY_MAX_VALUE);
         }
     }
 
 
     public void setExerciseGoal(double newExerciseGoal) throws IllegalArgumentException {
 
-        if (newExerciseGoal <= Constant.ENTRY_MAX_VALUE && newExerciseGoal >= Constant.ENTRY_MIN_VALUE) {
+        if (newExerciseGoal >= Constant.ENTRY_MIN_VALUE && newExerciseGoal <= Constant.ENTRY_MAX_VALUE) {
 
             this.exerciseGoal = newExerciseGoal;
-        }
-        else {
-            throw new IllegalArgumentException("New Weight requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
+        } else {
+            throw new IllegalArgumentException("New Weight requires values " + Constant.ENTRY_MIN_VALUE + "<= value <= " + Constant.ENTRY_MAX_VALUE);
         }
 
     }
@@ -81,7 +72,7 @@ public class User {
     public String getName() {
         return this.name;
     }
-    
+
     public int getUserID() {
         return this.userID;
     }
