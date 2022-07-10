@@ -79,7 +79,7 @@ public class TestEdibleLog {
             }
 
             @Test
-            @DisplayName("Calories can be set typical values")
+            @DisplayName("Quantity can be set typical values")
             void testQuantity() {
                 testLog.setQuantity(2000);
                 assertEquals(2000, testLog.getQuantity());
