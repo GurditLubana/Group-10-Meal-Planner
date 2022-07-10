@@ -5,6 +5,7 @@ import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
 import comp3350.team10.persistence.DBSelector;
+import comp3350.team10.persistence.LogDBInterface;
 import comp3350.team10.persistence.SharedDB;
 
 import java.util.Calendar;
@@ -16,17 +17,17 @@ public class MealDiaryOps {
     //Database variables
     private DailyLog currLog;           //The food in the planner for the given day
     private Calendar logDate;           //The date the planner is set to
-    private DBSelector db;              //Accesses the database
+    private LogDBInterface db;          //Accesses the database
 
     //Progress bar variables
     private UserDataOps opUser;         //Business logic for handling the app's user
 
     public MealDiaryOps() throws NullPointerException {
-        this.db = SharedDB.getSharedDB();
+        this.db = SharedDB.getLogDB();
         this.logDate = Calendar.getInstance();
 
         if (db != null) {
-            this.opUser = new UserDataOps(db);
+            this.opUser = new UserDataOps();
             this.dateChangedUpdateList();
         } else {
             throw new NullPointerException("MealDiaryOps requires an initialized database in SharedDB");

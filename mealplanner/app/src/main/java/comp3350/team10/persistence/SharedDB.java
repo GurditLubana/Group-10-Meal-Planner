@@ -18,16 +18,16 @@ public class SharedDB {
         return db;
     }
 
-    public static void saveDB() {
-        db.save();
-    }
-
     public static RecipeDBInterface getRecipeDB() {
         return db;
     }
 
     public static UserDBInterface getUserDB() {
         return db;
+    }
+
+    public static void saveDB() {
+        db.save();
     }
 
     public static void close() {
