@@ -7,219 +7,543 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 public class TestIngredient {
 
     @Nested
     @DisplayName("Simple tests")
     class Test_Simple {
-        // this is for Edible class for Ingredient class
         private Edible testEdible;
-        private Ingredient testIngredient;
-        @BeforeEach
-        void setup() {
-        testEdible = new Edible();
-        testIngredient = new Ingredient();
-        }
-
-        @Test
-        void testSimple(){
-            assertNull(testIngredient.getIngredient());
-            assertEquals(-1, testIngredient.getQuantity());
-            assertNull(testIngredient.getQuantityUnits());
-            try{
-                testEdible.initDetails(1,"lala","lala",1,Unit.cups);
-                testEdible.initNutrition(5,5,5,5);
-            }
-            catch (IllegalArgumentException e){
-                fail("testEdible initial fail");
-            }
-
-            try {
-                // some problem here
-//                fail("the Quality is int in edible class here is double, I think may need to change, I give 2 test for int and double, Int is comment. " +
-//                        "If you gus change that comment the double one and uncomment");
-                // for quality is double
-                testIngredient.init(testEdible,25.9,Unit.g);
-                // for int
-                //testIngredient.init(testEdible,25,Unit.g);
-            }
-            catch (Exception e){
-                fail("Should not throw exception");
-            }
-            assertNotNull(testIngredient.getIngredient());
-            assertTrue(testIngredient.getIngredient() instanceof  Edible);
-            assertEquals(testEdible, testIngredient.getIngredient());
-            assertEquals(25.9,testIngredient.getQuantity());
-            assertEquals(Unit.g,testIngredient.getQuantityUnits());
-        }
-
-
-    }
-
-    @Nested
-    @DisplayName("Simple Edge")
-    class Test_Edge {
+        private Edible secondTestEdible;
         private Ingredient testIngredient;
 
         @BeforeEach
         void setup() {
-            testIngredient = new Ingredient();
-        }
-
-        @Test
-        void test_edge_left_setQuality() {
-
-            try {
-                testIngredient.setQuantity(1);
-            } catch (Exception e) {
-                fail("Should not throw exception");
-            }
-            assertEquals(1 , testIngredient.getQuantity());
-
-            // for test quantity is double (if change the Quantity to int, delete this section)
-            try {
-                testIngredient.setQuantity(0.00000000000000001);
-            } catch (Exception e) {
-                fail("Should not throw exception");
-            }
-            assertEquals(0.00000000000000001 , testIngredient.getQuantity());
-            // for test quantity is double
-        }
-
-        @Test
-        void test_edge_right_setQuality() {
-
-            try {
-                testIngredient.setQuantity(9999);
-            } catch (Exception e) {
-                fail("Should not throw exception");
-            }
-            assertEquals(9999 , testIngredient.getQuantity());
-
-            // for test quantity is double (if change the Quantity to int, delete this section)
-            try {
-                testIngredient.setQuantity(9999.0);
-            } catch (Exception e) {
-                fail("Should not throw exception");
-            }
-            assertEquals(9999.0 , testIngredient.getQuantity());
-            // for test quantity is double
-        }
-    }
-
-
-    @Nested
-    @DisplayName("test Empty")
-    class Test_Empty {
-        private Ingredient testIngredient;
-        private Edible testEdible;
-
-        @BeforeEach
-        void setup() {
-            testIngredient = new Ingredient();
             testEdible = new Edible();
+            secondTestEdible = new Edible();
+            testIngredient = new Ingredient();
+
+            testEdible.initDetails(5, "name", "description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "photo");
+            secondTestEdible.initDetails(10, "another name", "another description", 10, Edible.Unit.cups)
+                    .initNutrition(10, 10, 10, 10)
+                    .initCategories(true, true, true, true, true)
+                    .initMetadata(true, "another photo");
         }
 
         @Test
-        void test_empty_setIngredient() {
-            // there have problem:
-            // I write my view here:
-            // in setIngredient not check Quantity, you check the Nutrition != -1
-            // this is useless because the nutrition form edible cannot be -1, you edible class initial is equal to 0
-            // this will let the un initial food obj success set
+        @DisplayName("Tests default values in an ingredient's creation")
+        void testCreateIngrdient() {
+            assertNull(testIngredient.getIngredient());
+            assertEquals(testIngredient.getQuantity(), -1);
+            assertNull(testIngredient.getQuantityUnits());
+        }
 
-            // I write the test here with setIngredient to null and uninitial obj here
+        @Test
+        @DisplayName("Tests setting a simple ingredients edible")
+        void testSetIngredient() {
+            testIngredient.setIngredient(testEdible);
+            assertEquals(testIngredient.getIngredient(), testEdible);
+            testIngredient.setIngredient(secondTestEdible);
+            assertEquals(testIngredient.getIngredient(), secondTestEdible);
 
+            testIngredient.init(testEdible, 5, Edible.Unit.cups);
+            assertEquals(testIngredient.getIngredient(), testEdible);
+            testIngredient.init(secondTestEdible, 5, Edible.Unit.cups);
+            assertEquals(testIngredient.getIngredient(), secondTestEdible);
+        }
+
+        @Test
+        @DisplayName("Tests settings a simple ingredients quantity")
+        void testSetQuantity() {
+            testIngredient.setQuantity(5);
+            assertEquals(testIngredient.getQuantity(), 5);
+
+            testIngredient.setQuantity(10);
+            assertEquals(testIngredient.getQuantity(), 10);
+
+            testIngredient.init(testEdible,5, Edible.Unit.g);
+            assertEquals(testIngredient.getQuantity(), 5);
+
+            testIngredient.init(testEdible,10, Edible.Unit.g);
+            assertEquals(testIngredient.getQuantity(), 10);
+        }
+
+        @Test
+        @DisplayName("Tests settings an ingredients unit")
+        void testSetUnit() {
+            testIngredient.setQuantityUnit(Edible.Unit.cups);
+            assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.cups);
+
+            testIngredient.setQuantityUnit(Edible.Unit.g);
+            assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.g);
+
+            testIngredient.setQuantityUnit(Edible.Unit.ml);
+            assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.ml);
+
+            testIngredient.setQuantityUnit(Edible.Unit.oz);
+            assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.oz);
+
+            testIngredient.setQuantityUnit(Edible.Unit.liter);
+            assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.liter);
+
+            testIngredient.setQuantityUnit(Edible.Unit.serving);
+            assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.serving);
+
+            testIngredient.setQuantityUnit(Edible.Unit.tbsp);
+            assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.tbsp);
+
+            testIngredient.setQuantityUnit(Edible.Unit.tsp);
+            assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.tsp);
+
+            testIngredient.init(testEdible, 5, Edible.Unit.cups);
+            assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.cups);
+
+            testIngredient.init(testEdible, 5, Edible.Unit.g);
+            assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.g);
+
+            testIngredient.init(testEdible, 5, Edible.Unit.ml);
+            assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.ml);
+
+            testIngredient.init(testEdible, 5, Edible.Unit.oz);
+            assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.oz);
+
+            testIngredient.init(testEdible, 5, Edible.Unit.liter);
+            assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.liter);
+
+            testIngredient.init(testEdible, 5, Edible.Unit.serving);
+            assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.serving);
+
+            testIngredient.init(testEdible, 5, Edible.Unit.tbsp);
+            assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.tbsp);
+
+            testIngredient.init(testEdible, 5, Edible.Unit.tsp);
+            assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.tsp);
+        }
+    }
+
+    @Nested
+    @DisplayName("Complex tests")
+    class Test_Complex {
+        private Edible testEdible;
+        private Edible secondTestEdible;
+        private Ingredient testIngredient;
+
+        @BeforeEach
+        void setup() {
+            testEdible = new Edible();
+            secondTestEdible = new Edible();
+            testIngredient = new Ingredient();
+
+            testEdible.initDetails(500, "name\r\r\n\n?$?$?$", "description\r\r\n\n?$?$?$", 500, Edible.Unit.g)
+                    .initNutrition(500, 500, 500, 500)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "photo\r\r\n\n\n?$?$?$");
+            secondTestEdible.initDetails(1000, "12345", "12345", 1000, Edible.Unit.cups)
+                    .initNutrition(1000, 1000, 1000, 1000)
+                    .initCategories(true, true, true, true, true)
+                    .initMetadata(true, "12345");
+        }
+
+        @Test
+        @DisplayName("Tests setting a complex ingredients edible")
+        void testSetIngredient() {
+            testIngredient.setIngredient(testEdible);
+            assertEquals(testIngredient.getIngredient(), testEdible);
+            testIngredient.setIngredient(secondTestEdible);
+            assertEquals(testIngredient.getIngredient(), secondTestEdible);
+
+            testIngredient.init(testEdible, 5, Edible.Unit.cups);
+            assertEquals(testIngredient.getIngredient(), testEdible);
+            testIngredient.init(secondTestEdible, 5, Edible.Unit.cups);
+            assertEquals(testIngredient.getIngredient(), secondTestEdible);
+        }
+
+        @Test
+        @DisplayName("Tests settings a complex ingredients quantity")
+        void testSetQuantity() {
+            testIngredient.setQuantity(500);
+            assertEquals(testIngredient.getQuantity(), 500);
+
+            testIngredient.setQuantity(1000);
+            assertEquals(testIngredient.getQuantity(), 1000);
+
+            testIngredient.init(testEdible,500, Edible.Unit.g);
+            assertEquals(testIngredient.getQuantity(), 500);
+
+            testIngredient.init(testEdible,1000, Edible.Unit.g);
+            assertEquals(testIngredient.getQuantity(), 1000);
+        }
+    }
+
+    @Nested
+    @DisplayName("Empty tests")
+    class Test_Empty {
+        private Edible testEdible;
+        private Ingredient testIngredient;
+
+        @BeforeEach
+        void setup() {
+            testEdible = new Edible();
+            testIngredient = new Ingredient();
+
+            testEdible.initDetails(500, "name\r\r\n\n?$?$?$", "description\r\r\n\n?$?$?$", 500, Edible.Unit.g)
+                    .initNutrition(500, 500, 500, 500)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "photo\r\r\n\n\n?$?$?$");
+        }
+
+        @Test
+        @DisplayName("Tests setting a null edible for an ingredient")
+        void testSetIngredient() {
             try {
                 testIngredient.setIngredient(null);
-                fail("Cannot set null to ingredient");
-            } catch (Exception e) {
-                assertTrue(e instanceof IOException);
-                assertEquals("Invalid ingredient food",e.getMessage());
+                fail("An ingredient's edible cannot be null, should throw an IllegalArgumentException");
             }
+            catch(Exception e) {
+                assertTrue(e instanceof  IllegalArgumentException);
+            }
+
+            try {
+                testIngredient.init(null, 5, Edible.Unit.g);
+                fail("An ingredient's edible cannot be null, should throw an IllegalArgumentException");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof  IllegalArgumentException);
+            }
+        }
+
+        @Test
+        @DisplayName("Tests setting a null unit for an ingredient")
+        void testSetUnit() {
+            try {
+                testIngredient.setQuantityUnit(null);
+                fail("An ingredient's unit cannot be null, should throw an IllegalArgumentException");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof  IllegalArgumentException);
+            }
+
+            try {
+                testIngredient.init(testEdible, 5, null);
+                fail("An ingredient's unit cannot be null, should throw an IllegalArgumentException");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof  IllegalArgumentException);
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("Edge tests")
+    class Test_Edge {
+        private Edible testEdible;
+        private Edible secondTestEdible;
+        private Ingredient testIngredient;
+
+        @BeforeEach
+        void setup() {
+            testEdible = new Edible();
+            secondTestEdible = new Edible();
+            testIngredient = new Ingredient();
+
+            testEdible.initDetails(0, "name\r\r\n\n?$?$?$", "description\r\r\n\n?$?$?$", 500, Edible.Unit.g)
+                    .initNutrition(500, 500, 500, 500)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "photo\r\r\n\n\n?$?$?$");
+        }
+
+        @Test
+        @DisplayName("Tests quantity edge cases for an ingredient")
+        void testSetQuantity() {
+            testIngredient.setQuantity(1);
+            assertEquals(testIngredient.getQuantity(), 1);
+            testIngredient.setQuantity(9999);
+            assertEquals(testIngredient.getQuantity(), 9999);
+
+            testIngredient.init(testEdible, 1, Edible.Unit.g);
+            assertEquals(testIngredient.getQuantity(), 1);
+            testIngredient.init(testEdible, 9999, Edible.Unit.g);
+            assertEquals(testIngredient.getQuantity(), 9999);
+        }
+    }
+
+
+    @Nested
+    @DisplayName("Invalid tests")
+    class Test_Invalid {
+        private Edible testEdible;
+        private Ingredient testIngredient;
+
+        @BeforeEach
+        void setup() {
+            testEdible = new Edible();
+            testIngredient = new Ingredient();
+        }
+
+        @Test
+        @DisplayName("Tests invalid edibles for an ingredient")
+        void testSetIngredient() {
+            testEdible.setDBKey(1);
 
             try {
                 testIngredient.setIngredient(testEdible);
-                fail("Cannot set un-initial food obj  to ingredient");
-            } catch (Exception e) {
-                assertTrue(e instanceof IOException);
-                assertEquals("Invalid ingredient food",e.getMessage());
+                fail("Should throw an exception, this is an incomplete edible");
             }
-        }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
 
-        @Test
-        void  test_empty_setQuantityUnit(){
+            testEdible = new Edible();
+            testEdible.setName("name");
+
             try {
-                testIngredient.setQuantityUnit(null);
-                fail("Cannot set null to QuantityUnit");
-            } catch (Exception e) {
-                assertTrue(e instanceof IOException);
-                assertEquals("Invald ingredient unit",e.getMessage());
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
             }
-        }
-    }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
 
-    @Nested
-    @DisplayName("test Invalid")
-    class Test_Invalid {
+            testEdible = new Edible();
+            testEdible.setDescription("description");
 
-        private Ingredient testIngredient;
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
 
-        @BeforeEach
-        void setup() {
-            testIngredient = new Ingredient();
+            testEdible = new Edible();
+            testEdible.setBaseQuantity(5);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.setBaseUnit(Edible.Unit.g);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.setCalories(5);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.setProtein(5);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.setCarbs(5);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.setFat(5);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.setAlcoholic(true);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.setSpicy(true);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.setVegan(true);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.setVegetarian(true);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.setVegan(true);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.setVegetarian(true);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.setGlutenFree(true);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.setCustom(true);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.setPhoto("photo");
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.initDetails(1, "name", "description", 5, Edible.Unit.g);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.initNutrition(5, 5, 5, 5);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.initCategories(false, false, false, false, false);
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Edible();
+            testEdible.initMetadata(false, "photo");
+
+            try {
+                testIngredient.setIngredient(testEdible);
+                fail("Should throw an exception, this is an incomplete edible");
+            }
+            catch(Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
         }
 
         @Test
-        void test_invalid_left_setQuality() {
+        @DisplayName("Tests invalid quantities for an ingredient")
+        void testSetQuantity() {
 
             try {
                 testIngredient.setQuantity(0);
-                fail("should not set quality to 0");
+                fail("This quantity is too small, must be greater than 0, should throw IllegalArgumentException");
             } catch (Exception e) {
-                assertTrue(e instanceof IOException);
-                assertEquals("Invald ingredient quantity",e.getMessage());
+                assertTrue(e instanceof IllegalArgumentException);
             }
-
-
-            // for test quantity is double (if change the Quantity to int, delete this section)
-            try {
-                testIngredient.setQuantity(-0.00000000000000001);
-                fail("should not set quality to -0.00000000000000001");
-            } catch (Exception e) {
-                assertTrue(e instanceof IOException);
-                assertEquals("Invald ingredient quantity",e.getMessage());
-            }
-            // for test quantity is double
-        }
-
-        @Test
-        void test_invalid_right_setQuality() {
 
             try {
                 testIngredient.setQuantity(10000);
-                fail("should not set quality to 10000");
+                fail("This quantity is too large, must be smaller than 9999, should throw IllegalArgumentException");
             } catch (Exception e) {
-                assertTrue(e instanceof IOException);
-                assertEquals("Invald ingredient quantity",e.getMessage());
+                assertTrue(e instanceof IllegalArgumentException);
             }
-
-
-            // for test quantity is double (if change the Quantity to int, delete this section)
-            try {
-                testIngredient.setQuantity(1000000.00546542);
-                fail("should not set quality to 1000000.00546542");
-            } catch (Exception e) {
-                assertTrue(e instanceof IOException);
-                assertEquals("Invald ingredient quantity",e.getMessage());
-            }
-            // for test quantity is double
         }
-
     }
-
-
 }
