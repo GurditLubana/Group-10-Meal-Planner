@@ -16,6 +16,7 @@ import java.util.List;
 
 import comp3350.team10.application.Main;
 import comp3350.team10.objects.DailyLog;
+import comp3350.team10.objects.DataFrame;
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
@@ -40,8 +41,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch(Exception e) {
             System.out.println(e);
-            System.out.println("constructor");
-            System.exit(1);
+            
         }
     }
 
@@ -49,11 +49,10 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     public void save() {
         try {
             reqHandler.executeQuery(SAVE_CMD);
-            System.out.println("Saved the database");
         }
         catch (Exception e) {
             System.out.println(e);
-            System.exit(1);
+            
         }
     }
 
@@ -66,7 +65,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch(Exception e) {
             System.out.println("hsqldb open " + e);
-            //System.exit(1);
         }
     }
 
@@ -83,7 +81,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println("hsqldb close " + e);
-            //System.exit(1);
         }
     }
 
@@ -115,10 +112,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch(Exception e) {
             System.out.println(e);
-            System.out.println("getFoodRecipes");
-            System.exit(1);
         }
-
 
         return foodList;
     }
@@ -160,8 +154,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("Read edible");
-            System.exit(1);
+            
         }
 
         return currEdible;
@@ -222,8 +215,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getMealRecipes");
-            System.exit(1);
+            
         }
 
         return mealList;
@@ -272,8 +264,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch(Exception e) {
             System.out.println(e);
-            System.out.println("getDrinkRecipes");
-            System.exit(1);
+            
         }
 
         return drinkList;
@@ -305,7 +296,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getInstructions");
         }
 
         return instructions;
@@ -334,8 +324,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("addFoodToRecipeBook");
-            System.exit(1);
+            
         }
     }
 
@@ -390,8 +379,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("addEdible");
-            System.exit(1);
+            
         }
 
         return edibleID;
@@ -455,8 +443,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("addMealToRecipeBook");
-            System.exit(1);
+            
         }
     }
 
@@ -527,15 +514,13 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("addDrinkToRecipeBook");
-            System.exit(1);
+            
         }
     }
 
-    public DailyLog searchFoodLogByDate(Calendar date, int userID) {
+    public DailyLog searchFoodLogByDate(int userID, Calendar date) {
         DailyLog log = null;
         try {
-            System.out.println("trying to get food log");
             PreparedStatement findLog = currConn.prepareStatement("SELECT * FROM HISTORY INNER JOIN USER ON USER.USERID = HISTORY.USERID WHERE USERID = ? AND DATE = ?");
             ResultSet results;
             int exerciseActual;
@@ -554,20 +539,16 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
                         exerciseActual);
             }
             else {
-                System.out.println("starting else");
                 currUser = this.getUser();
                 log = new DailyLog().init(date, new ArrayList<Edible>(), currUser.getCalorieGoal(), currUser.getExerciseGoal(), 0);
-                System.out.println("creating log");
-                this.addLog(log, currUser.getUserID());
-                System.out.println("adding log");
+                this.addLog(currUser.getUserID(), log);
+
             }
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("searchFoodLogByDate");
-            System.exit(1);
+            
         }
-        System.out.println("after");
         return log;
     }
 
@@ -595,8 +576,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getDrinkIngredients");
-            System.exit(1);
+            
         }
 
         return ingredients;
@@ -624,8 +604,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getMealIngredients");
-            System.exit(1);
+            
         }
 
         return ingredients;
@@ -684,8 +663,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getEdibleLog");
-            System.exit(1);
+            
         }
 
         return edibleLog;
@@ -707,8 +685,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getExerciseActual");
-            System.exit(1);
+            
         }
 
         return exerciseActual;
@@ -737,7 +714,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("findEdibleByKey");
-            System.exit(1);
+            
         }
 
         return edibleLog;
@@ -765,7 +742,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("isMeal");
-            System.exit(1);
+            
         }
 
         return found;
@@ -792,13 +769,17 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("isDrink");
-            System.exit(1);
+            
         }
 
         return found;
     }
+    public void replaceLog(int userID, DailyLog newLog) {
+        this.deleteLog(userID, newLog.getDate());
+        this.addLog(userID, newLog);
+    }
 
-    public void addLog(DailyLog newLog, int userID) {
+    public void addLog(int userID, DailyLog newLog) {
         try {
             PreparedStatement addHistory = currConn.prepareStatement("INSERT INTO History (UserID, Date, CalorieGoal, " +
                     "CalorieActual) VALUES (?, ?, ?, 0)");
@@ -837,49 +818,47 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             }
 
             if (newLog.getExerciseActual() != 0) {
-                this.setExerciseActual(newLog.getExerciseActual(), newLog, userID);
+                this.setExerciseActual(userID, newLog.getExerciseActual(), newLog.getDate());
             }
         }
         catch (Exception e) {
             System.out.println(e);
             System.out.println("addLog");
-            System.exit(1);
+            
         }
     }
 
-    public void deleteLog(DailyLog delLog, int userID) {
+    public void deleteLog(int userID, Calendar date) {
         try {
-            PreparedStatement setExerciseActual = currConn.prepareStatement("DELETE FROM History WHERE Date = ? AND UserID = ?");
+            PreparedStatement deleteLog = currConn.prepareStatement("DELETE FROM History WHERE Date = ? AND UserID = ?");
 
-            setExerciseActual.setString(1, this.convertDateToString(delLog.getDate()));
-            setExerciseActual.setInt(2, userID);
-            setExerciseActual.executeUpdate();
+            deleteLog.setString(1, this.convertDateToString(date));
+            deleteLog.setInt(2, userID);
+            deleteLog.executeUpdate();
         }
         catch (Exception e) {
             System.out.println(e);
             System.out.println("deleteLog");
-            System.exit(1);
+            
         }
     }
 
-    public void setExerciseActual(double newExercise, DailyLog currLog, int userID) {
+    public void setExerciseActual(int userID, double newExercise, Calendar date) {
         try {
-            int logID = getHistoryID(currLog, userID);
+            String dateString = this.convertDateToString(date);
             PreparedStatement setExerciseActual = currConn.prepareStatement("CASE " +
-                    "WHEN COUNT(SELECT * FROM WorkoutHistory WHERE HistoryID = ?) = 0 THEN INSERT INTO WorkoutHistory VALUES (?, ?) " +
+                    "WHEN COUNT(SELECT * FROM History INNER JOIN WorkoutHistory ON WorkoutHistory.HISTORYID = HISTORY.HISTORYID WHERE Date = ?) = 0 THEN INSERT INTO WorkoutHistory VALUES (?, ?) " +
                     "ELSE UPDATE WorkoutHistory SET ExerciseActual = ? WHERE HistoryID = ?");
 
-            setExerciseActual.setInt(1, logID);
-            setExerciseActual.setInt(2, logID);
+            setExerciseActual.setString(1, dateString);
+            setExerciseActual.setString(2, dateString);
             setExerciseActual.setDouble(3, newExercise);
             setExerciseActual.setDouble(4, newExercise);
-            setExerciseActual.setInt(5, logID);
+            setExerciseActual.setString(5, dateString);
             setExerciseActual.executeQuery();
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("setExerciseActual");
-            System.exit(1);
         }
     }
 
@@ -900,8 +879,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getHistoryID");
-            System.exit(1);
         }
         return historyID;
     }
@@ -917,8 +894,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("addUser");
-            System.exit(1);
         }
     }
 
@@ -931,6 +906,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
 
             int userID, height, weight, calorieGoal, exerciseGoal;
             String name;
+
             results.next();
             System.out.println("Get USER ID");
             System.out.println(results.getString("NAME"));
@@ -939,8 +915,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getUser");
-            //System.exit(1);
         }
 
         return currUser;
@@ -956,8 +930,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("setHeight");
-            System.exit(1);
+            
         }
     }
 
@@ -971,18 +944,12 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("setWeight");
-            System.exit(1);
+            
         }
     }
 
     private String convertDateToString(Calendar date) {
-        System.out.println(date.get(date.YEAR));
-        System.out.println(date.get(date.MONTH));
-        System.out.println(date.DAY_OF_MONTH);
         String test = date.get(date.YEAR) + "-" + (date.get(date.MONTH) + 1) + "-" + date.get(date.DAY_OF_MONTH);
-        //test.trim("\"");
-        System.out.println(test);
         return test;
     }
 
@@ -995,7 +962,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         return calendarDate;
     }
 
-    public void setCalorieGoal(int userID, double goal, Calendar date) {
+    public void setLogCalorieGoal(int userID, double goal, Calendar date) {
         try {
             PreparedStatement setCalorieGoal = currConn.prepareStatement("UPDATE History SET CalorieGoal = ? " +
                     "WHERE UserID = ? AND Date = ?");
@@ -1007,12 +974,11 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("setCalorieGoal");
-            System.exit(1);
+            
         }
     }
 
-    public void setExerciseGoal(int userID, double goal, Calendar date) {
+    public void setLogExerciseGoal(int userID, double goal, Calendar date) {
         try {
             PreparedStatement setExerciseGoal = currConn.prepareStatement("UPDATE History SET ExerciseGoal = ? " +
                     "WHERE UserID = ? AND Date = ?");
@@ -1024,15 +990,37 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("setExerciseGoal");
-            System.exit(1);
         }
     }
 
-    public ArrayList<Double> getDataFrame(String dataType, String span){
+
+    public void setCalorieGoal(int userID, double goal) {
+        try {
+            PreparedStatement setCalorieGoal = currConn.prepareStatement("UPDATE USER SET CalorieGoal = ? WHERE UserID = ?");
+            setCalorieGoal.setInt(1, userID);
+            setCalorieGoal.setInt(2, (int)goal);
+            setCalorieGoal.executeUpdate();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void setExerciseGoal(int userID, double goal) {
+        try {
+            PreparedStatement setExerciseGoal = currConn.prepareStatement("UPDATE USER SET ExerciseGoal = ? WHERE UserID = ?");
+            setExerciseGoal.setInt(1, userID);
+            setExerciseGoal.setInt(2, (int)goal);
+            setExerciseGoal.executeUpdate();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public ArrayList<Double> getDataFrame(DataFrame.DataType dataType, int days){
         ArrayList<Double> result = new ArrayList<>();
 
         return result;
     }
-
 }

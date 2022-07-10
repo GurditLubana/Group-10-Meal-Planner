@@ -140,7 +140,7 @@ public class Edible {
     }
 
     public void setDescription(String newDescription) throws IllegalArgumentException {
-        if(newDescription != null) {
+        if(newDescription != null && newDescription.length() <= Constant.ENTRY_MAX_VALUE) {
             this.description = newDescription;
         }
         else {
@@ -214,7 +214,7 @@ public class Edible {
         }
     }
 
-    private void setDBKey(int dbkey) throws IllegalArgumentException {
+    public void setDBKey(int dbkey) throws IllegalArgumentException {
         if(dbkey >= 0) {
             this.edibleID = dbkey;
         }
@@ -224,7 +224,7 @@ public class Edible {
     }
 
     public void setName(String name) throws IllegalArgumentException {
-        if(name != null && !name.equals("")) {
+        if(name != null && !name.equals("") && name.length() <= Constant.ENTRY_MAX_VALUE) {
             this.name = name;
         }
         else {
@@ -233,7 +233,7 @@ public class Edible {
     }
 
     public void setPhoto(String filename) throws IllegalArgumentException {
-        if(filename != null && !filename.equals("")) {
+        if(filename != null && !filename.equals("") && filename.length() <= Constant.ENTRY_MAX_VALUE) {
             this.photo = filename;
         }
         else {
@@ -267,5 +267,16 @@ public class Edible {
 
     public String getPhoto(){
         return this.photo;
+    }
+
+    public Edible clone() throws IllegalArgumentException {
+        Edible copy = new Edible();
+
+        copy.initDetails(this.edibleID, this.name, this.description, this.baseQuantity, this.baseUnit);
+        copy.initNutrition(this.calories, this.protein, this.carbs, this.fat);
+        copy.initCategories(this.isAlcoholic, this.isSpicy, this.isVegan, this.isVegetarian, this.isGlutenFree);
+        copy.initMetadata(this.isCustom, this.photo);
+        
+        return copy;
     }
 }

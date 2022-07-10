@@ -5,6 +5,7 @@ import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
 import comp3350.team10.persistence.DBSelector;
+import comp3350.team10.persistence.LogDBInterface;
 import comp3350.team10.persistence.SharedDB;
 
 import java.util.Calendar;
@@ -16,17 +17,19 @@ public class MealDiaryOps {
     //Database variables
     private DailyLog currLog;           //The food in the planner for the given day
     private Calendar logDate;           //The date the planner is set to
-    private DBSelector db;          //Accesses the database
+    private LogDBInterface db;          //Accesses the database
 
     //Progress bar variables
     private UserDataOps opUser;         //Business logic for handling the app's user
 
     public MealDiaryOps() throws NullPointerException {
-        this.db = SharedDB.getSharedDB();
+        this.db = SharedDB.getLogDB();
         this.logDate = Calendar.getInstance();
+        this.logDate.set(Calendar.MONTH, 9);
+        this.logDate.set(Calendar.DAY_OF_MONTH, 10);
 
         if (db != null) {
-            this.opUser = new UserDataOps(db);
+            this.opUser = new UserDataOps();
             this.dateChangedUpdateList();
         } else {
             throw new NullPointerException("MealDiaryOps requires an initialized database in SharedDB");
@@ -34,27 +37,27 @@ public class MealDiaryOps {
     }
 
     public void nextDate() throws IllegalArgumentException {
-        Calendar newDate = calendarDeepCopy(this.logDate);
+        Calendar newDate = (Calendar) this.logDate.clone();
         newDate.add(Calendar.DAY_OF_YEAR, INCREMENT);
         try {
             this.setListDate(newDate);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw e;
         }
     }
 
     public void prevDate() throws IllegalArgumentException {
-        Calendar newDate = calendarDeepCopy(this.logDate);
+        Calendar newDate = (Calendar) this.logDate.clone();
         newDate.add(Calendar.DAY_OF_YEAR, -INCREMENT);
         try {
             this.setListDate(newDate);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw e;
         }
     }
 
     public void setCalorieGoal(DailyLog currLog, double newCalorieGoal) {
-        this.db.setCalorieGoal(opUser.getUser().getUserID(), newCalorieGoal, currLog.getDate());
+        this.db.setLogCalorieGoal(opUser.getUser().getUserID(), newCalorieGoal, currLog.getDate());
     }
 
     public void setListDate(Calendar newDate) throws IllegalArgumentException {
@@ -68,23 +71,16 @@ public class MealDiaryOps {
         }
     }
 
-    private Calendar calendarDeepCopy(Calendar date){
-        Calendar copy = Calendar.getInstance();
-        copy.set(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DATE));
-        return copy;
-    }
-
     private void dateChangedUpdateList() {
-        this.currLog = this.db.searchFoodLogByDate(this.logDate, opUser.getUser().getUserID());
+        this.currLog = this.db.searchFoodLogByDate(opUser.getUser().getUserID(), this.logDate );
     }
 
     public DailyLog getCurrLog() {
         return this.currLog;
     }
 
-    public void logChangedUpdateDB(){
-        this.db.deleteLog(this.currLog, opUser.getUser().getUserID());
-        this.db.addLog(this.currLog, opUser.getUser().getUserID());
+    public void logChangedUpdateDB() {
+        this.db.replaceLog(opUser.getUser().getUserID(), this.currLog );
     }
 
     public void addByKey(int dbkey, boolean isCustom) throws NoSuchElementException {
@@ -96,7 +92,7 @@ public class MealDiaryOps {
         }
         catch (Exception e){
             System.out.println(e);
-            throw new NoSuchElementException("MealDiaryOps addByKey the supplied dbkey does not match any db entry");
+            throw new NoSuchElementException("MealDiaryOps addByKey the supplied dbkey does not match any db entry " + e);
         }
             
         try {

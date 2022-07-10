@@ -5,18 +5,20 @@ import java.io.IOException;
 import comp3350.team10.business.UnitConverter;
 
 public class EdibleLog extends Edible {
-    //private UnitConverter baseConverter;  originally wanted to use a single converter but variables need to be reset so this breaks life
-    private Unit baseUnit;
-    private double baseCalories;
-    private double baseQuantity;
+    private UnitConverter converter;    //Used to calculate the actual calories based on the edibles base factors
 
-    private double quantity;
-    private Edible.Unit unit;
-    private double calories;
+    private Unit baseUnit;              //The base unit of an edible
+    private double baseCalories;        //The base calories of a edible
+    private double baseQuantity;        //The base quantity of a edible
 
-    public EdibleLog(Edible edible) throws IllegalArgumentException, Exception {
+    private double quantity;            //The actual quantity of the edible consumed
+    private Edible.Unit unit;           //The actual unit of the edible consumed
+    private double calories;            //The actual calculated calories of the edible consumed
+
+    public EdibleLog(Edible edible) throws IllegalArgumentException {
         super();
 
+        this.converter = new UnitConverter();
         this.baseUnit = edible.getUnit();
         this.baseQuantity = edible.getQuantity();
         this.baseCalories = edible.getCalories();
@@ -30,7 +32,7 @@ public class EdibleLog extends Edible {
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("EdibleLog init failed " + e);
         } catch (Exception e) {
-            throw new Exception("EdibleLog init setCalories failed " + e);
+            throw new IllegalArgumentException("EdibleLog init setCalories failed " + e);
         }
     }
 
@@ -51,10 +53,10 @@ public class EdibleLog extends Edible {
     }
 
     public void setCalories() throws Exception { //cannot call super because these are shadowed and is not supported in java
-        UnitConverter converter = new UnitConverter();
         double newCalories = 0;
+
         try {
-            newCalories = converter.convert(this.baseUnit, this.baseQuantity, this.baseCalories, this.unit, this.quantity);
+            newCalories = this.converter.convert(this.baseUnit, this.baseQuantity, this.baseCalories, this.unit, this.quantity);
         } catch (Exception e) {
             System.out.println(e);
             throw e;
@@ -81,5 +83,18 @@ public class EdibleLog extends Edible {
 
     public double getCalories() {
         return this.calories;
+    }
+
+    public EdibleLog clone() throws IllegalArgumentException{
+        try {
+            EdibleLog copy = new EdibleLog(this);
+            copy.initDetails(this.getDbkey(), this.getName(), this.getDescription(), super.getQuantity(), super.getUnit());
+            return copy;
+        }
+        catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("EdibleLog clone failed " + e);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("EdibleLog init setCalories failed " + e);
+        }
     }
 }

@@ -1358,7 +1358,7 @@ Duration: 5 hrs
      - set un-initial ingredient obj is success, should not success 
 
   
-### 2022-07-08 follow the Josef request to change the comboine assert function to separate assert
+### 2022-07-08 4PM follow the Josef request to change the comboine assert function to separate assert
      Dev:
       - Zhou
 Duration: 2 hrs
@@ -1369,7 +1369,7 @@ Duration: 2 hrs
    Problem found in TestEdibeUnit.java
     - problem 1. if I set a null photo to set in it, it should throw a exception, but it actually not.
     
-### 2022-07-08 finished the drink object unit test, object code have problem need to slove
+### 2022-07-08 8PM finished the drink object unit test, object code have problem need to slove
      Dev:
       - Zhou
 Duration: 8 hrs
@@ -1379,6 +1379,15 @@ Duration: 8 hrs
    - the problem need to fix, problem about setInstructions()
      - a. cannot update the correct value to the drink, there have problem about the about a update the data form the array list,"my array of all input is nutrition is total in 100 but the update result is 40"
      - b.if the input ingredients arraylist the size is 0 should let all the Nutrition and categories to default, but some of Categories is not set to default
+
+### 2022-07-08 follow the Josef request to change the test edible unit test
+     Dev:
+      - Zhou
+Duration: 1 hrs
+   Tasks:
+   follow the Josef request to change the test edible unit test
+    - change all combine assert method like testDetail to simple assert and find a problem
+    - problem 1. if I set a null photo to set in it, it should throw a exception, but it actually not.
      
 
 ### 2022-07-03
@@ -1400,7 +1409,7 @@ Duration: 15 hrs
 ### 2022-07-08
      Dev:
       - Dane
-Duration: started at 1 currently 11, still going
+Duration: 12 hrs
    Tasks:
    - Added historical dev log entries
    - Added a consistant way to close and save the database
@@ -1414,4 +1423,57 @@ Duration: started at 1 currently 11, still going
    - Fixed changing edible log entries in HSQL
    - Fixed calorie actual based on edibles - cannot use aliases in preparedStatements, took awhile to the duplicate naming scheme was an issue
    - Fixed an issue where changing calorie and exercise goal caused a crash in HSQL
-   - Future calorie goals are no longer pushed to other logs - this should be done is userOps
+   - Future calorie goals are no longer pushed to other logs (now consistant in HSQL and stubDB) - this should be done is userOps
+   - Refactored Edible class so that photos are handled by string paths
+   - fixed conflictions accross files
+
+### 2022-07-09 12：15AM to 1:00AM
+     Dev:
+      - Zhou
+Duration: 0.75 hrs
+   Tasks:
+   - I commit the edible unit test at 2022-07-08 around 4 pm at2022-07-09 12：15AM Dane said they change the function of setPhotoByte(byte[]) to setPhoto after I submit my work
+   - I review all the code and find there are some code need to change to change like rebuild a function change some exception type
+   - today may need 2 or 3 hours to redesign and rebuild the test, 2022-07-08 around 12PM I found rest of group memeber they change the in put range of function setPhotoByte(byte[]), I update my test edge case when commit.  2022-07-09 12:15AM Dane said my edible unit test is not for function setPhoto(String s), it update the function after I commit the edible unit test.
+
+
+### 2022-07-09 follow Dane`s request at today 12:15AM request, change and testsuit for function setPhotoByte(byte[]) to test suit setPhoto(String)
+     Dev:
+      - Zhou
+Duration: 3.5 hrs
+   Tasks:
+   - a. follow Dane `s request at today 12:15AM, change  testsuit for function setPhotoByte(byte[]) to setPhoto(String) and add new empty case. Because he modifyt the edible class, delete the function setPhotoByte(byte[]), getPhotoByte() and add new setPhoto(String), getPhoto(). So I need add more test for those function and change something for the TestEdibleUnit. java to ensure the test suit is meet the request 
+   - b. change the all test exception from IOException to IllegalArgumentException or Exeption ensure it can suit for all test relative Edible class in TestEdibleUnit.java ,TestDrinkUnit.java, TestIngredientUnit.java and TestMealUnit.java
+   - all test is passed at this time in TestEdibleUnit.java
+
+### 2022-07-09 
+     Dev:
+      - Zhou
+Duration: 11 hrs
+   Tasks:
+   -finished all the testMeal and follow Dane `s request change the file name
+   - the problem during the test found are
+   - // the problem need to fix, problem about setInstructions()
+   - a. cannot update the correct value to the Meal there have problem about the about a update the data form the array list "my array of all input is nutrition is total in 100 but the update result is 40"
+   - b.if the input ingredients arraylist the size is 0 should let all the Nutrition and categories to default but some of Categories is not set to default
+   - those problem should been fix.
+   - can delet my comments in test file after all test is pass
+
+### 2022-07-09
+     Dev:
+      - Dane
+Duration: 14 hrs
+   Tasks:
+   - Refactored Edible log so that only a single converter is used as an instance variable
+   - Adjusted prepared functions so that anything above 9999 (calories, protein, carbs, fat) gets set to 9999
+   - Adjusted a catch where calculations were made based on ingredients (if no ingredients set to 0) now must have atleast 1 ingredient to calculate
+   - Processed Zhou's EdibleTests
+   - Adjusted test naming scheme to no longer include Unit at the end (as per Iter1 feedback)
+   - Added extra MealDiaryOps tests
+   - Removed updating all subsequent calorie goals (could not easily keep consistant accross stub and HSQL)
+   - Improved UserOps, changes now get sent to the database as well
+   - Added extra testing to EdibleTests
+   - Created DrinkTests
+   - Created MealTests
+   - Adjusted AllTests by removing all * imports and updating file names
+   - Corrected all function descriptions to be very descriptive and easy to read/follow (which all tests should have)
