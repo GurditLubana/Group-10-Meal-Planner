@@ -990,8 +990,6 @@ public class TestDrink {
             }
         }
 
-        //empty is you set but it has nothing in it
-        //empty is where you call read ingredients but it has nothing more in it
         @Test
         @DisplayName("Tests setting the smallest DB key for an edible")
         void testSetIngredients() {
@@ -1003,8 +1001,7 @@ public class TestDrink {
             try {
                 testEdible.setIngredients(null);
                 fail("Ingredient list cannot be null");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -1506,302 +1503,681 @@ public class TestDrink {
             assertTrue(newEdible.getIsCustom());
             assertEquals(newEdible.getPhoto(), largeTestString);
         }
+
+        @Test
+        @DisplayName("Tests cloning a complex object with all true or false flags")
+        void testAddDuplicateIngredients() {
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
+            Edible food = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(2, 2, 2, 2)
+                    .initCategories(false, false, false, true, false)
+                    .initMetadata(true, "photo");
+            DrinkIngredient currIngredient = new DrinkIngredient();
+
+            testEdible.initDetails(1, "drink name", "drink description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "drink photo");
+
+            currIngredient.init(food, 1, Edible.Unit.cups);
+            ingredients.add(currIngredient);
+
+            currIngredient = new DrinkIngredient();
+            currIngredient.init(food, 1, Edible.Unit.ml);
+            ingredients.add(currIngredient);
+
+            testEdible.setIngredients(ingredients);
+
+            assertEquals(testEdible.getDbkey(), 1);
+            assertEquals(testEdible.getName(), "drink name");
+            assertEquals(testEdible.getDescription(), "drink description");
+            assertEquals(testEdible.getQuantity(), 5);
+            assertEquals(testEdible.getUnit(), Edible.Unit.g);
+            assertEquals(testEdible.getCalories(), 5);
+            assertEquals(testEdible.getProtein(), 5);
+            assertEquals(testEdible.getCarbs(), 5);
+            assertEquals(testEdible.getFat(), 5);
+            assertFalse(testEdible.getIsAlcoholic());
+            assertFalse(testEdible.getIsSpicy());
+            assertFalse(testEdible.getIsVegan());
+            assertFalse(testEdible.getIsVegetarian());
+            assertFalse(testEdible.getIsGlutenFree());
+            assertFalse(testEdible.getIsCustom());
+            assertEquals(testEdible.getPhoto(), "drink photo");
+            assertEquals(testEdible.getIngredients().size(), 2);
+
+            testEdible.readIngredientData();
+            assertEquals(testEdible.getDbkey(), 1);
+            assertEquals(testEdible.getName(), "drink name");
+            assertEquals(testEdible.getDescription(), "drink description");
+            assertEquals(testEdible.getQuantity(), 5);
+            assertEquals(testEdible.getUnit(), Edible.Unit.g);
+            assertEquals(testEdible.getCalories(), 4);
+            assertEquals(testEdible.getProtein(), 4);
+            assertEquals(testEdible.getCarbs(), 4);
+            assertEquals(testEdible.getFat(), 4);
+            assertFalse(testEdible.getIsAlcoholic());
+            assertFalse(testEdible.getIsSpicy());
+            assertFalse(testEdible.getIsVegan());
+            assertTrue(testEdible.getIsVegetarian());
+            assertFalse(testEdible.getIsGlutenFree());
+            assertFalse(testEdible.getIsCustom());
+            assertEquals(testEdible.getPhoto(), "drink photo");
+            assertEquals(testEdible.getIngredients().size(), 2);
+        }
+
+        @Test
+        @DisplayName("Tests adding and calculating ingredients when there is excess calories")
+        void testIngredientsExcesiveCalories() {
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
+            Edible food = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, true, false)
+                    .initMetadata(true, "photo");
+            Edible secondFood = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(9999, 0, 0, 0)
+                    .initCategories(false, false, false, true, true)
+                    .initMetadata(true, "photo");
+
+            DrinkIngredient currIngredient = new DrinkIngredient();
+
+            testEdible.initDetails(1, "drink name", "drink description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "drink photo");
+
+            currIngredient.init(food, 1, Edible.Unit.cups);
+            ingredients.add(currIngredient);
+
+            currIngredient = new DrinkIngredient();
+            currIngredient.init(secondFood, 1, Edible.Unit.ml);
+            ingredients.add(currIngredient);
+
+            testEdible.setIngredients(ingredients);
+
+            assertEquals(testEdible.getDbkey(), 1);
+            assertEquals(testEdible.getName(), "drink name");
+            assertEquals(testEdible.getDescription(), "drink description");
+            assertEquals(testEdible.getQuantity(), 5);
+            assertEquals(testEdible.getUnit(), Edible.Unit.g);
+            assertEquals(testEdible.getCalories(), 5);
+            assertEquals(testEdible.getProtein(), 5);
+            assertEquals(testEdible.getCarbs(), 5);
+            assertEquals(testEdible.getFat(), 5);
+            assertFalse(testEdible.getIsAlcoholic());
+            assertFalse(testEdible.getIsSpicy());
+            assertFalse(testEdible.getIsVegan());
+            assertFalse(testEdible.getIsVegetarian());
+            assertFalse(testEdible.getIsGlutenFree());
+            assertFalse(testEdible.getIsCustom());
+            assertEquals(testEdible.getPhoto(), "drink photo");
+            assertEquals(testEdible.getIngredients().size(), 2);
+
+            testEdible.readIngredientData();
+
+            assertEquals(testEdible.getDbkey(), 1);
+            assertEquals(testEdible.getName(), "drink name");
+            assertEquals(testEdible.getDescription(), "drink description");
+            assertEquals(testEdible.getQuantity(), 5);
+            assertEquals(testEdible.getUnit(), Edible.Unit.g);
+            assertEquals(testEdible.getCalories(), 9999);
+            assertEquals(testEdible.getProtein(), 5);
+            assertEquals(testEdible.getCarbs(), 5);
+            assertEquals(testEdible.getFat(), 5);
+            assertFalse(testEdible.getIsAlcoholic());
+            assertFalse(testEdible.getIsSpicy());
+            assertFalse(testEdible.getIsVegan());
+            assertTrue(testEdible.getIsVegetarian());
+            assertFalse(testEdible.getIsGlutenFree());
+            assertFalse(testEdible.getIsCustom());
+            assertEquals(testEdible.getPhoto(), "drink photo");
+            assertEquals(testEdible.getIngredients().size(), 2);
+        }
+
+        @DisplayName("Tests adding and calculating ingredients when there is excess protein")
+        void testIngredientsExcesiveProtein() {
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
+            Edible food = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, true, false)
+                    .initMetadata(true, "photo");
+            Edible secondFood = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(0, 9999, 0, 0)
+                    .initCategories(false, false, false, true, true)
+                    .initMetadata(true, "photo");
+
+            DrinkIngredient currIngredient = new DrinkIngredient();
+
+            testEdible.initDetails(1, "drink name", "drink description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "drink photo");
+
+            currIngredient.init(food, 1, Edible.Unit.cups);
+            ingredients.add(currIngredient);
+
+            currIngredient = new DrinkIngredient();
+            currIngredient.init(secondFood, 1, Edible.Unit.ml);
+            ingredients.add(currIngredient);
+
+            testEdible.setIngredients(ingredients);
+
+            assertEquals(testEdible.getDbkey(), 1);
+            assertEquals(testEdible.getName(), "drink name");
+            assertEquals(testEdible.getDescription(), "drink description");
+            assertEquals(testEdible.getQuantity(), 5);
+            assertEquals(testEdible.getUnit(), Edible.Unit.g);
+            assertEquals(testEdible.getCalories(), 5);
+            assertEquals(testEdible.getProtein(), 5);
+            assertEquals(testEdible.getCarbs(), 5);
+            assertEquals(testEdible.getFat(), 5);
+            assertFalse(testEdible.getIsAlcoholic());
+            assertFalse(testEdible.getIsSpicy());
+            assertFalse(testEdible.getIsVegan());
+            assertFalse(testEdible.getIsVegetarian());
+            assertFalse(testEdible.getIsGlutenFree());
+            assertFalse(testEdible.getIsCustom());
+            assertEquals(testEdible.getPhoto(), "drink photo");
+            assertEquals(testEdible.getIngredients().size(), 2);
+
+            testEdible.readIngredientData();
+
+            assertEquals(testEdible.getDbkey(), 1);
+            assertEquals(testEdible.getName(), "drink name");
+            assertEquals(testEdible.getDescription(), "drink description");
+            assertEquals(testEdible.getQuantity(), 5);
+            assertEquals(testEdible.getUnit(), Edible.Unit.g);
+            assertEquals(testEdible.getCalories(), 5);
+            assertEquals(testEdible.getProtein(), 9999);
+            assertEquals(testEdible.getCarbs(), 5);
+            assertEquals(testEdible.getFat(), 5);
+            assertFalse(testEdible.getIsAlcoholic());
+            assertFalse(testEdible.getIsSpicy());
+            assertFalse(testEdible.getIsVegan());
+            assertTrue(testEdible.getIsVegetarian());
+            assertFalse(testEdible.getIsGlutenFree());
+            assertFalse(testEdible.getIsCustom());
+            assertEquals(testEdible.getPhoto(), "drink photo");
+            assertEquals(testEdible.getIngredients().size(), 2);
+        }
+
+        @DisplayName("Tests adding and calculating ingredients when there is excess carbs")
+        void testIngredientsExcesiveCarbs() {
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
+            Edible food = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, true, false)
+                    .initMetadata(true, "photo");
+            Edible secondFood = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(0, 0, 9999, 0)
+                    .initCategories(false, false, false, true, true)
+                    .initMetadata(true, "photo");
+
+            DrinkIngredient currIngredient = new DrinkIngredient();
+
+            testEdible.initDetails(1, "drink name", "drink description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "drink photo");
+
+            currIngredient.init(food, 1, Edible.Unit.cups);
+            ingredients.add(currIngredient);
+
+            currIngredient = new DrinkIngredient();
+            currIngredient.init(secondFood, 1, Edible.Unit.ml);
+            ingredients.add(currIngredient);
+
+            testEdible.setIngredients(ingredients);
+
+            assertEquals(testEdible.getDbkey(), 1);
+            assertEquals(testEdible.getName(), "drink name");
+            assertEquals(testEdible.getDescription(), "drink description");
+            assertEquals(testEdible.getQuantity(), 5);
+            assertEquals(testEdible.getUnit(), Edible.Unit.g);
+            assertEquals(testEdible.getCalories(), 5);
+            assertEquals(testEdible.getProtein(), 5);
+            assertEquals(testEdible.getCarbs(), 5);
+            assertEquals(testEdible.getFat(), 5);
+            assertFalse(testEdible.getIsAlcoholic());
+            assertFalse(testEdible.getIsSpicy());
+            assertFalse(testEdible.getIsVegan());
+            assertFalse(testEdible.getIsVegetarian());
+            assertFalse(testEdible.getIsGlutenFree());
+            assertFalse(testEdible.getIsCustom());
+            assertEquals(testEdible.getPhoto(), "drink photo");
+            assertEquals(testEdible.getIngredients().size(), 2);
+
+            testEdible.readIngredientData();
+
+            assertEquals(testEdible.getDbkey(), 1);
+            assertEquals(testEdible.getName(), "drink name");
+            assertEquals(testEdible.getDescription(), "drink description");
+            assertEquals(testEdible.getQuantity(), 5);
+            assertEquals(testEdible.getUnit(), Edible.Unit.g);
+            assertEquals(testEdible.getCalories(), 5);
+            assertEquals(testEdible.getProtein(), 5);
+            assertEquals(testEdible.getCarbs(), 9999);
+            assertEquals(testEdible.getFat(), 5);
+            assertFalse(testEdible.getIsAlcoholic());
+            assertFalse(testEdible.getIsSpicy());
+            assertFalse(testEdible.getIsVegan());
+            assertTrue(testEdible.getIsVegetarian());
+            assertFalse(testEdible.getIsGlutenFree());
+            assertFalse(testEdible.getIsCustom());
+            assertEquals(testEdible.getPhoto(), "drink photo");
+            assertEquals(testEdible.getIngredients().size(), 2);
+        }
+
+        @DisplayName("Tests adding and calculating ingredients when there is excess fat")
+        void testIngredientsExcesiveFat() {
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
+            Edible food = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, true, false)
+                    .initMetadata(true, "photo");
+            Edible secondFood = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(0, 0, 0, 9999)
+                    .initCategories(false, false, false, true, true)
+                    .initMetadata(true, "photo");
+
+            DrinkIngredient currIngredient = new DrinkIngredient();
+
+            testEdible.initDetails(1, "drink name", "drink description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "drink photo");
+
+            currIngredient.init(food, 1, Edible.Unit.cups);
+            ingredients.add(currIngredient);
+
+            currIngredient = new DrinkIngredient();
+            currIngredient.init(secondFood, 1, Edible.Unit.ml);
+            ingredients.add(currIngredient);
+
+            testEdible.setIngredients(ingredients);
+
+            assertEquals(testEdible.getDbkey(), 1);
+            assertEquals(testEdible.getName(), "drink name");
+            assertEquals(testEdible.getDescription(), "drink description");
+            assertEquals(testEdible.getQuantity(), 5);
+            assertEquals(testEdible.getUnit(), Edible.Unit.g);
+            assertEquals(testEdible.getCalories(), 5);
+            assertEquals(testEdible.getProtein(), 5);
+            assertEquals(testEdible.getCarbs(), 5);
+            assertEquals(testEdible.getFat(), 5);
+            assertFalse(testEdible.getIsAlcoholic());
+            assertFalse(testEdible.getIsSpicy());
+            assertFalse(testEdible.getIsVegan());
+            assertFalse(testEdible.getIsVegetarian());
+            assertFalse(testEdible.getIsGlutenFree());
+            assertFalse(testEdible.getIsCustom());
+            assertEquals(testEdible.getPhoto(), "drink photo");
+            assertEquals(testEdible.getIngredients().size(), 2);
+
+            testEdible.readIngredientData();
+
+            assertEquals(testEdible.getDbkey(), 1);
+            assertEquals(testEdible.getName(), "drink name");
+            assertEquals(testEdible.getDescription(), "drink description");
+            assertEquals(testEdible.getQuantity(), 5);
+            assertEquals(testEdible.getUnit(), Edible.Unit.g);
+            assertEquals(testEdible.getCalories(), 5);
+            assertEquals(testEdible.getProtein(), 5);
+            assertEquals(testEdible.getCarbs(), 5);
+            assertEquals(testEdible.getFat(), 9999);
+            assertFalse(testEdible.getIsAlcoholic());
+            assertFalse(testEdible.getIsSpicy());
+            assertFalse(testEdible.getIsVegan());
+            assertTrue(testEdible.getIsVegetarian());
+            assertFalse(testEdible.getIsGlutenFree());
+            assertFalse(testEdible.getIsCustom());
+            assertEquals(testEdible.getPhoto(), "drink photo");
+            assertEquals(testEdible.getIngredients().size(), 2);
+        }
+    }
+}
+
+@Nested
+@DisplayName("Invalid tests")
+class Test_Invalid {
+    private Drink testEdible;
+    private String longTestString;
+
+    @BeforeEach
+    void setUp() {
+        testEdible = new Drink();
+        longTestString = "";
+
+        for (int i = 0; i < 10000; i++) {
+            longTestString = longTestString + "a";
+        }
     }
 
-    @Nested
-    @DisplayName("Invalid tests")
-    class Test_Invalid {
-        private Drink testEdible;
-        private String longTestString;
-
-        @BeforeEach
-        void setUp() {
-            testEdible = new Drink();
-            longTestString = "";
-
-            for (int i = 0; i < 10000; i++) {
-                longTestString = longTestString + "a";
-            }
+    @Test
+    void testSetDBkey() {
+        try {
+            testEdible.setDBKey(-1);
+            fail("Should throw an exception, db key is less than 0");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
         }
 
-        @Test
-        void testSetDBkey() {
-            try {
-                testEdible.setDBKey(-1);
-                fail("Should throw an exception, db key is less than 0");
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        try {
+            testEdible.initDetails(-1, "name", "description", 5, Edible.Unit.cups);
+            fail("Should throw an exception, db key is less than 0");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+    }
 
-            try {
-                testEdible.initDetails(-1, "name", "description", 5, Edible.Unit.cups);
-                fail("Should throw an exception, db key is less than 0");
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+    @Test
+    void testSetName() {
+        try {
+            testEdible.setName(longTestString);
+            fail("Should throw an exception, this name is too long");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
         }
 
-        @Test
-        void testSetName() {
-            try {
-                testEdible.setName(longTestString);
-                fail("Should throw an exception, this name is too long");
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        try {
+            testEdible.initDetails(1, longTestString, "description", 5, Edible.Unit.cups);
+            fail("Should throw an exception, this name is too long");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+    }
 
-            try {
-                testEdible.initDetails(1, longTestString, "description", 5, Edible.Unit.cups);
-                fail("Should throw an exception, this name is too long");
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+    @Test
+    void testSetDescription() {
+        try {
+            testEdible.setDescription(longTestString);
+            fail("Should throw an exception, this description is too long");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
         }
 
-        @Test
-        void testSetDescription() {
-            try {
-                testEdible.setDescription(longTestString);
-                fail("Should throw an exception, this description is too long");
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        try {
+            testEdible.initDetails(1, "name", longTestString, 5, Edible.Unit.cups);
+            fail("Should throw an exception, this description is too long");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+    }
 
-            try {
-                testEdible.initDetails(1, "name", longTestString, 5, Edible.Unit.cups);
-                fail("Should throw an exception, this description is too long");
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+    @Test
+    void testSetQuantity() {
+        try {
+            testEdible.setBaseQuantity(0);
+            fail("Should throw an exception, this quantity is too low");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
         }
 
-        @Test
-        void testSetQuantity() {
-            try {
-                testEdible.setBaseQuantity(0);
-                fail("Should throw an exception, this quantity is too low");
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
-
-            try {
-                testEdible.setBaseQuantity(10000);
-                fail("Should throw an exception, this quantity is too big");
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
-
-            try {
-                testEdible.initDetails(1, "name", "description", 0, Edible.Unit.cups);
-                fail("Should throw an exception, this quantity is too low");
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
-
-            try {
-                testEdible.initDetails(1, "name", "description", 10000, Edible.Unit.cups);
-                fail("Should throw an exception, this quantity is too big");
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        try {
+            testEdible.setBaseQuantity(10000);
+            fail("Should throw an exception, this quantity is too big");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
         }
 
-        @Test
-        void testSetPhoto() {
-            try {
-                testEdible.setPhoto(longTestString);
-                fail("Should throw an exception, this photo is too long");
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
-
-            try {
-                testEdible.initMetadata(false, longTestString);
-                fail("Should throw an exception, this photo is too long");
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        try {
+            testEdible.initDetails(1, "name", "description", 0, Edible.Unit.cups);
+            fail("Should throw an exception, this quantity is too low");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
         }
 
-        @Test
-        @DisplayName("Tests cloning an incomplete or invalid object")
-        void testCloneDrink() {
-            Edible newEdible;
+        try {
+            testEdible.initDetails(1, "name", "description", 10000, Edible.Unit.cups);
+            fail("Should throw an exception, this quantity is too big");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+    }
 
-            testEdible.setDBKey(1);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+    @Test
+    void testSetPhoto() {
+        try {
+            testEdible.setPhoto(longTestString);
+            fail("Should throw an exception, this photo is too long");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.setName("name");
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        try {
+            testEdible.initMetadata(false, longTestString);
+            fail("Should throw an exception, this photo is too long");
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+    }
 
-            testEdible = new Drink();
-            testEdible.setDescription("description");
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+    @Test
+    @DisplayName("Tests cloning an incomplete or invalid object")
+    void testCloneDrink() {
+        Edible newEdible;
 
-            testEdible = new Drink();
-            testEdible.setBaseQuantity(5);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible.setDBKey(1);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.setBaseUnit(Edible.Unit.g);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setName("name");
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.setCalories(5);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setDescription("description");
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.setProtein(5);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setBaseQuantity(5);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.setCarbs(5);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setBaseUnit(Edible.Unit.g);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.setFat(5);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setCalories(5);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.setAlcoholic(true);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setProtein(5);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.setSpicy(true);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setCarbs(5);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.setVegan(true);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setFat(5);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.setVegetarian(true);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setAlcoholic(true);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.setVegan(true);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setSpicy(true);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.setVegetarian(true);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setVegan(true);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.setGlutenFree(true);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setVegetarian(true);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.setCustom(true);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setVegan(true);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.setPhoto("photo");
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setVegetarian(true);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.initDetails(1, "name", "description", 5, Edible.Unit.g);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setGlutenFree(true);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.initNutrition(5, 5, 5, 5);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setCustom(true);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.initCategories(false, false, false, false, false);
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.setPhoto("photo");
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
-            testEdible = new Drink();
-            testEdible.initMetadata(false, "photo");
-            try {
-                newEdible = testEdible.clone();
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
+        testEdible = new Drink();
+        testEdible.initDetails(1, "name", "description", 5, Edible.Unit.g);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+
+        testEdible = new Drink();
+        testEdible.initNutrition(5, 5, 5, 5);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+
+        testEdible = new Drink();
+        testEdible.initCategories(false, false, false, false, false);
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+
+        testEdible = new Drink();
+        testEdible.initMetadata(false, "photo");
+        try {
+            newEdible = testEdible.clone();
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+    }
+
+    @Test
+    @DisplayName("Tests adding ingredient lists with null entries")
+    void testIngredientList() {
+        Edible food = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                .initNutrition(5, 5, 5, 5)
+                .initCategories(false, false, false, true, false)
+                .initMetadata(true, "photo");
+        Edible secondFood = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                .initNutrition(0, 0, 0, 9999)
+                .initCategories(false, false, false, true, true)
+                .initMetadata(true, "photo");
+        ArrayList<DrinkIngredient> ingredients;
+        DrinkIngredient foodIngredient = new DrinkIngredient();
+        DrinkIngredient secondFoodIngredient = new DrinkIngredient();
+        foodIngredient.init(food, 1, Edible.Unit.cups);
+        secondFoodIngredient.init(secondFood, 1, Edible.Unit.cups);
+
+        try {
+            ingredients = new ArrayList<DrinkIngredient>();
+            ingredients.add(null);
+            ingredients.add(foodIngredient);
+            ingredients.add(secondFoodIngredient);
+            testEdible.setIngredients(ingredients);
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+
+        try {
+            ingredients = new ArrayList<DrinkIngredient>();
+            ingredients.add(foodIngredient);
+            ingredients.add(null);
+            ingredients.add(secondFoodIngredient);
+            testEdible.setIngredients(ingredients);
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+
+        try {
+            ingredients = new ArrayList<DrinkIngredient>();
+            ingredients.add(foodIngredient);
+            ingredients.add(secondFoodIngredient);
+            ingredients.add(null);
+            testEdible.setIngredients(ingredients);
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
         }
     }
 }
