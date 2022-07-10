@@ -74,9 +74,9 @@ public class TestUser {
         }
 
         @Test
-        @DisplayName("Testing some complex cases which are still valid but not expected input.")
-        void ComplexCases() {
-
+        @DisplayName("Complex Test cases for SetName")
+        void testSetName()
+        {
 
             user.setName(" ");
             assertEquals(" ", user.getName());
@@ -110,6 +110,43 @@ public class TestUser {
 
 
         }
+
+        @Test
+        @DisplayName("test set user's weight")
+        void testSetWeight()
+        {
+            user.setWeight(100);
+            assertEquals(100, user.getWeight());      //minimum weight
+
+            user.setWeight(350);                              //maximum weight
+            assertEquals(350, user.getWeight());
+
+        }
+
+
+        @Test
+        @DisplayName("test set user's Calorie Goal")
+        void testSetCalorieGoal()
+        {
+            user.setCalorieGoal(0);
+            assertEquals(0, user.getCalorieGoal());   //minimum Calorie Goal value
+
+            user.setCalorieGoal(9999);
+            assertEquals(9999, user.getCalorieGoal()); //maximum Calorie Goal value
+
+        }
+
+        @Test
+        @DisplayName("test set user's Exercise Goal")
+        void testSetExerciseGoal()
+        {
+            user.setExerciseGoal(0);
+            assertEquals(0, user.getExerciseGoal());  //minimum Exercise Goal value
+
+            user.setExerciseGoal(9999);
+            assertEquals(9999, user.getExerciseGoal());//maximum Exercise Goal value
+        }
+
     }
 
 
@@ -127,42 +164,58 @@ public class TestUser {
         }
 
         @Test
-        @DisplayName("All these tests are the edge cases")
-
-        void EdgeCasesOfSetters() {
-
+        @DisplayName("test setHeight")
+        void testSetHeight()
+        {
             user.setHeight(10);                               // minimum height
             assertEquals(10, user.getHeight());
 
             user.setHeight(280);                              //maximum height
             assertEquals(280, user.getHeight());
 
+        }
+
+        @Test
+        @DisplayName("test set user's weight")
+        void testSetWeight()
+        {
             user.setWeight(100);
             assertEquals(100, user.getWeight());      //minimum weight
 
             user.setWeight(350);                              //maximum weight
             assertEquals(350, user.getWeight());
 
-            user.setExerciseGoal(0);
-            assertEquals(0, user.getExerciseGoal());  //minimum Exercise Goal value
+        }
 
-            user.setExerciseGoal(9999);
-            assertEquals(9999, user.getExerciseGoal());//maximum Exercise Goal value
 
+        @Test
+        @DisplayName("test set user's Calorie Goal")
+        void testSetCalorieGoal()
+        {
             user.setCalorieGoal(0);
             assertEquals(0, user.getCalorieGoal());   //minimum Calorie Goal value
 
             user.setCalorieGoal(9999);
             assertEquals(9999, user.getCalorieGoal()); //maximum Calorie Goal value
 
+        }
 
+        @Test
+        @DisplayName("test set user's Exercise Goal")
+        void testSetExerciseGoal()
+        {
+            user.setExerciseGoal(0);
+            assertEquals(0, user.getExerciseGoal());  //minimum Exercise Goal value
+
+            user.setExerciseGoal(9999);
+            assertEquals(9999, user.getExerciseGoal());//maximum Exercise Goal value
         }
     }
 
 
 
     @Nested
-    @DisplayName("These test cases should throw exception")
+    @DisplayName("These test cases should throw an exception")
     class InvalidTestCases {
 
         private User user;
@@ -175,27 +228,30 @@ public class TestUser {
 
         }
 
+
         @Test
-        @DisplayName("All these tests should fail and throw an exception")
-
-        void shouldThrowExceptionTest() {
-
+        @DisplayName("test setHeight")
+        void testSetHeight()
+        {
             assertThrows(IllegalArgumentException.class, () -> {
+            user.setHeight(100000);
+            assertEquals(100000, user.getHeight());
 
-                user.setName(null);
-                assertNull(user.getName());
+            user.setHeight(-989);
+            assertEquals(-989, user.getHeight());
 
-                user.setName("");
-                assertEquals("", user.getName());
+            user.setHeight(0);
+            assertEquals(0,user.getHeight());
 
-                user.setHeight(100000);
-                assertEquals(100000, user.getHeight());
+            });
 
-                user.setHeight(-989);
-                assertEquals(-989, user.getHeight());
+        }
 
-                user.setHeight(0);
-                assertEquals(0,user.getHeight());
+        @Test
+        @DisplayName("test set user's weight")
+        void testSetWeight()
+        {
+            assertThrows(IllegalArgumentException.class, () -> {
 
                 user.setWeight(999999);
                 assertEquals(9999,user.getWeight());
@@ -205,6 +261,35 @@ public class TestUser {
 
                 user.setWeight(0);
                 assertEquals(0, user.getWeight());
+            });
+
+        }
+
+
+        @Test
+        @DisplayName("test set user's Calorie Goal")
+        void testSetCalorieGoal()
+        {
+            assertThrows(IllegalArgumentException.class, () -> {
+
+                user.setCalorieGoal(-100);
+                assertEquals(-100,user.getCalorieGoal());
+
+                user.setCalorieGoal(100000);
+                assertEquals(100000,user.getCalorieGoal());
+
+                user.setCalorieGoal(0);
+                assertEquals(0,user.getCalorieGoal());
+
+            });
+        }
+
+        @Test
+        @DisplayName("test set user's Exercise Goal")
+        void testSetExerciseGoal()
+        {
+            assertThrows(IllegalArgumentException.class, () -> {
+
 
                 user.setExerciseGoal(-9988);
                 assertEquals(-9988, user.getExerciseGoal());
@@ -215,14 +300,24 @@ public class TestUser {
                 user.setExerciseGoal(0);
                 assertEquals(0, user.getExerciseGoal());
 
-                user.setCalorieGoal(-100);
-                assertEquals(-100,user.getCalorieGoal());
 
-                user.setCalorieGoal(100000);
-                assertEquals(100000,user.getCalorieGoal());
+            });
+        }
 
-                user.setCalorieGoal(0);
-                assertEquals(0,user.getCalorieGoal());
+
+
+
+        @Test
+        @DisplayName("test set user's name")
+        void testSetName(){
+
+            assertThrows(IllegalArgumentException.class, () -> {
+
+                user.setName(null);
+                assertNull(user.getName());
+
+                user.setName("");
+                assertEquals("", user.getName());
 
             });
 
