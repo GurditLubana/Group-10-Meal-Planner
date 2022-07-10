@@ -337,7 +337,7 @@ public class TestEdible {
 		}
 
 		@Test
-		@DisplayName("Tests cloning a simple object with all false flags")
+		@DisplayName("Tests cloning a simple edible with all false flags")
 		void testCloneDrinkWithAllFalse() {
 			Edible newEdible;
 
@@ -367,7 +367,7 @@ public class TestEdible {
 		}
 
 		@Test
-		@DisplayName("Tests cloning a simple object with all true flags")
+		@DisplayName("Tests cloning a simple edible with all true flags")
 		void testCloneDrinkWithAllTrue() {
 			Edible newEdible;
 			testEdible.initDetails(1, "name", "description", 1, Edible.Unit.g)
@@ -557,7 +557,7 @@ public class TestEdible {
 		}
 
 		@Test
-		@DisplayName("Tests cloning a complex object with all true or false flags")
+		@DisplayName("Tests cloning a complex edible with all true or false flags")
 		void testCloneEdible() {
 			Edible newEdible;
 
@@ -628,7 +628,7 @@ public class TestEdible {
 		void testSetName() {
 			try {
 				testEdible.setName(null);
-				fail("Should throw IO exception");
+				fail("Name should not be null, should throw IllegalArgumentException");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -636,7 +636,7 @@ public class TestEdible {
 
 			try {
 				testEdible.setName(emptyTestString);
-				fail("Should throw IO exception");
+				fail("Name should not be empty,should throw IllegalArgumentException");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -647,7 +647,7 @@ public class TestEdible {
 
 			try {
 				testEdible.initDetails(1, null, "description", 5, Edible.Unit.cups);
-				fail("Should throw IO exception");
+				fail("Name should not be null, should throw IllegalArgumentException");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -655,7 +655,7 @@ public class TestEdible {
 
 			try{
 				testEdible.initDetails(1, emptyTestString, "description", 5, Edible.Unit.cups);
-				fail("Should throw IO exception");
+				fail("Name should not be empty, should throw IllegalArgumentException");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -670,7 +670,7 @@ public class TestEdible {
 		void testSetDescription() {
 			try {
 				testEdible.setDescription(null);
-				fail("Should throw IO exception");
+				fail("Description should not be null, should throw IllegalArgumentException");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -684,7 +684,7 @@ public class TestEdible {
 
 			try {
 				testEdible.initDetails(1, "name", null, 5, Edible.Unit.cups);
-				fail("Should throw IO exception");
+				fail("Description should not be null, should throw IllegalArgumentException");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -702,7 +702,7 @@ public class TestEdible {
 		void testSetUnit() {
 			try {
 				testEdible.setBaseUnit(null);
-				fail("Should throw IO exception");
+				fail("Unit should not be null, should throw IllegalArgumentException");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -710,7 +710,7 @@ public class TestEdible {
 
 			try {
 				testEdible.initDetails(1, "name", "description", 5, null);
-				fail("Should throw IO exception");
+				fail("Unit should not be null, should throw IllegalArgumentException");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -722,7 +722,7 @@ public class TestEdible {
 		void testSetPhoto() {
 			try {
 				testEdible.setPhoto(null);
-				fail("Should throw IO exception");
+				fail("Photo should not be null, should throw IllegalArgumentException");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -730,7 +730,7 @@ public class TestEdible {
 
 			try {
 				testEdible.setPhoto(emptyTestString);
-				fail("Should throw IO exception");
+				fail("Photo should not be empty, should throw IllegalArgumentException");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -744,7 +744,7 @@ public class TestEdible {
 
 			try {
 				testEdible.initMetadata(false, null);
-				fail("Should throw IO exception");
+				fail("Photo should not be null, should throw IllegalArgumentException");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -752,7 +752,7 @@ public class TestEdible {
 
 			try{
 				testEdible.initMetadata(false, emptyTestString);
-				fail("Should throw IO exception");
+				fail("Photo should not be empty, should throw IllegalArgumentException");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1139,7 +1139,7 @@ public class TestEdible {
 		}
 
 		@Test
-		@DisplayName("Tests cloning a complex object with all true or false flags")
+		@DisplayName("Tests cloning a complex edible with all true or false flags")
 		void testCloneEdible() {
 			Edible newEdible;
 

@@ -898,7 +898,7 @@ public class TestDrink {
 
             try {
                 testEdible.initDetails(1, emptyTestString, "description", 5, Edible.Unit.cups);
-                fail("Name cannot be null, should throw IllegalArgumentException");
+                fail("Name cannot be empty, should throw IllegalArgumentException");
             } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
