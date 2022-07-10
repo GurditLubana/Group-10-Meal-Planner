@@ -112,9 +112,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch(Exception e) {
             System.out.println(e);
-            
         }
-
 
         return foodList;
     }
@@ -520,7 +518,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
     }
 
-    public DailyLog searchFoodLogByDate(Calendar date, int userID) {
+    public DailyLog searchFoodLogByDate(int userID, Calendar date) {
         DailyLog log = null;
         try {
             PreparedStatement findLog = currConn.prepareStatement("SELECT * FROM HISTORY INNER JOIN USER ON USER.USERID = HISTORY.USERID WHERE USERID = ? AND DATE = ?");
@@ -543,7 +541,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             else {
                 currUser = this.getUser();
                 log = new DailyLog().init(date, new ArrayList<Edible>(), currUser.getCalorieGoal(), currUser.getExerciseGoal(), 0);
-                this.addLog(log, currUser.getUserID());
+                this.addLog(currUser.getUserID(), log);
 
             }
         }
@@ -776,8 +774,12 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
 
         return found;
     }
+    public void replaceLog(int userID, DailyLog newLog) {
+        this.deleteLog(userID, newLog.getDate());
+        this.addLog(userID, newLog);
+    }
 
-    public void addLog(DailyLog newLog, int userID) {
+    public void addLog(int userID, DailyLog newLog) {
         try {
             PreparedStatement addHistory = currConn.prepareStatement("INSERT INTO History (UserID, Date, CalorieGoal, " +
                     "CalorieActual) VALUES (?, ?, ?, 0)");
@@ -816,7 +818,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             }
 
             if (newLog.getExerciseActual() != 0) {
-                this.setExerciseActual(newLog.getExerciseActual(), newLog, userID);
+                this.setExerciseActual(userID, newLog.getExerciseActual(), newLog.getDate());
             }
         }
         catch (Exception e) {
@@ -826,13 +828,13 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
     }
 
-    public void deleteLog(DailyLog delLog, int userID) {
+    public void deleteLog(int userID, Calendar date) {
         try {
-            PreparedStatement setExerciseActual = currConn.prepareStatement("DELETE FROM History WHERE Date = ? AND UserID = ?");
+            PreparedStatement deleteLog = currConn.prepareStatement("DELETE FROM History WHERE Date = ? AND UserID = ?");
 
-            setExerciseActual.setString(1, this.convertDateToString(delLog.getDate()));
-            setExerciseActual.setInt(2, userID);
-            setExerciseActual.executeUpdate();
+            deleteLog.setString(1, this.convertDateToString(date));
+            deleteLog.setInt(2, userID);
+            deleteLog.executeUpdate();
         }
         catch (Exception e) {
             System.out.println(e);
@@ -841,24 +843,22 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
     }
 
-    public void setExerciseActual(double newExercise, DailyLog currLog, int userID) {
+    public void setExerciseActual(int userID, double newExercise, Calendar date) {
         try {
-            int logID = getHistoryID(currLog, userID);
+            String dateString = this.convertDateToString(date);
             PreparedStatement setExerciseActual = currConn.prepareStatement("CASE " +
-                    "WHEN COUNT(SELECT * FROM WorkoutHistory WHERE HistoryID = ?) = 0 THEN INSERT INTO WorkoutHistory VALUES (?, ?) " +
+                    "WHEN COUNT(SELECT * FROM History INNER JOIN WorkoutHistory ON WorkoutHistory.HISTORYID = HISTORY.HISTORYID WHERE Date = ?) = 0 THEN INSERT INTO WorkoutHistory VALUES (?, ?) " +
                     "ELSE UPDATE WorkoutHistory SET ExerciseActual = ? WHERE HistoryID = ?");
 
-            setExerciseActual.setInt(1, logID);
-            setExerciseActual.setInt(2, logID);
+            setExerciseActual.setString(1, dateString);
+            setExerciseActual.setString(2, dateString);
             setExerciseActual.setDouble(3, newExercise);
             setExerciseActual.setDouble(4, newExercise);
-            setExerciseActual.setInt(5, logID);
+            setExerciseActual.setString(5, dateString);
             setExerciseActual.executeQuery();
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("setExerciseActual");
-            
         }
     }
 
@@ -879,8 +879,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getHistoryID");
-            
         }
         return historyID;
     }
@@ -896,8 +894,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("addUser");
-            
         }
     }
 
@@ -919,8 +915,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getUser");
-            //
         }
 
         return currUser;
@@ -936,7 +930,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("setHeight");
             
         }
     }
@@ -951,18 +944,12 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("setWeight");
             
         }
     }
 
     private String convertDateToString(Calendar date) {
-        System.out.println(date.get(date.YEAR));
-        System.out.println(date.get(date.MONTH));
-        System.out.println(date.DAY_OF_MONTH);
         String test = date.get(date.YEAR) + "-" + (date.get(date.MONTH) + 1) + "-" + date.get(date.DAY_OF_MONTH);
-        //test.trim("\"");
-        System.out.println(test);
         return test;
     }
 
@@ -987,7 +974,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("setCalorieGoal");
             
         }
     }
@@ -1004,8 +990,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("setExerciseGoal");
-            
         }
     }
 

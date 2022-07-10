@@ -69,7 +69,7 @@ public class MealDiaryOps {
     }
 
     private void dateChangedUpdateList() {
-        this.currLog = this.db.searchFoodLogByDate(this.logDate, opUser.getUser().getUserID());
+        this.currLog = this.db.searchFoodLogByDate(opUser.getUser().getUserID(), this.logDate );
     }
 
     public DailyLog getCurrLog() {
@@ -77,8 +77,8 @@ public class MealDiaryOps {
     }
 
     public void logChangedUpdateDB() {
-        this.db.deleteLog(this.currLog, opUser.getUser().getUserID());
-        this.db.addLog(this.currLog, opUser.getUser().getUserID());
+        this.db.replaceLog(opUser.getUser().getUserID(), this.currLog );
+        //this.db.addLog(this.currLog, opUser.getUser().getUserID());
     }
 
     public void addByKey(int dbkey, boolean isCustom) throws NoSuchElementException {

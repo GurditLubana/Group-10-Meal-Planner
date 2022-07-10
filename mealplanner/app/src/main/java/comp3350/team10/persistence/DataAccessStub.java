@@ -155,7 +155,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     }
 
     public void setLogCalorieGoal(int userID, double goal, Calendar date) {
-        DailyLog currEntry = searchFoodLogByDate(date, userID);
+        DailyLog currEntry = searchFoodLogByDate(userID, date);
         int currLogIndex;
 
         try {
@@ -167,7 +167,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     }
 
     public void setLogExerciseGoal(int userID, double goal, Calendar date) throws IllegalArgumentException {
-        DailyLog currEntry = searchFoodLogByDate(date, userID);
+        DailyLog currEntry = searchFoodLogByDate(userID, date);
 
         try {
             sortDBFoodLog();
@@ -177,8 +177,8 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
-    public void setExerciseActual(double exerciseActual, DailyLog currLog, int userID) throws IllegalArgumentException {
-        DailyLog currEntry = searchFoodLogByDate(currLog.getDate(), userID);
+    public void setExerciseActual(int userID, double exerciseActual, Calendar date ) throws IllegalArgumentException {
+        DailyLog currEntry = searchFoodLogByDate(userID, date);
 
         try {
             this.dbFoodLog.remove(currEntry);
@@ -232,7 +232,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     }
 
     //This section implements DiaryDBInterface
-    public DailyLog searchFoodLogByDate(Calendar date, int userID) {
+    public DailyLog searchFoodLogByDate(int userID, Calendar date) {
         Integer intDate = calendarToInt(date);
         DailyLog foundLog = null;
 
@@ -258,15 +258,30 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         return this.currUser.getExerciseGoal();
     }
 
-    public void addLog(DailyLog newLog, int userID) {
-        if (this.dbFoodLog != null) {
-            this.dbFoodLog.add(newLog);
+    public void replaceLog(int userID, DailyLog newLog) {
+        if(newLog != null) {
+            if (this.dbFoodLog != null) {
+                this.deleteLog(userID, newLog.getDate());
+                this.dbFoodLog.add(newLog);
+            }
+        } else {
+            throw new NullPointerException("DataAccessStub replaceLog cannot be null");
         }
     }
 
-    public void deleteLog(DailyLog delLog, int userID) {
+    public void deleteLog(int userID, Calendar date) {
+        int foundLog = -1;
+        Calendar currDate = null;
         if (this.dbFoodLog != null) {
-            this.dbFoodLog.remove(delLog);
+            for (int i = 0; i < this.dbFoodLog.size() && foundLog == -1; i++) {
+                currDate = this.dbFoodLog.get(i).getDate();
+                if (calendarToInt(date).intValue() == calendarToInt(currDate).intValue()) {
+                    foundLog = i;
+                }
+            }
+            if(foundLog >= 0) {
+                this.dbFoodLog.remove(foundLog);
+            }
         }
     }
 
