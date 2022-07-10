@@ -431,6 +431,7 @@ public class TestDrink {
             assertFalse(testEdible.getIsGlutenFree());
             assertFalse(testEdible.getIsCustom());
             assertEquals(testEdible.getPhoto(), "drink photo");
+            assertEquals(testEdible.getIngredients().size(), 1);
         }
 
         @Test
@@ -469,6 +470,7 @@ public class TestDrink {
             assertTrue(testEdible.getIsGlutenFree());
             assertFalse(testEdible.getIsCustom());
             assertEquals(testEdible.getPhoto(), "drink photo");
+            assertEquals(testEdible.getIngredients().size(), 1);
         }
     }
 
@@ -685,6 +687,171 @@ public class TestDrink {
             assertTrue(newEdible.getIsCustom());
             assertEquals(newEdible.getPhoto(), numberTestString);
         }
+
+        @Test
+        @DisplayName("Tests setting multiple ingredients to an edible")
+        void testSetIngredients() {
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
+            Edible food = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(1, 1, 1, 1)
+                    .initCategories(true, false, false, true, false)
+                    .initMetadata(true, "photo");
+            Edible secondFood = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(1, 1, 1, 1)
+                    .initCategories(false, false, true, true, true)
+                    .initMetadata(true, "photo");
+            Edible smallDrink = new Drink().initDetails(1, "drink", "description", 5, Edible.Unit.g)
+                    .initNutrition(10, 10, 10, 10)
+                    .initCategories(false, true, false, true, false)
+                    .initMetadata(true, "photo");
+            DrinkIngredient currIngredient = new DrinkIngredient();
+
+            testEdible.initDetails(1, "drink name", "drink description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "drink photo");
+
+            currIngredient.init(food, 1, Edible.Unit.cups);
+            ingredients.add(currIngredient);
+
+            currIngredient.init(secondFood, 1, Edible.Unit.ml);
+            ingredients.add(currIngredient);
+
+            currIngredient.init(smallDrink, 1, Edible.Unit.liter);
+            ingredients.add(currIngredient);
+
+            testEdible.setIngredients(ingredients);
+
+            assertEquals(testEdible.getDbkey(), 1);
+            assertEquals(testEdible.getName(), "drink name");
+            assertEquals(testEdible.getDescription(), "drink description");
+            assertEquals(testEdible.getQuantity(), 5);
+            assertEquals(testEdible.getUnit(), Edible.Unit.g);
+            assertEquals(testEdible.getCalories(), 5);
+            assertEquals(testEdible.getProtein(), 5);
+            assertEquals(testEdible.getCarbs(), 5);
+            assertEquals(testEdible.getFat(), 5);
+            assertFalse(testEdible.getIsAlcoholic());
+            assertFalse(testEdible.getIsSpicy());
+            assertFalse(testEdible.getIsVegan());
+            assertFalse(testEdible.getIsVegetarian());
+            assertFalse(testEdible.getIsGlutenFree());
+            assertFalse(testEdible.getIsCustom());
+            assertEquals(testEdible.getPhoto(), "drink photo");
+            assertEquals(testEdible.getIngredients().size(), 3);
+        }
+
+        @Test
+        @DisplayName("Tests setting multiple ingredients to an edible and updating its details based on the ingredients")
+        void testReadIngredients() {
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
+            Edible food = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(1, 1, 1, 1)
+                    .initCategories(true, false, false, true, false)
+                    .initMetadata(true, "photo");
+            Edible secondFood = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(1, 1, 1, 1)
+                    .initCategories(false, false, true, true, true)
+                    .initMetadata(true, "photo");
+            Edible smallDrink = new Drink().initDetails(1, "drink", "description", 5, Edible.Unit.g)
+                    .initNutrition(10, 10, 10, 10)
+                    .initCategories(false, true, false, true, false)
+                    .initMetadata(true, "photo");
+            DrinkIngredient currIngredient = new DrinkIngredient();
+
+            testEdible.initDetails(1, "drink name", "drink description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "drink photo");
+
+            currIngredient.init(food, 1, Edible.Unit.cups);
+            ingredients.add(currIngredient);
+
+            currIngredient = new DrinkIngredient();
+            currIngredient.init(secondFood, 1, Edible.Unit.ml);
+            ingredients.add(currIngredient);
+
+            currIngredient = new DrinkIngredient();
+            currIngredient.init(smallDrink, 1, Edible.Unit.liter);
+            ingredients.add(currIngredient);
+
+            testEdible.setIngredients(ingredients);
+            testEdible.readIngredientData();
+
+            assertEquals(testEdible.getDbkey(), 1);
+            assertEquals(testEdible.getName(), "drink name");
+            assertEquals(testEdible.getDescription(), "drink description");
+            assertEquals(testEdible.getQuantity(), 5);
+            assertEquals(testEdible.getUnit(), Edible.Unit.g);
+            assertEquals(testEdible.getCalories(), 12);
+            assertEquals(testEdible.getProtein(), 12);
+            assertEquals(testEdible.getCarbs(), 12);
+            assertEquals(testEdible.getFat(), 12);
+            assertTrue(testEdible.getIsAlcoholic());
+            assertTrue(testEdible.getIsSpicy());
+            assertFalse(testEdible.getIsVegan());
+            assertTrue(testEdible.getIsVegetarian());
+            assertFalse(testEdible.getIsGlutenFree());
+            assertFalse(testEdible.getIsCustom());
+            assertEquals(testEdible.getPhoto(), "drink photo");
+            assertEquals(testEdible.getIngredients().size(), 3);
+        }
+
+        @Test
+        @DisplayName("Tests setting multiple ingredients to an edible and updating its details based on the ingredients")
+        void testReadMoreIngredients() {
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
+            Edible food = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, true, false)
+                    .initMetadata(true, "photo");
+            Edible secondFood = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(10, 10, 10, 10)
+                    .initCategories(false, false, false, true, true)
+                    .initMetadata(true, "photo");
+            Edible smallDrink = new Drink().initDetails(1, "drink", "description", 5, Edible.Unit.g)
+                    .initNutrition(15, 15, 15, 15)
+                    .initCategories(false, false, false, true, false)
+                    .initMetadata(true, "photo");
+            DrinkIngredient currIngredient = new DrinkIngredient();
+
+            testEdible.initDetails(1, "drink name", "drink description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "drink photo");
+
+            currIngredient.init(food, 1, Edible.Unit.cups);
+            ingredients.add(currIngredient);
+
+            currIngredient = new DrinkIngredient();
+            currIngredient.init(secondFood, 1, Edible.Unit.ml);
+            ingredients.add(currIngredient);
+
+            currIngredient = new DrinkIngredient();
+            currIngredient.init(smallDrink, 1, Edible.Unit.liter);
+            ingredients.add(currIngredient);
+
+            testEdible.setIngredients(ingredients);
+            testEdible.readIngredientData();
+
+            assertEquals(testEdible.getDbkey(), 1);
+            assertEquals(testEdible.getName(), "drink name");
+            assertEquals(testEdible.getDescription(), "drink description");
+            assertEquals(testEdible.getQuantity(), 5);
+            assertEquals(testEdible.getUnit(), Edible.Unit.g);
+            assertEquals(testEdible.getCalories(), 30);
+            assertEquals(testEdible.getProtein(), 30);
+            assertEquals(testEdible.getCarbs(), 30);
+            assertEquals(testEdible.getFat(), 30);
+            assertFalse(testEdible.getIsAlcoholic());
+            assertFalse(testEdible.getIsSpicy());
+            assertFalse(testEdible.getIsVegan());
+            assertTrue(testEdible.getIsVegetarian());
+            assertFalse(testEdible.getIsGlutenFree());
+            assertFalse(testEdible.getIsCustom());
+            assertEquals(testEdible.getPhoto(), "drink photo");
+            assertEquals(testEdible.getIngredients().size(), 3);
+        }
     }
 
     @Nested
@@ -821,6 +988,90 @@ public class TestDrink {
             } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
+        }
+
+        //empty is you set but it has nothing in it
+        //empty is where you call read ingredients but it has nothing more in it
+        @Test
+        @DisplayName("Tests setting the smallest DB key for an edible")
+        void testSetIngredients() {
+            testEdible.initDetails(1, "drink name", "drink description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "drink photo");
+
+            try {
+                testEdible.setIngredients(null);
+                fail("Ingredient list cannot be null");
+            }
+            catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible.setIngredients(new ArrayList<DrinkIngredient>());
+            assertEquals(testEdible.getIngredients().size(), 0);
+            assertEquals(testEdible.getDbkey(), 1);
+            assertEquals(testEdible.getName(), "drink name");
+            assertEquals(testEdible.getDescription(), "drink description");
+            assertEquals(testEdible.getQuantity(), 5);
+            assertEquals(testEdible.getUnit(), Edible.Unit.g);
+            assertEquals(testEdible.getCalories(), 5);
+            assertEquals(testEdible.getProtein(), 5);
+            assertEquals(testEdible.getCarbs(), 5);
+            assertEquals(testEdible.getFat(), 5);
+            assertFalse(testEdible.getIsAlcoholic());
+            assertFalse(testEdible.getIsSpicy());
+            assertFalse(testEdible.getIsVegan());
+            assertFalse(testEdible.getIsVegetarian());
+            assertFalse(testEdible.getIsGlutenFree());
+            assertFalse(testEdible.getIsCustom());
+            assertEquals(testEdible.getPhoto(), "drink photo");
+        }
+
+        @Test
+        @DisplayName("Tests setting the smallest DB key for an edible")
+        void testReadIngredients() {
+            testEdible.initDetails(1, "drink name", "drink description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "drink photo");
+
+            assertEquals(testEdible.getIngredients().size(), 0);
+            assertEquals(testEdible.getDbkey(), 1);
+            assertEquals(testEdible.getName(), "drink name");
+            assertEquals(testEdible.getDescription(), "drink description");
+            assertEquals(testEdible.getQuantity(), 5);
+            assertEquals(testEdible.getUnit(), Edible.Unit.g);
+            assertEquals(testEdible.getCalories(), 5);
+            assertEquals(testEdible.getProtein(), 5);
+            assertEquals(testEdible.getCarbs(), 5);
+            assertEquals(testEdible.getFat(), 5);
+            assertFalse(testEdible.getIsAlcoholic());
+            assertFalse(testEdible.getIsSpicy());
+            assertFalse(testEdible.getIsVegan());
+            assertFalse(testEdible.getIsVegetarian());
+            assertFalse(testEdible.getIsGlutenFree());
+            assertFalse(testEdible.getIsCustom());
+            assertEquals(testEdible.getPhoto(), "drink photo");
+
+            testEdible.setIngredients(new ArrayList<DrinkIngredient>());
+            assertEquals(testEdible.getIngredients().size(), 0);
+            assertEquals(testEdible.getDbkey(), 1);
+            assertEquals(testEdible.getName(), "drink name");
+            assertEquals(testEdible.getDescription(), "drink description");
+            assertEquals(testEdible.getQuantity(), 5);
+            assertEquals(testEdible.getUnit(), Edible.Unit.g);
+            assertEquals(testEdible.getCalories(), 5);
+            assertEquals(testEdible.getProtein(), 5);
+            assertEquals(testEdible.getCarbs(), 5);
+            assertEquals(testEdible.getFat(), 5);
+            assertFalse(testEdible.getIsAlcoholic());
+            assertFalse(testEdible.getIsSpicy());
+            assertFalse(testEdible.getIsVegan());
+            assertFalse(testEdible.getIsVegetarian());
+            assertFalse(testEdible.getIsGlutenFree());
+            assertFalse(testEdible.getIsCustom());
+            assertEquals(testEdible.getPhoto(), "drink photo");
         }
     }
 

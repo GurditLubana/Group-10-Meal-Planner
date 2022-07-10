@@ -47,7 +47,7 @@ public abstract class PreparedItem extends Edible {
 
         if(ingredients.size() > 0) {
             for(int i = 0; i < ingredients.size(); i++) {
-                calculatedCalories = ingredients.get(i).getIngredient().getCalories();
+                calculatedCalories += ingredients.get(i).getIngredient().getCalories();
             }
 
             if(calculatedCalories > Constant.ENTRY_MAX_VALUE) {
@@ -63,7 +63,7 @@ public abstract class PreparedItem extends Edible {
 
         if(ingredients.size() > 0) {
             for(int i = 0; i < ingredients.size(); i++) {
-                calculatedProtein = ingredients.get(i).getIngredient().getProtein();
+                calculatedProtein += ingredients.get(i).getIngredient().getProtein();
             }
 
             if(calculatedProtein > Constant.ENTRY_MAX_VALUE) {
@@ -79,7 +79,7 @@ public abstract class PreparedItem extends Edible {
 
         if(ingredients.size() > 0) {
             for(int i = 0; i < ingredients.size(); i++) {
-                calculatedCarbs = ingredients.get(i).getIngredient().getCarbs();
+                calculatedCarbs += ingredients.get(i).getIngredient().getCarbs();
             }
 
             if(calculatedCarbs > Constant.ENTRY_MAX_VALUE) {
@@ -95,7 +95,7 @@ public abstract class PreparedItem extends Edible {
 
         if(ingredients.size() > 0) {
             for(int i = 0; i < ingredients.size(); i++) {
-                calculatedFat = ingredients.get(i).getIngredient().getFat();
+                calculatedFat += ingredients.get(i).getIngredient().getFat();
             }
 
             if(calculatedFat > Constant.ENTRY_MAX_VALUE) {
