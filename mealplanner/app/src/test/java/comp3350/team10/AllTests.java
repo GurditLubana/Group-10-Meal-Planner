@@ -29,10 +29,10 @@
          TestDailyLog.class,
          TestDataFrame.class,
          TestDrink.class,
-         //TestFoodUnit.class,
-         //TestEdibleUnit.class,
+         //TestFood.class,
+         //TestEdible.class,
          TestIngredient.class,
-         //TestMealUnit.class,
+         //TestMeal.class,
          TestLogDBInterface.class,
          TestUserDBInterface.class,
          TestRecipeDBInterface.class
