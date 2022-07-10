@@ -58,7 +58,7 @@ public class DailyLog {
         }
     }
 
-    public void setEdibleList(ArrayList<Edible> newLog) throws NullPointerException {
+    private void setEdibleList(ArrayList<Edible> newLog) throws NullPointerException {
         if (newLog != null && newLog.size() >= 0 && !newLog.contains(null)) {
             this.edibleLog = newLog;
             this.updateProgress();
@@ -149,8 +149,28 @@ public class DailyLog {
         this.calorieNet = this.calorieGoal - (this.edibleCalories - this.exerciseActual);
     }
 
+    public void removeItem(int pos) throws IllegalArgumentException{
+        if(pos >= 0 && pos < this.edibleLog.size()){
+            this.edibleLog.remove(pos);
+            this.updateProgress();
+        }
+        else {
+            throw new IllegalArgumentException("DailyLog removeItem position specified is out of bounds");
+        }
+    }
+
     public ArrayList<Edible> getEdibleList() {
-        return this.edibleLog;
+        ArrayList<Edible> arrayCopy = null;
+        Edible copy = null;
+        if (this.edibleLog != null) {
+            arrayCopy = new ArrayList<Edible>();
+            for (int i = 0; i < this.edibleLog.size(); i++) {
+                copy = this.edibleLog.get(i).clone();
+                arrayCopy.add(copy);
+            }
+        }
+        return arrayCopy;
+
     }
 
     public double getExerciseActual() {

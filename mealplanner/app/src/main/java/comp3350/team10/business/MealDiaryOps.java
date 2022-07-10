@@ -25,6 +25,8 @@ public class MealDiaryOps {
     public MealDiaryOps() throws NullPointerException {
         this.db = SharedDB.getLogDB();
         this.logDate = Calendar.getInstance();
+        this.logDate.set(Calendar.MONTH, 9);
+        this.logDate.set(Calendar.DAY_OF_MONTH, 10);
 
         if (db != null) {
             this.opUser = new UserDataOps();
@@ -79,7 +81,6 @@ public class MealDiaryOps {
 
     public void logChangedUpdateDB() {
         this.db.replaceLog(opUser.getUser().getUserID(), this.currLog );
-        //this.db.addLog(this.currLog, opUser.getUser().getUserID());
     }
 
     public void addByKey(int dbkey, boolean isCustom) throws NoSuchElementException {

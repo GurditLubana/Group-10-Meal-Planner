@@ -15,7 +15,7 @@ public class EdibleLog extends Edible {
     private Edible.Unit unit;           //The actual unit of the edible consumed
     private double calories;            //The actual calculated calories of the edible consumed
 
-    public EdibleLog(Edible edible) throws IllegalArgumentException, Exception {
+    public EdibleLog(Edible edible) throws IllegalArgumentException {
         super();
 
         this.converter = new UnitConverter();
@@ -32,7 +32,7 @@ public class EdibleLog extends Edible {
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("EdibleLog init failed " + e);
         } catch (Exception e) {
-            throw new Exception("EdibleLog init setCalories failed " + e);
+            throw new IllegalArgumentException("EdibleLog init setCalories failed " + e);
         }
     }
 
@@ -83,5 +83,16 @@ public class EdibleLog extends Edible {
 
     public double getCalories() {
         return this.calories;
+    }
+
+    public EdibleLog clone() throws IllegalArgumentException{
+        try {
+            return new EdibleLog(this);
+        }
+        catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("EdibleLog clone failed " + e);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("EdibleLog init setCalories failed " + e);
+        }
     }
 }
