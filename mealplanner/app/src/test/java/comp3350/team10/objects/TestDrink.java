@@ -2159,7 +2159,7 @@ class Test_Invalid {
     }
 
     @Test
-    @DisplayName("Tests adding ingredient lists with null entries where null appears fisrt, then second, then last")
+    @DisplayName("Tests adding ingredient into a drink with null entries where null appears fisrt, then second, then last")
     void testIngredientList() {
         DrinkIngredient foodIngredient = new DrinkIngredient();
         DrinkIngredient secondFoodIngredient = new DrinkIngredient();
