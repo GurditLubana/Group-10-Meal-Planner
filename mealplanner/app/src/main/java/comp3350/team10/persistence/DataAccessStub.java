@@ -59,7 +59,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     }
 
     private void loadUser() {
-        currUser = new User(USER_ID, "USER", 666, 666, 666, 666);
+        currUser = new User().init(USER_ID, "USER", 666, 666, 666, 666);
     }
 
     private Integer calendarToInt(Calendar date) {
