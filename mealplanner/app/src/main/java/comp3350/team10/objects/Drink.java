@@ -22,7 +22,7 @@ public class Drink extends PreparedItem {
         }
     }
 
-    public void readIngredientData() {
+    public void readIngredientData() throws IOException {
         ArrayList<Ingredient> temp = new ArrayList<Ingredient>();
 
         //Downcast to ingredients because ArrayLists are finiky!

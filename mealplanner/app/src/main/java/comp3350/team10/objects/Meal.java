@@ -25,7 +25,7 @@ public class Meal extends PreparedItem {
         }
     }
 
-    public void readIngredientData() {
+    public void readIngredientData() throws IOException {
         this.updateEdibleFromIngredients(this.ingredients);
     }
 

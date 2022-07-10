@@ -637,6 +637,9 @@ public class TestEdible {
 				assertTrue(e instanceof IllegalArgumentException);
 			}
 
+			testEdible.setName(" ");
+			assertEquals(testEdible.getName(), " ");
+
 			try {
 				testEdible.initDetails(1, null, "description", 5, Edible.Unit.cups);
 				fail("Should throw IO exception");
@@ -652,6 +655,9 @@ public class TestEdible {
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
 			}
+
+			testEdible.initDetails(1, " ", "description", 5, Edible.Unit.cups);
+			assertEquals(testEdible.getName(), " ");
 		}
 
 		@Test
@@ -668,6 +674,9 @@ public class TestEdible {
 			testEdible.setDescription(emptyTestString);
 			assertEquals(testEdible.getDescription(), emptyTestString);
 
+			testEdible.setDescription(" ");
+			assertEquals(testEdible.getDescription(), " ");
+
 			try {
 				testEdible.initDetails(1, "name", null, 5, Edible.Unit.cups);
 				fail("Should throw IO exception");
@@ -677,8 +686,10 @@ public class TestEdible {
 			}
 
 			testEdible.initDetails(1, "name", emptyTestString, 5, Edible.Unit.cups);
-			testEdible.setDescription(emptyTestString);
 			assertEquals(testEdible.getDescription(), emptyTestString);
+
+			testEdible.initDetails(1, "name", " ", 5, Edible.Unit.cups);
+			assertEquals(testEdible.getDescription(), " ");
 		}
 
 		@Test
@@ -719,6 +730,12 @@ public class TestEdible {
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
 			}
+
+			testEdible.setPhoto(" ");
+			assertEquals(testEdible.getPhoto(), " ");
+
+			testEdible.initMetadata(false, " ");
+			assertEquals(testEdible.getPhoto(), " ");
 
 			try {
 				testEdible.initMetadata(false, null);
