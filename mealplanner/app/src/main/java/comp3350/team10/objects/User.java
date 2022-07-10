@@ -2,11 +2,12 @@ package comp3350.team10.objects;
 
 public class User { 
     private final int userID;         //the users id
-    private String name;        //the users name
-    private int height;         //the users height
-    private int weight;         //the users weight
-    private double calorieGoal;    //the users calorie goal
-    private double exerciseGoal;   //the users exercise goal
+    private String name;              //the users name
+    private int height;               //the users height
+    private int weight;               //the users weight
+    private double calorieGoal;       //the users calorie goal
+    private double exerciseGoal;      //the users exercise goal
+
 
     public User(int userID, String name, int height, int weight, int calorieGoal, int exerciseGoal) {
         this.userID = userID;
@@ -20,14 +21,13 @@ public class User {
 
     public void setName(String newName) throws IllegalArgumentException{
 
-            if (newName != null) {
+            if (newName != null && newName.length() < Constant.MAX_NAME_LENGTH) {
 
                 this.name = newName;
             }
             else {
-                throw new IllegalArgumentException("User Name can't be null");
+                throw new IllegalArgumentException("User's Name can't be null");
             }
-
 
     }
 

@@ -9,4 +9,5 @@ public final class Constant {
     public static final int MAX_HEIGHT_VALUE = 280; //The minimum height value The minimum weight value
     public static final int MIN_WEIGHT_VALUE = 100; //The minimum weight value.
     public static final int MAX_WEIGHT_VALUE = 350; //The minimum weight value
+    public static final int MAX_NAME_LENGTH =  60; // The maximum Name's length
 }
