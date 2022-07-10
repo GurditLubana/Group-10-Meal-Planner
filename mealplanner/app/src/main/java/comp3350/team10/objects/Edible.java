@@ -269,12 +269,14 @@ public class Edible {
         return this.photo;
     }
 
-    public Edible clone(){
+    public Edible clone() throws IllegalArgumentException {
         Edible copy = new Edible();
+
         copy.initDetails(this.edibleID, this.name, this.description, this.baseQuantity, this.baseUnit);
         copy.initNutrition(this.calories, this.protein, this.carbs, this.fat);
         copy.initCategories(this.isAlcoholic, this.isSpicy, this.isVegan, this.isVegetarian, this.isGlutenFree);
         copy.initMetadata(this.isCustom, this.photo);
+        
         return copy;
     }
 }

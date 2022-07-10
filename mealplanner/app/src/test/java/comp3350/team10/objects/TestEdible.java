@@ -335,6 +335,60 @@ public class TestEdible {
 			testEdible.initMetadata(false, "A different photo");
 			assertEquals(testEdible.getPhoto(), "A different photo");
 		}
+
+		@Test
+		@DisplayName("Tests cloning a simple object with all true or false flags")
+		void testCloneEdible() {
+			Edible newEdible;
+
+			testEdible.initDetails(1, "name", "description", 1, Edible.Unit.g)
+					.initNutrition(1, 1, 1, 1)
+					.initCategories(false, false, false, false, false)
+					.initMetadata(false, testString);
+
+			newEdible = testEdible.clone();
+
+			assertEquals(newEdible.getDbkey(), 1);
+			assertEquals(newEdible.getName(), "name");
+			assertEquals(newEdible.getDescription(), "description");
+			assertEquals(newEdible.getQuantity(), 1);
+			assertEquals(newEdible.getUnit(), Edible.Unit.g);
+			assertEquals(newEdible.getCalories(), 1);
+			assertEquals(newEdible.getProtein(), 1);
+			assertEquals(newEdible.getCarbs(), 1);
+			assertEquals(newEdible.getFat(), 1);
+			assertFalse(newEdible.getIsAlcoholic());
+			assertFalse(newEdible.getIsSpicy());
+			assertFalse(newEdible.getIsVegan());
+			assertFalse(newEdible.getIsVegetarian());
+			assertFalse(newEdible.getIsGlutenFree());
+			assertFalse(newEdible.getIsCustom());
+			assertEquals(newEdible.getPhoto(), testString);
+
+			testEdible.initDetails(1, "name", "description", 1, Edible.Unit.g)
+					.initNutrition(1, 1, 1, 1)
+					.initCategories(true, true, true, true, true)
+					.initMetadata(true, testString);
+
+			newEdible = testEdible.clone();
+
+			assertEquals(newEdible.getDbkey(), 1);
+			assertEquals(newEdible.getName(), "name");
+			assertEquals(newEdible.getDescription(), "description");
+			assertEquals(newEdible.getQuantity(), 1);
+			assertEquals(newEdible.getUnit(), Edible.Unit.g);
+			assertEquals(newEdible.getCalories(), 1);
+			assertEquals(newEdible.getProtein(), 1);
+			assertEquals(newEdible.getCarbs(), 1);
+			assertEquals(newEdible.getFat(), 1);
+			assertTrue(newEdible.getIsAlcoholic());
+			assertTrue(newEdible.getIsSpicy());
+			assertTrue(newEdible.getIsVegan());
+			assertTrue(newEdible.getIsVegetarian());
+			assertTrue(newEdible.getIsGlutenFree());
+			assertTrue(newEdible.getIsCustom());
+			assertEquals(newEdible.getPhoto(), testString);
+		}
 	}
 
 	@Nested
@@ -495,6 +549,60 @@ public class TestEdible {
 
 			testEdible.initMetadata(false, numberTestString);
 			assertEquals(testEdible.getPhoto(), numberTestString);
+		}
+
+		@Test
+		@DisplayName("Tests cloning a complex object with all true or false flags")
+		void testCloneEdible() {
+			Edible newEdible;
+
+			testEdible.initDetails(0, testString, testString, 1, Edible.Unit.g)
+					.initNutrition(0, 0, 0, 0)
+					.initCategories(false, false, false, false, false)
+					.initMetadata(false, testString);
+
+			newEdible = testEdible.clone();
+
+			assertEquals(newEdible.getDbkey(), 0);
+			assertEquals(newEdible.getName(), testString);
+			assertEquals(newEdible.getDescription(), testString);
+			assertEquals(newEdible.getQuantity(), 1);
+			assertEquals(newEdible.getUnit(), Edible.Unit.g);
+			assertEquals(newEdible.getCalories(), 0);
+			assertEquals(newEdible.getProtein(), 0);
+			assertEquals(newEdible.getCarbs(), 0);
+			assertEquals(newEdible.getFat(), 0);
+			assertFalse(newEdible.getIsAlcoholic());
+			assertFalse(newEdible.getIsSpicy());
+			assertFalse(newEdible.getIsVegan());
+			assertFalse(newEdible.getIsVegetarian());
+			assertFalse(newEdible.getIsGlutenFree());
+			assertFalse(newEdible.getIsCustom());
+			assertEquals(newEdible.getPhoto(), testString);
+
+			testEdible.initDetails(500, numberTestString, numberTestString, 500, Edible.Unit.g)
+					.initNutrition(500, 500, 500, 500)
+					.initCategories(true, true, true, true, true)
+					.initMetadata(true, numberTestString);
+
+			newEdible = testEdible.clone();
+
+			assertEquals(newEdible.getDbkey(), 500);
+			assertEquals(newEdible.getName(), numberTestString);
+			assertEquals(newEdible.getDescription(), numberTestString);
+			assertEquals(newEdible.getQuantity(), 500);
+			assertEquals(newEdible.getUnit(), Edible.Unit.g);
+			assertEquals(newEdible.getCalories(), 500);
+			assertEquals(newEdible.getProtein(), 500);
+			assertEquals(newEdible.getCarbs(), 500);
+			assertEquals(newEdible.getFat(), 500);
+			assertTrue(newEdible.getIsAlcoholic());
+			assertTrue(newEdible.getIsSpicy());
+			assertTrue(newEdible.getIsVegan());
+			assertTrue(newEdible.getIsVegetarian());
+			assertTrue(newEdible.getIsGlutenFree());
+			assertTrue(newEdible.getIsCustom());
+			assertEquals(newEdible.getPhoto(), numberTestString);
 		}
 	}
 
@@ -1007,6 +1115,60 @@ public class TestEdible {
 			testEdible.initMetadata(false, testString);
 			assertEquals(testEdible.getPhoto(), testString);
 		}
+
+		@Test
+		@DisplayName("Tests cloning a complex object with all true or false flags")
+		void testCloneEdible() {
+			Edible newEdible;
+
+			testEdible.initDetails(0, largeTestString, largeTestString, 1, Edible.Unit.g)
+					.initNutrition(0, 0, 0, 0)
+					.initCategories(false, false, false, false, false)
+					.initMetadata(false, largeTestString);
+
+			newEdible = testEdible.clone();
+
+			assertEquals(newEdible.getDbkey(), 0);
+			assertEquals(newEdible.getName(), largeTestString);
+			assertEquals(newEdible.getDescription(), largeTestString);
+			assertEquals(newEdible.getQuantity(), 1);
+			assertEquals(newEdible.getUnit(), Edible.Unit.g);
+			assertEquals(newEdible.getCalories(), 0);
+			assertEquals(newEdible.getProtein(), 0);
+			assertEquals(newEdible.getCarbs(), 0);
+			assertEquals(newEdible.getFat(), 0);
+			assertFalse(newEdible.getIsAlcoholic());
+			assertFalse(newEdible.getIsSpicy());
+			assertFalse(newEdible.getIsVegan());
+			assertFalse(newEdible.getIsVegetarian());
+			assertFalse(newEdible.getIsGlutenFree());
+			assertFalse(newEdible.getIsCustom());
+			assertEquals(newEdible.getPhoto(), largeTestString);
+
+			testEdible.initDetails(1, largeTestString, largeTestString, 9999, Edible.Unit.g)
+					.initNutrition(9999, 9999, 9999, 9999)
+					.initCategories(true, true, true, true, true)
+					.initMetadata(true, largeTestString);
+
+			newEdible = testEdible.clone();
+
+			assertEquals(newEdible.getDbkey(), 1);
+			assertEquals(newEdible.getName(), largeTestString);
+			assertEquals(newEdible.getDescription(), largeTestString);
+			assertEquals(newEdible.getQuantity(), 9999);
+			assertEquals(newEdible.getUnit(), Edible.Unit.g);
+			assertEquals(newEdible.getCalories(), 9999);
+			assertEquals(newEdible.getProtein(), 9999);
+			assertEquals(newEdible.getCarbs(), 9999);
+			assertEquals(newEdible.getFat(), 9999);
+			assertTrue(newEdible.getIsAlcoholic());
+			assertTrue(newEdible.getIsSpicy());
+			assertTrue(newEdible.getIsVegan());
+			assertTrue(newEdible.getIsVegetarian());
+			assertTrue(newEdible.getIsGlutenFree());
+			assertTrue(newEdible.getIsCustom());
+			assertEquals(newEdible.getPhoto(), largeTestString);
+		}
 	}
 
 	@Nested
@@ -1029,7 +1191,7 @@ public class TestEdible {
 		void testSetDBkey() {
 			try {
 				testEdible.setDBKey(-1);
-				fail("Should throw an exception, id is less than 0");
+				fail("Should throw an exception, db key is less than 0");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1037,7 +1199,7 @@ public class TestEdible {
 
 			try {
 				testEdible.initDetails(-1, "name", "description", 5, Edible.Unit.cups);
-				fail("Should throw an exception, id is less than 0");
+				fail("Should throw an exception, db key is less than 0");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1067,7 +1229,7 @@ public class TestEdible {
 		void testSetDescription() {
 			try {
 				testEdible.setDescription(longTestString);
-				fail("Should throw an exception, this name is too long");
+				fail("Should throw an exception, this description is too long");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1075,7 +1237,7 @@ public class TestEdible {
 
 			try {
 				testEdible.initDetails(1, "name", longTestString, 5, Edible.Unit.cups);
-				fail("Should throw an exception, this name is too long");
+				fail("Should throw an exception, this description is too long");
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
@@ -1126,6 +1288,209 @@ public class TestEdible {
 			try {
 				testEdible.initMetadata(false, longTestString);
 				fail("Should throw an exception, this photo is too long");
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+		}
+
+		@Test
+		@DisplayName("Tests cloning an incomplete or invalid object")
+		void testCloneEdible() {
+			Edible newEdible;
+
+			testEdible.setDBKey(1);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setName("name");
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setDescription("description");
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setBaseQuantity(5);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setBaseUnit(Edible.Unit.g);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setCalories(5);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setProtein(5);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setCarbs(5);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setFat(5);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setAlcoholic(true);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setSpicy(true);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setVegan(true);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setVegetarian(true);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setVegan(true);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setVegetarian(true);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setGlutenFree(true);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setCustom(true);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.setPhoto("photo");
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.initDetails(1, "name", "description", 5, Edible.Unit.g);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.initNutrition(5, 5, 5, 5);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.initCategories(false, false, false, false, false);
+			try {
+				newEdible = testEdible.clone();
+			}
+			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			testEdible = new Edible();
+			testEdible.initMetadata(false, "photo");
+			try {
+				newEdible = testEdible.clone();
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
