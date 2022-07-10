@@ -135,7 +135,7 @@ public class TestDataFrame {
             assertEquals(DataFrame.DataType.Weight, dataFrame.getDataType());
             assertEquals(DataFrame.Span.ThreeMonth, dataFrame.getSpan());
             assertEquals(data, dataFrame.getData());
-            assertEquals(-67.0, dataFrame.getTrendPointA());
+            assertEquals(-77.0, dataFrame.getTrendPointA());
             assertEquals(7.0, dataFrame.getTrendPointB());
         }
 
@@ -147,7 +147,7 @@ public class TestDataFrame {
             assertEquals(DataFrame.DataType.Weight, dataFrame.getDataType());
             assertEquals(DataFrame.Span.SixMonth, dataFrame.getSpan());
             assertEquals(data, dataFrame.getData());
-            assertEquals(-121.0, dataFrame.getTrendPointA());
+            assertEquals(-161.0, dataFrame.getTrendPointA());
             assertEquals(7.0, dataFrame.getTrendPointB());
         }
 
@@ -159,7 +159,7 @@ public class TestDataFrame {
             assertEquals(DataFrame.DataType.Weight, dataFrame.getDataType());
             assertEquals(DataFrame.Span.Year, dataFrame.getSpan());
             assertEquals(data, dataFrame.getData());
-            assertEquals(-343.0, dataFrame.getTrendPointA());
+            assertEquals(-329.0, dataFrame.getTrendPointA());
             assertEquals(7.0, dataFrame.getTrendPointB());
         }
 
@@ -171,7 +171,7 @@ public class TestDataFrame {
             assertEquals(DataFrame.DataType.Weight, dataFrame.getDataType());
             assertEquals(DataFrame.Span.All, dataFrame.getSpan());
             assertEquals(data, dataFrame.getData());
-            assertEquals(-693.0, dataFrame.getTrendPointA());
+            assertEquals(-665.0, dataFrame.getTrendPointA());
             assertEquals(7.0, dataFrame.getTrendPointB());
         }
 

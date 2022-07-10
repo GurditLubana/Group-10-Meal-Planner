@@ -6,14 +6,21 @@ import java.util.ArrayList;
 
 public class DataFrame {
     public enum DataType {ConsumedCalories, NetCalories, ExerciseCalories, Weight}
+
     public enum Span {Week, Month, ThreeMonth, SixMonth, Year, All}
-    public static final int[] xAxisLimits = {-7, -28, -74, -128, -350, -700};
+
+    public static final int[] numDays = {7, 28, 84, 168, 336, 672};
+    private SimpleRegression regression;
     private ArrayList<Double> data;
+    private double trendPointA;
+    private double trendPointB;
     private DataType dataType;
     private Span span;
     private int size;
-    private double trendPointA;
-    private double trendPointB;
+    private double average = 0.0;
+    private double currVal = 0.0;
+    private double maxVal = 0.0;
+    private double progress = 0.0;
 
     public DataFrame(DataType dataType, Span span) throws NullPointerException {
         if (dataType != null) {
@@ -45,24 +52,35 @@ public class DataFrame {
         if (data != null) {
             this.size = data.size();
             this.data = data;
+            this.regression = new SimpleRegression(true);
+            if (this.data.size() > 1) {
+                for (int i = 0; i < this.size; i++) {
+                    if (this.data.get(i) != null) {
+                        this.currVal = this.data.get(i);
+                        this.regression.addData(i - this.size, this.currVal);
+                        this.average += this.currVal;
+                        if (this.currVal > this.maxVal) {
+                            this.maxVal = this.currVal;
+                        }
+                    }
+                }
+                this.average = this.average / this.size();
+                this.progress = this.average / this.maxVal;
+            }
             calculateTrend();
         } else {
             throw new NullPointerException("DataFrame ArrayList<Double> cannot be null");
         }
     }
 
-    public final ArrayList<Double> getData() {
-        return this.data;
+    public ArrayList<Double> getData() {
+        return (ArrayList<Double>) this.data.clone();
     }
 
     private void calculateTrend() {
-        SimpleRegression regression = new SimpleRegression(true);
         if (this.data.size() > 1) {
-            for (int i = 0; i < this.size; i++) {
-                regression.addData(i - this.size, this.data.get(i));
-            }
             this.trendPointB = regression.predict(0);
-            this.trendPointA = regression.predict(xAxisLimits[this.span.ordinal()]);
+            this.trendPointA = regression.predict(-numDays[this.span.ordinal()]);
         } else {
 
             this.trendPointB = 0;
@@ -78,4 +96,15 @@ public class DataFrame {
         return this.trendPointB;
     }
 
+    public double getAverage() {
+        return this.average;
+    }
+
+    public double getMaxVal() {
+        return maxVal;
+    }
+
+    public double getProgress() {
+        return progress;
+    }
 }

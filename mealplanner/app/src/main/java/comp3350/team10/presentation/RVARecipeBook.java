@@ -19,6 +19,7 @@ import comp3350.team10.objects.EdibleLog;
 
 public class RVARecipeBook extends RecyclerViewAdapter {
     private FragToRecipeBook sendToRecipeBook;          // interface to pass data to recipebook
+    private Context context;
 
     public RVARecipeBook(ArrayList<Edible> dataSet) {
         super(dataSet);
@@ -28,21 +29,19 @@ public class RVARecipeBook extends RecyclerViewAdapter {
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
         ViewHolder viewHolder = null;
-        Context context = null;
         View view = null;
 
-        if (viewType == FragmentType.recipeModify.ordinal())
-        { 
-                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_recipe_book_card_context, viewGroup, false);
+        if (viewType == FragmentType.recipeModify.ordinal()) {
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_recipe_book_card_context, viewGroup, false);
         } else {
-            
-                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_recipe_book_card, viewGroup, false);
-                
+
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_recipe_book_card, viewGroup, false);
+
         }
 
-        context = view.getContext();
-        if (context instanceof FragToRecipeBook) {
-            this.sendToRecipeBook = (FragToRecipeBook) context;
+        this.context = view.getContext();
+        if (this.context instanceof FragToRecipeBook) {
+            this.sendToRecipeBook = (FragToRecipeBook) this.context;
         }
 
         viewHolder = new ViewHolder(view);
@@ -52,13 +51,12 @@ public class RVARecipeBook extends RecyclerViewAdapter {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        if (super.getViewType() == FragmentType.recipeModify.ordinal())
-        { 
-                setCardSelectionListeners(viewHolder, position);
-            } else {
-                setRecipeData(viewHolder, position);
-                setCardListeners(viewHolder, position);
-                
+        if (super.getViewType() == FragmentType.recipeModify.ordinal()) {
+            setCardSelectionListeners(viewHolder, position);
+        } else {
+            setRecipeData(viewHolder, position);
+            setCardListeners(viewHolder, position);
+
         }
     }
 
@@ -79,19 +77,16 @@ public class RVARecipeBook extends RecyclerViewAdapter {
         TextView textDesc = viewHolder.getView().findViewById(R.id.mealDesc);
         TextView mealCalories = viewHolder.getView().findViewById(R.id.mealCals);
         Edible currentFood = getDataSet().get(position);
-        byte[] recipeImage = currentFood.getPhotoBytes();
-        Bitmap bmp;
-
-        if(recipeImage == null) {
-            itemImage.setImageResource(R.drawable.ic_eggplant);
-        }
-        else {
-            bmp = BitmapFactory.decodeByteArray(recipeImage, 0, recipeImage.length);
-            itemImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, itemImage.getWidth(), itemImage.getHeight(), false));
-        }
+        Bitmap image = null;
 
         textDesc.setText(currentFood.getName());
         mealCalories.setText(String.format("%3d", (int) currentFood.getCalories()));
+        image = super.getBitmapFromFile(this.context, currentFood.getPhoto());
+        if (image != null) {
+            itemImage.setImageBitmap(image);
+        } else {
+            itemImage.setImageResource(R.drawable.ic_eggplant);
+        }
     }
 
     private void setCardSelectionListeners(ViewHolder viewHolder, int position) {

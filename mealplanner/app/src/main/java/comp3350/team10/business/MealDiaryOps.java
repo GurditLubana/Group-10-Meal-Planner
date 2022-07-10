@@ -16,7 +16,7 @@ public class MealDiaryOps {
     //Database variables
     private DailyLog currLog;           //The food in the planner for the given day
     private Calendar logDate;           //The date the planner is set to
-    private DBSelector db;          //Accesses the database
+    private DBSelector db;              //Accesses the database
 
     //Progress bar variables
     private UserDataOps opUser;         //Business logic for handling the app's user
@@ -34,27 +34,27 @@ public class MealDiaryOps {
     }
 
     public void nextDate() throws IllegalArgumentException {
-        Calendar newDate = calendarDeepCopy(this.logDate);
+        Calendar newDate = (Calendar) this.logDate.clone();
         newDate.add(Calendar.DAY_OF_YEAR, INCREMENT);
         try {
             this.setListDate(newDate);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw e;
         }
     }
 
     public void prevDate() throws IllegalArgumentException {
-        Calendar newDate = calendarDeepCopy(this.logDate);
+        Calendar newDate = (Calendar) this.logDate.clone();
         newDate.add(Calendar.DAY_OF_YEAR, -INCREMENT);
         try {
             this.setListDate(newDate);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw e;
         }
     }
 
     public void setCalorieGoal(DailyLog currLog, double newCalorieGoal) {
-        this.db.setCalorieGoal(opUser.getUser().getUserID(), newCalorieGoal, currLog.getDate());
+        this.db.setLogCalorieGoal(opUser.getUser().getUserID(), newCalorieGoal, currLog.getDate());
     }
 
     public void setListDate(Calendar newDate) throws IllegalArgumentException {
@@ -68,40 +68,38 @@ public class MealDiaryOps {
         }
     }
 
-    private Calendar calendarDeepCopy(Calendar date){
-        Calendar copy = Calendar.getInstance();
-        copy.set(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DATE));
-        return copy;
-    }
-
     private void dateChangedUpdateList() {
-        this.logChangedUpdateDB();
-        this.currLog = this.db.searchFoodLogByDate(this.logDate, opUser.getUser().getUserID());
+        this.currLog = this.db.searchFoodLogByDate(opUser.getUser().getUserID(), this.logDate );
     }
 
     public DailyLog getCurrLog() {
         return this.currLog;
     }
 
-    public void logChangedUpdateDB(){
-        //TODO: persistence method push current dailylog to db
+    public void logChangedUpdateDB() {
+        this.db.replaceLog(opUser.getUser().getUserID(), this.currLog );
+        //this.db.addLog(this.currLog, opUser.getUser().getUserID());
     }
 
     public void addByKey(int dbkey, boolean isCustom) throws NoSuchElementException {
         EdibleLog newItem = null;
         Edible foundEdible = null;
+
         try {
             newItem = db.findEdibleByKey(dbkey, isCustom);
         }
         catch (Exception e){
             System.out.println(e);
-            throw new NoSuchElementException("MealDiaryOps addByKey the supplied dbkey does not match any db entry");
+            throw new NoSuchElementException("MealDiaryOps addByKey the supplied dbkey does not match any db entry " + e);
         }
-            try {
-                foundEdible = new EdibleLog(newItem).init(newItem.getQuantity(), newItem.getUnit());
-                this.currLog.addEdibleToLog(foundEdible);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
+            
+        try {
+            foundEdible = new EdibleLog(newItem).init(newItem.getQuantity(), newItem.getUnit());
+            this.currLog.addEdibleToLog(foundEdible); //this needs to change to a db call
+            this.logChangedUpdateDB();
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

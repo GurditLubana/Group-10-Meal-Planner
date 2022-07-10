@@ -2,9 +2,9 @@ package comp3350.team10.persistence;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.ArrayList;
 
 import comp3350.team10.objects.DailyLog;
+import comp3350.team10.objects.DataFrame;
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
@@ -21,8 +21,8 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
     
 
     DBSelector() { //Creates both databases then points all interfaces towards hsql
-        //startHsqlDB();
-        startStubDB();
+        startHsqlDB();
+        //startStubDB();
     }
 
     public void startHsqlDB() {
@@ -40,6 +40,15 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
         this.recipeDB = this.stub;
         this.userDB = this.stub;
         this.logDB = this.stub;
+    }
+
+    public void save() {
+        if(this.hsql != null){
+            this.hsql.save();
+        }
+        else if (this.stub != null){
+            this.stub.save();
+        }
     }
 
     public void close(){
@@ -69,34 +78,46 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
         this.userDB.setWeight(userID, newWeight);
     }
 
-    public void setCalorieGoal(int userID, double goal, Calendar date) {
-        this.userDB.setCalorieGoal(userID, goal, date);
+    public void setCalorieGoal(int userID, double goal) {
+        this.userDB.setCalorieGoal(userID, goal);
     }
 
-    public void setExerciseGoal(int userID, double goal, Calendar date) {
-        this.userDB.setExerciseGoal(userID, goal, date);
+    public void setExerciseGoal(int userID, double goal) {
+        this.userDB.setExerciseGoal(userID, goal);
     }
 
 
     //Log interface
-    public DailyLog searchFoodLogByDate(Calendar date, int userID) {
-        return this.logDB.searchFoodLogByDate(date, userID);
+    public DailyLog searchFoodLogByDate(int userID, Calendar date) {
+        return this.logDB.searchFoodLogByDate(userID, date);
     }
 
-    public void addLog(DailyLog newLog, int userID) {
-        this.logDB.addLog(newLog, userID);
+    public void replaceLog(int userID, DailyLog newLog) {
+        this.logDB.replaceLog(userID, newLog);
     }
 
-    public void deleteLog(DailyLog delLog, int userID) {
-        this.logDB.deleteLog(delLog, userID);
+//    public void deleteLog(DailyLog delLog, int userID) {
+//        this.logDB.deleteLog(delLog, userID);
+//    }
+
+    public void setLogCalorieGoal(int userID, double goal, Calendar date) {
+        this.logDB.setLogCalorieGoal(userID, goal, date);
+    }
+
+    public void setLogExerciseGoal(int userID, double goal, Calendar date) {
+        this.logDB.setLogExerciseGoal(userID, goal, date);
+    }
+
+    public ArrayList<Double> getDataFrame(DataFrame.DataType dataType, int days){
+        return this.logDB.getDataFrame(dataType, days);
     }
 
     public EdibleLog findEdibleByKey(int dbkey, boolean isCustom) {
         return this.recipeDB.findEdibleByKey(dbkey, isCustom);
     }
 
-    public void setExerciseActual(double newExercise, DailyLog logDate, int userID) {
-        this.logDB.setExerciseActual(newExercise, logDate, userID);
+    public void setExerciseActual(int userID, double newValue, Calendar date) {
+        this.logDB.setExerciseActual(userID, newValue, date);
     }
 
 

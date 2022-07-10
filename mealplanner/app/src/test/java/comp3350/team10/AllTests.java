@@ -8,6 +8,9 @@
 
  import comp3350.team10.business.*;
  import comp3350.team10.objects.*;
+ import comp3350.team10.persistence.TestLogDBInterface;
+ import comp3350.team10.persistence.TestRecipeDBInterface;
+ import comp3350.team10.persistence.TestUserDBInterface;
 
  import org.junit.jupiter.api.extension.ExtendWith;
  import org.junit.platform.suite.api.SelectClasses;
@@ -25,13 +28,15 @@
 //         TestUnitConverter.class,
 //         TestDailyLog.class,
          TestDataFrame.class,
-         TestDrinkUnit.class,
-//         TestFoodUnit.class,
-//         TestEdibleUnit.class,
-//         TestIngredientUnit.class,
-         //TestMealUnit.class
+         TestDrink.class,
+         //TestFoodUnit.class,
+         //TestEdibleUnit.class,
+         TestIngredient.class,
+         //TestMealUnit.class,
+         TestLogDBInterface.class,
+         TestUserDBInterface.class,
+         TestRecipeDBInterface.class
  })
  public class AllTests {
 
  }
-

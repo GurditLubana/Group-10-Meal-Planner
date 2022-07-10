@@ -5,8 +5,8 @@ import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.SharedDB;
 
 public class UserDataOps {
-    private DBSelector db;      //References the current database
-    private boolean infoAvailible;  //Can be used so that if vital user is not availible a prompt will appear
+    private boolean infoAvailible;  //Can be used so that if vital user information is not availible a prompt will appear
+    private DBSelector db;          //References the current database
     private User currUser;          //The current user's details
 
     public UserDataOps(DBSelector db) {
@@ -20,27 +20,23 @@ public class UserDataOps {
         return this.currUser;
     }
 
-    public void updateName(String newName) {
-        currUser.setName(newName);
-        //update db
-    }
-
     public void updateHeight(int newHeight) {
         currUser.setHeight(newHeight);
-        //update db
+        this.db.setHeight(this.currUser.getUserID(), newHeight);
     }
 
     public void updateWeight(int newWeight) {
         currUser.setWeight(newWeight);
-        //update db
+        this.db.setWeight(this.currUser.getUserID(), newWeight);
     }
 
-    public void updateCalorieGoal(Integer newCalorieGoal) {
+    public void updateCalorieGoal(double newCalorieGoal) {
         currUser.setCalorieGoal(newCalorieGoal);
+        this.db.setCalorieGoal(this.currUser.getUserID(), newCalorieGoal);
     }
 
-    public void updateExerciseGoal(int newExerciseGoal) {
+    public void updateExerciseGoal(double newExerciseGoal) {
         currUser.setExerciseGoal(newExerciseGoal);
-        //update db
+        this.db.setExerciseGoal(this.currUser.getUserID(), newExerciseGoal);
     }
 }

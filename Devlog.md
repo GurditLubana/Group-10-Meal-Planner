@@ -245,6 +245,22 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
 ---
 <br>
 
+
+### 2022 July 8
+    Attendees:  
+    - Dane  
+    - Josef  
+    - Gurdit  
+    - Zhao  
+
+    Topic: Discussed Iter2 sprint to finish and what remains
+    ----- 
+    Discussions: We started off by discussing iter3 goals, then moved into discussed new code base changes for those who were unfamiliar.  We then drafted up a list of remaining tasks and distributed it amongst ourselves.
+    -----
+    Rationale: Iter2 requirements and works in progress
+---
+<br>
+
 <br>
 
 # Dev tasks 
@@ -1235,7 +1251,7 @@ Duration: 15hrs
    - Database was dependent on android - refactored according to the sample project
    - Created db.script for database loading
    - Wrote all SQL statements using utils.sql in java *except for edible getters from database*
-   - Refactored codebase with Josef (removed extra information that Edible didnt need)
+   - Refactored codebase with Josef (removed extra information that Edible didnt need such as presentation information)
    - Refactored DailyLog which now gets the UserID of whoever it belongs to
    - Refactored RecipeOps and fixed bug where the wrong information was being loaded in drink/meal tabs
    - Refactored RecipeActivity - now when an image is null an eggplant is displayed otherwise the image gets displayed
@@ -1274,7 +1290,7 @@ Duration: 10hrs
      Dev:
       - Dane
       - Josef
-Duration: hrs start time 12.30
+Duration: 14 hrs
    Tasks:
    - Debug the .script file for the database
    - Researched .log and what it does
@@ -1284,7 +1300,8 @@ Duration: hrs start time 12.30
    - added default data to .script file
    - Debugged SQL statements
    - Watched Yuja videos 
-   - Refactored DB implementation in SharedDB
+   - Refactored DB implementation in 
+   - Watched Yuja videos
    
    - Bugs:
    - Instructions do not get loaded properly with SQL
@@ -1338,9 +1355,98 @@ Duration: 5 hrs
    - deteail of found at 2022/07/06
      - some error message have spelling error, I just copy the message not change it
      - the Quantity type. I leave some comments and a fail() message about detail
-     - set un-initial ingredient obj is success, should not success    
+     - set un-initial ingredient obj is success, should not success 
 
+  
+### 2022-07-08 4PM follow the Josef request to change the comboine assert function to separate assert
+     Dev:
+      - Zhou
+Duration: 2 hrs
+   Tasks:
+   Include TestEdibeUnit.java TestMealUnit.java TestDrinkUnit.java
+   follow the Josef request to change the comboine assert function to separate assert
+    - change all combine assert method like testDetail to simple assert and find a problem
+   Problem found in TestEdibeUnit.java
+    - problem 1. if I set a null photo to set in it, it should throw a exception, but it actually not.
+    
+### 2022-07-08 8PM finished the drink object unit test, object code have problem need to slove
+     Dev:
+      - Zhou
+Duration: 8 hrs
+   Tasks:
+   - finished the drink obj unit test. problem need to solve
+   - detail:
+   - the problem need to fix, problem about setInstructions()
+     - a. cannot update the correct value to the drink, there have problem about the about a update the data form the array list,"my array of all input is nutrition is total in 100 but the update result is 40"
+     - b.if the input ingredients arraylist the size is 0 should let all the Nutrition and categories to default, but some of Categories is not set to default
      
 
+### 2022-07-03
+     Dev:
+      - Dane
+Duration: 4 hrs
+   Tasks:
+   - Watched Yuja videos
+   - Dedicated time to better learn best software design practices
 
+### 2022-07-04
+     Dev:
+      - Dane
+Duration: 15 hrs
+   Tasks:
+   - Watched Yuja videos
+   - Dedicated time to better learn best software design practices
+
+### 2022-07-08
+     Dev:
+      - Dane
+Duration: 12 hrs
+   Tasks:
+   - Added historical dev log entries
+   - Added a consistant way to close and save the database
+   - Cleaned up application logic 
+   - Fxied get instructions in HSQL 
+   - Fixed HSQL issue where ot would crash on new entries
+   - GetEdibleList now works - there was a bug in the SQL - cannot inject table names in, also needed to SELECT from edible and custom edible individually
+   - Fixed an error where the meal diary was passing the addDiary button (at the end of its display)
+   - Fixed deleting edible log entries in HSQL
+   - Fixed adding edible log entries in HSQL
+   - Fixed changing edible log entries in HSQL
+   - Fixed calorie actual based on edibles - cannot use aliases in preparedStatements, took awhile to the duplicate naming scheme was an issue
+   - Fixed an issue where changing calorie and exercise goal caused a crash in HSQL
+   - Future calorie goals are no longer pushed to other logs (now consistant in HSQL and stubDB) - this should be done is userOps
+   - Refactored Edible class so that photos are handled by string paths
+   - fixed conflictions accross files
+
+### 2022-07-09 12：15AM to 1:00AM
+     Dev:
+      - Zhou
+Duration: 0.75 hrs
+   Tasks:
+   - I commit the edible unit test at 2022-07-08 around 4 pm at2022-07-09 12：15AM Dane said they change the function of setPhotoByte(byte[]) to setPhoto after I submit my work
+   - I review all the code and find there are some code need to change to change like rebuild a function change some exception type
+   - today may need 2 or 3 hours to redesign and rebuild the test, 2022-07-08 around 12PM I found rest of group memeber they change the in put range of function setPhotoByte(byte[]), I update my test edge case when commit.  2022-07-09 12:15AM Dane said my edible unit test is not for function setPhoto(String s), it update the function after I commit the edible unit test.
+
+
+### 2022-07-09 follow Dane`s request at today 12:15AM request, change and testsuit for function setPhotoByte(byte[]) to test suit setPhoto(String)
+     Dev:
+      - Zhou
+Duration: 3.5 hrs
+   Tasks:
+   - a. follow Dane `s request at today 12:15AM, change  testsuit for function setPhotoByte(byte[]) to setPhoto(String) and add new empty case. Because he modifyt the edible class, delete the function setPhotoByte(byte[]), getPhotoByte() and add new setPhoto(String), getPhoto(). So I need add more test for those function and change something for the TestEdibleUnit. java to ensure the test suit is meet the request 
+   - b. change the all test exception from IOException to IllegalArgumentException or Exeption ensure it can suit for all test relative Edible class in TestEdibleUnit.java ,TestDrinkUnit.java, TestIngredientUnit.java and TestMealUnit.java
+   - all test is passed at this time in TestEdibleUnit.java
+
+### 2022-07-09 
+     Dev:
+      - Zhou
+Duration: 11 hrs
+   Tasks:
+   -finished all the testMeal and follow Dane `s request change the file name
+   - the problem during the test found are
+   - // the problem need to fix, problem about setInstructions()
+   - a. cannot update the correct value to the Meal there have problem about the about a update the data form the array list "my array of all input is nutrition is total in 100 but the update result is 40"
+   - b.if the input ingredients arraylist the size is 0 should let all the Nutrition and categories to default but some of Categories is not set to default
+   - those problem should been fix.
+   - can delet my comments in test file after all test is pass
 

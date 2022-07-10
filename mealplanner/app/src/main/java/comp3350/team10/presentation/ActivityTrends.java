@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import comp3350.team10.R;
+import comp3350.team10.application.Main;
 import comp3350.team10.business.TrendsOps;
 import comp3350.team10.objects.DataFrame;
 
@@ -17,7 +18,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
-public class ActivityTrends extends AppCompatActivity implements FragToTrends{
+public class ActivityTrends extends AppCompatActivity {
     private RecyclerView trendsRecyclerView;      //Houses a recycle view for diary entries
     private RVATrends recyclerViewAdapter;
     private ArrayList<DataFrame> data;
@@ -35,6 +36,13 @@ public class ActivityTrends extends AppCompatActivity implements FragToTrends{
         this.setTabListeners();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Main.saveDB();
+//        Main.shutDown();
+    }
+
     private void initToolbar() {
         this.toolbar = (Toolbar) findViewById(R.id.toolbar);
         this.toolbar.setTitle("MealPlanner");
@@ -48,7 +56,7 @@ public class ActivityTrends extends AppCompatActivity implements FragToTrends{
         }
         catch(Exception e){
             System.out.println(e);
-            System.exit(1);
+            
         }
     }
 

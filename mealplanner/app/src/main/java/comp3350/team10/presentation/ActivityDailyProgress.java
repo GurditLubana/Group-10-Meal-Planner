@@ -47,7 +47,7 @@ public class ActivityDailyProgress extends AppCompatActivity {
         }
         catch(Exception e){
             System.out.println(e);
-            System.exit(1);
+            
         }
     }
 

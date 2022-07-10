@@ -11,11 +11,6 @@ public class Main
 	private static String dbPathName = "database/db";
 	private static String imagesPathName = "images";
 
-	public static void main(String[] args)
-	{
-		startUp();
-		shutDown();
-	}
 
 	public static void startUp()
 	{
@@ -25,6 +20,10 @@ public class Main
 	public static void shutDown()
 	{
 		SharedDB.close();
+	}
+
+	public static void saveDB() {
+		SharedDB.saveDB();
 	}
 
 
