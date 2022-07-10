@@ -13,7 +13,6 @@ public class Ingredient {
         this.quantityUnit = null;
     }
 
-    //need to create a relative calorie function
 
     public Ingredient init(Edible ingredient, double quantity, Edible.Unit quantityUnit) throws IOException {
         this.setIngredient(ingredient);

@@ -1,10 +1,6 @@
 package comp3350.team10.objects;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,10 +8,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import comp3350.team10.application.Main;
-
 
 public class TestDrinkIngredients {
 
@@ -28,9 +20,6 @@ public class TestDrinkIngredients {
 
         @BeforeEach
         void setup() {
-
-            Main.startUp();
-
             ingredient = new DrinkIngredient();
 
             edibleItem = new Edible();
@@ -313,7 +302,7 @@ public class TestDrinkIngredients {
         @BeforeEach
         void setup() throws IOException {
 
-            Main.startUp();
+            
 
             ingredient = new DrinkIngredient();
 
@@ -425,7 +414,7 @@ public class TestDrinkIngredients {
         @BeforeEach
         void setup() {
 
-            Main.startUp();
+            
 
             ingredient = new DrinkIngredient();
 
