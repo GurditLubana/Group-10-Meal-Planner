@@ -24,6 +24,8 @@ public class MealDiaryOps {
     public MealDiaryOps() throws NullPointerException {
         this.db = SharedDB.getSharedDB();
         this.logDate = Calendar.getInstance();
+        this.logDate.set(Calendar.MONTH, 9);
+        this.logDate.set(Calendar.DAY_OF_MONTH, 10);
 
         if (db != null) {
             this.opUser = new UserDataOps(db);

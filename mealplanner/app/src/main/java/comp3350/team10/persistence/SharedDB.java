@@ -10,6 +10,20 @@ public class SharedDB {
         }
     }
 
+    public static void startStub() {
+        if (db != null) {
+            db.close();
+            db.startStubDB();
+        }
+    }
+
+    public static void startHsql() {
+        if (db != null) {
+            db.close();
+            db.startHsqlDB();
+        }
+    }
+
     public static DBSelector getSharedDB() {
         return db;
     }

@@ -297,6 +297,8 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
     private void loadFoodlog() {
         Calendar today = (Calendar) this.calendar.clone();
+        today.set(Calendar.MONTH, 9);
+        today.set(Calendar.DAY_OF_MONTH, 10);
 
         this.dbFoodLog = new ArrayList<DailyLog>(); // key = yyyyddd integer , Calorie goal, Exercise goal, actual exercise, Foodlog
         ArrayList<Edible> logDay = null;
@@ -717,6 +719,8 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
     private void loadHistory() {
         Calendar today = (Calendar) this.calendar.clone();
+        today.set(Calendar.MONTH, 9);
+        today.set(Calendar.DAY_OF_MONTH, 10);
         this.history = new ArrayList<>();
         Integer[] data = null;
         int calorieConsumed = 1200;
