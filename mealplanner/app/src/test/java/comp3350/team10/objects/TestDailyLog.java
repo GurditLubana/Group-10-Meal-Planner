@@ -248,7 +248,7 @@
                  }
 
                  testLog.addEdibleToLog(newEdible);
-                 testLog.getEdibleList().remove(prevListSize);
+                 testLog.removeItem(prevListSize);
                  testLog.updateProgress();
                  assertEquals(1400, testLog.getCalorieGoal());
                  assertEquals(600, testLog.getExerciseGoal());
@@ -389,7 +389,7 @@
                  assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testLog.getDate().get(Calendar.DAY_OF_YEAR));
                  assertEquals(currDate.get(Calendar.YEAR), testLog.getDate().get(Calendar.YEAR));
                  assertEquals(currDate.get(Calendar.MONTH), testLog.getDate().get(Calendar.MONTH));
-                 assertEquals(edibleList, testLog.getEdibleList());
+                 assertEquals(edibleList.size(), testLog.getEdibleList().size(), 1);
                  assertEquals(1400, testLog.getCalorieGoal());
                  assertEquals(600, testLog.getExerciseGoal());
                  assertEquals(200, testLog.getExerciseActual());
@@ -423,12 +423,12 @@
                  }
 
                  testLog.addEdibleToLog(newEdible);
-                 testLog.getEdibleList().remove(0);
+                 testLog.removeItem(0);
                  testLog.updateProgress();
                  assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testLog.getDate().get(Calendar.DAY_OF_YEAR));
                  assertEquals(currDate.get(Calendar.YEAR), testLog.getDate().get(Calendar.YEAR));
                  assertEquals(currDate.get(Calendar.MONTH), testLog.getDate().get(Calendar.MONTH));
-                 assertEquals(edibleList, testLog.getEdibleList());
+                 assertEquals(edibleList.size(), testLog.getEdibleList().size(), 1);
                  assertEquals(1400, testLog.getCalorieGoal());
                  assertEquals(600, testLog.getExerciseGoal());
                  assertEquals(200, testLog.getExerciseActual());

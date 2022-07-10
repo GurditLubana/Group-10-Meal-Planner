@@ -266,7 +266,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     }
 
     public void replaceLog(int userID, DailyLog newLog) {
-        if(newLog != null) {
+        if(userID == currUser.getUserID() && newLog != null) {
             if (this.dbFoodLog != null) {
                 this.deleteLog(userID, newLog.getDate());
                 this.dbFoodLog.add(newLog);
@@ -279,7 +279,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     public void deleteLog(int userID, Calendar date) {
         int foundLog = -1;
         Calendar currDate = null;
-        if (this.dbFoodLog != null) {
+        if (userID == currUser.getUserID() && this.dbFoodLog != null) {
             for (int i = 0; i < this.dbFoodLog.size() && foundLog == -1; i++) {
                 currDate = this.dbFoodLog.get(i).getDate();
                 if (calendarToInt(date).intValue() == calendarToInt(currDate).intValue()) {
