@@ -16,12 +16,12 @@ public abstract class PreparedItem extends Edible {
     }
 
 
-    public void setInstructions(String newInstructions) throws IOException {
+    public void setInstructions(String newInstructions) throws IllegalArgumentException {
         if (newInstructions != null) {
             this.instructions = newInstructions;
         }
         else {
-            throw new IOException("Invalid instructions");
+            throw new IllegalArgumentException("Invalid instructions");
         }
     }
 
@@ -30,7 +30,7 @@ public abstract class PreparedItem extends Edible {
     }
 
 
-    public void updateEdibleFromIngredients(ArrayList<Ingredient> ingredients) throws IOException {
+    public void updateEdibleFromIngredients(ArrayList<Ingredient> ingredients) throws IllegalArgumentException {
         this.calcCalories(ingredients);
         this.calcProtein(ingredients);
         this.calcCarbs(ingredients);
@@ -42,103 +42,137 @@ public abstract class PreparedItem extends Edible {
         this.checkIfGlutenFree(ingredients);
     }
 
-    private void calcCalories(ArrayList<Ingredient> ingredients) throws IOException {
+    private void calcCalories(ArrayList<Ingredient> ingredients) throws IllegalArgumentException {
         double calculatedCalories = 0;
 
-        for(int i = 0; i < ingredients.size(); i++) {
-            calculatedCalories = ingredients.get(i).getIngredient().getCalories();
-        }
+        if(ingredients.size() > 0) {
+            for(int i = 0; i < ingredients.size(); i++) {
+                calculatedCalories = ingredients.get(i).getIngredient().getCalories();
+            }
 
-        this.setCalories(calculatedCalories);
+            if(calculatedCalories > Constant.ENTRY_MAX_VALUE) {
+                calculatedCalories = Constant.ENTRY_MAX_VALUE;
+            }
+
+            this.setCalories(calculatedCalories);
+        }
     }
 
-    private void calcProtein(ArrayList<Ingredient> ingredients) throws IOException {
+    private void calcProtein(ArrayList<Ingredient> ingredients) throws IllegalArgumentException {
         int calculatedProtein = 0;
 
-        for(int i = 0; i < ingredients.size(); i++) {
-            calculatedProtein = ingredients.get(i).getIngredient().getProtein();
-        }
+        if(ingredients.size() > 0) {
+            for(int i = 0; i < ingredients.size(); i++) {
+                calculatedProtein = ingredients.get(i).getIngredient().getProtein();
+            }
 
-        this.setProtein(calculatedProtein);
+            if(calculatedProtein > Constant.ENTRY_MAX_VALUE) {
+                calculatedProtein = Constant.ENTRY_MAX_VALUE;
+            }
+
+            this.setProtein(calculatedProtein);
+        }
     }
 
-    private void calcCarbs(ArrayList<Ingredient> ingredients) throws IOException {
+    private void calcCarbs(ArrayList<Ingredient> ingredients) throws IllegalArgumentException {
         int calculatedCarbs = 0;
 
-        for(int i = 0; i < ingredients.size(); i++) {
-            calculatedCarbs = ingredients.get(i).getIngredient().getCarbs();
-        }
+        if(ingredients.size() > 0) {
+            for(int i = 0; i < ingredients.size(); i++) {
+                calculatedCarbs = ingredients.get(i).getIngredient().getCarbs();
+            }
 
-        this.setCarbs(calculatedCarbs);
+            if(calculatedCarbs > Constant.ENTRY_MAX_VALUE) {
+                calculatedCarbs = Constant.ENTRY_MAX_VALUE;
+            }
+
+            this.setCarbs(calculatedCarbs);
+        }
     }
 
-    private void calcFat(ArrayList<Ingredient> ingredients) throws IOException {
+    private void calcFat(ArrayList<Ingredient> ingredients) throws IllegalArgumentException {
         int calculatedFat = 0;
 
-        for(int i = 0; i < ingredients.size(); i++) {
-            calculatedFat = ingredients.get(i).getIngredient().getFat();
-        }
+        if(ingredients.size() > 0) {
+            for(int i = 0; i < ingredients.size(); i++) {
+                calculatedFat = ingredients.get(i).getIngredient().getFat();
+            }
 
-        this.setFat(calculatedFat);
+            if(calculatedFat > Constant.ENTRY_MAX_VALUE) {
+                calculatedFat = Constant.ENTRY_MAX_VALUE;
+            }
+
+            this.setFat(calculatedFat);
+        }
     }
 
     private void checkIfAlcoholic(ArrayList<Ingredient> ingredients) {
         boolean isAlcoholic = false;
 
-        for(int i = 0 ; i < ingredients.size() && !isAlcoholic; i++) {
-            if(ingredients.get(i).getIngredient().getIsAlcoholic()) {
-                isAlcoholic = true;
+        if(ingredients.size() > 0) {
+            for(int i = 0 ; i < ingredients.size() && !isAlcoholic; i++) {
+                if(ingredients.get(i).getIngredient().getIsAlcoholic()) {
+                    isAlcoholic = true;
+                }
             }
-        }
 
-        this.setAlcoholic(isAlcoholic);
+            this.setAlcoholic(isAlcoholic);
+        }
     }
 
     private void checkIfSpicy(ArrayList<Ingredient> ingredients) {
         boolean isSpicy = false;
 
-        for(int i = 0 ; i < ingredients.size() && !isSpicy; i++) {
-            if(ingredients.get(i).getIngredient().getIsSpicy()) {
-                isSpicy = true;
+        if(ingredients.size() > 0) {
+            for(int i = 0 ; i < ingredients.size() && !isSpicy; i++) {
+                if(ingredients.get(i).getIngredient().getIsSpicy()) {
+                    isSpicy = true;
+                }
             }
-        }
 
-        this.setSpicy(isSpicy);
+            this.setSpicy(isSpicy);
+        }
     }
 
     private void checkIfVegan(ArrayList<Ingredient> ingredients) {
         boolean isVegan = true;
 
-        for(int i = 0 ; i < ingredients.size() && isVegan; i++) {
-            if(!ingredients.get(i).getIngredient().getIsVegan()) {
-                isVegan = false;
+        if(ingredients.size() > 0) {
+            for(int i = 0 ; i < ingredients.size() && isVegan; i++) {
+                if(!ingredients.get(i).getIngredient().getIsVegan()) {
+                    isVegan = false;
+                }
             }
-        }
 
-        this.setVegan(isVegan);
+            this.setVegan(isVegan);
+        }
     }
 
     private void checkIfVegetarian(ArrayList<Ingredient> ingredients) {
         boolean isVegetarian = true;
 
-        for(int i = 0 ; i < ingredients.size() && isVegetarian; i++) {
-            if(!ingredients.get(i).getIngredient().getIsVegetarian()) {
-                isVegetarian = false;
+        if(ingredients.size() > 0) {
+            for(int i = 0 ; i < ingredients.size() && isVegetarian; i++) {
+                if(!ingredients.get(i).getIngredient().getIsVegetarian()) {
+                    isVegetarian = false;
+                }
             }
-        }
 
-        this.setVegetarian(isVegetarian);
+            this.setVegetarian(isVegetarian);
+        }
     }
 
     private void checkIfGlutenFree(ArrayList<Ingredient> ingredients) {
         boolean isGlutenFree = true;
 
-        for(int i = 0 ; i < ingredients.size() && isGlutenFree; i++) {
-            if(!ingredients.get(i).getIngredient().getIsGlutenFree()) {
-                isGlutenFree = false;
+        if(ingredients.size() > 0) {
+            for(int i = 0 ; i < ingredients.size() && isGlutenFree; i++) {
+                if(!ingredients.get(i).getIngredient().getIsGlutenFree()) {
+                    isGlutenFree = false;
+                }
             }
-        }
 
-        this.setGlutenFree(isGlutenFree);
+            this.setGlutenFree(isGlutenFree);
+        }
     }
 }

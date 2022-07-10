@@ -13,16 +13,16 @@ public class Drink extends PreparedItem {
     }
 
 
-    public void setIngredients(ArrayList<DrinkIngredient> newIngredients) throws IOException {
+    public void setIngredients(ArrayList<DrinkIngredient> newIngredients) throws IllegalArgumentException {
         if (newIngredients != null && !newIngredients.contains(null)) {
             this.ingredients = newIngredients;
         }
         else {
-            throw new IOException("Invalid drink ingredients");
+            throw new IllegalArgumentException("Invalid drink ingredients");
         }
     }
 
-    public void readIngredientData() throws IOException {
+    public void readIngredientData() throws IllegalArgumentException {
         ArrayList<Ingredient> temp = new ArrayList<Ingredient>();
 
         //Downcast to ingredients because ArrayLists are finiky!
