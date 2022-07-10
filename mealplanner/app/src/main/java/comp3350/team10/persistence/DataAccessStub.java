@@ -194,7 +194,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         Edible copy = null;
 
         for(int i = 0; i < source.size(); i++) {
-            copy = (Edible) source.get(i).clone();
+            copy = source.get(i).clone();
             arrayCopy.add(copy);
         }
 

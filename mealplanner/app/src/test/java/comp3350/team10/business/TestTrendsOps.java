@@ -27,7 +27,7 @@ public class TestTrendsOps {
             }
             catch(Exception e) {
                 System.out.println(e);
-                System.exit(1);
+                
             }
 
         }
@@ -41,7 +41,7 @@ public class TestTrendsOps {
             }
             catch(Exception e) {
                 System.out.println(e);
-                System.exit(1);
+                
             }
 
             assertEquals(DataFrame.DataType.values().length, dataFrames.size());
@@ -57,7 +57,7 @@ public class TestTrendsOps {
             }
             catch(Exception e) {
                 System.out.println(e);
-                System.exit(1);
+                
             }
 
             assertEquals(DataFrame.DataType.values().length, dataFrames.size());
@@ -73,7 +73,7 @@ public class TestTrendsOps {
             }
             catch(Exception e) {
                 System.out.println(e);
-                System.exit(1);
+                
             }
 
             assertEquals(DataFrame.DataType.values().length, dataFrames.size());
@@ -89,7 +89,7 @@ public class TestTrendsOps {
             }
             catch(Exception e) {
                 System.out.println(e);
-                System.exit(1);
+                
             }
 
             assertEquals(DataFrame.DataType.values().length, dataFrames.size());
@@ -105,7 +105,7 @@ public class TestTrendsOps {
             }
             catch(Exception e) {
                 System.out.println(e);
-                System.exit(1);
+                
             }
 
             assertEquals(DataFrame.DataType.values().length, dataFrames.size());
@@ -121,7 +121,7 @@ public class TestTrendsOps {
             }
             catch(Exception e) {
                 System.out.println(e);
-                System.exit(1);
+                
             }
 
             assertEquals(DataFrame.DataType.values().length, dataFrames.size());

@@ -29,7 +29,7 @@
              }
              catch(Exception e) {
                  System.out.println(e);
-                 System.exit(1);
+                 
              }
          }
 

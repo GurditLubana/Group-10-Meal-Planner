@@ -41,8 +41,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch(Exception e) {
             System.out.println(e);
-            System.out.println("constructor");
-            System.exit(1);
+            
         }
     }
 
@@ -50,11 +49,10 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     public void save() {
         try {
             reqHandler.executeQuery(SAVE_CMD);
-            System.out.println("Saved the database");
         }
         catch (Exception e) {
             System.out.println(e);
-            System.exit(1);
+            
         }
     }
 
@@ -67,7 +65,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch(Exception e) {
             System.out.println("hsqldb open " + e);
-            //System.exit(1);
         }
     }
 
@@ -84,7 +81,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println("hsqldb close " + e);
-            //System.exit(1);
         }
     }
 
@@ -116,8 +112,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch(Exception e) {
             System.out.println(e);
-            System.out.println("getFoodRecipes");
-            System.exit(1);
+            
         }
 
 
@@ -161,8 +156,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("Read edible");
-            System.exit(1);
+            
         }
 
         return currEdible;
@@ -223,8 +217,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getMealRecipes");
-            System.exit(1);
+            
         }
 
         return mealList;
@@ -273,8 +266,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch(Exception e) {
             System.out.println(e);
-            System.out.println("getDrinkRecipes");
-            System.exit(1);
+            
         }
 
         return drinkList;
@@ -306,7 +298,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getInstructions");
         }
 
         return instructions;
@@ -335,8 +326,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("addFoodToRecipeBook");
-            System.exit(1);
+            
         }
     }
 
@@ -391,8 +381,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("addEdible");
-            System.exit(1);
+            
         }
 
         return edibleID;
@@ -456,8 +445,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("addMealToRecipeBook");
-            System.exit(1);
+            
         }
     }
 
@@ -528,15 +516,13 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("addDrinkToRecipeBook");
-            System.exit(1);
+            
         }
     }
 
     public DailyLog searchFoodLogByDate(Calendar date, int userID) {
         DailyLog log = null;
         try {
-            System.out.println("trying to get food log");
             PreparedStatement findLog = currConn.prepareStatement("SELECT * FROM HISTORY INNER JOIN USER ON USER.USERID = HISTORY.USERID WHERE USERID = ? AND DATE = ?");
             ResultSet results;
             int exerciseActual;
@@ -555,20 +541,16 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
                         exerciseActual);
             }
             else {
-                System.out.println("starting else");
                 currUser = this.getUser();
                 log = new DailyLog().init(date, new ArrayList<Edible>(), currUser.getCalorieGoal(), currUser.getExerciseGoal(), 0);
-                System.out.println("creating log");
                 this.addLog(log, currUser.getUserID());
-                System.out.println("adding log");
+
             }
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("searchFoodLogByDate");
-            System.exit(1);
+            
         }
-        System.out.println("after");
         return log;
     }
 
@@ -596,8 +578,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getDrinkIngredients");
-            System.exit(1);
+            
         }
 
         return ingredients;
@@ -625,8 +606,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getMealIngredients");
-            System.exit(1);
+            
         }
 
         return ingredients;
@@ -685,8 +665,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getEdibleLog");
-            System.exit(1);
+            
         }
 
         return edibleLog;
@@ -708,8 +687,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
         catch (Exception e) {
             System.out.println(e);
-            System.out.println("getExerciseActual");
-            System.exit(1);
+            
         }
 
         return exerciseActual;
@@ -738,7 +716,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("findEdibleByKey");
-            System.exit(1);
+            
         }
 
         return edibleLog;
@@ -766,7 +744,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("isMeal");
-            System.exit(1);
+            
         }
 
         return found;
@@ -793,7 +771,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("isDrink");
-            System.exit(1);
+            
         }
 
         return found;
@@ -844,7 +822,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("addLog");
-            System.exit(1);
+            
         }
     }
 
@@ -859,7 +837,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("deleteLog");
-            System.exit(1);
+            
         }
     }
 
@@ -880,7 +858,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("setExerciseActual");
-            System.exit(1);
+            
         }
     }
 
@@ -902,7 +880,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("getHistoryID");
-            System.exit(1);
+            
         }
         return historyID;
     }
@@ -919,7 +897,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("addUser");
-            System.exit(1);
+            
         }
     }
 
@@ -942,7 +920,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("getUser");
-            //System.exit(1);
+            //
         }
 
         return currUser;
@@ -959,7 +937,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("setHeight");
-            System.exit(1);
+            
         }
     }
 
@@ -974,7 +952,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("setWeight");
-            System.exit(1);
+            
         }
     }
 
@@ -1010,7 +988,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("setCalorieGoal");
-            System.exit(1);
+            
         }
     }
 
@@ -1027,7 +1005,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         catch (Exception e) {
             System.out.println(e);
             System.out.println("setExerciseGoal");
-            System.exit(1);
+            
         }
     }
 
