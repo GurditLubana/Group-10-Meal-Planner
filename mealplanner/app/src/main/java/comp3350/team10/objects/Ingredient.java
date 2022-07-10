@@ -1,7 +1,5 @@
 package comp3350.team10.objects;
 
-import java.io.IOException;
-
 public class Ingredient {
     private Edible ingredient;          //The food that we will use as an ingredient
     private double quantity;            //The quantity to use of the ingredient
@@ -23,13 +21,29 @@ public class Ingredient {
     }
 
     public void setIngredient(Edible newIngredient) throws IllegalArgumentException {
-        if(newIngredient != null && newIngredient.getCalories() != -1 && newIngredient.getProtein() != -1 &&
-        newIngredient.getCarbs() != -1 && newIngredient.getFat() != -1) {
+        if(newIngredient != null && validIngredient(newIngredient)) {
             this.ingredient = newIngredient;
         }
         else {
-            throw new IllegalArgumentException("Invalid ingredient food");
+            throw new IllegalArgumentException("Invalid ingredient");
         }
+    }
+
+    private boolean validIngredient(Edible currEdible) {
+        boolean isValid = true;
+
+        try {
+            currEdible.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
+            currEdible.initNutrition(currEdible.getCalories(), currEdible.getProtein(), currEdible.getCarbs(), currEdible.getFat());
+            currEdible.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(),
+                    currEdible.getIsGlutenFree());
+            currEdible.initMetadata(currEdible.getIsCustom(), currEdible.getPhoto());
+        }
+        catch(IllegalArgumentException e) {
+            isValid = false;
+        }
+
+        return isValid;
     }
 
     public void setQuantity(double newQuantity) throws IllegalArgumentException {
