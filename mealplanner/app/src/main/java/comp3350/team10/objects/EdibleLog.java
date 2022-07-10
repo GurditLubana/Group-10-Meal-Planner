@@ -87,7 +87,9 @@ public class EdibleLog extends Edible {
 
     public EdibleLog clone() throws IllegalArgumentException{
         try {
-            return new EdibleLog(this);
+            EdibleLog copy = new EdibleLog(this);
+            copy.initDetails(this.getDbkey(), this.getName(), this.getDescription(), super.getQuantity(), super.getUnit());
+            return copy;
         }
         catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("EdibleLog clone failed " + e);

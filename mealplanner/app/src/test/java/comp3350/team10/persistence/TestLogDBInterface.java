@@ -155,7 +155,7 @@ public class TestLogDBInterface {
             assertEquals(testDate.get(Calendar.DAY_OF_YEAR) + 1,testLog.getDate().get(Calendar.DAY_OF_YEAR));
             assertEquals(testDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
             assertEquals(testDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
-            assertEquals(edibleList, testLog.getEdibleList());
+            assertEquals(edibleList.size(), testLog.getEdibleList().size(), 1);
             assertEquals(1400, testLog.getCalorieGoal());
             assertEquals(600, testLog.getExerciseGoal());
             assertEquals(200, testLog.getExerciseActual());
@@ -422,7 +422,6 @@ public class TestLogDBInterface {
             assertThrows(NoSuchElementException.class, () -> {
                 DailyLog result = this.db.searchFoodLogByDate(-1, this.testDate);
             });
-
 
             assertThrows(NoSuchElementException.class, () -> {
                 this.db.replaceLog(-1, testLog);
