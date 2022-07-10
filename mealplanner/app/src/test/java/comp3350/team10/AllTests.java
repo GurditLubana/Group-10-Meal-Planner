@@ -23,10 +23,10 @@
  @SelectPackages("comp3350.team10.*")
  @SelectClasses({
          TestMealDiaryOps.class,
-         //TestRecipeBookOps.class,
-//         TestTrendsOps.class,
-//         TestUnitConverter.class,
-//         TestDailyLog.class,
+         TestRecipeBookOps.class,
+         TestTrendsOps.class,
+         TestUnitConverter.class,
+         TestDailyLog.class,
          TestDataFrame.class,
          TestDrink.class,
          //TestFoodUnit.class,
