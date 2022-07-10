@@ -3,14 +3,15 @@ package comp3350.team10.business;
 import comp3350.team10.objects.User;
 import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.SharedDB;
+import comp3350.team10.persistence.UserDBInterface;
 
 public class UserDataOps {
     private boolean infoAvailible;  //Can be used so that if vital user information is not availible a prompt will appear
-    private DBSelector db;          //References the current database
+    private UserDBInterface db;     //References the current database
     private User currUser;          //The current user's details
 
-    public UserDataOps(DBSelector db) {
-        this.db = db;
+    public UserDataOps() {
+        this.db = SharedDB.getUserDB();
         this.currUser = db.getUser();
         this.infoAvailible = currUser != null;
     }

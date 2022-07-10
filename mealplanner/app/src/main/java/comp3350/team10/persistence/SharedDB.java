@@ -10,6 +10,20 @@ public class SharedDB {
         }
     }
 
+    public static void startStub() {
+        if (db != null) {
+            db.close();
+            db.startStubDB();
+        }
+    }
+
+    public static void startHsql() {
+        if (db != null) {
+            db.close();
+            db.startHsqlDB();
+        }
+    }
+
     public static DBSelector getSharedDB() {
         return db;
     }
@@ -18,16 +32,16 @@ public class SharedDB {
         return db;
     }
 
-    public static void saveDB() {
-        db.save();
-    }
-
     public static RecipeDBInterface getRecipeDB() {
         return db;
     }
 
     public static UserDBInterface getUserDB() {
         return db;
+    }
+
+    public static void saveDB() {
+        db.save();
     }
 
     public static void close() {

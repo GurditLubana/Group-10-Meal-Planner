@@ -42,6 +42,8 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
     public DataAccessStub(String dbName) {
         this.calendar = Calendar.getInstance();
+        this.calendar.set(Calendar.MONTH, 9);
+        this.calendar.set(Calendar.DAY_OF_MONTH, 10);
         this.dbName = dbName;
         this.currKey = 1;
     }
@@ -232,19 +234,24 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     }
 
     //This section implements DiaryDBInterface
-    public DailyLog searchFoodLogByDate(int userID, Calendar date) {
+    public DailyLog searchFoodLogByDate(int userID, Calendar date) throws NoSuchElementException {
         Integer intDate = calendarToInt(date);
         DailyLog foundLog = null;
 
-        for (int i = 0; i < this.dbFoodLog.size() && foundLog == null; i++) {
-            if (intDate.intValue() == calendarToInt(this.dbFoodLog.get(i).getDate()).intValue()) {
-                foundLog = dbFoodLog.get(i);
+        if( userID == currUser.getUserID() ) {
+            for (int i = 0; i < this.dbFoodLog.size() && foundLog == null; i++) {
+                if (intDate.intValue() == calendarToInt(this.dbFoodLog.get(i).getDate()).intValue()) {
+                    foundLog = dbFoodLog.get(i);
+                }
+            }
+
+            if (foundLog == null) {
+                foundLog = new DailyLog().init(date, new ArrayList<Edible>(), this.getUserCalorieGoal(userID), this.getUserExerciseGoal(userID), 0);
+                this.dbFoodLog.add(foundLog);
             }
         }
-
-        if (foundLog == null) {
-            foundLog = new DailyLog().init(date, new ArrayList<Edible>(), this.getUserCalorieGoal(userID), this.getUserExerciseGoal(userID), 0);
-            this.dbFoodLog.add(foundLog);
+        else {
+            throw new NoSuchElementException("DB SearchFoodLogByDate User does not exist");
         }
 
         return foundLog;
@@ -297,6 +304,8 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
     private void loadFoodlog() {
         Calendar today = (Calendar) this.calendar.clone();
+        today.set(Calendar.MONTH, 9);
+        today.set(Calendar.DAY_OF_MONTH, 10);
 
         this.dbFoodLog = new ArrayList<DailyLog>(); // key = yyyyddd integer , Calorie goal, Exercise goal, actual exercise, Foodlog
         ArrayList<Edible> logDay = null;
@@ -717,6 +726,8 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
     private void loadHistory() {
         Calendar today = (Calendar) this.calendar.clone();
+        today.set(Calendar.MONTH, 9);
+        today.set(Calendar.DAY_OF_MONTH, 10);
         this.history = new ArrayList<>();
         Integer[] data = null;
         int calorieConsumed = 1200;
