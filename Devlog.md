@@ -1437,4 +1437,16 @@ Duration: 3.5 hrs
    - b. change the all test exception from IOException to IllegalArgumentException or Exeption ensure it can suit for all test relative Edible class in TestEdibleUnit.java ,TestDrinkUnit.java, TestIngredientUnit.java and TestMealUnit.java
    - all test is passed at this time in TestEdibleUnit.java
 
+### 2022-07-09 
+     Dev:
+      - Zhou
+Duration: 11 hrs
+   Tasks:
+   -finished all the testMeal and follow Dane `s request change the file name
+   - the problem during the test found are
+   - // the problem need to fix, problem about setInstructions()
+   - a. cannot update the correct value to the Meal there have problem about the about a update the data form the array list "my array of all input is nutrition is total in 100 but the update result is 40"
+   - b.if the input ingredients arraylist the size is 0 should let all the Nutrition and categories to default but some of Categories is not set to default
+   - those problem should been fix.
+   - can delet my comments in test file after all test is pass
 
