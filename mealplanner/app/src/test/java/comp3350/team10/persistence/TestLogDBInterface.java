@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +16,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.NoSuchElementException;
 
 import comp3350.team10.application.Main;
 import comp3350.team10.objects.DailyLog;
@@ -32,7 +32,9 @@ public class TestLogDBInterface {
         Calendar currDate;
         Calendar testDate;
         DailyLog currLog;
+        DailyLog testLog;
         Edible testEdible;
+        ArrayList<Edible> edibleList;
 
         @BeforeEach
         void setup() {
@@ -46,10 +48,42 @@ public class TestLogDBInterface {
             Main.shutDown();
         }
 
+        void setupTestLog() {
+            edibleList = new ArrayList<Edible>();
+            testLog = new DailyLog();
+            try {
+                edibleList.add( new EdibleLog(
+                        new Edible()
+                                .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
+                                .initNutrition(400, 30, 20, 50)
+                                .initCategories(false, false, false, false, false)
+                                .initMetadata(false, "photo.jpg")
+                ).init(40, Edible.Unit.tbsp));
+                edibleList.add( new EdibleLog(
+                        new Edible()
+                                .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
+                                .initNutrition(300, 40, 50, 10)
+                                .initCategories(false, false, true, true, false)
+                                .initMetadata(false, "photo.jpg")
+                ).init(30, Edible.Unit.g));
+                edibleList.add( new EdibleLog(
+                        new Edible()
+                                .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
+                                .initNutrition(200, 25, 40, 35)
+                                .initCategories(false, false, false, false, true)
+                                .initMetadata(false, "photo.jpg")
+                ).init(20, Edible.Unit.tsp));
+                testLog.init(testDate, edibleList, 1400, 600, 200);
+            }
+            catch(Exception e) {
+                fail(e);
+            }
+        }
+
         @Test
         @DisplayName("there should be a valid log at db start")
         void dbConstructionLogEntry(){
-            currLog = this.db.searchFoodLogByDate(currDate, 0);
+            currLog = this.db.searchFoodLogByDate(0, currDate);
             testDate = currLog.getDate();
             assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testDate.get(Calendar.DAY_OF_YEAR));
             assertEquals(3, currLog.getEdibleList().size());
@@ -93,8 +127,44 @@ public class TestLogDBInterface {
         @Test
         @DisplayName("we should be able to add a day log to the database")
         void dbAddALog(){
+
             DailyLog newLog = new DailyLog();
             testDate = Calendar.getInstance();
+            testDate.add(Calendar.DAY_OF_YEAR, 10);
+            this.setupTestLog();
+
+            testDate.set(2021, 12, 1);
+            try {
+                newLog.init(testDate, edibleList, 1400, 600, 200);
+            }
+            catch(Exception e) {
+                System.out.println(e);
+            }
+
+            this.db.replaceLog(0, newLog);
+
+            testLog = this.db.searchFoodLogByDate(0, testDate);
+
+            assertEquals(testDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
+            assertEquals(testDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
+            assertEquals(testDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
+            assertEquals(edibleList, testLog.getEdibleList());
+            assertEquals(1400, testLog.getCalorieGoal());
+            assertEquals(600, testLog.getExerciseGoal());
+            assertEquals(200, testLog.getExerciseActual());
+            assertEquals(900, testLog.getEdibleCalories());
+            assertEquals(0, testLog.getProgressExcess());
+            assertEquals(50, testLog.getProgressBar());
+            assertEquals(700, testLog.getCalorieNet());
+        }
+
+        @Test
+        @DisplayName("we should be able to set a new calorie goal for specific logs")
+        void dbSetANewCalorieGoal() {
+
+            this.currLog = this.db.searchFoodLogByDate(0, currDate);
+
+            assertEquals(3, this.currLog.getEdibleList().size());
         }
 
 
