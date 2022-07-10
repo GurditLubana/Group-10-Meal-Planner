@@ -340,11 +340,18 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
-    public ArrayList<Double> getDataFrame(DataFrame.DataType dataType, int days) {
+    public ArrayList<Double> getDataFrame(DataFrame.DataType dataType, int days) throws IllegalArgumentException{
         ArrayList<Double> result = new ArrayList<>();
-
-        for (int i = 0; i < days; i++) {
-            result.add(this.history.get(i)[dataType.ordinal() + 1].doubleValue());
+        if( dataType != null ) {
+            if( days >= DataFrame.numDays[DataFrame.Span.Week.ordinal()] ) {
+                for (int i = 0; i < days; i++) {
+                    result.add(this.history.get(i)[dataType.ordinal() + 1].doubleValue());
+                }
+            }else {
+                throw new IllegalArgumentException("DB getDataFrame must be >= " + DataFrame.numDays[DataFrame.Span.Week.ordinal()]);
+                }
+        } else {
+            throw new IllegalArgumentException("DB getDataFrame dataType cannot be null");
         }
 
         return result;
