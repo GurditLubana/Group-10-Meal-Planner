@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.NoSuchElementException;
 
 import comp3350.team10.application.Main;
 import comp3350.team10.objects.DailyLog;
@@ -28,7 +29,6 @@ public class TestLogDBInterface {
     @Nested
     @DisplayName("Simple Tests typical cases should pass")
     class caseSimple {
-        DBSelector dbSelector;
         LogDBInterface db;
         Calendar currDate;
         Calendar testDate;
@@ -42,7 +42,6 @@ public class TestLogDBInterface {
             SharedDB.start();
             SharedDB.startStub();
             //SharedDB.startHsql();
-            this.dbSelector = SharedDB.getSharedDB();
             this.db = SharedDB.getLogDB();
             this.currDate = Calendar.getInstance();
             this.currDate.set(Calendar.MONTH, 9);
@@ -211,7 +210,6 @@ public class TestLogDBInterface {
             assertEquals(1234, this.testLog.getExerciseActual());
 
         }
-
     }
 
 
@@ -219,16 +217,62 @@ public class TestLogDBInterface {
     @DisplayName("Complex Tests should pass")
     class caseComplex {
         LogDBInterface db;
+        Calendar currDate;
+        Calendar testDate;
+        DailyLog currLog;
+        DailyLog testLog;
+        Edible testEdible;
+        ArrayList<Edible> edibleList;
 
         @BeforeEach
         void setup() {
-            Main.startUp();
+            SharedDB.start();
+            SharedDB.startStub();
+            //SharedDB.startHsql();
             this.db = SharedDB.getLogDB();
+            this.currDate = Calendar.getInstance();
+            this.currDate.set(Calendar.MONTH, 9);
+            this.currDate.set(Calendar.DAY_OF_MONTH, 10);
+            this.testDate = (Calendar) this.currDate.clone();
+            this.testDate.add(Calendar.DAY_OF_YEAR, 20);
         }
 
         @AfterEach
         void shutdown() {
-            Main.shutDown();
+            SharedDB.close();
+        }
+
+        void setupTestLog() {
+            this.edibleList = new ArrayList<Edible>();
+            this.testLog = new DailyLog();
+            try {
+                this.edibleList.add( new EdibleLog(
+                        new Edible()
+                                .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
+                                .initNutrition(400, 30, 20, 50)
+                                .initCategories(false, false, false, false, false)
+                                .initMetadata(false, "photo.jpg")
+                ).init(40, Edible.Unit.tbsp));
+                this.edibleList.add( new EdibleLog(
+                        new Edible()
+                                .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
+                                .initNutrition(300, 40, 50, 10)
+                                .initCategories(false, false, true, true, false)
+                                .initMetadata(false, "photo.jpg")
+                ).init(30, Edible.Unit.g));
+                this.edibleList.add( new EdibleLog(
+                        new Edible()
+                                .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
+                                .initNutrition(200, 25, 40, 35)
+                                .initCategories(false, false, false, false, true)
+                                .initMetadata(false, "photo.jpg")
+                ).init(20, Edible.Unit.tsp));
+                this.testLog.init(this.testDate, this.edibleList, 1400, 600, 200);
+                this.db.replaceLog(0, testLog);
+            }
+            catch(Exception e) {
+                fail(e);
+            }
         }
 
         @Test
@@ -243,16 +287,62 @@ public class TestLogDBInterface {
     @DisplayName("Edge case Tests should pass")
     class caseEdge {
         LogDBInterface db;
+        Calendar currDate;
+        Calendar testDate;
+        DailyLog currLog;
+        DailyLog testLog;
+        Edible testEdible;
+        ArrayList<Edible> edibleList;
 
         @BeforeEach
         void setup() {
-            Main.startUp();
+            SharedDB.start();
+            SharedDB.startStub();
+            //SharedDB.startHsql();
             this.db = SharedDB.getLogDB();
+            this.currDate = Calendar.getInstance();
+            this.currDate.set(Calendar.MONTH, 9);
+            this.currDate.set(Calendar.DAY_OF_MONTH, 10);
+            this.testDate = (Calendar) this.currDate.clone();
+            this.testDate.add(Calendar.DAY_OF_YEAR, 20);
         }
 
         @AfterEach
         void shutdown() {
-            Main.shutDown();
+            SharedDB.close();
+        }
+
+        void setupTestLog() {
+            this.edibleList = new ArrayList<Edible>();
+            this.testLog = new DailyLog();
+            try {
+                this.edibleList.add( new EdibleLog(
+                        new Edible()
+                                .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
+                                .initNutrition(400, 30, 20, 50)
+                                .initCategories(false, false, false, false, false)
+                                .initMetadata(false, "photo.jpg")
+                ).init(40, Edible.Unit.tbsp));
+                this.edibleList.add( new EdibleLog(
+                        new Edible()
+                                .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
+                                .initNutrition(300, 40, 50, 10)
+                                .initCategories(false, false, true, true, false)
+                                .initMetadata(false, "photo.jpg")
+                ).init(30, Edible.Unit.g));
+                this.edibleList.add( new EdibleLog(
+                        new Edible()
+                                .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
+                                .initNutrition(200, 25, 40, 35)
+                                .initCategories(false, false, false, false, true)
+                                .initMetadata(false, "photo.jpg")
+                ).init(20, Edible.Unit.tsp));
+                this.testLog.init(this.testDate, this.edibleList, 1400, 600, 200);
+                this.db.replaceLog(0, testLog);
+            }
+            catch(Exception e) {
+                fail(e);
+            }
         }
 
         @Test
@@ -265,20 +355,96 @@ public class TestLogDBInterface {
     @Nested
     @DisplayName("Tests that should fail")
     class caseFail {
+        LogDBInterface db;
+        Calendar currDate;
+        Calendar testDate;
+        DailyLog currLog;
+        DailyLog testLog;
+        Edible testEdible;
+        ArrayList<Edible> edibleList;
 
         @BeforeEach
         void setup() {
-            Main.startUp();
+            SharedDB.start();
+            SharedDB.startStub();
+            //SharedDB.startHsql();
+            this.db = SharedDB.getLogDB();
+            this.currDate = Calendar.getInstance();
+            this.currDate.set(Calendar.MONTH, 9);
+            this.currDate.set(Calendar.DAY_OF_MONTH, 10);
+            this.testDate = (Calendar) this.currDate.clone();
+            this.testDate.add(Calendar.DAY_OF_YEAR, 20);
         }
 
         @AfterEach
         void shutdown() {
-            Main.shutDown();
+            SharedDB.close();
+        }
+
+        void setupTestLog() {
+            this.edibleList = new ArrayList<Edible>();
+            this.testLog = new DailyLog();
+            try {
+                this.edibleList.add( new EdibleLog(
+                        new Edible()
+                                .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
+                                .initNutrition(400, 30, 20, 50)
+                                .initCategories(false, false, false, false, false)
+                                .initMetadata(false, "photo.jpg")
+                ).init(40, Edible.Unit.tbsp));
+                this.edibleList.add( new EdibleLog(
+                        new Edible()
+                                .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
+                                .initNutrition(300, 40, 50, 10)
+                                .initCategories(false, false, true, true, false)
+                                .initMetadata(false, "photo.jpg")
+                ).init(30, Edible.Unit.g));
+                this.edibleList.add( new EdibleLog(
+                        new Edible()
+                                .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
+                                .initNutrition(200, 25, 40, 35)
+                                .initCategories(false, false, false, false, true)
+                                .initMetadata(false, "photo.jpg")
+                ).init(20, Edible.Unit.tsp));
+                this.testLog.init(this.testDate, this.edibleList, 1400, 600, 200);
+                this.db.replaceLog(0, testLog);
+            }
+            catch(Exception e) {
+                fail(e);
+            }
         }
 
         @Test
-        @DisplayName("")
-        void test(){
+        @DisplayName("negative user id should fail")
+        void testNegativeuserID(){
+            this.setupTestLog();
+
+            assertThrows(NoSuchElementException.class, () -> {
+                DailyLog result = this.db.searchFoodLogByDate(-1, this.testDate);
+            });
+
+
+            assertThrows(NoSuchElementException.class, () -> {
+                this.db.replaceLog(-1, testLog);
+            });
+
+            assertThrows(NoSuchElementException.class, () -> {
+                this.db.setExerciseActual(-1, 1111, this.testDate);
+            });
+
+            assertThrows(NoSuchElementException.class, () -> {
+                this.db.setLogCalorieGoal(-1, 1111, this.testDate);
+            });
+
+            assertThrows(NoSuchElementException.class, () -> {
+                this.db.setLogExerciseGoal(-1, 1111, this.testDate);
+            });
+        }
+
+        @Test
+        @DisplayName("invalid user id should fail")
+        void testInvaliduserID(){
+            this.setupTestLog();
         }
     }
 }

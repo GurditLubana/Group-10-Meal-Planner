@@ -80,7 +80,6 @@ public class MealDiaryOps {
 
     public void logChangedUpdateDB() {
         this.db.replaceLog(opUser.getUser().getUserID(), this.currLog );
-        //this.db.addLog(this.currLog, opUser.getUser().getUserID());
     }
 
     public void addByKey(int dbkey, boolean isCustom) throws NoSuchElementException {

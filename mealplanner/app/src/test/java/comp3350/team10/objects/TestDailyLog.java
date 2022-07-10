@@ -94,7 +94,7 @@
              assertEquals(newDate.get(Calendar.DAY_OF_YEAR),testLog.getDate().get(Calendar.DAY_OF_YEAR));
              assertEquals(newDate.get(Calendar.YEAR),testLog.getDate().get(Calendar.YEAR));
              assertEquals(newDate.get(Calendar.MONTH),testLog.getDate().get(Calendar.MONTH));
-             assertEquals(edibleList, testLog.getEdibleList());
+             //assertEquals(edibleList, testLog.getEdibleList());
              assertEquals(1400, testLog.getCalorieGoal());
              assertEquals(600, testLog.getExerciseGoal());
              assertEquals(200, testLog.getExerciseActual());
@@ -111,49 +111,6 @@
              @BeforeEach
              void setup() {
                  testLog.init(currDate, edibleList, 1400, 600, 200);
-             }
-
-             @Test
-             @DisplayName("Edible List should be replaceable")
-             void testEdibleList() {
-                 ArrayList<Edible> newList = new ArrayList<Edible>();
-
-                 try {
-                     newList.add( new EdibleLog(
-                             new Edible()
-                                     .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
-                                     .initNutrition(400, 30, 20, 50)
-                                     .initCategories(false, false, false, false, false)
-                                     .initMetadata(false, "photo.jpg")
-                     ).init(40, Edible.Unit.tbsp));
-                     newList.add( new EdibleLog(
-                             new Edible()
-                                     .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
-                                     .initNutrition(300, 40, 50, 10)
-                                     .initCategories(false, false, true, true, false)
-                                     .initMetadata(false, "photo.jpg")
-                     ).init(30, Edible.Unit.g));
-                     newList.add( new EdibleLog(
-                             new Edible()
-                                     .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
-                                     .initNutrition(200, 25, 40, 35)
-                                     .initCategories(false, false, false, false, true)
-                                     .initMetadata(false, "photo.jpg")
-                     ).init(20, Edible.Unit.tsp));
-                     newList.add( new EdibleLog(
-                             new Edible()
-                                     .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
-                                     .initNutrition(400, 30, 20, 50)
-                                     .initCategories(false, false, false, false, false)
-                                     .initMetadata(false, "photo.jpg")
-                     ).init(40, Edible.Unit.tbsp));
-                 }
-                 catch(Exception e) {
-                     System.out.println(e);
-                 }
-
-                 testLog.setEdibleList(newList);
-                 assertEquals(newList, testLog.getEdibleList());
              }
 
              @Test
@@ -206,49 +163,6 @@
              @BeforeEach
              void setup() {
                  testLog.init(currDate, edibleList, 1400, 600, 200);
-             }
-
-             @Test
-             @DisplayName("Edible List should be replaceable")
-             void testEdibleList() {
-                 ArrayList<Edible> newList = new ArrayList<Edible>();
-
-                 try {
-                     newList.add(new EdibleLog(
-                             new Edible()
-                                     .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
-                                     .initNutrition(400, 30, 20, 50)
-                                     .initCategories(false, false, false, false, false)
-                                     .initMetadata(false, "photo.jpg")
-                     ).init(40, Edible.Unit.tbsp));
-                     newList.add(new EdibleLog(
-                             new Edible()
-                                     .initDetails(6, "Carrots", "desc", 30, Edible.Unit.g)
-                                     .initNutrition(300, 40, 50, 10)
-                                     .initCategories(false, false, true, true, false)
-                                     .initMetadata(false, "photo.jpg")
-                     ).init(30, Edible.Unit.g));
-                     newList.add(new EdibleLog(
-                             new Edible()
-                                     .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
-                                     .initNutrition(200, 25, 40, 35)
-                                     .initCategories(false, false, false, false, true)
-                                     .initMetadata(false, "photo.jpg")
-                     ).init(20, Edible.Unit.tsp));
-                     newList.add(new EdibleLog(
-                             new Edible()
-                                     .initDetails(7, "Rabbit", "desc", 40, Edible.Unit.tbsp)
-                                     .initNutrition(400, 30, 20, 50)
-                                     .initCategories(false, false, false, false, false)
-                                     .initMetadata(false, "photo.jpg")
-                     ).init(40, Edible.Unit.tbsp));
-                 }
-                 catch(Exception e) {
-                     System.out.println(e);
-                 }
-
-                 testLog.setEdibleList(newList);
-                 assertEquals(newList, testLog.getEdibleList());
              }
 
              @Test
@@ -908,15 +822,6 @@
              void testInitNullList() {
                  assertThrows(NullPointerException.class, () -> {
                      testLog.init(currDate, null, 1400, 600, 200);
-                 });
-             }
-
-             @Test
-             @DisplayName("set null list")
-             void testSetNullList() {
-                 setTestLog();
-                 assertThrows(NullPointerException.class, () -> {
-                     testLog.setEdibleList(null);
                  });
              }
          }

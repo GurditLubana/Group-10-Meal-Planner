@@ -126,7 +126,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                             dbkey = data.getExtras().getInt("DBKEY"); //rva recipe book
                             isCustom = data.getExtras().getBoolean("IsCustom");
 
-                            currLog.getEdibleList().remove(currLog.getEdibleList().size()-1);
+                            //currLog.getEdibleList().remove(currLog.getEdibleList().size()-1);
                             opExec.addByKey(dbkey, isCustom);
                             updateLiveData();
                         }
@@ -317,15 +317,10 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public void removeItem(int pos) {
-        if (this.data.size() > 0) {
-            this.data.remove(pos);
+        if (pos >= 0 && pos < this.data.size()) {
             this.savedItem = null;
             this.savedItemPosition = -1;
-            this.recyclerViewAdapter.notifyItemRemoved(pos);
-            this.recyclerViewAdapter.notifyItemRangeChanged(pos, data.size());
-            this.recyclerViewAdapter.notifyDataSetChanged();
-            this.data.remove(data.size()-1);
-            this.currLog.setEdibleList(data);
+            this.currLog.removeItem(pos);
             this.opExec.logChangedUpdateDB();
             this.updateLiveData();
         }
@@ -377,7 +372,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     public void setEntryQty(Double amount, String unit) {
         ArrayList<Edible> temp = new ArrayList<Edible>();
         EdibleLog selectedItem = null;
-        UnitConverter converter = null;
 
         try {
             if (this.savedItem instanceof EdibleLog) {
@@ -385,13 +379,9 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                 selectedItem.setQuantity(amount);
                 selectedItem.setUnit(Edible.Unit.valueOf(unit));
                 selectedItem.setCalories();
-
+                this.currLog.removeItem(this.savedItemPosition);
+                this.currLog.addEdibleToLog(this.savedItem);
                 this.showContextUI(-1);
-                for(int i = 0; i < data.size() - 1; i++) {
-                    temp.add(data.get(i));
-                }
-
-                this.currLog.setEdibleList(temp);
                 this.opExec.logChangedUpdateDB(); //crashes because there is the extra one
                 this.updateLiveData();
             }

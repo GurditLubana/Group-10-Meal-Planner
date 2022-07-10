@@ -2,6 +2,7 @@ package comp3350.team10.persistence;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.NoSuchElementException;
 
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.DataFrame;
@@ -9,11 +10,11 @@ import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
 
 public interface LogDBInterface {
-    public DailyLog searchFoodLogByDate(int userID, Calendar date);
-    public EdibleLog findEdibleByKey(int dbkey, boolean isCustom);
-    public void replaceLog(int userID, DailyLog newLog);
-    public void setExerciseActual(int userID, double newValue, Calendar date);
-    public void setLogCalorieGoal(int userID, double newValue, Calendar date);
-    public void setLogExerciseGoal(int userID, double newValue, Calendar date);
-    public ArrayList<Double> getDataFrame(DataFrame.DataType type, int days);
+    public DailyLog searchFoodLogByDate(int userID, Calendar date) throws NoSuchElementException, IllegalArgumentException;
+    public EdibleLog findEdibleByKey(int dbkey, boolean isCustom) throws NoSuchElementException, IllegalArgumentException;
+    public void replaceLog(int userID, DailyLog newLog) throws NoSuchElementException, IllegalArgumentException;
+    public void setExerciseActual(int userID, double newValue, Calendar date) throws NoSuchElementException, IllegalArgumentException;
+    public void setLogCalorieGoal(int userID, double newValue, Calendar date) throws NoSuchElementException, IllegalArgumentException;
+    public void setLogExerciseGoal(int userID, double newValue, Calendar date) throws NoSuchElementException, IllegalArgumentException;
+    public ArrayList<Double> getDataFrame(DataFrame.DataType type, int days) throws IllegalArgumentException;
 }
