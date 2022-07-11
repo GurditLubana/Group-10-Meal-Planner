@@ -706,7 +706,7 @@ public class TestMeal {
                     .initNutrition(1, 1, 1, 1)
                     .initCategories(false, false, true, true, true)
                     .initMetadata(true, "photo");
-            Edible smallDrink = new Meal().initDetails(1, "drink", "description", 5, Edible.Unit.g)
+            Edible smallDrink = new Drink().initDetails(1, "drink", "description", 5, Edible.Unit.g)
                     .initNutrition(10, 10, 10, 10)
                     .initCategories(false, true, false, true, false)
                     .initMetadata(true, "photo");
@@ -754,7 +754,7 @@ public class TestMeal {
                     .initNutrition(1, 1, 1, 1)
                     .initCategories(false, false, true, true, true)
                     .initMetadata(true, "photo");
-            Edible smallDrink = new Meal().initDetails(1, "drink", "description", 5, Edible.Unit.g)
+            Edible smallDrink = new Drink().initDetails(1, "drink", "description", 5, Edible.Unit.g)
                     .initNutrition(10, 10, 10, 10)
                     .initCategories(false, true, false, true, false)
                     .initMetadata(true, "photo");
@@ -811,7 +811,7 @@ public class TestMeal {
                     .initNutrition(10, 10, 10, 10)
                     .initCategories(false, false, false, true, true)
                     .initMetadata(true, "photo");
-            Edible smallDrink = new Meal().initDetails(1, "drink", "description", 5, Edible.Unit.g)
+            Edible smallDrink = new Drink().initDetails(1, "drink", "description", 5, Edible.Unit.g)
                     .initNutrition(15, 15, 15, 15)
                     .initCategories(false, false, false, true, false)
                     .initMetadata(true, "photo");

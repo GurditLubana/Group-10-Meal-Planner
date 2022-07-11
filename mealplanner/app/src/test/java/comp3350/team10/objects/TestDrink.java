@@ -1811,397 +1811,397 @@ public class TestDrink {
             assertEquals(testEdible.getIngredients().size(), 2);
         }
     }
-}
 
-@Nested
-@DisplayName("Invalid tests")
-class Test_Invalid {
-    private Drink testEdible;
-    private String longTestString;
+    @Nested
+    @DisplayName("Invalid tests")
+    class Test_Invalid {
+        private Drink testEdible;
+        private String longTestString;
 
-    @BeforeEach
-    void setUp() {
-        testEdible = new Drink();
-        longTestString = "";
+        @BeforeEach
+        void setUp() {
+            testEdible = new Drink();
+            longTestString = "";
 
-        for (int i = 0; i < 10000; i++) {
-            longTestString = longTestString + "a";
-        }
-    }
-
-    @Test
-    @DisplayName("Tests setting an invalid db key for a drink")
-    void testSetDBkey() {
-        try {
-            testEdible.setDBKey(-1);
-            fail("Should throw an exception, db key is less than 0");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
+            for (int i = 0; i < 10000; i++) {
+                longTestString = longTestString + "a";
+            }
         }
 
-        try {
-            testEdible.initDetails(-1, "name", "description", 5, Edible.Unit.cups);
-            fail("Should throw an exception, db key is less than 0");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-    }
+        @Test
+        @DisplayName("Tests setting an invalid db key for a drink")
+        void testSetDBkey() {
+            try {
+                testEdible.setDBKey(-1);
+                fail("Should throw an exception, db key is less than 0");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
 
-    @Test
-    @DisplayName("Tests setting an invalid name for a drink")
-    void testSetName() {
-        try {
-            testEdible.setName(longTestString);
-            fail("Should throw an exception, this name is too long");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        try {
-            testEdible.initDetails(1, longTestString, "description", 5, Edible.Unit.cups);
-            fail("Should throw an exception, this name is too long");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-    }
-
-    @Test
-    @DisplayName("Tests setting an invalid description for a drink")
-    void testSetDescription() {
-        try {
-            testEdible.setDescription(longTestString);
-            fail("Should throw an exception, this description is too long");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
+            try {
+                testEdible.initDetails(-1, "name", "description", 5, Edible.Unit.cups);
+                fail("Should throw an exception, db key is less than 0");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
         }
 
-        try {
-            testEdible.initDetails(1, "name", longTestString, 5, Edible.Unit.cups);
-            fail("Should throw an exception, this description is too long");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-    }
+        @Test
+        @DisplayName("Tests setting an invalid name for a drink")
+        void testSetName() {
+            try {
+                testEdible.setName(longTestString);
+                fail("Should throw an exception, this name is too long");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
 
-    @Test
-    @DisplayName("Tests setting an invalid quantity for a drink")
-    void testSetQuantity() {
-        try {
-            testEdible.setBaseQuantity(0);
-            fail("Should throw an exception, this quantity is too low");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        try {
-            testEdible.setBaseQuantity(10000);
-            fail("Should throw an exception, this quantity is too big");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
+            try {
+                testEdible.initDetails(1, longTestString, "description", 5, Edible.Unit.cups);
+                fail("Should throw an exception, this name is too long");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
         }
 
-        try {
-            testEdible.initDetails(1, "name", "description", 0, Edible.Unit.cups);
-            fail("Should throw an exception, this quantity is too low");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
+        @Test
+        @DisplayName("Tests setting an invalid description for a drink")
+        void testSetDescription() {
+            try {
+                testEdible.setDescription(longTestString);
+                fail("Should throw an exception, this description is too long");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                testEdible.initDetails(1, "name", longTestString, 5, Edible.Unit.cups);
+                fail("Should throw an exception, this description is too long");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
         }
 
-        try {
-            testEdible.initDetails(1, "name", "description", 10000, Edible.Unit.cups);
-            fail("Should throw an exception, this quantity is too big");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-    }
+        @Test
+        @DisplayName("Tests setting an invalid quantity for a drink")
+        void testSetQuantity() {
+            try {
+                testEdible.setBaseQuantity(0);
+                fail("Should throw an exception, this quantity is too low");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
 
-    @Test
-    @DisplayName("Tests setting an invalid photo for a drink")
-    void testSetPhoto() {
-        try {
-            testEdible.setPhoto(longTestString);
-            fail("Should throw an exception, this photo is too long");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
+            try {
+                testEdible.setBaseQuantity(10000);
+                fail("Should throw an exception, this quantity is too big");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
 
-        try {
-            testEdible.initMetadata(false, longTestString);
-            fail("Should throw an exception, this photo is too long");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-    }
+            try {
+                testEdible.initDetails(1, "name", "description", 0, Edible.Unit.cups);
+                fail("Should throw an exception, this quantity is too low");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
 
-    @Test
-    @DisplayName("Tests cloning an incomplete or invalid drink")
-    void testCloneDrink() {
-        testEdible.setDBKey(1);
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
+            try {
+                testEdible.initDetails(1, "name", "description", 10000, Edible.Unit.cups);
+                fail("Should throw an exception, this quantity is too big");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
         }
 
-        testEdible = new Drink();
-        testEdible.setName("name");
+        @Test
+        @DisplayName("Tests setting an invalid photo for a drink")
+        void testSetPhoto() {
+            try {
+                testEdible.setPhoto(longTestString);
+                fail("Should throw an exception, this photo is too long");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
 
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
+            try {
+                testEdible.initMetadata(false, longTestString);
+                fail("Should throw an exception, this photo is too long");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
         }
 
-        testEdible = new Drink();
-        testEdible.setDescription("description");
+        @Test
+        @DisplayName("Tests cloning an incomplete or invalid drink")
+        void testCloneDrink() {
+            testEdible.setDBKey(1);
 
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setName("name");
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setDescription("description");
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setBaseQuantity(5);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setBaseUnit(Edible.Unit.g);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setCalories(5);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setProtein(5);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setCarbs(5);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setFat(5);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setAlcoholic(true);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setSpicy(true);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setVegan(true);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setVegetarian(true);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setVegan(true);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setVegetarian(true);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setGlutenFree(true);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setCustom(true);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.setPhoto("photo");
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.initDetails(1, "name", "description", 5, Edible.Unit.g);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.initNutrition(5, 5, 5, 5);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.initCategories(false, false, false, false, false);
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            testEdible = new Drink();
+            testEdible.initMetadata(false, "photo");
+
+            try {
+                testEdible.clone();
+                fail("Should throw an exception, this is an incomplete drink");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
         }
 
-        testEdible = new Drink();
-        testEdible.setBaseQuantity(5);
+        @Test
+        @DisplayName("Tests adding ingredient into a drink with null entries where null appears fisrt, then second, then last")
+        void testIngredientList() {
+            DrinkIngredient foodIngredient = new DrinkIngredient();
+            DrinkIngredient secondFoodIngredient = new DrinkIngredient();
+            ArrayList<DrinkIngredient> ingredients;
+            Edible food = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, true, false)
+                    .initMetadata(true, "photo");
+            Edible secondFood = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(0, 0, 0, 9999)
+                    .initCategories(false, false, false, true, true)
+                    .initMetadata(true, "photo");
 
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
+            foodIngredient.init(food, 1, Edible.Unit.cups);
+            secondFoodIngredient.init(secondFood, 1, Edible.Unit.cups);
 
-        testEdible = new Drink();
-        testEdible.setBaseUnit(Edible.Unit.g);
+            try {
+                ingredients = new ArrayList<DrinkIngredient>();
+                ingredients.add(null);
+                ingredients.add(foodIngredient);
+                ingredients.add(secondFoodIngredient);
+                testEdible.setIngredients(ingredients);
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
 
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
+            try {
+                ingredients = new ArrayList<DrinkIngredient>();
+                ingredients.add(foodIngredient);
+                ingredients.add(null);
+                ingredients.add(secondFoodIngredient);
+                testEdible.setIngredients(ingredients);
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
 
-        testEdible = new Drink();
-        testEdible.setCalories(5);
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        testEdible = new Drink();
-        testEdible.setProtein(5);
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        testEdible = new Drink();
-        testEdible.setCarbs(5);
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        testEdible = new Drink();
-        testEdible.setFat(5);
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        testEdible = new Drink();
-        testEdible.setAlcoholic(true);
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        testEdible = new Drink();
-        testEdible.setSpicy(true);
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        testEdible = new Drink();
-        testEdible.setVegan(true);
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        testEdible = new Drink();
-        testEdible.setVegetarian(true);
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        testEdible = new Drink();
-        testEdible.setVegan(true);
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        testEdible = new Drink();
-        testEdible.setVegetarian(true);
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        testEdible = new Drink();
-        testEdible.setGlutenFree(true);
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        testEdible = new Drink();
-        testEdible.setCustom(true);
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        testEdible = new Drink();
-        testEdible.setPhoto("photo");
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        testEdible = new Drink();
-        testEdible.initDetails(1, "name", "description", 5, Edible.Unit.g);
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        testEdible = new Drink();
-        testEdible.initNutrition(5, 5, 5, 5);
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        testEdible = new Drink();
-        testEdible.initCategories(false, false, false, false, false);
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        testEdible = new Drink();
-        testEdible.initMetadata(false, "photo");
-
-        try {
-            testEdible.clone();
-            fail("Should throw an exception, this is an incomplete drink");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-    }
-
-    @Test
-    @DisplayName("Tests adding ingredient into a drink with null entries where null appears fisrt, then second, then last")
-    void testIngredientList() {
-        DrinkIngredient foodIngredient = new DrinkIngredient();
-        DrinkIngredient secondFoodIngredient = new DrinkIngredient();
-        ArrayList<DrinkIngredient> ingredients;
-        Edible food = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
-                .initNutrition(5, 5, 5, 5)
-                .initCategories(false, false, false, true, false)
-                .initMetadata(true, "photo");
-        Edible secondFood = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
-                .initNutrition(0, 0, 0, 9999)
-                .initCategories(false, false, false, true, true)
-                .initMetadata(true, "photo");
-
-        foodIngredient.init(food, 1, Edible.Unit.cups);
-        secondFoodIngredient.init(secondFood, 1, Edible.Unit.cups);
-
-        try {
-            ingredients = new ArrayList<DrinkIngredient>();
-            ingredients.add(null);
-            ingredients.add(foodIngredient);
-            ingredients.add(secondFoodIngredient);
-            testEdible.setIngredients(ingredients);
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        try {
-            ingredients = new ArrayList<DrinkIngredient>();
-            ingredients.add(foodIngredient);
-            ingredients.add(null);
-            ingredients.add(secondFoodIngredient);
-            testEdible.setIngredients(ingredients);
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        try {
-            ingredients = new ArrayList<DrinkIngredient>();
-            ingredients.add(foodIngredient);
-            ingredients.add(secondFoodIngredient);
-            ingredients.add(null);
-            testEdible.setIngredients(ingredients);
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
+            try {
+                ingredients = new ArrayList<DrinkIngredient>();
+                ingredients.add(foodIngredient);
+                ingredients.add(secondFoodIngredient);
+                ingredients.add(null);
+                testEdible.setIngredients(ingredients);
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
         }
     }
 }
