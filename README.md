@@ -1,10 +1,12 @@
-# <center> Comp 3350 Team 10 <br> EATEN </center>
+<div align="center">
+<h2 style="font-size:40px">Comp 3350 Team 10 <br> EATEN</h2>
 
-<center>
+<br>
 
 ### Eaten is a meal planning app, that aims to help its users reach their health goals through curated recipes, automated calorie counting and progress tracking thats easy to read and share with your loved ones. 
 <br>
-</center>
+</div>
+
 <hr>
 
 
