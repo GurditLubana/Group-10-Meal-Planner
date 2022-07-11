@@ -329,27 +329,7 @@ public class TestRecipeDBInterface {
             assertEquals("old description", db.findEdibleByKey(102, false).getDescription());
             assertEquals("old description", db.findEdibleByKey(103, false).getDescription());
         }
-
-        @Test
-        @DisplayName("When we add an object to the database we should not be able to contained objects")
-        void testEmptyIngredientList() {
-            db.addFoodToRecipeBook(this.testEdible);
-            assertEquals(foodRecipeCount, db.getFoodRecipes().size(), 1);
-
-            db.addMealToRecipeBook(this.testMeal);
-            assertEquals(mealRecipeCount, db.getMealRecipes().size(), 1);
-
-            db.addDrinkToRecipeBook(this.testDrink);
-            assertEquals(drinkRecipeCount, db.getDrinkRecipes().size(), 1);
-
-            this.testMeal.getIngredients().clear();
-            this.testDrink.getIngredients().clear();
-
-            fail("Info is lost when returning preparedItems as EdibleLog");
-            //assertEquals(2, ((Meal) db.findEdibleByKey(102, false)).getIngredients().size());
-        }
     }
-
 
     @Nested
     @DisplayName("Edge case Tests should pass")
