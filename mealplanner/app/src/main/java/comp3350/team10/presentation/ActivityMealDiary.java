@@ -411,10 +411,10 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     @Override
-    public void setGoalCalories(Double value) { //only on current day
+    public void setGoalCalories(Double value) {
         try {
             this.currLog.setCalorieGoal(value);
-            this.opExec.setCalorieGoal(this.currLog, value);
+            this.opExec.logChangedUpdateDB();
         }
         catch (Exception e){
             System.out.println(e);

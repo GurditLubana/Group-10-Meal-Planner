@@ -45,7 +45,9 @@ public class SharedDB {
     }
 
     public static void close() {
-        db.close();
+        if (db != null) {
+            db.close();
+        }
         db = null;
     }
 }

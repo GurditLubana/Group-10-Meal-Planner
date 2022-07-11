@@ -62,9 +62,6 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
     
 
     //User interface
-//    public void addUser(String name, int height, int weight) {
-//        this.userDB.addUser(name, height, weight);
-//    }
 
     public User getUser() {
         return this.userDB.getUser();
@@ -96,9 +93,6 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
         this.logDB.replaceLog(userID, newLog);
     }
 
-//    public void deleteLog(DailyLog delLog, int userID) {
-//        this.logDB.deleteLog(delLog, userID);
-//    }
 
     public void setLogCalorieGoal(int userID, double goal, Calendar date) {
         this.logDB.setLogCalorieGoal(userID, goal, date);

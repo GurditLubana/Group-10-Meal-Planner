@@ -4,7 +4,6 @@ import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
-import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.LogDBInterface;
 import comp3350.team10.persistence.SharedDB;
 
@@ -36,28 +35,24 @@ public class MealDiaryOps {
         }
     }
 
-    public void nextDate() throws IllegalArgumentException {
+    public void nextDate(){
         Calendar newDate = (Calendar) this.logDate.clone();
         newDate.add(Calendar.DAY_OF_YEAR, INCREMENT);
         try {
             this.setListDate(newDate);
         } catch (IllegalArgumentException e) {
-            throw e;
+            System.out.println(e);
         }
     }
 
-    public void prevDate() throws IllegalArgumentException {
+    public void prevDate(){
         Calendar newDate = (Calendar) this.logDate.clone();
         newDate.add(Calendar.DAY_OF_YEAR, -INCREMENT);
         try {
             this.setListDate(newDate);
         } catch (IllegalArgumentException e) {
-            throw e;
+            System.out.println(e);
         }
-    }
-
-    public void setCalorieGoal(DailyLog currLog, double newCalorieGoal) {
-        this.db.setLogCalorieGoal(opUser.getUser().getUserID(), newCalorieGoal, currLog.getDate());
     }
 
     public void setListDate(Calendar newDate) throws IllegalArgumentException {
@@ -93,7 +88,7 @@ public class MealDiaryOps {
             
         try {
             foundEdible = new EdibleLog(newItem).init(newItem.getQuantity(), newItem.getUnit());
-            this.currLog.addEdibleToLog(foundEdible); //this needs to change to a db call
+            this.currLog.addEdibleToLog(foundEdible);
             this.logChangedUpdateDB();
         } 
         catch (Exception e) {

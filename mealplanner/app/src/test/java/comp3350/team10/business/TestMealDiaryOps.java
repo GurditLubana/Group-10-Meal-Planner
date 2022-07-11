@@ -399,5 +399,14 @@ public class TestMealDiaryOps {
                 ops.addByKey(999999999, false);
             });
         }
+
+        @Test
+        @DisplayName("object construction should fail if the db isn't started")
+        void noDB() {
+            Main.shutDown();
+            assertThrows(NullPointerException.class, () -> {
+                ops = new MealDiaryOps();
+            });
+        }
     }
 }

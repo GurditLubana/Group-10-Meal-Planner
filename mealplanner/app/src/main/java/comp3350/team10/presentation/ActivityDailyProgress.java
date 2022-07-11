@@ -12,9 +12,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 import comp3350.team10.R;
-import comp3350.team10.business.DailyProgressOps;
 import comp3350.team10.business.TrendsOps;
-import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.DataFrame;
 
 public class ActivityDailyProgress extends AppCompatActivity {
