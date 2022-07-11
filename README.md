@@ -100,9 +100,20 @@ This can be enabled in the DBSelector class by commenting the appropriate lines 
 Our team used Android Studio Chipmunk 2021.2.1 Patch 1 for development on Windows 10. We tested our code both on a Nexus 7 device and several Android virtual devices created in Android studio. Android virtual devices used had SDK 23 for testing and SDK 30 for debugging.  
 
 <br>
-<br></br>
+<br>
 
 # Packages
+## Application
+Application classes handle program maintenance through the course of its life cycle
+
+<br>
+
+<h3>Main</h3>
+Main handles database and device related maintenance and path handling
+
+<br>
+
+#
 ## Business
 Business classes handle program logic related to their activities. 
 
