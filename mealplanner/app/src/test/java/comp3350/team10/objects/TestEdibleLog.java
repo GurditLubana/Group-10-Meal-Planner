@@ -53,352 +53,450 @@ public class TestEdibleLog {
 		@Test
 		@DisplayName("Tests setting a simple DB key for an edible")
 		void testSetDBKey() {
-			testEdible.setDBKey(5);
-			assertEquals(testEdible.getDbkey(), 5);
+			testLog.setDBKey(5);
+			assertEquals(testLog.getDbkey(), 5);
 
-			testEdible.setDBKey(10);
-			assertEquals(testEdible.getDbkey(), 10);
+			testLog.setDBKey(10);
+			assertEquals(testLog.getDbkey(), 10);
 
-			testEdible.initDetails(5,"name", "description", 1, Edible.Unit.g);
-			assertEquals(testEdible.getDbkey(), 5);
+			testLog.initDetails(5,"name", "description", 1, Edible.Unit.g);
+			assertEquals(testLog.getDbkey(), 5);
 
-			testEdible.initDetails(10, "name", "description", 1, Edible.Unit.g);
-			assertEquals(testEdible.getDbkey(), 10);
+			testLog.initDetails(10, "name", "description", 1, Edible.Unit.g);
+			assertEquals(testLog.getDbkey(), 10);
 		}
 
 		@Test
 		@DisplayName("Tests setting a simple name for an edible")
 			void testSetName() {
-			testEdible.setName(testString);
-			assertEquals(testEdible.getName(), testString);
+			testLog.setName(testString);
+			assertEquals(testLog.getName(), testString);
 
-			testEdible.setName("A different name");
-			assertEquals(testEdible.getName(), "A different name");
+			testLog.setName("A different name");
+			assertEquals(testLog.getName(), "A different name");
 
-			testEdible.initDetails(5,testString, "description", 1, Edible.Unit.g);
-			assertEquals(testEdible.getName(), testString);
+			testLog.initDetails(5,testString, "description", 1, Edible.Unit.g);
+			assertEquals(testLog.getName(), testString);
 
-			testEdible.initDetails(5, "A different name", "description", 1, Edible.Unit.g);
-			assertEquals(testEdible.getName(), "A different name");
+			testLog.initDetails(5, "A different name", "description", 1, Edible.Unit.g);
+			assertEquals(testLog.getName(), "A different name");
 		}
 
 		@Test
 		@DisplayName("Tests setting a simple description for an edible")
 		void testSetDescription() {
-			testEdible.setDescription(testString);
-			assertEquals(testEdible.getDescription(), testString);
+			testLog.setDescription(testString);
+			assertEquals(testLog.getDescription(), testString);
 
-			testEdible.setDescription("A different description");
-			assertEquals(testEdible.getDescription(), "A different description");
+			testLog.setDescription("A different description");
+			assertEquals(testLog.getDescription(), "A different description");
 
-			testEdible.initDetails(5, "name", testString, 1, Edible.Unit.g);
-			assertEquals(testEdible.getDescription(), testString);
+			testLog.initDetails(5, "name", testString, 1, Edible.Unit.g);
+			assertEquals(testLog.getDescription(), testString);
 
-			testEdible.initDetails(5, "name", "A different description", 1, Edible.Unit.g);
-			assertEquals(testEdible.getDescription(), "A different description");
+			testLog.initDetails(5, "name", "A different description", 1, Edible.Unit.g);
+			assertEquals(testLog.getDescription(), "A different description");
 		}
 
 		@Test
 		@DisplayName("Tests setting a simple quantity for an edible")
 		void testSetQuantity() {
-			testEdible.setBaseQuantity(5);
-			assertEquals(testEdible.getQuantity(), 5);
+			testLog.setBaseQuantity(5);
+			assertEquals(testLog.getQuantity(), 5);
 
-			testEdible.setBaseQuantity(10);
-			assertEquals(testEdible.getQuantity(), 10);
+			testLog.setBaseQuantity(10);
+			assertEquals(testLog.getQuantity(), 5);
 
-			testEdible.initDetails(5,"name", "description", 5, Edible.Unit.g);
-			assertEquals(testEdible.getQuantity(), 5);
+			testLog.initDetails(5,"name", "description", 5, Edible.Unit.g);
+			assertEquals(testLog.getQuantity(), 5);
 
-			testEdible.initDetails(10, "name", "description", 10, Edible.Unit.g);
-			assertEquals(testEdible.getQuantity(), 10);
+			testLog.initDetails(10, "name", "description", 10, Edible.Unit.g);
+			assertEquals(testLog.getQuantity(), 5);
 		}
 
 		@Test
 		@DisplayName("Tests setting an edibles unit")
 		void testSetUnit() {
-			testEdible.setBaseUnit(Edible.Unit.cups);
-			assertEquals(testEdible.getUnit(), Edible.Unit.cups);
+			testLog.setBaseUnit(Edible.Unit.cups);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
 
-			testEdible.setBaseUnit(Edible.Unit.g);
-			assertEquals(testEdible.getUnit(), Edible.Unit.g);
+			testLog.setBaseUnit(Edible.Unit.g);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
 
-			testEdible.setBaseUnit(Edible.Unit.ml);
-			assertEquals(testEdible.getUnit(), Edible.Unit.ml);
+			testLog.setBaseUnit(Edible.Unit.ml);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
 
-			testEdible.setBaseUnit(Edible.Unit.oz);
-			assertEquals(testEdible.getUnit(), Edible.Unit.oz);
+			testLog.setBaseUnit(Edible.Unit.oz);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
 
-			testEdible.setBaseUnit(Edible.Unit.liter);
-			assertEquals(testEdible.getUnit(), Edible.Unit.liter);
+			testLog.setBaseUnit(Edible.Unit.liter);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
 
-			testEdible.setBaseUnit(Edible.Unit.serving);
-			assertEquals(testEdible.getUnit(), Edible.Unit.serving);
+			testLog.setBaseUnit(Edible.Unit.serving);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
 
-			testEdible.setBaseUnit(Edible.Unit.tbsp);
-			assertEquals(testEdible.getUnit(), Edible.Unit.tbsp);
+			testLog.setBaseUnit(Edible.Unit.tbsp);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
 
-			testEdible.setBaseUnit(Edible.Unit.tsp);
-			assertEquals(testEdible.getUnit(), Edible.Unit.tsp);
+			testLog.setBaseUnit(Edible.Unit.tsp);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
 
-			testEdible.initDetails(5, "name", "description", 10, Edible.Unit.cups);
-			assertEquals(testEdible.getUnit(), Edible.Unit.cups);
+			testLog.initDetails(5, "name", "description", 10, Edible.Unit.cups);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
 
-			testEdible.initDetails(5, "name", "description", 10, Edible.Unit.g);
-			assertEquals(testEdible.getUnit(), Edible.Unit.g);
+			testLog.initDetails(5, "name", "description", 10, Edible.Unit.g);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
 
-			testEdible.initDetails(5, "name", "description", 10, Edible.Unit.ml);
-			assertEquals(testEdible.getUnit(), Edible.Unit.ml);
+			testLog.initDetails(5, "name", "description", 10, Edible.Unit.ml);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
 
-			testEdible.initDetails(5, "name", "description", 10, Edible.Unit.oz);
-			assertEquals(testEdible.getUnit(), Edible.Unit.oz);
+			testLog.initDetails(5, "name", "description", 10, Edible.Unit.oz);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
 
-			testEdible.initDetails(5, "name", "description", 10, Edible.Unit.liter);
-			assertEquals(testEdible.getUnit(), Edible.Unit.liter);
+			testLog.initDetails(5, "name", "description", 10, Edible.Unit.liter);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
 
-			testEdible.initDetails(5, "name", "description", 10, Edible.Unit.serving);
-			assertEquals(testEdible.getUnit(), Edible.Unit.serving);
+			testLog.initDetails(5, "name", "description", 10, Edible.Unit.serving);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
 
-			testEdible.initDetails(5, "name", "description", 10, Edible.Unit.tbsp);
-			assertEquals(testEdible.getUnit(), Edible.Unit.tbsp);
+			testLog.initDetails(5, "name", "description", 10, Edible.Unit.tbsp);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
 
-			testEdible.initDetails(5, "name", "description", 10, Edible.Unit.tsp);
-			assertEquals(testEdible.getUnit(), Edible.Unit.tsp);
+			testLog.initDetails(5, "name", "description", 10, Edible.Unit.tsp);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
 		}
 
 		@Test
 		@DisplayName("Tests setting a simple calorie count for an edible")
 		void testSetCalories() {
-			testEdible.setCalories(5);
-			assertEquals(testEdible.getCalories(), 5);
+			testLog.setCalories(5);
+			assertEquals(testLog.getCalories(), 5);
 
-			testEdible.setCalories(10);
-			assertEquals(testEdible.getCalories(), 10);
+			testLog.setCalories(10);
+			assertEquals(testLog.getCalories(), 5);
 
-			testEdible.initNutrition(5,1, 1, 1);
-			assertEquals(testEdible.getCalories(), 5);
+			testLog.initNutrition(5,1, 1, 1);
+			assertEquals(testLog.getCalories(), 5);
 
-			testEdible.initNutrition(10,1, 1, 1);
-			assertEquals(testEdible.getCalories(), 10);
+			testLog.initNutrition(10,1, 1, 1);
+			assertEquals(testLog.getCalories(), 5);
 		}
 
 		@Test
 		@DisplayName("Tests setting a simple protein count for an edible")
 		void testSetProtein() {
-			testEdible.setProtein(5);
-			assertEquals(testEdible.getProtein(), 5);
+			testLog.setProtein(5);
+			assertEquals(testLog.getProtein(), 5);
 
-			testEdible.setProtein(10);
-			assertEquals(testEdible.getProtein(), 10);
+			testLog.setProtein(10);
+			assertEquals(testLog.getProtein(), 10);
 
-			testEdible.initNutrition(1,5, 1, 1);
-			assertEquals(testEdible.getProtein(), 5);
+			testLog.initNutrition(1,5, 1, 1);
+			assertEquals(testLog.getProtein(), 5);
 
-			testEdible.initNutrition(1,10, 1, 1);
-			assertEquals(testEdible.getProtein(), 10);
+			testLog.initNutrition(1,10, 1, 1);
+			assertEquals(testLog.getProtein(), 10);
 		}
 
 		@Test
 		@DisplayName("Tests setting a simple carb count for an edible")
 		void testSetCarbs() {
-			testEdible.setCarbs(5);
-			assertEquals(testEdible.getCarbs(), 5);
+			testLog.setCarbs(5);
+			assertEquals(testLog.getCarbs(), 5);
 
-			testEdible.setCarbs(10);
-			assertEquals(testEdible.getCarbs(), 10);
+			testLog.setCarbs(10);
+			assertEquals(testLog.getCarbs(), 10);
 
-			testEdible.initNutrition(1,1, 5, 1);
-			assertEquals(testEdible.getCarbs(), 5);
+			testLog.initNutrition(1,1, 5, 1);
+			assertEquals(testLog.getCarbs(), 5);
 
-			testEdible.initNutrition(1,1, 10, 1);
-			assertEquals(testEdible.getCarbs(), 10);
+			testLog.initNutrition(1,1, 10, 1);
+			assertEquals(testLog.getCarbs(), 10);
 		}
 
 		@Test
 		@DisplayName("Tests setting a simple fat count for an edible")
 		void testSetFat() {
-			testEdible.setFat(5);
-			assertEquals(testEdible.getFat(), 5);
+			testLog.setFat(5);
+			assertEquals(testLog.getFat(), 5);
 
-			testEdible.setFat(10);
-			assertEquals(testEdible.getFat(), 10);
+			testLog.setFat(10);
+			assertEquals(testLog.getFat(), 10);
 
-			testEdible.initNutrition(1,1, 1, 5);
-			assertEquals(testEdible.getFat(), 5);
+			testLog.initNutrition(1,1, 1, 5);
+			assertEquals(testLog.getFat(), 5);
 
-			testEdible.initNutrition(1,1, 1, 10);
-			assertEquals(testEdible.getFat(), 10);
+			testLog.initNutrition(1,1, 1, 10);
+			assertEquals(testLog.getFat(), 10);
 		}
 
 		@Test
 		@DisplayName("Tests setting an edibles alcoholic flag")
 		void testSetIsAlcoholic() {
-			testEdible.setAlcoholic(false);
-			assertFalse(testEdible.getIsAlcoholic());
+			testLog.setAlcoholic(false);
+			assertFalse(testLog.getIsAlcoholic());
 
-			testEdible.setAlcoholic(true);
-			assertTrue(testEdible.getIsAlcoholic());
+			testLog.setAlcoholic(true);
+			assertTrue(testLog.getIsAlcoholic());
 
-			testEdible.initCategories(false, false, false, false, false);
-			assertFalse(testEdible.getIsAlcoholic());
+			testLog.initCategories(false, false, false, false, false);
+			assertFalse(testLog.getIsAlcoholic());
 
-			testEdible.initCategories(true, false, false, false, false);
-			assertTrue(testEdible.getIsAlcoholic());
+			testLog.initCategories(true, false, false, false, false);
+			assertTrue(testLog.getIsAlcoholic());
 		}
 
 		@Test
 		@DisplayName("Tests setting an edibles spicy flag")
 		void testSetIsSpicy() {
-			testEdible.setSpicy(false);
-			assertFalse(testEdible.getIsSpicy());
+			testLog.setSpicy(false);
+			assertFalse(testLog.getIsSpicy());
 
-			testEdible.setSpicy(true);
-			assertTrue(testEdible.getIsSpicy());
+			testLog.setSpicy(true);
+			assertTrue(testLog.getIsSpicy());
 
-			testEdible.initCategories(false, false, false, false, false);
-			assertFalse(testEdible.getIsSpicy());
+			testLog.initCategories(false, false, false, false, false);
+			assertFalse(testLog.getIsSpicy());
 
-			testEdible.initCategories(false, true, false, false, false);
-			assertTrue(testEdible.getIsSpicy());
+			testLog.initCategories(false, true, false, false, false);
+			assertTrue(testLog.getIsSpicy());
 		}
 
 		@Test
 		@DisplayName("Tests setting an edibles vegan flag")
 		void testSetIsVegan() {
-			testEdible.setVegan(false);
-			assertFalse(testEdible.getIsVegan());
+			testLog.setVegan(false);
+			assertFalse(testLog.getIsVegan());
 
-			testEdible.setVegan(true);
-			assertTrue(testEdible.getIsVegan());
+			testLog.setVegan(true);
+			assertTrue(testLog.getIsVegan());
 
-			testEdible.initCategories(false, false, false, false, false);
-			assertFalse(testEdible.getIsVegan());
+			testLog.initCategories(false, false, false, false, false);
+			assertFalse(testLog.getIsVegan());
 
-			testEdible.initCategories(false, false, true, false, false);
-			assertTrue(testEdible.getIsVegan());
+			testLog.initCategories(false, false, true, false, false);
+			assertTrue(testLog.getIsVegan());
 		}
 
 		@Test
 		@DisplayName("Tests setting an edibles vegetarian flag")
 		void testSetVegetarian() {
-			testEdible.setVegetarian(false);
-			assertFalse(testEdible.getIsVegetarian());
+			testLog.setVegetarian(false);
+			assertFalse(testLog.getIsVegetarian());
 
-			testEdible.setVegetarian(true);
-			assertTrue(testEdible.getIsVegetarian());
+			testLog.setVegetarian(true);
+			assertTrue(testLog.getIsVegetarian());
 
-			testEdible.initCategories(false, false, false, false, false);
-			assertFalse(testEdible.getIsVegetarian());
+			testLog.initCategories(false, false, false, false, false);
+			assertFalse(testLog.getIsVegetarian());
 
-			testEdible.initCategories(false, false, false, true, false);
-			assertTrue(testEdible.getIsVegetarian());
+			testLog.initCategories(false, false, false, true, false);
+			assertTrue(testLog.getIsVegetarian());
 		}
 
 		@Test
 		@DisplayName("Tests setting an edibles gluten free flag")
 		void testSetGlutenFree() {
-			testEdible.setGlutenFree(false);
-			assertFalse(testEdible.getIsGlutenFree());
+			testLog.setGlutenFree(false);
+			assertFalse(testLog.getIsGlutenFree());
 
-			testEdible.setGlutenFree(true);
-			assertTrue(testEdible.getIsGlutenFree());
+			testLog.setGlutenFree(true);
+			assertTrue(testLog.getIsGlutenFree());
 
-			testEdible.initCategories(false, false, false, false, false);
-			assertFalse(testEdible.getIsGlutenFree());
+			testLog.initCategories(false, false, false, false, false);
+			assertFalse(testLog.getIsGlutenFree());
 
-			testEdible.initCategories(false, false, false, false, true);
-			assertTrue(testEdible.getIsGlutenFree());
+			testLog.initCategories(false, false, false, false, true);
+			assertTrue(testLog.getIsGlutenFree());
 		}
 
 		@Test
 		@DisplayName("Tests setting an edibles custom flag")
 		void testSetIsCustom() {
-			testEdible.setCustom(false);
-			assertFalse(testEdible.getIsCustom());
+			testLog.setCustom(false);
+			assertFalse(testLog.getIsCustom());
 
-			testEdible.setCustom(true);
-			assertTrue(testEdible.getIsCustom());
+			testLog.setCustom(true);
+			assertTrue(testLog.getIsCustom());
 
-			testEdible.initMetadata(false, "photo");
-			assertFalse(testEdible.getIsCustom());
+			testLog.initMetadata(false, "photo");
+			assertFalse(testLog.getIsCustom());
 
-			testEdible.initMetadata(true, "photo");
-			assertTrue(testEdible.getIsCustom());
+			testLog.initMetadata(true, "photo");
+			assertTrue(testLog.getIsCustom());
 		}
 
 		@Test
 		@DisplayName("Tests setting a simple photo for an edible")
 		void testSetPhoto() {
-			testEdible.setPhoto(testString);
-			assertEquals(testEdible.getPhoto(), testString);
+			testLog.setPhoto(testString);
+			assertEquals(testLog.getPhoto(), testString);
 
-			testEdible.setPhoto("A different photo");
-			assertEquals(testEdible.getPhoto(), "A different photo");
+			testLog.setPhoto("A different photo");
+			assertEquals(testLog.getPhoto(), "A different photo");
 
-			testEdible.initMetadata(false, testString);
-			assertEquals(testEdible.getPhoto(), testString);
+			testLog.initMetadata(false, testString);
+			assertEquals(testLog.getPhoto(), testString);
 
-			testEdible.initMetadata(false, "A different photo");
-			assertEquals(testEdible.getPhoto(), "A different photo");
+			testLog.initMetadata(false, "A different photo");
+			assertEquals(testLog.getPhoto(), "A different photo");
+		}
+
+		@Test
+		@DisplayName("Tests setting a simple log quantity")
+		void setLogQuantity() {
+			testLog.setQuantity(10);
+			assertEquals(testLog.getQuantity(), 10);
+			assertEquals(testLog.getCalories(), 5);
+
+			testLog.setQuantity(15);
+			assertEquals(testLog.getQuantity(), 15);
+			assertEquals(testLog.getCalories(), 5);
+
+			try {
+				testLog.init(10, testLog.getUnit());
+				assertEquals(testLog.getQuantity(), 10);
+				assertEquals(testLog.getCalories(), 10);
+
+				testLog.init(15, testLog.getUnit());
+				assertEquals(testLog.getQuantity(), 15);
+				assertEquals(testLog.getCalories(), 15);
+			}
+			catch (Exception e) {
+				fail("no errors should be thrown, these should be legan quantities, units, calories and thus conversions");
+			}
+		}
+
+		@Test
+		@DisplayName("Tests setting a simple log quantity")
+		void setLogUnit() {
+			testLog.setUnit(Edible.Unit.cups);
+			assertEquals(testLog.getUnit(), Edible.Unit.cups);
+			assertEquals(testLog.getCalories(), 5);
+
+			testLog.setUnit(Edible.Unit.g);
+			assertEquals(testLog.getUnit(), Edible.Unit.g);
+			assertEquals(testLog.getCalories(), 5);
+
+			testLog.setUnit(Edible.Unit.ml);
+			assertEquals(testLog.getUnit(), Edible.Unit.ml);
+			assertEquals(testLog.getCalories(), 5);
+
+			testLog.setUnit(Edible.Unit.oz);
+			assertEquals(testLog.getUnit(), Edible.Unit.oz);
+			assertEquals(testLog.getCalories(), 5);
+
+			testLog.setUnit(Edible.Unit.liter);
+			assertEquals(testLog.getUnit(), Edible.Unit.liter);
+			assertEquals(testLog.getCalories(), 5);
+
+			testLog.setUnit(Edible.Unit.serving);
+			assertEquals(testLog.getUnit(), Edible.Unit.serving);
+			assertEquals(testLog.getCalories(), 5);
+
+			testLog.setUnit(Edible.Unit.tbsp);
+			assertEquals(testLog.getUnit(), Edible.Unit.tbsp);
+			assertEquals(testLog.getCalories(), 5);
+
+			testLog.setUnit(Edible.Unit.tsp);
+			assertEquals(testLog.getUnit(), Edible.Unit.tsp);
+			assertEquals(testLog.getCalories(), 5);
+
+			try {
+				testLog.init(testLog.getQuantity(), Edible.Unit.cups);
+				assertEquals(testLog.getUnit(), Edible.Unit.cups);
+				assertEquals(testLog.getCalories(), 1120);
+
+				testLog.init(testLog.getQuantity(), Edible.Unit.g);
+				assertEquals(testLog.getUnit(), Edible.Unit.g);
+				assertEquals(testLog.getCalories(), 5);
+
+				testLog.init(testLog.getQuantity(), Edible.Unit.ml);
+				assertEquals(testLog.getUnit(), Edible.Unit.ml);
+				assertEquals(testLog.getCalories(), 5);
+
+				testLog.init(testLog.getQuantity(), Edible.Unit.oz);
+				assertEquals(testLog.getUnit(), Edible.Unit.oz);
+				assertEquals(testLog.getCalories(), 140);
+
+				testLog.init(testLog.getQuantity(), Edible.Unit.liter);
+				assertEquals(testLog.getUnit(), Edible.Unit.liter);
+				assertEquals(testLog.getCalories(), 5000);
+
+				testLog.init(testLog.getQuantity(), Edible.Unit.serving);
+				assertEquals(testLog.getUnit(), Edible.Unit.serving);
+				assertEquals(testLog.getCalories(), 1250);
+
+				testLog.init(testLog.getQuantity(), Edible.Unit.tbsp);
+				assertEquals(testLog.getUnit(), Edible.Unit.tbsp);
+				assertEquals(testLog.getCalories(), 70);
+
+				testLog.init(testLog.getQuantity(), Edible.Unit.tsp);
+				assertEquals(testLog.getUnit(), Edible.Unit.tsp);
+				assertEquals(testLog.getCalories(), 25);
+			} catch (Exception e) {
+				fail("no errors should be thrown, these should be legan quantities, units, calories and thus conversions");
+			}
 		}
 
 		@Test
 		@DisplayName("Tests cloning a simple edible with all false flags")
-		void testCloneDrinkWithAllFalse() {
-			Edible newEdible;
+		void testCloneEdibleLogWithAllFalse() {
+			EdibleLog newLog;
 
 			testEdible.initDetails(1, "name", "description", 1, Edible.Unit.g)
 					.initNutrition(1, 1, 1, 1)
 					.initCategories(false, false, false, false, false)
 					.initMetadata(false, testString);
+			testLog = new EdibleLog(testEdible);
+			newLog = testLog.clone();
 
-			newEdible = testEdible.clone();
-
-			assertEquals(newEdible.getDbkey(), 1);
-			assertEquals(newEdible.getName(), "name");
-			assertEquals(newEdible.getDescription(), "description");
-			assertEquals(newEdible.getQuantity(), 1);
-			assertEquals(newEdible.getUnit(), Edible.Unit.g);
-			assertEquals(newEdible.getCalories(), 1);
-			assertEquals(newEdible.getProtein(), 1);
-			assertEquals(newEdible.getCarbs(), 1);
-			assertEquals(newEdible.getFat(), 1);
-			assertFalse(newEdible.getIsAlcoholic());
-			assertFalse(newEdible.getIsSpicy());
-			assertFalse(newEdible.getIsVegan());
-			assertFalse(newEdible.getIsVegetarian());
-			assertFalse(newEdible.getIsGlutenFree());
-			assertFalse(newEdible.getIsCustom());
-			assertEquals(newEdible.getPhoto(), testString);
+			assertEquals(newLog.getDbkey(), 1);
+			assertEquals(newLog.getName(), "name");
+			assertEquals(newLog.getDescription(), "description");
+			assertEquals(newLog.getQuantity(), 1);
+			assertEquals(newLog.getUnit(), Edible.Unit.g);
+			assertEquals(newLog.getCalories(), 1);
+			assertEquals(newLog.getProtein(), 1);
+			assertEquals(newLog.getCarbs(), 1);
+			assertEquals(newLog.getFat(), 1);
+			assertFalse(newLog.getIsAlcoholic());
+			assertFalse(newLog.getIsSpicy());
+			assertFalse(newLog.getIsVegan());
+			assertFalse(newLog.getIsVegetarian());
+			assertFalse(newLog.getIsGlutenFree());
+			assertFalse(newLog.getIsCustom());
+			assertEquals(newLog.getPhoto(), testString);
 		}
 
 		@Test
 		@DisplayName("Tests cloning a simple edible with all true flags")
-		void testCloneDrinkWithAllTrue() {
-			Edible newEdible;
+		void testCloneEdibleLogWithAllTrue() {
+			EdibleLog newLog;
 			testEdible.initDetails(1, "name", "description", 1, Edible.Unit.g)
 					.initNutrition(1, 1, 1, 1)
 					.initCategories(true, true, true, true, true)
 					.initMetadata(true, testString);
 
-			newEdible = testEdible.clone();
+			testLog = new EdibleLog(testEdible);
+			newLog = testLog.clone();
 
-			assertEquals(newEdible.getDbkey(), 1);
-			assertEquals(newEdible.getName(), "name");
-			assertEquals(newEdible.getDescription(), "description");
-			assertEquals(newEdible.getQuantity(), 1);
-			assertEquals(newEdible.getUnit(), Edible.Unit.g);
-			assertEquals(newEdible.getCalories(), 1);
-			assertEquals(newEdible.getProtein(), 1);
-			assertEquals(newEdible.getCarbs(), 1);
-			assertEquals(newEdible.getFat(), 1);
-			assertTrue(newEdible.getIsAlcoholic());
-			assertTrue(newEdible.getIsSpicy());
-			assertTrue(newEdible.getIsVegan());
-			assertTrue(newEdible.getIsVegetarian());
-			assertTrue(newEdible.getIsGlutenFree());
-			assertTrue(newEdible.getIsCustom());
-			assertEquals(newEdible.getPhoto(), testString);
+			assertEquals(newLog.getDbkey(), 1);
+			assertEquals(newLog.getName(), "name");
+			assertEquals(newLog.getDescription(), "description");
+			assertEquals(newLog.getQuantity(), 1);
+			assertEquals(newLog.getUnit(), Edible.Unit.g);
+			assertEquals(newLog.getCalories(), 1);
+			assertEquals(newLog.getProtein(), 1);
+			assertEquals(newLog.getCarbs(), 1);
+			assertEquals(newLog.getFat(), 1);
+			assertTrue(newLog.getIsAlcoholic());
+			assertTrue(newLog.getIsSpicy());
+			assertTrue(newLog.getIsVegan());
+			assertTrue(newLog.getIsVegetarian());
+			assertTrue(newLog.getIsGlutenFree());
+			assertTrue(newLog.getIsCustom());
+			assertEquals(newLog.getPhoto(), testString);
 		}
 	}
 
@@ -568,57 +666,158 @@ public class TestEdibleLog {
 		}
 
 		@Test
-		@DisplayName("Tests cloning a complex edible with all true or false flags")
-		void testCloneEdible() {
-			Edible newEdible;
+		@DisplayName("Tests setting a complex log quantity")
+		void setLogQuantity() {
+			testLog.setQuantity(500);
+			assertEquals(testLog.getQuantity(), 500);
+			assertEquals(testLog.getCalories(), 5);
 
+			testLog.setQuantity(1000);
+			assertEquals(testLog.getQuantity(), 1000);
+			assertEquals(testLog.getCalories(), 5);
+
+			try {
+				testLog.init(500, testLog.getUnit());
+				assertEquals(testLog.getQuantity(), 500);
+				assertEquals(testLog.getCalories(), 500);
+
+				testLog.init(1000, testLog.getUnit());
+				assertEquals(testLog.getQuantity(), 1000);
+				assertEquals(testLog.getCalories(), 1000);
+			}
+			catch (Exception e) {
+				fail("no errors should be thrown, these should be legan quantities, units, calories and thus conversions");
+			}
+		}
+
+		@Test
+		@DisplayName("Tests cloning a complex edible with all true or false flags, where its log details have been modified (not calories though)")
+		void testCloneEdibleLog() {
+			EdibleLog newLog;
 			testEdible.initDetails(0, testString, testString, 1, Edible.Unit.g)
 					.initNutrition(0, 0, 0, 0)
 					.initCategories(false, false, false, false, false)
 					.initMetadata(false, testString);
 
-			newEdible = testEdible.clone();
+			testLog = new EdibleLog(testEdible);
+			testLog.setQuantity(5);
+			testLog.setUnit(Edible.Unit.serving);
+			newLog = testLog.clone();
 
-			assertEquals(newEdible.getDbkey(), 0);
-			assertEquals(newEdible.getName(), testString);
-			assertEquals(newEdible.getDescription(), testString);
-			assertEquals(newEdible.getQuantity(), 1);
-			assertEquals(newEdible.getUnit(), Edible.Unit.g);
-			assertEquals(newEdible.getCalories(), 0);
-			assertEquals(newEdible.getProtein(), 0);
-			assertEquals(newEdible.getCarbs(), 0);
-			assertEquals(newEdible.getFat(), 0);
-			assertFalse(newEdible.getIsAlcoholic());
-			assertFalse(newEdible.getIsSpicy());
-			assertFalse(newEdible.getIsVegan());
-			assertFalse(newEdible.getIsVegetarian());
-			assertFalse(newEdible.getIsGlutenFree());
-			assertFalse(newEdible.getIsCustom());
-			assertEquals(newEdible.getPhoto(), testString);
+			assertEquals(newLog.getDbkey(), 0);
+			assertEquals(newLog.getName(), testString);
+			assertEquals(newLog.getDescription(), testString);
+			assertEquals(newLog.getQuantity(), 5);
+			assertEquals(newLog.getUnit(), Edible.Unit.serving);
+			assertEquals(newLog.getCalories(), 0);
+			assertEquals(newLog.getProtein(), 0);
+			assertEquals(newLog.getCarbs(), 0);
+			assertEquals(newLog.getFat(), 0);
+			assertFalse(newLog.getIsAlcoholic());
+			assertFalse(newLog.getIsSpicy());
+			assertFalse(newLog.getIsVegan());
+			assertFalse(newLog.getIsVegetarian());
+			assertFalse(newLog.getIsGlutenFree());
+			assertFalse(newLog.getIsCustom());
+			assertEquals(newLog.getPhoto(), testString);
 
 			testEdible.initDetails(500, numberTestString, numberTestString, 500, Edible.Unit.g)
 					.initNutrition(500, 500, 500, 500)
 					.initCategories(true, true, true, true, true)
 					.initMetadata(true, numberTestString);
 
-			newEdible = testEdible.clone();
+			testLog = new EdibleLog(testEdible);
+			testLog.setQuantity(5);
+			testLog.setUnit(Edible.Unit.serving);
+			newLog = testLog.clone();
 
-			assertEquals(newEdible.getDbkey(), 500);
-			assertEquals(newEdible.getName(), numberTestString);
-			assertEquals(newEdible.getDescription(), numberTestString);
-			assertEquals(newEdible.getQuantity(), 500);
-			assertEquals(newEdible.getUnit(), Edible.Unit.g);
-			assertEquals(newEdible.getCalories(), 500);
-			assertEquals(newEdible.getProtein(), 500);
-			assertEquals(newEdible.getCarbs(), 500);
-			assertEquals(newEdible.getFat(), 500);
-			assertTrue(newEdible.getIsAlcoholic());
-			assertTrue(newEdible.getIsSpicy());
-			assertTrue(newEdible.getIsVegan());
-			assertTrue(newEdible.getIsVegetarian());
-			assertTrue(newEdible.getIsGlutenFree());
-			assertTrue(newEdible.getIsCustom());
-			assertEquals(newEdible.getPhoto(), numberTestString);
+			assertEquals(newLog.getDbkey(), 500);
+			assertEquals(newLog.getName(), numberTestString);
+			assertEquals(newLog.getDescription(), numberTestString);
+			assertEquals(newLog.getQuantity(), 5);
+			assertEquals(newLog.getUnit(), Edible.Unit.serving);
+			assertEquals(newLog.getCalories(), 500);
+			assertEquals(newLog.getProtein(), 500);
+			assertEquals(newLog.getCarbs(), 500);
+			assertEquals(newLog.getFat(), 500);
+			assertTrue(newLog.getIsAlcoholic());
+			assertTrue(newLog.getIsSpicy());
+			assertTrue(newLog.getIsVegan());
+			assertTrue(newLog.getIsVegetarian());
+			assertTrue(newLog.getIsGlutenFree());
+			assertTrue(newLog.getIsCustom());
+			assertEquals(newLog.getPhoto(), numberTestString);
+		}
+
+		@Test
+		@DisplayName("Tests cloning a complex edible with all true or false flags, where its log details have been modified including calories")
+		void testCloneEdibleLogAndUpdateCalories() {
+			EdibleLog newLog;
+			testEdible.initDetails(0, testString, testString, 1, Edible.Unit.g)
+					.initNutrition(0, 0, 0, 0)
+					.initCategories(false, false, false, false, false)
+					.initMetadata(false, testString);
+
+			testLog = new EdibleLog(testEdible);
+
+			try {
+				testLog.init(5, Edible.Unit.serving);
+			}
+			catch (Exception e) {
+				fail("this is a perfectly valid calculation, no error should be thrown");
+			}
+
+			newLog = testLog.clone();
+
+			assertEquals(newLog.getDbkey(), 0);
+			assertEquals(newLog.getName(), testString);
+			assertEquals(newLog.getDescription(), testString);
+			assertEquals(newLog.getQuantity(), 5);
+			assertEquals(newLog.getUnit(), Edible.Unit.serving);
+			assertEquals(newLog.getCalories(), 0);
+			assertEquals(newLog.getProtein(), 0);
+			assertEquals(newLog.getCarbs(), 0);
+			assertEquals(newLog.getFat(), 0);
+			assertFalse(newLog.getIsAlcoholic());
+			assertFalse(newLog.getIsSpicy());
+			assertFalse(newLog.getIsVegan());
+			assertFalse(newLog.getIsVegetarian());
+			assertFalse(newLog.getIsGlutenFree());
+			assertFalse(newLog.getIsCustom());
+			assertEquals(newLog.getPhoto(), testString);
+
+			testEdible.initDetails(500, numberTestString, numberTestString, 500, Edible.Unit.g)
+					.initNutrition(500, 500, 500, 500)
+					.initCategories(true, true, true, true, true)
+					.initMetadata(true, numberTestString);
+
+			testLog = new EdibleLog(testEdible);
+
+			try {
+				testLog.init(5, Edible.Unit.g);
+			}
+			catch (Exception e) {
+				fail("this is a perfectly valid calculation, no error should be thrown");
+			}
+
+			newLog = testLog.clone();
+
+			assertEquals(newLog.getDbkey(), 500);
+			assertEquals(newLog.getName(), numberTestString);
+			assertEquals(newLog.getDescription(), numberTestString);
+			assertEquals(newLog.getQuantity(), 5);
+			assertEquals(newLog.getUnit(), Edible.Unit.g);
+			assertEquals(newLog.getCalories(), 5);
+			assertEquals(newLog.getProtein(), 500);
+			assertEquals(newLog.getCarbs(), 500);
+			assertEquals(newLog.getFat(), 500);
+			assertTrue(newLog.getIsAlcoholic());
+			assertTrue(newLog.getIsSpicy());
+			assertTrue(newLog.getIsVegan());
+			assertTrue(newLog.getIsVegetarian());
+			assertTrue(newLog.getIsGlutenFree());
+			assertTrue(newLog.getIsCustom());
+			assertEquals(newLog.getPhoto(), numberTestString);
 		}
 	}
 
@@ -772,6 +971,24 @@ public class TestEdibleLog {
 			}
 			catch(Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
+			}
+		}
+
+		@Test
+		@DisplayName("Tests setting a null log unit")
+		void testSetLogUnit() {
+			try {
+				testLog.setUnit(null);
+			}
+			catch(Exception e) {
+				assertTrue(true);
+			}
+
+			try {
+				testLog.init(testLog.getQuantity(), null);
+			}
+			catch(Exception e) {
+				assertTrue(true);
 			}
 		}
 	}
@@ -1160,8 +1377,75 @@ public class TestEdibleLog {
 		}
 
 		@Test
+		@DisplayName("Tests log quantity edge cases")
+		void testSetLogQuantity() {
+			testLog.setQuantity(1);
+			assertEquals(testLog.getQuantity(), 1);
+			assertEquals(testLog.getCalories(), 5);
+
+			testLog.setQuantity(9999);
+			assertEquals(testLog.getQuantity(), 9999);
+			assertEquals(testLog.getCalories(), 5);
+
+			try {
+				testLog.init(1, testLog.getUnit());
+				assertEquals(testLog.getQuantity(), 1);
+				assertEquals(testLog.getCalories(), 1);
+
+				testLog.init(9999, testLog.getUnit());
+				assertEquals(testLog.getQuantity(), 9999);
+				assertEquals(testLog.getCalories(), 9999);
+			}
+			catch(Exception e) {
+				fail("Quantities, calories and units are all valid, thus should also be the conversion");
+			}
+		}
+
+		@Test
+		@DisplayName("Tests log quantity edge cases where its assigned to what it currently is")
+		void testSetLogDuplicateQuantity() {
+			testLog.setQuantity(1);
+			testLog.setQuantity(1);
+			assertEquals(testLog.getQuantity(), 1);
+			assertEquals(testLog.getCalories(), 5);
+
+			testLog.setQuantity(9999);
+			testLog.setQuantity(9999);
+			assertEquals(testLog.getQuantity(), 9999);
+			assertEquals(testLog.getCalories(), 5);
+
+			try {
+				testLog.init(1, testLog.getUnit());
+				testLog.init(1, testLog.getUnit());
+				assertEquals(testLog.getQuantity(), 1);
+				assertEquals(testLog.getCalories(), 1);
+
+				testLog.init(9999, testLog.getUnit());
+				testLog.init(9999, testLog.getUnit());
+				assertEquals(testLog.getQuantity(), 9999);
+				assertEquals(testLog.getCalories(), 9999);
+			}
+			catch(Exception e) {
+				fail("Quantities, calories and units are all valid, thus should also be the conversion");
+			}
+		}
+
+		@Test
+		@DisplayName("Adjusting log calories when nothing gets changed")
+		void testSetLogCalories() {
+			try {
+				testLog.setCalories();
+			}
+			catch (Exception e) {
+				fail("no error should be thrown, these are valid calories, quantities and units");
+			}
+
+			assertEquals(testLog.getCalories(), 5);
+		}
+
+		@Test
 		@DisplayName("Tests cloning a complex edible with all true or false flags")
-		void testCloneEdible() {
+		void testCloneEdibleLog() {
 			Edible newEdible;
 
 			testEdible.initDetails(0, largeTestString, largeTestString, 1, Edible.Unit.g)
@@ -1229,6 +1513,11 @@ public class TestEdibleLog {
 			for(int i = 0; i < 10000; i++) {
 				longTestString = longTestString + "a";
 			}
+
+			testEdible = new Edible().initDetails(5, "name", "description", 5, Edible.Unit.g)
+					.initNutrition(5, 5, 5, 5)
+					.initCategories(false, false, false, false, false)
+					.initMetadata(false, "photo");
 		}
 
 		@Test
@@ -1351,6 +1640,40 @@ public class TestEdibleLog {
 				fail("Should throw an exception, this photo is too long");
 			}
 			catch(Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+		}
+
+		@Test
+		@DisplayName("Tests log quantity cases where the quantity is invalid")
+		void testSetLogQuantity() {
+			testLog = new EdibleLog(testEdible);
+
+			try {
+				testLog.setQuantity(0);
+				fail("Logs should not have a quantity of 0, should throw IllegalArgumentException");
+			} catch (Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			try {
+				testLog.setQuantity(10000);
+				fail("Logs should not have a quantity of 10000, too big, should throw IllegalArgumentException");
+			} catch (Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			try {
+				testLog.init(0, testLog.getUnit());
+				fail("Logs should not have a quantity of 0, should throw IllegalArgumentException");
+			} catch (Exception e) {
+				assertTrue(e instanceof IllegalArgumentException);
+			}
+
+			try {
+				testLog.init(10000, testLog.getUnit());
+				fail("Logs should not have a quantity of 10000, too big, should throw IllegalArgumentException");
+			} catch (Exception e) {
 				assertTrue(e instanceof IllegalArgumentException);
 			}
 		}
