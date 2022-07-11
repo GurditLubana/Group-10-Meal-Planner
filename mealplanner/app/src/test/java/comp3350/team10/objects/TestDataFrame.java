@@ -48,8 +48,8 @@ public class TestDataFrame {
                 dataFrame.setData(null);
             });
         }
-
     }
+
 
     @Nested
     @DisplayName("Edge cases should pass")
@@ -92,8 +92,8 @@ public class TestDataFrame {
             assertEquals(0.0, dataFrame.getMaxVal());
             assertEquals(0.0, dataFrame.getProgress());
         }
-
     }
+
 
     @Nested
     @DisplayName("Simple Tests should pass")
@@ -200,7 +200,5 @@ public class TestDataFrame {
             assertEquals(6.0, dataFrame.getMaxVal());
             assertEquals(58, (int) (dataFrame.getProgress() * 100));
         }
-
-
     }
 }
