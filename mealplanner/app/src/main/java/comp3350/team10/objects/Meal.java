@@ -36,6 +36,7 @@ public class Meal extends PreparedItem {
         copy.initNutrition(this.getCalories(), this.getProtein(), this.getCarbs(), this.getFat());
         copy.initCategories(this.getIsAlcoholic(), this.getIsSpicy(), this.getIsVegan(), this.getIsVegetarian(), this.getIsGlutenFree());
         copy.initMetadata(this.getIsCustom(), this.getPhoto());
+        copy.setInstructions(this.getInstructions());
         copy.setIngredients(this.getIngredients());
         
         return copy;

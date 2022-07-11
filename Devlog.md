@@ -1477,3 +1477,27 @@ Duration: 14 hrs
    - Created MealTests
    - Adjusted AllTests by removing all * imports and updating file names
    - Corrected all function descriptions to be very descriptive and easy to read/follow (which all tests should have)
+
+### 2022-07-10
+     Dev:
+      - Dane
+Duration: 14 hrs
+   Tasks:
+   - Peer reviewed User class, fixed an error where constraints did not work well with seeded data
+   - Added init functionality and proper execeptions for User class
+   - Added additional user testing
+   - Peer reviewed and improved Zhou's ingredient unit testing
+   - Added additional safety checks for prepared items (capped calories, proteins, carbs, fats, not allowing tests on items with no ingredients 
+   - Added a character restraint on string attributes in the edible hierarchy: names, instructions etc...
+   - Peer reviewed and improved Goudit's DrinkIngredient unit testing
+   - Updating ops so now they only reference the interface they require
+   - Generated edibleLog tests
+   - Removed extra imports in multiple files
+   - Refactored my previous RecipeBookTests and peer reviewed incoming RecipeBookTests
+   - Added additional RecipeBook Tests
+   - Removed all instances of assertNotNull (as per iter1 feedback)
+   - created Meal and Drink cloning methods and generated tests for them
+   - Fixed a bug where instructions were not getting copied in the clone method
+   - Improved MealDiaryOps, added checking for ingredients in PreparedDrink and meals
+   - Improved error handling in MealDiaryOps
+   - Checked test coverage, improved instruction testing which was lacking before, 100% coverage otherwise!
