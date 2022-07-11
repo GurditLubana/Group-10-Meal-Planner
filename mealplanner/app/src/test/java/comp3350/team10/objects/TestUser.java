@@ -556,8 +556,22 @@ public class TestUser {
             }
 
             try {
+                user.setHeight(-1);
+                fail("Should throw an exception, this height is invalid");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
                 user.init(5, "name", 0, 5, 5, 5);
                 fail("Should throw an exception, this height is too small");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                user.init(5, "name", -1, 5, 5, 5);
+                fail("Should throw an exception, this height is invalid");
             } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
@@ -588,8 +602,22 @@ public class TestUser {
             }
 
             try {
+                user.setWeight(-1);
+                fail("Should throw an exception, this weight is invalid");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
                 user.init(5, "name", 5, 0, 5, 5);
                 fail("Should throw an exception, this weight is too small");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                user.init(5, "name", 5, -1, 5, 5);
+                fail("Should throw an exception, this weight is invalid");
             } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
@@ -607,14 +635,14 @@ public class TestUser {
         @DisplayName("Tests setting an invalid user's calorie goal")
         void testSetCalorieGoal() {
             try {
-                user.setHeight(-1);
-                fail("Should throw an exception, this calorie goal is to small");
+                user.setCalorieGoal(-1);
+                fail("Should throw an exception, this calorie goal is invalid");
             } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
             try {
-                user.setHeight(10000);
+                user.setCalorieGoal(10000);
                 fail("Should throw an exception, this calorie goal is too big");
             } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
@@ -622,7 +650,7 @@ public class TestUser {
 
             try {
                 user.init(5, "name", 5, 5, -1, 5);
-                fail("Should throw an exception, this calorie goal is too small");
+                fail("Should throw an exception, this calorie goal is invalid");
             } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
@@ -647,7 +675,7 @@ public class TestUser {
             }
 
             try {
-                user.setHeight(10000);
+                user.setExerciseGoal(10000);
                 fail("Should throw an exception, this exercise goal is too big");
             } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
@@ -655,7 +683,7 @@ public class TestUser {
 
             try {
                 user.init(5, "name", 5, 5, 5, -1);
-                fail("Should throw an exception, this exercise goal is too small");
+                fail("Should throw an exception, this exercise goal is invalid");
             } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
