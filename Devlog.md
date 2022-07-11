@@ -1501,3 +1501,74 @@ Duration: 14 hrs
    - Improved MealDiaryOps, added checking for ingredients in PreparedDrink and meals
    - Improved error handling in MealDiaryOps
    - Checked test coverage, improved instruction testing which was lacking before, 100% coverage otherwise!
+
+### 2022-07-08
+     Dev:
+      - Josef
+Duration: 14 hrs
+   Tasks:
+   - Unit converter refactored/optimized
+   - Unit converter unit tests completed
+   - EdibleLog Exceptions switched to a more appropriate IllegalArgumentException
+   - Edible Exceptions switched to a more appropriate IllegalArgumentException
+   - Edible Exception messages increased in verbosity
+   - Refactor Edible and dependent classes to take String for photo
+   - Fixed unit tests to catch IllegalArgumentException
+   - DataAccessStub reorganized to have relevant methods first and data seed at the bottom
+   - Implemented and tested Image loading in CardViews using images in assets folder by name
+   - Added photo getter/setter to Edible
+   - Added more pictures to fully cover the db seed
+   - Added more items to DailyLog seed
+   - DataFrame methods in business, objects, and persistence classes
+   - Matched db script seed with db stub
+   
+### 2022-07-09
+     Dev:
+      - Josef
+Duration: 14 hrs
+   Tasks:
+   - Fixed exceptions in MealDiaryOps and switched to clone() for calendar deep copy
+   - Added DataFrame methods in business, objects, and persistence classes
+   - Completed DataFrame Unit tests
+   - Completed UI implementation DailyProgress, updated circular progress, added goal line etc
+   - DB stub trend seeded
+   - LogDBInterface, RecipeDBInterface, UserDBInterface testing started 
+   - Code Cleanup Removed Unecessary TODOs
+   - Array Deep Copy method in stub
+   - Added clone() method to Edible
+   - Removed unecessary print statements
+   - Removed deleteLog method outside of persistence and replaced with replaceLog
+   - fixed bug in hsql where deleting items lead to increasing the number of items in a day log on delete cascade
+   - Refactored LogDBInterface to have a consistent method signature pattern
+   - Fix consistency issues with stub and hsql seed
+
+### 2022-07-10
+     Dev:
+      - Josef
+Duration: 14 hrs
+   Tasks:
+   - Checked test code coverage to identify low coverage classes
+   - Refactored Meal Diary Ops to remove set calories
+   - Fixed bug in hsql that prevented saving exercise calories from ui
+   - Adjusted stub and hsql seed to Oct 10
+   - fixed app start date to Oct 10 instead of current date so that seed doesn't need dynamic loading
+   - Completed LogDBInterface, RecipeDBInterface, UserDBInterface testing
+   - Refactored calcProgress in DailyLog
+   - Refactored DailyLog to return a deep copy of the stored Edible list
+   - Added clone() method to EdibleLog
+   - Updated DataAccessStub methods to fix issues identified during unit testing
+   - Updated DataFrame Unit testing to get full coverage
+   - Updated DB interfaces to have exceptions
+   - Removed assertNotNull 
+
+### 2022-07-11
+     Dev:
+      - Josef
+Duration: 6 hrs
+   Tasks:
+   - Ran code formatter on entire project
+   - Removed unused imports
+   - patched RecipeBookDialogs to work with current recipebookops
+   - Updated RecipeBookDialogs checkbox text color to white for consistency
+   - Verified tests pass, app compiles and works with no noticeable issues
+
