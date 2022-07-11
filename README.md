@@ -43,8 +43,14 @@ This class handles operations related to the app recipe book. This class handles
 drink, and meal recipe lists from persistence classes. This class sends new entries to persistence classes  
 for addition into food, drink, and meal recipes databases.  
 
+### Trends Ops
+This class handles operations 
+
+### User Data Ops
+This class handles operations 
+
 ### Unit Converter
-This class handles unit conversions for meal diary entries.   
+This class handles unit conversions for daily log entries.   
 
 ## Objects  
 Object classes are objects that are shared by Business, Presentation, and Persistence classes.    
@@ -74,6 +80,12 @@ This activity shows a users daily progress at glance and allows the user add the
 
 ### Activity Recipe Book
 This class handles the UI for the Recipe Book.    
+
+### Activity Daily Progress
+This class handles  
+
+### Activity Trends
+This class handles    
 
 ### FragToMealDiary
 This is an interface of methods that allow fragments that comprise the meal diary to send and  
@@ -152,12 +164,22 @@ Users can click the meal tab or the drinks tab then the action button to add ite
 food details and add the item using the OK button. The user is notified visually if input does not meet the app  
 requirements. 
 
+## Users can see goal progress for the week 
+This feature is in the daily progress activity screen. This can be accessed via the leftmost nav button. 
+
+## Users can see long term trend charts of their goal progress with trendlines 
+This feature is in the trends activity screen. This can be accessed via the fourth nav button from the left. 
+
+## User data is persistent between startups 
+This can be enabled in the DBSelector class by commenting the appropriate lines in the constructor lines 23-28
+
+
 
 # Environments Used in Testing
 
 Our team used Android Studio Chipmunk 2021.2.1 Patch 1 for development on Windows 10. We tested our code both on a   
 Nexus 7 device and several Android virtual devices created in Android studio. Android virtual devices used, had   
-SDK 23 for testing and SDK 29 for debugging.  
+SDK 23 for testing and SDK 30 for debugging.  
 
 
 
