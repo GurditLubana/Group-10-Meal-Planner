@@ -817,7 +817,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
                 }
             }
 
-            if (newLog.getExerciseActual() != 0) {
+            if (newLog.getExerciseActual() >= 0) {
                 this.setExerciseActual(userID, newLog.getExerciseActual(), newLog.getDate());
             }
         }
@@ -845,17 +845,32 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
 
     public void setExerciseActual(int userID, double newExercise, Calendar date) {
         try {
+            ResultSet results;
+            int id = 0;
             String dateString = this.convertDateToString(date);
-            PreparedStatement setExerciseActual = currConn.prepareStatement("CASE " +
-                    "WHEN COUNT(SELECT * FROM History INNER JOIN WorkoutHistory ON WorkoutHistory.HISTORYID = HISTORY.HISTORYID WHERE Date = ?) = 0 THEN INSERT INTO WorkoutHistory VALUES (?, ?) " +
-                    "ELSE UPDATE WorkoutHistory SET ExerciseActual = ? WHERE HistoryID = ?");
+            PreparedStatement getId = currConn.prepareStatement("SELECT * FROM History WHERE Date = ?");
+            PreparedStatement checkExists = currConn.prepareStatement("SELECT * FROM History INNER JOIN WorkoutHistory ON WorkoutHistory.HISTORYID = HISTORY.HISTORYID WHERE Date = ?");
+            PreparedStatement update = currConn.prepareStatement("UPDATE WorkoutHistory SET ExerciseActual = ? WHERE HistoryID = ?");
+            PreparedStatement insert = currConn.prepareStatement("INSERT INTO WorkoutHistory VALUES (?, ?)");
 
-            setExerciseActual.setString(1, dateString);
-            setExerciseActual.setString(2, dateString);
-            setExerciseActual.setDouble(3, newExercise);
-            setExerciseActual.setDouble(4, newExercise);
-            setExerciseActual.setString(5, dateString);
-            setExerciseActual.executeQuery();
+            getId.setString(1, dateString);
+            results = getId.executeQuery();
+            results.next();
+            id = results.getInt("HISTORYID");
+
+            checkExists.setString(1, dateString);
+            results = checkExists.executeQuery();
+
+            if(results.next()) {
+                update.setDouble(1, newExercise);
+                update.setInt(2, id);
+                update.executeUpdate();
+            } else {
+                insert.setInt(1, id);
+                insert.setDouble(2, newExercise);
+                insert.executeUpdate();
+            }
+            results.close();
         }
         catch (Exception e) {
             System.out.println(e);
