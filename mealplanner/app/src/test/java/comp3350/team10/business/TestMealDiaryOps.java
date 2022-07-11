@@ -48,7 +48,6 @@ public class TestMealDiaryOps {
         void objectStateAtConstruction() {
             DailyLog currLog = ops.getCurrLog();
 
-            assertNotNull(currLog);
             assertEquals(2000, currLog.getCalorieGoal());
             assertEquals(274, (int) currLog.getEdibleCalories());
             assertEquals(0, (int) currLog.getExerciseActual());
@@ -173,7 +172,6 @@ public class TestMealDiaryOps {
             ops.nextDate();
             currLog = ops.getCurrLog();
 
-            assertNotNull(currLog);
             assertEquals(currLog.getCalorieGoal(), 3000);
             assertEquals((int) currLog.getEdibleCalories(), 274);
             assertEquals((int) currLog.getExerciseActual(), 0);
@@ -187,7 +185,6 @@ public class TestMealDiaryOps {
             ops.nextDate();
             currLog = ops.getCurrLog();
 
-            assertNotNull(currLog);
             assertEquals(currLog.getCalorieGoal(), 3000);
             assertEquals((int) currLog.getEdibleCalories(), 274);
             assertEquals((int) currLog.getExerciseActual(), 5);
@@ -201,7 +198,6 @@ public class TestMealDiaryOps {
             ops.nextDate();
             currLog = ops.getCurrLog();
 
-            assertNotNull(currLog);
             assertEquals(currLog.getCalorieGoal(), 3000);
             assertEquals((int) currLog.getEdibleCalories(), 274);
             assertEquals((int) currLog.getExerciseActual(), 5);
@@ -222,7 +218,6 @@ public class TestMealDiaryOps {
             ops.nextDate();
             currLog = ops.getCurrLog();
 
-            assertNotNull(currLog);
             assertEquals(currLog.getCalorieGoal(), 3000);
             assertEquals((int) currLog.getEdibleCalories(), 274);
             assertEquals((int) currLog.getExerciseActual(), 5);
@@ -244,7 +239,6 @@ public class TestMealDiaryOps {
             ops.nextDate();
             currLog = ops.getCurrLog();
 
-            assertNotNull(currLog);
             assertEquals(currLog.getCalorieGoal(), 3000);
             assertEquals((int) currLog.getEdibleCalories(), 274);
             assertEquals((int) currLog.getExerciseActual(), 5);
@@ -285,7 +279,6 @@ public class TestMealDiaryOps {
             ops.nextDate();
             currLog = ops.getCurrLog();
 
-            assertNotNull(currLog);
             assertEquals(currLog.getCalorieGoal(), 2000);
             assertEquals((int) currLog.getEdibleCalories(), 274);
             assertEquals((int) currLog.getExerciseActual(), 0);

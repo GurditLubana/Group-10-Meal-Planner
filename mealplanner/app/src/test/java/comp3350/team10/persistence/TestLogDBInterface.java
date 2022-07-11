@@ -2,8 +2,6 @@ package comp3350.team10.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -18,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.NoSuchElementException;
 
-import comp3350.team10.application.Main;
 import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.DataFrame;
@@ -332,14 +329,14 @@ public class TestLogDBInterface {
         @DisplayName("We should be able to set MaxValue")
         void setMaxValue() {
 
-            this.db.setExerciseActual(0, Constant.GOAL_LIMIT, this.testDate);
-            assertEquals(Constant.GOAL_LIMIT, this.db.searchFoodLogByDate(0, this.testDate).getExerciseActual());
+            this.db.setExerciseActual(0, Constant.ENTRY_MAX_VALUE, this.testDate);
+            assertEquals(Constant.ENTRY_MAX_VALUE, this.db.searchFoodLogByDate(0, this.testDate).getExerciseActual());
 
-            this.db.setLogCalorieGoal(0, Constant.GOAL_LIMIT, this.testDate);
-            assertEquals(Constant.GOAL_LIMIT, this.db.searchFoodLogByDate(0, this.testDate).getCalorieGoal());
+            this.db.setLogCalorieGoal(0, Constant.ENTRY_MAX_VALUE, this.testDate);
+            assertEquals(Constant.ENTRY_MAX_VALUE, this.db.searchFoodLogByDate(0, this.testDate).getCalorieGoal());
 
-            this.db.setLogExerciseGoal(0, Constant.GOAL_LIMIT, this.testDate);
-            assertEquals(Constant.GOAL_LIMIT, this.db.searchFoodLogByDate(0, this.testDate).getExerciseGoal());
+            this.db.setLogExerciseGoal(0, Constant.ENTRY_MAX_VALUE, this.testDate);
+            assertEquals(Constant.ENTRY_MAX_VALUE, this.db.searchFoodLogByDate(0, this.testDate).getExerciseGoal());
 
         }
 

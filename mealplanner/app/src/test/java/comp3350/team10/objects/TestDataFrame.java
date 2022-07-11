@@ -71,6 +71,9 @@ public class TestDataFrame {
             assertEquals(data, dataFrame.getData());
             assertEquals(0.0, dataFrame.getTrendPointA());
             assertEquals(0.0, dataFrame.getTrendPointB());
+            assertEquals(0.0, dataFrame.getAverage());
+            assertEquals(0.0, dataFrame.getMaxVal());
+            assertEquals(0.0, dataFrame.getProgress());
         }
 
         @Test
@@ -84,6 +87,9 @@ public class TestDataFrame {
             assertEquals(data, dataFrame.getData());
             assertEquals(0.0, dataFrame.getTrendPointA());
             assertEquals(0.0, dataFrame.getTrendPointB());
+            assertEquals(0.0, dataFrame.getAverage());
+            assertEquals(0.0, dataFrame.getMaxVal());
+            assertEquals(0.0, dataFrame.getProgress());
         }
 
     }
@@ -113,6 +119,9 @@ public class TestDataFrame {
             assertEquals(data, dataFrame.getData());
             assertEquals(0.0, dataFrame.getTrendPointA());
             assertEquals(7.0, dataFrame.getTrendPointB());
+            assertEquals(3.5, dataFrame.getAverage());
+            assertEquals(6.0, dataFrame.getMaxVal());
+            assertEquals(58, (int) (dataFrame.getProgress() *100));
         }
 
         @Test
@@ -125,6 +134,9 @@ public class TestDataFrame {
             assertEquals(data, dataFrame.getData());
             assertEquals(-21.0, dataFrame.getTrendPointA());
             assertEquals(7.0, dataFrame.getTrendPointB());
+            assertEquals(3.5, dataFrame.getAverage());
+            assertEquals(6.0, dataFrame.getMaxVal());
+            assertEquals(58, (int) (dataFrame.getProgress() *100));
         }
 
         @Test
@@ -137,6 +149,9 @@ public class TestDataFrame {
             assertEquals(data, dataFrame.getData());
             assertEquals(-77.0, dataFrame.getTrendPointA());
             assertEquals(7.0, dataFrame.getTrendPointB());
+            assertEquals(3.5, dataFrame.getAverage());
+            assertEquals(6.0, dataFrame.getMaxVal());
+            assertEquals(58, (int) (dataFrame.getProgress() *100));
         }
 
         @Test
@@ -149,6 +164,9 @@ public class TestDataFrame {
             assertEquals(data, dataFrame.getData());
             assertEquals(-161.0, dataFrame.getTrendPointA());
             assertEquals(7.0, dataFrame.getTrendPointB());
+            assertEquals(3.5, dataFrame.getAverage());
+            assertEquals(6.0, dataFrame.getMaxVal());
+            assertEquals(58, (int) (dataFrame.getProgress() *100));
         }
 
         @Test
@@ -161,6 +179,9 @@ public class TestDataFrame {
             assertEquals(data, dataFrame.getData());
             assertEquals(-329.0, dataFrame.getTrendPointA());
             assertEquals(7.0, dataFrame.getTrendPointB());
+            assertEquals(3.5, dataFrame.getAverage());
+            assertEquals(6.0, dataFrame.getMaxVal());
+            assertEquals(58, (int) (dataFrame.getProgress() *100));
         }
 
         @Test
@@ -173,6 +194,9 @@ public class TestDataFrame {
             assertEquals(data, dataFrame.getData());
             assertEquals(-665.0, dataFrame.getTrendPointA());
             assertEquals(7.0, dataFrame.getTrendPointB());
+            assertEquals(3.5, dataFrame.getAverage());
+            assertEquals(6.0, dataFrame.getMaxVal());
+            assertEquals(58, (int) (dataFrame.getProgress() *100));
         }
 
 

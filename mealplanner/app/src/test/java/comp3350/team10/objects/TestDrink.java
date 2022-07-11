@@ -46,7 +46,6 @@ public class TestDrink {
             assertFalse(testEdible.getIsCustom());
             assertNull(testEdible.getPhoto());
 
-            assertNotNull(testEdible.getIngredients());
             assertEquals(testEdible.getIngredients().size(), 0);
         }
 
