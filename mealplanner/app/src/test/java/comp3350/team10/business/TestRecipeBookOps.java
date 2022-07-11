@@ -11,9 +11,11 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import comp3350.team10.application.Main;
+import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
+import comp3350.team10.objects.Meal;
 
 public class TestRecipeBookOps {
 
@@ -38,14 +40,39 @@ public class TestRecipeBookOps {
         @Test
         @DisplayName("Checking if getters are returning something")
         void testGetRecipes() {
-            assertNotNull(ops.getFoodRecipes());
             assertTrue(ops.getFoodRecipes().size() > 0);
-
-            assertNotNull(ops.getDrinkRecipes());
             assertTrue(ops.getDrinkRecipes().size() > 0);
-
-            assertNotNull(ops.getMealRecipes());
             assertTrue(ops.getMealRecipes().size() > 0);
+        }
+
+        @Test
+        @DisplayName("Checking all edibles returned are valid")
+        void testFoodRecipesValid() {
+            ArrayList<Edible> foodRecipes = ops.getFoodRecipes();
+
+            for (int i = 0; i < foodRecipes.size(); i++) {
+                assertTrue(foodRecipes.get(i) instanceof Edible);
+            }
+        }
+
+        @Test
+        @DisplayName("Checking all drinks returned are valid")
+        void testDrinkRecipesValid() {
+            ArrayList<Edible> drinkRecipes = ops.getDrinkRecipes();
+
+            for (int i = 0; i < drinkRecipes.size(); i++) {
+                assertTrue(drinkRecipes.get(i) instanceof Drink);
+            }
+        }
+
+        @Test
+        @DisplayName("Checking all meals returned are valid")
+        void testMealRecipesValid() {
+            ArrayList<Edible> mealRecipes = ops.getMealRecipes();
+
+            for (int i = 0; i < mealRecipes.size(); i++) {
+                assertTrue(mealRecipes.get(i) instanceof Meal);
+            }
         }
 
         @Test
@@ -93,7 +120,7 @@ public class TestRecipeBookOps {
 
 
     @Nested
-    @DisplayName("Some complex tests")
+    @DisplayName("Complex tests")
     class complexTests {
         private RecipeBookOps ops;
 
@@ -103,40 +130,34 @@ public class TestRecipeBookOps {
             ops = new RecipeBookOps();
         }
 
+        @AfterEach
+        void takedown() {
+            Main.shutDown();
+        }
+
         @Test
-        @DisplayName("Testing some edge cases for addFood method")
+        @DisplayName("Testing adding more complex and multiple food")
         void testAddFoods() {
             int initialSize = ops.getFoodRecipes().size();
 
-            String description = "dfhjdhsgsdjjkds\nidfdshf\ndfh";
-
-            ops.addFood("food", description, 2, Edible.Unit.g, 3, 9, 74, 89,
-                    false, true, false, true, false, null);
-
+            ops.addFood("food", "dfhjdhsgsdjjkds\nidfdshf\ndfh", 2, Edible.Unit.g, 3, 9, 74, 89,
+                    false, true, false, true, false, "null");
             ops.addFood("food", "\n", 20, Edible.Unit.g, 3, 444, 74, 89,
-                    false, true, true, false, false, null);
-
+                    false, true, true, false, false, "null");
             ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 55, 74, 89,
-                    false, true, false, true, false, null);
-
+                    false, true, false, true, false, "null");
             ops.addFood("food2", " ", 2, Edible.Unit.g, 0, 45, 74, 89,
-                    false, true, false, true, false, null);
-
+                    false, true, false, true, false, "null");
             ops.addFood("food2", "             hello world", 2, Edible.Unit.ml, 99, 40, 74, 89,
-                    false, true, false, true, false, null);
-
+                    false, true, false, true, false, "             hello world");
             ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 74, 89,
-                    false, false, false, false, false, null);
-
+                    false, false, false, false, false, "\"");
             ops.addFood("food2", "\t\t", 2, Edible.Unit.g, 99, 405, 74, 89,
                     false, false, false, false, false, "photopath");
-
             ops.addFood("food2", "\t\t", 2, Edible.Unit.g, 9, 9991, 9929, 9299,
                     false, false, false, false, false, "null");
-
             ops.addFood("food2", "Hello world", 2, Edible.Unit.g, 1, 1, 1, 1,
                     false, false, false, false, false, "jfifjn%");
-
             ops.addFood(" !!!!!!! * @@@ +++==", " ____", 2, Edible.Unit.g, 1, 1, 1, 1,
                     false, false, false, false, false, "photo");
 
@@ -145,487 +166,82 @@ public class TestRecipeBookOps {
 
 
         @Test
-        @DisplayName("Testing edge cases for addDrinks")
+        @DisplayName("Testing adding more complex and multiple drink (both with and without ingredients)")
         void testAddDrinks() {
             int initialSize = ops.getDrinkRecipes().size();
 
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<>();
             String description = "dfhjdhsgsdjjkds\n\n\nidfdshf\ndfh";
-
             String instruction = "sdfhosdhgl\ngjkdsjggk\ndfdgdg";
 
-            ArrayList<DrinkIngredient> ingredients = new ArrayList<>();
+            Edible food = new Edible().initDetails(5, "name", "description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "photo");
 
-            ops.addPreparedDrink("Banana Smoothy", description, 2, Edible.Unit.ml, null, instruction, ingredients);
-
-            ops.addPreparedDrink(" ", description, 2, Edible.Unit.ml, null, instruction, ingredients);
-
-            ops.addPreparedDrink("\t\t\t\nSmoothy", description, 2, Edible.Unit.ml, null, instruction, ingredients);
-
-            ops.addPreparedDrink("9876!!", description, 1, Edible.Unit.ml, null, instruction, ingredients);
-
-            ops.addPreparedDrink("%^&%#$@", description, 9, Edible.Unit.ml, null, instruction, ingredients);
-
-            ops.addPreparedDrink("\n\n\n", description, 97, Edible.Unit.ml, null, "\t\t\t", ingredients);
-
-            ops.addPreparedDrink("drink", description, 8, Edible.Unit.ml, null, "\n\n\n", ingredients);
-
-            ops.addPreparedDrink("drink", description, 4, Edible.Unit.ml, null, " __!1!@@\n", ingredients);
-
-            ops.addPreparedDrink("drink", description, 2, Edible.Unit.ml, null, "123344", ingredients);
+            DrinkIngredient ingredient = new DrinkIngredient();
+            ingredient.init(food, 5, Edible.Unit.cups);
+            ingredients.add(ingredient);
 
             ops.addSimpleDrink("drink", " hello world", 30, Edible.Unit.ml, 3, 400, 74, 89,
-                    false, true, false, true, false, null);
-
+                    false, true, false, true, false, "null");
             ops.addSimpleDrink("drink", "                          678", 30, Edible.Unit.ml, 0, 400, 74, 89,
-                    false, true, false, true, false, null);
-
+                    false, true, false, true, false, "null");
             ops.addSimpleDrink("drink", "12345", 30, Edible.Unit.ml, 0, 400, 74, 89,
-                    false, true, false, false, false, null);
-
+                    false, true, false, false, false, "null");
             ops.addSimpleDrink("drink", "12345", 30, Edible.Unit.ml, 0, 400, 74, 89,
-                    true, true, true, true, true, null);
+                    true, true, true, true, true, "null");
+
+            ops.addPreparedDrink("Banana Smoothy", description, 2, Edible.Unit.ml, "null", instruction, ingredients);
+            ops.addPreparedDrink(" ", description, 2, Edible.Unit.ml, "null", instruction, ingredients);
+            ops.addPreparedDrink("\t\t\t\nSmoothy", description, 2, Edible.Unit.ml, "null", instruction, ingredients);
+            ops.addPreparedDrink("9876!!", description, 1, Edible.Unit.ml, "null", instruction, ingredients);
+            ops.addPreparedDrink("%^&%#$@", description, 9, Edible.Unit.ml, "null", instruction, ingredients);
+            ops.addPreparedDrink("\n\n\n", description, 97, Edible.Unit.ml, "null", "\t\t\t", ingredients);
+            ops.addPreparedDrink("drink", description, 8, Edible.Unit.ml, "null", "\n\n\n", ingredients);
+            ops.addPreparedDrink("drink", description, 4, Edible.Unit.ml, "null", " __!1!@@\n", ingredients);
+            ops.addPreparedDrink("drink", description, 2, Edible.Unit.ml, "null", "123344", ingredients);
 
             assertEquals(initialSize + 13, ops.getDrinkRecipes().size());
-
-
         }
 
 
         @Test
-        @DisplayName("Testing edge cases for addMeals")
+        @DisplayName("Testing adding more complex and multiple meals")
         void testAddMeals() {
+            int initialSize = ops.getMealRecipes().size();
 
-            int initialSize = ops.getDrinkRecipes().size();
-            String instruction = "sdfhosdhgl\ngjkdsjggk\ndfdgdg";
             ArrayList<Ingredient> ingredients = new ArrayList<>();
+            String instruction = "sdfhosdhgl\ngjkdsjggk\ndfdgdg";
 
-            ops.addMeal("A k k d ", "                      ", 2, Edible.Unit.serving, null, instruction, ingredients);
+            Edible food = new Edible().initDetails(5, "name", "description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "photo");
 
-            ops.addMeal(" . ", "hello world", 2, Edible.Unit.serving, null, instruction, ingredients);
+            DrinkIngredient ingredient = new DrinkIngredient();
+            ingredient.init(food, 5, Edible.Unit.cups);
+            ingredients.add(ingredient);
 
-            ops.addMeal("meal", "\t\t\t\t", 2, Edible.Unit.serving, null, instruction, ingredients);
-
-            ops.addMeal("!@#$%^&*", "hello world\nfdd\n", 2, Edible.Unit.serving, null, instruction, ingredients);
-
-            ops.addMeal("meal", ")(**&&^^%%", 2, Edible.Unit.serving, null, instruction, ingredients);
-
-            ops.addMeal("1234566", "09876554", 2, Edible.Unit.serving, null, instruction, ingredients);
-
-            ops.addMeal(" . ", "hell0", 9999, Edible.Unit.serving, null, instruction, ingredients);
-
-            ops.addMeal(" . ", "h", 1, Edible.Unit.oz, null, "\t\t\t", ingredients);
-
-            ops.addMeal(" . ", "HELLO", 1, Edible.Unit.oz, null, "\n\n\n", ingredients);
-
-            ops.addMeal(" . ", "1!!!DDD", 1, Edible.Unit.oz, null, " __!1!@@\n", ingredients);
-
-            ops.addMeal(" . ", "ghkvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv", 1, Edible.Unit.oz, null, "123344", ingredients);
-
+            ops.addMeal("A k k d ", "                      ", 2, Edible.Unit.serving, "null", instruction, ingredients);
+            ops.addMeal(" . ", "hello world", 2, Edible.Unit.serving, "null", instruction, ingredients);
+            ops.addMeal("meal", "\t\t\t\t", 2, Edible.Unit.serving, "null", instruction, ingredients);
+            ops.addMeal("!@#$%^&*", "hello world\nfdd\n", 2, Edible.Unit.serving, "null", instruction, ingredients);
+            ops.addMeal("meal", ")(**&&^^%%", 2, Edible.Unit.serving, "null", instruction, ingredients);
+            ops.addMeal("1234566", "09876554", 2, Edible.Unit.serving, "null", instruction, ingredients);
+            ops.addMeal(" . ", "hell0", 9999, Edible.Unit.serving, "null", instruction, ingredients);
+            ops.addMeal(" . ", "h", 1, Edible.Unit.oz, "null", "\t\t\t", ingredients);
+            ops.addMeal(" . ", "HELLO", 1, Edible.Unit.oz, "null", "\n\n\n", ingredients);
+            ops.addMeal(" . ", "1!!!DDD", 1, Edible.Unit.oz, "null", " __!1!@@\n", ingredients);
+            ops.addMeal(" . ", "ghkvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv", 1, Edible.Unit.oz, "null", "123344", ingredients);
 
             assertEquals(initialSize + 11, ops.getMealRecipes().size());
         }
-
-
-        @Test
-        @DisplayName("Adding calories more than the limit")
-        void testMaxCalories() {
-            int initialSize = ops.getDrinkRecipes().size();
-
-            String description = "dfhjdhsgsdjjkds\nidfdshf\ndfh";
-
-            // calories = 0 (minimum value)
-            ops.addSimpleDrink("drink", description, 30, Edible.Unit.ml, 0, 400, 74, 89,
-                    false, true, false, true, false, null);
-
-            //calories = 9999 (Maximum value)
-            ops.addSimpleDrink("drink", description, 2, Edible.Unit.ml, 9999, 400, 74, 89,
-                    false, true, false, true, false, null);
-
-
-            assertEquals(initialSize + 2, ops.getDrinkRecipes().size());
-        }
     }
 
+//empty
 
-
-
-
-
-
-
-    @Nested
-    @DisplayName("Following tests should fail")
-    class shouldFailTests {
-
-        private RecipeBookOps ops;
-
-
-        @BeforeEach
-        void setup() {
-            Main.startUp();
-            ops = new RecipeBookOps();
-        }
-
-        @Test
-        @DisplayName("Testing some edge cases for addFood method")
-        void testAddFoods() {
-
-
-            assertThrows(IllegalArgumentException.class, () -> {
-                ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 40000, 74, 89,
-                        false, false, false, false, false, null);
-
-                ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99999, 405, 74, 89,
-                        false, false, false, false, false, null);
-
-                ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 74888, 89,
-                        false, false, false, false, false, null);
-
-                ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 74, 89000,
-                        false, false, false, false, false, null);
-
-                ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 7, 89,
-                        false, false, false, false, false, null);
-
-                ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 74, 8,
-                        false, false, false, false, false, null);
-            });
-
-        }
-
-
-        @Test
-        @DisplayName("Testing some edge cases for addDrinks method")
-
-        void testAddDrinks() {
-
-            String description = "dfhjdhsgsdjjkds\n\n\nidfdshf\ndfh";
-            ArrayList<DrinkIngredient> ingredients = new ArrayList<>();
-
-            assertThrows(IllegalArgumentException.class, () -> {
-
-                ops.addPreparedDrink("drink", description, 200000, Edible.Unit.ml, null, "123344", ingredients);
-                ops.addPreparedDrink("drink", description, 999999, Edible.Unit.ml, null, "123344", ingredients);
-                ops.addPreparedDrink("drink", description, 989898, Edible.Unit.ml, null, "123344", ingredients);
-                ops.addPreparedDrink("drink", description, 76543, Edible.Unit.ml, null, "123344", ingredients);
-
-
-            });
-
-        }
-
-        @Test
-        @DisplayName("Some Tests for addDrinks method that should throw an Exception" )
-
-        void testAddMeals() {
-
-            String description = "dfhjdhsgsdjjkds\n\n\nidfdshf\ndfh";
-            ArrayList<Ingredient> ingredients = new ArrayList<>();
-
-            assertThrows(IllegalArgumentException.class, () -> {
-
-                ops.addMeal("failedMeal", "hello world", 20000, Edible.Unit.serving, null, "sfdhosdfh ", ingredients);
-                ops.addMeal("failedMeal", "hello world", 20, Edible.Unit.serving, null, "sfdhosdfh ", ingredients);
-            });
-
-        }
-
-    }
-}
-
-
-
-// package comp3350.team10.business;
-
-// import static org.junit.jupiter.api.Assertions.*;
-
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.DisplayName;
-// import org.junit.jupiter.api.Nested;
-// import org.junit.jupiter.api.Test;
-
-// import java.util.Calendar;
-// import java.util.ArrayList;
-
-// import comp3350.team10.business.MealDiaryOps;
-// import comp3350.team10.business.RecipeBookOps;
-// import comp3350.team10.objects.Constant;
-// import comp3350.team10.objects.Drink;
-// import comp3350.team10.objects.Edible;
-// 
-// import comp3350.team10.objects.Meal;
-// import comp3350.team10.persistence.*;
-
-// public class TestRecipeBookOps {
-
-//     @Nested
-//     @DisplayName("Simple tests")
-//     class Test_Simple {
-//         DataAccessStub db;
-//         RecipeBookOps recipeBookOps;
-
-//         @BeforeEach
-//         void setup() {
-//            SharedDB.start("test");
-//            db = SharedDB.getSharedDB();
-//            recipeBookOps = new RecipeBookOps(db);
-//         }
-
-//         @Test
-//         void testGetRecipes() {
-//             assertNotNull(recipeBookOps.getFoodRecipes());
-//             assertNotNull(recipeBookOps.getDrinkRecipes());
-//             assertNotNull(recipeBookOps.getMealRecipes());
-//         }
-
-//         @Test
-//         void testFoodRecipesValid() {
-//             ArrayList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
-
-//             for(int i = 0; i < foodRecipes.size(); i++) {
-//                 assertNotNull(foodRecipes.get(i));
-//                 assertTrue(foodRecipes.get(i) instanceof Food);
-//             }
-//         }
-
-//         @Test
-//         void testDrinkRecipesValid() {
-//             ArrayList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
-
-//             for(int i = 0; i < drinkRecipes.size(); i++) {
-//                 assertNotNull(drinkRecipes.get(i));
-//                 assertTrue(drinkRecipes.get(i) instanceof Drink);
-//             }
-//         }
-
-//         @Test
-//         void testMealRecipesValid() {
-//             ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
-
-//             for(int i = 0; i < mealRecipes.size(); i++) {
-//                 assertNotNull(mealRecipes.get(i));
-//                 assertTrue(mealRecipes.get(i) instanceof Meal);
-//             }
-//         }
-
-//         @Test
-//         void testAddFood() {
-//             ArrayList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
-//             int prevLength = foodRecipes.size();
-
-//             recipeBookOps.addFood("food", 1, 5, Edible.Unit.g, 5);
-//             foodRecipes = recipeBookOps.getFoodRecipes();
-//             assertNotNull(foodRecipes.get(foodRecipes.size() - 1));
-//             assertEquals(prevLength, foodRecipes.size() - 1);
-//         }
-
-//         @Test
-//         void testAddDrink() {
-//             ArrayList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
-//             int prevLength = drinkRecipes.size();
-
-//             recipeBookOps.addDrink("drink", 1, 5, "instructions", "ingredients", Edible.Unit.g, 5);
-//             drinkRecipes = recipeBookOps.getDrinkRecipes();
-//             assertNotNull(drinkRecipes.get(drinkRecipes.size() - 1));
-//             assertEquals(prevLength, drinkRecipes.size() - 1);
-//         }
-
-//         @Test
-//         void testAddMeal() {
-//             ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
-//             int prevLength = mealRecipes.size();
-
-//             recipeBookOps.addMeal("meal", 1, 5, "ingredients", "instructions", Edible.Unit.g, 5);
-//             mealRecipes = recipeBookOps.getMealRecipes();
-//             assertNotNull(mealRecipes.get(mealRecipes.size() - 1));
-//             assertEquals(prevLength, mealRecipes.size() - 1);
-//         }
-//     }
-
-//     @Nested
-//     @DisplayName("Complex tests") //only proper one increases
-//     class Test_Complex {
-//         DataAccessStub db;
-//         RecipeBookOps recipeBookOps;
-
-//         @BeforeEach
-//         void setup() {
-//             SharedDB.start("test");
-//             db = SharedDB.getSharedDB();
-//             recipeBookOps = new RecipeBookOps(db);
-//         }
-
-//         @Test
-//         void testDuplicateFoods() {
-//             ArrayList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
-//             int prevLength = foodRecipes.size();
-//             int iterations = 5;
-
-//             for(int i = 0; i < iterations; i++) {
-//                 recipeBookOps.addFood("food", 1, 5, Edible.Unit.g, 5);
-//             }
-
-//             foodRecipes = recipeBookOps.getFoodRecipes();
-
-//             for(int i = 0; i < iterations; i++) {
-//                 assertNotNull(foodRecipes.get(foodRecipes.size() - 1 - i));
-//             }
-
-//             assertEquals(prevLength, foodRecipes.size() - iterations);
-//         }
-
-//         @Test
-// 		void testMultiAddFood() {
-//             ArrayList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
-//             int prevLength = foodRecipes.size();
-//             int startPoint = 50;
-//             int iterations = 5;
-
-//             for(int i = startPoint; i < startPoint + iterations; i++) {
-//                 recipeBookOps.addFood("food", 1, i, Edible.Unit.g, 5);
-//             }
-
-//             foodRecipes = recipeBookOps.getFoodRecipes();
-
-//             for(int i = 0; i < iterations; i++) {
-//                 assertNotNull(foodRecipes.get(foodRecipes.size() - 1 - i));
-//             }
-
-//             assertEquals(prevLength, foodRecipes.size() - iterations);
-//         }
-
-//         @Test
-// 		void testDuplicateDrinks() {
-//             ArrayList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
-//             int prevLength = drinkRecipes.size();
-//             int iterations = 5;
-
-//             for(int i = 0; i < iterations; i++) {
-//                 recipeBookOps.addDrink("drink", 1, 5, "ingredients", "instructions", Edible.Unit.g, 5);
-//             }
-
-//             drinkRecipes = recipeBookOps.getDrinkRecipes();
-
-//             for(int i = 0; i < iterations; i++) {
-//                 assertNotNull(drinkRecipes.get(drinkRecipes.size() - 1 - i));
-//             }
-
-//             assertEquals(prevLength, drinkRecipes.size() - iterations);
-//         }
-
-//         @Test
-// 		void testMultiAddDrink() {
-//             ArrayList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
-//             int prevLength = drinkRecipes.size();
-//             int startPoint = 100;
-//             int iterations = 5;
-
-//             for(int i = startPoint; i < startPoint + iterations; i++) {
-//                 recipeBookOps.addDrink("drink", 1, i, "ingredients", "instructions", Edible.Unit.g, 5);
-//             }
-
-//             drinkRecipes = recipeBookOps.getDrinkRecipes();
-
-//             for(int i = 0; i < iterations; i++) {
-//                 assertNotNull(drinkRecipes.get(drinkRecipes.size() - 1 - i));
-//             }
-
-//             assertEquals(prevLength, drinkRecipes.size() - iterations);
-//         }
-
-//         @Test
-// 		void testDuplicateMeals() {
-//             ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
-//             int prevLength = mealRecipes.size();
-//             int iterations = 5;
-
-//             for(int i = 0; i < iterations; i++) {
-//                 recipeBookOps.addMeal("meal", 1, 5, "ingredients", "instructions", Edible.Unit.g, 5);
-//             }
-
-//             mealRecipes = recipeBookOps.getMealRecipes();
-
-//             for(int i = 0; i < iterations; i++) {
-//                 assertNotNull(mealRecipes.get(mealRecipes.size() - 1 - i));
-//             }
-
-//             assertEquals(prevLength, mealRecipes.size() - iterations);
-//         }
-
-//         @Test
-// 		void testMultiAddMeal() {
-//             ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
-//             int prevLength = mealRecipes.size();
-//             int startPoint = 150;
-//             int iterations = 5;
-
-//             for(int i = startPoint; i < startPoint + iterations; i++) {
-//                 recipeBookOps.addMeal("meal", 1, i, "ingredients", "instructions", Edible.Unit.g, 5);
-//             }
-
-//             mealRecipes = recipeBookOps.getMealRecipes();
-
-//             for(int i = 0; i < iterations; i++) {
-//                 assertNotNull(mealRecipes.get(mealRecipes.size() - 1 - i));
-//             }
-
-//             assertEquals(prevLength, mealRecipes.size() - iterations);
-//         }
-
-//         @Test
-// 		void testAddRecipesToMultipleGroups() {
-//             ArrayList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
-//             int prevFoodLength = foodRecipes.size();
-//             int startPoint = 50;
-//             int iterations = 5;
-
-//             for(int i = startPoint; i < startPoint + iterations; i++) {
-//                 recipeBookOps.addFood("food", i, 5, Edible.Unit.g, 5);
-//             }
-
-//             foodRecipes = recipeBookOps.getFoodRecipes();
-
-
-//             ArrayList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
-//             int prevDrinkLength = drinkRecipes.size();
-
-//             for(int i = startPoint; i < startPoint + iterations; i++) {
-//                 recipeBookOps.addDrink("drink", i, 5, "ingredients", "instructions", Edible.Unit.g, 5);
-//             }
-
-//             drinkRecipes = recipeBookOps.getDrinkRecipes();
-
-
-//             ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
-//             int prevMealLength = mealRecipes.size();
-
-//             for(int i = startPoint; i < startPoint + iterations; i++) {
-//                 recipeBookOps.addMeal("meal", i, 5, "ingredients", "instructions", Edible.Unit.g, 5);
-//             }
-
-//             mealRecipes = recipeBookOps.getMealRecipes();
-
-            
-//             assertEquals(prevFoodLength, foodRecipes.size() - iterations);
-//             assertEquals(prevDrinkLength, drinkRecipes.size() - iterations);
-//             assertEquals(prevMealLength, mealRecipes.size() - iterations);
-//         }
-// 	}
-
-//     @Nested
-//     @DisplayName("Empty tests")
-//     class Test_Empty {
-//         DataAccessStub db;
-//         RecipeBookOps recipeBookOps;
-
-//         @BeforeEach
-//         void setup() {
-//             SharedDB.start("test");
-//             db = SharedDB.getSharedDB();
-//             recipeBookOps = new RecipeBookOps(db);
-//         }
-
-//         @Test
+    //         @Test
 //         void testAddIncompleteFood() {
 //             ArrayList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
 //             int prevLength = foodRecipes.size();
@@ -675,27 +291,71 @@ public class TestRecipeBookOps {
 //             recipeBookOps.addMeal("meal", 1, 5, "ingredients", "instructions", null, 5);
 //             recipeBookOps.addMeal("meal", 1, 5, "ingredients", "instructions", Edible.Unit.g, -1);
 //             recipeBookOps.addMeal(null, -1, -1, null, null, null, -1);
-            
+
 //             mealRecipes = recipeBookOps.getMealRecipes();
 
 //             assertEquals(prevLength, mealRecipes.size());
 //         }
 //     }
 
-//     @Nested
-//     @DisplayName("Edge case tests")
-//     class Test_EdgeCases {
-//         DataAccessStub db;
-//         RecipeBookOps recipeBookOps;
+    //edge
+    //@Test
+//         void testDuplicateFoods() {
+//             ArrayList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
+//             int prevLength = foodRecipes.size();
+//             int iterations = 5;
 
-//         @BeforeEach
-//         void setup() {
-//             SharedDB.start("test");
-//             db = SharedDB.getSharedDB();
-//             recipeBookOps = new RecipeBookOps(db);
+//             for(int i = 0; i < iterations; i++) {
+//                 recipeBookOps.addFood("food", 1, 5, Edible.Unit.g, 5);
+//             }
+
+//             foodRecipes = recipeBookOps.getFoodRecipes();
+
+//             for(int i = 0; i < iterations; i++) {
+//                 (foodRecipes.get(foodRecipes.size() - 1 - i));
+//             }
+
+//             assertEquals(prevLength, foodRecipes.size() - iterations);
 //         }
 
-//         void testAddFoods() {
+// 		void testDuplicateDrinks() {
+//             ArrayList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
+//             int prevLength = drinkRecipes.size();
+//             int iterations = 5;
+
+//             for(int i = 0; i < iterations; i++) {
+//                 recipeBookOps.addDrink("drink", 1, 5, "ingredients", "instructions", Edible.Unit.g, 5);
+//             }
+
+//             drinkRecipes = recipeBookOps.getDrinkRecipes();
+
+//             for(int i = 0; i < iterations; i++) {
+//                 (drinkRecipes.get(drinkRecipes.size() - 1 - i));
+//             }
+
+//             assertEquals(prevLength, drinkRecipes.size() - iterations);
+//         }
+
+//         @Test
+// 		void testDuplicateMeals() {
+//             ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
+//             int prevLength = mealRecipes.size();
+//             int iterations = 5;
+
+//             for(int i = 0; i < iterations; i++) {
+//                 recipeBookOps.addMeal("meal", 1, 5, "ingredients", "instructions", Edible.Unit.g, 5);
+//             }
+
+//             mealRecipes = recipeBookOps.getMealRecipes();
+
+//             for(int i = 0; i < iterations; i++) {
+//                 (mealRecipes.get(mealRecipes.size() - 1 - i));
+//             }
+
+//             assertEquals(prevLength, mealRecipes.size() - iterations);
+//         }
+
+    void testAddFoods() {
 //             ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
 //             int prevLength = mealRecipes.size();
 
@@ -731,7 +391,7 @@ public class TestRecipeBookOps {
 //             recipeBookOps.addDrink("drink", 1, 1, "instructions", "ingredients", Edible.Unit.cups, Constant.ENTRY_MAX_VALUE);
 //             recipeBookOps.addDrink("drink", 1, 1, "instructions", "ingredients", Edible.Unit.cups, 1);
 //             recipeBookOps.addDrink("drink", Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, "instructions", "ingredients", Edible.Unit.cups, Constant.ENTRY_MAX_VALUE);
-            
+
 //             mealRecipes = recipeBookOps.getMealRecipes();
 
 //             assertEquals(prevLength, mealRecipes.size() - 16);
@@ -759,11 +419,93 @@ public class TestRecipeBookOps {
 //             recipeBookOps.addMeal("meal", 1, 1, " ", " ", Edible.Unit.cups, 5);
 //             recipeBookOps.addMeal("meal", 1, 1, "", "ingredients", Edible.Unit.cups, 5);
 //             recipeBookOps.addMeal("meal", 1, 1, "instructions", "", Edible.Unit.cups, 5);
-            
-            
+
+
 //             mealRecipes = recipeBookOps.getMealRecipes();
 
 //             assertEquals(prevLength, mealRecipes.size() - 18);
 //         }
-//     }
-// }
+
+        @Nested
+        @DisplayName("Following tests should fail")
+        class shouldFailTests {
+
+            private RecipeBookOps ops;
+
+
+            @BeforeEach
+            void setup() {
+                Main.startUp();
+                ops = new RecipeBookOps();
+            }
+
+            @AfterEach
+            void takedown() {
+                Main.shutDown();
+            }
+
+            @Test
+            @DisplayName("Testing some edge cases for addFood method")
+            void testAddFoods() {
+
+
+                assertThrows(IllegalArgumentException.class, () -> {
+                    ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 40000, 74, 89,
+                            false, false, false, false, false, null);
+
+                    ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99999, 405, 74, 89,
+                            false, false, false, false, false, null);
+
+                    ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 74888, 89,
+                            false, false, false, false, false, null);
+
+                    ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 74, 89000,
+                            false, false, false, false, false, null);
+
+                    ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 7, 89,
+                            false, false, false, false, false, null);
+
+                    ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 74, 8,
+                            false, false, false, false, false, null);
+                });
+
+            }
+
+
+            @Test
+            @DisplayName("Testing some edge cases for addDrinks method")
+            void testAddDrinks() {
+
+                String description = "dfhjdhsgsdjjkds\n\n\nidfdshf\ndfh";
+                ArrayList<DrinkIngredient> ingredients = new ArrayList<>();
+
+                assertThrows(IllegalArgumentException.class, () -> {
+
+                    ops.addPreparedDrink("drink", description, 200000, Edible.Unit.ml, null, "123344", ingredients);
+                    ops.addPreparedDrink("drink", description, 999999, Edible.Unit.ml, null, "123344", ingredients);
+                    ops.addPreparedDrink("drink", description, 989898, Edible.Unit.ml, null, "123344", ingredients);
+                    ops.addPreparedDrink("drink", description, 76543, Edible.Unit.ml, null, "123344", ingredients);
+
+
+                });
+
+            }
+
+            @Test
+            @DisplayName("Some Tests for addDrinks method that should throw an Exception")
+            void testAddMeals() {
+
+                String description = "dfhjdhsgsdjjkds\n\n\nidfdshf\ndfh";
+                ArrayList<Ingredient> ingredients = new ArrayList<>();
+
+                assertThrows(IllegalArgumentException.class, () -> {
+
+                    ops.addMeal("failedMeal", "hello world", 20000, Edible.Unit.serving, null, "sfdhosdfh ", ingredients);
+                    ops.addMeal("failedMeal", "hello world", 20, Edible.Unit.serving, null, "sfdhosdfh ", ingredients);
+                });
+
+            }
+
+        }
+    }
+}
