@@ -322,28 +322,31 @@
                             android:id="@+id/isAlcoholic"
                             android:layout_width="132dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:layout_margin="4dp"
+                            android:layout_weight="1"
                             android:background="?colorSecondaryVariant"
-                            android:text="Alcoholic" />
+                            android:text="Alcoholic"
+                            android:textColor="?colorOnPrimary" />
 
                         <CheckBox
                             android:id="@+id/isSpicy"
                             android:layout_width="132dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:layout_margin="4dp"
+                            android:layout_weight="1"
                             android:background="?colorSecondaryVariant"
-                            android:text="Spicy" />
+                            android:text="Spicy"
+                            android:textColor="?colorOnPrimary" />
 
                         <CheckBox
                             android:id="@+id/isGluteenFree"
                             android:layout_width="132dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:layout_margin="4dp"
+                            android:layout_weight="1"
                             android:background="?colorSecondaryVariant"
-                            android:text="Gluteen Free" />
+                            android:text="Gluteen Free"
+                            android:textColor="?colorOnPrimary" />
 
 
                     </LinearLayout>
@@ -367,20 +370,22 @@
                             android:id="@+id/isVegetarian"
                             android:layout_width="132dp"
                             android:layout_height="match_parent"
+                            android:layout_margin="4dp"
                             android:layout_weight="1"
                             android:background="?colorSecondaryVariant"
-                            android:layout_margin="4dp"
-                            android:text="Vegetarian" />
+                            android:text="Vegetarian"
+                            android:textColor="?colorOnPrimary" />
 
 
                         <CheckBox
                             android:id="@+id/isVegan"
                             android:layout_width="132dp"
                             android:layout_height="match_parent"
+                            android:layout_margin="4dp"
                             android:layout_weight="1"
                             android:background="?colorSecondaryVariant"
-                            android:layout_margin="4dp"
-                            android:text="Vegan" />
+                            android:text="Vegan"
+                            android:textColor="?colorOnPrimary" />
 
 
 

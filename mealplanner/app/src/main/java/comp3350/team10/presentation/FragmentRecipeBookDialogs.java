@@ -146,7 +146,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.inputInstructions.setVisibility(View.GONE);
         this.inputIngredients.setVisibility(View.GONE);
         this.labelIngredients.setVisibility(View.GONE);
-//        this.isAlcoholicCheckBox.setVisibility(View.GONE);
     }
 
     private void setMealDialogFieldDefaults() {
@@ -156,7 +155,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.inputName.setHint("Meal Name");
         this.inputInstructions.setHint("Cooking Instructions");
         this.inputIngredients.setHint("Meal Ingredients\n(, comma separated)");
-//        this.isAlcoholicCheckBox.setVisibility(View.GONE);
     }
 
     private void setDrinkDialogFieldDefaults() {
@@ -166,9 +164,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.inputName.setHint("Drink Name");
         this.inputInstructions.setHint("Mixing Instructions");
         this.inputIngredients.setHint("Drink Ingredients\n(, comma separated)");
-//        this.isVegetarianCheckBox.setVisibility(View.GONE);
-//        this.isVeganCheckBox.setVisibility(View.GONE);
-//        this.isNonVegCheckBox.setVisibility(View.GONE);
     }
 
     private void setSpinner() {
