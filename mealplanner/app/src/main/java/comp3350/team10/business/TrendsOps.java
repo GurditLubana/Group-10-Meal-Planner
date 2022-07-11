@@ -3,7 +3,6 @@ package comp3350.team10.business;
 import java.util.ArrayList;
 
 import comp3350.team10.objects.DataFrame;
-import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.LogDBInterface;
 import comp3350.team10.persistence.SharedDB;
 
@@ -22,6 +21,7 @@ public class TrendsOps {
     public ArrayList<DataFrame> getDataFrames(DataFrame.Span span) throws NullPointerException {
         ArrayList<DataFrame> dataFrames;
         DataFrame dataFrame = null;
+
         if (span != null) {
             dataFrames = new ArrayList<DataFrame>();
             this.span = span;
@@ -37,13 +37,14 @@ public class TrendsOps {
         } else {
             throw new NullPointerException("TrendsOps getDataFrames Span cannot be null");
         }
+
         return dataFrames;
     }
 
     private DataFrame getDataFromDB(DataFrame.DataType dataType) {
         DataFrame dataFrame = new DataFrame(dataType, this.span);
-        //dataFrame.setData(stubData(dataType));
         dataFrame.setData(this.db.getDataFrame(dataType, DataFrame.numDays[this.span.ordinal()]));
+
         return dataFrame;
     }
 
