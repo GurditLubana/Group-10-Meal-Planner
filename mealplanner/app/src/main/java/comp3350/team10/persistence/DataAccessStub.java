@@ -15,7 +15,7 @@ import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
 import comp3350.team10.objects.Ingredient;
 import comp3350.team10.objects.Meal;
-import comp3350.team10.objects.PreparedItem;
+import comp3350.team10.objects.PreparedEdible;
 import comp3350.team10.objects.User;
 
 public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDBInterface {
@@ -265,7 +265,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
     public void addFoodToRecipeBook(Edible newFood) throws IllegalArgumentException {
         if (newFood != null) {
-            if (!(newFood instanceof PreparedItem)) {
+            if (!(newFood instanceof PreparedEdible)) {
                 if (findEdibleByKey(newFood.getDbkey(), false) == null) {
                     this.dbRecipeFood.add(newFood.clone());
                 } else {

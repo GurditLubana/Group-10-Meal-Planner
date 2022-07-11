@@ -1,7 +1,17 @@
-# Comp 3350 Team 10
+# <center> Comp 3350 Team 10 <br> EATEN </center>
 
-# Contents
-[Team 10](#group-members)
+<center>
+
+### Eaten is a meal planning app, that aims to help its users reach their health goals through curated recipes, automated calorie counting and progress tracking thats easy to read and share with your loved ones. 
+<br>
+</center>
+<hr>
+
+
+
+<h2>Contents</h2>
+
+[Documentation](#team-10)
 - [Github Repository](#repo-url)
 - [Dev Log](#dev-log)
 - [Feature List](#feature-list)
@@ -13,6 +23,13 @@
 - [Persistence](#persistence)
 - [Presentation](#presentation)
 
+[Patch notes](#patch-notes)
+- [Iteration 1](#iteration-1)
+- [Iteration 2](#iteration-2)
+
+<br>
+<br>
+
 # Team 10
 ## Group members
 Dane Wanke - wanked@myumanitoba.ca  
@@ -21,84 +38,18 @@ Joseffus Santos - umsant28@myumanitoba.ca
 Manraj Singh – singhm53@myumanitoba.ca  
 Zhihou Zhou- zhouz2@myumanitoba.ca  
 
+<br>
+
 # Repo URL
 https://github.com/DaneHarrison/Group-10-Meal-Planner
 
+
+<br>
+
 # Dev Log
-The team dev log is kept as an md file in the github repository. The group has meetings to determine dev tasks and  
-tasks are selected on a volunteer basis to accommodate varying dev availabilities and to allow the group to be  
-flexible in the completion of tasks with interdependencies. Minutes of meeting discussions and decisions are kept   
-in this log.  
-# Packages
-## Business
-Business classes handle program logic and calculations related to their activities.  
-### Meal Diary Ops
-The meal diary ops class handles logic and operations related to the main app activity which is the  
-logging of a users meals. This class handles requesting of meal logs from persistence classes based  
-on the date the user wants to view. This class sends new entries to persistence classes for addition  
-into the daily log and the database.  
-  
-### Recipe Book Ops
-This class handles operations related to the app recipe book. This class handles requesting of food,  
-drink, and meal recipe lists from persistence classes. This class sends new entries to persistence classes  
-for addition into food, drink, and meal recipes databases.  
+The team dev log is kept as a markdown file in the github repository. The group has meetings to determine the project's direction, progress task priority, and dev task assignment. Tasks are selected on a volunteer basis to accommodate varying dev availability and to encourage flexibility. Length of meetings and discussions are also kept in this log.  
 
-### Unit Converter
-This class handles unit conversions for meal diary entries.   
-
-## Objects  
-Object classes are objects that are shared by Business, Presentation, and Persistence classes.    
-### ListItem
-This class is an interface of thing required for objects to be displayed in the different app screens.  
-The app uses views that rely on lists of items.  
-
-### Edible
-This is an Abstract class at the top of the heirarchy of food items. This class defines essential  
-attributes and methods that all food items should have.  
-
-### 
-## Persistence
-Persistence classes interact directly with databases and is used as an interface by business classes to  
-retrieve and store information.  
-### DataAccessStub
-This class provides methods that allow the retrieval and storage of data into a database.    
-### SharedDB
-This is a static class that allows the sharing of in memory data storage accross activities.    
-## Presentation
-Presentation classes handle all UI activities. Drawing new elements on the screen, displaying new information,  
-accepting user entries, handling of user gestures, etc.  
-
-### Activity Meal Diary
-This class handles the UI for the meal diary activity. This is the User interface for logging food consumed.  
-This activity shows a users daily progress at glance and allows the user add their days exercise activity.  
-
-### Activity Recipe Book
-This class handles the UI for the Recipe Book.    
-
-### FragToMealDiary
-This is an interface of methods that allow fragments that comprise the meal diary to send and  
-recieve infromation from the parent activity.    
-
-### FragToRecipeBook
-This is an interface of methods that allow fragments that comprise the recipe book to send and  
-recieve infromation from the parent activity.  
-
-### RVAMealDiary
-This is a recycler view adapter for the meal diary activity. This adapter handles the display  
-of different fragment layouts in a recycler view.  
-
-### RVARecipeBook
-This is a recycler view adapter for the recipe book activity. This adapter handles the display  
-of different fragment layouts in a recycler view.  
-
-### MealDiaryLiveData
-This is a class that allows the use of the observer design pattern in Android Activities. UI elements  
-can be set to observe this class for changes and allow all observers to update their own elements  
-when this class is updated.  
-
-### Fragments
-Fragments are reusable UI components that perform specific functions in activities. The most important  
-example is the navigation fragment which is shared across all activities.  
+<br>
 
 # Feature List
 
@@ -152,23 +103,210 @@ Users can click the meal tab or the drinks tab then the action button to add ite
 food details and add the item using the OK button. The user is notified visually if input does not meet the app  
 requirements. 
 
+<br>
 
 # Environments Used in Testing
 
-Our team used Android Studio Chipmunk 2021.2.1 Patch 1 for development on Windows 10. We tested our code both on a   
-Nexus 7 device and several Android virtual devices created in Android studio. Android virtual devices used, had   
-SDK 23 for testing and SDK 29 for debugging.  
+Our team used Android Studio Chipmunk 2021.2.1 Patch 1 for development on Windows 10. We tested our code both on a Nexus 7 device and several Android virtual devices created in Android studio. Android virtual devices used had SDK 23 for testing and SDK 30 for debugging.  
+
+<br>
+<br></br>
+
+# Packages
+## Business
+Business classes handle program logic related to their activities. 
+
+<br>
+
+<h3>MealDiaryOps</h3>
+The meal diary ops class handles logic and operations related to the main app activity; logging users meals. This class handles meal log requests and updates to and from persistence and date manipulation to display the uesr's history for a given date they'd like to view.
+
+<br>
+
+<h3>RecipeBookOps</h3>
+The recipe book ops handles logic and operations related to the recipe book and curated recipe functionality. This class handles the retrieval and storage of food, drink, and meal recipeto and from persistence classes. 
+
+<br>
+
+<h3>TrendsOps</h3>
+The trend ops handles the retrieval of a user's history to create meaningful and informative graphs
+
+<br>
+
+<h3>UserDataOps</h3>
+The user data ops handles logic and operations related to the active user.  This class handles the retrieval, storage and updating of a user's personal data. In future updates, it will also detect when vital information is missing thus prompting the user to enter their information.
+
+<br>
 
 
+#
+## Objects  
+Object classes represent the meal planner's well defined entities that are known and shared by Business, Presentation, and Persistence.    
 
+<br>
 
+<h3>Edible</h3>
+This is the base class at the top of the edible heirarchy that defines essential attributes and functionality all edible items should have.  
 
+<br>
 
+<h3>PreparedEdible</h3>
+Inside of the edible hierarchy, below edible, this abstract class defines additional properties and functionality more complex Edibles require.
 
+<br>
 
+<h3>Drink</h3>
+Inside of the edible hierarchy, below prepared edible, this class defines essential attributes and functionality for all drinks, with or without ingredients
 
+<br>
 
+<h3>Meal</h3>
+Inside of the edible hierarchy, below prepared edible, this class defines essential attributes and functionality for all meals
 
+<br>
 
+<h3>EdibleLog</h3>
+Inside of the edible hierarchy, below edible, this class defines essential attributes and functionality for all edibles that appear in the edible log such as maintaining their calories with respect to the original edibles base measurements.
 
+<br>
 
+<h3>DailyLog</h3>
+This class defines essential attributes and functionality for each instance of a user's diary history
+
+<br>
+
+<h3>Ingredient</h3>
+This class defines essential attributes and functionality for all edibles that appear as an ingredient in a meal
+
+<br>
+
+<h3>DrinkIngredient</h3>
+This class defines essential attributes and functionality for all edibles that appear as an ingredient in a drink. In future updates, this class will be imperative for the redistributing of ingredients when its alcohol contents are modified
+
+<br>
+
+<h3>Constant</h3>
+This class is responsible for holding relevant constants throughout the codebase   
+
+<br>
+
+<h3>User</h3>
+This class defines essential attributes and functionality for all individual users
+
+<br>
+
+<h3>DataFrame</h3>
+This class defines the collection of data requested by the buisness class trendsops. Dataframe provides summary statistics of the data contained within
+
+<br>
+
+<h3>UnitConverter</h3>
+This class handles calorie conversions given base measurements of an edible and a seperate set of measurements to convert to.   
+
+<br>
+
+#
+## Persistence
+Persistence classes interact directly with databases through buisness classes and use well defined interfaces to retrieve and store information.  
+
+<br>
+
+<h3>LogDBInterface</h3>
+An interface that defines database operations in relation to the logs and a user's history
+
+<br>
+
+<h3>UserDBInterface</h3>
+An interface that defines database operations in relation to its users data
+
+<br>
+
+<h3>RecipeDBInterface</h3>
+An interface that defines database operations in relation to recipes
+
+<br>
+
+<h3>SharedDB</h3>
+This is a static class that allows the sharing of the active database accross all buisness classes
+
+<br>
+
+<h3>DataAccessStub</h3>
+This class provides methods that allow the retrieval and storage of data into a in-memory based database (does not persist through restarts).    
+
+<br>
+
+<h3>HSQLDB</h3>
+This class provides methods that allow the retrieval and storage of data into a HSQL database (persists through restarts). It is worth mentioning, most tables have a "custom" counterpart.  This will be more relevant in future updates to accomodate a user's desire to add their own recipes and acts as a seperation between the provided curated recipes and the recipes users may add. 
+
+<br>
+
+<h3>Selector</h3>
+This class provides easy toggleability between the data access stub and HSQL DB using dependency injection (see lines 24 and 25 in DBSelector.java - whichever line is uncommented is the active database and handles all processes)
+
+<br>
+
+#
+## Presentation
+Presentation classes handle all UI activities. Drawing new elements on the screen, displaying information, accepting user input, handling user gestures, etc.  
+
+<br>
+
+<h3>ActivityMealDiary</h3>
+This class handles the UI for the meal diary activity. This is the user interface for logging food consumed. This activity shows a users daily progress at glance and allows the user add their days exercise activity.  
+
+<br>
+
+<h3>ActivityRecipeBook</h3>
+This class handles the UI for the recipe book. This is the user interface to view the availible food, meal and drink recipes. In future updates, user's will be able to select one of these recipes to view more in-depth details and add their own custom recipes.
+
+<br>
+
+<h3>ActivityDailyProgress</h3>
+This class handles the UI for the daily progress. This is the user interface to view the week's current progress through various scrollable bar charts.
+
+<br>
+
+<h3>ActivityTrends</h3>
+This class handles the UI for the user trends. This is the user interface to view the user's progress and history trends through various scrollable graphs over a user selected time span.
+
+<br>
+
+<h3>FragToMealDiary</h3>
+This is an interface of methods that allow fragments that comprise the meal diary to send and recieve infromation from the parent activity.    
+
+<br>
+
+<h3>FragToRecipeBook</h3>
+This is an interface of methods that allow fragments that comprise the recipe book to send and recieve infromation from the parent activity.  
+
+<br>
+
+<h3>RVAMealDiary</h3>
+This is a recycler view adapter for the meal diary activity. This adapter handles the display of different fragment layouts in a recycler view.  
+
+<br>
+
+<h3>RVARecipeBook</h3>
+This is a recycler view adapter for the recipe book activity. This adapter handles the display of different fragment layouts in a recycler view.  
+
+<br>
+
+<h3>MealDiaryLiveData</h3>
+This is a class that allows the use of the observer design pattern in Android Activities. UI elements can be set to observe this class for changes and allow all observers to update their own elements when this class is updated.  
+
+<br>
+
+<h3>Fragments</h3>
+Fragments are reusable UI components that perform specific functions in activities. The most important example is the navigation fragment which is shared across all activities.  
+
+<br>
+<br>
+
+# Patch notes
+
+## Iteration 1
+
+<br>
+
+## Iteration 2

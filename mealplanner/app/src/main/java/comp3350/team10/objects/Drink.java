@@ -2,7 +2,7 @@ package comp3350.team10.objects;
 
 import java.util.ArrayList;
 
-public class Drink extends PreparedItem {
+public class Drink extends PreparedEdible {
     private ArrayList<DrinkIngredient> ingredients;     //A list of ingredients for the given drink
 
     public Drink() {

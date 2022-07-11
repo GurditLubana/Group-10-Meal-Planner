@@ -2,10 +2,10 @@ package comp3350.team10.objects;
 
 import java.util.ArrayList;
 
-public abstract class PreparedItem extends Edible {
+public abstract class PreparedEdible extends Edible {
     private String instructions;     //The instructions required for the Edible to prepare
 
-    public PreparedItem() {
+    public PreparedEdible() {
         super();
 
         this.instructions = "";
