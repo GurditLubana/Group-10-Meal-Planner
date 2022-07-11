@@ -43,15 +43,17 @@ public class RecipeBookOps {
         db.addFoodToRecipeBook(newFood);
     }
 
-    public void addMeal(String name, String desc, int qty, Edible.Unit unit, String photo, String instructions,
-                        ArrayList<Ingredient> ingredients) throws IllegalArgumentException {
+    public void addMeal(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,
+                        boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, String photo, String instructions, ArrayList<Ingredient> ingredients) throws IllegalArgumentException {
         Meal newMeal = new Meal();
 
         if (ingredients == null || ingredients.size() <= 0) {
             throw new IllegalArgumentException("Meals need ingredients!  This is not a valid meal");
         }
-
         newMeal.initDetails(db.getNextKey(), name, desc, qty, unit);
+        newMeal.initNutrition(calories, protein, carbs, fat);
+        newMeal.initCategories(alcoholic, spicy, vegan, vegetarian, glutenFree);
+        newMeal.initMetadata(true, photo);
         newMeal.setInstructions(instructions);
         newMeal.setIngredients(ingredients);
         newMeal.setCustom(true);

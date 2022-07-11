@@ -283,8 +283,9 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.updateRVA();
     }
 
-    public void addMeal(String name, String desc, int qty, Edible.Unit unit, String photo, String instructions, ArrayList<Ingredient> ingredients) {
-        this.opExec.addMeal(name, desc, qty, unit, photo, instructions, ingredients);
+    public void addMeal(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,
+                        boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, String photo, String instructions, ArrayList<Ingredient> ingredients) {
+        this.opExec.addMeal(name, desc, qty, unit, calories, protein, carbs, fat, alcoholic, spicy, vegan, vegetarian, glutenFree, photo, instructions, ingredients);
         this.data = opExec.getMealRecipes();
         this.updateRVA();
     }
