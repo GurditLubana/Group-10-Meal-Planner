@@ -265,12 +265,97 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
 
 # Dev tasks Iter 2 
 ## Big story 1 : Persistence
-As a user I would like to my app changes to be available when the app is restarted
+As a user I would like to my app changes to be available when the app is restarted  
 ### Detailed story  
-As a user I would like to be able to persistently add mealplans and custom recipes
+As a user I would like to be able to persistently add mealplans and custom recipes  
 Priority – High  
 Cost - 4 days  
+
 - ##### Task 01  
+   Title: Review objects for refactor   
+    Desc: Refactor objects before db schema generated  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 02  
+   Title: New object organization   
+    Desc: refactor stub to new schema  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 03  
+   Title: New object organization   
+    Desc: generate hsql script file  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 04  
+   Title: DB injection   
+    Desc: create class for db switching  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 05  
+   Title: DB Interfaces  
+    Desc: create interfaces for db access   
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 06  
+   Title: Seed the hsql database  
+    Desc: create interfaces for db access   
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 07  
+   Title: Sync stub and hsql database seeds 
+    Desc: create interfaces for db access   
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 08  
+   Title: LogDBInterface 
+    Desc: write hsql access methods   
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 09  
+   Title: RecipeDBInterface 
+    Desc: write hsql access methods   
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 08  
+   Title: UserDBInterface 
+    Desc: write hsql access methods   
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 09  
+   Title: Save DB state 
+    Desc: methods to trigger saving the DB to file 
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 10  
+   Title: Images from filesystem 
+    Desc:  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 11  
    Title:  
     Desc:  
 Estimate:   
@@ -278,12 +363,34 @@ Estimate:
      Dev:   
 
 ## Big story 2 : Adding Meals and Editing Meals
-As a user I would like to be able to add meals to the planner and recipe collection with the ability to update the plan with the actual meals that I ended up eating.
+As a user I would like to be able to add meals to the planner and recipe collection with the ability to update the plan with the actual meals that I ended up eating.  
 ### Detailed story  
-As a user I would like to be able to add my own recipes and be able to modify any that already exist by adding or replacing ingredients.
+As a user I would like to be able to add my own recipes and be able to modify any that already exist by adding or replacing ingredients.  
 Priority – High  
 Cost - 4 days  
+
 - ##### Task 01  
+   Title: Gallery selector 
+    Desc:  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 02  
+   Title: Dietary flags 
+    Desc:  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 03  
+   Title: Images from filesystem 
+    Desc:  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 04  
    Title:  
     Desc:  
 Estimate:   
@@ -294,28 +401,120 @@ Estimate:
 ## Big story 3 : Progress Tracking  
 As a user I would like to be able to set calorie goals and see my progress towards those goals. 
 ### Detailed story  
-As a user I would like to be able to see my current progress in meeting my daily or weekly calorie goals.
-
+As a user I would like to be able to see my current progress in meeting my daily or weekly calorie goals.  
 Priority – High  
 Cost - 4 days  
+
 - ##### Task 01  
-   Title:  
-    Desc:  
+   Title: Daily progress activity UI   
+    Desc: Activity Layout  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 02  
+   Title: Daily progress activity UI   
+    Desc: Circle Progress  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 03  
+   Title: Daily progress activity UI   
+    Desc: Bar Graph  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 04  
+   Title: Daily progress activity UI   
+    Desc: Week Goal progress indicator  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 05  
+   Title: Daily progress activity UI   
+    Desc: Integrate into Trends Ops  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 06  
+   Title: Daily progress activity UI   
+    Desc: Integrate into RVATrends  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 07  
+   Title: Daily progress activity UI   
+    Desc: Use Data from DataFrame  
 Estimate:   
   Actual:   
      Dev:   
 
 
 ## Big story 4 : More Charts  
-As a user I would like to see different charts to track the progress I am making towards my goals in new and insightful ways including projections on when they can be met.
+As a user I would like to see different charts to track the progress I am making towards my goals in new and insightful ways including projections on when they can be met.  
 
 ### Detailed story  
 As a user I would like to see my progress over long time frames
 Priority – High  
 Cost - 4 days  
+
 - ##### Task 01  
-   Title:  
-    Desc:  
+   Title: Trends activity UI   
+    Desc: Activity Layout  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 02  
+   Title: Trends activity UI   
+    Desc: Line Graph  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 03  
+   Title: Trends activity UI   
+    Desc: Tab timeframe selection  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 04  
+   Title: Trends activity UI   
+    Desc: Trendline indicator  
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 05  
+   Title: Trends Ops business class   
+    Desc: persistence access methods 
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 06  
+   Title: RVATrends recyclerview class   
+    Desc: display chart cardview methods
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 07  
+   Title: DataFrame  
+    Desc: Create object to store data   
+Estimate:   
+  Actual:   
+     Dev:   
+
+- ##### Task 08  
+   Title: DataFrame  
+    Desc: Add summary statistics methods   
 Estimate:   
   Actual:   
      Dev:   
@@ -326,12 +525,18 @@ As a user I would like to see my progress for weight loss, calorie consumption, 
 Priority – High  
 Cost - 4 days  
 - ##### Task 01  
-   Title:  
+   Title: Support Multiple goals 
     Desc:  
 Estimate:   
   Actual:   
      Dev:   
 
+- ##### Task 02  
+   Title:  
+    Desc:  
+Estimate:   
+  Actual:   
+     Dev:   
 
 
 
