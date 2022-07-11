@@ -40,7 +40,7 @@ public class User {
 
     public void setName(String newName) throws IllegalArgumentException {
 
-        if (newName != null && newName != "" && newName.length() <= Constant.ENTRY_MAX_VALUE) {
+        if (newName != null && !newName.equals("") && newName.length() <= Constant.ENTRY_MAX_VALUE) {
             this.name = newName;
         } else {
             throw new IllegalArgumentException("User's Name can't be null or empty");

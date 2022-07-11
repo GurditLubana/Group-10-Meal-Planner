@@ -235,7 +235,7 @@ public class TestRecipeDBInterface {
             assertEquals(100, db.getNextKey());
 
             EdibleLog item = db.findEdibleByKey(2, false);
-            assertTrue(item.getName().equals("Pear"));
+            assertEquals("Pear", item.getName());
 
             db.addFoodToRecipeBook(this.testEdible);
             assertEquals(foodRecipeCount, db.getFoodRecipes().size(), 1);
@@ -313,9 +313,9 @@ public class TestRecipeDBInterface {
             this.testMeal.setDescription("a new description");
             this.testDrink.setDescription("a new description");
 
-            assertTrue(db.findEdibleByKey(101, false).getDescription().equals("old description"));
-            assertTrue(db.findEdibleByKey(102, false).getDescription().equals("old description"));
-            assertTrue(db.findEdibleByKey(103, false).getDescription().equals("old description"));
+            assertEquals("old description", db.findEdibleByKey(101, false).getDescription());
+            assertEquals("old description", db.findEdibleByKey(102, false).getDescription());
+            assertEquals("old description", db.findEdibleByKey(103, false).getDescription());
         }
 
         @Test
@@ -334,7 +334,7 @@ public class TestRecipeDBInterface {
         @DisplayName("We should be able to get the first item in the database")
         void getFirstItem() {
             EdibleLog item = db.findEdibleByKey(1, false);
-            assertTrue(item.getName().equals("Apple"));
+            assertEquals("Apple", item.getName());
         }
     }
 }

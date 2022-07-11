@@ -110,8 +110,8 @@ public class TestLogDBInterface {
         void dbConstructionRecipes() {
             this.testEdible = db.findEdibleByKey(5, false);
             assertTrue(this.testEdible instanceof EdibleLog);
-            assertTrue(this.testEdible.getName().equals("Walnut"));
-            assertTrue(this.testEdible.getDescription().equals("not a floor nut"));
+            assertEquals("Walnut", this.testEdible.getName());
+            assertEquals("not a floor nut", this.testEdible.getDescription());
             assertEquals(Edible.Unit.tbsp, this.testEdible.getUnit());
             assertEquals(100, this.testEdible.getCalories());
             assertEquals(30, this.testEdible.getProtein());
@@ -123,7 +123,7 @@ public class TestLogDBInterface {
             assertFalse(this.testEdible.getIsVegetarian());
             assertFalse(this.testEdible.getIsGlutenFree());
             assertFalse(this.testEdible.getIsCustom());
-            assertTrue(this.testEdible.getPhoto().equals("walnut.jpg"));
+            assertEquals("walnut.jpg", this.testEdible.getPhoto());
         }
 
         @Test
@@ -295,7 +295,7 @@ public class TestLogDBInterface {
         @DisplayName("We should be able to get the first item in the database")
         void getFirstItem() {
             EdibleLog item = db.findEdibleByKey(1, false);
-            assertTrue(item.getName().equals("Apple"));
+            assertEquals("Apple", item.getName());
         }
 
         @Test
