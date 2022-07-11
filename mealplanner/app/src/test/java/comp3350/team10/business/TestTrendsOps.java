@@ -24,7 +24,8 @@ public class TestTrendsOps {
         @BeforeEach
         void setup() {
             try {
-                Main.startUp();
+                SharedDB.start();
+                SharedDB.startStub();
                 ops = new TrendsOps();
             }
             catch(Exception e) {
@@ -34,7 +35,12 @@ public class TestTrendsOps {
 
         @AfterEach
         void shutdown() {
-            Main.shutDown();
+            SharedDB.close();
+        }
+
+        @Test
+        @DisplayName("object state at construction")
+        void testDefaultValues() {
         }
 
         @Test
