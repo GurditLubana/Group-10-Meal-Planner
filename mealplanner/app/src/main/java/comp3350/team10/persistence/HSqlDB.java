@@ -910,7 +910,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             results.next();
             System.out.println("Get USER ID");
             System.out.println(results.getString("NAME"));
-            currUser = new User(results.getInt("USERID"), results.getString("NAME"), results.getInt("HEIGHT"),
+            currUser = new User().init(results.getInt("USERID"), results.getString("NAME"), results.getInt("HEIGHT"),
                     results.getInt("WEIGHT"), results.getInt("CALORIEGOAL"), results.getInt("EXERCISEGOAL"));
         }
         catch (Exception e) {

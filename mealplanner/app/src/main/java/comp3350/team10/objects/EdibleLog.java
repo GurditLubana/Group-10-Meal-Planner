@@ -1,9 +1,5 @@
 package comp3350.team10.objects;
 
-import java.io.IOException;
-
-import comp3350.team10.business.UnitConverter;
-
 public class EdibleLog extends Edible {
     private UnitConverter converter;    //Used to calculate the actual calories based on the edibles base factors
 
@@ -52,7 +48,7 @@ public class EdibleLog extends Edible {
         }
     }
 
-    public void setCalories() throws Exception { //cannot call super because these are shadowed and is not supported in java
+    public void setCalories() throws Exception {
         double newCalories = 0;
 
         try {
@@ -86,15 +82,18 @@ public class EdibleLog extends Edible {
     }
 
     public EdibleLog clone() throws IllegalArgumentException{
+        EdibleLog copy = null;
+
         try {
-            EdibleLog copy = new EdibleLog(this);
+            copy = new EdibleLog(this);
             copy.initDetails(this.getDbkey(), this.getName(), this.getDescription(), super.getQuantity(), super.getUnit());
-            return copy;
         }
         catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("EdibleLog clone failed " + e);
         } catch (Exception e) {
             throw new IllegalArgumentException("EdibleLog init setCalories failed " + e);
         }
+
+        return copy;
     }
 }

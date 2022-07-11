@@ -3,7 +3,6 @@ package comp3350.team10.presentation;
 import comp3350.team10.R;
 import comp3350.team10.application.Main;
 import comp3350.team10.business.MealDiaryOps;
-import comp3350.team10.business.UnitConverter;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
@@ -34,7 +33,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToMealDiary {
     private ActivityResultLauncher<Intent> pickMeal; // call back listener when recipebook activity is launched for meal selection

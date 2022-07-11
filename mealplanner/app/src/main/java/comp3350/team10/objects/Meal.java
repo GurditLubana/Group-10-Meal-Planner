@@ -1,8 +1,5 @@
 package comp3350.team10.objects;
 
-import android.widget.ImageView;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Meal extends PreparedItem {

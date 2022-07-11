@@ -344,7 +344,7 @@ public class TestMeal {
 
         @Test
         @DisplayName("Tests cloning a simple meal with all false flags")
-        void testCloneDrinkWithAllFalse() {
+        void testCloneMealWithAllFalse() {
             Edible newEdible;
 
             testEdible.initDetails(1, "name", "description", 1, Edible.Unit.g)
@@ -374,7 +374,7 @@ public class TestMeal {
 
         @Test
         @DisplayName("Tests cloning a simple meal with all true flags")
-        void testCloneDrinkWithAllTrue() {
+        void testCloneMealWithAllTrue() {
             Edible newEdible;
             testEdible.initDetails(1, "name", "description", 1, Edible.Unit.g)
                     .initNutrition(1, 1, 1, 1)

@@ -2,6 +2,7 @@ package comp3350.team10.business;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+import comp3350.team10.application.Main;
 import comp3350.team10.objects.DataFrame;
 import comp3350.team10.persistence.SharedDB;
 
@@ -22,14 +24,17 @@ public class TestTrendsOps {
         @BeforeEach
         void setup() {
             try {
-                SharedDB.start();
+                Main.startUp();
                 ops = new TrendsOps();
             }
             catch(Exception e) {
                 System.out.println(e);
-                
             }
+        }
 
+        @AfterEach
+        void shutdown() {
+            Main.shutDown();
         }
 
         @Test

@@ -7,20 +7,20 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-public class TestIngredient {
+public class TestDrinkIngredients {
 
     @Nested
     @DisplayName("Simple tests")
     class Test_Simple {
         private Edible testEdible;
         private Edible secondTestEdible;
-        private Ingredient testIngredient;
+        private DrinkIngredient testIngredient;
 
         @BeforeEach
         void setup() {
             testEdible = new Edible();
             secondTestEdible = new Edible();
-            testIngredient = new Ingredient();
+            testIngredient = new DrinkIngredient();
 
             testEdible.initDetails(5, "name", "description", 5, Edible.Unit.g)
                     .initNutrition(5, 5, 5, 5)
@@ -38,6 +38,7 @@ public class TestIngredient {
             assertNull(testIngredient.getIngredient());
             assertEquals(testIngredient.getQuantity(), -1);
             assertNull(testIngredient.getQuantityUnits());
+            assertFalse(testIngredient.getIsSubstitute());
         }
 
         @Test
@@ -121,6 +122,15 @@ public class TestIngredient {
             testIngredient.init(testEdible, 5, Edible.Unit.tsp);
             assertEquals(testIngredient.getQuantityUnits(), Edible.Unit.tsp);
         }
+
+        @Test
+        @DisplayName("Tests setting a drink ingredients substitute flag")
+        void testSetSubstitute() {
+            testIngredient.setSubstitute(false);
+            assertFalse(testIngredient.getIsSubstitute());
+            testIngredient.setSubstitute(true);
+            assertTrue(testIngredient.getIsSubstitute());
+        }
     }
 
     @Nested
@@ -128,13 +138,13 @@ public class TestIngredient {
     class Test_Complex {
         private Edible testEdible;
         private Edible secondTestEdible;
-        private Ingredient testIngredient;
+        private DrinkIngredient testIngredient;
 
         @BeforeEach
         void setup() {
             testEdible = new Edible();
             secondTestEdible = new Edible();
-            testIngredient = new Ingredient();
+            testIngredient = new DrinkIngredient();
 
             testEdible.initDetails(500, "name\r\r\n\n?$?$?$", "description\r\r\n\n?$?$?$", 500, Edible.Unit.g)
                     .initNutrition(500, 500, 500, 500)
@@ -181,12 +191,12 @@ public class TestIngredient {
     @DisplayName("Empty tests")
     class Test_Empty {
         private Edible testEdible;
-        private Ingredient testIngredient;
+        private DrinkIngredient testIngredient;
 
         @BeforeEach
         void setup() {
             testEdible = new Edible();
-            testIngredient = new Ingredient();
+            testIngredient = new DrinkIngredient();
 
             testEdible.initDetails(500, "name\r\r\n\n?$?$?$", "description\r\r\n\n?$?$?$", 500, Edible.Unit.g)
                     .initNutrition(500, 500, 500, 500)
@@ -240,13 +250,13 @@ public class TestIngredient {
     class Test_Edge {
         private Edible testEdible;
         private Edible secondTestEdible;
-        private Ingredient testIngredient;
+        private DrinkIngredient testIngredient;
 
         @BeforeEach
         void setup() {
             testEdible = new Edible();
             secondTestEdible = new Edible();
-            testIngredient = new Ingredient();
+            testIngredient = new DrinkIngredient();
 
             testEdible.initDetails(0, "name\r\r\n\n?$?$?$", "description\r\r\n\n?$?$?$", 500, Edible.Unit.g)
                     .initNutrition(500, 500, 500, 500)
@@ -274,12 +284,12 @@ public class TestIngredient {
     @DisplayName("Invalid tests")
     class Test_Invalid {
         private Edible testEdible;
-        private Ingredient testIngredient;
+        private DrinkIngredient testIngredient;
 
         @BeforeEach
         void setup() {
             testEdible = new Edible();
-            testIngredient = new Ingredient();
+            testIngredient = new DrinkIngredient();
         }
 
         @Test

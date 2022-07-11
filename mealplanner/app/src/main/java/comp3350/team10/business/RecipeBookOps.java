@@ -10,6 +10,7 @@ import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.RecipeDBInterface;
 import comp3350.team10.persistence.SharedDB;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class RecipeBookOps {
@@ -46,7 +47,7 @@ public class RecipeBookOps {
         }
         catch(Exception e) {
             System.out.println(e);
-            
+
         }
     }
 
@@ -65,7 +66,7 @@ public class RecipeBookOps {
         }
         catch(Exception e) {
             System.out.println(e);
-            
+
         }
     }
 
@@ -83,7 +84,7 @@ public class RecipeBookOps {
         }
         catch(Exception e) {
             System.out.println(e);
-            
+
         }
     }
 
@@ -102,7 +103,7 @@ public class RecipeBookOps {
         }
         catch(Exception e) {
             System.out.println(e);
-            
+
         }
     }
 }

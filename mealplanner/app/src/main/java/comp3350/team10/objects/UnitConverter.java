@@ -1,6 +1,4 @@
-package comp3350.team10.business;
-
-import comp3350.team10.objects.Edible;
+package comp3350.team10.objects;
 
 public class UnitConverter {
     // cups, oz, g, serving, tbsp, tsp, ml, liter
@@ -34,12 +32,14 @@ public class UnitConverter {
 
     private double getNewCalories(Edible.Unit newUnit, double newQuantity) throws Exception{
         double result = 0;
+
         try {
             result = newQuantity * this.calsPerGram * factor[newUnit.ordinal()];
         }
         catch(Exception e){
             throw e;
         }
+
         return result;
     }
 }

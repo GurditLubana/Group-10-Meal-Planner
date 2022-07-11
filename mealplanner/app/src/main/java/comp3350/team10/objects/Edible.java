@@ -52,7 +52,7 @@ public class Edible {
         this.photo = null;
     }
 
-    
+
     public Edible initDetails(int id, String name, String description, double quantity, Unit unit) throws IllegalArgumentException {
         this.setDBKey(id);
         this.setName(name);
@@ -62,7 +62,7 @@ public class Edible {
 
         return this;
     }
-    
+
     public Edible initNutrition(double calories, int protein, int carbs, int fat) throws IllegalArgumentException {
         this.setCalories(calories);
         this.setProtein(protein);
@@ -90,7 +90,7 @@ public class Edible {
         return this;
     }
 
-    
+
     public void setCustom(boolean newCustom) {
         this.isCustom = newCustom;
     }
@@ -207,6 +207,7 @@ public class Edible {
 
     public void setBaseQuantity(double newQuantity) throws IllegalArgumentException {
         if (newQuantity <= Constant.ENTRY_MAX_VALUE && newQuantity > Constant.ENTRY_MIN_VALUE) {
+
             this.baseQuantity = newQuantity;
         }
         else {
@@ -244,7 +245,7 @@ public class Edible {
     public String getDescription() {
         return this.description;
     }
-    
+
     public double getCalories() {
         return this.calories;
     }
@@ -252,7 +253,7 @@ public class Edible {
     public String getName() {
         return this.name;
     }
-    
+
     public Edible.Unit getUnit() {
         return this.baseUnit;
     }

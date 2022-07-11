@@ -1,14 +1,15 @@
  package comp3350.team10;
 
  import comp3350.team10.business.TestMealDiaryOps;
+ import comp3350.team10.business.TestRecipeBookOps;
  import comp3350.team10.business.TestTrendsOps;
- import comp3350.team10.business.TestUnitConverter;
  import comp3350.team10.objects.TestDailyLog;
  import comp3350.team10.objects.TestDataFrame;
  import comp3350.team10.objects.TestDrink;
  import comp3350.team10.objects.TestEdible;
  import comp3350.team10.objects.TestIngredient;
  import comp3350.team10.objects.TestMeal;
+ import comp3350.team10.objects.TestUnitConverter;
  import comp3350.team10.persistence.TestLogDBInterface;
  import comp3350.team10.persistence.TestRecipeDBInterface;
  import comp3350.team10.persistence.TestUserDBInterface;
@@ -23,7 +24,7 @@
  @SelectPackages("comp3350.team10.*")
  @SelectClasses({
          TestMealDiaryOps.class,
-         //TestRecipeBookOps.class,
+         TestRecipeBookOps.class,
          TestTrendsOps.class,
          TestUnitConverter.class,
          TestDailyLog.class,
@@ -40,4 +41,3 @@
  public class AllTests {
 
  }
-
