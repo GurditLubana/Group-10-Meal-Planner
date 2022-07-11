@@ -263,7 +263,80 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
 
 <br>
 
-# Dev tasks 
+# Dev tasks Iter 2 
+## Big story 1 : Persistence
+As a user I would like to my app changes to be available when the app is restarted
+### Detailed story  
+As a user I would like to be able to persistently add mealplans and custom recipes
+Priority – High  
+Cost - 4 days  
+- ##### Task 01  
+   Title:  
+    Desc:  
+Estimate:   
+  Actual:   
+     Dev:   
+
+## Big story 2 : Adding Meals and Editing Meals
+As a user I would like to be able to add meals to the planner and recipe collection with the ability to update the plan with the actual meals that I ended up eating.
+### Detailed story  
+As a user I would like to be able to add my own recipes and be able to modify any that already exist by adding or replacing ingredients.
+Priority – High  
+Cost - 4 days  
+- ##### Task 01  
+   Title:  
+    Desc:  
+Estimate:   
+  Actual:   
+     Dev:   
+
+
+## Big story 3 : Progress Tracking  
+As a user I would like to be able to set calorie goals and see my progress towards those goals. 
+### Detailed story  
+As a user I would like to be able to see my current progress in meeting my daily or weekly calorie goals.
+
+Priority – High  
+Cost - 4 days  
+- ##### Task 01  
+   Title:  
+    Desc:  
+Estimate:   
+  Actual:   
+     Dev:   
+
+
+## Big story 4 : More Charts  
+As a user I would like to see different charts to track the progress I am making towards my goals in new and insightful ways including projections on when they can be met.
+
+### Detailed story  
+As a user I would like to see my progress over long time frames
+Priority – High  
+Cost - 4 days  
+- ##### Task 01  
+   Title:  
+    Desc:  
+Estimate:   
+  Actual:   
+     Dev:   
+
+
+### Detailed story  
+As a user I would like to see my progress for weight loss, calorie consumption, exercise
+Priority – High  
+Cost - 4 days  
+- ##### Task 01  
+   Title:  
+    Desc:  
+Estimate:   
+  Actual:   
+     Dev:   
+
+
+
+
+
+# Dev tasks Iter 1
 ## Big story 1 : Adding and editing meals  
 
 As a user I would like to be able to add meals to the planner and recipe collection with the ability to update the plan with the actual meals that I ended up eating.  
