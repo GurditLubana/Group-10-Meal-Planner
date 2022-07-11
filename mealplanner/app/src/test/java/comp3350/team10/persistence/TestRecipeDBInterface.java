@@ -3,6 +3,7 @@ package comp3350.team10.persistence;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -244,10 +245,22 @@ public class TestRecipeDBInterface {
 
             db.addDrinkToRecipeBook(this.testDrink);
             assertEquals(drinkRecipeCount, db.getDrinkRecipes().size(), 1);
+
+            this.testEdible.setDBKey(104);
+            this.testMeal.setDBKey(105);
+            this.testDrink.setDBKey(106);
+
+            db.addFoodToRecipeBook(this.testEdible);
+            assertEquals(foodRecipeCount, db.getFoodRecipes().size(), 2);
+
+            db.addMealToRecipeBook(this.testMeal);
+            assertEquals(mealRecipeCount, db.getMealRecipes().size(), 2);
+
+            db.addDrinkToRecipeBook(this.testDrink);
+            assertEquals(drinkRecipeCount, db.getDrinkRecipes().size(), 2);
         }
 
     }
-
 
     @Nested
     @DisplayName("Complex Tests should pass")
@@ -297,7 +310,7 @@ public class TestRecipeDBInterface {
         }
 
         @Test
-        @DisplayName("When we add an object to the database we should not be able to modify it")
+        @DisplayName("When we add an object to the database we should not be able to modify primitives")
         void testObjectSeparation() {
             db.addFoodToRecipeBook(this.testEdible);
             assertEquals(foodRecipeCount, db.getFoodRecipes().size(), 1);
@@ -316,14 +329,7 @@ public class TestRecipeDBInterface {
             assertEquals("old description", db.findEdibleByKey(102, false).getDescription());
             assertEquals("old description", db.findEdibleByKey(103, false).getDescription());
         }
-
-        @Test
-        @DisplayName("When we add an object to the database we should not be able to modify it")
-        void testEmptyIngredientList() {
-
-        }
     }
-
 
     @Nested
     @DisplayName("Edge case Tests should pass")

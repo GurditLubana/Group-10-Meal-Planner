@@ -39,14 +39,14 @@ public class TestUserDBInterface {
             db.setHeight(currUser.getUserID(), 160);
             assertEquals(160, currUser.getHeight());
 
-            db.setWeight(currUser.getUserID(), 160);
-            assertEquals(160, currUser.getWeight());
+            db.setWeight(currUser.getUserID(), 161);
+            assertEquals(161, currUser.getWeight());
 
-            db.setCalorieGoal(currUser.getUserID(), 160);
-            assertEquals(160, currUser.getCalorieGoal());
+            db.setCalorieGoal(currUser.getUserID(), 162);
+            assertEquals(162, currUser.getCalorieGoal());
 
-            db.setExerciseGoal(currUser.getUserID(), 160);
-            assertEquals(160, currUser.getExerciseGoal());
+            db.setExerciseGoal(currUser.getUserID(), 163);
+            assertEquals(163, currUser.getExerciseGoal());
         }
 
     }
@@ -63,39 +63,75 @@ public class TestUserDBInterface {
 
             db.setHeight(currUser.getUserID(), 160);
             assertEquals(160, currUser.getHeight());
+            assertEquals(666, currUser.getWeight());
+            assertEquals(666, currUser.getCalorieGoal());
+            assertEquals(666, currUser.getExerciseGoal());
 
-            db.setWeight(currUser.getUserID(), 160);
-            assertEquals(160, currUser.getWeight());
+            db.setWeight(currUser.getUserID(), 161);
+            assertEquals(160, currUser.getHeight());
+            assertEquals(161, currUser.getWeight());
+            assertEquals(666, currUser.getCalorieGoal());
+            assertEquals(666, currUser.getExerciseGoal());
 
-            db.setCalorieGoal(currUser.getUserID(), 160);
-            assertEquals(160, currUser.getCalorieGoal());
+            db.setCalorieGoal(currUser.getUserID(), 162);
+            assertEquals(160, currUser.getHeight());
+            assertEquals(161, currUser.getWeight());
+            assertEquals(162, currUser.getCalorieGoal());
+            assertEquals(666, currUser.getExerciseGoal());
 
-            db.setExerciseGoal(currUser.getUserID(), 160);
-            assertEquals(160, currUser.getExerciseGoal());
+            db.setExerciseGoal(currUser.getUserID(), 163);
+            assertEquals(160, currUser.getHeight());
+            assertEquals(161, currUser.getWeight());
+            assertEquals(162, currUser.getCalorieGoal());
+            assertEquals(163, currUser.getExerciseGoal());
 
             db.setHeight(currUser.getUserID(), 200);
             assertEquals(200, currUser.getHeight());
+            assertEquals(161, currUser.getWeight());
+            assertEquals(162, currUser.getCalorieGoal());
+            assertEquals(163, currUser.getExerciseGoal());
 
-            db.setWeight(currUser.getUserID(), 200);
-            assertEquals(200, currUser.getWeight());
+            db.setWeight(currUser.getUserID(), 201);
+            assertEquals(200, currUser.getHeight());
+            assertEquals(201, currUser.getWeight());
+            assertEquals(162, currUser.getCalorieGoal());
+            assertEquals(163, currUser.getExerciseGoal());
 
-            db.setCalorieGoal(currUser.getUserID(), 200);
-            assertEquals(200, currUser.getCalorieGoal());
+            db.setCalorieGoal(currUser.getUserID(), 202);
+            assertEquals(200, currUser.getHeight());
+            assertEquals(201, currUser.getWeight());
+            assertEquals(202, currUser.getCalorieGoal());
+            assertEquals(163, currUser.getExerciseGoal());
 
-            db.setExerciseGoal(currUser.getUserID(), 200);
-            assertEquals(200, currUser.getExerciseGoal());
+            db.setExerciseGoal(currUser.getUserID(), 203);
+            assertEquals(200, currUser.getHeight());
+            assertEquals(201, currUser.getWeight());
+            assertEquals(202, currUser.getCalorieGoal());
+            assertEquals(203, currUser.getExerciseGoal());
 
             db.setHeight(currUser.getUserID(), 500);
             assertEquals(500, currUser.getHeight());
+            assertEquals(201, currUser.getWeight());
+            assertEquals(202, currUser.getCalorieGoal());
+            assertEquals(203, currUser.getExerciseGoal());
 
-            db.setWeight(currUser.getUserID(), 500);
-            assertEquals(500, currUser.getWeight());
+            db.setWeight(currUser.getUserID(), 501);
+            assertEquals(500, currUser.getHeight());
+            assertEquals(501, currUser.getWeight());
+            assertEquals(202, currUser.getCalorieGoal());
+            assertEquals(203, currUser.getExerciseGoal());
 
-            db.setCalorieGoal(currUser.getUserID(), 500);
-            assertEquals(500, currUser.getCalorieGoal());
+            db.setCalorieGoal(currUser.getUserID(), 502);
+            assertEquals(500, currUser.getHeight());
+            assertEquals(501, currUser.getWeight());
+            assertEquals(502, currUser.getCalorieGoal());
+            assertEquals(203, currUser.getExerciseGoal());
 
-            db.setExerciseGoal(currUser.getUserID(), 500);
-            assertEquals(500, currUser.getExerciseGoal());
+            db.setExerciseGoal(currUser.getUserID(), 503);
+            assertEquals(500, currUser.getHeight());
+            assertEquals(501, currUser.getWeight());
+            assertEquals(502, currUser.getCalorieGoal());
+            assertEquals(503, currUser.getExerciseGoal());
         }
     }
 
