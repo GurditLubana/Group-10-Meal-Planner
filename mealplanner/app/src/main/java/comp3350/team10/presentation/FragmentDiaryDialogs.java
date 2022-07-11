@@ -10,24 +10,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import android.view.View;
 
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentDiaryDialogs#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FragmentDiaryDialogs extends FragmentDialogCommon {
-    public static String TAG = "MealEntryDialog"; // tag name of this fragment for reference in the fragment manager
+    public static final String TAG = "MealEntryDialog"; // tag name of this fragment for reference in the fragment manager
     private FragToMealDiary send;                 // Interface for communication with parent activity
     private FragToMealDiary.EntryMode mode;       // the type of dialog to show
     private TextView unitText;                    // static unit label
@@ -96,7 +86,7 @@ public class FragmentDiaryDialogs extends FragmentDialogCommon {
 
             super.getInputQuantity().setText(quantity);
             super.initSpinner();
-            if(super.getUnitSpinner().getAdapter() instanceof ArrayAdapter) {
+            if (super.getUnitSpinner().getAdapter() instanceof ArrayAdapter) {
                 adapter = (ArrayAdapter) super.getUnitSpinner().getAdapter();
                 super.getUnitSpinner().setSelection(adapter.getPosition(unit.name()));
             }
@@ -130,7 +120,7 @@ public class FragmentDiaryDialogs extends FragmentDialogCommon {
             public void onClick(View v) {
                 Double value;
 
-                if(!getInputQuantity().getText().toString().equals("")) {
+                if (!getInputQuantity().getText().toString().equals("")) {
                     value = Double.parseDouble(getInputQuantity().getText().toString());
 
                     if (value >= Constant.ENTRY_MIN_VALUE && value <= Constant.ENTRY_MAX_VALUE) {
@@ -148,8 +138,7 @@ public class FragmentDiaryDialogs extends FragmentDialogCommon {
                             }
                             dismiss();
                         }
-                    }
-                    else {
+                    } else {
                         getInputQuantity().setError("Invalid input must be between 0 and 9999 inclusive");
                     }
                 }

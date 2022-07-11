@@ -19,8 +19,7 @@ public class UnitConverter {
         this.normalizeToPerGram(prevUnit, prevQuantity, prevCalories);
         try {
             return getNewCalories(newUnit, newQuantity);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("An exception occurred while converting " +
                     prevUnit + " " + prevQuantity + " to " + newUnit + " " + newQuantity + " " + e);
         }
@@ -30,13 +29,12 @@ public class UnitConverter {
         this.calsPerGram = (prevCalories / prevQuantity) * (1.0 / factor[prevUnit.ordinal()]);
     }
 
-    private double getNewCalories(Edible.Unit newUnit, double newQuantity) throws Exception{
+    private double getNewCalories(Edible.Unit newUnit, double newQuantity) throws Exception {
         double result = 0;
 
         try {
             result = newQuantity * this.calsPerGram * factor[newUnit.ordinal()];
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             throw e;
         }
 

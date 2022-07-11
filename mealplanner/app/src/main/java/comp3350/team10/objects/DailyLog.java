@@ -1,14 +1,7 @@
 package comp3350.team10.objects;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-
-import comp3350.team10.objects.Edible;
-
-import comp3350.team10.objects.Constant;
 
 public class DailyLog {
     private final static double MAX_PROGRESS = 100;    //Scales the progress bar (percentage)
@@ -50,11 +43,12 @@ public class DailyLog {
         return this;
     }
 
-    public DailyLog clone(){
+    public DailyLog clone() {
         DailyLog copy = new DailyLog();
         copy.init(this.date, getEdibleList(), this.calorieGoal, this.exerciseGoal, this.getExerciseActual());
         return copy;
     }
+
     private void setDate(Calendar date) throws NullPointerException {
         if (date != null) {
             this.date = date;
@@ -137,8 +131,8 @@ public class DailyLog {
             this.progressBar = 0;
         }
     }
-    
-    private void setNormalProgress(){
+
+    private void setNormalProgress() {
         if (this.calorieGoal > 0) {
             this.progressBar = (this.calorieGoal - this.calorieNet) * MAX_PROGRESS / this.calorieGoal;
         } else {
@@ -147,7 +141,7 @@ public class DailyLog {
 
     }
 
-    private void setExcessProgress(){
+    private void setExcessProgress() {
         if (this.calorieGoal > 0) {
             this.progressExcess = -this.calorieNet * MAX_PROGRESS / this.calorieGoal;
         } else {
@@ -163,12 +157,11 @@ public class DailyLog {
         this.calorieNet = this.calorieGoal - (this.edibleCalories - this.exerciseActual);
     }
 
-    public void removeItem(int pos) throws IllegalArgumentException{
-        if(pos >= 0 && pos < this.edibleLog.size()){
+    public void removeItem(int pos) throws IllegalArgumentException {
+        if (pos >= 0 && pos < this.edibleLog.size()) {
             this.edibleLog.remove(pos);
             this.updateProgress();
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("DailyLog removeItem position specified is out of bounds");
         }
     }

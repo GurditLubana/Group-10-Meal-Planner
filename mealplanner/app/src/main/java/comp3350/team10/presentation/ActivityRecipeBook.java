@@ -169,13 +169,12 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private void initUICardObjects() {
         this.savedItemPosition = -1;
         this.modifyUICard = new Edible();
-        
+
         try {
             this.modifyUICard.setName(RECIPEMODIFYCARD);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
-            
+
         }
     }
 
@@ -199,8 +198,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     public void showContextUI(int position) {
         int otherPosition = -1;
-        if (position >= 0 && position != this.savedItemPosition ) {
-            if(this.savedItem == null) {
+        if (position >= 0 && position != this.savedItemPosition) {
+            if (this.savedItem == null) {
                 saveItem(position);
             } else {
                 otherPosition = this.savedItemPosition;
@@ -265,11 +264,10 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     public void addDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,
-            boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, String photo, String instructions, ArrayList<DrinkIngredient> ingredients) {
-        if(ingredients.size() > 0) {
+                         boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, String photo, String instructions, ArrayList<DrinkIngredient> ingredients) {
+        if (ingredients.size() > 0) {
             this.opExec.addPreparedDrink(name, desc, qty, unit, photo, instructions, ingredients);
-        }
-        else {
+        } else {
             this.opExec.addSimpleDrink(name, desc, qty, unit, calories, protein, carbs, fat, alcoholic, spicy, vegan, vegetarian, glutenFree, photo);
         }
 
@@ -278,7 +276,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     public void addFood(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,
-            boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, String photo) {
+                        boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, String photo) {
 
         opExec.addFood(name, desc, qty, unit, calories, protein, carbs, fat, alcoholic, spicy, vegan, vegetarian, glutenFree, photo);
         this.data = this.opExec.getFoodRecipes();

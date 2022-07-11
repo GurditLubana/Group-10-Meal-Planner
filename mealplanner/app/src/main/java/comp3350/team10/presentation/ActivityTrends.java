@@ -49,14 +49,14 @@ public class ActivityTrends extends AppCompatActivity {
         this.toolbar.setTitleTextColor(Color.WHITE);
         this.toolbar.setElevation(0);
     }
-    private void initData(){
+
+    private void initData() {
         this.opExec = new TrendsOps();
         try {
             this.data = this.opExec.getDataFrames(DataFrame.Span.Week);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
-            
+
         }
     }
 

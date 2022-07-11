@@ -15,8 +15,7 @@ public class Meal extends PreparedItem {
     public void setIngredients(ArrayList<Ingredient> newIngredients) throws IllegalArgumentException {
         if (newIngredients != null && !newIngredients.contains(null)) {
             this.ingredients = newIngredients;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Invalid meal ingredients");
         }
     }
@@ -29,7 +28,7 @@ public class Meal extends PreparedItem {
         return this.ingredients;
     }
 
-        public Meal clone() throws IllegalArgumentException {
+    public Meal clone() throws IllegalArgumentException {
         Meal copy = new Meal();
 
         copy.initDetails(this.getDbkey(), this.getName(), this.getDescription(), this.getQuantity(), this.getUnit());
@@ -38,7 +37,7 @@ public class Meal extends PreparedItem {
         copy.initMetadata(this.getIsCustom(), this.getPhoto());
         copy.setInstructions(this.getInstructions());
         copy.setIngredients(this.getIngredients());
-        
+
         return copy;
     }
 }

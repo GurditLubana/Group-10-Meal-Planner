@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.NoSuchElementException;
 
 import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.DailyLog;

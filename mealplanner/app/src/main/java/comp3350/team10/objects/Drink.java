@@ -15,8 +15,7 @@ public class Drink extends PreparedItem {
     public void setIngredients(ArrayList<DrinkIngredient> newIngredients) throws IllegalArgumentException {
         if (newIngredients != null && !newIngredients.contains(null)) {
             this.ingredients = newIngredients;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Invalid drink ingredients");
         }
     }
@@ -25,10 +24,10 @@ public class Drink extends PreparedItem {
         ArrayList<Ingredient> temp = new ArrayList<Ingredient>();
 
         //Downcast to ingredients because ArrayLists are finiky!
-        for(int i = 0; i < this.ingredients.size(); i++) {
+        for (int i = 0; i < this.ingredients.size(); i++) {
             temp.add(this.ingredients.get(i));
         }
-        
+
         this.updateEdibleFromIngredients(temp);
     }
 
@@ -36,7 +35,7 @@ public class Drink extends PreparedItem {
         return this.ingredients;
     }
 
-            public Drink clone() throws IllegalArgumentException {
+    public Drink clone() throws IllegalArgumentException {
         Drink copy = new Drink();
 
         copy.initDetails(this.getDbkey(), this.getName(), this.getDescription(), this.getQuantity(), this.getUnit());
@@ -45,7 +44,7 @@ public class Drink extends PreparedItem {
         copy.initMetadata(this.getIsCustom(), this.getPhoto());
         copy.setInstructions(this.getInstructions());
         copy.setIngredients(this.getIngredients());
-        
+
         return copy;
     }
 }

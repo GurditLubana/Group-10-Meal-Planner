@@ -1,11 +1,9 @@
 package comp3350.team10.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +12,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.Edible;
@@ -316,9 +313,15 @@ public class TestRecipeDBInterface {
             this.testMeal.setDescription("a new description");
             this.testDrink.setDescription("a new description");
 
-            assertTrue(db.findEdibleByKey(101,false).getDescription().equals("old description"));
-            assertTrue(db.findEdibleByKey(102,false).getDescription().equals("old description"));
-            assertTrue(db.findEdibleByKey(103,false).getDescription().equals("old description"));
+            assertTrue(db.findEdibleByKey(101, false).getDescription().equals("old description"));
+            assertTrue(db.findEdibleByKey(102, false).getDescription().equals("old description"));
+            assertTrue(db.findEdibleByKey(103, false).getDescription().equals("old description"));
+        }
+
+        @Test
+        @DisplayName("When we add an object to the database we should not be able to modify it")
+        void testEmptyIngredientList() {
+
         }
     }
 

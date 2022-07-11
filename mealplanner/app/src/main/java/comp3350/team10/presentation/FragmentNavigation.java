@@ -91,9 +91,9 @@ public class FragmentNavigation extends Fragment {
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     //intent.putExtra("Source", "NAV");
                     startActivity(intent);
-                  }
                 }
-              });
+            }
+        });
         trendsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +120,7 @@ public class FragmentNavigation extends Fragment {
         } else if (context instanceof ActivityDailyProgress) {
             dailyButton.setColorFilter(Color.parseColor("#FFFFBB33"));
             dailyButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#5885AF")));
-        }else if (context instanceof ActivityTrends) {
+        } else if (context instanceof ActivityTrends) {
             trendsButton.setColorFilter(Color.parseColor("#FFFFBB33"));
             trendsButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#5885AF")));
         }

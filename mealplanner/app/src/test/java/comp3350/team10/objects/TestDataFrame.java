@@ -17,7 +17,7 @@ public class TestDataFrame {
 
         @Test
         @DisplayName("instance creation should fail if type is null")
-        void testNullType(){
+        void testNullType() {
 
             assertThrows(NullPointerException.class, () -> {
                 DataFrame dataFrame = new DataFrame(null, DataFrame.Span.Week);
@@ -26,7 +26,7 @@ public class TestDataFrame {
 
         @Test
         @DisplayName("instance creation should fail if span is null")
-        void testNullSpan(){
+        void testNullSpan() {
             assertThrows(NullPointerException.class, () -> {
                 DataFrame dataFrame = new DataFrame(DataFrame.DataType.Weight, null);
             });
@@ -34,7 +34,7 @@ public class TestDataFrame {
 
         @Test
         @DisplayName("instance creation should fail if all params null")
-        void testNullBoth(){
+        void testNullBoth() {
             assertThrows(NullPointerException.class, () -> {
                 DataFrame dataFrame = new DataFrame(null, null);
             });
@@ -42,7 +42,7 @@ public class TestDataFrame {
 
         @Test
         @DisplayName("set data should fail if passed null")
-        void testNullSetData(){
+        void testNullSetData() {
             DataFrame dataFrame = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.Week);
             assertThrows(NullPointerException.class, () -> {
                 dataFrame.setData(null);
@@ -50,6 +50,7 @@ public class TestDataFrame {
         }
 
     }
+
     @Nested
     @DisplayName("Edge cases should pass")
     class DataFrameEdge {
@@ -62,7 +63,7 @@ public class TestDataFrame {
 
         @Test
         @DisplayName("no items in list")
-        void testPredicEmptyList(){
+        void testPredicEmptyList() {
             DataFrame dataFrame = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.Week);
 
             dataFrame.setData(data);
@@ -78,7 +79,7 @@ public class TestDataFrame {
 
         @Test
         @DisplayName("one item in list")
-        void testPredicSingleItemList(){
+        void testPredicSingleItemList() {
             DataFrame dataFrame = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.Week);
             data.add(new Double(1.0));
             dataFrame.setData(data);
@@ -93,6 +94,7 @@ public class TestDataFrame {
         }
 
     }
+
     @Nested
     @DisplayName("Simple Tests should pass")
     class DataFrameSimple {
@@ -111,7 +113,7 @@ public class TestDataFrame {
 
         @Test
         @DisplayName("typical use case predict week trend")
-        void setDataWeek(){
+        void setDataWeek() {
             DataFrame dataFrame = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.Week);
             dataFrame.setData(data);
             assertEquals(DataFrame.DataType.Weight, dataFrame.getDataType());
@@ -121,12 +123,12 @@ public class TestDataFrame {
             assertEquals(7.0, dataFrame.getTrendPointB());
             assertEquals(3.5, dataFrame.getAverage());
             assertEquals(6.0, dataFrame.getMaxVal());
-            assertEquals(58, (int) (dataFrame.getProgress() *100));
+            assertEquals(58, (int) (dataFrame.getProgress() * 100));
         }
 
         @Test
         @DisplayName("predict month trend")
-        void setDataMonth(){
+        void setDataMonth() {
             DataFrame dataFrame = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.Month);
             dataFrame.setData(data);
             assertEquals(DataFrame.DataType.Weight, dataFrame.getDataType());
@@ -136,12 +138,12 @@ public class TestDataFrame {
             assertEquals(7.0, dataFrame.getTrendPointB());
             assertEquals(3.5, dataFrame.getAverage());
             assertEquals(6.0, dataFrame.getMaxVal());
-            assertEquals(58, (int) (dataFrame.getProgress() *100));
+            assertEquals(58, (int) (dataFrame.getProgress() * 100));
         }
 
         @Test
         @DisplayName("predict 3month trend")
-        void setDataThreeMonth(){
+        void setDataThreeMonth() {
             DataFrame dataFrame = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.ThreeMonth);
             dataFrame.setData(data);
             assertEquals(DataFrame.DataType.Weight, dataFrame.getDataType());
@@ -151,12 +153,12 @@ public class TestDataFrame {
             assertEquals(7.0, dataFrame.getTrendPointB());
             assertEquals(3.5, dataFrame.getAverage());
             assertEquals(6.0, dataFrame.getMaxVal());
-            assertEquals(58, (int) (dataFrame.getProgress() *100));
+            assertEquals(58, (int) (dataFrame.getProgress() * 100));
         }
 
         @Test
         @DisplayName("predict 6month trend")
-        void setDataSixMonth(){
+        void setDataSixMonth() {
             DataFrame dataFrame = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.SixMonth);
             dataFrame.setData(data);
             assertEquals(DataFrame.DataType.Weight, dataFrame.getDataType());
@@ -166,12 +168,12 @@ public class TestDataFrame {
             assertEquals(7.0, dataFrame.getTrendPointB());
             assertEquals(3.5, dataFrame.getAverage());
             assertEquals(6.0, dataFrame.getMaxVal());
-            assertEquals(58, (int) (dataFrame.getProgress() *100));
+            assertEquals(58, (int) (dataFrame.getProgress() * 100));
         }
 
         @Test
         @DisplayName("predict one year trend")
-        void setDataYear(){
+        void setDataYear() {
             DataFrame dataFrame = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.Year);
             dataFrame.setData(data);
             assertEquals(DataFrame.DataType.Weight, dataFrame.getDataType());
@@ -181,12 +183,12 @@ public class TestDataFrame {
             assertEquals(7.0, dataFrame.getTrendPointB());
             assertEquals(3.5, dataFrame.getAverage());
             assertEquals(6.0, dataFrame.getMaxVal());
-            assertEquals(58, (int) (dataFrame.getProgress() *100));
+            assertEquals(58, (int) (dataFrame.getProgress() * 100));
         }
 
         @Test
         @DisplayName("predict all trend")
-        void setDataAll(){
+        void setDataAll() {
             DataFrame dataFrame = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.All);
             dataFrame.setData(data);
             assertEquals(DataFrame.DataType.Weight, dataFrame.getDataType());
@@ -196,9 +198,8 @@ public class TestDataFrame {
             assertEquals(7.0, dataFrame.getTrendPointB());
             assertEquals(3.5, dataFrame.getAverage());
             assertEquals(6.0, dataFrame.getMaxVal());
-            assertEquals(58, (int) (dataFrame.getProgress() *100));
+            assertEquals(58, (int) (dataFrame.getProgress() * 100));
         }
-
 
 
     }

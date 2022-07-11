@@ -35,7 +35,7 @@ public class TestUser {
         @Test
         @DisplayName("Tests setting a users ID")
         void setID() {
-            user.init(5,"name", 5, 5, 5, 5);
+            user.init(5, "name", 5, 5, 5, 5);
             assertEquals(user.getUserID(), 5);
 
             user.init(10, "name", 5, 5, 5, 5);
@@ -45,17 +45,17 @@ public class TestUser {
         @Test
         @DisplayName("Tests setting a users name")
         void setName() {
-                user.setName(testString);
-                assertEquals(user.getName(), testString);
+            user.setName(testString);
+            assertEquals(user.getName(), testString);
 
             user.setName("A different name");
-                assertEquals(user.getName(), "A different name");
+            assertEquals(user.getName(), "A different name");
 
             user.init(5, testString, 5, 5, 5, 5);
-                assertEquals(user.getName(), testString);
+            assertEquals(user.getName(), testString);
 
             user.init(5, "A different name", 5, 5, 5, 5);
-                assertEquals(user.getName(), "A different name");
+            assertEquals(user.getName(), "A different name");
         }
 
         @Test
@@ -67,10 +67,10 @@ public class TestUser {
             user.setHeight(10);
             assertEquals(user.getHeight(), 10);
 
-            user.init(5,"name", 5, 5, 5, 5);
+            user.init(5, "name", 5, 5, 5, 5);
             assertEquals(user.getHeight(), 5);
 
-            user.init(5,"name", 10, 5, 5, 5);
+            user.init(5, "name", 10, 5, 5, 5);
             assertEquals(user.getHeight(), 10);
         }
 
@@ -83,10 +83,10 @@ public class TestUser {
             user.setWeight(10);
             assertEquals(user.getWeight(), 10);
 
-            user.init(5,"name", 5, 5, 5, 5);
+            user.init(5, "name", 5, 5, 5, 5);
             assertEquals(user.getWeight(), 5);
 
-            user.init(5,"name", 5, 10, 5, 5);
+            user.init(5, "name", 5, 10, 5, 5);
             assertEquals(user.getWeight(), 10);
         }
 
@@ -99,10 +99,10 @@ public class TestUser {
             user.setCalorieGoal(10);
             assertEquals(user.getCalorieGoal(), 10);
 
-            user.init(5,"name", 5, 5, 5, 5);
+            user.init(5, "name", 5, 5, 5, 5);
             assertEquals(user.getCalorieGoal(), 5);
 
-            user.init(5,"name", 5, 5, 10, 5);
+            user.init(5, "name", 5, 5, 10, 5);
             assertEquals(user.getCalorieGoal(), 10);
         }
 
@@ -115,10 +115,10 @@ public class TestUser {
             user.setExerciseGoal(10);
             assertEquals(user.getExerciseGoal(), 10);
 
-            user.init(5,"name", 5, 5, 5, 5);
+            user.init(5, "name", 5, 5, 5, 5);
             assertEquals(user.getExerciseGoal(), 5);
 
-            user.init(5,"name", 5, 5, 5, 10);
+            user.init(5, "name", 5, 5, 5, 10);
             assertEquals(user.getExerciseGoal(), 10);
         }
     }
@@ -284,16 +284,14 @@ public class TestUser {
             try {
                 user.setName(null);
                 fail("Name cannot be null, should throw IllegalArgumentException");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
             try {
                 user.setName("");
                 fail("Name cannot be empty, should throw IllegalArgumentException");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -303,16 +301,14 @@ public class TestUser {
             try {
                 user.init(5, null, 5, 5, 5, 5);
                 fail("Name cannot be null, should throw IllegalArgumentException");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
             try {
                 user.init(5, "", 5, 5, 5, 5);
                 fail("Name cannot be empty, should throw IllegalArgumentException");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -333,7 +329,7 @@ public class TestUser {
             user = new User();
             largeTestString = "";
 
-            for(int i = 0; i < 9999; i++) {
+            for (int i = 0; i < 9999; i++) {
                 largeTestString = largeTestString + "a";
             }
         }
@@ -500,7 +496,7 @@ public class TestUser {
             user = new User();
             longTestString = "";
 
-            for(int i = 0; i < 10000; i++) {
+            for (int i = 0; i < 10000; i++) {
                 longTestString = longTestString + "a";
             }
         }
@@ -511,8 +507,7 @@ public class TestUser {
             try {
                 user.init(-1, "name", 5, 5, 5, 5);
                 fail("User ID should be >= 0. should throw IllegalArgumentException");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
         }
@@ -523,16 +518,14 @@ public class TestUser {
             try {
                 user.setName(longTestString);
                 fail("User name is too long. should throw IllegalArgumentException");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
             try {
                 user.init(5, longTestString, 5, 5, 5, 5);
                 fail("User name is too long. should throw IllegalArgumentException");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 

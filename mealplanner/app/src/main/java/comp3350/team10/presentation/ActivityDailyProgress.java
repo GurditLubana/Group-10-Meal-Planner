@@ -30,6 +30,7 @@ public class ActivityDailyProgress extends AppCompatActivity {
         this.initData();
         this.initRecyclerView();
     }
+
     private void initToolbar() {
         this.toolbar = (Toolbar) findViewById(R.id.toolbar);
         this.toolbar.setTitle("MealPlanner");
@@ -38,14 +39,13 @@ public class ActivityDailyProgress extends AppCompatActivity {
     }
 
 
-    private void initData(){
+    private void initData() {
         this.progOp = new TrendsOps();
         try {
             this.data = this.progOp.getDataFrames(DataFrame.Span.Week);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
-            
+
         }
     }
 

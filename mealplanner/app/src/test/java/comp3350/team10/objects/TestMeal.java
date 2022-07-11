@@ -948,8 +948,7 @@ public class TestMeal {
             try {
                 testEdible.setInstructions(null);
                 fail("Inustrctions should not be null, should throw IllegalArgumentException");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
         }
@@ -2266,8 +2265,7 @@ public class TestMeal {
             try {
                 testEdible.setInstructions(longTestString);
                 fail("Instructions too long, should throw IllegalArgumentException");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
         }

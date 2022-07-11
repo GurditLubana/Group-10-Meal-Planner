@@ -35,7 +35,7 @@ public class MealDiaryOps {
         }
     }
 
-    public void nextDate(){
+    public void nextDate() {
         Calendar newDate = (Calendar) this.logDate.clone();
         newDate.add(Calendar.DAY_OF_YEAR, INCREMENT);
         try {
@@ -45,7 +45,7 @@ public class MealDiaryOps {
         }
     }
 
-    public void prevDate(){
+    public void prevDate() {
         Calendar newDate = (Calendar) this.logDate.clone();
         newDate.add(Calendar.DAY_OF_YEAR, -INCREMENT);
         try {
@@ -68,7 +68,7 @@ public class MealDiaryOps {
 
     private void dateChangedUpdateList() {
         this.logChangedUpdateDB();
-        this.currLog = this.db.searchFoodLogByDate(opUser.getUser().getUserID(), this.logDate );
+        this.currLog = this.db.searchFoodLogByDate(opUser.getUser().getUserID(), this.logDate);
     }
 
     public DailyLog getCurrLog() {
@@ -76,7 +76,7 @@ public class MealDiaryOps {
     }
 
     public void logChangedUpdateDB() {
-        if(this.currLog != null) {
+        if (this.currLog != null) {
             this.db.replaceLog(opUser.getUser().getUserID(), this.currLog);
         }
     }
@@ -85,16 +85,15 @@ public class MealDiaryOps {
         EdibleLog newItem = db.findEdibleByKey(dbkey, isCustom);
         Edible foundEdible = null;
 
-        if(newItem == null){
+        if (newItem == null) {
             throw new NoSuchElementException("MealDiaryOps addByKey the supplied dbkey does not match any db entry " + dbkey);
         }
-            
+
         try {
             foundEdible = new EdibleLog(newItem).init(newItem.getQuantity(), newItem.getUnit());
             this.currLog.addEdibleToLog(foundEdible);
             this.logChangedUpdateDB();
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }

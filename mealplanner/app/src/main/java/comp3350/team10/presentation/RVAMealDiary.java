@@ -1,22 +1,17 @@
 package comp3350.team10.presentation;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import comp3350.team10.R;
-import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;
-import comp3350.team10.objects.EdibleLog;
 
 
 public class RVAMealDiary extends RecyclerViewAdapter {
@@ -33,25 +28,19 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         ViewHolder viewHolder = null;
         this.context = viewGroup.getContext();
 
-        if (viewType == FragmentType.diaryModify.ordinal())
-        {
+        if (viewType == FragmentType.diaryModify.ordinal()) {
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.fragment_diary_card_context, viewGroup, false);
-        }
-        else if (viewType == FragmentType.diaryAdd.ordinal())
-        {
+        } else if (viewType == FragmentType.diaryAdd.ordinal()) {
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.fragment_diary_add_log, viewGroup, false);
-        }
-        else
-        {
+        } else {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card,
                     viewGroup, false);
         }
 
         context = view.getContext();
-        if (context instanceof FragToMealDiary)
-        {
+        if (context instanceof FragToMealDiary) {
             this.sendToMealDiary = (FragToMealDiary) context;
         }
         viewHolder = new ViewHolder(view);
@@ -62,21 +51,15 @@ public class RVAMealDiary extends RecyclerViewAdapter {
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
         // switch (viewHolder.getItemViewType()) {
-        if (super.getViewType() == FragmentType.diaryModify.ordinal())
-        {
+        if (super.getViewType() == FragmentType.diaryModify.ordinal()) {
             setDiaryContextListeners(viewHolder);
-        }
-        else if (super.getViewType() == FragmentType.diaryAdd.ordinal())
-        {
+        } else if (super.getViewType() == FragmentType.diaryAdd.ordinal()) {
             setDiaryAddListeners(viewHolder);
-        }
-        else
-        {
+        } else {
             setDiaryEntryData(viewHolder, position);
             setDiaryEntryListeners(viewHolder);
         }
     }
-
 
 
     private void setDiaryEntryData(ViewHolder viewHolder, final int position) {
@@ -95,8 +78,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         image = super.getBitmapFromFile(this.context, currentItem.getPhoto());
         if (image != null) {
             itemImage.setImageBitmap(image);
-        }
-        else {
+        } else {
             itemImage.setImageResource(R.drawable.ic_eggplant);
         }
 
@@ -108,8 +90,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
             public void onClick(View view) {
                 int position = viewHolder.getAbsoluteAdapterPosition();
 
-                if (sendToMealDiary != null)
-                {
+                if (sendToMealDiary != null) {
                     sendToMealDiary.showContextUI(position);
                 }
             }
@@ -123,8 +104,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
-                        if (sendToMealDiary != null)
-                        {
+                        if (sendToMealDiary != null) {
                             sendToMealDiary.showContextUI(position);
                         }
                     }
@@ -136,8 +116,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
-                        if (sendToMealDiary != null)
-                        {
+                        if (sendToMealDiary != null) {
                             sendToMealDiary.removeItem(position);
                         }
                     }
@@ -148,8 +127,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
                     @Override
                     public void onClick(View view) {
 
-                        if (sendToMealDiary != null)
-                        {
+                        if (sendToMealDiary != null) {
                             sendToMealDiary.editItem();
                         }
                     }
@@ -163,8 +141,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
-                        if (sendToMealDiary != null)
-                        {
+                        if (sendToMealDiary != null) {
                             sendToMealDiary.addEntry(position);
                         }
                     }

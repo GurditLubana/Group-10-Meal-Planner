@@ -2,12 +2,11 @@ package comp3350.team10.presentation;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
 import comp3350.team10.objects.Edible;
 
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.ArrayList;
-
 
 
 public class MealDiaryLiveData extends ViewModel {
@@ -20,7 +19,8 @@ public class MealDiaryLiveData extends ViewModel {
     private MutableLiveData<Double> netCalories;               //The net calorie calculation for a given date (consumed - burnt)
     private MutableLiveData<Double> progressBar;               //The progress bar for the current date
     private MutableLiveData<Double> progressExcess;            //The excess progress bar for the current date
-                                                                //(different than progress bar)
+
+    //(different than progress bar)
     public MutableLiveData<Calendar> getActivityDate() {
         if (activityDate == null) {
             activityDate = new MutableLiveData<Calendar>();

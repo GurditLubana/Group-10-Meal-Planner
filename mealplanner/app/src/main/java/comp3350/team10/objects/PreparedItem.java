@@ -1,10 +1,6 @@
 package comp3350.team10.objects;
 
-import android.widget.ImageView;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public abstract class PreparedItem extends Edible {
     private String instructions;     //The instructions required for the Edible to prepare
@@ -19,8 +15,7 @@ public abstract class PreparedItem extends Edible {
     public void setInstructions(String newInstructions) throws IllegalArgumentException {
         if (newInstructions != null && newInstructions.length() <= Constant.ENTRY_MAX_VALUE) {
             this.instructions = newInstructions;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Invalid instructions");
         }
     }
@@ -45,12 +40,12 @@ public abstract class PreparedItem extends Edible {
     private void calcCalories(ArrayList<Ingredient> ingredients) throws IllegalArgumentException {
         double calculatedCalories = 0;
 
-        if(ingredients.size() > 0) {
-            for(int i = 0; i < ingredients.size(); i++) {
+        if (ingredients.size() > 0) {
+            for (int i = 0; i < ingredients.size(); i++) {
                 calculatedCalories += ingredients.get(i).getIngredient().getCalories();
             }
 
-            if(calculatedCalories > Constant.ENTRY_MAX_VALUE) {
+            if (calculatedCalories > Constant.ENTRY_MAX_VALUE) {
                 calculatedCalories = Constant.ENTRY_MAX_VALUE;
             }
 
@@ -61,12 +56,12 @@ public abstract class PreparedItem extends Edible {
     private void calcProtein(ArrayList<Ingredient> ingredients) throws IllegalArgumentException {
         int calculatedProtein = 0;
 
-        if(ingredients.size() > 0) {
-            for(int i = 0; i < ingredients.size(); i++) {
+        if (ingredients.size() > 0) {
+            for (int i = 0; i < ingredients.size(); i++) {
                 calculatedProtein += ingredients.get(i).getIngredient().getProtein();
             }
 
-            if(calculatedProtein > Constant.ENTRY_MAX_VALUE) {
+            if (calculatedProtein > Constant.ENTRY_MAX_VALUE) {
                 calculatedProtein = Constant.ENTRY_MAX_VALUE;
             }
 
@@ -77,12 +72,12 @@ public abstract class PreparedItem extends Edible {
     private void calcCarbs(ArrayList<Ingredient> ingredients) throws IllegalArgumentException {
         int calculatedCarbs = 0;
 
-        if(ingredients.size() > 0) {
-            for(int i = 0; i < ingredients.size(); i++) {
+        if (ingredients.size() > 0) {
+            for (int i = 0; i < ingredients.size(); i++) {
                 calculatedCarbs += ingredients.get(i).getIngredient().getCarbs();
             }
 
-            if(calculatedCarbs > Constant.ENTRY_MAX_VALUE) {
+            if (calculatedCarbs > Constant.ENTRY_MAX_VALUE) {
                 calculatedCarbs = Constant.ENTRY_MAX_VALUE;
             }
 
@@ -93,12 +88,12 @@ public abstract class PreparedItem extends Edible {
     private void calcFat(ArrayList<Ingredient> ingredients) throws IllegalArgumentException {
         int calculatedFat = 0;
 
-        if(ingredients.size() > 0) {
-            for(int i = 0; i < ingredients.size(); i++) {
+        if (ingredients.size() > 0) {
+            for (int i = 0; i < ingredients.size(); i++) {
                 calculatedFat += ingredients.get(i).getIngredient().getFat();
             }
 
-            if(calculatedFat > Constant.ENTRY_MAX_VALUE) {
+            if (calculatedFat > Constant.ENTRY_MAX_VALUE) {
                 calculatedFat = Constant.ENTRY_MAX_VALUE;
             }
 
@@ -109,9 +104,9 @@ public abstract class PreparedItem extends Edible {
     private void checkIfAlcoholic(ArrayList<Ingredient> ingredients) {
         boolean isAlcoholic = false;
 
-        if(ingredients.size() > 0) {
-            for(int i = 0 ; i < ingredients.size() && !isAlcoholic; i++) {
-                if(ingredients.get(i).getIngredient().getIsAlcoholic()) {
+        if (ingredients.size() > 0) {
+            for (int i = 0; i < ingredients.size() && !isAlcoholic; i++) {
+                if (ingredients.get(i).getIngredient().getIsAlcoholic()) {
                     isAlcoholic = true;
                 }
             }
@@ -123,9 +118,9 @@ public abstract class PreparedItem extends Edible {
     private void checkIfSpicy(ArrayList<Ingredient> ingredients) {
         boolean isSpicy = false;
 
-        if(ingredients.size() > 0) {
-            for(int i = 0 ; i < ingredients.size() && !isSpicy; i++) {
-                if(ingredients.get(i).getIngredient().getIsSpicy()) {
+        if (ingredients.size() > 0) {
+            for (int i = 0; i < ingredients.size() && !isSpicy; i++) {
+                if (ingredients.get(i).getIngredient().getIsSpicy()) {
                     isSpicy = true;
                 }
             }
@@ -137,9 +132,9 @@ public abstract class PreparedItem extends Edible {
     private void checkIfVegan(ArrayList<Ingredient> ingredients) {
         boolean isVegan = true;
 
-        if(ingredients.size() > 0) {
-            for(int i = 0 ; i < ingredients.size() && isVegan; i++) {
-                if(!ingredients.get(i).getIngredient().getIsVegan()) {
+        if (ingredients.size() > 0) {
+            for (int i = 0; i < ingredients.size() && isVegan; i++) {
+                if (!ingredients.get(i).getIngredient().getIsVegan()) {
                     isVegan = false;
                 }
             }
@@ -151,9 +146,9 @@ public abstract class PreparedItem extends Edible {
     private void checkIfVegetarian(ArrayList<Ingredient> ingredients) {
         boolean isVegetarian = true;
 
-        if(ingredients.size() > 0) {
-            for(int i = 0 ; i < ingredients.size() && isVegetarian; i++) {
-                if(!ingredients.get(i).getIngredient().getIsVegetarian()) {
+        if (ingredients.size() > 0) {
+            for (int i = 0; i < ingredients.size() && isVegetarian; i++) {
+                if (!ingredients.get(i).getIngredient().getIsVegetarian()) {
                     isVegetarian = false;
                 }
             }
@@ -165,9 +160,9 @@ public abstract class PreparedItem extends Edible {
     private void checkIfGlutenFree(ArrayList<Ingredient> ingredients) {
         boolean isGlutenFree = true;
 
-        if(ingredients.size() > 0) {
-            for(int i = 0 ; i < ingredients.size() && isGlutenFree; i++) {
-                if(!ingredients.get(i).getIngredient().getIsGlutenFree()) {
+        if (ingredients.size() > 0) {
+            for (int i = 0; i < ingredients.size() && isGlutenFree; i++) {
+                if (!ingredients.get(i).getIngredient().getIsGlutenFree()) {
                     isGlutenFree = false;
                 }
             }

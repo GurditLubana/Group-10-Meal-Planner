@@ -668,7 +668,7 @@ public class TestDrink {
                     .initNutrition(1, 1, 1, 1)
                     .initCategories(true, false, false, true, false)
                     .initMetadata(true, "photo");
-            ingredients.add((DrinkIngredient)new DrinkIngredient().init(food, 5, Edible.Unit.cups));
+            ingredients.add((DrinkIngredient) new DrinkIngredient().init(food, 5, Edible.Unit.cups));
 
             testEdible.initDetails(0, testString, testString, 1, Edible.Unit.g)
                     .initNutrition(0, 0, 0, 0)
@@ -948,8 +948,7 @@ public class TestDrink {
             try {
                 testEdible.setInstructions(null);
                 fail("Inustrctions should not be null, should throw IllegalArgumentException");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
         }
@@ -2266,8 +2265,7 @@ public class TestDrink {
             try {
                 testEdible.setInstructions(longTestString);
                 fail("Instructions too long, should throw IllegalArgumentException");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
         }

@@ -21,10 +21,9 @@ public class Ingredient {
     }
 
     public void setIngredient(Edible newIngredient) throws IllegalArgumentException {
-        if(newIngredient != null && validIngredient(newIngredient)) {
+        if (newIngredient != null && validIngredient(newIngredient)) {
             this.ingredient = newIngredient;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Invalid ingredient");
         }
     }
@@ -38,8 +37,7 @@ public class Ingredient {
             currEdible.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(),
                     currEdible.getIsGlutenFree());
             currEdible.initMetadata(currEdible.getIsCustom(), currEdible.getPhoto());
-        }
-        catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             isValid = false;
         }
 
@@ -47,19 +45,17 @@ public class Ingredient {
     }
 
     public void setQuantity(double newQuantity) throws IllegalArgumentException {
-        if(newQuantity > 0 && newQuantity <= Constant.ENTRY_MAX_VALUE) {
+        if (newQuantity > 0 && newQuantity <= Constant.ENTRY_MAX_VALUE) {
             this.quantity = newQuantity;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Invald ingredient quantity");
         }
     }
 
     public void setQuantityUnit(Edible.Unit newUnit) throws IllegalArgumentException {
-        if(newUnit != null) {
+        if (newUnit != null) {
             this.quantityUnit = newUnit;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Invald ingredient unit");
         }
     }
@@ -67,7 +63,7 @@ public class Ingredient {
     public Edible getIngredient() {
         return this.ingredient;
     }
-    
+
     public double getQuantity() {
         return this.quantity;
     }

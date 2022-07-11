@@ -2,7 +2,6 @@ package comp3350.team10.presentation;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 
 import comp3350.team10.R;
 import comp3350.team10.objects.Edible;
-import comp3350.team10.objects.EdibleLog;
 
 
 public class RVARecipeBook extends RecyclerViewAdapter {

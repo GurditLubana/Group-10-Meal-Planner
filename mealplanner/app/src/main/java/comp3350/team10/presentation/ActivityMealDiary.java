@@ -100,13 +100,13 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             this.addButton.setName(DIARYADDCARD);
         } catch (Exception e) {
             System.out.println(e);
-            
+
         }
         try {
             this.modifyLog.setName(DIARYMODIFYCARD);
         } catch (Exception e) {
             System.out.println(e);
-            
+
         }
     }
 
@@ -219,8 +219,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     public void showContextUI(int position) {
         int otherPosition = -1;
-        if (position >= 0 && position != this.savedItemPosition ) {
-            if(this.savedItem == null) {
+        if (position >= 0 && position != this.savedItemPosition) {
+            if (this.savedItem == null) {
                 saveItem(position);
             } else {
                 otherPosition = this.savedItemPosition;
@@ -246,8 +246,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     private void saveItem(int position) {
-            this.savedItemPosition = position;
-            this.savedItem = this.data.get(position);
+        this.savedItemPosition = position;
+        this.savedItem = this.data.get(position);
     }
 
     private void swapSaved(int position) {
@@ -368,7 +368,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public void setEntryQty(Double amount, String unit) {
-        ArrayList<Edible> temp = new ArrayList<Edible>();
         EdibleLog selectedItem = null;
 
         try {
@@ -397,10 +396,9 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     public void setExerciseCalories(Double value) {
         try {
             this.currLog.setExerciseActual(value);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
-            
+
         }
         this.updateLiveData();
     }
@@ -415,10 +413,9 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         try {
             this.currLog.setCalorieGoal(value);
             this.opExec.logChangedUpdateDB();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
-            
+
         }
         this.updateLiveData();
     }

@@ -33,9 +33,9 @@ public class RVATrends extends RecyclerViewAdapter {
         View view = null;
         ViewHolder viewHolder = null;
         this.context = viewGroup.getContext();
-        if(context instanceof ActivityTrends) {
+        if (context instanceof ActivityTrends) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_trend_chart, viewGroup, false);
-        }else if(context instanceof ActivityDailyProgress){
+        } else if (context instanceof ActivityDailyProgress) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_daily_progress, viewGroup, false);
         }
         viewHolder = new ViewHolder(view);
@@ -46,8 +46,8 @@ public class RVATrends extends RecyclerViewAdapter {
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         if (context instanceof ActivityTrends) {
             setTrendData(viewHolder, position);
-        }else if(context instanceof ActivityDailyProgress){
-            setDailyData(viewHolder,position);
+        } else if (context instanceof ActivityDailyProgress) {
+            setDailyData(viewHolder, position);
         }
     }
 
@@ -71,10 +71,10 @@ public class RVATrends extends RecyclerViewAdapter {
         DataFrame dataFrame = this.dataSet.get(position);
         DataPoint[] dataPointArray = new DataPoint[dataFrame.size()];
         ArrayList<Double> dataArray = dataFrame.getData();
-        double chartMin = - DataFrame.numDays[dataFrame.getSpan().ordinal()];
+        double chartMin = -DataFrame.numDays[dataFrame.getSpan().ordinal()];
 
         for (int i = 0; i < dataArray.size(); i++) {
-            dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
+            dataPointArray[i] = new DataPoint(i - dataArray.size(), dataArray.get(i).doubleValue());
         }
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPointArray);
@@ -109,11 +109,11 @@ public class RVATrends extends RecyclerViewAdapter {
         DataFrame dataFrame = this.dataSet.get(position);
         DataPoint[] dataPointArray = new DataPoint[dataFrame.size()];
         ArrayList<Double> dataArray = dataFrame.getData();
-        double chartMin = - DataFrame.numDays[dataFrame.getSpan().ordinal()];
+        double chartMin = -DataFrame.numDays[dataFrame.getSpan().ordinal()];
         int progress = (int) (dataFrame.getProgress() * 100);
 
         for (int i = 0; i < dataArray.size(); i++) {
-            dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
+            dataPointArray[i] = new DataPoint(i - dataArray.size(), dataArray.get(i).doubleValue());
         }
 
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dataPointArray);
@@ -133,12 +133,12 @@ public class RVATrends extends RecyclerViewAdapter {
         graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
         graph.getGridLabelRenderer().setVerticalLabelsColor(Color.WHITE);
         graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMinX(chartMin  - 1);
+        graph.getViewport().setMinX(chartMin - 1);
         graph.addSeries(series);
         graph.addSeries(seriesTrend);
 
         progressCircle.setProgress(progress);
-        progressPercent.setText(Integer.toString(progress)+"%");
+        progressPercent.setText(Integer.toString(progress) + "%");
     }
 
 }

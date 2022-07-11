@@ -1,11 +1,11 @@
 package comp3350.team10.objects;
 
 public class EdibleLog extends Edible {
-    private UnitConverter converter;    //Used to calculate the actual calories based on the edibles base factors
+    private final UnitConverter converter;    //Used to calculate the actual calories based on the edibles base factors
 
-    private Unit baseUnit;              //The base unit of an edible
-    private double baseCalories;        //The base calories of a edible
-    private double baseQuantity;        //The base quantity of a edible
+    private final Unit baseUnit;              //The base unit of an edible
+    private final double baseCalories;        //The base calories of a edible
+    private final double baseQuantity;        //The base quantity of a edible
 
     private double quantity;            //The actual quantity of the edible consumed
     private Edible.Unit unit;           //The actual unit of the edible consumed
@@ -81,14 +81,13 @@ public class EdibleLog extends Edible {
         return this.calories;
     }
 
-    public EdibleLog clone() throws IllegalArgumentException{
+    public EdibleLog clone() throws IllegalArgumentException {
         EdibleLog copy = null;
 
         try {
             copy = new EdibleLog(this);
             copy.initDetails(this.getDbkey(), this.getName(), this.getDescription(), super.getQuantity(), super.getUnit());
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("EdibleLog clone failed " + e);
         } catch (Exception e) {
             throw new IllegalArgumentException("EdibleLog init setCalories failed " + e);

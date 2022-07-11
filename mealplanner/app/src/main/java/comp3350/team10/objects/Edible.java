@@ -1,10 +1,9 @@
 package comp3350.team10.objects;
 
-import android.widget.ImageView;
-import java.io.IOException;
-
 public class Edible {
-    public enum Unit {cups, oz, g, serving, tbsp, tsp, ml, liter}; //All possible units for a given edible
+    public enum Unit {cups, oz, g, serving, tbsp, tsp, ml, liter}
+
+    //All possible units for a given edible
 
     //Edible details
     private int edibleID;                       //This edibles database key
@@ -140,19 +139,17 @@ public class Edible {
     }
 
     public void setDescription(String newDescription) throws IllegalArgumentException {
-        if(newDescription != null && newDescription.length() <= Constant.ENTRY_MAX_VALUE) {
+        if (newDescription != null && newDescription.length() <= Constant.ENTRY_MAX_VALUE) {
             this.description = newDescription;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Edible setDescription description cannot be null");
         }
     }
 
     public void setProtein(int newProtein) throws IllegalArgumentException {
-        if(newProtein <= Constant.ENTRY_MAX_VALUE && newProtein >= Constant.ENTRY_MIN_VALUE) {
+        if (newProtein <= Constant.ENTRY_MAX_VALUE && newProtein >= Constant.ENTRY_MIN_VALUE) {
             this.protein = newProtein;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Edible setProtein requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
         }
     }
@@ -166,10 +163,9 @@ public class Edible {
     }
 
     public void setFat(int newFat) throws IllegalArgumentException {
-        if(newFat <= Constant.ENTRY_MAX_VALUE && newFat >= Constant.ENTRY_MIN_VALUE) {
+        if (newFat <= Constant.ENTRY_MAX_VALUE && newFat >= Constant.ENTRY_MIN_VALUE) {
             this.fat = newFat;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Edible setFat requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
         }
     }
@@ -179,28 +175,25 @@ public class Edible {
     }
 
     public void setCarbs(int newCarbs) throws IllegalArgumentException {
-        if(newCarbs <= Constant.ENTRY_MAX_VALUE && newCarbs >= Constant.ENTRY_MIN_VALUE) {
+        if (newCarbs <= Constant.ENTRY_MAX_VALUE && newCarbs >= Constant.ENTRY_MIN_VALUE) {
             this.carbs = newCarbs;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Edible setCarbs requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
         }
     }
 
     public void setCalories(double newCalories) throws IllegalArgumentException {
-        if(newCalories <= Constant.ENTRY_MAX_VALUE && newCalories >= Constant.ENTRY_MIN_VALUE) {
+        if (newCalories <= Constant.ENTRY_MAX_VALUE && newCalories >= Constant.ENTRY_MIN_VALUE) {
             this.calories = newCalories;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Edible setCalories requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
         }
     }
 
     public void setBaseUnit(Unit newUnit) throws IllegalArgumentException {
-        if(newUnit != null) {
+        if (newUnit != null) {
             this.baseUnit = newUnit;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Edible setBaseUnit cannot be null");
         }
     }
@@ -209,35 +202,31 @@ public class Edible {
         if (newQuantity <= Constant.ENTRY_MAX_VALUE && newQuantity > Constant.ENTRY_MIN_VALUE) {
 
             this.baseQuantity = newQuantity;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Edible setBaseQuantity requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
         }
     }
 
     public void setDBKey(int dbkey) throws IllegalArgumentException {
-        if(dbkey >= 0) {
+        if (dbkey >= 0) {
             this.edibleID = dbkey;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Edible setDBkey cannot be negative");
         }
     }
 
     public void setName(String name) throws IllegalArgumentException {
-        if(name != null && !name.equals("") && name.length() <= Constant.ENTRY_MAX_VALUE) {
+        if (name != null && !name.equals("") && name.length() <= Constant.ENTRY_MAX_VALUE) {
             this.name = name;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Edible setName cannot be null or empty");
         }
     }
 
     public void setPhoto(String filename) throws IllegalArgumentException {
-        if(filename != null && !filename.equals("") && filename.length() <= Constant.ENTRY_MAX_VALUE) {
+        if (filename != null && !filename.equals("") && filename.length() <= Constant.ENTRY_MAX_VALUE) {
             this.photo = filename;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Edible setPhoto cannot be null or empty");
         }
     }
@@ -266,7 +255,7 @@ public class Edible {
         return this.edibleID;
     }
 
-    public String getPhoto(){
+    public String getPhoto() {
         return this.photo;
     }
 
@@ -277,7 +266,7 @@ public class Edible {
         copy.initNutrition(this.calories, this.protein, this.carbs, this.fat);
         copy.initCategories(this.isAlcoholic, this.isSpicy, this.isVegan, this.isVegetarian, this.isGlutenFree);
         copy.initMetadata(this.isCustom, this.photo);
-        
+
         return copy;
     }
 }

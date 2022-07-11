@@ -2,7 +2,6 @@ package comp3350.team10.persistence;
 
 public class SharedDB {
     private static DBSelector db = null;       //Represents whether or not the database has already been accessed or not
-    public static String dbName;               //The name of the given database
 
     public static void start() {
         if (db == null) {

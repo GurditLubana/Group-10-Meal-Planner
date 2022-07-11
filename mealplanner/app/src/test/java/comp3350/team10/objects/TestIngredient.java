@@ -63,10 +63,10 @@ public class TestIngredient {
             testIngredient.setQuantity(10);
             assertEquals(testIngredient.getQuantity(), 10);
 
-            testIngredient.init(testEdible,5, Edible.Unit.g);
+            testIngredient.init(testEdible, 5, Edible.Unit.g);
             assertEquals(testIngredient.getQuantity(), 5);
 
-            testIngredient.init(testEdible,10, Edible.Unit.g);
+            testIngredient.init(testEdible, 10, Edible.Unit.g);
             assertEquals(testIngredient.getQuantity(), 10);
         }
 
@@ -169,10 +169,10 @@ public class TestIngredient {
             testIngredient.setQuantity(1000);
             assertEquals(testIngredient.getQuantity(), 1000);
 
-            testIngredient.init(testEdible,500, Edible.Unit.g);
+            testIngredient.init(testEdible, 500, Edible.Unit.g);
             assertEquals(testIngredient.getQuantity(), 500);
 
-            testIngredient.init(testEdible,1000, Edible.Unit.g);
+            testIngredient.init(testEdible, 1000, Edible.Unit.g);
             assertEquals(testIngredient.getQuantity(), 1000);
         }
     }
@@ -200,17 +200,15 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(null);
                 fail("An ingredient's edible cannot be null, should throw an IllegalArgumentException");
-            }
-            catch(Exception e) {
-                assertTrue(e instanceof  IllegalArgumentException);
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
             }
 
             try {
                 testIngredient.init(null, 5, Edible.Unit.g);
                 fail("An ingredient's edible cannot be null, should throw an IllegalArgumentException");
-            }
-            catch(Exception e) {
-                assertTrue(e instanceof  IllegalArgumentException);
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
             }
         }
 
@@ -220,17 +218,15 @@ public class TestIngredient {
             try {
                 testIngredient.setQuantityUnit(null);
                 fail("An ingredient's unit cannot be null, should throw an IllegalArgumentException");
-            }
-            catch(Exception e) {
-                assertTrue(e instanceof  IllegalArgumentException);
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
             }
 
             try {
                 testIngredient.init(testEdible, 5, null);
                 fail("An ingredient's unit cannot be null, should throw an IllegalArgumentException");
-            }
-            catch(Exception e) {
-                assertTrue(e instanceof  IllegalArgumentException);
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
             }
         }
     }
@@ -290,8 +286,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -301,8 +296,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -312,8 +306,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -323,8 +316,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -334,8 +326,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -345,8 +336,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -356,8 +346,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -367,8 +356,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -378,8 +366,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -389,8 +376,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -400,8 +386,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -411,8 +396,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -422,8 +406,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -433,8 +416,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -444,8 +426,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -455,8 +436,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -466,8 +446,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -477,8 +456,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -488,8 +466,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -499,8 +476,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -510,8 +486,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
@@ -521,8 +496,7 @@ public class TestIngredient {
             try {
                 testIngredient.setIngredient(testEdible);
                 fail("Should throw an exception, this is an incomplete edible");
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
         }

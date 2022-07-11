@@ -475,7 +475,7 @@ public class TestRecipeBookOps {
 
 
             ops.addSimpleDrink(" !!!!!!! * @@@ +++==", "", 2, Edible.Unit.g, 1, 1, 1, 1,
-                        false, false, false, false, false, "photo");
+                    false, false, false, false, false, "photo");
             assertEquals(prevLength + 2, ops.getDrinkRecipes().size());
 
             ops.addSimpleDrink(" !!!!!!! * @@@ +++==", " ", 2, Edible.Unit.g, 1, 1, 1, 1,

@@ -31,10 +31,9 @@ public class User {
     }
 
     private void setUserID(int newUserID) throws IllegalArgumentException {
-        if(newUserID >= 0) {
+        if (newUserID >= 0) {
             this.userID = newUserID;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("User ID must be > 0");
         }
     }

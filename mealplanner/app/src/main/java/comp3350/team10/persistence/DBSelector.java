@@ -11,14 +11,14 @@ import comp3350.team10.objects.EdibleLog;
 import comp3350.team10.objects.Meal;
 import comp3350.team10.objects.User;
 
-public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInterface{
+public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInterface {
     private HSqlDB hsql;                //An active instance of the HSQL database
     private DataAccessStub stub;        //An active instance of the DataAccessStub database (switch to shared)
 
     private LogDBInterface logDB;       //The database we would like to process log operations on
     private UserDBInterface userDB;     //The database we would like to process user operations on
     private RecipeDBInterface recipeDB; //The database we would like to process recipe operations on
-    
+
 
     DBSelector() { //Creates both databases then points all interfaces towards hsql
         //startHsqlDB();
@@ -43,23 +43,21 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
     }
 
     public void save() {
-        if(this.hsql != null){
+        if (this.hsql != null) {
             this.hsql.save();
-        }
-        else if (this.stub != null){
+        } else if (this.stub != null) {
             this.stub.save();
         }
     }
 
-    public void close(){
-        if(this.hsql != null){
+    public void close() {
+        if (this.hsql != null) {
             this.hsql.close();
-        }
-        else if (this.stub != null){
+        } else if (this.stub != null) {
             this.stub.close();
         }
     }
-    
+
 
     //User interface
 
@@ -102,7 +100,7 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
         this.logDB.setLogExerciseGoal(userID, goal, date);
     }
 
-    public ArrayList<Double> getDataFrame(DataFrame.DataType dataType, int days){
+    public ArrayList<Double> getDataFrame(DataFrame.DataType dataType, int days) {
         return this.logDB.getDataFrame(dataType, days);
     }
 

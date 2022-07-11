@@ -1,7 +1,5 @@
 package comp3350.team10.presentation;
 
-import static android.app.Activity.RESULT_OK;
-
 import comp3350.team10.R;
 import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.Edible;
@@ -13,9 +11,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 import android.net.Uri;
 import android.os.Build;
@@ -28,27 +23,16 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
 
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
 
@@ -77,7 +61,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private String instructions;             // value of instructions input
     private String ingredients;            // value of ingredients input
     private Edible.Unit unit;                // value of units input
-    private static final int REQUEST_CODE = 1 ;    // Request code for the edible's image
+    private static final int REQUEST_CODE = 1;    // Request code for the edible's image
 
 
     public FragmentRecipeBookDialogs() {
@@ -119,10 +103,10 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.inputCalories = view.findViewById(R.id.dialogRecipeCaloriesInput);
         this.inputIngredients = view.findViewById(R.id.dialogRecipeIngredientsInput);
         this.btnChooseItemImage = view.findViewById(R.id.dialogRecipePhotoBtn);
-        this.EdibleItemImage= view.findViewById(R.id.dialogRecipePhoto);
+        this.EdibleItemImage = view.findViewById(R.id.dialogRecipePhoto);
         this.cameraIcon = view.findViewById(R.id.dialogRecipePhotoIcon);
-        this.isAlcoholicCheckBox= view.findViewById(R.id.isAlcoholic);
-        this.isSpicyCheckBox= view.findViewById(R.id.isSpicy);
+        this.isAlcoholicCheckBox = view.findViewById(R.id.isAlcoholic);
+        this.isSpicyCheckBox = view.findViewById(R.id.isSpicy);
         this.isGluteenFree = view.findViewById(R.id.isGluteenFree);
         this.isVegetarianCheckBox = view.findViewById(R.id.isVegetarian);
         this.isVeganCheckBox = view.findViewById(R.id.isVegan);
@@ -192,7 +176,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
 
         super.initSpinner();
 
-        if(super.getUnitSpinner().getAdapter() instanceof ArrayAdapter) {
+        if (super.getUnitSpinner().getAdapter() instanceof ArrayAdapter) {
             adapter = (ArrayAdapter) super.getUnitSpinner().getAdapter();
             super.getUnitSpinner().setSelection(adapter.getPosition(Edible.Unit.serving.name()));
         }
@@ -221,10 +205,9 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
 
         this.btnChooseItemImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v){
+            public void onClick(View v) {
 
-                if(Build.VERSION.SDK_INT >= 23)
-                {
+                if (Build.VERSION.SDK_INT >= 23) {
                     try {
 
                         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -258,12 +241,11 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
             }
     );
 
-private void openGallery()
-{
+    private void openGallery() {
 
-    Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-    galleryIntentLauncher.launch(galleryIntent);
-}
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        galleryIntentLauncher.launch(galleryIntent);
+    }
 
     ActivityResultLauncher<Intent> galleryIntentLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -279,15 +261,13 @@ private void openGallery()
             });
 
 
-  private void bitmap(ActivityResult result)
-    {
+    private void bitmap(ActivityResult result) {
         Uri imageUri = result.getData().getData();
 
         EdibleItemImage.setImageURI(imageUri);
         cameraIcon.setVisibility(View.GONE);
 
     }
-
 
 
     private boolean validateData() {
@@ -309,8 +289,7 @@ private void openGallery()
         if (this.mode != FragToRecipeBook.EntryMode.ADD_FOOD) {
             if (check(this.inputIngredients)) {
                 String[] tempIngredients = (this.inputIngredients.getText().toString().trim()).split(",");
-                for(int i = 0; i <tempIngredients.length;i++)
-                {
+                for (int i = 0; i < tempIngredients.length; i++) {
                     System.out.println(tempIngredients[i]);
                 }
 

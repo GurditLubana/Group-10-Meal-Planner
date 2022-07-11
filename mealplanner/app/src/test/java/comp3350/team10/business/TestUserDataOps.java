@@ -1,7 +1,6 @@
 package comp3350.team10.business;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -12,8 +11,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import comp3350.team10.objects.Constant;
-import comp3350.team10.objects.Edible;
-import comp3350.team10.objects.User;
 import comp3350.team10.persistence.SharedDB;
 
 public class TestUserDataOps {
@@ -447,16 +444,14 @@ public class TestUserDataOps {
                 try {
                     userOps.getUser().setName(null);
                     fail("Name cannot be null, should throw IllegalArgumentException");
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     assertTrue(e instanceof IllegalArgumentException);
                 }
 
                 try {
                     userOps.getUser().setName("");
                     fail("Name cannot be empty, should throw IllegalArgumentException");
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     assertTrue(e instanceof IllegalArgumentException);
                 }
 
@@ -466,16 +461,14 @@ public class TestUserDataOps {
                 try {
                     userOps.getUser().init(5, null, 5, 5, 5, 5);
                     fail("Name cannot be null, should throw IllegalArgumentException");
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     assertTrue(e instanceof IllegalArgumentException);
                 }
 
                 try {
                     userOps.getUser().init(5, "", 5, 5, 5, 5);
                     fail("Name cannot be empty, should throw IllegalArgumentException");
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     assertTrue(e instanceof IllegalArgumentException);
                 }
 

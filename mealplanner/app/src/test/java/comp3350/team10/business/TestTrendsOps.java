@@ -26,8 +26,7 @@ public class TestTrendsOps {
             try {
                 Main.startUp();
                 ops = new TrendsOps();
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println(e);
             }
         }
@@ -39,14 +38,13 @@ public class TestTrendsOps {
 
         @Test
         @DisplayName("get one week of data")
-        void getWeek(){
+        void getWeek() {
             ArrayList<DataFrame> dataFrames = null;
             try {
                 dataFrames = ops.getDataFrames(DataFrame.Span.Week);
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println(e);
-                
+
             }
 
             assertEquals(DataFrame.DataType.values().length, dataFrames.size());
@@ -55,14 +53,13 @@ public class TestTrendsOps {
 
         @Test
         @DisplayName("get one month of data")
-        void getMonth(){
+        void getMonth() {
             ArrayList<DataFrame> dataFrames = null;
             try {
                 dataFrames = ops.getDataFrames(DataFrame.Span.Month);
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println(e);
-                
+
             }
 
             assertEquals(DataFrame.DataType.values().length, dataFrames.size());
@@ -71,14 +68,13 @@ public class TestTrendsOps {
 
         @Test
         @DisplayName("get 3 month of data")
-        void getThreeMonth(){
+        void getThreeMonth() {
             ArrayList<DataFrame> dataFrames = null;
             try {
                 dataFrames = ops.getDataFrames(DataFrame.Span.ThreeMonth);
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println(e);
-                
+
             }
 
             assertEquals(DataFrame.DataType.values().length, dataFrames.size());
@@ -87,14 +83,13 @@ public class TestTrendsOps {
 
         @Test
         @DisplayName("get 6 month of data")
-        void getSixMonth(){
+        void getSixMonth() {
             ArrayList<DataFrame> dataFrames = null;
             try {
                 dataFrames = ops.getDataFrames(DataFrame.Span.SixMonth);
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println(e);
-                
+
             }
 
             assertEquals(DataFrame.DataType.values().length, dataFrames.size());
@@ -103,14 +98,13 @@ public class TestTrendsOps {
 
         @Test
         @DisplayName("get one year of data")
-        void getYear(){
+        void getYear() {
             ArrayList<DataFrame> dataFrames = null;
             try {
                 dataFrames = ops.getDataFrames(DataFrame.Span.Year);
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println(e);
-                
+
             }
 
             assertEquals(DataFrame.DataType.values().length, dataFrames.size());
@@ -119,14 +113,13 @@ public class TestTrendsOps {
 
         @Test
         @DisplayName("get 2 year of data")
-        void getAll(){
+        void getAll() {
             ArrayList<DataFrame> dataFrames = null;
             try {
                 dataFrames = ops.getDataFrames(DataFrame.Span.All);
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println(e);
-                
+
             }
 
             assertEquals(DataFrame.DataType.values().length, dataFrames.size());
@@ -141,7 +134,7 @@ public class TestTrendsOps {
 
         @Test
         @DisplayName("instance creation should fail if db not started")
-        void testNoDB(){
+        void testNoDB() {
 
             assertThrows(NullPointerException.class, () -> {
                 ops = new TrendsOps();
@@ -150,7 +143,7 @@ public class TestTrendsOps {
 
         @Test
         @DisplayName("requesting a null span should fail")
-        void testNullRequest(){
+        void testNullRequest() {
             SharedDB.start();
             ops = new TrendsOps();
             assertThrows(NullPointerException.class, () -> {
