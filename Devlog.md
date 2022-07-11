@@ -534,10 +534,10 @@ Cost - 4 days
 
 - ##### Task 01  
    Title: Support Multiple goals 
-    Desc: Modify 
-Estimate:   
-  Actual:   
-     Dev:   
+    Desc: Modify DataFrame to support multiple goals  
+Estimate: 2hrs  
+  Actual: 1hrs  
+     Dev: Josef   
 
 - ##### Task 02  
    Title:  
