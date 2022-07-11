@@ -1,9 +1,9 @@
 package comp3350.team10.persistence;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.concurrent.ThreadLocalRandom;
 
 import comp3350.team10.objects.Constant;
@@ -21,7 +21,7 @@ import comp3350.team10.objects.User;
 public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDBInterface {
     //Database info and data variables
     private Calendar calendar = Calendar.getInstance();
-    private Integer currKey;                    //The current database key
+    private Integer currKey;                          //The current database key
     private final String dbType = "stub";             //Type of database
     private final String dbName;                      //Name of database
 

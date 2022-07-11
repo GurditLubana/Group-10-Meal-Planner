@@ -1,9 +1,5 @@
 package comp3350.team10.presentation;
 
-import comp3350.team10.R;
-import comp3350.team10.objects.Edible;
-
-
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -15,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import comp3350.team10.R;
+import comp3350.team10.objects.Edible;
 
 public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipeBook.ViewHolder> {
     public enum FragmentType {

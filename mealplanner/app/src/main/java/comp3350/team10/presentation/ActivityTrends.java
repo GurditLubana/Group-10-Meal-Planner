@@ -1,22 +1,22 @@
 package comp3350.team10.presentation;
 
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+
 import comp3350.team10.R;
 import comp3350.team10.application.Main;
 import comp3350.team10.business.TrendsOps;
 import comp3350.team10.objects.DataFrame;
-
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.View;
-
-import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
 
 public class ActivityTrends extends AppCompatActivity {
     private RecyclerView trendsRecyclerView;      //Houses a recycle view for diary entries

@@ -1,17 +1,5 @@
 package comp3350.team10.presentation;
 
-import comp3350.team10.R;
-import comp3350.team10.application.Main;
-import comp3350.team10.business.RecipeBookOps;
-import comp3350.team10.objects.DrinkIngredient;
-import comp3350.team10.objects.Edible;
-import comp3350.team10.objects.Ingredient;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,10 +7,22 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+
+import comp3350.team10.R;
+import comp3350.team10.application.Main;
+import comp3350.team10.business.RecipeBookOps;
+import comp3350.team10.objects.DrinkIngredient;
+import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.Ingredient;
 
 public class ActivityRecipeBook extends AppCompatActivity implements FragToRecipeBook {
     private final static int TITLE_COLOR = Color.WHITE; //The title color of the acitivty

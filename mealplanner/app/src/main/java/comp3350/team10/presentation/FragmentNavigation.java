@@ -1,19 +1,18 @@
 package comp3350.team10.presentation;
 
-import comp3350.team10.R;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import androidx.fragment.app.Fragment;
+
+import comp3350.team10.R;
 
 public class FragmentNavigation extends Fragment {
     ImageButton mealButton = null;    // button to launch the diary screen

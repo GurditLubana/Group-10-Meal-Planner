@@ -1,6 +1,8 @@
 package comp3350.team10.business;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import comp3350.team10.application.Main;
 import comp3350.team10.objects.DataFrame;
 import comp3350.team10.persistence.LogDBInterface;
 import comp3350.team10.persistence.SharedDB;

@@ -1,13 +1,12 @@
 package comp3350.team10.persistence;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-
-import java.sql.Statement;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import comp3350.team10.application.Main;
 import comp3350.team10.objects.DailyLog;
@@ -26,7 +25,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     private Connection currConn;
     private Statement reqHandler;
     private final String dbPath = "jdbc:hsqldb:file:" + Main.getDBPathName() + ";shutdown=true"; // stored on disk mode
-    private String dbName;
+    private String dbName = "HSQLDB";
     private final String dbType = "HSQL";
 
     public HSqlDB() {
@@ -56,7 +55,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             currConn = DriverManager.getConnection(dbPath, "SA", "");
             System.out.println("Opened " + this.dbType + " database named " + this.dbName + " @dbPath " + this.dbPath);
         } catch (Exception e) {
-            System.out.println("hsqldb open " + e);
+            System.out.println("[ERROR] could not open hsqldb open " + e);
         }
     }
 
@@ -884,9 +883,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         try {
             PreparedStatement getUser = currConn.prepareStatement("SELECT * FROM USER");
             ResultSet results = getUser.executeQuery();
-
-            int userID, height, weight, calorieGoal, exerciseGoal;
-            String name;
 
             results.next();
             System.out.println("Get USER ID");

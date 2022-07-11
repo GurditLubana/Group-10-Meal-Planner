@@ -1,12 +1,11 @@
 package comp3350.team10.presentation;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import comp3350.team10.R;
 

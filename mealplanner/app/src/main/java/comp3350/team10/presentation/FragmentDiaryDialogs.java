@@ -1,20 +1,19 @@
 package comp3350.team10.presentation;
 
-import comp3350.team10.R;
-import comp3350.team10.objects.*;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import android.view.View;
-
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import comp3350.team10.R;
+import comp3350.team10.objects.Constant;
+import comp3350.team10.objects.Edible;
 
 public class FragmentDiaryDialogs extends FragmentDialogCommon {
     public static final String TAG = "MealEntryDialog"; // tag name of this fragment for reference in the fragment manager

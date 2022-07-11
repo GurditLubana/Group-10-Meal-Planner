@@ -1,13 +1,13 @@
 package comp3350.team10.presentation;
 
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.View;
 
 import java.util.ArrayList;
 

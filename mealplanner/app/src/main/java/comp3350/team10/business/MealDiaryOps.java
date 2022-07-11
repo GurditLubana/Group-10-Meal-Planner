@@ -1,14 +1,14 @@
 package comp3350.team10.business;
 
+import java.util.Calendar;
+import java.util.NoSuchElementException;
+
 import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
 import comp3350.team10.persistence.LogDBInterface;
 import comp3350.team10.persistence.SharedDB;
-
-import java.util.Calendar;
-import java.util.NoSuchElementException;
 
 public class MealDiaryOps {
     private final static Integer INCREMENT = 1;         //Directional arrow increments

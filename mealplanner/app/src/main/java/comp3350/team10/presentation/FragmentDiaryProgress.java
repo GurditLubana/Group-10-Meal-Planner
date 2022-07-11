@@ -1,15 +1,8 @@
 package comp3350.team10.presentation;
 
-import comp3350.team10.R;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +10,14 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import comp3350.team10.R;
 
 public class FragmentDiaryProgress extends Fragment {
     private MealDiaryLiveData mealDiaryLiveData; // live data source for automatic field updates

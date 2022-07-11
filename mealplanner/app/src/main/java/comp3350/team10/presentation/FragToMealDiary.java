@@ -1,6 +1,6 @@
 package comp3350.team10.presentation;
 
-import comp3350.team10.objects.*;
+import comp3350.team10.objects.Edible;
 
 public interface FragToMealDiary {
     public enum EntryMode {GOAL_CALORIE, GOAL_EXERCISE, ACTUAL_EXERCISE, EDIT_QTY}

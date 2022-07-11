@@ -1,11 +1,12 @@
 package comp3350.team10.presentation;
 
-import comp3350.team10.R;
-import comp3350.team10.application.Main;
-import comp3350.team10.business.MealDiaryOps;
-import comp3350.team10.objects.DailyLog;
-import comp3350.team10.objects.Edible;
-import comp3350.team10.objects.EdibleLog;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -17,15 +18,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.AssetManager;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.View;
-
-import com.google.android.material.datepicker.*;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -33,6 +27,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import comp3350.team10.R;
+import comp3350.team10.application.Main;
+import comp3350.team10.business.MealDiaryOps;
+import comp3350.team10.objects.DailyLog;
+import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.EdibleLog;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToMealDiary {
     private ActivityResultLauncher<Intent> pickMeal; // call back listener when recipebook activity is launched for meal selection

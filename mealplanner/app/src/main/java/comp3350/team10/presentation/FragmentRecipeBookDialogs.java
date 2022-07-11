@@ -1,11 +1,5 @@
 package comp3350.team10.presentation;
 
-import comp3350.team10.R;
-import comp3350.team10.objects.Constant;
-import comp3350.team10.objects.DrinkIngredient;
-import comp3350.team10.objects.Edible;
-import comp3350.team10.objects.Ingredient;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,19 +7,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -36,7 +20,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+
 import java.util.ArrayList;
+
+import comp3350.team10.R;
+import comp3350.team10.objects.Constant;
+import comp3350.team10.objects.DrinkIngredient;
+import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.Ingredient;
 
 public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
 
@@ -52,7 +50,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private CheckBox isSpicyCheckBox;        // check if Edible item contains alcohol.
     private CheckBox isVegetarianCheckBox;   // check if Edible item contains alcohol.
     private CheckBox isVeganCheckBox;
-    private CheckBox isNonVegCheckBox;
     private CheckBox isGluteenFree;
     private ImageView EdibleItemImage;       // Image of the edible item.
     private ImageView cameraIcon;            // The camera Icon in Add Edible interface.

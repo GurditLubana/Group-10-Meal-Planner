@@ -3,10 +3,10 @@ package comp3350.team10.presentation;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import comp3350.team10.objects.Edible;
-
-import java.util.Calendar;
 import java.util.ArrayList;
+import java.util.Calendar;
+
+import comp3350.team10.objects.Edible;
 
 
 public class MealDiaryLiveData extends ViewModel {
