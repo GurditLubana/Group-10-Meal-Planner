@@ -2,6 +2,7 @@ package comp3350.team10.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -23,13 +24,31 @@ import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
 
 public class TestLogDBInterface {
+    LogDBInterface db;
+    Calendar currDate;
+    Calendar testDate;
+
+    @BeforeEach
+    void setup() {
+        SharedDB.start();
+        SharedDB.startStub();
+        //SharedDB.startHsql();
+        this.db = SharedDB.getLogDB();
+        this.currDate = Calendar.getInstance();
+        this.currDate.set(Calendar.MONTH, 9);
+        this.currDate.set(Calendar.DAY_OF_MONTH, 10);
+        testDate = (Calendar) this.currDate.clone();
+        testDate.add(Calendar.DAY_OF_YEAR, 20);
+    }
+
+    @AfterEach
+    void shutdown() {
+        SharedDB.close();
+    }
 
     @Nested
     @DisplayName("Simple Tests typical cases should pass")
     class caseSimple {
-        LogDBInterface db;
-        Calendar currDate;
-        Calendar testDate;
         DailyLog currLog;
         DailyLog testLog;
         Edible testEdible;
@@ -37,20 +56,6 @@ public class TestLogDBInterface {
 
         @BeforeEach
         void setup() {
-            SharedDB.start();
-            SharedDB.startStub();
-            //SharedDB.startHsql();
-            this.db = SharedDB.getLogDB();
-            this.currDate = Calendar.getInstance();
-            this.currDate.set(Calendar.MONTH, 9);
-            this.currDate.set(Calendar.DAY_OF_MONTH, 10);
-            this.testDate = (Calendar) this.currDate.clone();
-            this.testDate.add(Calendar.DAY_OF_YEAR, 20);
-        }
-
-        @AfterEach
-        void shutdown() {
-            SharedDB.close();
         }
 
         void setupTestLog() {
@@ -78,8 +83,8 @@ public class TestLogDBInterface {
                                 .initCategories(false, false, false, false, true)
                                 .initMetadata(false, "photo.jpg")
                 ).init(20, Edible.Unit.tsp));
-                this.testLog.init(this.testDate, this.edibleList, 1400, 600, 200);
-                this.db.replaceLog(0, testLog);
+                this.testLog.init(testDate, this.edibleList, 1400, 600, 200);
+                db.replaceLog(0, testLog);
             } catch (Exception e) {
                 fail(e);
             }
@@ -88,9 +93,9 @@ public class TestLogDBInterface {
         @Test
         @DisplayName("there should be a valid log at db start")
         void dbConstructionLogEntry() {
-            this.currLog = this.db.searchFoodLogByDate(0, this.currDate);
-            this.testDate = this.currLog.getDate();
-            assertEquals(this.currDate.get(Calendar.DAY_OF_YEAR), this.testDate.get(Calendar.DAY_OF_YEAR));
+            this.currLog = db.searchFoodLogByDate(0, currDate);
+            testDate = this.currLog.getDate();
+            assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testDate.get(Calendar.DAY_OF_YEAR));
             assertEquals(3, this.currLog.getEdibleList().size());
             assertEquals(0, this.currLog.getExerciseActual());
             assertEquals(600, this.currLog.getExerciseGoal());
@@ -104,7 +109,7 @@ public class TestLogDBInterface {
         @Test
         @DisplayName("there should be recipes at db start")
         void dbConstructionRecipes() {
-            this.testEdible = this.db.findEdibleByKey(5, false);
+            this.testEdible = db.findEdibleByKey(5, false);
             assertTrue(this.testEdible instanceof EdibleLog);
             assertTrue(this.testEdible.getName().equals("Walnut"));
             assertTrue(this.testEdible.getDescription().equals("not a floor nut"));
@@ -125,7 +130,7 @@ public class TestLogDBInterface {
         @Test
         @DisplayName("there should be trend data at db start")
         void dbConstructionTrend() {
-            ArrayList<Double> result = this.db.getDataFrame(DataFrame.DataType.ConsumedCalories, 7);
+            ArrayList<Double> result = db.getDataFrame(DataFrame.DataType.ConsumedCalories, 7);
             assertEquals(7, result.size());
         }
 
@@ -134,7 +139,7 @@ public class TestLogDBInterface {
         void dbAddALog() {
 
             DailyLog newLog = new DailyLog();
-            Calendar newDate = (Calendar) this.testDate.clone();
+            Calendar newDate = (Calendar) testDate.clone();
             newDate.add(Calendar.DAY_OF_YEAR, 1);
             this.setupTestLog();
 
@@ -144,9 +149,9 @@ public class TestLogDBInterface {
                 System.out.println(e);
             }
 
-            this.db.replaceLog(0, newLog);
+            db.replaceLog(0, newLog);
 
-            this.testLog = this.db.searchFoodLogByDate(0, newDate);
+            this.testLog = db.searchFoodLogByDate(0, newDate);
 
             assertEquals(testDate.get(Calendar.DAY_OF_YEAR) + 1, testLog.getDate().get(Calendar.DAY_OF_YEAR));
             assertEquals(testDate.get(Calendar.YEAR), testLog.getDate().get(Calendar.YEAR));
@@ -167,12 +172,12 @@ public class TestLogDBInterface {
 
             this.setupTestLog();
 
-            this.db.setLogCalorieGoal(0, 5000, testDate);
-            this.testLog = this.db.searchFoodLogByDate(0, testDate);
+            db.setLogCalorieGoal(0, 5000, testDate);
+            this.testLog = db.searchFoodLogByDate(0, testDate);
             assertEquals(5000, this.testLog.getCalorieGoal());
 
-            this.db.setLogCalorieGoal(0, 1234, testDate);
-            this.testLog = this.db.searchFoodLogByDate(0, testDate);
+            db.setLogCalorieGoal(0, 1234, testDate);
+            this.testLog = db.searchFoodLogByDate(0, testDate);
             assertEquals(1234, this.testLog.getCalorieGoal());
 
         }
@@ -182,12 +187,12 @@ public class TestLogDBInterface {
         void dbSetANewExerciseGoal() {
 
             this.setupTestLog();
-            this.db.setLogExerciseGoal(0, 5000, testDate);
-            this.testLog = this.db.searchFoodLogByDate(0, testDate);
+            db.setLogExerciseGoal(0, 5000, testDate);
+            this.testLog = db.searchFoodLogByDate(0, testDate);
             assertEquals(5000, this.testLog.getExerciseGoal());
 
-            this.db.setLogExerciseGoal(0, 1234, testDate);
-            this.testLog = this.db.searchFoodLogByDate(0, testDate);
+            db.setLogExerciseGoal(0, 1234, testDate);
+            this.testLog = db.searchFoodLogByDate(0, testDate);
             assertEquals(1234, this.testLog.getExerciseGoal());
 
         }
@@ -197,12 +202,12 @@ public class TestLogDBInterface {
         void dbSetANewExerciseCaloriesBurned() {
 
             this.setupTestLog();
-            this.db.setExerciseActual(0, 5000, testDate);
-            this.testLog = this.db.searchFoodLogByDate(0, testDate);
+            db.setExerciseActual(0, 5000, testDate);
+            this.testLog = db.searchFoodLogByDate(0, testDate);
             assertEquals(5000, this.testLog.getExerciseActual());
 
-            this.db.setExerciseActual(0, 1234, testDate);
-            this.testLog = this.db.searchFoodLogByDate(0, testDate);
+            db.setExerciseActual(0, 1234, testDate);
+            this.testLog = db.searchFoodLogByDate(0, testDate);
             assertEquals(1234, this.testLog.getExerciseActual());
 
         }
@@ -211,9 +216,6 @@ public class TestLogDBInterface {
     @Nested
     @DisplayName("Edge case Tests should pass")
     class caseEdge {
-        LogDBInterface db;
-        Calendar currDate;
-        Calendar testDate;
         DailyLog currLog;
         DailyLog testLog;
         Edible testEdible;
@@ -221,20 +223,6 @@ public class TestLogDBInterface {
 
         @BeforeEach
         void setup() {
-            SharedDB.start();
-            SharedDB.startStub();
-            //SharedDB.startHsql();
-            this.db = SharedDB.getLogDB();
-            this.currDate = Calendar.getInstance();
-            this.currDate.set(Calendar.MONTH, 9);
-            this.currDate.set(Calendar.DAY_OF_MONTH, 10);
-            this.testDate = (Calendar) this.currDate.clone();
-            this.testDate.add(Calendar.DAY_OF_YEAR, 20);
-        }
-
-        @AfterEach
-        void shutdown() {
-            SharedDB.close();
         }
 
         void setupTestLog() {
@@ -262,8 +250,8 @@ public class TestLogDBInterface {
                                 .initCategories(false, false, false, false, true)
                                 .initMetadata(false, "photo.jpg")
                 ).init(20, Edible.Unit.tsp));
-                this.testLog.init(this.testDate, this.edibleList, 1400, 600, 200);
-                this.db.replaceLog(0, testLog);
+                this.testLog.init(testDate, this.edibleList, 1400, 600, 200);
+                db.replaceLog(0, testLog);
             } catch (Exception e) {
                 fail(e);
             }
@@ -278,8 +266,8 @@ public class TestLogDBInterface {
             empty.removeItem(1);
             empty.removeItem(0);
 
-            this.db.replaceLog(0, empty);
-            assertEquals(0, this.db.searchFoodLogByDate(0, this.testDate).getEdibleList().size());
+            db.replaceLog(0, empty);
+            assertEquals(0, db.searchFoodLogByDate(0, testDate).getEdibleList().size());
         }
 
         @Test
@@ -287,7 +275,7 @@ public class TestLogDBInterface {
         void addToAnEmptyLog() {
             Calendar newDate = (Calendar) testDate.clone();
             newDate.add(Calendar.DAY_OF_YEAR, 1);
-            DailyLog empty = this.db.searchFoodLogByDate(0, newDate);
+            DailyLog empty = db.searchFoodLogByDate(0, newDate);
             assertEquals(0, empty.getEdibleList().size());
             try {
                 empty.addEdibleToLog(new EdibleLog(
@@ -300,8 +288,8 @@ public class TestLogDBInterface {
             } catch (Exception e) {
                 fail(e);
             }
-            this.db.replaceLog(0, empty);
-            assertEquals(1, this.db.searchFoodLogByDate(0, newDate).getEdibleList().size());
+            db.replaceLog(0, empty);
+            assertEquals(1, db.searchFoodLogByDate(0, newDate).getEdibleList().size());
         }
 
         @Test
@@ -315,28 +303,28 @@ public class TestLogDBInterface {
         @DisplayName("We should be able to set zero")
         void setZero() {
 
-            this.db.setExerciseActual(0, Constant.ENTRY_MIN_VALUE, this.testDate);
-            assertEquals(Constant.ENTRY_MIN_VALUE, this.db.searchFoodLogByDate(0, this.testDate).getExerciseActual());
+            db.setExerciseActual(0, Constant.ENTRY_MIN_VALUE, testDate);
+            assertEquals(Constant.ENTRY_MIN_VALUE, db.searchFoodLogByDate(0, testDate).getExerciseActual());
 
-            this.db.setLogCalorieGoal(0, Constant.ENTRY_MIN_VALUE, this.testDate);
-            assertEquals(Constant.ENTRY_MIN_VALUE, this.db.searchFoodLogByDate(0, this.testDate).getCalorieGoal());
+            db.setLogCalorieGoal(0, Constant.ENTRY_MIN_VALUE, testDate);
+            assertEquals(Constant.ENTRY_MIN_VALUE, db.searchFoodLogByDate(0, testDate).getCalorieGoal());
 
-            this.db.setLogExerciseGoal(0, Constant.ENTRY_MIN_VALUE, this.testDate);
-            assertEquals(Constant.ENTRY_MIN_VALUE, this.db.searchFoodLogByDate(0, this.testDate).getExerciseGoal());
+            db.setLogExerciseGoal(0, Constant.ENTRY_MIN_VALUE, testDate);
+            assertEquals(Constant.ENTRY_MIN_VALUE, db.searchFoodLogByDate(0, testDate).getExerciseGoal());
         }
 
         @Test
         @DisplayName("We should be able to set MaxValue")
         void setMaxValue() {
 
-            this.db.setExerciseActual(0, Constant.ENTRY_MAX_VALUE, this.testDate);
-            assertEquals(Constant.ENTRY_MAX_VALUE, this.db.searchFoodLogByDate(0, this.testDate).getExerciseActual());
+            db.setExerciseActual(0, Constant.ENTRY_MAX_VALUE, testDate);
+            assertEquals(Constant.ENTRY_MAX_VALUE, db.searchFoodLogByDate(0, testDate).getExerciseActual());
 
-            this.db.setLogCalorieGoal(0, Constant.ENTRY_MAX_VALUE, this.testDate);
-            assertEquals(Constant.ENTRY_MAX_VALUE, this.db.searchFoodLogByDate(0, this.testDate).getCalorieGoal());
+            db.setLogCalorieGoal(0, Constant.ENTRY_MAX_VALUE, testDate);
+            assertEquals(Constant.ENTRY_MAX_VALUE, db.searchFoodLogByDate(0, testDate).getCalorieGoal());
 
-            this.db.setLogExerciseGoal(0, Constant.ENTRY_MAX_VALUE, this.testDate);
-            assertEquals(Constant.ENTRY_MAX_VALUE, this.db.searchFoodLogByDate(0, this.testDate).getExerciseGoal());
+            db.setLogExerciseGoal(0, Constant.ENTRY_MAX_VALUE, testDate);
+            assertEquals(Constant.ENTRY_MAX_VALUE, db.searchFoodLogByDate(0, testDate).getExerciseGoal());
 
         }
 
@@ -346,9 +334,6 @@ public class TestLogDBInterface {
     @Nested
     @DisplayName("Tests that should fail")
     class caseFail {
-        LogDBInterface db;
-        Calendar currDate;
-        Calendar testDate;
         DailyLog currLog;
         DailyLog testLog;
         Edible testEdible;
@@ -356,20 +341,6 @@ public class TestLogDBInterface {
 
         @BeforeEach
         void setup() {
-            SharedDB.start();
-            SharedDB.startStub();
-            //SharedDB.startHsql();
-            this.db = SharedDB.getLogDB();
-            this.currDate = Calendar.getInstance();
-            this.currDate.set(Calendar.MONTH, 9);
-            this.currDate.set(Calendar.DAY_OF_MONTH, 10);
-            this.testDate = (Calendar) this.currDate.clone();
-            this.testDate.add(Calendar.DAY_OF_YEAR, 20);
-        }
-
-        @AfterEach
-        void shutdown() {
-            SharedDB.close();
         }
 
         void setupTestLog() {
@@ -397,8 +368,8 @@ public class TestLogDBInterface {
                                 .initCategories(false, false, false, false, true)
                                 .initMetadata(false, "photo.jpg")
                 ).init(20, Edible.Unit.tsp));
-                this.testLog.init(this.testDate, this.edibleList, 1400, 600, 200);
-                this.db.replaceLog(0, testLog);
+                this.testLog.init(testDate, this.edibleList, 1400, 600, 200);
+                db.replaceLog(0, testLog);
             } catch (Exception e) {
                 fail(e);
             }
@@ -410,66 +381,58 @@ public class TestLogDBInterface {
             this.setupTestLog();
 
             assertThrows(IllegalArgumentException.class, () -> {
-                DailyLog result = this.db.searchFoodLogByDate(-1, this.testDate);
+                DailyLog result = db.searchFoodLogByDate(-1, testDate);
             });
 
             assertEquals(3, testLog.getEdibleList().size());
             testLog.removeItem(0);
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.replaceLog(-1, testLog);
+                db.replaceLog(-1, testLog);
             });
-            assertEquals(3, this.db.searchFoodLogByDate(0, this.testDate).getEdibleList().size());
+            assertEquals(3, db.searchFoodLogByDate(0, testDate).getEdibleList().size());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setExerciseActual(-1, 1111, this.testDate);
+                db.setExerciseActual(-1, 1111, testDate);
             });
-            assertEquals(200, this.db.searchFoodLogByDate(0, this.testDate).getExerciseActual());
+            assertEquals(200, db.searchFoodLogByDate(0, testDate).getExerciseActual());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setLogCalorieGoal(-1, 1111, this.testDate);
+                db.setLogCalorieGoal(-1, 1111, testDate);
             });
-            assertEquals(1400, this.db.searchFoodLogByDate(0, this.testDate).getCalorieGoal());
+            assertEquals(1400, db.searchFoodLogByDate(0, testDate).getCalorieGoal());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setLogExerciseGoal(-1, 1111, this.testDate);
+                db.setLogExerciseGoal(-1, 1111, testDate);
             });
-            assertEquals(600, this.db.searchFoodLogByDate(0, this.testDate).getExerciseGoal());
+            assertEquals(600, db.searchFoodLogByDate(0, testDate).getExerciseGoal());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                DailyLog result = this.db.searchFoodLogByDate(5, this.testDate);
+                DailyLog result = db.searchFoodLogByDate(5, testDate);
             });
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.replaceLog(5, testLog);
+                db.replaceLog(5, testLog);
             });
-            assertEquals(3, this.db.searchFoodLogByDate(0, this.testDate).getEdibleList().size());
+            assertEquals(3, db.searchFoodLogByDate(0, testDate).getEdibleList().size());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setExerciseActual(5, 1111, this.testDate);
+                db.setExerciseActual(5, 1111, testDate);
             });
-            assertEquals(200, this.db.searchFoodLogByDate(0, this.testDate).getExerciseActual());
+            assertEquals(200, db.searchFoodLogByDate(0, testDate).getExerciseActual());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setLogCalorieGoal(5, 1111, this.testDate);
+                db.setLogCalorieGoal(5, 1111, testDate);
             });
-            assertEquals(1400, this.db.searchFoodLogByDate(0, this.testDate).getCalorieGoal());
+            assertEquals(1400, db.searchFoodLogByDate(0, testDate).getCalorieGoal());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setLogExerciseGoal(5, 1111, this.testDate);
+                db.setLogExerciseGoal(5, 1111, testDate);
             });
-            assertEquals(600, this.db.searchFoodLogByDate(0, this.testDate).getExerciseGoal());
+            assertEquals(600, db.searchFoodLogByDate(0, testDate).getExerciseGoal());
 
-            assertThrows(NoSuchElementException.class, () -> {
-                EdibleLog result = this.db.findEdibleByKey(-1, false);
-            });
-
-            assertThrows(NoSuchElementException.class, () -> {
-                EdibleLog result = this.db.findEdibleByKey(-1, true);
-            });
-
-            assertThrows(NoSuchElementException.class, () -> {
-                EdibleLog result = this.db.findEdibleByKey(999999, true);
-            });
+            assertNull(db.findEdibleByKey(-1, false));
+            assertNull(db.findEdibleByKey(-1, true));
+            assertNull(db.findEdibleByKey(999999, true));
         }
 
         @Test
@@ -478,27 +441,27 @@ public class TestLogDBInterface {
             this.setupTestLog();
 
             assertThrows(IllegalArgumentException.class, () -> {
-                DailyLog result = this.db.searchFoodLogByDate(0, null);
+                DailyLog result = db.searchFoodLogByDate(0, null);
             });
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.replaceLog(0, null);
+                db.replaceLog(0, null);
             });
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setExerciseActual(0, 1111, null);
+                db.setExerciseActual(0, 1111, null);
             });
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setLogCalorieGoal(0, 1111, null);
+                db.setLogCalorieGoal(0, 1111, null);
             });
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setLogExerciseGoal(0, 1111, null);
+                db.setLogExerciseGoal(0, 1111, null);
             });
 
             assertThrows(IllegalArgumentException.class, () -> {
-                ArrayList<Double> result = this.db.getDataFrame(null, 7);
+                ArrayList<Double> result = db.getDataFrame(null, 7);
             });
         }
 
@@ -508,22 +471,22 @@ public class TestLogDBInterface {
             this.setupTestLog();
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setExerciseActual(-1, -1111, this.testDate);
+                db.setExerciseActual(-1, -1111, testDate);
             });
-            assertEquals(200, this.db.searchFoodLogByDate(0, this.testDate).getExerciseActual());
+            assertEquals(200, db.searchFoodLogByDate(0, testDate).getExerciseActual());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setLogCalorieGoal(-1, -1111, this.testDate);
+                db.setLogCalorieGoal(-1, -1111, testDate);
             });
-            assertEquals(1400, this.db.searchFoodLogByDate(0, this.testDate).getCalorieGoal());
+            assertEquals(1400, db.searchFoodLogByDate(0, testDate).getCalorieGoal());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setLogExerciseGoal(-1, -1111, this.testDate);
+                db.setLogExerciseGoal(-1, -1111, testDate);
             });
-            assertEquals(600, this.db.searchFoodLogByDate(0, this.testDate).getExerciseGoal());
+            assertEquals(600, db.searchFoodLogByDate(0, testDate).getExerciseGoal());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                ArrayList<Double> result = this.db.getDataFrame(DataFrame.DataType.ConsumedCalories, -7);
+                ArrayList<Double> result = db.getDataFrame(DataFrame.DataType.ConsumedCalories, -7);
             });
         }
     }

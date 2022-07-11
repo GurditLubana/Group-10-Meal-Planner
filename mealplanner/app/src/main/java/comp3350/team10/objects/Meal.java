@@ -15,7 +15,6 @@ public class Meal extends PreparedItem {
     public void setIngredients(ArrayList<Ingredient> newIngredients) throws IllegalArgumentException {
         if (newIngredients != null && !newIngredients.contains(null)) {
             this.ingredients = newIngredients;
-            
         }
         else {
             throw new IllegalArgumentException("Invalid meal ingredients");

@@ -15,40 +15,40 @@ import org.junit.jupiter.api.Test;
 import comp3350.team10.objects.User;
 
 public class TestUserDBInterface {
+    UserDBInterface db;
+
+    @BeforeEach
+    void setup() {
+        SharedDB.start();
+        SharedDB.startStub();
+        //SharedDB.startHsql();
+        this.db = SharedDB.getUserDB();
+    }
+
+    @AfterEach
+    void shutdown() {
+        SharedDB.close();
+    }
 
     @Nested
     @DisplayName("Simple Tests should pass")
     class caseSimple {
-        UserDBInterface db;
-
-        @BeforeEach
-        void setup() {
-            SharedDB.start();
-            SharedDB.startStub();
-            //SharedDB.startHsql();
-            this.db = SharedDB.getUserDB();
-        }
-
-        @AfterEach
-        void shutdown() {
-            SharedDB.close();
-        }
 
         @Test
         @DisplayName("typical values should work")
         void typicalValues() {
-            User currUser = this.db.getUser();
+            User currUser = db.getUser();
 
-            this.db.setHeight(currUser.getUserID(), 160);
+            db.setHeight(currUser.getUserID(), 160);
             assertEquals(160, currUser.getHeight());
 
-            this.db.setWeight(currUser.getUserID(), 160);
+            db.setWeight(currUser.getUserID(), 160);
             assertEquals(160, currUser.getWeight());
 
-            this.db.setCalorieGoal(currUser.getUserID(), 160);
+            db.setCalorieGoal(currUser.getUserID(), 160);
             assertEquals(160, currUser.getCalorieGoal());
 
-            this.db.setExerciseGoal(currUser.getUserID(), 160);
+            db.setExerciseGoal(currUser.getUserID(), 160);
             assertEquals(160, currUser.getExerciseGoal());
         }
 
@@ -58,60 +58,46 @@ public class TestUserDBInterface {
     @Nested
     @DisplayName("Complex Tests should pass")
     class caseComplex {
-        UserDBInterface db;
-
-        @BeforeEach
-        void setup() {
-            SharedDB.start();
-            SharedDB.startStub();
-            //SharedDB.startHsql();
-            this.db = SharedDB.getUserDB();
-        }
-
-        @AfterEach
-        void shutdown() {
-            SharedDB.close();
-        }
 
         @Test
         @DisplayName("we can set values multiple times")
         void typicalValues() {
-            User currUser = this.db.getUser();
+            User currUser = db.getUser();
 
-            this.db.setHeight(currUser.getUserID(), 160);
+            db.setHeight(currUser.getUserID(), 160);
             assertEquals(160, currUser.getHeight());
 
-            this.db.setWeight(currUser.getUserID(), 160);
+            db.setWeight(currUser.getUserID(), 160);
             assertEquals(160, currUser.getWeight());
 
-            this.db.setCalorieGoal(currUser.getUserID(), 160);
+            db.setCalorieGoal(currUser.getUserID(), 160);
             assertEquals(160, currUser.getCalorieGoal());
 
-            this.db.setExerciseGoal(currUser.getUserID(), 160);
+            db.setExerciseGoal(currUser.getUserID(), 160);
             assertEquals(160, currUser.getExerciseGoal());
 
-            this.db.setHeight(currUser.getUserID(), 200);
+            db.setHeight(currUser.getUserID(), 200);
             assertEquals(200, currUser.getHeight());
 
-            this.db.setWeight(currUser.getUserID(), 200);
+            db.setWeight(currUser.getUserID(), 200);
             assertEquals(200, currUser.getWeight());
 
-            this.db.setCalorieGoal(currUser.getUserID(), 200);
+            db.setCalorieGoal(currUser.getUserID(), 200);
             assertEquals(200, currUser.getCalorieGoal());
 
-            this.db.setExerciseGoal(currUser.getUserID(), 200);
+            db.setExerciseGoal(currUser.getUserID(), 200);
             assertEquals(200, currUser.getExerciseGoal());
 
-            this.db.setHeight(currUser.getUserID(), 500);
+            db.setHeight(currUser.getUserID(), 500);
             assertEquals(500, currUser.getHeight());
 
-            this.db.setWeight(currUser.getUserID(), 500);
+            db.setWeight(currUser.getUserID(), 500);
             assertEquals(500, currUser.getWeight());
 
-            this.db.setCalorieGoal(currUser.getUserID(), 500);
+            db.setCalorieGoal(currUser.getUserID(), 500);
             assertEquals(500, currUser.getCalorieGoal());
 
-            this.db.setExerciseGoal(currUser.getUserID(), 500);
+            db.setExerciseGoal(currUser.getUserID(), 500);
             assertEquals(500, currUser.getExerciseGoal());
         }
     }
@@ -120,42 +106,28 @@ public class TestUserDBInterface {
     @Nested
     @DisplayName("Edge case Tests should pass")
     class caseEdge {
-        UserDBInterface db;
-
-        @BeforeEach
-        void setup() {
-            SharedDB.start();
-            SharedDB.startStub();
-            //SharedDB.startHsql();
-            this.db = SharedDB.getUserDB();
-        }
-
-        @AfterEach
-        void shutdown() {
-            SharedDB.close();
-        }
 
         @Test
         @DisplayName("1 and 0 should pass")
         void testOneZero() {
-            User currUser = this.db.getUser();
+            User currUser = db.getUser();
 
-            this.db.setHeight(currUser.getUserID(), 1);
+            db.setHeight(currUser.getUserID(), 1);
             assertEquals(1, currUser.getHeight());
 
-            this.db.setWeight(currUser.getUserID(), 1);
+            db.setWeight(currUser.getUserID(), 1);
             assertEquals(1, currUser.getWeight());
 
-            this.db.setCalorieGoal(currUser.getUserID(), 1);
+            db.setCalorieGoal(currUser.getUserID(), 1);
             assertEquals(1, currUser.getCalorieGoal());
 
-            this.db.setExerciseGoal(currUser.getUserID(), 1);
+            db.setExerciseGoal(currUser.getUserID(), 1);
             assertEquals(1, currUser.getExerciseGoal());
 
-            this.db.setCalorieGoal(currUser.getUserID(), 0);
+            db.setCalorieGoal(currUser.getUserID(), 0);
             assertEquals(0, currUser.getCalorieGoal());
 
-            this.db.setExerciseGoal(currUser.getUserID(), 0);
+            db.setExerciseGoal(currUser.getUserID(), 0);
             assertEquals(0, currUser.getCalorieGoal());
         }
     }
@@ -164,63 +136,49 @@ public class TestUserDBInterface {
     @Nested
     @DisplayName("Tests that should fail")
     class caseFail {
-        UserDBInterface db;
-
-        @BeforeEach
-        void setup() {
-            SharedDB.start();
-            SharedDB.startStub();
-            //SharedDB.startHsql();
-            this.db = SharedDB.getUserDB();
-        }
-
-        @AfterEach
-        void shutdown() {
-            SharedDB.close();
-        }
 
         @Test
         @DisplayName("Negative values should fail")
         void negativeValues() {
-            User currUser = this.db.getUser();
+            User currUser = db.getUser();
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setHeight(currUser.getUserID(), -1);
+                db.setHeight(currUser.getUserID(), -1);
             });
             assertEquals(666, currUser.getHeight());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setWeight(currUser.getUserID(), -1);
+                db.setWeight(currUser.getUserID(), -1);
             });
             assertEquals(666, currUser.getWeight());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setCalorieGoal(currUser.getUserID(), -1);
+                db.setCalorieGoal(currUser.getUserID(), -1);
             });
             assertEquals(666, currUser.getCalorieGoal());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setExerciseGoal(currUser.getUserID(), -1);
+                db.setExerciseGoal(currUser.getUserID(), -1);
             });
             assertEquals(666, currUser.getCalorieGoal());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setHeight(-1, 160);
+                db.setHeight(-1, 160);
             });
             assertEquals(666, currUser.getHeight());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setWeight(-1, 160);
+                db.setWeight(-1, 160);
             });
             assertEquals(666, currUser.getWeight());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setCalorieGoal(-1, 160);
+                db.setCalorieGoal(-1, 160);
             });
             assertEquals(666, currUser.getCalorieGoal());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setExerciseGoal(-1, 160);
+                db.setExerciseGoal(-1, 160);
             });
             assertEquals(666, currUser.getCalorieGoal());
         }
@@ -228,16 +186,16 @@ public class TestUserDBInterface {
         @Test
         @DisplayName(" 0 should fail")
         void testOneZero() {
-            User currUser = this.db.getUser();
+            User currUser = db.getUser();
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setHeight(currUser.getUserID(), 0);
+                db.setHeight(currUser.getUserID(), 0);
             });
 
             assertEquals(666, currUser.getHeight());
 
             assertThrows(IllegalArgumentException.class, () -> {
-                this.db.setWeight(currUser.getUserID(), 0);
+                db.setWeight(currUser.getUserID(), 0);
             });
             assertEquals(666, currUser.getWeight());
         }
