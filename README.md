@@ -1,10 +1,12 @@
-# <center> Comp 3350 Team 10 <br> EATEN </center>
+<div align="center">
+<h1> <b>Comp 3350 Team 10 <br> EATEN</b> </h1>
 
-<center>
+<br>
 
 ### Eaten is a meal planning app, that aims to help its users reach their health goals through curated recipes, automated calorie counting and progress tracking thats easy to read and share with your loved ones. 
 <br>
-</center>
+</div>
+
 <hr>
 
 
@@ -24,7 +26,6 @@
 - [Presentation](#presentation)
 
 [Patch notes](#patch-notes)
-- [Iteration 1](#iteration-1)
 - [Iteration 2](#iteration-2)
 
 <br>
@@ -43,7 +44,6 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
 # Repo URL
 https://github.com/DaneHarrison/Group-10-Meal-Planner
 
-
 <br>
 
 # Dev Log
@@ -54,54 +54,46 @@ The team dev log is kept as a markdown file in the github repository. The group 
 # Feature List
 
 ## Users can track their daily consumed food items, meals, and drinks   
-This feature is on the initial app activity the meal diary screen. This screen can be accessed by clicking on the  
-cutlery icon on the bottom navigation bar. Users can scroll up and down to view all the food items and the amount  
-they are consuming for the day.  
+This feature is on the initial app activity the meal diary screen. This screen can be accessed by clicking on the cutlery icon on the bottom navigation bar. Users can scroll up and down to view all the food items and the amount they are consuming for the day.  
 
 ## Users can set and modify the daily goal for their calorie intake   
-This feature is on the meal diary screen. Users can set the number of calories they want to consume for the  
-day by clicking the Budget text below the progress bar.  
+This feature is on the meal diary screen. Users can set the number of calories they want to consume for the day by clicking the Budget text below the progress bar.  
 
 ## Users can add the number of calories burnt for the day  
-This feature is on the meal diary screen. Users can add an estimate of the calories they burn in a day by  
-clicking the Exercise text below the progress bar.  
+This feature is on the meal diary screen. Users can add an estimate of the calories they burn in a day by clicking the Exercise text below the progress bar.  
 
 ## Users can see the total amount of calories consumed on a single day  
-This feature is on the meal diary screen. Users can see at a glance the total calories from food numerically  
-and as a graphic progress relative o the goal.  
+This feature is on the meal diary screen. Users can see at a glance the total calories from food numerically and as a graphic progress relative o the goal.  
 
 ## Users can see instant progress updates  
-This feature is on the meal diary screen. Users can instantly see graphically and numerically on the progress  
-bar the effect of any changes to the meal entries, the actual exercise calories and the calorie goal.   
+This feature is on the meal diary screen. Users can instantly see graphically and numerically on the progress bar the effect of any changes to the meal entries, the actual exercise calories and the calorie goal.   
 
 ## Users can add new entries
-This feature is on the meal diary screen. Users can add new meal entries from a food, drink and meal database  
-by clicking the green plus button at the bottom of their daily log. This launches a screen which allows the  
-user to select a list of food, meals, or drinks. The user is shown a selection of items with images, names and  
-calorie count for each item. The user can then click on the item cards to show a context UI and can add the  
-selected item by clicking the green plus button.    
+This feature is on the meal diary screen. Users can add new meal entries from a food, drink and meal database by clicking the green plus button at the bottom of their daily log. This launches a screen which allows the user to select a list of food, meals, or drinks. The user is shown a selection of items with images, names and calorie count for each item. The user can then click on the item cards to show a context UI and can add the selected item by clicking the green plus button.    
 
 ## Users can modify meal diary entries
-This feature is on the meal diary screen. Users can can click on any entry in the meal diary to show a context  
-UI. The user can click on the red trash can to delete an entry or the pencil to modify the quantity of an entry.  
-Modification allows users to alter the log so that it reflects the actual consumption of the user.  
+This feature is on the meal diary screen. Users can can click on any entry in the meal diary to show a context UI. The user can click on the red trash can to delete an entry or the pencil to modify the quantity of an entry.  Modification allows users to alter the log so that it reflects the actual consumption of the user.  
 
 ## Users can view previous day diaries and plan for future consumption
-This feature is on the meal diary screen. Users can click on arrows on the top center of the screen above the  
-progress bar date traversal 1 day at a time. Users can click on the date to show a date selector for more efficient  
-selection of further out dates.   
+This feature is on the meal diary screen. Users can click on arrows on the top center of the screen above the progress bar date traversal 1 day at a time. Users can click on the date to show a date selector for more efficient selection of further out dates.   
 
 ## Users can browse food, drink and meal databases  
-This feature is a separate screen the recipe book. This screen can be accessed by clicking on the  
-Book icon on the bottom navigation bar. Users are presented a scrolling list of cards with item images,  
-names, and calories. Users can switch between lists by selecting the desired tab in the middle of the screen.  
+This feature is a separate screen the recipe book. This screen can be accessed by clicking on the book icon on the bottom navigation bar. Users are presented a scrolling list of cards with item images, names, and calories. Users can switch between lists by selecting the desired tab in the middle of the screen.  
 
 ## Users can add new food, drink, or meal items to the database 
-This feature can be accessed from the recipe book. Users can click the floating action button then the plus icon  
-to show a new item entry screen. Users can add food by selecting the food tab then the action button. Similarly  
-Users can click the meal tab or the drinks tab then the action button to add items to those lists. Users can enter  
-food details and add the item using the OK button. The user is notified visually if input does not meet the app  
-requirements. 
+This feature can be accessed from the recipe book. Users can click the floating action button then the plus icon to show a new item entry screen. users can add food by selecting the food tab then the action button. Similarly users can click the meal tab or the drinks tab then the action button to add items to those lists. Users can enter food details and add the item using the OK button. The user is notified visually if input does not meet the app requirements. 
+
+## Users can flag new recipes for pre defined categories and dietary restrictions
+This feature can be accessed from the recipe book when adding a new recipe. Users can select up to 5 flags to further describe the recipe they are adding. Flags consist of alcoholic, spicy, vegan, vegetarian and gluten free
+
+## Users can see goal progress for the week 
+This feature can be accessed from the daily progress activity screen. User's can scroll through 4 different bar charts corresponding to their calorie intake, net calories, burnt calories and weight. This can be accessed via the leftmost nav button. 
+
+## Users can see long term trend charts of their goal progress with trendlines 
+This feature is in the trends activity screen. User's can scroll through 4 different graphs corresponding to their calorie intake, net calories, burnt calories and weight. Results have the option to span the previous week, month, last 3 months, last 6 months and year. This can be accessed via the fourth nav button from the left. 
+
+## User data is persistent between startups 
+This can be enabled in the DBSelector class by commenting the appropriate lines in the constructor lines 23-28
 
 <br>
 
@@ -110,9 +102,20 @@ requirements.
 Our team used Android Studio Chipmunk 2021.2.1 Patch 1 for development on Windows 10. We tested our code both on a Nexus 7 device and several Android virtual devices created in Android studio. Android virtual devices used had SDK 23 for testing and SDK 30 for debugging.  
 
 <br>
-<br></br>
+<br>
 
 # Packages
+## Application
+Application classes handle program maintenance through the course of its life cycle
+
+<br>
+
+<h3>Main</h3>
+Main handles database and device related maintenance and path handling
+
+<br>
+
+#
 ## Business
 Business classes handle program logic related to their activities. 
 
@@ -304,9 +307,17 @@ Fragments are reusable UI components that perform specific functions in activiti
 <br>
 
 # Patch notes
-
-## Iteration 1
-
-<br>
-
 ## Iteration 2
+### Major changes:
+- All objects have been overhauled
+- Moved around logic and processing to comply with seperation of concern
+- Took persistance out of the presentation layers
+- Created around 500 new tests (based on objects buisness and persistance)
+- Trends and Daily progress are now functional (1st and 4th tabs)
+- Edibles in a log can now be modified without side effects (only affects the current edibleLog)
+
+### Unresolved issues:
+- Code base is not up to standards in terms of the law of demeter
+- Adding images to new ingredients is not set up properly yet
+- Ingredients added to new meals and drinks are patched (not proper data)
+- UserDataOps is not entirely necessary right now because we did not get to implementing the logic to prompt user's for their data if it does not exist in the app
