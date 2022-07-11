@@ -91,8 +91,15 @@ public class TestRecipeBookOps {
         @DisplayName("Tests adding a meal recipe ops")
         void testAddMeals() {
             int initialSize = ops.getMealRecipes().size();
+            Edible currEdible = new Edible().initDetails(5, "name", "description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(true, true, true, true, true)
+                    .initMetadata(true, "photo");
+            Ingredient currIngredient = new Ingredient().init(currEdible, 5, Edible.Unit.cups);
+            ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+            ingredients.add(currIngredient);
 
-            ops.addMeal("Pan Cake", testString, 2, Edible.Unit.g, "photo", testString, new ArrayList<Ingredient>());
+            ops.addMeal("Pan Cake", testString, 2, Edible.Unit.g, "photo", testString, ingredients);
 
             assertEquals(initialSize + 1, ops.getMealRecipes().size());
 
@@ -102,8 +109,16 @@ public class TestRecipeBookOps {
         @DisplayName("Tests adding a drink in recipe ops")
         void testAddPreparedDrinks() {
             int initialSize = ops.getDrinkRecipes().size();
+            Edible currEdible = new Edible().initDetails(5, "name", "description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(true, true, true, true, true)
+                    .initMetadata(true, "photo");
+            DrinkIngredient currIngredient = (DrinkIngredient) new DrinkIngredient().init(currEdible, 5, Edible.Unit.cups);
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
+            ingredients.add(currIngredient);
 
-            ops.addPreparedDrink("Banana Smoothie", testString, 2, Edible.Unit.ml, "photo", testString, new ArrayList<DrinkIngredient>());
+            ops.addPreparedDrink("Banana Smoothie", testString, 2, Edible.Unit.ml, "photo", testString, ingredients);
+
             assertEquals(initialSize + 1, ops.getDrinkRecipes().size());
         }
 
@@ -136,7 +151,7 @@ public class TestRecipeBookOps {
         }
 
         @Test
-        @DisplayName("Testing adding more complex and multiple food")
+        @DisplayName("Testing adding more complex and multiple food into even and odd lists")
         void testAddFoods() {
             int initialSize = ops.getFoodRecipes().size();
 
@@ -166,7 +181,7 @@ public class TestRecipeBookOps {
 
 
         @Test
-        @DisplayName("Testing adding more complex and multiple drink (both with and without ingredients)")
+        @DisplayName("Testing adding more complex and multiple drink (both with and without ingredients) into even and odd lists")
         void testAddDrinks() {
             int initialSize = ops.getDrinkRecipes().size();
 
@@ -207,7 +222,7 @@ public class TestRecipeBookOps {
 
 
         @Test
-        @DisplayName("Testing adding more complex and multiple meals")
+        @DisplayName("Testing adding more complex and multiple meals into even and odd lists")
         void testAddMeals() {
             int initialSize = ops.getMealRecipes().size();
 
@@ -239,273 +254,932 @@ public class TestRecipeBookOps {
         }
     }
 
-//empty
+    @Nested
+    @DisplayName("Empty Tests")
+    class Empty_Tests {
+        private RecipeBookOps ops;
 
-    //         @Test
-//         void testAddIncompleteFood() {
-//             ArrayList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
-//             int prevLength = foodRecipes.size();
+        @BeforeEach
+        void setup() {
+            Main.startUp();
+            ops = new RecipeBookOps();
+        }
 
-//             recipeBookOps.addFood(null, 1, 5, Edible.Unit.g, 5);
-//             recipeBookOps.addFood("", -1, 5, Edible.Unit.g, 5);
-//             recipeBookOps.addFood("food", 1, -1, Edible.Unit.g, 5);
-//             recipeBookOps.addFood("food", 1, 5, null, 5);
-//             recipeBookOps.addFood("food", 1, 5, Edible.Unit.g, -1);
-//             recipeBookOps.addFood(null, -1, -1, null, -1);
+        @AfterEach
+        void takedown() {
+            Main.shutDown();
+        }
 
-//             foodRecipes = recipeBookOps.getFoodRecipes();
+        @Test
+        @DisplayName("Testing adding empty or null attributes for edibles")
+        void testAddEmptyEdible() {
+            ArrayList<Edible> foodRecipes = ops.getFoodRecipes();
+            int prevLength = foodRecipes.size();
 
-//             assertEquals(prevLength, foodRecipes.size());
-//         }
-
-//         @Test
-//         void testAddIncompleteDrink() {
-//             ArrayList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
-//             int prevLength = drinkRecipes.size();
-
-//             recipeBookOps.addDrink(null, 1, 5, "instructions", "ingredients", Edible.Unit.g, 5);
-//             recipeBookOps.addDrink("", 1, 5, "instructions", "ingredients", Edible.Unit.g, 5);
-//             recipeBookOps.addDrink("drink", -1, 5, "instructions", "ingredients", Edible.Unit.g, 5);
-//             recipeBookOps.addDrink("drink", 1, -1, null, "ingredients", Edible.Unit.g, 5);
-//             recipeBookOps.addDrink("drink", 1, 5, "instructions", null, Edible.Unit.g, 5);
-//             recipeBookOps.addDrink("drink", 1, 5, "instructions", "ingredients", null, 5);
-//             recipeBookOps.addDrink("drink", 1, 5, "instructions", "ingredients", Edible.Unit.g, -1);
-//             recipeBookOps.addDrink(null, -1, -1, null, null, null, -1);
-
-//             drinkRecipes = recipeBookOps.getDrinkRecipes();
-
-//             assertEquals(prevLength, drinkRecipes.size());
-//         }
-
-//         @Test
-//         void testIncompleteMeal() {
-//             ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
-//             int prevLength = mealRecipes.size();
-
-//             recipeBookOps.addMeal(null, 1, 5, "ingredients", "instructions", Edible.Unit.g, 5);
-//             recipeBookOps.addMeal("", 1, 5, "ingredients", "instructions", Edible.Unit.g, 5);
-//             recipeBookOps.addMeal("meal", -1, 5, "ingredients", "instructions", Edible.Unit.g, 5);
-//             recipeBookOps.addMeal("meal", 1, -1, "ingredients", "instructions", Edible.Unit.g, 5);
-//             recipeBookOps.addMeal("meal", 1, 5, null, "instructions", Edible.Unit.g, 5);
-//             recipeBookOps.addMeal("meal", 1, 5, "ingredients", null, Edible.Unit.g, 5);
-//             recipeBookOps.addMeal("meal", 1, 5, "ingredients", "instructions", null, 5);
-//             recipeBookOps.addMeal("meal", 1, 5, "ingredients", "instructions", Edible.Unit.g, -1);
-//             recipeBookOps.addMeal(null, -1, -1, null, null, null, -1);
-
-//             mealRecipes = recipeBookOps.getMealRecipes();
-
-//             assertEquals(prevLength, mealRecipes.size());
-//         }
-//     }
-
-    //edge
-    //@Test
-//         void testDuplicateFoods() {
-//             ArrayList<Edible> foodRecipes = recipeBookOps.getFoodRecipes();
-//             int prevLength = foodRecipes.size();
-//             int iterations = 5;
-
-//             for(int i = 0; i < iterations; i++) {
-//                 recipeBookOps.addFood("food", 1, 5, Edible.Unit.g, 5);
-//             }
-
-//             foodRecipes = recipeBookOps.getFoodRecipes();
-
-//             for(int i = 0; i < iterations; i++) {
-//                 (foodRecipes.get(foodRecipes.size() - 1 - i));
-//             }
-
-//             assertEquals(prevLength, foodRecipes.size() - iterations);
-//         }
-
-// 		void testDuplicateDrinks() {
-//             ArrayList<Edible> drinkRecipes = recipeBookOps.getDrinkRecipes();
-//             int prevLength = drinkRecipes.size();
-//             int iterations = 5;
-
-//             for(int i = 0; i < iterations; i++) {
-//                 recipeBookOps.addDrink("drink", 1, 5, "ingredients", "instructions", Edible.Unit.g, 5);
-//             }
-
-//             drinkRecipes = recipeBookOps.getDrinkRecipes();
-
-//             for(int i = 0; i < iterations; i++) {
-//                 (drinkRecipes.get(drinkRecipes.size() - 1 - i));
-//             }
-
-//             assertEquals(prevLength, drinkRecipes.size() - iterations);
-//         }
-
-//         @Test
-// 		void testDuplicateMeals() {
-//             ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
-//             int prevLength = mealRecipes.size();
-//             int iterations = 5;
-
-//             for(int i = 0; i < iterations; i++) {
-//                 recipeBookOps.addMeal("meal", 1, 5, "ingredients", "instructions", Edible.Unit.g, 5);
-//             }
-
-//             mealRecipes = recipeBookOps.getMealRecipes();
-
-//             for(int i = 0; i < iterations; i++) {
-//                 (mealRecipes.get(mealRecipes.size() - 1 - i));
-//             }
-
-//             assertEquals(prevLength, mealRecipes.size() - iterations);
-//         }
-
-    void testAddFoods() {
-//             ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
-//             int prevLength = mealRecipes.size();
-
-//             recipeBookOps.addFood("\n", 1, 1, Edible.Unit.cups, 5);
-//             recipeBookOps.addFood(" ", 1, 1, Edible.Unit.cups, 5);
-//             recipeBookOps.addFood("food", Constant.ENTRY_MAX_VALUE, 1, Edible.Unit.cups, 5);
-//             recipeBookOps.addFood("food", 1, Constant.ENTRY_MAX_VALUE, Edible.Unit.cups, 5);
-//             recipeBookOps.addFood("food", 1, 1, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE);
-//             recipeBookOps.addFood("food", Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, Edible.Unit.cups, Constant.ENTRY_MAX_VALUE);
-
-//             mealRecipes = recipeBookOps.getMealRecipes();
-
-//             assertEquals(prevLength, mealRecipes.size() - 6);
-//         }
-
-//         void testAddDrinks() {
-//             ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
-//             int prevLength = mealRecipes.size();
-
-//             recipeBookOps.addDrink("\n", 1, 1, "instructions", "ingredients", Edible.Unit.cups, 5);
-//             recipeBookOps.addDrink(" ", 1, 1, "instructions", "ingredients", Edible.Unit.cups, 5);
-//             recipeBookOps.addDrink("drink", Constant.ENTRY_MAX_VALUE, 1, "instructions", "ingredients", Edible.Unit.cups, 5);
-//             recipeBookOps.addDrink("drink", 1, Constant.ENTRY_MAX_VALUE, "instructions", "ingredients", Edible.Unit.cups, 5);
-//             recipeBookOps.addDrink("drink", 1, 1, "", "ingredients", Edible.Unit.cups, 5);
-//             recipeBookOps.addDrink("drink", 1, 1, "instructions", "", Edible.Unit.cups, 5);
-//             recipeBookOps.addDrink("drink", 1, 1, "\n", "ingredients", Edible.Unit.cups, 5);
-//             recipeBookOps.addDrink("drink", 1, 1, "instructions", "\n", Edible.Unit.cups, 5);
-//             recipeBookOps.addDrink("drink", 1, 1, "\n", "\n", Edible.Unit.cups, 5);
-//             recipeBookOps.addDrink("drink", 1, 1, "\n", "", Edible.Unit.cups, 5);
-//             recipeBookOps.addDrink("drink", 1, 1, "", "instructions", Edible.Unit.cups, 5);
-//             recipeBookOps.addDrink("drink", 1, 1, "", "", Edible.Unit.cups, 5);
-//             recipeBookOps.addDrink("drink", 1, 1, "instructions", "", Edible.Unit.cups, 5);
-//             recipeBookOps.addDrink("drink", 1, 1, "instructions", "ingredients", Edible.Unit.cups, Constant.ENTRY_MAX_VALUE);
-//             recipeBookOps.addDrink("drink", 1, 1, "instructions", "ingredients", Edible.Unit.cups, 1);
-//             recipeBookOps.addDrink("drink", Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, "instructions", "ingredients", Edible.Unit.cups, Constant.ENTRY_MAX_VALUE);
-
-//             mealRecipes = recipeBookOps.getMealRecipes();
-
-//             assertEquals(prevLength, mealRecipes.size() - 16);
-//         }
-
-//         void testAddMeals() {
-//             ArrayList<Edible> mealRecipes = recipeBookOps.getMealRecipes();
-//             int prevLength = mealRecipes.size();
-
-//             recipeBookOps.addMeal("\n", 1, 1, "instructions", "ingredients", Edible.Unit.cups, 5);
-//             recipeBookOps.addMeal(" ", 1, 1, "instructions", "ingredients", Edible.Unit.cups, 5);
-//             recipeBookOps.addMeal("meal", Constant.ENTRY_MAX_VALUE, 1, "instructions", "ingredients", Edible.Unit.cups, 5);
-//             recipeBookOps.addMeal("meal", 1, Constant.ENTRY_MAX_VALUE, "instructions", "ingredients", Edible.Unit.cups, 5);
-//             recipeBookOps.addMeal("meal", 1, 1, "", "ingredients", Edible.Unit.cups, 5);
-//             recipeBookOps.addMeal("meal", 1, 1, "instructions", "", Edible.Unit.cups, 5);
-//             recipeBookOps.addMeal("meal", 1, 1, "\n", "ingredients", Edible.Unit.cups, 5);
-//             recipeBookOps.addMeal("meal", 1, 1, "instructions", "\n", Edible.Unit.cups, 5);
-//             recipeBookOps.addMeal("meal", 1, 1, "instructions", "ingredients", Edible.Unit.cups, Constant.ENTRY_MAX_VALUE);
-//             recipeBookOps.addMeal("meal", Constant.ENTRY_MAX_VALUE, Constant.ENTRY_MAX_VALUE, "instructions", "ingredients", Edible.Unit.cups, Constant.ENTRY_MAX_VALUE);
-//             recipeBookOps.addMeal("meal", 1, 1, "\n", "ingredients", Edible.Unit.cups, 5);
-//             recipeBookOps.addMeal("meal", 1, 1, "\n", "\n", Edible.Unit.cups, 5);
-//             recipeBookOps.addMeal("meal", 1, 1, "", " ", Edible.Unit.cups, 5);
-//             recipeBookOps.addMeal("meal", 1, 1, " ", "", Edible.Unit.cups, 5);
-//             recipeBookOps.addMeal("meal", 1, 1, "", "", Edible.Unit.cups, 5);
-//             recipeBookOps.addMeal("meal", 1, 1, " ", " ", Edible.Unit.cups, 5);
-//             recipeBookOps.addMeal("meal", 1, 1, "", "ingredients", Edible.Unit.cups, 5);
-//             recipeBookOps.addMeal("meal", 1, 1, "instructions", "", Edible.Unit.cups, 5);
-
-
-//             mealRecipes = recipeBookOps.getMealRecipes();
-
-//             assertEquals(prevLength, mealRecipes.size() - 18);
-//         }
-
-        @Nested
-        @DisplayName("Following tests should fail")
-        class shouldFailTests {
-
-            private RecipeBookOps ops;
-
-
-            @BeforeEach
-            void setup() {
-                Main.startUp();
-                ops = new RecipeBookOps();
+            try {
+                ops.addFood(null, "description", 2, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("name cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
             }
 
-            @AfterEach
-            void takedown() {
-                Main.shutDown();
+            try {
+                ops.addFood("", "description", 2, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("name cannot be empty, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
             }
 
-            @Test
-            @DisplayName("Testing some edge cases for addFood method")
-            void testAddFoods() {
+            ops.addFood(" ", "description", 2, Edible.Unit.g, 1, 1, 1, 1,
+                    false, false, false, false, false, "photo");
+            assertEquals(prevLength + 1, ops.getFoodRecipes().size());
 
+            try {
+                ops.addFood(" !!!!!!! * @@@ +++==", null, 2, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("description cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
 
-                assertThrows(IllegalArgumentException.class, () -> {
-                    ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 40000, 74, 89,
-                            false, false, false, false, false, null);
+            ops.addFood(" !!!!!!! * @@@ +++==", "", 2, Edible.Unit.g, 1, 1, 1, 1,
+                    false, false, false, false, false, "photo");
+            assertEquals(prevLength + 2, ops.getFoodRecipes().size());
 
-                    ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99999, 405, 74, 89,
-                            false, false, false, false, false, null);
+            ops.addFood(" !!!!!!! * @@@ +++==", " ", 2, Edible.Unit.g, 1, 1, 1, 1,
+                    false, false, false, false, false, "photo");
+            assertEquals(prevLength + 3, ops.getFoodRecipes().size());
 
-                    ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 74888, 89,
-                            false, false, false, false, false, null);
+            try {
+                ops.addFood(" !!!!!!! * @@@ +++==", " ____", 2, null, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("unit cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
 
-                    ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 74, 89000,
-                            false, false, false, false, false, null);
+            try {
+                ops.addFood(" !!!!!!! * @@@ +++==", " ____", 2, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, null);
+                fail("photo cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
 
-                    ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 7, 89,
-                            false, false, false, false, false, null);
+            try {
+                ops.addFood(" !!!!!!! * @@@ +++==", " ____", 2, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "");
+                fail("photo cannot be empty, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
 
-                    ops.addFood("food2", "\n\n", 2, Edible.Unit.g, 99, 405, 74, 8,
-                            false, false, false, false, false, null);
-                });
+            ops.addFood(" !!!!!!! * @@@ +++==", " ____", 2, Edible.Unit.g, 1, 1, 1, 1,
+                    false, false, false, false, false, " ");
+            assertEquals(prevLength + 4, ops.getFoodRecipes().size());
+        }
 
+        @Test
+        @DisplayName("Testing adding empty or null attributes for meals")
+        void testAddEmptyMeal() {
+            ArrayList<Edible> mealRecipes = ops.getMealRecipes();
+            int prevLength = mealRecipes.size();
+
+            ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+
+            Edible food = new Edible().initDetails(5, "name", "description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "photo");
+
+            Ingredient ingredient = new Ingredient().init(food, 5, Edible.Unit.cups);
+            ingredients.add(ingredient);
+
+            try {
+                ops.addMeal(null, "description", 2, Edible.Unit.ml, "photo", "instructions", ingredients);
+                fail("name cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addMeal("", "description", 2, Edible.Unit.ml, "photo", "instructions", ingredients);
+                fail("name cannot be empty, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            ops.addMeal(" ", "description", 2, Edible.Unit.ml, "photo", "instructions", ingredients);
+            assertEquals(prevLength + 1, ops.getMealRecipes().size());
+
+            try {
+                ops.addMeal("drink", null, 2, Edible.Unit.ml, "photo", "instructions", ingredients);
+                fail("description cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            ops.addMeal("drink", "", 2, Edible.Unit.ml, "photo", "instructions", ingredients);
+            assertEquals(prevLength + 2, ops.getMealRecipes().size());
+
+            ops.addMeal("drink", " ", 2, Edible.Unit.ml, "photo", "instructions", ingredients);
+            assertEquals(prevLength + 3, ops.getMealRecipes().size());
+
+            try {
+                ops.addMeal("drink", "description", 2, null, "photo", "instructions", ingredients);
+                fail("unit cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addMeal("drink", "description", 2, Edible.Unit.ml, null, "instructions", ingredients);
+                fail("photo cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addMeal("drink", "description", 2, Edible.Unit.ml, "", "instructions", ingredients);
+                fail("photo cannot be empty, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            ops.addMeal("drink", "description", 2, Edible.Unit.ml, " ", "instructions", ingredients);
+            assertEquals(prevLength + 4, ops.getMealRecipes().size());
+
+            try {
+                ops.addMeal("drink", "description", 2, Edible.Unit.ml, "photo", null, ingredients);
+                fail("instructions cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            ops.addMeal("drink", "description", 2, Edible.Unit.ml, "photo", "", ingredients);
+            assertEquals(prevLength + 5, ops.getMealRecipes().size());
+
+            ops.addMeal("drink", "description", 2, Edible.Unit.ml, "photo", " ", ingredients);
+            assertEquals(prevLength + 6, ops.getMealRecipes().size());
+
+            try {
+                ops.addMeal("drink", "description", 2, Edible.Unit.ml, "photo", "instructions", null);
+                fail("ingredients cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addMeal("drink", "description", 2, Edible.Unit.ml, "photo", "instructions", new ArrayList<Ingredient>());
+                fail("ingredients cannot be empty, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+        }
+
+        @Test
+        @DisplayName("Testing adding empty or null attributes for drinks without ingredients")
+        void testAddSimpleEmptyDrink() {
+            ArrayList<Edible> drinkRecipes = ops.getDrinkRecipes();
+            int prevLength = drinkRecipes.size();
+
+            try {
+                ops.addSimpleDrink(null, "description", 2, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("name cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addSimpleDrink("", "description", 2, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("name cannot be empty, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            ops.addSimpleDrink(" ", "description", 2, Edible.Unit.g, 1, 1, 1, 1,
+                    false, false, false, false, false, "photo");
+            assertEquals(prevLength + 1, ops.getDrinkRecipes().size());
+
+            try {
+                ops.addSimpleDrink(" !!!!!!! * @@@ +++==", null, 2, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("description cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
             }
 
 
-            @Test
-            @DisplayName("Testing some edge cases for addDrinks method")
-            void testAddDrinks() {
+            ops.addSimpleDrink(" !!!!!!! * @@@ +++==", "", 2, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+            assertEquals(prevLength + 2, ops.getDrinkRecipes().size());
 
-                String description = "dfhjdhsgsdjjkds\n\n\nidfdshf\ndfh";
-                ArrayList<DrinkIngredient> ingredients = new ArrayList<>();
+            ops.addSimpleDrink(" !!!!!!! * @@@ +++==", " ", 2, Edible.Unit.g, 1, 1, 1, 1,
+                    false, false, false, false, false, "photo");
+            assertEquals(prevLength + 3, ops.getDrinkRecipes().size());
 
-                assertThrows(IllegalArgumentException.class, () -> {
-
-                    ops.addPreparedDrink("drink", description, 200000, Edible.Unit.ml, null, "123344", ingredients);
-                    ops.addPreparedDrink("drink", description, 999999, Edible.Unit.ml, null, "123344", ingredients);
-                    ops.addPreparedDrink("drink", description, 989898, Edible.Unit.ml, null, "123344", ingredients);
-                    ops.addPreparedDrink("drink", description, 76543, Edible.Unit.ml, null, "123344", ingredients);
-
-
-                });
-
+            try {
+                ops.addSimpleDrink(" !!!!!!! * @@@ +++==", " ____", 2, null, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("unit cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
             }
 
-            @Test
-            @DisplayName("Some Tests for addDrinks method that should throw an Exception")
-            void testAddMeals() {
-
-                String description = "dfhjdhsgsdjjkds\n\n\nidfdshf\ndfh";
-                ArrayList<Ingredient> ingredients = new ArrayList<>();
-
-                assertThrows(IllegalArgumentException.class, () -> {
-
-                    ops.addMeal("failedMeal", "hello world", 20000, Edible.Unit.serving, null, "sfdhosdfh ", ingredients);
-                    ops.addMeal("failedMeal", "hello world", 20, Edible.Unit.serving, null, "sfdhosdfh ", ingredients);
-                });
-
+            try {
+                ops.addSimpleDrink(" !!!!!!! * @@@ +++==", " ____", 2, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, null);
+                fail("photo cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
             }
 
+            try {
+                ops.addSimpleDrink(" !!!!!!! * @@@ +++==", " ____", 2, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "");
+                fail("photo cannot be empty, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            ops.addSimpleDrink(" !!!!!!! * @@@ +++==", " ____", 2, Edible.Unit.g, 1, 1, 1, 1,
+                    false, false, false, false, false, " ");
+            assertEquals(prevLength + 4, ops.getDrinkRecipes().size());
+        }
+
+        @Test
+        @DisplayName("Testing adding empty or null attributes for drinks with ingredients")
+        void testAddEmptyDrink() {
+            ArrayList<Edible> drinkRecipes = ops.getDrinkRecipes();
+            int prevLength = drinkRecipes.size();
+
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<>();
+
+            Edible food = new Edible().initDetails(5, "name", "description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "photo");
+
+            DrinkIngredient ingredient = new DrinkIngredient();
+            ingredient.init(food, 5, Edible.Unit.cups);
+            ingredients.add(ingredient);
+
+            try {
+                ops.addPreparedDrink(null, "description", 2, Edible.Unit.ml, "photo", "instructions", ingredients);
+                fail("name cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addPreparedDrink("", "description", 2, Edible.Unit.ml, "photo", "instructions", ingredients);
+                fail("name cannot be empty, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            ops.addPreparedDrink(" ", "description", 2, Edible.Unit.ml, "photo", "instructions", ingredients);
+            assertEquals(prevLength + 1, ops.getDrinkRecipes().size());
+
+            try {
+                ops.addPreparedDrink("drink", null, 2, Edible.Unit.ml, "photo", "instructions", ingredients);
+                fail("description cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            ops.addPreparedDrink("drink", "", 2, Edible.Unit.ml, "photo", "instructions", ingredients);
+            assertEquals(prevLength + 2, ops.getDrinkRecipes().size());
+
+            ops.addPreparedDrink("drink", " ", 2, Edible.Unit.ml, "photo", "instructions", ingredients);
+            assertEquals(prevLength + 3, ops.getDrinkRecipes().size());
+
+            try {
+                ops.addPreparedDrink("drink", "description", 2, null, "photo", "instructions", ingredients);
+                fail("unit cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addPreparedDrink("drink", "description", 2, Edible.Unit.ml, null, "instructions", ingredients);
+                fail("photo cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addPreparedDrink("drink", "description", 2, Edible.Unit.ml, "", "instructions", ingredients);
+                fail("photo cannot be empty, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            ops.addPreparedDrink("drink", "description", 2, Edible.Unit.ml, " ", "instructions", ingredients);
+            assertEquals(prevLength + 4, ops.getDrinkRecipes().size());
+
+            try {
+                ops.addPreparedDrink("drink", "description", 2, Edible.Unit.ml, "photo", null, ingredients);
+                fail("instructions cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            ops.addPreparedDrink("drink", "description", 2, Edible.Unit.ml, "photo", "", ingredients);
+            assertEquals(prevLength + 5, ops.getDrinkRecipes().size());
+
+            ops.addPreparedDrink("drink", "description", 2, Edible.Unit.ml, "photo", " ", ingredients);
+            assertEquals(prevLength + 6, ops.getDrinkRecipes().size());
+
+            try {
+                ops.addPreparedDrink("drink", "description", 2, Edible.Unit.ml, "photo", "instructions", null);
+                fail("ingredients cannot be null, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addPreparedDrink("drink", "description", 2, Edible.Unit.ml, "photo", "instructions", new ArrayList<DrinkIngredient>());
+                fail("ingredients cannot be empty, should throw an IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("Edge case Tests")
+    class EdgeCase_Tests {
+        private RecipeBookOps ops;
+        String longTestString;
+
+        @BeforeEach
+        void setup() {
+            Main.startUp();
+            ops = new RecipeBookOps();
+            longTestString = "";
+
+            for (int i = 0; i < 9999; i++) {
+                longTestString = longTestString + "a";
+            }
+        }
+
+        @AfterEach
+        void takedown() {
+            Main.shutDown();
+        }
+
+        @Test
+        @DisplayName("Tests adding duplicate food items")
+        void testDuplicateFoods() {
+            ArrayList<Edible> foodRecipes = ops.getFoodRecipes();
+            int prevLength = foodRecipes.size();
+
+            for (int i = 0; i < 5; i++) {
+                ops.addFood("food", "description", 5, Edible.Unit.g, 5, 5, 5, 5, false, false, false,
+                        false, false, "photo");
+            }
+
+            foodRecipes = ops.getFoodRecipes();
+            assertEquals(foodRecipes.size(), prevLength + 5);
+        }
+
+        @Test
+        @DisplayName("Tests adding duplicate drinks (with duplicate ingredients and without ingredients)")
+        void testDuplicateDrinks() {
+            ArrayList<Edible> drinkRecipes = ops.getDrinkRecipes();
+            int prevLength = drinkRecipes.size();
+
+            for (int i = 0; i < 5; i++) {
+                ops.addSimpleDrink("food", "description", 5, Edible.Unit.g, 5, 5, 5, 5, false, false, false,
+                        false, false, "photo");
+            }
+
+            drinkRecipes = ops.getDrinkRecipes();
+            assertEquals(drinkRecipes.size(), prevLength + 5);
+
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
+            Edible currEdible = new Edible().initDetails(5, "name", "description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "photo");
+            DrinkIngredient currIngredient = (DrinkIngredient) new DrinkIngredient().init(currEdible, 5, Edible.Unit.cups);
+
+            ingredients.add(currIngredient);
+            ingredients.add(currIngredient);
+            ingredients.add(currIngredient);
+            prevLength = drinkRecipes.size();
+
+            for (int i = 0; i < 5; i++) {
+                ops.addPreparedDrink("name", "description", 5, Edible.Unit.g, "photo", "instructions", ingredients);
+            }
+
+            drinkRecipes = ops.getDrinkRecipes();
+            assertEquals(drinkRecipes.size(), prevLength + 5);
+        }
+
+        @Test
+        @DisplayName("Tests adding duplicate meals (with duplicate ingredients)")
+        void testDuplicateMeals() {
+            ArrayList<Edible> mealRecipes = ops.getMealRecipes();
+            int prevLength = mealRecipes.size();
+
+            ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+            Edible currEdible = new Edible().initDetails(5, "name", "description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "photo");
+            Ingredient currIngredient = new Ingredient().init(currEdible, 5, Edible.Unit.cups);
+
+            ingredients.add(currIngredient);
+            ingredients.add(currIngredient);
+            ingredients.add(currIngredient);
+
+            for (int i = 0; i < 5; i++) {
+                ops.addMeal("name", "description", 5, Edible.Unit.g, "photo", "instructions", ingredients);
+            }
+
+            mealRecipes = ops.getMealRecipes();
+            assertEquals(mealRecipes.size(), prevLength + 5);
+        }
+
+        @Test
+        @DisplayName("Tests edge case foods that we can be processed by recipe book ops")
+        void testAddFoods() {
+            ArrayList<Edible> foodRecipes = ops.getFoodRecipes();
+            int prevLength = foodRecipes.size();
+
+            ops.addFood(longTestString, longTestString, 2, Edible.Unit.g, 1, 1, 1, 1,
+                    false, false, false, false, false, longTestString);
+            ops.addFood(" ", " ", 2, Edible.Unit.g, 1, 1, 1, 1,
+                    true, false, false, false, false, " ");
+            ops.addFood(longTestString, longTestString, 1, Edible.Unit.g, 0, 0, 0, 0,
+                    false, false, false, true, true, longTestString);
+            ops.addFood(longTestString, longTestString, 9999, Edible.Unit.g, 9999, 9999, 9999, 9999,
+                    true, true, true, true, true, longTestString);
+            ops.addFood("12345", "12345", 9999, Edible.Unit.g, 9999, 9999, 9999, 9999,
+                    true, false, true, false, true, "12345");
+            ops.addFood("&^%#&!^%#LOL", "&^%#&!^%#LOL", 9999, Edible.Unit.g, 9999, 9999, 9999, 9999,
+                    true, true, true, true, true, "&^%#&!^%#LOL");
+
+            foodRecipes = ops.getFoodRecipes();
+
+            assertEquals(foodRecipes.size(), prevLength + 6);
+        }
+
+        @Test
+        @DisplayName("Tests edge case drinks that we can be processed by recipe book ops (with and without ingredients)")
+        void testAddDrinks() {
+            ArrayList<Edible> drinkRecipes = ops.getDrinkRecipes();
+            int prevLength = drinkRecipes.size();
+
+            ops.addSimpleDrink(longTestString, longTestString, 5, Edible.Unit.g, 5, 5, 5, 5, false, false, false,
+                    false, false, longTestString);
+            ops.addSimpleDrink(" ", " ", 5, Edible.Unit.g, 5, 5, 5, 5, false, false, false,
+                    false, false, " ");
+            ops.addSimpleDrink("12345", "description", 5, Edible.Unit.g, 0, 0, 0, 0, false, false, false,
+                    false, false, "photo");
+            ops.addSimpleDrink("food", "description", 5, Edible.Unit.g, 9999, 9999, 9999, 9999, false, false, false,
+                    false, false, "photo");
+
+            drinkRecipes = ops.getDrinkRecipes();
+            assertEquals(drinkRecipes.size(), prevLength + 4);
+
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
+            Edible currEdible = new Edible().initDetails(5, longTestString, longTestString, 1, Edible.Unit.g)
+                    .initNutrition(9999, 9999, 9999, 9999)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, longTestString);
+            DrinkIngredient currIngredient = (DrinkIngredient) new DrinkIngredient().init(currEdible, 5, Edible.Unit.cups);
+
+            ingredients.add(currIngredient);
+            prevLength = drinkRecipes.size();
+
+            ops.addPreparedDrink(longTestString, longTestString, 5, Edible.Unit.g, longTestString, longTestString, ingredients);
+            ops.addPreparedDrink(" ", " ", 5, Edible.Unit.g, " ", " ", ingredients);
+            ops.addPreparedDrink("name", "description", 1, Edible.Unit.g, "photo", "instructions", ingredients);
+            ops.addPreparedDrink("name", "description", 9999, Edible.Unit.g, "photo", "instructions", ingredients);
+
+            drinkRecipes = ops.getDrinkRecipes();
+            assertEquals(drinkRecipes.size(), prevLength + 4);
+        }
+
+        @Test
+        @DisplayName("Tests edge case meals that we can be processed by recipe book ops")
+        void testAddMeals() {
+            ArrayList<Edible> mealRecipes = ops.getMealRecipes();
+            int prevLength = mealRecipes.size();
+
+            ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+            Edible currEdible = new Edible().initDetails(5, longTestString, longTestString, 1, Edible.Unit.g)
+                    .initNutrition(9999, 9999, 9999, 9999)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, longTestString);
+            Ingredient currIngredient = new Ingredient().init(currEdible, 5, Edible.Unit.cups);
+
+            ingredients.add(currIngredient);
+
+            ops.addMeal(longTestString, longTestString, 5, Edible.Unit.g, longTestString, longTestString, ingredients);
+            ops.addMeal(" ", " ", 5, Edible.Unit.g, " ", " ", ingredients);
+            ops.addMeal("name", "description", 1, Edible.Unit.g, "photo", "instructions", ingredients);
+            ops.addMeal("name", "description", 9999, Edible.Unit.g, "photo", "instructions", ingredients);
+
+
+            mealRecipes = ops.getMealRecipes();
+
+            assertEquals(mealRecipes.size(), prevLength + 4);
+        }
+    }
+
+    @Nested
+    @DisplayName("Invalid Tests")
+    class Invalid_Tests {
+        private RecipeBookOps ops;
+        private String longTestString;
+
+        @BeforeEach
+        void setup() {
+            Main.startUp();
+            ops = new RecipeBookOps();
+            longTestString = "";
+
+            for (int i = 0; i < 10000; i++) {
+                longTestString = longTestString + "a";
+            }
+        }
+
+        @AfterEach
+        void takedown() {
+            Main.shutDown();
+        }
+
+        @Test
+        @DisplayName("Testing adding invalid edibles")
+        void testAddInvalidEdible() {
+            ArrayList<Edible> foodRecipes = ops.getFoodRecipes();
+            int prevLength = foodRecipes.size();
+
+            try {
+                ops.addFood(longTestString, "description", 0, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("name is too long, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addFood("name", longTestString, 0, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("description is too long, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addFood("name", "description", 1, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, longTestString);
+                fail("photo is too long, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addFood("name", "description", 0, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("quantity cannot be 0, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addFood("name", "description", -1, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("quantity cannot be less than 0, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addFood("name", "description", 10000, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("quantity cannot be greater than 9999, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addFood("name", "description", 2, Edible.Unit.g, -1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("calories cannot be less than 0, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addFood("name", "description", 2, Edible.Unit.g, 10000, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("calories cannot be greater than 9999, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addFood("name", "description", 2, Edible.Unit.g, 1, -1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("protein cannot be less than 0, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addFood("name", "description", 2, Edible.Unit.g, 1, 10000, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("protein cannot be greater than 9999, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addFood("name", "description", 2, Edible.Unit.g, 1, 2, -1, 1,
+                        false, false, false, false, false, "photo");
+                fail("carbs cannot be less than 0, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addFood("name", "description", 2, Edible.Unit.g, 1, 2, 10000, 1,
+                        false, false, false, false, false, "photo");
+                fail("carbs cannot be greater than 9999, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addFood("name", "description", 2, Edible.Unit.g, 1, 1, 1, -1,
+                        false, false, false, false, false, "photo");
+                fail("fat cannot be less than 0, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addFood("name", "description", 2, Edible.Unit.g, 1, 1, 1, 10000,
+                        false, false, false, false, false, "photo");
+                fail("fat cannot be greater than 9999, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            assertEquals(prevLength, ops.getFoodRecipes().size());
+        }
+
+        @Test
+        @DisplayName("Testing adding invalid meals")
+        void testAddInvalidMeal() {
+            ArrayList<Edible> mealRecipes = ops.getMealRecipes();
+            int prevLength = mealRecipes.size();
+
+            ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+
+            Edible food = new Edible().initDetails(5, "name", "description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "photo");
+
+            Ingredient ingredient = new Ingredient().init(food, 5, Edible.Unit.cups);
+            ingredients.add(ingredient);
+
+            try {
+                ops.addMeal("name", "description", 0, Edible.Unit.ml, "photo", "instructions", ingredients);
+                fail("quantity cannot be less than or equal to 0, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addMeal("name", "description", 10000, Edible.Unit.ml, "photo", "instructions", ingredients);
+                fail("quantity cannot be greater than 9999, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addMeal(longTestString, "description", 1, Edible.Unit.ml, "photo", "instructions", ingredients);
+                fail("name is too long, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addMeal("name", longTestString, 1, Edible.Unit.ml, "photo", "instructions", ingredients);
+                fail("description is too long, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addMeal("name", "description", 1, Edible.Unit.ml, longTestString, "instructions", ingredients);
+                fail("photo is too long, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addMeal("name", "description", 1, Edible.Unit.ml, "photo", longTestString, ingredients);
+                fail("instructions is too long, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            assertEquals(prevLength, ops.getMealRecipes().size());
+        }
+
+        @Test
+        @DisplayName("Testing adding invalid drinks without ingredients")
+        void testAddSimpleInvalidDrink() {
+            ArrayList<Edible> drinkRecipes = ops.getDrinkRecipes();
+            int prevLength = drinkRecipes.size();
+
+            try {
+                ops.addSimpleDrink(longTestString, "description", 0, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("name is too long, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addSimpleDrink("name", longTestString, 0, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("description is too long, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addSimpleDrink("name", "description", 1, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, longTestString);
+                fail("photo is too long, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addSimpleDrink("name", "description", 0, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("quantity cannot be 0, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addSimpleDrink("name", "description", 10000, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("quantity cannot be greater than 9999, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addSimpleDrink("name", "description", -1, Edible.Unit.g, 1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("quantity cannot be less than 0, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addSimpleDrink("name", "description", 2, Edible.Unit.g, -1, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("calories cannot be less than 0, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addSimpleDrink("name", "description", 2, Edible.Unit.g, 10000, 1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("quantity cannot be greater than 9999, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addSimpleDrink("name", "description", 2, Edible.Unit.g, 1, -1, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("protein cannot be less than 0, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addSimpleDrink("name", "description", 2, Edible.Unit.g, 1, 10000, 1, 1,
+                        false, false, false, false, false, "photo");
+                fail("protein cannot be greater than 9999, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addSimpleDrink("name", "description", 2, Edible.Unit.g, 1, 2, -1, 1,
+                        false, false, false, false, false, "photo");
+                fail("carbs cannot be less than 0, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addSimpleDrink("name", "description", 2, Edible.Unit.g, 1, 2, 10000, 1,
+                        false, false, false, false, false, "photo");
+                fail("carbs cannot be greater than 9999, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addSimpleDrink("name", "description", 2, Edible.Unit.g, 1, 1, 1, -1,
+                        false, false, false, false, false, "photo");
+                fail("fat cannot be less than 0, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addSimpleDrink("name", "description", 2, Edible.Unit.g, 1, 1, 1, 10000,
+                        false, false, false, false, false, "photo");
+                fail("fat cannot be greater than 9999, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            assertEquals(prevLength, ops.getDrinkRecipes().size());
+        }
+
+        @Test
+        @DisplayName("Testing adding invalid drinks with ingredients")
+        void testAddInvalidDrink() {
+            ArrayList<Edible> drinkRecipes = ops.getDrinkRecipes();
+            int prevLength = drinkRecipes.size();
+
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<>();
+
+            Edible food = new Edible().initDetails(5, "name", "description", 5, Edible.Unit.g)
+                    .initNutrition(5, 5, 5, 5)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "photo");
+
+            DrinkIngredient ingredient = new DrinkIngredient();
+            ingredient.init(food, 5, Edible.Unit.cups);
+            ingredients.add(ingredient);
+
+            try {
+                ops.addPreparedDrink("name", "description", 0, Edible.Unit.ml, "photo", "instructions", ingredients);
+                fail("quantity cannot be less than or equal to 0, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addPreparedDrink("name", "description", 10000, Edible.Unit.ml, "photo", "instructions", ingredients);
+                fail("quantity cannot be greater than 9999, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addPreparedDrink(longTestString, "description", 1, Edible.Unit.ml, "photo", "instructions", ingredients);
+                fail("name is too long, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addPreparedDrink("name", longTestString, 1, Edible.Unit.ml, "photo", "instructions", ingredients);
+                fail("description is too long, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addPreparedDrink("name", "description", 1, Edible.Unit.ml, longTestString, "instructions", ingredients);
+                fail("photo is too long, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                ops.addPreparedDrink("name", "description", 1, Edible.Unit.ml, "photo", longTestString, ingredients);
+                fail("instructions is too long, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            assertEquals(prevLength, ops.getDrinkRecipes().size());
         }
     }
 }
