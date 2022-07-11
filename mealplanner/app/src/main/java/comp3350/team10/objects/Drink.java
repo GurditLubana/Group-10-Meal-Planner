@@ -35,4 +35,16 @@ public class Drink extends PreparedItem {
     public ArrayList<DrinkIngredient> getIngredients() {
         return this.ingredients;
     }
+
+            public Drink clone() throws IllegalArgumentException {
+        Drink copy = new Drink();
+
+        copy.initDetails(this.getDbkey(), this.getName(), this.getDescription(), this.getQuantity(), this.getUnit());
+        copy.initNutrition(this.getCalories(), this.getProtein(), this.getCarbs(), this.getFat());
+        copy.initCategories(this.getIsAlcoholic(), this.getIsSpicy(), this.getIsVegan(), this.getIsVegetarian(), this.getIsGlutenFree());
+        copy.initMetadata(this.getIsCustom(), this.getPhoto());
+        copy.setIngredients(this.getIngredients());
+        
+        return copy;
+    }
 }

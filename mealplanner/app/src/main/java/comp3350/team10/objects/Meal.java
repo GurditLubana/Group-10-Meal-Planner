@@ -28,4 +28,16 @@ public class Meal extends PreparedItem {
     public ArrayList<Ingredient> getIngredients() {
         return this.ingredients;
     }
+
+        public Meal clone() throws IllegalArgumentException {
+        Meal copy = new Meal();
+
+        copy.initDetails(this.getDbkey(), this.getName(), this.getDescription(), this.getQuantity(), this.getUnit());
+        copy.initNutrition(this.getCalories(), this.getProtein(), this.getCarbs(), this.getFat());
+        copy.initCategories(this.getIsAlcoholic(), this.getIsSpicy(), this.getIsVegan(), this.getIsVegetarian(), this.getIsGlutenFree());
+        copy.initMetadata(this.getIsCustom(), this.getPhoto());
+        copy.setIngredients(this.getIngredients());
+        
+        return copy;
+    }
 }

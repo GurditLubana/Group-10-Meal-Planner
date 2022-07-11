@@ -17,7 +17,7 @@ public abstract class PreparedItem extends Edible {
 
 
     public void setInstructions(String newInstructions) throws IllegalArgumentException {
-        if (newInstructions != null) {
+        if (newInstructions != null && newInstructions.length() <= Constant.ENTRY_MAX_VALUE) {
             this.instructions = newInstructions;
         }
         else {
