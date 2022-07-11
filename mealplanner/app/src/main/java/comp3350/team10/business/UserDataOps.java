@@ -1,7 +1,6 @@
 package comp3350.team10.business;
 
 import comp3350.team10.objects.User;
-import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.SharedDB;
 import comp3350.team10.persistence.UserDBInterface;
 
