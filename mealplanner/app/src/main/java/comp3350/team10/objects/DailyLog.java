@@ -50,6 +50,11 @@ public class DailyLog {
         return this;
     }
 
+    public DailyLog clone(){
+        DailyLog copy = new DailyLog();
+        copy.init(this.date, getEdibleList(), this.calorieGoal, this.exerciseGoal, this.getExerciseActual());
+        return copy;
+    }
     private void setDate(Calendar date) throws NullPointerException {
         if (date != null) {
             this.date = date;
