@@ -18,6 +18,7 @@ import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
 import comp3350.team10.objects.Ingredient;
 import comp3350.team10.objects.Meal;
+import comp3350.team10.objects.PreparedItem;
 import comp3350.team10.objects.User;
 
 public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDBInterface {
@@ -46,7 +47,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         this.calendar.set(Calendar.MONTH, 9);
         this.calendar.set(Calendar.DAY_OF_MONTH, 10);
         this.dbName = dbName;
-        this.currKey = 1;
+        this.currKey = 100;
     }
 
     public void open(String dbName) {
@@ -85,7 +86,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         });
     }
 
-    public EdibleLog findEdibleByKey(int key, boolean isCustom) throws NoSuchElementException {
+    public EdibleLog findEdibleByKey(int key, boolean isCustom) {
         EdibleLog result = null;
         System.out.println("key: " + key);
 
@@ -109,9 +110,6 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             System.out.println("findEdibleByKey error creating a new EdibleLog " + e);
             result = null;
         }
-        if (result == null) {
-            throw new NoSuchElementException("Requested item for dbkey does not exist");
-        }
 
         return result;
     }
@@ -133,31 +131,64 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     }
 
     //This section implements UserDBInterface'
-    public void addUser(String name, int height, int weight) {
-        System.out.println("Service not implemented yet");
-    }
 
     public User getUser() {
         return this.currUser;
     }
 
-    public void setHeight(int userID, int newHeight) {
-        this.currUser.setHeight(newHeight);
+    public void setHeight(int userID, int value) throws IllegalArgumentException {
+        try {
+            if (value >= 1 && value <= Constant.ENTRY_MAX_VALUE) {
+                findUserByID(userID);
+                this.currUser.setHeight(value);
+            } else {
+                throw new IllegalArgumentException("DataAccessStub setHeight requires values " + 1 + "<= value <=" + Constant.ENTRY_MAX_VALUE);
+            }
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("DataAccessStub setHeight invalid value provided " + e);
+        }
     }
 
-    public void setWeight(int userID, int newWeight) {
-        this.currUser.setHeight(newWeight);
+    public void setWeight(int userID, int value) throws IllegalArgumentException {
+        try {
+            if (value >= 1 && value <= Constant.ENTRY_MAX_VALUE) {
+                findUserByID(userID);
+                this.currUser.setWeight(value);
+            } else {
+                throw new IllegalArgumentException("DataAccessStub setWeight requires values " + 1 + "<= value <=" + Constant.ENTRY_MAX_VALUE);
+            }
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("DataAccessStub setWeight invalid value provided " + e);
+        }
     }
 
-    public void setCalorieGoal(int userID, double goal) throws IllegalArgumentException {
-        this.currUser.setCalorieGoal(goal);
+    public void setCalorieGoal(int userID, double value) throws IllegalArgumentException {
+        try {
+            if (value >= Constant.ENTRY_MIN_VALUE && value <= Constant.ENTRY_MAX_VALUE) {
+                findUserByID(userID);
+                this.currUser.setCalorieGoal(value);
+            } else {
+                throw new IllegalArgumentException("DataAccessStub setCalorieGoal requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
+            }
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("DataAccessStub setCalorieGoal invalid value provided " + e);
+        }
     }
 
-    public void setExerciseGoal(int userID, double goal) throws IllegalArgumentException {
-        this.currUser.setExerciseGoal(goal);
+    public void setExerciseGoal(int userID, double value) throws IllegalArgumentException {
+        try {
+            if (value >= Constant.ENTRY_MIN_VALUE && value <= Constant.ENTRY_MAX_VALUE) {
+                findUserByID(userID);
+                this.currUser.setExerciseGoal(value);
+            } else {
+                throw new IllegalArgumentException("DataAccessStub setExerciseGoal requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
+            }
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("DataAccessStub setExerciseGoal invalid value provided " + e);
+        }
     }
 
-    public void setLogCalorieGoal(int userID, double goal, Calendar date) {
+    public void setLogCalorieGoal(int userID, double goal, Calendar date) throws IllegalArgumentException {
         DailyLog currEntry = null;
 
         try {
@@ -235,21 +266,43 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         return getDeepCopy(this.dbRecipeDrink);
     }
 
-    public void addFoodToRecipeBook(Edible newFood) {
+    public void addFoodToRecipeBook(Edible newFood) throws IllegalArgumentException {
         if (newFood != null) {
-            this.dbRecipeFood.add(newFood);
+            if (!(newFood instanceof PreparedItem)) {
+                if (findEdibleByKey(newFood.getDbkey(), false) == null) {
+                    this.dbRecipeFood.add(newFood.clone());
+                } else {
+                    throw new IllegalArgumentException("DB addFoodToRecipeBook cannot add duplicate dbkey");
+                }
+            } else {
+                throw new IllegalArgumentException("DB addFoodToRecipeBook cannot add prepared items");
+            }
+        } else {
+            throw new IllegalArgumentException("DB addFoodToRecipeBook cannot be null");
         }
     }
 
-    public void addMealToRecipeBook(Meal newMeal) {
+    public void addMealToRecipeBook(Meal newMeal) throws IllegalArgumentException {
         if (newMeal != null) {
-            this.dbRecipeMeal.add(newMeal);
+            if (findEdibleByKey(newMeal.getDbkey(), false) == null) {
+                this.dbRecipeMeal.add(newMeal.clone());
+            } else {
+                throw new IllegalArgumentException("DB addFoodToRecipeBook cannot add duplicate dbkey");
+            }
+        } else {
+            throw new IllegalArgumentException("DB addMealToRecipeBook cannot be null");
         }
     }
 
-    public void addDrinkToRecipeBook(Drink newDrink) {
+    public void addDrinkToRecipeBook(Drink newDrink) throws IllegalArgumentException {
         if (newDrink != null) {
-            this.dbRecipeDrink.add(newDrink);
+            if (findEdibleByKey(newDrink.getDbkey(), false) == null) {
+                this.dbRecipeDrink.add(newDrink.clone());
+            } else {
+                throw new IllegalArgumentException("DB addFoodToRecipeBook cannot add duplicate dbkey");
+            }
+        } else {
+            throw new IllegalArgumentException("DB addDrinkToRecipeBook cannot be null");
         }
     }
 
@@ -258,11 +311,10 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         if (userID == this.currUser.getUserID()) {
             result = this.currUser;
         } else {
-            throw new IllegalArgumentException("User does not exist");
+            throw new IllegalArgumentException("DB findUserByID User does not exist");
         }
         return result;
     }
-
 
     //This section implements DiaryDBInterface
     public DailyLog searchFoodLogByDate(int userID, Calendar date) throws IllegalArgumentException {
@@ -340,16 +392,16 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
-    public ArrayList<Double> getDataFrame(DataFrame.DataType dataType, int days) throws IllegalArgumentException{
+    public ArrayList<Double> getDataFrame(DataFrame.DataType dataType, int days) throws IllegalArgumentException {
         ArrayList<Double> result = new ArrayList<>();
-        if( dataType != null ) {
-            if( days >= DataFrame.numDays[DataFrame.Span.Week.ordinal()] ) {
+        if (dataType != null) {
+            if (days >= DataFrame.numDays[DataFrame.Span.Week.ordinal()]) {
                 for (int i = 0; i < days; i++) {
                     result.add(this.history.get(i)[dataType.ordinal() + 1].doubleValue());
                 }
-            }else {
+            } else {
                 throw new IllegalArgumentException("DB getDataFrame must be >= " + DataFrame.numDays[DataFrame.Span.Week.ordinal()]);
-                }
+            }
         } else {
             throw new IllegalArgumentException("DB getDataFrame dataType cannot be null");
         }

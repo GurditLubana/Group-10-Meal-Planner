@@ -84,15 +84,11 @@ public class MealDiaryOps {
     }
 
     public void addByKey(int dbkey, boolean isCustom) throws NoSuchElementException {
-        EdibleLog newItem = null;
+        EdibleLog newItem = db.findEdibleByKey(dbkey, isCustom);
         Edible foundEdible = null;
 
-        try {
-            newItem = db.findEdibleByKey(dbkey, isCustom);
-        }
-        catch (Exception e){
-            System.out.println(e);
-            throw new NoSuchElementException("MealDiaryOps addByKey the supplied dbkey does not match any db entry " + e);
+        if(newItem == null){
+            throw new NoSuchElementException("MealDiaryOps addByKey the supplied dbkey does not match any db entry " + dbkey);
         }
             
         try {

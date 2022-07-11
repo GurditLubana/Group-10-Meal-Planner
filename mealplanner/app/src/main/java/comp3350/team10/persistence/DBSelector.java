@@ -62,9 +62,9 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
     
 
     //User interface
-    public void addUser(String name, int height, int weight) {
-        this.userDB.addUser(name, height, weight);
-    }
+//    public void addUser(String name, int height, int weight) {
+//        this.userDB.addUser(name, height, weight);
+//    }
 
     public User getUser() {
         return this.userDB.getUser();

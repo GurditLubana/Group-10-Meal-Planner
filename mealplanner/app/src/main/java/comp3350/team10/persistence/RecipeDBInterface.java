@@ -15,8 +15,8 @@ public interface RecipeDBInterface {
     public ArrayList<Edible> getMealRecipes();
     public ArrayList<Edible> getDrinkRecipes();
     public int getNextKey();
-    public void addFoodToRecipeBook(Edible newFood);
-    public void addMealToRecipeBook(Meal newMeal);
-    public void addDrinkToRecipeBook(Drink newDrink);
+    public void addFoodToRecipeBook(Edible newFood) throws IllegalArgumentException;
+    public void addMealToRecipeBook(Meal newMeal) throws IllegalArgumentException;
+    public void addDrinkToRecipeBook(Drink newDrink) throws IllegalArgumentException;
     public EdibleLog findEdibleByKey(int key, boolean isCustom);
 }
