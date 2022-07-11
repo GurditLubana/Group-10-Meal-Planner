@@ -1,5 +1,5 @@
 <div align="center">
-<h2 style="font-size:40px">Comp 3350 Team 10 <br> EATEN</h2>
+<h1> <b>Comp 3350 Team 10 <br> EATEN</b> </h1>
 
 <br>
 
