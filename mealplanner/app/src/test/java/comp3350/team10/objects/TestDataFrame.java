@@ -18,7 +18,6 @@ public class TestDataFrame {
         @Test
         @DisplayName("instance creation should fail if type is null")
         void testNullType(){
-
             assertThrows(NullPointerException.class, () -> {
                 DataFrame dataFrame = new DataFrame(null, DataFrame.Span.Week);
             });
@@ -48,8 +47,9 @@ public class TestDataFrame {
                 dataFrame.setData(null);
             });
         }
-
     }
+
+
     @Nested
     @DisplayName("Edge cases should pass")
     class DataFrameEdge {
@@ -91,8 +91,9 @@ public class TestDataFrame {
             assertEquals(0.0, dataFrame.getMaxVal());
             assertEquals(0.0, dataFrame.getProgress());
         }
-
     }
+
+
     @Nested
     @DisplayName("Simple Tests should pass")
     class DataFrameSimple {
@@ -198,8 +199,5 @@ public class TestDataFrame {
             assertEquals(6.0, dataFrame.getMaxVal());
             assertEquals(58, (int) (dataFrame.getProgress() *100));
         }
-
-
-
     }
 }
