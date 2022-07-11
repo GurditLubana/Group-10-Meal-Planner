@@ -343,7 +343,7 @@ public class TestDrink {
         @Test
         @DisplayName("Tests cloning a simple drink with all false flags")
         void testCloneDrinkWithAllFalse() {
-            Edible newEdible;
+            Drink newEdible;
 
             testEdible.initDetails(1, "name", "description", 1, Edible.Unit.g)
                     .initNutrition(1, 1, 1, 1)
@@ -373,7 +373,7 @@ public class TestDrink {
         @Test
         @DisplayName("Tests cloning a simple drink with all true flags")
         void testCloneDrinkWithAllTrue() {
-            Edible newEdible;
+            Drink newEdible;
             testEdible.initDetails(1, "name", "description", 1, Edible.Unit.g)
                     .initNutrition(1, 1, 1, 1)
                     .initCategories(true, true, true, true, true)
@@ -643,12 +643,20 @@ public class TestDrink {
         @Test
         @DisplayName("Tests cloning a complex drink with all true or false flags")
         void testCloneDrink() {
-            Edible newEdible;
+            ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
+            Drink newEdible;
+
+            Edible food = new Edible().initDetails(1, "name", "description", 1, Edible.Unit.g)
+                    .initNutrition(1, 1, 1, 1)
+                    .initCategories(true, false, false, true, false)
+                    .initMetadata(true, "photo");
+            ingredients.add((DrinkIngredient)new DrinkIngredient().init(food, 5, Edible.Unit.cups));
 
             testEdible.initDetails(0, testString, testString, 1, Edible.Unit.g)
                     .initNutrition(0, 0, 0, 0)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, testString);
+            testEdible.setIngredients(ingredients);
 
             newEdible = testEdible.clone();
 
@@ -668,11 +676,14 @@ public class TestDrink {
             assertFalse(newEdible.getIsGlutenFree());
             assertFalse(newEdible.getIsCustom());
             assertEquals(newEdible.getPhoto(), testString);
+            assertEquals(newEdible.getIngredients().size(), 1);
+            assertEquals(newEdible.getIngredients().get(0).getIngredient(), food);
 
             testEdible.initDetails(500, numberTestString, numberTestString, 500, Edible.Unit.g)
                     .initNutrition(500, 500, 500, 500)
                     .initCategories(true, true, true, true, true)
                     .initMetadata(true, numberTestString);
+            testEdible.setIngredients(ingredients);
 
             newEdible = testEdible.clone();
 
@@ -692,6 +703,8 @@ public class TestDrink {
             assertTrue(newEdible.getIsGlutenFree());
             assertTrue(newEdible.getIsCustom());
             assertEquals(newEdible.getPhoto(), numberTestString);
+            assertEquals(newEdible.getIngredients().size(), 1);
+            assertEquals(newEdible.getIngredients().get(0).getIngredient(), food);
         }
 
         @Test
@@ -1451,7 +1464,7 @@ public class TestDrink {
         @Test
         @DisplayName("Tests cloning a complex drink with all true or false flags")
         void testCloneDrink() {
-            Edible newEdible;
+            Drink newEdible;
 
             testEdible.initDetails(0, largeTestString, largeTestString, 1, Edible.Unit.g)
                     .initNutrition(0, 0, 0, 0)
