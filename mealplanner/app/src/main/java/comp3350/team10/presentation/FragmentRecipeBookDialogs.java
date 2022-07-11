@@ -2,7 +2,9 @@ package comp3350.team10.presentation;
 
 import comp3350.team10.R;
 import comp3350.team10.objects.Constant;
+import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.Ingredient;
 
 import android.Manifest;
 import android.app.Activity;
@@ -34,6 +36,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
 
     private TextView labelName;              // Label of name field
@@ -60,8 +64,11 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private String name;                     // value of name input
     private String instructions;             // value of instructions input
     private String ingredients;            // value of ingredients input
+    private String photo;            // value of ingredients input
     private Edible.Unit unit;                // value of units input
     private static final int REQUEST_CODE = 1;    // Request code for the edible's image
+    ArrayList<Ingredient> mealIngredients;
+    ArrayList<DrinkIngredient> drinkIngredients;
 
 
     public FragmentRecipeBookDialogs() {
@@ -111,6 +118,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.isVegetarianCheckBox = view.findViewById(R.id.isVegetarian);
         this.isVeganCheckBox = view.findViewById(R.id.isVegan);
         this.isGluteenFree = view.findViewById(R.id.isGluteenFree);
+        this.photo = "photo.jpg";
 
 
         if (context != null && context instanceof FragToRecipeBook) {
@@ -331,19 +339,58 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     }
 
     private void sendData() {
-//        if (this.send != null && this.send instanceof FragToRecipeBook) {
-//            switch (mode) {
-//                case ADD_FOOD:
-//                    this.send.addFood(this.name, R.drawable.ic_eggplant, this.calories, this.unit, this.quantity);
-//                    break;
-//                case ADD_MEAL:
-//                    this.send.addMeal(this.name, R.drawable.ic_eggplant, this.calories, this.ingredients, this.instructions, this.unit, this.quantity);
-//                    break;
-//                case ADD_DRINK:
-//                    this.send.addDrink(this.name, R.drawable.ic_eggplant, this.calories, this.ingredients, this.instructions, this.unit, this.quantity);
-//                    break;
-//            }
-//        }
+        this.patchData();
+        if (this.send != null && this.send instanceof FragToRecipeBook) {
+            switch (mode) {
+                case ADD_FOOD:
+                    this.send.addFood(this.name, this.name, this.quantity, this.unit, this.calories, this.calories,this.calories, this.calories, false, false, false, false, false, this.photo);
+                    break;
+                case ADD_MEAL:
+                    this.send.addMeal(this.name, this.name, this.quantity, this.unit, this.photo, this.instructions, this.mealIngredients);
+                    break;
+                case ADD_DRINK:
+                    this.send.addDrink(this.name, this.name, this.quantity, this.unit, this.calories, this.calories,this.calories, this.calories, false, false, false, false, false, this.photo, this.instructions, this.drinkIngredients);
+                    break;
+            }
+        }
+    }
+
+    private void patchData() {
+        this.mealIngredients = new ArrayList<>();
+        this.drinkIngredients = new ArrayList<>();
+        Ingredient ingredient;
+        DrinkIngredient drinkIngredient;
+
+        ingredient = new Ingredient().init((new Edible()
+                .initDetails(4, "Grain of Rice", "rice desc", 400, Edible.Unit.g)
+                .initNutrition(400, 30, 20, 50)
+                .initCategories(false, false, false, false, false)
+                .initMetadata(false, "rice.jpg")), 1, Edible.Unit.cups);
+        this.mealIngredients.add(ingredient);
+
+        ingredient = new Ingredient().init((new Edible()
+                .initDetails(12, "Bologna", "Bologna desc", 1, Edible.Unit.tsp)
+                .initNutrition(100, 30, 20, 50)
+                .initCategories(false, false, false, false, false)
+                .initMetadata(false, "bologna.jpg")), 1, Edible.Unit.cups);
+        this.mealIngredients.add(ingredient);
+
+        drinkIngredient = new DrinkIngredient();
+        drinkIngredient.setIngredient((new Edible()
+                .initDetails(4, "Grain of Rice", "rice desc", 400, Edible.Unit.g)
+                .initNutrition(400, 30, 20, 50)
+                .initCategories(false, false, false, false, false)
+                .initMetadata(false, "rice.jpg")));
+        this.drinkIngredients.add(drinkIngredient);
+
+        drinkIngredient = new DrinkIngredient();
+        drinkIngredient.setIngredient((new Edible()
+                .initDetails(12, "Bologna", "Bologna desc", 1, Edible.Unit.tsp)
+                .initNutrition(100, 30, 20, 50)
+                .initCategories(false, false, false, false, false)
+                .initMetadata(false, "bologna.jpg")));
+        this.drinkIngredients.add(drinkIngredient);
+
     }
 
 
