@@ -46,6 +46,7 @@ public class TestDrink {
             assertFalse(testEdible.getIsCustom());
             assertNull(testEdible.getPhoto());
             assertEquals(testEdible.getIngredients().size(), 0);
+            assertEquals(testEdible.getInstructions(), "");
         }
 
         @Test
@@ -473,6 +474,13 @@ public class TestDrink {
             assertEquals(testEdible.getPhoto(), "drink photo");
             assertEquals(testEdible.getIngredients().size(), 1);
         }
+
+        @Test
+        @DisplayName("Test setting simple instructions")
+        void testInstructions() {
+            testEdible.setInstructions(testString);
+            assertEquals(testEdible.getInstructions(), testString);
+        }
     }
 
     @Nested
@@ -510,6 +518,16 @@ public class TestDrink {
 
             testEdible.initDetails(1000, "name", "description", 1, Edible.Unit.g);
             assertEquals(testEdible.getDbkey(), 1000);
+        }
+
+        @Test
+        @DisplayName("Test setting complex instructions")
+        void testInstructions() {
+            testEdible.setInstructions(numberTestString);
+            assertEquals(testEdible.getInstructions(), numberTestString);
+
+            testEdible.setInstructions(testString);
+            assertEquals(testEdible.getInstructions(), testString);
         }
 
         @Test
@@ -919,6 +937,24 @@ public class TestDrink {
         }
 
         @Test
+        @DisplayName("Test setting empty instructions")
+        void testInstructions() {
+            testEdible.setInstructions(" ");
+            assertEquals(testEdible.getInstructions(), " ");
+
+            testEdible.setInstructions(emptyTestString);
+            assertEquals(testEdible.getInstructions(), emptyTestString);
+
+            try {
+                testEdible.setInstructions(null);
+                fail("Inustrctions should not be null, should throw IllegalArgumentException");
+            }
+            catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+        }
+
+        @Test
         @DisplayName("Tests setting a empty or null description for a drink")
         void testSetDescription() {
             try {
@@ -1109,6 +1145,13 @@ public class TestDrink {
 
             testEdible.initDetails(0, "name", "description", 1, Edible.Unit.g);
             assertEquals(testEdible.getDbkey(), 0);
+        }
+
+        @Test
+        @DisplayName("Test setting edge case instructions")
+        void testInstructions() {
+            testEdible.setInstructions(largeTestString);
+            assertEquals(testEdible.getInstructions(), largeTestString);
         }
 
         @Test
@@ -2213,6 +2256,18 @@ public class TestDrink {
                 ingredients.add(null);
                 testEdible.setIngredients(ingredients);
             } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+        }
+
+        @Test
+        @DisplayName("Test setting invalid case instructions")
+        void testInstructions() {
+            try {
+                testEdible.setInstructions(longTestString);
+                fail("Instructions too long, should throw IllegalArgumentException");
+            }
+            catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
         }
