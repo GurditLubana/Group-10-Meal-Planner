@@ -1862,3 +1862,13 @@ Duration: 6 hrs
    - Updated RecipeBookDialogs checkbox text color to white for consistency
    - Verified tests pass, app compiles and works with no noticeable issues
 
+### 2022-07-11
+     Dev:
+      - Dane
+Duration: Started at 12
+   Tasks:
+   - Peer reviewed Gurdit's tests
+   - Improved the readme (made it pretty)
+   - Printed Iter1 feedback and requirement and generated checklist confirming exsitance of requirements
+   - Refactored the PreparedItem by renaming it to preparedEdible
+   - Code quality check
