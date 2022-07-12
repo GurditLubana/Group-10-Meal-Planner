@@ -37,7 +37,6 @@ public class TrendsOps {
         } else {
             throw new NullPointerException("TrendsOps getDataFrames Span cannot be null");
         }
-
         return dataFrames;
     }
 

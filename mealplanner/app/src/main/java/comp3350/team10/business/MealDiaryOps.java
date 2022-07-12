@@ -11,14 +11,11 @@ import comp3350.team10.persistence.LogDBInterface;
 import comp3350.team10.persistence.SharedDB;
 
 public class MealDiaryOps {
-    private final static Integer INCREMENT = 1;         //Directional arrow increments
+    private final static Integer INCREMENT = 1; //Directional arrow increments
 
-    //Database variables
     private DailyLog currLog;           //The food in the planner for the given day
     private Calendar logDate;           //The date the planner is set to
     private LogDBInterface db;          //Accesses the database
-
-    //Progress bar variables
     private UserDataOps opUser;         //Business logic for handling the app's user
 
     public MealDiaryOps() throws NullPointerException {
