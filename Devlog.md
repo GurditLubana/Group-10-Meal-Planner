@@ -274,93 +274,100 @@ Cost - 4 days
 - ##### Task 01  
    Title: Review objects for refactor   
     Desc: Refactor objects before db schema generated  
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 2 days  
+  Actual: 2 days  
+     Dev: Dane 
 
 - ##### Task 02  
-   Title: New object organization   
+   Title: Refactor stub for new objects   
     Desc: refactor stub to new schema  
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 1 day  
+  Actual: 2 day  
+     Dev: Dane  
 
 - ##### Task 03  
-   Title: New object organization   
+   Title: HSQL script   
     Desc: generate hsql script file  
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 2 hours  
+  Actual: 3 days 
+     Dev: Dane and Josef  
 
 - ##### Task 04  
    Title: DB injection   
     Desc: create class for db switching  
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 1 hour  
+  Actual: 1 hour  
+     Dev: Dane  
 
 - ##### Task 05  
    Title: DB Interfaces  
     Desc: create interfaces for db access   
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 1 hour  
+  Actual: 2 hours  
+     Dev: Dane  
 
 - ##### Task 06  
    Title: Seed the hsql database  
     Desc: create interfaces for db access   
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 5 hours  
+  Actual: 10 hours  
+     Dev: Dane  
 
 - ##### Task 07  
    Title: Sync stub and hsql database seeds 
     Desc: create interfaces for db access   
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 1 day  
+  Actual: 1 day   
+     Dev: Josef  
 
 - ##### Task 08  
    Title: LogDBInterface 
     Desc: write hsql access methods   
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 1 hour  
+  Actual: 5 hour  
+     Dev: Dane  
 
 - ##### Task 09  
    Title: RecipeDBInterface 
     Desc: write hsql access methods   
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 1 hour  
+  Actual: 6 hour  
+     Dev: Dane  
 
 - ##### Task 08  
    Title: UserDBInterface 
     Desc: write hsql access methods   
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 1 hour  
+  Actual: 1 hour  
+     Dev: Dane  
 
 - ##### Task 09  
    Title: Save DB state 
     Desc: methods to trigger saving the DB to file 
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 5 mins  
+  Actual: 5 mins  
+     Dev: Dane  
 
 - ##### Task 10  
    Title: Images from filesystem 
-    Desc:  
-Estimate:   
-  Actual:   
-     Dev:   
+    Desc: Set database to load images from the device based on string paths 
+Estimate: 1 day  
+  Actual: 1 day  
+     Dev: Josef  
 
 - ##### Task 11  
-   Title:  
-    Desc:  
-Estimate:   
-  Actual:   
-     Dev:   
+   Title: HSQL design
+    Desc: Plan the database design 
+Estimate: 1 day  
+  Actual: 1 day  
+     Dev: Dane   
+
+- ##### Task 12  
+   Title: Default edible image
+    Desc: Setup a default image if a image from the datbase does not exist 
+Estimate: 1 hour  
+  Actual: 1 hour  
+     Dev: Dane
 
 ## Big story 2 : Adding Meals and Editing Meals
 As a user I would like to be able to add meals to the planner and recipe collection with the ability to update the plan with the actual meals that I ended up eating.  
@@ -371,32 +378,38 @@ Cost - 4 days
 
 - ##### Task 01  
    Title: Gallery selector 
-    Desc:  
-Estimate:   
-  Actual:   
-     Dev:   
+    Desc: Setup image selection from the device's photo gallery 
+Estimate: 5 hours  
+  Actual: 2 days  
+     Dev: Gurdit  
 
 - ##### Task 02  
    Title: Dietary flags 
-    Desc:  
-Estimate:   
-  Actual:   
-     Dev:   
+    Desc: Add toggles to the UI for dietary flags when adding a new recipe
+Estimate: 5 hours  
+  Actual: 5 hours  
+     Dev: Gurdit  
 
 - ##### Task 03  
    Title: Images from filesystem 
-    Desc:  
-Estimate:   
-  Actual:   
-     Dev:   
+    Desc: Set the image path of a selected image to the image of the added recipe
+Estimate: 2 days  
+  Actual: INCOMPLETE  
+     Dev: INCOMPLETE  
 
 - ##### Task 04  
-   Title:  
-    Desc:  
-Estimate:   
-  Actual:   
-     Dev:   
+   Title: Adding different recipe types
+    Desc: Provide different UI's based on the recipe being added
+Estimate: 1 day  
+  Actual: 1 day  
+     Dev: Gurdit  
 
+- ##### Task 05  
+   Title: Linking ingredients
+    Desc: Be able to link ingredients, set their quantities and substitute attributes 
+Estimate: 2 days  
+  Actual: INCOMPLETE  
+     Dev: INCOMPLETE  
 
 ## Big story 3 : Progress Tracking  
 As a user I would like to be able to set calorie goals and see my progress towards those goals. 
@@ -1767,7 +1780,7 @@ Duration: 14 hrs
    - Peer reviewed and improved Zhou's ingredient unit testing
    - Added additional safety checks for prepared items (capped calories, proteins, carbs, fats, not allowing tests on items with no ingredients 
    - Added a character restraint on string attributes in the edible hierarchy: names, instructions etc...
-   - Peer reviewed and improved Goudit's DrinkIngredient unit testing
+   - Peer reviewed and improved Gurdit's DrinkIngredient unit testing
    - Updating ops so now they only reference the interface they require
    - Generated edibleLog tests
    - Removed extra imports in multiple files

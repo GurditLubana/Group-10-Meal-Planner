@@ -317,7 +317,6 @@ Fragments are reusable UI components that perform specific functions in activiti
 - Edibles in a log can now be modified without side effects (only affects the current edibleLog)
 
 ### Unresolved issues:
-- Code base is not up to standards in terms of the law of demeter
 - Adding images to new ingredients is not set up properly yet
 - Ingredients added to new meals and drinks are patched (not proper data)
 - UserDataOps is not entirely necessary right now because we did not get to implementing the logic to prompt user's for their data if it does not exist in the app
