@@ -1924,15 +1924,16 @@ Duration: 14 hrs
    - Updated DB interfaces to have exceptions
    - Removed assertNotNull 
    
+     
 ### 2022-07-11
-    Dev:
-    -Gurdit
+     Dev:
+      - Gurdit
 Duration: 8 hrs
-    Tasks:
-    - Completed test class for TrendOps class in testsManraj branch.
-    - Added edge case tests class in TestTrendOps.
-    - Added more tests in simple tests in TestTrendOps.
-    - Added more tests those should fail or throw exception.
+   Tasks:
+   - Completed test class for TrendOps class in testsManraj branch.
+   - Added edge case tests class in TestTrendOps.
+   - Added more tests in simple tests in TestTrendOps.
+   - Added more tests those should fail or throw exception.
 
 ### 2022-07-11
      Dev:
