@@ -1491,6 +1491,24 @@ Duration: 4 hrs
    - review U5 course material, to lecture 35;
    - summary note and send it to discord
 
+### 2022-06-27
+     Dev:
+      - Manraj
+Duration: 8hrs
+   Tasks:
+   - watched Yuja videos
+   - researched and learnt on how to implement charts
+   - chart labels
+   - chart trends
+
+### 2022-06-28
+     Dev:
+      - Manraj
+Duration: 4hrs
+   Tasks:
+   - added some foodunit tests
+   - added Drink ingredients tests
+
 ### 2022-06-29
      Dev:
       - Dane
@@ -1512,6 +1530,16 @@ Duration: 8hrs
    - Test and ran the project with the new database which worked!
    - Minor Database table refactoring
    - Improved data in the stub database
+
+### 2022-06-28
+     Dev:
+      - Manraj
+Duration: 4hrs
+   Tasks:
+   - reviwed the feedback from iteration 1
+   - made changes to some test classes
+   - refractored objects
+
 
 ### 2022-06-29
      Dev:
