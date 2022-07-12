@@ -2025,6 +2025,13 @@ Duration: 8 hrs
    - Added more tests in simple tests in TestTrendOps.
    - Added more tests those should fail or throw exception.
 
+### 2022-06-11
+     Dev:
+      - Manraj
+Duration: 2hrs
+   Tasks:
+   - updated the devlog
+
 ### 2022-07-11
      Dev:
       - Josef
