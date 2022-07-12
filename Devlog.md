@@ -1297,6 +1297,15 @@ Duration: 5hrs
    - Created V1 of the data interface based on current stubDB
    - Started creating a entity relationship diagram
 
+### 2022-06-17
+     Dev:
+      - Manraj
+Duration: 5hrs
+   Tasks:
+   - Researched HSQL and how does it works and made some notes
+   - wathced videos and learnt about switching databases
+
+
 ### 2022-06-19
      Dev:
       - Dane
@@ -1325,6 +1334,15 @@ Duration: 4hrs
    Tasks:
    - Fixed UnitConverter bugs: rounding issues and wrong variables being used
    - Started refactoring unitConverter and added additional test cases
+
+### 2022-06-24
+     Dev:
+      - Manraj
+Duration: 6hrs
+   Tasks:
+   - watched Yuja Videos and made notes
+   - learnt about the Agile programing practices
+   - made some new object tests
 
 ### 2022-06-24
      Dev:
@@ -1473,6 +1491,24 @@ Duration: 4 hrs
    - review U5 course material, to lecture 35;
    - summary note and send it to discord
 
+### 2022-06-27
+     Dev:
+      - Manraj
+Duration: 8hrs
+   Tasks:
+   - watched Yuja videos
+   - researched and learnt on how to implement charts
+   - chart labels
+   - chart trends
+
+### 2022-06-28
+     Dev:
+      - Manraj
+Duration: 4hrs
+   Tasks:
+   - added some foodunit tests
+   - added Drink ingredients tests
+
 ### 2022-06-29
      Dev:
       - Dane
@@ -1494,6 +1530,15 @@ Duration: 8hrs
    - Test and ran the project with the new database which worked!
    - Minor Database table refactoring
    - Improved data in the stub database
+
+### 2022-06-28
+     Dev:
+      - Manraj
+Duration: 4hrs
+   Tasks:
+   - reviwed the feedback from iteration 1
+   - made changes to some test classes
+   - refractored objects
 
 ### 2022-06-29
      Dev:
@@ -1523,6 +1568,13 @@ Duration: 8hrs
    - placed presentation dialog classes into a heirarchy to remove code duplication
    - refactored showcontextui method in mealdiary
    - refactored mealdiaryops db access process
+
+### 2022-06-30
+     Dev:
+      - Manraj
+Duration: 2hrs
+   Tasks:
+   - worked on daily progress activity
 
 ### 2022-06-30
      Dev:
@@ -1599,6 +1651,8 @@ Duration: 14 hrs
    - EdibleLog food items do not get displayed properly
    - SQL should be refactored
    - SQL needs to be better tested
+
+
   
 ### 2022-07-02
      Dev:
@@ -1608,12 +1662,40 @@ Duration: 2hrs
    - finished Invalid test of Food.java update at brench test-Zhou
    - all test case is done in TestFoodUnit.java, need other people review
 
+### 2022-07-02
+     Dev:
+      - Manraj
+Duration: 4hrs
+   Tasks:
+   - watched last unit Yuja videos and made some notes
+   - learnt on how github works and definitons
+   - studied for the exam
+
+### 2022-07-03
+    Dev:
+    - Gurdit
+Duration: 8 hrs
+    Tasks:
+    - Watched all the Yuja videos.
+    - Researched on how to disable a button.
+    - Studied for the exam.
+
 ### 2022-07-05
      Dev:
       - Zhou
 Duration: 1hrs
    Tasks:
    - upload all note(1-35) to github folder, with some modify
+
+### 2022-07-06
+    Dev:
+    - Gurdit
+Duration: 14 hrs
+    Tasks:
+    - Created TestDrinkIngredients class.
+    - Wrote lots of edgeCases, complex tests and simple Tests.
+    - Wrote some tests which should throw an exception.
+
 
 ### 2022-07-06
      Dev:
@@ -1634,6 +1716,25 @@ Duration: 10 hrs
    -design drink object unit test
    -finished simple and complex test for drink object 
    
+   
+### 2022-07-07
+    Dev:
+     - Gurdit
+Duration: 10 hrs
+    Tasks:
+    - Created a test class for RecipeBookOps.
+    - Wrote lots of simple tests, complex tests, edge cases tests and empty tests.
+
+### 2022-06-28
+     Dev:
+      - Manraj
+      - josef
+Duration: 4hrs
+   Tasks:
+   - created activity diary progress
+   - learnt recycler view from josef and implemted it
+
+
    ### 2022-07-08 recieve the structure change, not food class in project, change the all food object to edible
      Dev:
       - Zhou
@@ -1696,6 +1797,34 @@ Duration: 15 hrs
    - Watched Yuja videos
    - Dedicated time to better learn best software design practices
 
+
+### 2022-07-08
+    Dev:
+    - Gurdit
+Duration: 5 hrs
+    Tasks:
+    - Updated User class.
+    - Added restrictions to the maximum value and minimum value of Height of the user.
+    - Added restrictions to the maximum value and minimum value of weight of the user.
+    - Added restrictions to the maximum value and minimum value of calorie Goal of the user.
+    - Added restrictions to the maximum value and minimum value of exercise Goal of the user.
+    - Added validation to the setName method.
+    
+### 2022-06-08
+     Dev:
+      - Manraj
+Duration: 4hrs
+   Tasks:
+   - created tests on trends Ops
+   - watched yuja videos and learnt how to improve programing and software design practices
+
+ ### 2022-07-08
+    Dev:
+    - Gurdit
+Duration: 0.5 hrs
+    Tasks:
+    - Added some more constant values in the class Constants, which contains all the constants.
+
 ### 2022-07-08
      Dev:
       - Dane
@@ -1716,6 +1845,7 @@ Duration: 12 hrs
    - Future calorie goals are no longer pushed to other logs (now consistant in HSQL and stubDB) - this should be done is userOps
    - Refactored Edible class so that photos are handled by string paths
    - fixed conflictions accross files
+
 
 ### 2022-07-09 12：15AM to 1:00AM
      Dev:
@@ -1748,6 +1878,16 @@ Duration: 11 hrs
    - b.if the input ingredients arraylist the size is 0 should let all the Nutrition and categories to default but some of Categories is not set to default
    - those problem should been fix.
    - can delet my comments in test file after all test is pass
+
+### 2022-07-10
+    Dev:
+    - Gurdit
+Duration: 10 hrs
+    Tasks:
+    - Created UserTests for User object class in GurditsTest branch.
+    - Created simple tests, edge cases, invalid tests and empty tests.
+    - Refactored code.
+
 
 ### 2022-07-09
      Dev:
@@ -1791,6 +1931,19 @@ Duration: 14 hrs
    - Improved MealDiaryOps, added checking for ingredients in PreparedDrink and meals
    - Improved error handling in MealDiaryOps
    - Checked test coverage, improved instruction testing which was lacking before, 100% coverage otherwise!
+   
+### 2022-06-10
+     Dev:
+      - Manraj
+Duration: 12hrs
+   Tasks:
+   - reviwed tests on Edible class 
+   - found a errors and mistakes and fixed them
+   - created Edible Log tests
+   - made edge cases 
+   - tested invalid inputs
+   - simple and complex tests
+   - found error in invalid tests and fixed it.
 
 ### 2022-07-08
      Dev:
@@ -1812,6 +1965,7 @@ Duration: 14 hrs
    - DataFrame methods in business, objects, and persistence classes
    - Matched db script seed with db stub
    
+   
 ### 2022-07-09
      Dev:
       - Josef
@@ -1831,6 +1985,16 @@ Duration: 14 hrs
    - fixed bug in hsql where deleting items lead to increasing the number of items in a day log on delete cascade
    - Refactored LogDBInterface to have a consistent method signature pattern
    - Fix consistency issues with stub and hsql seed
+  
+
+### 2022-07-10
+    Dev:
+    - Gurdit
+Duration: 3 hrs
+    Tasks:
+    - Added more edge tests in TestRecipeBookOps.
+    - Added more complex tests in testAddMeals, testAddDrinks and testAddFood.
+    
 
 ### 2022-07-10
      Dev:
@@ -1850,6 +2014,17 @@ Duration: 14 hrs
    - Updated DataFrame Unit testing to get full coverage
    - Updated DB interfaces to have exceptions
    - Removed assertNotNull 
+   
+     
+### 2022-07-11
+     Dev:
+      - Gurdit
+Duration: 8 hrs
+   Tasks:
+   - Completed test class for TrendOps class in testsManraj branch.
+   - Added edge case tests class in TestTrendOps.
+   - Added more tests in simple tests in TestTrendOps.
+   - Added more tests those should fail or throw exception.
 
 ### 2022-07-11
      Dev:
