@@ -1297,6 +1297,14 @@ Duration: 5hrs
    - Created V1 of the data interface based on current stubDB
    - Started creating a entity relationship diagram
 
+### 2022-06-17
+     Dev:
+      - Manraj
+Duration: 4hrs
+    Tasks:
+    - researched HSQL and how does it works and made some notes
+    - wathced videos and learnt about switching databases
+
 ### 2022-06-19
      Dev:
       - Dane
