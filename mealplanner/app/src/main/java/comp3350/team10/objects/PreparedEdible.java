@@ -45,10 +45,6 @@ public abstract class PreparedEdible extends Edible {
                 calculatedCalories += ingredients.get(i).getIngredient().getCalories();
             }
 
-            if (calculatedCalories > Constant.ENTRY_MAX_VALUE) {
-                calculatedCalories = Constant.ENTRY_MAX_VALUE;
-            }
-
             this.setCalories(calculatedCalories);
         }
     }

@@ -882,14 +882,6 @@ public class TestRecipeBookOps {
             }
 
             try {
-                ops.addFood("name", "description", 2, Edible.Unit.g, 10000, 1, 1, 1,
-                        false, false, false, false, false, "photo");
-                fail("calories cannot be greater than 9999, should throw IllegalArgumentException");
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
-
-            try {
                 ops.addFood("name", "description", 2, Edible.Unit.g, 1, -1, 1, 1,
                         false, false, false, false, false, "photo");
                 fail("protein cannot be less than 0, should throw IllegalArgumentException");
@@ -1059,14 +1051,6 @@ public class TestRecipeBookOps {
                 ops.addSimpleDrink("name", "description", 2, Edible.Unit.g, -1, 1, 1, 1,
                         false, false, false, false, false, "photo");
                 fail("calories cannot be less than 0, should throw IllegalArgumentException");
-            } catch (Exception e) {
-                assertTrue(e instanceof IllegalArgumentException);
-            }
-
-            try {
-                ops.addSimpleDrink("name", "description", 2, Edible.Unit.g, 10000, 1, 1, 1,
-                        false, false, false, false, false, "photo");
-                fail("quantity cannot be greater than 9999, should throw IllegalArgumentException");
             } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }

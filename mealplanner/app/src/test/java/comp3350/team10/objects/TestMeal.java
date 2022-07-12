@@ -1667,7 +1667,7 @@ public class TestMeal {
             assertEquals(testEdible.getDescription(), "meal description");
             assertEquals(testEdible.getQuantity(), 5);
             assertEquals(testEdible.getUnit(), Edible.Unit.g);
-            assertEquals(testEdible.getCalories(), 9999);
+            assertEquals(testEdible.getCalories(), 10004);
             assertEquals(testEdible.getProtein(), 5);
             assertEquals(testEdible.getCarbs(), 5);
             assertEquals(testEdible.getFat(), 5);
@@ -2269,6 +2269,120 @@ public class TestMeal {
             try {
                 testEdible.setInstructions(longTestString);
                 fail("Instructions too long, should throw IllegalArgumentException");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+        }
+
+        @Test
+        @DisplayName("Tests setting an invalid calorie count for a meal")
+        void testSetCalorie() {
+            try {
+                testEdible.setCalories(-1);
+                fail("Should throw an exception, calorie count is too small");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                testEdible.initNutrition(-1, 1, 1, 1);
+                fail("Should throw an exception, calorie count is too low");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+        }
+
+        @Test
+        @DisplayName("Tests setting an invalid protein count for a meal")
+        void testSetProtein() {
+            try {
+                testEdible.setProtein(-1);
+                fail("Should throw an exception, protein is too low");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                testEdible.setProtein(10000);
+                fail("Should throw an exception, protein count is too big");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                testEdible.initNutrition(1, -1, 1, 1);
+                fail("Should throw an exception, protein is too low");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                testEdible.initNutrition(1, 10000, 1, 1);
+                fail("Should throw an exception, protein is too big");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+        }
+
+        @Test
+        @DisplayName("Tests setting an invalid carb count for a meal")
+        void testSetCarbs() {
+            try {
+                testEdible.setCarbs(-1);
+                fail("Should throw an exception, carb is too low");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                testEdible.setCarbs(10000);
+                fail("Should throw an exception, carb count is too big");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                testEdible.initNutrition(1, 1, -1, 1);
+                fail("Should throw an exception, carb is too low");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                testEdible.initNutrition(1, 1, 10000, 1);
+                fail("Should throw an exception, carb is too big");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+        }
+
+        @Test
+        @DisplayName("Tests setting an invalid fat count for a meal")
+        void testSetFat() {
+            try {
+                testEdible.setFat(-1);
+                fail("Should throw an exception, fat count is too low");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                testEdible.setFat(10000);
+                fail("Should throw an exception, fat count is too big");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                testEdible.initNutrition(1, 1, 1, -1);
+                fail("Should throw an exception, fat count is too low");
+            } catch (Exception e) {
+                assertTrue(e instanceof IllegalArgumentException);
+            }
+
+            try {
+                testEdible.initNutrition(1, 1, 1, 10000);
+                fail("Should throw an exception, fat count is too big");
             } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }

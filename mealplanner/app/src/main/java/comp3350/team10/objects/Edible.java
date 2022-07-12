@@ -181,7 +181,7 @@ public class Edible {
     }
 
     public void setCalories(double newCalories) throws IllegalArgumentException {
-        if (newCalories <= Constant.ENTRY_MAX_VALUE && newCalories >= Constant.ENTRY_MIN_VALUE) {
+        if (newCalories >= Constant.ENTRY_MIN_VALUE) {
             this.calories = newCalories;
         } else {
             throw new IllegalArgumentException("Edible setCalories requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
