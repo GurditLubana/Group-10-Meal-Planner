@@ -1664,14 +1664,16 @@ Duration: 4hrs
    - learnt on how github works and definitons
    - studied for the exam
 
+
 ### 2022-07-03
-    Dev:
-    - Gurdit
+     Dev:
+      - Gurdit
 Duration: 8 hrs
-    Tasks:
-    - Watched all the Yuja videos.
+   Tasks:
+   - Watched all the Yuja videos.
     - Researched on how to disable a button.
     - Studied for the exam.
+
 
 ### 2022-07-05
      Dev:
@@ -1680,12 +1682,13 @@ Duration: 1hrs
    Tasks:
    - upload all note(1-35) to github folder, with some modify
 
+
 ### 2022-07-06
-    Dev:
-    - Gurdit
-Duration: 14 hrs
-    Tasks:
-    - Created TestDrinkIngredients class.
+     Dev:
+      - Gurdit
+Duration: 4hrs
+   Tasks:
+   - Created TestDrinkIngredients class.
     - Wrote lots of edgeCases, complex tests and simple Tests.
     - Wrote some tests which should throw an exception.
 
