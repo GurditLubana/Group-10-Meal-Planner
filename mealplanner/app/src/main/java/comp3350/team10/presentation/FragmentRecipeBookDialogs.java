@@ -47,23 +47,23 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private EditText inputIngredients;       // input field for item ingredients
     private Button btnChooseItemImage;       // Import a picture for the Edible item.
     private CheckBox isAlcoholicCheckBox;    // check if Edible item contains alcohol.
-    private CheckBox isSpicyCheckBox;        // check if Edible item contains alcohol.
-    private CheckBox isVegetarianCheckBox;   // check if Edible item contains alcohol.
-    private CheckBox isVeganCheckBox;
-    private CheckBox isGluteenFree;
-    private ImageView EdibleItemImage;       // Image of the edible item.
-    private ImageView cameraIcon;            // The camera Icon in Add Edible interface.
-    private FragToRecipeBook send;           // Interface for communication with parent activity
-    private FragToRecipeBook.EntryMode mode; // the type of dialog to show
-    public static String TAG = "AddRecipe";  // tag name of this fragment for reference in the fragment manager
-    private int calories;                    // value of calorie input
-    private int quantity;                    // value of quantity input
-    private String name;                     // value of name input
-    private String instructions;             // value of instructions input
-    private String ingredients;            // value of ingredients input
-    private String photo;            // value of ingredients input
-    private Edible.Unit unit;                // value of units input
-    private static final int REQUEST_CODE = 1;    // Request code for the edible's image
+    private CheckBox isSpicyCheckBox;        // check if Edible item spicy.
+    private CheckBox isVegetarianCheckBox;   // check if Edible item vegetarian.
+    private CheckBox isVeganCheckBox;        // check if Edible item vegan.
+    private CheckBox isGluteenFree;          // check if Edible item glutenfree.
+    private ImageView EdibleItemImage;         // Image of the edible item.
+    private ImageView cameraIcon;              // The camera Icon in Add Edible interface.
+    private FragToRecipeBook send;             // Interface for communication with parent activity
+    private FragToRecipeBook.EntryMode mode;   // the type of dialog to show
+    public static String TAG = "AddRecipe";    // tag name of this fragment for reference in the fragment manager
+    private int calories;                      // value of calorie input
+    private int quantity;                      // value of quantity input
+    private String name;                       // value of name input
+    private String instructions;               // value of instructions input
+    private String ingredients;                // value of ingredients input
+    private String photo;                      // value of ingredients input
+    private Edible.Unit unit;                  // value of units input
+    private static final int REQUEST_CODE = 1; // Request code for the edible's image
     ArrayList<Ingredient> mealIngredients;
     ArrayList<DrinkIngredient> drinkIngredients;
 

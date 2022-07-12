@@ -17,7 +17,6 @@ public class RecipeBookOps {
         this.db = SharedDB.getRecipeDB();
     }
 
-
     public ArrayList<Edible> getFoodRecipes() {
         return this.db.getFoodRecipes();
     }

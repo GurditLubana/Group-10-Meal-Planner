@@ -25,7 +25,7 @@ import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
 
 public class ActivityRecipeBook extends AppCompatActivity implements FragToRecipeBook {
-    private final static int TITLE_COLOR = Color.WHITE; //The title color of the acitivty
+    private final static int TITLE_COLOR = Color.WHITE;        //The title color of the acitivty
     private final static String TITLE_CONTENT = "MealPlanner"; //The title content of the activity
 
     private Animation fabOpen, fabClose, rotateForward, rotateBackward; //Animations for floating buttons
@@ -35,13 +35,13 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private RecyclerView recipeRecyclerView;        // Houses a recycle view for recipes
     private RecipeBookOps opExec;                   // Buisness logic for RecipeBook
     private Toolbar toolbar;                        // app title
-    private ArrayList<Edible> data;                // The data for the recipe book
+    private ArrayList<Edible> data;                 // The data for the recipe book
     private Edible modifyUICard;
     private final String RECIPEMODIFYCARD = "recipeModify";
 
     private boolean modMenuIsOpen;                  // Represents whether the menu to add/edit recipes is toggled on
-    private int savedItemPosition;                      // Saves the position of an item for temporary removal
-    private Edible savedItem;                           // Saves the item for temporary removal
+    private int savedItemPosition;                  // Saves the position of an item for temporary removal
+    private Edible savedItem;                       // Saves the item for temporary removal
     private int currTab;                            // The tab that is currently displayed
     private EntryMode mode;                         // The type of dialog to show
     private boolean detailsFlag = false;            // flag to show detailed recipes

@@ -32,7 +32,7 @@ public class FragmentDiaryCard extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) { //This makes sure that the container activity has implemented
-        super.onAttach(context);            //the callback interface. If not, it throws an exception
+    public void onAttach(Context context) {
+        super.onAttach(context);
     }
 }

@@ -5,14 +5,13 @@ import comp3350.team10.persistence.SharedDB;
 import comp3350.team10.persistence.UserDBInterface;
 
 public class UserDataOps {
-    private UserDBInterface db;     //References the current database
-    private User currUser;          //The current user's details
+    private UserDBInterface db;     
+    private User currUser;
 
     public UserDataOps() {
         this.db = SharedDB.getUserDB();
         this.currUser = db.getUser();
     }
-
 
     public User getUser() {
         return this.currUser;

@@ -20,7 +20,7 @@ public class ActivityDailyProgress extends AppCompatActivity {
     private RVATrends recyclerViewAdapter1;
     private ArrayList<DataFrame> data;
     private TrendsOps progOp;
-    private RecyclerView trendsRecyclerView;      //Houses a recycle view for diary entries
+    private RecyclerView trendsRecyclerView;    //Houses a recycle view for diary entries
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
