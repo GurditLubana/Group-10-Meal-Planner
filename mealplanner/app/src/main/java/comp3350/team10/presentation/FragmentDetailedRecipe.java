@@ -10,8 +10,7 @@ import androidx.fragment.app.Fragment;
 import comp3350.team10.R;
 
 public class FragmentDetailedRecipe extends Fragment {
-    public FragmentDetailedRecipe() {
-    } //Required empty public constructor
+    public FragmentDetailedRecipe() {} //Required empty public constructor
 
 
     public static FragmentDetailedRecipe newInstance() {

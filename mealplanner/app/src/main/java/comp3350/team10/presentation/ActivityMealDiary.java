@@ -125,7 +125,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                             dbkey = data.getExtras().getInt("DBKEY"); //rva recipe book
                             isCustom = data.getExtras().getBoolean("IsCustom");
 
-                            //currLog.getEdibleList().remove(currLog.getEdibleList().size()-1);
                             opExec.addByKey(dbkey, isCustom);
                             updateLiveData();
                         }
@@ -133,15 +132,13 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                 });
     }
 
-    private void copyFilesToDevice(String path) { //TODO refactor this and associated methods
-
-        String[] assetNames;
+    private void copyFilesToDevice(String path) {
         Context context = getApplicationContext();
         File dataDirectory = context.getDir(path, Context.MODE_PRIVATE);
         AssetManager assetManager = getAssets();
+        String[] assetNames;
 
         try {
-
             assetNames = assetManager.list(path);
             for (int i = 0; i < assetNames.length; i++) {
                 assetNames[i] = path + "/" + assetNames[i];
@@ -154,30 +151,26 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
     }
 
-    private void copyImagesToDevice() {//TODO refactor this and associated methods
-        final String IMAGE_PATH = "images";
-
+    private void copyImagesToDevice() {
         Context context = getApplicationContext();
-        File dataDirectory = context.getDir(IMAGE_PATH, Context.MODE_PRIVATE);
+        File dataDirectory = context.getDir(Main.getImagesPathName(), Context.MODE_PRIVATE);
 
         try {
-            copyFilesToDevice(IMAGE_PATH);
-            Main.setImagesPathName(dataDirectory.toString() + "/" + IMAGE_PATH);
+            copyFilesToDevice(Main.getImagesPathName());
+            Main.setImagesPathName(dataDirectory.toString() + "/" + Main.getImagesPathName());
 
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
-    private void copyDatabaseToDevice() {//TODO refactor this and associated methods
-        final String DB_PATH = "db";
-
+    private void copyDatabaseToDevice() {
         Context context = getApplicationContext();
-        File dataDirectory = context.getDir(DB_PATH, Context.MODE_PRIVATE);
+        File dataDirectory = context.getDir(Main.getDBName(), Context.MODE_PRIVATE);
 
         try {
-            copyFilesToDevice(DB_PATH);
-            Main.setDBPathName(dataDirectory.toString() + "/" + Main.dbName);
+            copyFilesToDevice(Main.getDBName());
+            Main.setDBPathName(dataDirectory.toString() + "/" + Main.getDBName());
 
         } catch (Exception e) {
             System.out.println(e);
@@ -186,14 +179,17 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     private void copyAssetsToDirectory(String[] assets, File directory) throws IOException {
         AssetManager assetManager = getAssets();
+        String[] components;
+        String copyPath;
+        char[] buffer;
+        File outFile;
+        int count;
 
         for (String asset : assets) {
-            String[] components = asset.split("/");
-            String copyPath = directory.toString() + "/" + components[components.length - 1];
-            char[] buffer = new char[1024];
-            int count;
-
-            File outFile = new File(copyPath);
+            components = asset.split("/");
+            copyPath = directory.toString() + "/" + components[components.length - 1];
+            buffer = new char[1024];
+            outFile = new File(copyPath);
 
             if (!outFile.exists()) {
                 InputStreamReader in = new InputStreamReader(assetManager.open(asset));
@@ -220,6 +216,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     public void showContextUI(int position) {
         int otherPosition = -1;
+
         if (position >= 0 && position != this.savedItemPosition) {
             if (this.savedItem == null) {
                 saveItem(position);
@@ -351,7 +348,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
 
         if (this.recyclerViewAdapter != null) {
-            //tempList = convertToListItem(this.data);
             this.recyclerViewAdapter.changeData(this.data);
             this.recyclerViewAdapter.notifyDataSetChanged();
         }
@@ -380,7 +376,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                 this.currLog.removeItem(this.savedItemPosition);
                 this.currLog.addEdibleToLog(this.savedItem);
                 this.showContextUI(-1);
-                this.opExec.logChangedUpdateDB(); //crashes because there is the extra one
+                this.opExec.logChangedUpdateDB();
                 this.updateLiveData();
             }
         } catch (Exception e) {

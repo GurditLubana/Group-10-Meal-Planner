@@ -37,7 +37,6 @@ public class DataFrame {
     }
 
 
-
     public int size() {
         return this.size;
     }

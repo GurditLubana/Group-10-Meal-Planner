@@ -254,10 +254,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     private void updateRVA() {
-        //ArrayList<ListItem> tempList;
-
         if (this.recyclerViewAdapter != null) {
-            //tempList = convertToListItem(this.data);
             this.recyclerViewAdapter.changeData(this.data);
             this.recyclerViewAdapter.notifyDataSetChanged();
         }

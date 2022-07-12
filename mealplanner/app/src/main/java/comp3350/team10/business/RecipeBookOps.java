@@ -39,6 +39,7 @@ public class RecipeBookOps {
         newFood.initCategories(alcoholic, spicy, vegan, vegetarian, glutenFree);
         newFood.setCustom(true);
         newFood.setPhoto(photo);
+
         db.addFoodToRecipeBook(newFood);
     }
 
@@ -69,6 +70,7 @@ public class RecipeBookOps {
         newDrink.initCategories(alcoholic, spicy, vegan, vegetarian, glutenFree);
         newDrink.setCustom(true);
         newDrink.setPhoto(photo);
+
         db.addDrinkToRecipeBook(newDrink);
     }
 

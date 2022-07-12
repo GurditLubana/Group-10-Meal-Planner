@@ -20,13 +20,14 @@ import comp3350.team10.objects.Meal;
 import comp3350.team10.objects.User;
 
 public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterface {
+    private final String dbPath = "jdbc:hsqldb:file:" + Main.getDBPathName() + ";shutdown=true"; // stored on disk mode
     private static final String SHUTDOWN_CMD = "shutdown compact";
     private static final String SAVE_CMD = "CHECKPOINT";
+    private final String dbType = "HSQL";
+
     private Connection currConn;
     private Statement reqHandler;
-    private final String dbPath = "jdbc:hsqldb:file:" + Main.getDBPathName() + ";shutdown=true"; // stored on disk mode
     private String dbName = "HSQLDB";
-    private final String dbType = "HSQL";
 
     public HSqlDB() {
         try {
@@ -34,7 +35,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             this.reqHandler = currConn.createStatement();
         } catch (Exception e) {
             System.out.println(e);
-
         }
     }
 

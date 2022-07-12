@@ -25,6 +25,7 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
         startStubDB();
     }
 
+
     public void startHsqlDB() {
         this.hsql = new HSqlDB();
 

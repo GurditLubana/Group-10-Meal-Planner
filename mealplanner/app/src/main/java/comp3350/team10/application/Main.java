@@ -3,7 +3,7 @@ package comp3350.team10.application;
 import comp3350.team10.persistence.SharedDB;
 
 public class Main {
-    public static final String dbName = "db";
+    private static final String dbName = "db";
     private static String dbPathName = "database/db";
     private static String imagesPathName = "images";
 
@@ -26,6 +26,10 @@ public class Main {
             return dbName;
         else
             return dbPathName;
+    }
+
+    public static String getDBName() {
+        return dbName;
     }
 
     public static void setDBPathName(String pathName) {

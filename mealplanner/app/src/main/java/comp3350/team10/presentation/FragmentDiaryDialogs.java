@@ -25,10 +25,11 @@ public class FragmentDiaryDialogs extends FragmentDialogCommon {
         super();
     }
 
-    public static FragmentDiaryDialogs newInstance(String param1, String param2) {
+    public static FragmentDiaryDialogs newInstance() {
         FragmentDiaryDialogs fragment = new FragmentDiaryDialogs();
         Bundle args = new Bundle();
         fragment.setArguments(args);
+
         return fragment;
     }
 

@@ -41,6 +41,7 @@ public class ActivityDailyProgress extends AppCompatActivity {
 
     private void initData() {
         this.progOp = new TrendsOps();
+
         try {
             this.data = this.progOp.getDataFrames(DataFrame.Span.Week);
         } catch (Exception e) {

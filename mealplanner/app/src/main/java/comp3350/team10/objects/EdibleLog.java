@@ -32,6 +32,7 @@ public class EdibleLog extends Edible {
         }
     }
 
+
     public EdibleLog init(double quantity, Edible.Unit unit) throws IllegalArgumentException, Exception {
         this.setQuantity(quantity);
         this.setUnit(unit);

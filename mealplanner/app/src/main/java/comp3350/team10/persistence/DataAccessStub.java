@@ -47,6 +47,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         this.currKey = 100;
     }
 
+
     public void open(String dbName) {
         //Load edible data
         this.loadRecipeFood();

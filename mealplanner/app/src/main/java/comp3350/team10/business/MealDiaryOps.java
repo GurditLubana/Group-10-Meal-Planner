@@ -35,9 +35,11 @@ public class MealDiaryOps {
         }
     }
 
+
     public void nextDate() {
         Calendar newDate = (Calendar) this.logDate.clone();
         newDate.add(Calendar.DAY_OF_YEAR, INCREMENT);
+
         try {
             this.setListDate(newDate);
         } catch (IllegalArgumentException e) {
@@ -48,6 +50,7 @@ public class MealDiaryOps {
     public void prevDate() {
         Calendar newDate = (Calendar) this.logDate.clone();
         newDate.add(Calendar.DAY_OF_YEAR, -INCREMENT);
+
         try {
             this.setListDate(newDate);
         } catch (IllegalArgumentException e) {

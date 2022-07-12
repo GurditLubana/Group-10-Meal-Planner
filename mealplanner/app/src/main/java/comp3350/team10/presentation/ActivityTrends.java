@@ -40,7 +40,6 @@ public class ActivityTrends extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Main.saveDB();
-//        Main.shutDown();
     }
 
     private void initToolbar() {
@@ -107,6 +106,4 @@ public class ActivityTrends extends AppCompatActivity {
             }
         });
     }
-
-
 }

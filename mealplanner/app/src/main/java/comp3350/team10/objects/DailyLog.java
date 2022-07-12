@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class DailyLog {
-    private final static double MAX_PROGRESS = 100;    //Scales the progress bar (percentage)
-    private final static double MAX_EXCESS = 100;      //How many calories a user can exceed their goal by
-    private Calendar date;                          //The date of this particular log
-    private ArrayList<Edible> edibleLog;       //The edibles present in the given log for a given date
-    private double calorieGoal;                   //The calorie goal for a given date
-    private double exerciseGoal;                  //The calorie goal for exercising for a given date
-    private double exerciseActual;                //The calories burnt while exercising for a given date
-    private double edibleCalories;                //The calorie total for a list of edibles for a given date
-    private double progressExcess;            //Represents the overflow of calories on the progress bar
-    private double progressBar;               //Represents the calories on the progress bar
-    private double calorieNet;                    //Represents the consumed calories - exercise calories burnt
+    private final static double MAX_PROGRESS = 100;     //Scales the progress bar (percentage)
+    private final static double MAX_EXCESS = 100;       //How many calories a user can exceed their goal by
+    private Calendar date;                              //The date of this particular log
+    private ArrayList<Edible> edibleLog;                //The edibles present in the given log for a given date
+    private double calorieGoal;                         //The calorie goal for a given date
+    private double exerciseGoal;                        //The calorie goal for exercising for a given date
+    private double exerciseActual;                      //The calories burnt while exercising for a given date
+    private double edibleCalories;                      //The calorie total for a list of edibles for a given date
+    private double progressExcess;                      //Represents the overflow of calories on the progress bar
+    private double progressBar;                         //Represents the calories on the progress bar
+    private double calorieNet;                          //Represents the consumed calories - exercise calories burnt
 
     public DailyLog() {
         this.date = Calendar.getInstance();

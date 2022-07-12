@@ -11,8 +11,7 @@ import androidx.fragment.app.Fragment;
 import comp3350.team10.R;
 
 public class FragmentDiaryCard extends Fragment {
-    public FragmentDiaryCard() {
-    } //Required empty public constructor
+    public FragmentDiaryCard() {} //Required empty public constructor
 
     public static FragmentDiaryCard newInstance() {
         FragmentDiaryCard fragment = new FragmentDiaryCard();
@@ -36,6 +35,4 @@ public class FragmentDiaryCard extends Fragment {
     public void onAttach(Context context) { //This makes sure that the container activity has implemented
         super.onAttach(context);            //the callback interface. If not, it throws an exception
     }
-
-
 }

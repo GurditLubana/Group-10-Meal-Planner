@@ -15,8 +15,8 @@ public abstract class FragmentDialogCommon extends DialogFragment {
     private TextView title;                  // Dialog Title
     private EditText inputQuantity;          // input field for item quantity
     private Spinner unitSpinner;             // input field for quantity units
-    private Button btnCancel;                     // Cancel Button
-    private Button btnOk;                         // OK button
+    private Button btnCancel;                // Cancel Button
+    private Button btnOk;                    // OK button
 
     public FragmentDialogCommon() {
 

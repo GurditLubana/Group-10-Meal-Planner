@@ -5,10 +5,6 @@ public class UnitConverter {
     private final static double[] factor = {224.0, 28.0, 1.0, 250.0, 14.0, 5.0, 1.0, 1000.0};
     private Double calsPerGram = 0.0;   //The ratio of calories per unit
 
-    public UnitConverter() {
-
-    }
-
     public double convert(Edible.Unit prevUnit, double prevQuantity, double prevCalories, Edible.Unit newUnit, double newQuantity) throws IllegalArgumentException, Exception {
         if (prevQuantity <= 0.0 || newQuantity <= 0) {
             throw new IllegalArgumentException("UnitConverter convert quantity must be > 0");

@@ -49,8 +49,6 @@ public class RVAMealDiary extends RecyclerViewAdapter {
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-
-        // switch (viewHolder.getItemViewType()) {
         if (super.getViewType() == FragmentType.diaryModify.ordinal()) {
             setDiaryContextListeners(viewHolder);
         } else if (super.getViewType() == FragmentType.diaryAdd.ordinal()) {
@@ -76,12 +74,12 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         itemUnit.setText(currentItem.getUnit().toString());
         itemCals.setText(String.format("%3d", (int) currentItem.getCalories()));
         image = super.getBitmapFromFile(this.context, currentItem.getPhoto());
+
         if (image != null) {
             itemImage.setImageBitmap(image);
         } else {
             itemImage.setImageResource(R.drawable.ic_eggplant);
         }
-
     }
 
     private void setDiaryEntryListeners(ViewHolder viewHolder) {

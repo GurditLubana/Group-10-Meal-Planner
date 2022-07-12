@@ -1,9 +1,7 @@
 package comp3350.team10.objects;
 
 public class Edible {
-    public enum Unit {cups, oz, g, serving, tbsp, tsp, ml, liter}
-
-    //All possible units for a given edible
+    public enum Unit {cups, oz, g, serving, tbsp, tsp, ml, liter} //All possible units for a given edible
 
     //Edible details
     private int edibleID;                       //This edibles database key
@@ -36,7 +34,7 @@ public class Edible {
         this.baseQuantity = -1;
         this.baseUnit = null;
 
-        this.calories = 0;  //these need to be 0 (add card was messing with this)
+        this.calories = 0;
         this.protein = 0;
         this.carbs = 0;
         this.fat = 0;

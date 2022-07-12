@@ -9,6 +9,7 @@ public class DrinkIngredient extends Ingredient {
         this.substitute = false;
     }
 
+
     public void setSubstitute(boolean isSubstitute) {
         this.substitute = isSubstitute;
     }
