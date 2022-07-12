@@ -1717,9 +1717,9 @@ Duration: 10 hrs
    -finished simple and complex test for drink object 
    
    
-   ### 2022-07-07
+### 2022-07-07
     Dev:
-    - Gurdit
+     - Gurdit
 Duration: 10 hrs
     Tasks:
     - Created a test class for RecipeBookOps.
@@ -1931,6 +1931,7 @@ Duration: 14 hrs
    - Improved MealDiaryOps, added checking for ingredients in PreparedDrink and meals
    - Improved error handling in MealDiaryOps
    - Checked test coverage, improved instruction testing which was lacking before, 100% coverage otherwise!
+   
 ### 2022-06-10
      Dev:
       - Manraj
@@ -2024,13 +2025,6 @@ Duration: 8 hrs
    - Added edge case tests class in TestTrendOps.
    - Added more tests in simple tests in TestTrendOps.
    - Added more tests those should fail or throw exception.
-
-### 2022-06-11
-     Dev:
-      - Manraj
-Duration: 2hrs
-   Tasks:
-   - updated the devlog
 
 ### 2022-07-11
      Dev:
