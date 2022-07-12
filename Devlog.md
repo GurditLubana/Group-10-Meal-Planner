@@ -421,51 +421,58 @@ Cost - 4 days
 - ##### Task 01  
    Title: Daily progress activity UI   
     Desc: Activity Layout  
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 2hrs  
+  Actual: 6hrs  
+     Dev: Josef, Manraj  
 
 - ##### Task 02  
    Title: Daily progress activity UI   
     Desc: Circle Progress  
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 2hrs  
+  Actual: 2hrs  
+     Dev: Josef, Manraj   
 
 - ##### Task 03  
    Title: Daily progress activity UI   
-    Desc: Bar Graph  
-Estimate:   
-  Actual:   
-     Dev:   
+    Desc: Bar Graph   
+Estimate: 2hrs  
+  Actual: 2hrs  
+     Dev: Josef, Manraj   
 
 - ##### Task 04  
    Title: Daily progress activity UI   
     Desc: Week Goal progress indicator  
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 2hrs  
+  Actual: 2hrs  
+     Dev: Josef   
 
 - ##### Task 05  
    Title: Daily progress activity UI   
     Desc: Integrate into Trends Ops  
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 2hrs  
+  Actual: 2hrs  
+     Dev: Josef   
 
 - ##### Task 06  
    Title: Daily progress activity UI   
     Desc: Integrate into RVATrends  
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 2hrs  
+  Actual: 2hrs  
+     Dev: Josef   
 
 - ##### Task 07  
    Title: Daily progress activity UI   
     Desc: Use Data from DataFrame  
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 2hrs  
+  Actual: 2hrs  
+     Dev: Josef   
+
+- ##### Task 08  
+   Title: Daily progress activity UI   
+    Desc: Make color scheme consistent with trends  
+Estimate: 2hrs  
+  Actual: 2hrs  
+     Dev: Josef   
 
 
 ## Big story 4 : More Charts  
@@ -479,80 +486,72 @@ Cost - 4 days
 - ##### Task 01  
    Title: Trends activity UI   
     Desc: Activity Layout  
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 2hrs  
+  Actual: 2hrs  
+     Dev: Josef   
 
 - ##### Task 02  
    Title: Trends activity UI   
     Desc: Line Graph  
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 2hrs  
+  Actual: 1hrs  
+     Dev: Josef   
 
 - ##### Task 03  
    Title: Trends activity UI   
     Desc: Tab timeframe selection  
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 2hrs  
+  Actual: 1hrs  
+     Dev: Josef   
 
 - ##### Task 04  
    Title: Trends activity UI   
     Desc: Trendline indicator  
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 2hrs  
+  Actual: 1hrs  
+     Dev: Josef   
 
 - ##### Task 05  
    Title: Trends Ops business class   
-    Desc: persistence access methods 
-Estimate:   
-  Actual:   
-     Dev:   
+    Desc: persistence access methods  
+Estimate: 4hrs  
+  Actual: 3hrs  
+     Dev: Josef   
 
 - ##### Task 06  
    Title: RVATrends recyclerview class   
-    Desc: display chart cardview methods
-Estimate:   
-  Actual:   
-     Dev:   
+    Desc: display chart cardview methods  
+Estimate: 1hrs  
+  Actual: 1hrs  
+     Dev: Josef   
 
 - ##### Task 07  
    Title: DataFrame  
     Desc: Create object to store data   
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 1hrs  
+  Actual: 1hrs  
+     Dev: Josef   
 
 - ##### Task 08  
    Title: DataFrame  
     Desc: Add summary statistics methods   
-Estimate:   
-  Actual:   
-     Dev:   
+Estimate: 2hrs  
+  Actual: 4hrs  
+     Dev: Josef   
 
 
 ### Detailed story  
 As a user I would like to see my progress for weight loss, calorie consumption, exercise
 Priority – High  
 Cost - 4 days  
+
 - ##### Task 01  
    Title: Support Multiple goals 
-    Desc:  
-Estimate:   
-  Actual:   
-     Dev:   
-
-- ##### Task 02  
-   Title:  
-    Desc:  
-Estimate:   
-  Actual:   
-     Dev:   
-
-
-
+    Desc: Modify DataFrame to support multiple goals  
+Estimate: 2hrs  
+  Actual: 1hrs  
+     Dev: Josef   
+   
 
 # Dev tasks Iter 1
 ## Big story 1 : Adding and editing meals  
