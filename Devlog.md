@@ -1297,6 +1297,15 @@ Duration: 5hrs
    - Created V1 of the data interface based on current stubDB
    - Started creating a entity relationship diagram
 
+### 2022-06-17
+     Dev:
+      - Manraj
+Duration: 5hrs
+   Tasks:
+   - Researched HSQL and how does it works and made some notes
+   - wathced videos and learnt about switching databases
+
+
 ### 2022-06-19
      Dev:
       - Dane
@@ -1328,20 +1337,19 @@ Duration: 4hrs
 
 ### 2022-06-24
      Dev:
+      - Manraj
+Duration: 6hrs
+   Tasks:
+   - watched Yuja Videos and made notes
+   - learnt about the Agile programing practices
+   - made some new object tests
+
+### 2022-06-24
+     Dev:
       - Dane
 Duration: 4hrs
    Tasks:
    - Caught up on Yuja videos
-
-
-### 2022-06-24
-     Dev:
-      - Gurdit
-Duration: 10 hrs
-   Tasks:
-   -Researched on how to import pictures to your android device.
-   -Researched on how to ask user for the permission to acces the gallery.
-  
 
 ### 2022-06-25
      Dev:
@@ -1458,15 +1466,6 @@ Duration: 4hrs
 
 ### 2022-06-27
      Dev:
-      - Gurdit
-Duration: 5 hrs
-   Tasks:
-   
-   - Implemented a method to ask for the permission to access the camera and gallery of the phone.
-
-
-### 2022-06-27
-     Dev:
       - Dane
 Duration: 10hrs
    Tasks:
@@ -1492,7 +1491,23 @@ Duration: 4 hrs
    - review U5 course material, to lecture 35;
    - summary note and send it to discord
 
+### 2022-06-27
+     Dev:
+      - Manraj
+Duration: 8hrs
+   Tasks:
+   - watched Yuja videos
+   - researched and learnt on how to implement charts
+   - chart labels
+   - chart trends
 
+### 2022-06-28
+     Dev:
+      - Manraj
+Duration: 4hrs
+   Tasks:
+   - added some foodunit tests
+   - added Drink ingredients tests
 
 ### 2022-06-29
      Dev:
@@ -1516,14 +1531,14 @@ Duration: 8hrs
    - Minor Database table refactoring
    - Improved data in the stub database
 
-### 2022-06-29
+### 2022-06-28
      Dev:
-      - Gurdit
-Duration: 15 hrs
+      - Manraj
+Duration: 4hrs
    Tasks:
-   
-   - Implemented a method to import and save pictures from the device to the edible item.
-   - Updated the previous UI of add item feature.
+   - reviwed the feedback from iteration 1
+   - made changes to some test classes
+   - refractored objects
 
 ### 2022-06-29
      Dev:
@@ -1561,16 +1576,6 @@ Duration: 1hrs
    Tasks:
    - finished empty test of Food.java update at brench test-Zhou
 
-
-### 2022-06-30
-     Dev:
-      - Gurdit
-Duration: 6 hrs
-   Tasks:
-  
-   - Caught up with YUja videos.
-
-
 ### 2022-06-30
      Dev:
       - Dane
@@ -1601,18 +1606,6 @@ Duration: 6hrs
    Tasks:
    - YuJa videos review, identify potential project areas to refactor
 
-
-### 2022-06-01
-     Dev:
-      - Gurdit
-Duration: 5 hrs
-   Tasks:
-   
-   - Discussed about the UI for the category feature.
-   - Created a new UI for the categories of the edible item.
-   - Created different Radio buttons for different categories.
-
-
 ### 2022-07-01
      Dev:
       - Dane
@@ -1627,25 +1620,6 @@ Duration: 10hrs
    - Finished SQL statements
    - Fixed compiler run time errors in generated HSQL db file
    - Questioned our degree choice
-
-### 2022-06-02
-     Dev:
-      - Gurdit
-Duration: 5 hrs
-   Tasks:
-   
-   - Changed the UI for edible item's categoies in add item fragment.
-   - Made categories a checkbox, instead of Radio buttons.
-
-### 2022-06-02
-     Dev:
-      - Gurdit
-Duration: 5 hrs
-   Tasks:
-   
-   - Made current UI for categories of edible item more generalized.
-   - Made it same for meals, food and drinks.
-   - Earlier UI was different for food, drinks and meals.
 
 ### 2022-07-02
      Dev:
@@ -1681,12 +1655,20 @@ Duration: 2hrs
    - finished Invalid test of Food.java update at brench test-Zhou
    - all test case is done in TestFoodUnit.java, need other people review
 
+### 2022-07-02
+     Dev:
+      - Manraj
+Duration: 4hrs
+   Tasks:
+   - watched last unit Yuja videos and made some notes
+   - learnt on how github works and definitons
+   - studied for the exam
 
 ### 2022-07-03
-     Dev:
-      - Gurdit
+    Dev:
+    - Gurdit
 Duration: 8 hrs
-   Tasks:
+    Tasks:
     - Watched all the Yuja videos.
     - Researched on how to disable a button.
     - Studied for the exam.
@@ -1698,13 +1680,12 @@ Duration: 1hrs
    Tasks:
    - upload all note(1-35) to github folder, with some modify
 
-
 ### 2022-07-06
-     Dev:
-      - Gurdit
+    Dev:
+    - Gurdit
 Duration: 14 hrs
-   Tasks:
-   - Created TestDrinkIngredients class.
+    Tasks:
+    - Created TestDrinkIngredients class.
     - Wrote lots of edgeCases, complex tests and simple Tests.
     - Wrote some tests which should throw an exception.
 
@@ -1728,15 +1709,25 @@ Duration: 10 hrs
    -design drink object unit test
    -finished simple and complex test for drink object 
    
-### 2022-07-07
-     Dev:
-      - Gurdit
-Duration: 10 hrs
-   Tasks:
-   - Created a test class for RecipeBookOps.
-   - Wrote lots of simple tests, complex tests, edge cases tests and empty tests.
-  
    
+   ### 2022-07-07
+    Dev:
+    - Gurdit
+Duration: 10 hrs
+    Tasks:
+    - Created a test class for RecipeBookOps.
+    - Wrote lots of simple tests, complex tests, edge cases tests and empty tests.
+
+### 2022-06-28
+     Dev:
+      - Manraj
+      - josef
+Duration: 4hrs
+   Tasks:
+   - created activity diary progress
+   - learnt recycler view from josef and implemted it
+
+
    ### 2022-07-08 recieve the structure change, not food class in project, change the all food object to edible
      Dev:
       - Zhou
@@ -1801,25 +1792,32 @@ Duration: 15 hrs
 
 
 ### 2022-07-08
-     Dev:
-      - Gurdit
+    Dev:
+    - Gurdit
 Duration: 5 hrs
-   Tasks:
-   - Updated User class.
+    Tasks:
+    - Updated User class.
     - Added restrictions to the maximum value and minimum value of Height of the user.
     - Added restrictions to the maximum value and minimum value of weight of the user.
     - Added restrictions to the maximum value and minimum value of calorie Goal of the user.
     - Added restrictions to the maximum value and minimum value of exercise Goal of the user.
     - Added validation to the setName method.
     
+### 2022-06-08
+     Dev:
+      - Manraj
+      - josef
+Duration: 4hrs
+   Tasks:
+   - created tests on trends Ops
+   - watched yuja videos and learnt how to improve programing and software design practices
 
  ### 2022-07-08
-     Dev:
-      - Gurdit
+    Dev:
+    - Gurdit
 Duration: 0.5 hrs
-   Tasks:
-   - Added some more constant values in the class Constants, which contains all the constants.
-
+    Tasks:
+    - Added some more constant values in the class Constants, which contains all the constants.
 
 ### 2022-07-08
      Dev:
@@ -1875,15 +1873,14 @@ Duration: 11 hrs
    - those problem should been fix.
    - can delet my comments in test file after all test is pass
 
-
-### 2022-07-09
-     Dev:
-      - Gurdit
+### 2022-07-10
+    Dev:
+    - Gurdit
 Duration: 10 hrs
-   Tasks:
-   - Created UserTests for User object class in GurditsTest branch.
-   - Created simple tests, edge cases, invalid tests and empty tests.
-   - Refactored code.
+    Tasks:
+    - Created UserTests for User object class in GurditsTest branch.
+    - Created simple tests, edge cases, invalid tests and empty tests.
+    - Refactored code.
 
 
 ### 2022-07-09
@@ -1928,6 +1925,19 @@ Duration: 14 hrs
    - Improved MealDiaryOps, added checking for ingredients in PreparedDrink and meals
    - Improved error handling in MealDiaryOps
    - Checked test coverage, improved instruction testing which was lacking before, 100% coverage otherwise!
+### 2022-06-10
+     Dev:
+      - Manraj
+      - josef
+Duration: 12hrs
+   Tasks:
+   - reviwed tests on Edible class 
+   - found a errors and mistakes and fixed them
+   - created Edible Log tests
+   - made edge cases 
+   - tested invalid inputs
+   - simple and complex tests
+   - found error in invalid tests and fixed it.
 
 ### 2022-07-08
      Dev:
@@ -1972,10 +1982,10 @@ Duration: 14 hrs
   
 
 ### 2022-07-10
-     Dev:
-      - Gurdit
+    Dev:
+    - Gurdit
 Duration: 3 hrs
-   Tasks:
+    Tasks:
     - Added more edge tests in TestRecipeBookOps.
     - Added more complex tests in testAddMeals, testAddDrinks and testAddFood.
     
@@ -1999,17 +2009,16 @@ Duration: 14 hrs
    - Updated DB interfaces to have exceptions
    - Removed assertNotNull 
    
- 
+     
 ### 2022-07-11
      Dev:
       - Gurdit
 Duration: 8 hrs
    Tasks:
-    - Completed test class for TrendOps class in testsManraj branch.
+   - Completed test class for TrendOps class in testsManraj branch.
    - Added edge case tests class in TestTrendOps.
    - Added more tests in simple tests in TestTrendOps.
    - Added more tests those should fail or throw exception.
-
 
 ### 2022-07-11
      Dev:
