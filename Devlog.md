@@ -1297,6 +1297,15 @@ Duration: 5hrs
    - Created V1 of the data interface based on current stubDB
    - Started creating a entity relationship diagram
 
+### 2022-06-17
+     Dev:
+      - Manraj
+Duration: 5hrs
+   Tasks:
+   - Researched HSQL and how does it works and made some notes
+   - wathced videos and learnt about switching databases
+
+
 ### 2022-06-19
      Dev:
       - Dane
@@ -1325,6 +1334,15 @@ Duration: 4hrs
    Tasks:
    - Fixed UnitConverter bugs: rounding issues and wrong variables being used
    - Started refactoring unitConverter and added additional test cases
+
+### 2022-06-24
+     Dev:
+      - Manraj
+Duration: 6hrs
+   Tasks:
+   - watched Yuja Videos and made notes
+   - learnt about the Agile programing practices
+   - made some new object tests
 
 ### 2022-06-24
      Dev:
@@ -1657,11 +1675,11 @@ Duration: 10 hrs
    
    
    ### 2022-07-07
-     Dev:
-      - Gurdit
+    Dev:
+    - Gurdit
 Duration: 10 hrs
-   Tasks:
-   - Created a test class for RecipeBookOps.
+    Tasks:
+    - Created a test class for RecipeBookOps.
     - Wrote lots of simple tests, complex tests, edge cases tests and empty tests.
 
    
@@ -1729,26 +1747,23 @@ Duration: 15 hrs
 
 
 ### 2022-07-08
-     Dev:
-      - Gurdit
+    Dev:
+    - Gurdit
 Duration: 5 hrs
-   Tasks:
-   - Updated User class.
+    Tasks:
+    - Updated User class.
     - Added restrictions to the maximum value and minimum value of Height of the user.
     - Added restrictions to the maximum value and minimum value of weight of the user.
     - Added restrictions to the maximum value and minimum value of calorie Goal of the user.
     - Added restrictions to the maximum value and minimum value of exercise Goal of the user.
     - Added validation to the setName method.
-    - 
-
- 
+    
  ### 2022-07-08
-     Dev:
-      - Gurdit
+    Dev:
+    - Gurdit
 Duration: 0.5 hrs
-   Tasks:
-   - Added some more constant values in the class Constants, which contains all the constants.
-
+    Tasks:
+    - Added some more constant values in the class Constants, which contains all the constants.
 
 ### 2022-07-08
      Dev:
@@ -1804,15 +1819,14 @@ Duration: 11 hrs
    - those problem should been fix.
    - can delet my comments in test file after all test is pass
 
-
 ### 2022-07-10
-     Dev:
-      - Gurdit
+    Dev:
+    - Gurdit
 Duration: 10 hrs
-   Tasks:
-   - Created UserTests for User object class in GurditsTest branch.
-   - Created simple tests, edge cases, invalid tests and empty tests.
-   - Refactored code.
+    Tasks:
+    - Created UserTests for User object class in GurditsTest branch.
+    - Created simple tests, edge cases, invalid tests and empty tests.
+    - Refactored code.
 
 
 ### 2022-07-09
@@ -1928,17 +1942,16 @@ Duration: 14 hrs
    - Updated DB interfaces to have exceptions
    - Removed assertNotNull 
    
- 
+     
 ### 2022-07-11
      Dev:
       - Gurdit
 Duration: 8 hrs
    Tasks:
-    - Completed test class for TrendOps class in testsManraj branch.
+   - Completed test class for TrendOps class in testsManraj branch.
    - Added edge case tests class in TestTrendOps.
    - Added more tests in simple tests in TestTrendOps.
    - Added more tests those should fail or throw exception.
-
 
 ### 2022-07-11
      Dev:
