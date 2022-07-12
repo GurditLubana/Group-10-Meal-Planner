@@ -27,25 +27,16 @@ import comp3350.team10.persistence.TestUserDBInterface;
 @SuiteDisplayName("JUnit5 mealplanner test suite")
 @SelectPackages("comp3350.team10.*")
 @SelectClasses({
-        TestMealDiaryOps.class,
-        TestRecipeBookOps.class,
-        TestTrendsOps.class,
-        TestUserDataOps.class,
-        TestUnitConverter.class,
-        TestDailyLog.class,
-        TestEdibleLog.class,
-        TestDataFrame.class,
-        TestDrink.class,
-        TestEdible.class,
-        TestIngredient.class,
-        TestDrinkIngredients.class,
-        TestMeal.class,
-        TestUser.class,
-        TestLogDBInterface.class,
-        TestUserDBInterface.class,
-        TestRecipeDBInterface.class
+//        TestMealDiaryOps.class,
+//        TestRecipeBookOps.class,
+//        TestTrendsOps.class,
+//        TestUserDataOps.class,
+//        TestUnitConverter.class,
+//        TestDailyLog.class,
+//        TestEdibleLog.class,
+//        TestRecipeDBInterface.class
 })
 
-public class AllTests {
+public class RunIntegrationTests {
 
 }
