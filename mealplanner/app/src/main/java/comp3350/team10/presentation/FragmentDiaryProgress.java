@@ -21,8 +21,8 @@ import comp3350.team10.R;
 
 public class FragmentDiaryProgress extends Fragment {
     private MealDiaryLiveData mealDiaryLiveData; // live data source for automatic field updates
-    private SimpleDateFormat mon;        // date format for month
-    private SimpleDateFormat day;        // date format for day
+    private SimpleDateFormat mon;                // date format for month
+    private SimpleDateFormat day;                // date format for day
     private FragToMealDiary send;                // Interface to pass data to the parent activity
 
     public FragmentDiaryProgress() {

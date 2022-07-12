@@ -17,9 +17,9 @@ import comp3350.team10.objects.Edible;
 
 public class FragmentDiaryDialogs extends FragmentDialogCommon {
     public static final String TAG = "MealEntryDialog"; // tag name of this fragment for reference in the fragment manager
-    private FragToMealDiary send;                 // Interface for communication with parent activity
-    private FragToMealDiary.EntryMode mode;       // the type of dialog to show
-    private TextView unitText;                    // static unit label
+    private FragToMealDiary send;                       // Interface for communication with parent activity
+    private FragToMealDiary.EntryMode mode;             // the type of dialog to show
+    private TextView unitText;                          // static unit label
 
     public FragmentDiaryDialogs() {
         super();

@@ -20,11 +20,11 @@ import comp3350.team10.objects.DataFrame;
 
 public class ActivityTrends extends AppCompatActivity {
     private RecyclerView trendsRecyclerView;      //Houses a recycle view for diary entries
-    private RVATrends recyclerViewAdapter;
-    private ArrayList<DataFrame> data;
-    private TrendsOps opExec;
-    private Toolbar toolbar;                    //app title
-    private int currTab;                            // The tab that is currently displayed
+    private RVATrends recyclerViewAdapter;        //recyclerview
+    private ArrayList<DataFrame> data;            //Trend data
+    private TrendsOps opExec;                     //Trends logic class
+    private Toolbar toolbar;                      //app title
+    private int currTab;                          //The tab that is currently displayed
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

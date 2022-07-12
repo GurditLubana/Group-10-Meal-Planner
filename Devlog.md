@@ -481,7 +481,7 @@ As a user I would like to see different charts to track the progress I am making
 ### Detailed story  
 As a user I would like to see my progress over long time frames
 Priority – High  
-Cost - 4 days  
+Cost - 1 days  
 
 - ##### Task 01  
    Title: Trends activity UI   
@@ -543,7 +543,7 @@ Estimate: 2hrs
 ### Detailed story  
 As a user I would like to see my progress for weight loss, calorie consumption, exercise
 Priority – High  
-Cost - 4 days  
+Cost - 1 days  
 
 - ##### Task 01  
    Title: Support Multiple goals 
