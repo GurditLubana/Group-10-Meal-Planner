@@ -255,9 +255,26 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
 
     Topic: Discussed Iter2 sprint to finish and what remains
     ----- 
-    Discussions: We started off by discussing iter3 goals, then moved into discussed new code base changes for those who were unfamiliar.  We then drafted up a list of remaining tasks and distributed it amongst ourselves.
+    Discussions: We started off by discussing iter2 goals, then moved into discussed new code base changes for those who were unfamiliar.  We then drafted up a list of remaining tasks and distributed it amongst ourselves.
     -----
     Rationale: Iter2 requirements and works in progress
+---
+<br>
+
+
+### 2022 July 14
+    Attendees:  
+    - Dane  
+    - Josef  
+    - Gurdit  
+    - Zhao  
+    - Manraj
+
+    Topic: Discussed Iter3
+    ----- 
+    Discussions: We started off by talking about iter2; communication, what accomplishments then focused onto iter3. We decided that our new implementation would be focusing on implementing new recipes first, and other content will be time permited. Josef agreed to do database and acceptance testing, everyone else agreed to do their part in integration tests and to finalize add recipe ingredients. Due to the time restraints it was agreed that every night we would have a quick 5 minute call to share with the team what has progressed and we even created a new chat in discord specifically for when fast updates and availability communication. The meeting ended by planning our next meeting to cover our report on our thoughts of iter2 (which will be Friday around 6:30)
+    -----
+    Rationale: Iter3 requirements and goals
 ---
 <br>
 
@@ -2049,3 +2066,12 @@ Duration: 10 hrs
    - Code quality check
    - Added in missing tests to Edible, Meal and Drink
    - Removed dead code
+
+### 2022-07-12
+     Dev:
+      - Dane
+Duration: 2 hrs
+   Tasks:
+   - Created new discord chat for quick availability/major code updates
+   - Broke down iter3 task into smaller dev tasks
+   - Updated availability in availability sheet
