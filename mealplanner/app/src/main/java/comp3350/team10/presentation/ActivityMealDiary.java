@@ -57,7 +57,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_meal_diary);
         this.initToolbar();
         this.copyDatabaseToDevice();
