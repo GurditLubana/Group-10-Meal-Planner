@@ -27,11 +27,12 @@ import comp3350.team10.presentation.ActivityTrends;
 public class TestStoryViewLongTrends {
 
     @Rule
-    public ActivityScenarioRule<ActivityTrends> activityRule =
-            new ActivityScenarioRule<>(ActivityTrends.class);
+    public ActivityScenarioRule<ActivityTrends> activityRule = new ActivityScenarioRule<>(ActivityTrends.class);
 
     @Test
-    public void listGoesOverTheFold() {
-        onView(withText("Hello world!")).check(matches(isDisplayed()));
+    public void test_Trends_screen() {
+        onView(ViewMatchers.withId(R.id.chartsNav)).perform(click());
+        onView(ViewMatchers.withId(R.id.progressCircle)).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.progressPercentage)).check(matches(isDisplayed()));
     }
 }

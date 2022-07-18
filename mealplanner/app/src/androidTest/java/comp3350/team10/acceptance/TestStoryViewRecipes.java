@@ -30,7 +30,9 @@ public class TestStoryViewRecipes {
     public ActivityScenarioRule<ActivityRecipeBook> activityRule = new ActivityScenarioRule<>(ActivityRecipeBook.class);
 
     @Test
-    public void listGoesOverTheFold() {
-        onView(withText("Hello world!")).check(matches(isDisplayed()));
+    public void test_RecipeBook_screen() {
+        onView(ViewMatchers.withId(R.id.recipeBookNav)).perform(click());
+        onView(ViewMatchers.withId(R.id.progressCircle)).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.progressPercentage)).check(matches(isDisplayed()));
     }
 }
