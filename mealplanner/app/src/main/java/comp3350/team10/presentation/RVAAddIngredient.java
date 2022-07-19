@@ -43,7 +43,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
         view.setScaleY(ingredientScale);
 
         context = view.getContext();
-        if (context instanceof FragToMealDiary) {
+        if (context instanceof FragToRecipeBook) {
             this.sendToRecipeBook = (FragToRecipeBook) context;
         }
         viewHolder = new ViewHolder(view);
@@ -141,7 +141,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
                     @Override
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
-
+                        System.out.println(sendToRecipeBook);
                         if (sendToRecipeBook != null) {
                             sendToRecipeBook.addEntry(position);
                         }

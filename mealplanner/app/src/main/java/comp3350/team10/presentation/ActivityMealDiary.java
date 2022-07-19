@@ -37,6 +37,7 @@ import comp3350.team10.objects.EdibleLog;
 
 public class ActivityMealDiary extends AppCompatActivity implements FragToMealDiary {
     private ActivityResultLauncher<Intent> pickMeal; // call back listener when recipebook activity is launched for meal selection
+
     private RVAMealDiary recyclerViewAdapter;   //Houses the logic for a recycle view with diary entries
     private MealDiaryLiveData mealDiaryData;    //Enables persistent data
     private RecyclerView mealRecyclerView;      //Houses a recycle view for diary entries
@@ -48,7 +49,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     private final String DIARYADDCARD = "diaryAdd";
     private final String DIARYMODIFYCARD = "diaryModify";
 
-    private ArrayList<Edible> data;            //The data for the diary entries
+    private ArrayList<Edible> data;             //The data for the diary entries
     private int savedItemPosition;              //Saves the position of an item for temporary removal
     private Edible savedItem;                   //Saves the item for temporary removal
     private EntryMode mode;                     //This tracks the type of input dialog when launched
@@ -325,6 +326,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     @Override
     public void addEntry(int pos) { //launch recipebook use ActivityResultLauncher to allow data passing
         Intent intent = new Intent(this, ActivityRecipeBook.class);
+        
         intent.putExtra("DBKEY", this.data.get(pos).getDbkey());
         this.pickMeal.launch(intent);
     }

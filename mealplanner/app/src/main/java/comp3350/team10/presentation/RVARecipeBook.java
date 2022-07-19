@@ -1,6 +1,8 @@
 package comp3350.team10.presentation;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.contract.ActivityResultContracts;
 
 import java.util.ArrayList;
 
@@ -54,10 +60,8 @@ public class RVARecipeBook extends RecyclerViewAdapter {
         } else {
             setRecipeData(viewHolder, position);
             setCardListeners(viewHolder, position);
-
         }
     }
-
 
     private void setCardListeners(ViewHolder viewHolder, int position) {
         viewHolder.getView().findViewById(R.id.cardView2).setOnClickListener(new View.OnClickListener() {

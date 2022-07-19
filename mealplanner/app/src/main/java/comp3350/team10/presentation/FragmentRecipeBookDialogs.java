@@ -67,6 +67,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private static final int REQUEST_CODE = 1; // Request code for the edible's image
     ArrayList<Ingredient> mealIngredients;
     ArrayList<DrinkIngredient> drinkIngredients;
+    private ArrayList<DrinkIngredient> ingredients;             //The data for the diary entries
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView ingredientRecyclerView;
 
@@ -160,6 +161,13 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         return dialog;
+    }
+
+    public void addIngredient(Edible currEdible) {
+        DrinkIngredient currIngredient = new DrinkIngredient();
+        currIngredient.init(currEdible, 1, Edible.Unit.cups);
+
+        ingredients.add(ingredients.size() - 1, currIngredient);
     }
 
     private void setFoodDialogFieldDefaults() {
