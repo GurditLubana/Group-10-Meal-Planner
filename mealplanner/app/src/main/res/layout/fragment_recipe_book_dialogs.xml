@@ -32,7 +32,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="?colorPrimary">
 
                     <LinearLayout
@@ -123,13 +123,11 @@
                         android:id="@+id/linearLayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="64dp"
                         android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dialogRecipeIngredientsInput">
+                        app:layout_constraintStart_toStartOf="parent">
 
                         <Button
                             android:id="@+id/dialogRecipeBtnCancel"
@@ -167,12 +165,21 @@
                         app:layout_constraintEnd_toStartOf="@+id/dialogRecipeSpinner"
                         app:layout_constraintTop_toTopOf="@+id/dialogRecipeSpinner" />
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/dialogRecipeIngredientsInput"
+                        android:layout_width="337dp"
+                        android:layout_height="110dp"
+                        android:layout_marginTop="5dp"
+                        android:background="?colorPrimaryVariant"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/dialogRecipeIngredientsLabel"
+                        app:layout_constraintTop_toBottomOf="@+id/dialogRecipeSpinner" />
+
                     <Spinner
                         android:id="@+id/dialogRecipeSpinner"
                         android:layout_width="150dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="16dp"
-                        android:layout_marginBottom="24dp"
                         app:layout_constraintEnd_toEndOf="@+id/dialogRecipeCaloriesInput"
                         app:layout_constraintStart_toStartOf="@+id/dialogRecipeCaloriesInput"
                         app:layout_constraintTop_toBottomOf="@+id/dialogRecipeCaloriesInput" />
@@ -246,6 +253,7 @@
                         app:layout_constraintTop_toTopOf="@+id/dialogRecipeCaloriesInput"
                         app:layout_constraintVertical_bias="0.648" />
 
+
                     <EditText
                         android:id="@+id/dialogRecipeCaloriesInput"
                         android:layout_width="360dp"
@@ -266,7 +274,6 @@
                         android:id="@+id/dialogRecipeIngredientsLabel"
                         android:layout_width="147dp"
                         android:layout_height="49dp"
-                        android:layout_marginEnd="8dp"
                         android:layout_weight="0.3"
                         android:background="?colorPrimary"
                         android:gravity="right|center_vertical"
@@ -275,47 +282,22 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         android:textColor="?colorOnPrimary"
                         android:textSize="20dp"
-                        app:layout_constraintEnd_toStartOf="@+id/dialogRecipeIngredientsInput"
-                        app:layout_constraintTop_toTopOf="@+id/dialogRecipeIngredientsInput" />
-
-                    <EditText
-                        android:id="@+id/dialogRecipeIngredientsInput"
-                        android:layout_width="360dp"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="24dp"
-                        android:background="?colorSecondaryVariant"
-                        android:backgroundTint="?colorSecondaryVariant"
-                        android:gravity="top"
-                        android:hint="Drink Ingredients\n(, comma separated)"
-                        android:inputType="textMultiLine"
-                        android:padding="10dp"
-                        android:scrollIndicators="right"
-                        android:scrollbarAlwaysDrawVerticalTrack="true"
-                        android:scrollbarStyle="insideInset"
-                        android:scrollbars="vertical"
-                        android:textAlignment="gravity"
-                        android:textColor="?colorOnPrimary"
-                        android:textColorHint="#E1E1E1"
-                        android:verticalScrollbarPosition="right"
-                        app:layout_constraintEnd_toEndOf="@+id/dialogRecipeSpinner"
-                        app:layout_constraintStart_toEndOf="@+id/dialogRecipeQuantityInput"
-                        app:layout_constraintTop_toBottomOf="@+id/dialogRecipeSpinner" />
-
+                        app:layout_constraintTop_toTopOf="@+id/dialogRecipeIngredientsInput"
+                        tools:layout_editor_absoluteX="8dp" />
 
                     <LinearLayout
                         android:id="@+id/layout1"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="16dp"
                         android:orientation="horizontal"
+                        app:layout_constraintBottom_toTopOf="@id/layout2"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.6"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toTopOf="@id/layout2"
                         app:layout_constraintTop_toBottomOf="@+id/dialogRecipeIngredientsInput">
 
                         <CheckBox
@@ -355,10 +337,10 @@
                         android:id="@+id/layout2"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="16dp"
                         android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="16dp"
                         android:orientation="horizontal"
                         app:layout_constraintBottom_toTopOf="@id/linearLayout"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -386,7 +368,6 @@
                             android:background="?colorSecondaryVariant"
                             android:text="Vegan"
                             android:textColor="?colorOnPrimary" />
-
 
 
                     </LinearLayout>

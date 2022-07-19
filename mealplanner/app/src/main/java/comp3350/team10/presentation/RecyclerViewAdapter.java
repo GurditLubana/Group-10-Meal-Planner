@@ -25,8 +25,9 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
 
     @Override
     public int getItemViewType(int pos) {
-        int result = -1;
         String identifier = localDataSet.get(pos).getName();
+        int result = -1;
+
         if (identifier.equals(FragmentType.diaryAdd.name())) {
             result = FragmentType.diaryAdd.ordinal();
         } else if (identifier.equals(FragmentType.diaryModify.name())) {
@@ -36,7 +37,9 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
         } else {
             result = FragmentType.noType.ordinal();
         }
+
         this.viewType = result;
+
         return result;
     }
 

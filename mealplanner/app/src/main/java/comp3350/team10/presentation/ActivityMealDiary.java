@@ -83,6 +83,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     private void initRecyclerView() {
         View view = findViewById(R.id.mealRecyclerView);
+
         if (this.data != null && view instanceof RecyclerView) {
             this.recyclerViewAdapter = new RVAMealDiary(this.data);
             this.mealRecyclerView = (RecyclerView) view;
@@ -92,10 +93,10 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     }
 
     private void initUICardObjects() {
-
         this.savedItemPosition = -1;
         this.addButton = new Edible();
         this.modifyLog = new Edible();
+
         try {
             this.addButton.setName(DIARYADDCARD);
         } catch (Exception e) {

@@ -27,6 +27,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -37,14 +39,14 @@ import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
 
 public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
-
+    private final String DIARYADDCARD = "diaryAdd";
     private TextView labelName;              // Label of name field
     private TextView labelCalories;          // Label of calories field
     private TextView labelIngredients;       // Label of ingredients field
     private EditText inputInstructions;      // input field for instructions
     private EditText inputName;              // input field for item name
     private EditText inputCalories;          // input field for item calories
-    private EditText inputIngredients;       // input field for item ingredients
+    private RecyclerView inputIngredients;       // input field for item ingredients
     private Button btnChooseItemImage;       // Import a picture for the Edible item.
     private CheckBox isAlcoholicCheckBox;    // check if Edible item contains alcohol.
     private CheckBox isSpicyCheckBox;        // check if Edible item spicy.
@@ -60,22 +62,23 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private int quantity;                      // value of quantity input
     private String name;                       // value of name input
     private String instructions;               // value of instructions input
-    private String ingredients;                // value of ingredients input
     private String photo;                      // value of ingredients input
     private Edible.Unit unit;                  // value of units input
     private static final int REQUEST_CODE = 1; // Request code for the edible's image
     ArrayList<Ingredient> mealIngredients;
     ArrayList<DrinkIngredient> drinkIngredients;
-
+    private RecyclerViewAdapter recyclerViewAdapter;
+    private RecyclerView ingredientRecyclerView;
 
     public FragmentRecipeBookDialogs() {
         // Required empty public constructor
     }
 
-    public static FragmentRecipeBookDialogs newInstance(String param1, String param2) {
+    public static FragmentRecipeBookDialogs newInstance() {
         FragmentRecipeBookDialogs fragment = new FragmentRecipeBookDialogs();
         Bundle args = new Bundle();
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -84,6 +87,20 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         super.onCreate(savedInstanceState);
     }
 
+    private void initRecyclerView(View view) {
+        View recycler = view.findViewById(R.id.dialogRecipeIngredientsInput);
+        ArrayList<Edible> ingredients = new ArrayList<Edible>();
+        Edible currEdible = new Edible();
+        currEdible.setName(DIARYADDCARD);
+        ingredients.add(currEdible);
+
+        if (recycler instanceof RecyclerView) {
+            this.recyclerViewAdapter = new RVAAddIngredient(ingredients);
+            this.ingredientRecyclerView = (RecyclerView) recycler;
+            this.ingredientRecyclerView.setAdapter(this.recyclerViewAdapter);
+            this.ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        }
+    }
 
     @NonNull
     @Override
@@ -116,7 +133,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.isVeganCheckBox = view.findViewById(R.id.isVegan);
         this.isGluteenFree = view.findViewById(R.id.isGluteenFree);
         this.photo = "photo.jpg";
-
+        this.initRecyclerView(view);
 
         if (context != null && context instanceof FragToRecipeBook) {
             this.send = (FragToRecipeBook) context;
@@ -141,6 +158,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         builder.setView(view);
         dialog = builder.create();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
         return dialog;
     }
 
@@ -159,7 +177,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.labelName.setText("Meal Name");
         this.inputName.setHint("Meal Name");
         this.inputInstructions.setHint("Cooking Instructions");
-        this.inputIngredients.setHint("Meal Ingredients\n(, comma separated)");
     }
 
     private void setDrinkDialogFieldDefaults() {
@@ -168,7 +185,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.labelName.setText("Drink Name");
         this.inputName.setHint("Drink Name");
         this.inputInstructions.setHint("Mixing Instructions");
-        this.inputIngredients.setHint("Drink Ingredients\n(, comma separated)");
     }
 
     private void setSpinner() {
@@ -213,8 +229,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
                         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
                             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
-                        } else {
-//
+                        } else {    
                             openGallery();
                         }
                     } catch (Exception e) {
@@ -287,13 +302,13 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         }
 
         if (this.mode != FragToRecipeBook.EntryMode.ADD_FOOD) {
-            if (check(this.inputIngredients)) {
-                String[] tempIngredients = (this.inputIngredients.getText().toString().trim()).split(",");
-                for (int i = 0; i < tempIngredients.length; i++) {
-                    System.out.println(tempIngredients[i]);
-                }
+            if (true) { //check(this.inputIngredients)
+                //String[] tempIngredients = (this.inputIngredients.getText().toString().trim()).split(",");
+                //for (int i = 0; i < tempIngredients.length; i++) {
+                //    System.out.println(tempIngredients[i]);
+                //}
 
-                this.ingredients = this.inputIngredients.getText().toString().trim();
+                //this.ingredients = this.inputIngredients.getText().toString().trim();
                 success += 1;
             }
             if (check(this.inputInstructions)) {

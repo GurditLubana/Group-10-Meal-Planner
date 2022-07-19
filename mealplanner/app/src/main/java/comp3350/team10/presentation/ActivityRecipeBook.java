@@ -260,6 +260,18 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         }
     }
 
+    public void removeItem(int position) {
+
+    }
+
+    public void editItem() {
+
+    }
+
+    public void addEntry(int position) {
+
+    }
+
     public void addDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,
                          boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, String photo, String instructions, ArrayList<DrinkIngredient> ingredients) {
         if (ingredients.size() > 0) {
