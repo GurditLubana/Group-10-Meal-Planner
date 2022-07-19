@@ -103,7 +103,7 @@ public class RVARecipeBook extends RecyclerViewAdapter {
             public void onClick(View view) {
                 if (sendToRecipeBook != null) {
                     sendToRecipeBook.addToMealDiary();
-                }
+                }//add a thing in here to add to other thing
             }
         });
 

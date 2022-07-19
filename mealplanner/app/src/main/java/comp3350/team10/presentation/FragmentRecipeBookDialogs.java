@@ -67,12 +67,13 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private static final int REQUEST_CODE = 1; // Request code for the edible's image
     ArrayList<Ingredient> mealIngredients;
     ArrayList<DrinkIngredient> drinkIngredients;
-    private ArrayList<DrinkIngredient> ingredients;             //The data for the diary entries
+    private ArrayList<Edible> ingredients;             //The data for the diary entries
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView ingredientRecyclerView;
 
     public FragmentRecipeBookDialogs() {
         // Required empty public constructor
+        //empty the OG ingredient list
     }
 
     public static FragmentRecipeBookDialogs newInstance() {
@@ -86,14 +87,11 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ingredients = new ArrayList<Edible>();
     }
 
     private void initRecyclerView(View view) {
         View recycler = view.findViewById(R.id.dialogRecipeIngredientsInput);
-        ArrayList<Edible> ingredients = new ArrayList<Edible>();
-        Edible currEdible = new Edible();
-        currEdible.setName(DIARYADDCARD);
-        ingredients.add(currEdible);
 
         if (recycler instanceof RecyclerView) {
             this.recyclerViewAdapter = new RVAAddIngredient(ingredients);
@@ -161,13 +159,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         return dialog;
-    }
-
-    public void addIngredient(Edible currEdible) {
-        DrinkIngredient currIngredient = new DrinkIngredient();
-        currIngredient.init(currEdible, 1, Edible.Unit.cups);
-
-        ingredients.add(ingredients.size() - 1, currIngredient);
     }
 
     private void setFoodDialogFieldDefaults() {
@@ -248,6 +239,21 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
             }
         });
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Edible currEdible = new Edible();
+        currEdible.setName(DIARYADDCARD);
+
+        this.send = (FragToRecipeBook) this.getActivity();
+        ArrayList<DrinkIngredient> curr = send.getIngredients();
+        for(int i = 0; i < curr.size(); i++) {
+            ingredients.add(curr.get(i).getIngredient());
+        }
+        //if()
+        ingredients.add(currEdible);
     }
 
     private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(

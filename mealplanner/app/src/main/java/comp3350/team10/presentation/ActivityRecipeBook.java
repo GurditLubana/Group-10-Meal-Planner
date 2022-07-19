@@ -1,6 +1,7 @@
 package comp3350.team10.presentation;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import comp3350.team10.R;
 import comp3350.team10.application.Main;
 import comp3350.team10.business.MealDiaryOps;
 import comp3350.team10.business.RecipeBookOps;
+import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
@@ -54,6 +56,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private int currTab;                            // The tab that is currently displayed
     private EntryMode mode;                         // The type of dialog to show
     private boolean detailsFlag = false;            // flag to show detailed recipes
+    private ArrayList<DrinkIngredient> ingredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.setTabListeners();
         this.initActionButtons();
         this.createActivityCallbackListener();
+        ingredients = new ArrayList<DrinkIngredient>();
     }
 
     private void initToolbar() {
@@ -277,17 +281,17 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     }
 
-    private void addItem() {
-        //getFragmentManager();
-    }
-
     public void addEntry(int pos) { //launch recipebook use ActivityResultLauncher to allow data passing
         Intent intent = new Intent(this, ActivityRecipeBook.class);
-        this.pickMeal.launch(intent);
+        this.pickIngredient.launch(intent);
+    }
+
+    public ArrayList<DrinkIngredient> getIngredients() {
+        return this.ingredients;
     }
 
     private void createActivityCallbackListener() {
-        this.pickMeal = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+        this.pickIngredient = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
@@ -299,9 +303,11 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                             data = result.getData();
                             dbkey = data.getExtras().getInt("DBKEY"); //rva recipe book
                             isCustom = data.getExtras().getBoolean("isCustom");
-                            FragmentRecipeBookDialogs hi = (FragmentRecipeBookDialogs) getSupportFragmentManager().findFragmentById(R.id.addRecipe);
+                            FragmentRecipeBookDialogs hi = (FragmentRecipeBookDialogs)getSupportFragmentManager().findFragmentById(R.id.addRecipe);
                             Edible currEdible = opExec.findIngredient(dbkey, isCustom); //what type, and db key
-                            hi.addIngredient(currEdible);
+                            DrinkIngredient currIngredient = new DrinkIngredient();
+                            currIngredient.init(currEdible, 5, Edible.Unit.cups);
+                            ingredients.add(currIngredient);
                         }
                     }
                 });
