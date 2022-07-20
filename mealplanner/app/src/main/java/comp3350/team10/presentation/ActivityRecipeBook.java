@@ -40,6 +40,10 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private final static int TITLE_COLOR = Color.WHITE;        //The title color of the acitivty
     private final static String TITLE_CONTENT = "MealPlanner"; //The title content of the activity
 
+    private int othersavedItemPosition;              //Saves the position of an item for temporary removal
+    private Edible othersavedItem;                   //Saves the item for temporary removal
+    private final String DIARYMODIFYCARD = "diaryModify";
+
     private Animation fabOpen, fabClose, rotateForward, rotateBackward; //Animations for floating buttons
     private FloatingActionButton openFab, editFab, addFab;              //Floating buttons
 
@@ -49,6 +53,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private Toolbar toolbar;                        // app title
     private ArrayList<Edible> data;                 // The data for the recipe book
     private Edible modifyUICard;
+    private Edible modifyLog;
     private final String RECIPEMODIFYCARD = "recipeModify";
 
     private boolean modMenuIsOpen;                  // Represents whether the menu to add/edit recipes is toggled on
@@ -73,6 +78,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.initActionButtons();
         this.createActivityCallbackListener();
         ingredients = new ArrayList<Edible>();
+        modifyLog = new Edible();
+        modifyLog.setName(DIARYMODIFYCARD);
     }
 
     private void initToolbar() {
@@ -243,6 +250,29 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.savedItem = this.data.get(position);
     }
 
+    public void otherShowContextUI(int position) {
+        FragmentManager fm = getSupportFragmentManager();
+
+        FragmentRecipeBookDialogs hi = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
+        int otherPosition = -1;
+
+        if (position >= 0 && position != this.othersavedItemPosition) {
+            if (this.othersavedItem == null) {
+                saveItem(position);
+            } else {
+                otherPosition = this.othersavedItemPosition;
+                swapSaved(position);
+                this.recyclerViewAdapter.notifyItemChanged(otherPosition);
+            }
+            this.data.remove(position);
+            this.data.add(position, modifyLog);
+        } else {
+            restoreSaved();
+        }
+        this.recyclerViewAdapter.notifyItemChanged(position);
+        this.recyclerViewAdapter.notifyDataSetChanged();
+    }
+
     private void swapSaved(int position) {
         Edible temp = this.data.get(position);
         restoreSaved();
@@ -275,7 +305,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     public void removeItem(int position) {
-
+        //ingredients.remove(position);
     }
 
     public void editItem() {
