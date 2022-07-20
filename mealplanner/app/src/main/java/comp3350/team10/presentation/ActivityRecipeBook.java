@@ -56,7 +56,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private int currTab;                            // The tab that is currently displayed
     private EntryMode mode;                         // The type of dialog to show
     private boolean detailsFlag = false;            // flag to show detailed recipes
-    private ArrayList<DrinkIngredient> ingredients;
+    private ArrayList<Edible> ingredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.setTabListeners();
         this.initActionButtons();
         this.createActivityCallbackListener();
-        ingredients = new ArrayList<DrinkIngredient>();
+        ingredients = new ArrayList<Edible>();
     }
 
     private void initToolbar() {
@@ -286,8 +286,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.pickIngredient.launch(intent);
     }
 
-    public ArrayList<DrinkIngredient> getIngredients() {
-        return this.ingredients;
+    public ArrayList<Edible> getIngredients() {
+        return new ArrayList<Edible>(this.ingredients);
     }
 
     private void createActivityCallbackListener() {
@@ -296,6 +296,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         Intent data;
+                        Edible currEdible;
                         boolean isCustom = false;
                         int dbkey = -1;
 
@@ -303,14 +304,27 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                             data = result.getData();
                             dbkey = data.getExtras().getInt("DBKEY"); //rva recipe book
                             isCustom = data.getExtras().getBoolean("isCustom");
-                            FragmentRecipeBookDialogs hi = (FragmentRecipeBookDialogs)getSupportFragmentManager().findFragmentById(R.id.addRecipe);
-                            Edible currEdible = opExec.findIngredient(dbkey, isCustom); //what type, and db key
-                            DrinkIngredient currIngredient = new DrinkIngredient();
-                            currIngredient.init(currEdible, 5, Edible.Unit.cups);
-                            ingredients.add(currIngredient);
+
+                            if(!isAlreadyAnIngredient(dbkey, isCustom)) {
+                                currEdible = opExec.findIngredient(dbkey, isCustom);
+                                ingredients.add(currEdible);
+                            }
                         }
                     }
                 });
+    }
+    
+    private boolean isAlreadyAnIngredient(int dbKey, boolean isCustom) {
+        boolean alreadyAnIngredient = false;
+
+        for(Edible currEdible: ingredients) {
+            if (currEdible.getDbkey() == dbKey && currEdible.getIsCustom() == isCustom) {
+                alreadyAnIngredient = true;
+                break;
+            }
+        }
+
+        return alreadyAnIngredient;
     }
 
     public void addDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,

@@ -67,9 +67,9 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private static final int REQUEST_CODE = 1; // Request code for the edible's image
     ArrayList<Ingredient> mealIngredients;
     ArrayList<DrinkIngredient> drinkIngredients;
-    private ArrayList<Edible> ingredients;             //The data for the diary entries
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView ingredientRecyclerView;
+    Edible addBtn;
 
     public FragmentRecipeBookDialogs() {
         // Required empty public constructor
@@ -87,14 +87,17 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ingredients = new ArrayList<Edible>();
     }
 
     private void initRecyclerView(View view) {
         View recycler = view.findViewById(R.id.dialogRecipeIngredientsInput);
+        ArrayList<Edible> emptyList = new ArrayList<Edible>();
+        this.addBtn = new Edible();
+        this.addBtn.setName(DIARYADDCARD);
+        emptyList.add(this.addBtn);
 
         if (recycler instanceof RecyclerView) {
-            this.recyclerViewAdapter = new RVAAddIngredient(ingredients);
+            this.recyclerViewAdapter = new RVAAddIngredient(emptyList);
             this.ingredientRecyclerView = (RecyclerView) recycler;
             this.ingredientRecyclerView.setAdapter(this.recyclerViewAdapter);
             this.ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
@@ -248,12 +251,13 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         currEdible.setName(DIARYADDCARD);
 
         this.send = (FragToRecipeBook) this.getActivity();
-        ArrayList<DrinkIngredient> curr = send.getIngredients();
-        for(int i = 0; i < curr.size(); i++) {
-            ingredients.add(curr.get(i).getIngredient());
+        ArrayList<Edible> ingredients = this.send.getIngredients();
+
+        if(!ingredients.contains(this.addBtn)) {
+            ingredients.add(currEdible);
         }
-        //if()
-        ingredients.add(currEdible);
+
+        recyclerViewAdapter.changeData(ingredients);
     }
 
     private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
