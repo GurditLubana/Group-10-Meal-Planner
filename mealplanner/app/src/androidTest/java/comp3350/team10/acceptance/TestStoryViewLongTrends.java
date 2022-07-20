@@ -27,12 +27,24 @@ import comp3350.team10.presentation.ActivityTrends;
 public class TestStoryViewLongTrends {
 
     @Rule
-    public ActivityScenarioRule<ActivityTrends> activityRule = new ActivityScenarioRule<>(ActivityTrends.class);
+    public ActivityScenarioRule<ActivityMealDiary> activityRule = new ActivityScenarioRule<>(ActivityMealDiary.class);
+    //public ActivityScenarioRule<ActivityTrends> activityRule = new ActivityScenarioRule<>(ActivityTrends.class);
 
+    @Before
+    public void setup(){
+        onView(ViewMatchers.withId(R.id.chartsNav)).perform(click());
+
+    }
     @Test
     public void test_Trends_screen() {
-        onView(ViewMatchers.withId(R.id.chartsNav)).perform(click());
         onView(ViewMatchers.withId(R.id.progressCircle)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.progressPercentage)).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.mealRecyclerView)).check(matches(isDisplayed()));
+
+        onView(ViewMatchers.withId(R.id.mealDiaryNav)).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.dailyNav)).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.recipeBookNav)).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.chartsNav)).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.socialNav)).check(matches(isDisplayed()));
     }
 }

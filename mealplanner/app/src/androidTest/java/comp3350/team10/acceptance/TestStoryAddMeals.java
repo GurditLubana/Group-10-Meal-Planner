@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.assertion.ViewAssertions;
+import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -41,12 +42,21 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.foodConsumed)).check(ViewAssertions.matches(ViewMatchers.withText("274")));
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("1726")));
-        //onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, withText("Test Text"))));
+        onView(ViewMatchers.withId(R.id.mealRecyclerView)).check(matches(isDisplayed()));
 
         onView(ViewMatchers.withId(R.id.mealDiaryNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.dailyNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.recipeBookNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.chartsNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.socialNav)).check(matches(isDisplayed()));
+    }
+    @Test
+    public void itemWithText_doesNotExist() {
+        // Attempt to scroll to an item that contains the special text.
+        onView(ViewMatchers.withId(R.id.mealRecyclerView))
+                // scrollTo will fail the test if no item matches.
+                .perform(RecyclerViewActions.scrollTo(
+                        hasDescendant(withText("Apple"))
+                ));
     }
 }
