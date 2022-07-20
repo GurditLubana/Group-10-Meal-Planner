@@ -106,6 +106,34 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         return foodList;
     }
 
+    public Edible findIngredientByKey(int key, boolean isCustom) {
+        EdibleLog edible = this.findEdibleByKey(key, isCustom);
+        Edible currEdible = null;
+
+        if(this.isMeal(key, isCustom)) {
+            currEdible = new Meal();
+        }
+        else if(this.isDrink(key, isCustom)) {
+            currEdible = new Drink();
+        }
+
+        currEdible.initDetails(edible.getDbkey(), edible.getName(), edible.getDescription(), edible.getQuantity(), edible.getUnit());
+        currEdible.initNutrition(edible.getCalories(), edible.getProtein(), edible.getCarbs(), edible.getFat());
+        currEdible.initCategories(edible.getIsAlcoholic(), edible.getIsSpicy(), edible.getIsVegan(), edible.getIsVegetarian(), edible.getIsGlutenFree());
+        currEdible.initMetadata(edible.getIsCustom(), edible.getPhoto());
+
+        if(currEdible instanceof Meal) {
+            ((Meal) currEdible).setInstructions(this.getInstructions(currEdible));
+            ((Meal) currEdible).setIngredients(this.getMealIngredients(currEdible));
+        }
+        else if(currEdible instanceof Drink) {
+            ((Drink) currEdible).setInstructions(this.getInstructions(currEdible));
+            ((Drink) currEdible).setIngredients(this.getDrinkIngredients(currEdible));
+        }
+
+        return currEdible;
+    }
+
     private Edible readEdible(ResultSet results, boolean isCustom) {
         Edible currEdible = new Edible();
 
@@ -708,7 +736,11 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
                 checkIfMeal.setInt(1, dbkey);
                 results = checkIfMeal.executeQuery();
             }
-            found = results.next();
+            
+            if(results.next()) {
+                found = true;
+            }
+
             results.close();
         } catch (Exception e) {
             System.out.println(e);
@@ -733,7 +765,11 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
                 checkIfDrink.setInt(1, dbkey);
                 results = checkIfDrink.executeQuery();
             }
-            found = results.next();
+            
+            if(results.next()) {
+                found = true;
+            }
+
             results.close();
         } catch (Exception e) {
             System.out.println(e);

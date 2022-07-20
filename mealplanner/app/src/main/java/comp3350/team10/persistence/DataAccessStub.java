@@ -252,6 +252,34 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     }
 
     //This section implements RecipeDBInterface
+    public Edible findIngredientByKey(int key, boolean isCustom) {
+        Edible result = null;
+        System.out.println("key: " + key);
+
+        try {
+            for (int i = 0; i < this.dbRecipeFood.size() && result == null; i++) {
+                if (this.dbRecipeFood.get(i).getDbkey() == key) {
+                    result = this.dbRecipeFood.get(i).clone();
+                }
+            }
+            for (int i = 0; i < this.dbRecipeMeal.size() && result == null; i++) {
+                if (this.dbRecipeMeal.get(i).getDbkey() == key) {
+                    result = this.dbRecipeMeal.get(i).clone();
+                }
+            }
+            for (int i = 0; i < this.dbRecipeDrink.size() && result == null; i++) {
+                if (this.dbRecipeDrink.get(i).getDbkey() == key) {
+                    result = this.dbRecipeDrink.get(i).clone();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("findEdibleByKey error creating a new EdibleLog " + e);
+            result = null;
+        }
+
+        return result;
+    }
+
     public ArrayList<Edible> getFoodRecipes() {
         return getDeepCopy(this.dbRecipeFood);
     }

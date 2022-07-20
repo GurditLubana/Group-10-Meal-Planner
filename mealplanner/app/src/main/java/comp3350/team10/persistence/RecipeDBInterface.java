@@ -22,5 +22,5 @@ public interface RecipeDBInterface {
 
     public void addDrinkToRecipeBook(Drink newDrink) throws IllegalArgumentException;
 
-    public EdibleLog findEdibleByKey(int key, boolean isCustom);
+    public Edible findIngredientByKey(int key, boolean isCustom);
 }

@@ -30,7 +30,7 @@ public class RecipeBookOps {
     }
 
     public Edible findIngredient(int dbkey, boolean isCustom){
-        return this.db.findEdibleByKey(dbkey, isCustom);
+        return this.db.findIngredientByKey(dbkey, isCustom);
     }
 
     public void addFood(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat,

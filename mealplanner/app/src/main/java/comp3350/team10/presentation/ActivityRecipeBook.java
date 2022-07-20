@@ -32,6 +32,7 @@ import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
+import comp3350.team10.objects.Meal;
 
 public class ActivityRecipeBook extends AppCompatActivity implements FragToRecipeBook {
     private ActivityResultLauncher<Intent> pickMeal; // call back listener when recipebook activity is launched for meal selection
@@ -304,27 +305,39 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                             data = result.getData();
                             dbkey = data.getExtras().getInt("DBKEY"); //rva recipe book
                             isCustom = data.getExtras().getBoolean("isCustom");
+                            currEdible = opExec.findIngredient(dbkey, isCustom);
 
-                            if(!isAlreadyAnIngredient(dbkey, isCustom)) {
-                                currEdible = opExec.findIngredient(dbkey, isCustom);
-                                ingredients.add(currEdible);
+                            if(currEdible instanceof Meal) {
+                                for(Ingredient ingredient: ((Meal)currEdible).getIngredients()) {
+                                    listNewIngredient(ingredient.getIngredient());
+                                }
+                            }
+                            if(currEdible instanceof Drink) {
+                                for(DrinkIngredient ingredient: ((Drink)currEdible).getIngredients()) {
+                                    listNewIngredient(ingredient.getIngredient());
+                                }
+                            }
+                            else {
+                                listNewIngredient(currEdible);
                             }
                         }
                     }
                 });
     }
     
-    private boolean isAlreadyAnIngredient(int dbKey, boolean isCustom) {
+    private void listNewIngredient(Edible newIngredient) { //change so dupes arent allowed
         boolean alreadyAnIngredient = false;
 
         for(Edible currEdible: ingredients) {
-            if (currEdible.getDbkey() == dbKey && currEdible.getIsCustom() == isCustom) {
+            if (currEdible.getDbkey() == newIngredient.getDbkey() && currEdible.getIsCustom() == newIngredient.getIsCustom()) {
                 alreadyAnIngredient = true;
                 break;
             }
         }
 
-        return alreadyAnIngredient;
+        if(!alreadyAnIngredient) {
+            ingredients.add(newIngredient);
+        }
     }
 
     public void addDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,
