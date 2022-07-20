@@ -97,7 +97,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
                 int position = viewHolder.getAbsoluteAdapterPosition();
 
                 if (sendToRecipeBook != null) {
-                    sendToRecipeBook.otherShowContextUI(position);
+                    sendToRecipeBook.showIngredientContextUI(position);
                 }
             }
         });
@@ -111,7 +111,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
                         if (sendToRecipeBook != null) {
-                            sendToRecipeBook.showContextUI(position);
+                            sendToRecipeBook.showIngredientContextUI(position);
                         }
                     }
                 });

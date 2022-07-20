@@ -27,6 +27,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,9 +35,11 @@ import java.util.ArrayList;
 
 import comp3350.team10.R;
 import comp3350.team10.objects.Constant;
+import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
+import comp3350.team10.objects.Meal;
 
 public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private final String DIARYADDCARD = "diaryAdd";
@@ -71,41 +74,37 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private RecyclerView ingredientRecyclerView;
     Edible addBtn;
 
-    public FragmentRecipeBookDialogs() {
-        // Required empty public constructor
-        //empty the OG ingredient list
-    }
-
-    public static FragmentRecipeBookDialogs newInstance() {
-        FragmentRecipeBookDialogs fragment = new FragmentRecipeBookDialogs();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-
-        return fragment;
-    }
+    private ArrayList<Ingredient> ingredients;
+    private ArrayList<Edible> ingredientEdibles;
+    private Edible modifyLog;
+    private int savedItemPosition;              //Saves the position of an item for temporary removal
+    private Edible savedItem;                   //Saves the item for temporary removal
+    private final String DIARYMODIFYCARD = "diaryModify";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.savedItemPosition = -1;
+        modifyLog = new Edible();
+        modifyLog.setName(DIARYMODIFYCARD);
+        ingredients = new ArrayList<Ingredient>();
+        this.ingredientEdibles = new ArrayList<Edible>();
+
+        this.addBtn = new Edible();
+        this.addBtn.setName(DIARYADDCARD);
+        this.ingredientEdibles.add(this.ingredientEdibles.size(), this.addBtn);
     }
+
 
     private void initRecyclerView(View view) {
         View recycler = view.findViewById(R.id.dialogRecipeIngredientsInput);
-        ArrayList<Edible> emptyList = new ArrayList<Edible>();
-        this.addBtn = new Edible();
-        this.addBtn.setName(DIARYADDCARD);
-        emptyList.add(this.addBtn);
 
         if (recycler instanceof RecyclerView) {
-            this.recyclerViewAdapter = new RVAAddIngredient(emptyList);
+            this.recyclerViewAdapter = new RVAAddIngredient(ingredientEdibles);
             this.ingredientRecyclerView = (RecyclerView) recycler;
             this.ingredientRecyclerView.setAdapter(this.recyclerViewAdapter);
             this.ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         }
-    }
-
-    public RecyclerViewAdapter getRecycleView() {
-        return this.recyclerViewAdapter;
     }
 
     @NonNull
@@ -212,7 +211,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
             public void onClick(View view) {
                 if (validateData()) {
                     sendData();
-                    send.resetIngredients();
+                    restIngredients();
                     dismiss();
                 }
             }
@@ -221,11 +220,10 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         super.getBtnCancel().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                send.resetIngredients();
+                restIngredients();
                 dismiss();
             }
         });
-
 
         this.btnChooseItemImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,20 +248,24 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
 
     }
 
+    private void restIngredients() {
+        this.ingredients.clear();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        Edible currEdible = new Edible();
-        currEdible.setName(DIARYADDCARD);
 
-        this.send = (FragToRecipeBook) this.getActivity();
-        ArrayList<Edible> ingredients = this.send.getIngredients();
-
-        if(!ingredients.contains(this.addBtn)) {
-            ingredients.add(currEdible);
+        this.ingredientEdibles = new ArrayList<Edible>();
+        for(Ingredient currIngredient: this.ingredients) { //build a list based on edibles from ingredients
+            ingredientEdibles.add(currIngredient.getIngredient());
         }
 
-        recyclerViewAdapter.changeData(ingredients);
+        if(!ingredientEdibles.contains(this.addBtn)) {
+            ingredientEdibles.add(this.addBtn);
+        }
+
+        recyclerViewAdapter.changeData(ingredientEdibles);
     }
 
     private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
@@ -429,5 +431,90 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
 
     }
 
+    public void loadIngredients(Edible currEdible) {
+        if(currEdible instanceof Meal) {
+            for(Ingredient ingredient: ((Meal)currEdible).getIngredients()) {
+                addIngredient(ingredient.getIngredient(), ingredient.getQuantity(), ingredient.getQuantityUnits(), false);
+            }
+        }
+        else if(currEdible instanceof Drink) {
+            for(DrinkIngredient ingredient: ((Drink)currEdible).getIngredients()) {
+                addIngredient(ingredient.getIngredient(), ingredient.getQuantity(), ingredient.getQuantityUnits(), ingredient.getIsSubstitute());
+            }
+        }
+        else {
+            addIngredient(currEdible, currEdible.getQuantity(), currEdible.getUnit(), false);
+        }
+    }
 
+    private void addIngredient(Edible currEdible, double quantity, Edible.Unit unit, boolean isSubstitute) {
+        DrinkIngredient newIngredient = new DrinkIngredient();
+
+        if(isUniqueIngredient(currEdible)) {
+            if (savedItem instanceof Drink) {
+                newIngredient.init(currEdible, quantity, unit);
+                newIngredient.setSubstitute(isSubstitute);
+                ingredients.add(newIngredient);
+            } else { //needs a regular ingredient
+                ingredients.add(newIngredient.init(currEdible, quantity, unit)); //returns ingredient when inited
+            }
+        }
+    }
+
+    private boolean isUniqueIngredient(Edible newIngredient) { //change so dupes arent allowed
+        boolean alreadyAnIngredient = true;
+        Edible currEdible;
+
+        for(Ingredient currIngredient: this.ingredients) {
+            currEdible = currIngredient.getIngredient();
+
+            if (currEdible.getDbkey() == newIngredient.getDbkey() && currEdible.getIsCustom() == newIngredient.getIsCustom()) {
+                alreadyAnIngredient = false;
+                break;
+            }
+        }
+
+        return alreadyAnIngredient;
+    }
+
+    public void showContextUI(int position) {
+        int otherPosition = -1;
+
+        if (position >= 0 && position != this.savedItemPosition) {
+            if (this.savedItem == null) {
+                saveItem(position);
+            } else {
+                otherPosition = this.savedItemPosition;
+                swapSaved(position);
+                this.recyclerViewAdapter.notifyItemChanged(otherPosition);
+            }
+            this.ingredientEdibles.remove(position);
+            this.ingredientEdibles.add(position, modifyLog);
+        } else {
+            restoreSaved();
+        }
+        this.recyclerViewAdapter.notifyItemChanged(position);
+        this.recyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    private void saveItem(int position) {
+        this.savedItemPosition = position;
+        this.savedItem = this.ingredientEdibles.get(position);
+    }
+
+    private void swapSaved(int position) {
+        Edible temp = this.ingredientEdibles.get(position);
+        restoreSaved();
+        this.savedItemPosition = position;
+        this.savedItem = temp;
+    }
+
+    private void restoreSaved() {
+        if (savedItem != null) {
+            this.ingredientEdibles.remove(this.savedItemPosition);
+            this.ingredientEdibles.add(this.savedItemPosition, this.savedItem);
+            this.savedItemPosition = -1;
+            this.savedItem = null;
+        }
+    }
 }

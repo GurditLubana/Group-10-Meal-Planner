@@ -13,11 +13,7 @@ public interface FragToRecipeBook {
 
     void addEntry(int position);
 
-    public ArrayList<Edible> getIngredients();
-
-    void resetIngredients();
-
-    void otherShowContextUI(int position);
+    void showIngredientContextUI(int position);
 
     public enum EntryMode {ADD_FOOD, ADD_MEAL, ADD_DRINK}
 

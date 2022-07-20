@@ -35,14 +35,9 @@ import comp3350.team10.objects.Ingredient;
 import comp3350.team10.objects.Meal;
 
 public class ActivityRecipeBook extends AppCompatActivity implements FragToRecipeBook {
-    private ActivityResultLauncher<Intent> pickMeal; // call back listener when recipebook activity is launched for meal selection
     private ActivityResultLauncher<Intent> pickIngredient;
     private final static int TITLE_COLOR = Color.WHITE;        //The title color of the acitivty
     private final static String TITLE_CONTENT = "MealPlanner"; //The title content of the activity
-
-    private int othersavedItemPosition;              //Saves the position of an item for temporary removal
-    private Edible othersavedItem;                   //Saves the item for temporary removal
-    private final String DIARYMODIFYCARD = "diaryModify";
 
     private Animation fabOpen, fabClose, rotateForward, rotateBackward; //Animations for floating buttons
     private FloatingActionButton openFab, editFab, addFab;              //Floating buttons
@@ -53,7 +48,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private Toolbar toolbar;                        // app title
     private ArrayList<Edible> data;                 // The data for the recipe book
     private Edible modifyUICard;
-    private Edible modifyLog;
+
     private final String RECIPEMODIFYCARD = "recipeModify";
 
     private boolean modMenuIsOpen;                  // Represents whether the menu to add/edit recipes is toggled on
@@ -62,12 +57,10 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private int currTab;                            // The tab that is currently displayed
     private EntryMode mode;                         // The type of dialog to show
     private boolean detailsFlag = false;            // flag to show detailed recipes
-    private ArrayList<Edible> ingredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.othersavedItemPosition = -1;
         setContentView(R.layout.activity_recipe_book);
         this.modMenuIsOpen = false;
         this.currTab = 0;
@@ -78,9 +71,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.setTabListeners();
         this.initActionButtons();
         this.createActivityCallbackListener();
-        ingredients = new ArrayList<Edible>();
-        modifyLog = new Edible();
-        modifyLog.setName(DIARYMODIFYCARD);
     }
 
     private void initToolbar() {
@@ -251,50 +241,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.savedItem = this.data.get(position);
     }
 
-    public void otherShowContextUI(int position) {
-        FragmentManager fm = getSupportFragmentManager();
-
-        FragmentRecipeBookDialogs hi = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
-        int otherPosition = -1;
-
-        if (position >= 0 && position != this.othersavedItemPosition) {
-            if (this.othersavedItem == null) {
-                saveOtherItem(position);
-            } else {
-                otherPosition = this.othersavedItemPosition;
-                swapOtherSaved(position);
-                hi.getRecycleView().notifyItemChanged(otherPosition);
-            }
-            this.ingredients.remove(position);
-            this.ingredients.add(position, modifyLog);
-        } else {
-            restoreSaved();
-        }
-        hi.getRecycleView().notifyItemChanged(position);
-        hi.getRecycleView().notifyDataSetChanged();
-    }
-
-    private void saveOtherItem(int position) {
-        this.othersavedItemPosition = position;
-        this.othersavedItem = this.ingredients.get(position);
-    }
-
-    private void swapOtherSaved(int position) {
-        Edible temp = this.ingredients.get(position);
-        otherrestoreSaved();
-        this.othersavedItemPosition = position;
-        this.othersavedItem = temp;
-    }
-
-    private void otherrestoreSaved() {
-        if (othersavedItem != null) {
-            this.ingredients.remove(this.othersavedItemPosition);
-            this.ingredients.add(this.othersavedItemPosition, this.othersavedItem);
-            this.othersavedItemPosition = -1;
-            this.othersavedItem = null;
-        }
-    }
-
     private void swapSaved(int position) {
         Edible temp = this.data.get(position);
         restoreSaved();
@@ -334,17 +280,9 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     }
 
-    public void resetIngredients() {
-        ingredients.clear();
-    }
-
     public void addEntry(int pos) { //launch recipebook use ActivityResultLauncher to allow data passing
         Intent intent = new Intent(this, ActivityRecipeBook.class);
         this.pickIngredient.launch(intent);
-    }
-
-    public ArrayList<Edible> getIngredients() {
-        return new ArrayList<Edible>(this.ingredients);
     }
 
     private void createActivityCallbackListener() {
@@ -352,48 +290,31 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
+                        FragmentManager fm = getSupportFragmentManager();
+                        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
                         Intent data;
                         Edible currEdible;
-                        boolean isCustom = false;
-                        int dbkey = -1;
+                        boolean isCustom;
+                        int dbkey;
 
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             data = result.getData();
                             dbkey = data.getExtras().getInt("DBKEY"); //rva recipe book
                             isCustom = data.getExtras().getBoolean("isCustom");
                             currEdible = opExec.findIngredient(dbkey, isCustom);
-
-                            if(currEdible instanceof Meal) {
-                                for(Ingredient ingredient: ((Meal)currEdible).getIngredients()) {
-                                    listNewIngredient(ingredient.getIngredient());
-                                }
-                            }
-                            if(currEdible instanceof Drink) {
-                                for(DrinkIngredient ingredient: ((Drink)currEdible).getIngredients()) {
-                                    listNewIngredient(ingredient.getIngredient());
-                                }
-                            }
-                            else {
-                                listNewIngredient(currEdible);
-                            }
+                            addRecipe.loadIngredients(currEdible);
                         }
                     }
                 });
     }
     
-    private void listNewIngredient(Edible newIngredient) { //change so dupes arent allowed
-        boolean alreadyAnIngredient = false;
 
-        for(Edible currEdible: ingredients) {
-            if (currEdible.getDbkey() == newIngredient.getDbkey() && currEdible.getIsCustom() == newIngredient.getIsCustom()) {
-                alreadyAnIngredient = true;
-                break;
-            }
-        }
 
-        if(!alreadyAnIngredient) {
-            ingredients.add(newIngredient);
-        }
+    public void showIngredientContextUI(int position) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
+
+        addRecipe.showContextUI(position);
     }
 
     public void addDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,
