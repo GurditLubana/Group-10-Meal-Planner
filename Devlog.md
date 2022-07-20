@@ -2075,3 +2075,19 @@ Duration: 2 hrs
    - Created new discord chat for quick availability/major code updates
    - Broke down iter3 task into smaller dev tasks
    - Updated availability in availability sheet
+
+
+### 2022-07-18
+     Dev:
+      - Zhou
+Duration: 4 hrs
+   Tasks:
+   - review course video and make to U5 40 and submit to the github
+
+
+### 2022-07-19
+     Dev:
+      - Zhou
+Duration: 4 hrs
+   Tasks:
+   - review course video and make rest of all U5 note and  submit to the github
