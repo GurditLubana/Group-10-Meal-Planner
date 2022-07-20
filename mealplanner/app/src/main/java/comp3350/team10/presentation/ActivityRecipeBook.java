@@ -273,11 +273,15 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     public void removeItem(int position) {
-        //ingredients.remove(position);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
+
+        addRecipe.removeItem(position);
     }
 
     public void editItem() {
-
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
     }
 
     public void addEntry(int pos) { //launch recipebook use ActivityResultLauncher to allow data passing

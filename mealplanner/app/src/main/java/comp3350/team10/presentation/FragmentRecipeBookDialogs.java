@@ -282,6 +282,16 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
             }
     );
 
+    public void removeItem(int position) {
+        if (position >= 0 && position < this.ingredients.size()) {
+            this.savedItem = null;
+            this.savedItemPosition = -1;
+            this.ingredients.remove(position);
+            this.ingredientEdibles.remove(position);
+            this.recyclerViewAdapter.notifyDataSetChanged();
+        }
+    }
+
     private void openGallery() {
 
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -437,7 +447,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
                 addIngredient(ingredient.getIngredient(), ingredient.getQuantity(), ingredient.getQuantityUnits(), false);
             }
         }
-        else if(currEdible instanceof Drink) {
+        else if(currEdible instanceof Drink && ((Drink) currEdible).getIngredients().size() > 0) {
             for(DrinkIngredient ingredient: ((Drink)currEdible).getIngredients()) {
                 addIngredient(ingredient.getIngredient(), ingredient.getQuantity(), ingredient.getQuantityUnits(), ingredient.getIsSubstitute());
             }
