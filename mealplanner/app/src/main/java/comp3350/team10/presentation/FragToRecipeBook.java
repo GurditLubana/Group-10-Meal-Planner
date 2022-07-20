@@ -15,6 +15,8 @@ public interface FragToRecipeBook {
 
     public ArrayList<Edible> getIngredients();
 
+    void resetIngredients();
+
     public enum EntryMode {ADD_FOOD, ADD_MEAL, ADD_DRINK}
 
     public void addDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,

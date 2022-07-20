@@ -282,6 +282,10 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     }
 
+    public void resetIngredients() {
+        ingredients.clear();
+    }
+
     public void addEntry(int pos) { //launch recipebook use ActivityResultLauncher to allow data passing
         Intent intent = new Intent(this, ActivityRecipeBook.class);
         this.pickIngredient.launch(intent);

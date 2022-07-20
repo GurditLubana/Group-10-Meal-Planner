@@ -16,7 +16,7 @@ import comp3350.team10.objects.Edible;
 
 public class RVAAddIngredient extends RecyclerViewAdapter {
     private FragToRecipeBook sendToRecipeBook; // interface to pass data to recipeBook
-    private float ingredientScale = 0.3f;
+    private float ingredientScale = 0.5f;
     private Context context;
 
     public RVAAddIngredient(ArrayList<Edible> dataSet) {
@@ -35,12 +35,17 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
         } else if (viewType == FragmentType.diaryAdd.ordinal()) {
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.fragment_diary_add_log, viewGroup, false);
+                            view.setScaleX(ingredientScale);
+        view.setScaleY(ingredientScale);
         } else {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card,
                     viewGroup, false);
+            view.findViewById(R.id.itemCalsBox).setVisibility(view.GONE);
+            view.findViewById(R.id.textView9).setVisibility(view.GONE);
+            view.findViewById(R.id.itemQtyBox).setVisibility(view.GONE);
+            view.findViewById(R.id.itemUnitBox).setVisibility(view.GONE);
         }
-        view.setScaleX(ingredientScale);
-        view.setScaleY(ingredientScale);
+
 
         context = view.getContext();
         if (context instanceof FragToRecipeBook) {

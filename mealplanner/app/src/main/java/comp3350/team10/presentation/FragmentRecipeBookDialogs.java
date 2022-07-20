@@ -208,6 +208,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
             public void onClick(View view) {
                 if (validateData()) {
                     sendData();
+                    send.resetIngredients();
                     dismiss();
                 }
             }
@@ -216,6 +217,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         super.getBtnCancel().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                send.resetIngredients();
                 dismiss();
             }
         });
