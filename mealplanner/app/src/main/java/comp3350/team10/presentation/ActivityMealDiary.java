@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -294,21 +295,31 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         this.updateLiveData();
     }
 
+    private void loadEditorView() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentDiaryDialogs editorView = new FragmentDiaryDialogs();
+        Bundle args = new Bundle();
+
+        args.putString("type", "mealDiary");
+        editorView.setArguments(args);
+        editorView.show(fragmentManager, FragmentDiaryDialogs.TAG);
+    }
+
     @Override
     public void editItem() { //launch dialog fragment
-        new FragmentDiaryDialogs().show(getSupportFragmentManager(), FragmentDiaryDialogs.TAG);
+        this.loadEditorView();
         this.mode = EntryMode.EDIT_QTY;
     }
 
     @Override
     public void showGoalEntryDialog() { //launch dialog fragment
-        new FragmentDiaryDialogs().show(getSupportFragmentManager(), FragmentDiaryDialogs.TAG);
+        this.loadEditorView();
         this.mode = EntryMode.GOAL_CALORIE;
     }
 
     @Override
     public void showExerciseEntryDialog() { //launch dialog fragment
-        new FragmentDiaryDialogs().show(getSupportFragmentManager(), FragmentDiaryDialogs.TAG);
+        this.loadEditorView();
         this.mode = EntryMode.ACTUAL_EXERCISE;
     }
 
@@ -326,8 +337,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     @Override
     public void addEntry(int pos) { //launch recipebook use ActivityResultLauncher to allow data passing
         Intent intent = new Intent(this, ActivityRecipeBook.class);
-        
-        intent.putExtra("DBKEY", this.data.get(pos).getDbkey());
         this.pickMeal.launch(intent);
     }
 

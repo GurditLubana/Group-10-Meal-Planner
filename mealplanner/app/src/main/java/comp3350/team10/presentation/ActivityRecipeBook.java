@@ -280,8 +280,9 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     public void editItem() {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
+        loadEditorView();
+    //FragmentManager fm = getSupportFragmentManager();
+        //        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
     }
 
     public void addEntry(int pos) { //launch recipebook use ActivityResultLauncher to allow data passing
@@ -369,5 +370,16 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.detailsFlag = false;
 
         return result;
+    }
+
+    private void loadEditorView() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentDiaryDialogs editorView = new FragmentDiaryDialogs();
+        Bundle args = new Bundle();
+
+        args.putString("type", "recipeBook");
+        args.putBoolean("isDrinkIngredient", false);
+        editorView.setArguments(args);
+        editorView.show(fragmentManager, FragmentDiaryDialogs.TAG);
     }
 }

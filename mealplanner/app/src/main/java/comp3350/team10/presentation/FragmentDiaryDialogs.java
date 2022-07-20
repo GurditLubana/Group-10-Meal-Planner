@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,22 +17,11 @@ import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.Edible;
 
 public class FragmentDiaryDialogs extends FragmentDialogCommon {
-    public static final String TAG = "MealEntryDialog"; // tag name of this fragment for reference in the fragment manager
+    public static final String TAG = "ModEntryDialog"; // tag name of this fragment for reference in the fragment manager
     private FragToMealDiary send;                       // Interface for communication with parent activity
     private FragToMealDiary.EntryMode mode;             // the type of dialog to show
     private TextView unitText;                          // static unit label
-
-    public FragmentDiaryDialogs() {
-        super();
-    }
-
-    public static FragmentDiaryDialogs newInstance() {
-        FragmentDiaryDialogs fragment = new FragmentDiaryDialogs();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-
-        return fragment;
-    }
+    private CheckBox isSubstitute;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +40,8 @@ public class FragmentDiaryDialogs extends FragmentDialogCommon {
         super.setUnitSpinner(view.findViewById(R.id.inputUnit));
         super.setInputQuantity(view.findViewById(R.id.inputQty));
         this.unitText = view.findViewById(R.id.inputUnitText);
+        this.isSubstitute = (CheckBox)view.findViewById(R.id.isSubstitute);
+        Bundle mArgs = getArguments();
 
         if (context != null && context instanceof FragToMealDiary) {
             this.send = (FragToMealDiary) context;
@@ -57,7 +49,9 @@ public class FragmentDiaryDialogs extends FragmentDialogCommon {
 
             switch (mode) {
                 case EDIT_QTY:
+                    System.out.println(mArgs.get("type"));
                     setEditDialogFieldDefaults();
+                    isSubstitute.setVisibility(View.VISIBLE);
                     break;
                 case GOAL_CALORIE:
                     setCalorieGoalFieldDefaults();
@@ -93,6 +87,11 @@ public class FragmentDiaryDialogs extends FragmentDialogCommon {
             super.getUnitSpinner().setVisibility(View.VISIBLE);
             this.unitText.setVisibility(View.INVISIBLE);
         }
+    }
+
+    private void setEditIngredientDialogFieldDefaults() {
+
+        this.setEditDialogFieldDefaults();
     }
 
     private void setCalorieGoalFieldDefaults() {
