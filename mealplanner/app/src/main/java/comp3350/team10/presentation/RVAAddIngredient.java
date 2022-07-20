@@ -32,6 +32,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
         if (viewType == FragmentType.diaryModify.ordinal()) {
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.fragment_diary_card_context, viewGroup, false);
+            System.out.println("this is working!");
         } else if (viewType == FragmentType.diaryAdd.ordinal()) {
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.fragment_diary_add_log, viewGroup, false);
@@ -66,7 +67,6 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
             setDiaryEntryListeners(viewHolder);
         }
     }
-
 
     private void setDiaryEntryData(ViewHolder viewHolder, final int position) {
         TextView itemName = viewHolder.getView().findViewById(R.id.itemNameBox);

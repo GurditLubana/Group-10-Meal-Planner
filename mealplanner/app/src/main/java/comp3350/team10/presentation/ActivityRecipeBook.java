@@ -67,6 +67,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.othersavedItemPosition = -1;
         setContentView(R.layout.activity_recipe_book);
         this.modMenuIsOpen = false;
         this.currTab = 0;
@@ -258,19 +259,40 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
         if (position >= 0 && position != this.othersavedItemPosition) {
             if (this.othersavedItem == null) {
-                saveItem(position);
+                saveOtherItem(position);
             } else {
                 otherPosition = this.othersavedItemPosition;
-                swapSaved(position);
-                this.recyclerViewAdapter.notifyItemChanged(otherPosition);
+                swapOtherSaved(position);
+                hi.getRecycleView().notifyItemChanged(otherPosition);
             }
-            this.data.remove(position);
-            this.data.add(position, modifyLog);
+            this.ingredients.remove(position);
+            this.ingredients.add(position, modifyLog);
         } else {
             restoreSaved();
         }
-        this.recyclerViewAdapter.notifyItemChanged(position);
-        this.recyclerViewAdapter.notifyDataSetChanged();
+        hi.getRecycleView().notifyItemChanged(position);
+        hi.getRecycleView().notifyDataSetChanged();
+    }
+
+    private void saveOtherItem(int position) {
+        this.othersavedItemPosition = position;
+        this.othersavedItem = this.ingredients.get(position);
+    }
+
+    private void swapOtherSaved(int position) {
+        Edible temp = this.ingredients.get(position);
+        otherrestoreSaved();
+        this.othersavedItemPosition = position;
+        this.othersavedItem = temp;
+    }
+
+    private void otherrestoreSaved() {
+        if (othersavedItem != null) {
+            this.ingredients.remove(this.othersavedItemPosition);
+            this.ingredients.add(this.othersavedItemPosition, this.othersavedItem);
+            this.othersavedItemPosition = -1;
+            this.othersavedItem = null;
+        }
     }
 
     private void swapSaved(int position) {

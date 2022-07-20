@@ -104,6 +104,10 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         }
     }
 
+    public RecyclerViewAdapter getRecycleView() {
+        return this.recyclerViewAdapter;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
