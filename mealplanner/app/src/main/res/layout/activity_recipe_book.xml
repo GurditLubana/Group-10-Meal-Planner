@@ -29,6 +29,7 @@
         android:id="@+id/cardView"
         android:layout_width="500dp"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:cardBackgroundColor="#ECECEC"
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,19 +70,19 @@
         tools:layout_editor_absoluteX="0dp">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/trendWeek"
+            android:id="@+id/tabFood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Food" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/trendMonth"
+            android:id="@+id/tabMeal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Meal" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/trendThreeMonth"
+            android:id="@+id/tabDrink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Drink" />

@@ -38,19 +38,19 @@
         app:tabTextColor="#FFFFFF">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/trendWeek"
+            android:id="@+id/tabFood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1W" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/trendMonth"
+            android:id="@+id/tabMeal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1M" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/trendThreeMonth"
+            android:id="@+id/tabDrink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3M" />

@@ -184,6 +184,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
             this.editFab.startAnimation(fabClose);
             this.addFab.startAnimation(fabClose);
             this.addFab.setClickable(false);
+            this.addFab.setVisibility(View.INVISIBLE);
             this.editFab.setClickable(false);
             this.modMenuIsOpen = false;
         } else {
@@ -191,6 +192,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
             this.editFab.startAnimation(fabOpen);
             this.addFab.startAnimation(fabOpen);
             this.addFab.setClickable(true);
+            this.addFab.setVisibility(View.VISIBLE);
             this.editFab.setClickable(true);
             this.modMenuIsOpen = true;
         }
