@@ -18,12 +18,7 @@ public abstract class FragmentDialogCommon extends DialogFragment {
     private Button btnCancel;                // Cancel Button
     private Button btnOk;                    // OK button
 
-    public FragmentDialogCommon() {
-
-    }
-
     public void initSpinner() {
-
         int size = Edible.Unit.values().length;
         ArrayAdapter<String> adapter = null;
         String[] items = new String[size];

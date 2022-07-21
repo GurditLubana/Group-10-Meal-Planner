@@ -20,7 +20,7 @@ import comp3350.team10.objects.DataFrame;
 
 
 public class RVATrends extends RecyclerViewAdapter {
-    ArrayList<DataFrame> dataSet = null;
+    ArrayList<DataFrame> dataSet;
     Context context;
 
     public RVATrends(ArrayList<DataFrame> dataSet) {
@@ -28,10 +28,11 @@ public class RVATrends extends RecyclerViewAdapter {
         this.dataSet = dataSet;
     }
 
-    @Override
+    
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = null;
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
+
         this.context = viewGroup.getContext();
         if (context instanceof ActivityTrends) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_trend_chart, viewGroup, false);
@@ -42,7 +43,7 @@ public class RVATrends extends RecyclerViewAdapter {
         return viewHolder;
     }
 
-    @Override
+    
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         if (context instanceof ActivityTrends) {
             setTrendData(viewHolder, position);
@@ -51,12 +52,12 @@ public class RVATrends extends RecyclerViewAdapter {
         }
     }
 
-    @Override
+    
     public int getItemCount() {
         return this.dataSet.size();
     }
 
-    @Override
+    
     public int getItemViewType(int pos) {
         return 0;
     }
@@ -98,7 +99,6 @@ public class RVATrends extends RecyclerViewAdapter {
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMaxX(1);
         graph.getViewport().setMinX(chartMin);
-
     }
 
     private void setDailyData(ViewHolder viewHolder, int position) {
@@ -140,5 +140,4 @@ public class RVATrends extends RecyclerViewAdapter {
         progressCircle.setProgress(progress);
         progressPercent.setText(Integer.toString(progress) + "%");
     }
-
 }

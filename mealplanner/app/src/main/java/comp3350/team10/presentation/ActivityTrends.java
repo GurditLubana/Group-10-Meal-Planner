@@ -26,7 +26,7 @@ public class ActivityTrends extends AppCompatActivity {
     private Toolbar toolbar;                      //app title
     private int currTab;                          //The tab that is currently displayed
 
-    @Override
+    
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trends);
@@ -36,7 +36,7 @@ public class ActivityTrends extends AppCompatActivity {
         this.setTabListeners();
     }
 
-    @Override
+    
     protected void onDestroy() {
         super.onDestroy();
         Main.saveDB();
@@ -75,7 +75,7 @@ public class ActivityTrends extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
+            
             public void onTabSelected(TabLayout.Tab tab) {
                 currTab = tab.getPosition();
                 if (currTab == 0) {
@@ -96,12 +96,12 @@ public class ActivityTrends extends AppCompatActivity {
                 recyclerViewAdapter.notifyDataSetChanged();
             }
 
-            @Override
+            
             public void onTabUnselected(TabLayout.Tab tab) {
                 currTab = tab.getPosition();
             }
 
-            @Override
+            
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });

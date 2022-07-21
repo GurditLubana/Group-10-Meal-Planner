@@ -14,16 +14,16 @@ import comp3350.team10.R;
 import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.Edible;
 
+public class RVAAddIngredient extends RecyclerViewAdapter {
+    private FragToRecipeBook sendToRecipeBook;  //Interface to pass data to recipeBook
+    private float addBtnScale = 0.5f;           //Shrinks the button so it properly fits in the RV
+    private Context context;                    //The current app's context
 
-public class RVAMealDiary extends RecyclerViewAdapter {
-    private FragToMealDiary sendToMealDiary; // interface to pass data to mealdiary
-    private Context context;
-
-    public RVAMealDiary(ArrayList<Edible> dataSet) {
+    public RVAAddIngredient(ArrayList<Edible> dataSet) {
         super(dataSet);
     }
 
-    
+
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         ViewHolder viewHolder;
         View view;
@@ -32,13 +32,19 @@ public class RVAMealDiary extends RecyclerViewAdapter {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card_context, viewGroup, false);
         } else if (viewType == FragmentType.diaryAdd.ordinal()) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_add_log, viewGroup, false);
+            view.setScaleX(addBtnScale);
+            view.setScaleY(addBtnScale);
         } else {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card, viewGroup, false);
+            view.findViewById(R.id.itemCalsBox).setVisibility(view.GONE);
+            view.findViewById(R.id.textView9).setVisibility(view.GONE);
+            view.findViewById(R.id.itemQtyBox).setVisibility(view.GONE);
+            view.findViewById(R.id.itemUnitBox).setVisibility(view.GONE);
         }
 
         this.context = view.getContext();
-        if (this.context instanceof FragToMealDiary) {
-            this.sendToMealDiary = (FragToMealDiary) this.context;
+        if (this.context instanceof FragToRecipeBook) {
+            this.sendToRecipeBook = (FragToRecipeBook) this.context;
         }
         viewHolder = new ViewHolder(view);
 
@@ -57,20 +63,13 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         }
     }
 
-
     private void setDiaryEntryData(ViewHolder viewHolder, final int position) {
         TextView itemName = viewHolder.getView().findViewById(R.id.itemNameBox);
-        TextView itemQty = viewHolder.getView().findViewById(R.id.itemQtyBox);
-        TextView itemUnit = viewHolder.getView().findViewById(R.id.itemUnitBox);
-        TextView itemCals = viewHolder.getView().findViewById(R.id.itemCalsBox);
         ImageView itemImage = viewHolder.getView().findViewById(R.id.itemImage);
         Edible currentItem = super.getDataSet().get(position);
         Bitmap image;
 
         itemName.setText(currentItem.getName());
-        itemQty.setText(String.format("%3.2f", currentItem.getQuantity()));
-        itemUnit.setText(currentItem.getUnit().toString());
-        itemCals.setText(String.format("%3d", (int) currentItem.getCalories()));
         image = super.getBitmapFromFile(this.context, currentItem.getPhoto());
 
         if (image != null) {
@@ -86,9 +85,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
             public void onClick(View view) {
                 int position = viewHolder.getAbsoluteAdapterPosition();
 
-                if (sendToMealDiary != null) {
-                    showContextUI(position, getModEntryCard());
-                }
+                showContextUI(position, getModEntryCard());
             }
         });
     }
@@ -100,9 +97,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
-                        if (sendToMealDiary != null) {
-                            showContextUI(position, getModEntryCard());
-                        }
+                        showContextUI(position, getModEntryCard());
                     }
                 });
 
@@ -112,8 +107,8 @@ public class RVAMealDiary extends RecyclerViewAdapter {
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
-                        if (sendToMealDiary != null) {
-                            sendToMealDiary.removeItem(position);
+                        if (sendToRecipeBook != null) {
+                            sendToRecipeBook.removeItem(position);
                         }
                     }
                 });
@@ -122,9 +117,8 @@ public class RVAMealDiary extends RecyclerViewAdapter {
                 .setOnClickListener(new View.OnClickListener() {
                     
                     public void onClick(View view) {
-
-                        if (sendToMealDiary != null) {
-                            sendToMealDiary.editItem();
+                        if (sendToRecipeBook != null) {
+                            sendToRecipeBook.loadEditorView();
                         }
                     }
                 });
@@ -137,8 +131,8 @@ public class RVAMealDiary extends RecyclerViewAdapter {
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
-                        if (sendToMealDiary != null) {
-                            sendToMealDiary.addEntry(position);
+                        if (sendToRecipeBook != null) {
+                            sendToRecipeBook.addEntry(position);
                         }
                     }
                 });
