@@ -50,12 +50,13 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     private ArrayList<Edible> data;             //The data for the diary entries
 
-    @Override
+    
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addButton = new Edible();
-        addButton.setName(Constant.DIARY_ADD_CARD);
         setContentView(R.layout.activity_meal_diary);
+        this.addButton = new Edible();
+        this.addButton.setName(Constant.DIARY_ADD_CARD);
+
         this.initToolbar();
         this.copyDatabaseToDevice();
         this.copyImagesToDevice();
@@ -93,7 +94,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     private void createActivityCallbackListener() {
         this.pickMeal = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
-                    @Override
+                    
                     public void onActivityResult(ActivityResult result) {
                         Intent data;
                         boolean isCustom;
@@ -124,7 +125,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             }
 
             copyAssetsToDirectory(assetNames, dataDirectory);
-
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -137,7 +137,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         try {
             copyFilesToDevice(Main.getImagesPathName());
             Main.setImagesPathName(dataDirectory.toString() + "/" + Main.getImagesPathName());
-
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -150,7 +149,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         try {
             copyFilesToDevice(Main.getDBName());
             Main.setDBPathName(dataDirectory.toString() + "/" + Main.getDBName());
-
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -186,14 +184,14 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
     }
 
-    @Override
+    
     protected void onDestroy() {
         super.onDestroy();
         Main.saveDB();
         Main.shutDown();
     }
 
-    @Override
+    
     public void selectDate() {
         MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
@@ -204,7 +202,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
         datePicker.addOnPositiveButtonClickListener(
                 new MaterialPickerOnPositiveButtonClickListener() {
-                    @Override
+                    
                     public void onPositiveButtonClick(Object selection) {
                         recyclerViewAdapter.restoreSaved();
                         Calendar selectedDate = Calendar.getInstance();
@@ -217,14 +215,14 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         );
     }
 
-    @Override
+    
     public void prevDate() {
         this.recyclerViewAdapter.restoreSaved();
         this.opExec.prevDate();
         this.updateLiveData();
     }
 
-    @Override
+    
     public void nextDate() {
         this.recyclerViewAdapter.restoreSaved();
         this.opExec.nextDate();
@@ -236,27 +234,27 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         FragmentModEntryDialogs editorView = new FragmentModEntryDialogs();
         Bundle args = new Bundle();
 
-        args.putString("type", intentTag);
+        args.putString(Constant.DIALOG_TYPE, intentTag);
         editorView.setArguments(args);
         editorView.show(fragmentManager, FragmentModEntryDialogs.TAG);
     }
 
-    @Override
+    
     public void editItem() { //launch dialog fragment
         this.loadEditorView(EntryMode.EDIT_QTY.toString());
     }
 
-    @Override
+    
     public void showGoalEntryDialog() { //launch dialog fragment
         this.loadEditorView(EntryMode.GOAL_CALORIE.toString());
     }
 
-    @Override
+    
     public void showExerciseEntryDialog() { //launch dialog fragment
         this.loadEditorView(EntryMode.ACTUAL_EXERCISE.toString());
     }
 
-    @Override
+    
     public void removeItem(int pos) {
         if (pos >= 0 && pos < this.data.size()) {
             this.recyclerViewAdapter.removeItem(pos);
@@ -266,7 +264,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
     }
 
-    @Override
+    
     public void addEntry(int pos) { //launch recipebook use ActivityResultLauncher to allow data passing
         Intent intent = new Intent(this, ActivityRecipeBook.class);
         this.pickMeal.launch(intent);
@@ -296,17 +294,17 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
     }
 
-    @Override
+    
     public String getEntryQty() {
         return String.valueOf(this.recyclerViewAdapter.getSavedItem().getQuantity());
     }
 
-    @Override
+    
     public Edible.Unit getEntryUnit() {
         return this.recyclerViewAdapter.getSavedItem().getUnit();
     }
 
-    @Override
+    
     public void setEntryQty(Double amount, String unit) {
         Edible savedItem = this.recyclerViewAdapter.getSavedItem();
         int savedPosition = this.recyclerViewAdapter.getSavedItemPosition();
@@ -329,12 +327,12 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
     }
 
-    @Override
+    
     public String getExerciseCalories() {
         return "" + opExec.getCurrLog().getExerciseActual();
     }
 
-    @Override
+    
     public void setExerciseCalories(Double value) {
         try {
             this.currLog.setExerciseActual(value);
@@ -345,20 +343,20 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         this.updateLiveData();
     }
 
-    @Override
+    
     public String getGoalCalories() {
         return "" + this.currLog.getCalorieGoal();
     }
 
-    @Override
+    
     public void setGoalCalories(Double value) {
         try {
             this.currLog.setCalorieGoal(value);
             this.opExec.logChangedUpdateDB();
         } catch (Exception e) {
             System.out.println(e);
-
         }
+
         this.updateLiveData();
     }
 }

@@ -22,7 +22,7 @@ public class ActivityDailyProgress extends AppCompatActivity {
     private TrendsOps progOp;
     private RecyclerView trendsRecyclerView;    //Houses a recycle view for diary entries
 
-    @Override
+    
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_progress);

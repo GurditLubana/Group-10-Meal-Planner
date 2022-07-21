@@ -15,7 +15,6 @@ import comp3350.team10.R;
 import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.Edible;
 
-
 public class RVARecipeBook extends RecyclerViewAdapter {
     private FragToRecipeBook sendToRecipeBook;          // interface to pass data to recipebook
     private Context context;
@@ -24,17 +23,15 @@ public class RVARecipeBook extends RecyclerViewAdapter {
         super(dataSet);
     }
 
-    @Override
+    
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        ViewHolder viewHolder = null;
-        View view = null;
+        ViewHolder viewHolder;
+        View view;
 
         if (viewType == FragmentType.recipeSelect.ordinal()) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_recipe_book_card_context, viewGroup, false);
         } else {
-
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_recipe_book_card, viewGroup, false);
-
         }
 
         this.context = view.getContext();
@@ -46,11 +43,11 @@ public class RVARecipeBook extends RecyclerViewAdapter {
         return viewHolder;
     }
 
-    @Override
+    
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
         if (super.getViewType() == FragmentType.recipeSelect.ordinal()) {
-            setCardSelectionListeners(viewHolder, position);
+            setCardSelectionListeners(viewHolder);
         } else {
             setRecipeData(viewHolder, position);
             setCardListeners(viewHolder, position);
@@ -59,7 +56,7 @@ public class RVARecipeBook extends RecyclerViewAdapter {
 
     private void setCardListeners(ViewHolder viewHolder, int position) {
         viewHolder.getView().findViewById(R.id.cardView2).setOnClickListener(new View.OnClickListener() {
-            @Override
+            
             public void onClick(View view) {
                 if (sendToRecipeBook != null) {
                     showContextUI(position, getSelectedRecipeCard());
@@ -73,7 +70,7 @@ public class RVARecipeBook extends RecyclerViewAdapter {
         TextView textDesc = viewHolder.getView().findViewById(R.id.mealDesc);
         TextView mealCalories = viewHolder.getView().findViewById(R.id.mealCals);
         Edible currentFood = getDataSet().get(position);
-        Bitmap image = null;
+        Bitmap image;
 
         textDesc.setText(currentFood.getName());
         mealCalories.setText(String.format("%3d", (int) currentFood.getCalories()));
@@ -85,15 +82,13 @@ public class RVARecipeBook extends RecyclerViewAdapter {
         }
     }
 
-    private void setCardSelectionListeners(ViewHolder viewHolder, int position) {
-        Button viewButton = viewHolder.getView().findViewById(R.id.viewBtn2);
+    private void setCardSelectionListeners(ViewHolder viewHolder) {
         Button backButton = viewHolder.getView().findViewById(R.id.btnBackRecipe);
         Button addButton = viewHolder.getView().findViewById(R.id.addToPlannerBtn2);
-        ImageView addIcon = viewHolder.getView().findViewById(R.id.addIcon);
         String launcher = "";
 
         addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
+            
             public void onClick(View view) {
                 if (sendToRecipeBook != null) {
                     sendToRecipeBook.addToMealDiary();
@@ -102,8 +97,8 @@ public class RVARecipeBook extends RecyclerViewAdapter {
         });
 
         if (this.sendToRecipeBook != null) {
-
             launcher = this.sendToRecipeBook.getIntentExtra("Source");
+
             if (launcher != null && launcher.equals("NAV")) {
                 viewHolder.getView().findViewById(R.id.addToPlannerBtn2).setVisibility(View.GONE);
                 viewHolder.getView().findViewById(R.id.addIcon).setVisibility(View.GONE);
@@ -111,7 +106,7 @@ public class RVARecipeBook extends RecyclerViewAdapter {
         }
 
         backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
+            
             public void onClick(View view) {
                 int position = viewHolder.getAbsoluteAdapterPosition();
 

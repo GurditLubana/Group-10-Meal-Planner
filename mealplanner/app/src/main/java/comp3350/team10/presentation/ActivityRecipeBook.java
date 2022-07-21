@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import comp3350.team10.R;
 import comp3350.team10.application.Main;
 import comp3350.team10.business.RecipeBookOps;
+import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
@@ -47,7 +48,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private ArrayList<Edible> data;                         //The data for the recipe book
     private RecipeBookOps opExec;                           //Buisness logic for RecipeBook
 
-    @Override
+    
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_book);
@@ -93,7 +94,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayout);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
+            
             public void onTabSelected(TabLayout.Tab tab) {
                 currTab = tab.getPosition();
                 if (currTab == 0) {
@@ -107,15 +108,15 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                 updateRVA();
             }
 
-            @Override
+            
             public void onTabUnselected(TabLayout.Tab tab) {}
 
-            @Override
+            
             public void onTabReselected(TabLayout.Tab tab) {}
         });
     }
 
-    @Override
+    
     protected void onDestroy() {
         super.onDestroy();
         Main.saveDB();
@@ -133,14 +134,14 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotatebackwards_button);
 
         this.openFab.setOnClickListener(new View.OnClickListener() {
-            @Override
+            
             public void onClick(View view) {
                 animateButton();
             }
         });
 
         this.editFab.setOnClickListener(new View.OnClickListener() {
-            @Override
+            
             public void onClick(View view) {
                 animateButton();
             }
@@ -153,11 +154,11 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                 Bundle args = new Bundle();
 
                 if (currTab == 0) {
-                    args.putString("type", EntryMode.ADD_FOOD.toString());
+                    args.putString(Constant.DIALOG_TYPE, EntryMode.ADD_FOOD.toString());
                 } else if (currTab == 1) {
-                    args.putString("type", EntryMode.ADD_MEAL.toString());
+                    args.putString(Constant.DIALOG_TYPE, EntryMode.ADD_MEAL.toString());
                 } else if (currTab == 2) {
-                    args.putString("type", EntryMode.ADD_DRINK.toString());
+                    args.putString(Constant.DIALOG_TYPE, EntryMode.ADD_DRINK.toString());
                 }
 
                 addRecipe.setArguments(args);
@@ -184,7 +185,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         }
     }
 
-    @Override
+    
     public void addToMealDiary() {
         Intent intent = new Intent();
         boolean isCustom = false;
@@ -246,7 +247,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private void createActivityCallbackListener() {
         this.pickIngredient = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
-                    @Override
+                    
                     public void onActivityResult(ActivityResult result) {
                         FragmentRecipeBookDialogs addRecipe = getAddRecipeFragment();
                         Intent data;
@@ -291,7 +292,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.updateRVA();
     }
 
-    @Override
+    
     public String getIntentExtra(String key) {
         Intent intent = getIntent();
         return intent.getStringExtra(key);
@@ -303,10 +304,10 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         Bundle args = new Bundle();
 
         if(this.currTab == 2) {
-            args.putString("type", EntryMode.DRINK_INGREDIENT.toString());
+            args.putString(Constant.DIALOG_TYPE, EntryMode.DRINK_INGREDIENT.toString());
         }
         else {
-            args.putString("type", EntryMode.INGREDIENT.toString());
+            args.putString(Constant.DIALOG_TYPE, EntryMode.INGREDIENT.toString());
         }
 
         editorView.setArguments(args);

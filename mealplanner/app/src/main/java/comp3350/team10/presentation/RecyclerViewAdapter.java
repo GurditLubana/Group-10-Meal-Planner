@@ -19,9 +19,9 @@ import comp3350.team10.objects.Edible;
 public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipeBook.ViewHolder> {
     public enum FragmentType {noType, diaryAdd, diaryModify, recipeSelect}
 
-    private ArrayList<Edible> localDataSet; // the list Recyclerview renders
-    private int savedItemPosition;                  //Saves the position of an item for temporary removal
-    private Edible savedItem;                       //Saves the item for temporary removal
+    private ArrayList<Edible> localDataSet;     //The list the Recyclerview renders
+    private int savedItemPosition;              //Saves the position of an item for temporary removal
+    private Edible savedItem;                   //Saves the item for temporary removal
     private int viewType;
 
     private Edible modEntryCard;
@@ -35,6 +35,7 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
         this.loadUICards();
     }
 
+
     private void loadUICards() {
         this.modEntryCard = new Edible();
         this.selectedRecipeCard = new Edible();
@@ -42,6 +43,7 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
         this.modEntryCard.setName(Constant.DIARY_SELECT_CARD);
         this.selectedRecipeCard.setName(Constant.RECIPE_SELECT_CARD);
     }
+
     public Edible getModEntryCard() {
         return this.modEntryCard;
     }
@@ -109,7 +111,7 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
         }
     }
 
-    @Override
+    
     public int getItemViewType(int pos) {
         String identifier = localDataSet.get(pos).getName();
         int result = -1;
@@ -148,7 +150,7 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
         this.notifyDataSetChanged();
     }
 
-    @Override
+    
     public int getItemCount() {
         return this.localDataSet.size();
     }
@@ -162,9 +164,10 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
     }
 
     public Bitmap getBitmapFromFile(Context context, String fileName) {
-        InputStream istr = null;
-        Bitmap bitmap = null;
         AssetManager assetManager = context.getAssets();
+        InputStream istr;
+        Bitmap bitmap;
+
         try {
             istr = assetManager.open("images/" + fileName);
             bitmap = BitmapFactory.decodeStream(istr);

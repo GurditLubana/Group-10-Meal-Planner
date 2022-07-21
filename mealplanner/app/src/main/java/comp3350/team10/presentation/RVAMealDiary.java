@@ -23,30 +23,29 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         super(dataSet);
     }
 
-    @Override
+    
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = null;
-        ViewHolder viewHolder = null;
-        this.context = viewGroup.getContext();
+        ViewHolder viewHolder;
+        View view;
 
         if (viewType == FragmentType.diaryModify.ordinal()) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card_context, viewGroup, false);
         } else if (viewType == FragmentType.diaryAdd.ordinal()) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_add_log, viewGroup, false);
         } else {
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card,
-                    viewGroup, false);
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card, viewGroup, false);
         }
 
-        context = view.getContext();
-        if (context instanceof FragToMealDiary) {
-            this.sendToMealDiary = (FragToMealDiary) context;
+        this.context = view.getContext();
+        if (this.context instanceof FragToMealDiary) {
+            this.sendToMealDiary = (FragToMealDiary) this.context;
         }
         viewHolder = new ViewHolder(view);
+
         return viewHolder;
     }
 
-    @Override
+    
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         if (super.getViewType() == FragmentType.diaryModify.ordinal()) {
             setDiaryContextListeners(viewHolder);
@@ -66,7 +65,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         TextView itemCals = viewHolder.getView().findViewById(R.id.itemCalsBox);
         ImageView itemImage = viewHolder.getView().findViewById(R.id.itemImage);
         Edible currentItem = super.getDataSet().get(position);
-        Bitmap image = null;
+        Bitmap image;
 
         itemName.setText(currentItem.getName());
         itemQty.setText(String.format("%3.2f", currentItem.getQuantity()));
@@ -83,7 +82,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
 
     private void setDiaryEntryListeners(ViewHolder viewHolder) {
         viewHolder.getView().setOnClickListener(new View.OnClickListener() {
-            @Override
+            
             public void onClick(View view) {
                 int position = viewHolder.getAbsoluteAdapterPosition();
 
@@ -97,7 +96,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
     private void setDiaryContextListeners(ViewHolder viewHolder) {
         viewHolder.getView().findViewById(R.id.btnBackMealLog)
                 .setOnClickListener(new View.OnClickListener() {
-                    @Override
+                    
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
@@ -109,7 +108,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
 
         viewHolder.getView().findViewById(R.id.btnDeleteMeal)
                 .setOnClickListener(new View.OnClickListener() {
-                    @Override
+                    
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
@@ -121,7 +120,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
 
         viewHolder.getView().findViewById(R.id.btnModifyMeal)
                 .setOnClickListener(new View.OnClickListener() {
-                    @Override
+                    
                     public void onClick(View view) {
 
                         if (sendToMealDiary != null) {
@@ -134,7 +133,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
     private void setDiaryAddListeners(ViewHolder viewHolder) {
         viewHolder.getView().findViewById(R.id.btnAddMeal)
                 .setOnClickListener(new View.OnClickListener() {
-                    @Override
+                    
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 

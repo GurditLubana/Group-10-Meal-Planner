@@ -39,7 +39,7 @@ public class FragmentModEntryDialogs extends FragmentDialogCommon {
         this.unitText = view.findViewById(R.id.inputUnitText);
         this.isSubstitute = (CheckBox)view.findViewById(R.id.isSubstitute);
         this.isSubstitute.setVisibility(View.INVISIBLE);
-        this.mode = args.getString("type");
+        this.mode = args.getString(Constant.DIALOG_TYPE);
 
         if (context != null) {
             if(context instanceof FragToMealDiary) { //meal diary loaded the fragment
@@ -85,7 +85,7 @@ public class FragmentModEntryDialogs extends FragmentDialogCommon {
 
     private void setEditDialogFieldDefaults() {
         Edible.Unit unit = Edible.Unit.serving;
-        ArrayAdapter<String> adapter = null;
+        ArrayAdapter<String> adapter;
         String quantity = "null";
 
         if (this.sendToDiary != null && sendToDiary instanceof FragToMealDiary) {
@@ -129,7 +129,7 @@ public class FragmentModEntryDialogs extends FragmentDialogCommon {
 
     private void setDiaryOnClickListeners() {
         super.getBtnOk().setOnClickListener(new View.OnClickListener() {
-            @Override
+            
             public void onClick(View v) {
                 FragToMealDiary.EntryMode currMode = FragToMealDiary.EntryMode.valueOf(mode);
                 String enteredValue = getInputQuantity().getText().toString();

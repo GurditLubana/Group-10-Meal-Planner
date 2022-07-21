@@ -103,8 +103,9 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_recipe_book_dialogs, null);
         Context context = view.getContext();
         Bundle args = getArguments();
-        Dialog dialog = null;
+        Dialog dialog;
 
+        this.mode = args.getString(Constant.DIALOG_TYPE);
         this.initRecyclerView(view);
         super.setTitle(view.findViewById(R.id.dialogRecipeTitle));
         super.setInputQuantity(view.findViewById(R.id.dialogRecipeQuantityInput));
@@ -125,7 +126,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.isVegetarian = view.findViewById(R.id.isVegetarian);
         this.isVegan = view.findViewById(R.id.isVegan);
         this.photo = "photo.jpg";
-        this.mode = args.getString("type");
 
         if (context != null && context instanceof FragToRecipeBook) {
             setupAddRecipeDialog(context, FragToRecipeBook.EntryMode.valueOf(mode));
@@ -181,7 +181,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     }
 
     private void setMealDialogFieldDefaults() {
-
         super.getTitle().setText("Add New Meal");
         this.labelName.setText("Meal Name");
         this.inputName.setHint("Meal Name");
@@ -189,7 +188,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     }
 
     private void setDrinkDialogFieldDefaults() {
-
         super.getTitle().setText("Add New Drink");
         this.labelName.setText("Drink Name");
         this.inputName.setHint("Drink Name");
@@ -197,10 +195,9 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     }
 
     private void setSpinner() {
-        ArrayAdapter<String> adapter = null;
+        ArrayAdapter<String> adapter;
 
         super.initSpinner();
-
         if (super.getUnitSpinner().getAdapter() instanceof ArrayAdapter) {
             adapter = (ArrayAdapter) super.getUnitSpinner().getAdapter();
             super.getUnitSpinner().setSelection(adapter.getPosition(Edible.Unit.serving.name()));
@@ -208,9 +205,8 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     }
 
     private void setOnClickListeners() {
-
         super.getBtnOk().setOnClickListener(new View.OnClickListener() {
-            @Override
+            
             public void onClick(View view) {
                 FragToRecipeBook.EntryMode currMode = FragToRecipeBook.EntryMode.valueOf(mode);
 
@@ -223,7 +219,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         });
 
         super.getBtnCancel().setOnClickListener(new View.OnClickListener() {
-            @Override
+            
             public void onClick(View view) {
                 restIngredients();
                 dismiss();
@@ -231,7 +227,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         });
 
         this.btnChooseItemImage.setOnClickListener(new View.OnClickListener() {
-            @Override
+            
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= 23) {
                     try {
@@ -253,7 +249,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.ingredients.clear();
     }
 
-    @Override
+    
     public void onResume() {
         super.onResume();
 
@@ -272,7 +268,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(),
             new ActivityResultCallback<Boolean>() {
-                @Override
+                
                 public void onActivityResult(Boolean result) {
                     if (result) {
                         openGallery();
@@ -291,7 +287,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     ActivityResultLauncher<Intent> galleryIntentLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
-                @Override
+                
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         bitmap(result);
@@ -309,6 +305,8 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
 
 
     private boolean validateData(FragToRecipeBook.EntryMode mode) {
+        boolean validPreparedEdible;
+        boolean validEdible;
         int success = 0;
 
         if (check(this.inputName)) {
@@ -329,14 +327,16 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         }
 
         this.unit = Edible.Unit.valueOf(super.getUnitSpinner().getSelectedItem().toString());
+        validPreparedEdible = (mode != FragToRecipeBook.EntryMode.ADD_FOOD && success == 4);
+        validEdible = (mode == FragToRecipeBook.EntryMode.ADD_FOOD && success == 3);
 
-        return (mode == FragToRecipeBook.EntryMode.ADD_FOOD && success == 3 || (mode != FragToRecipeBook.EntryMode.ADD_FOOD && success == 4));
+        return (validPreparedEdible || validEdible);
     }
 
     private boolean check(EditText view) {
         boolean result = true;
-        String value = null;
-        int intValue = 0;
+        String value;
+        int intValue;
 
         value = view.getText().toString().trim();
         if (value.length() == 0) {
@@ -362,7 +362,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     }
 
     private void sendData(FragToRecipeBook.EntryMode mode) {
-        ArrayList<DrinkIngredient> drinkIngredients = new ArrayList<DrinkIngredient>();
+        ArrayList<DrinkIngredient> drinkIngredients;
 
         if (this.send != null && this.send instanceof FragToRecipeBook) {
             switch (mode) {
@@ -441,6 +441,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     public String getEntryQty() {
         return String.valueOf(this.ingredients.get(this.recyclerViewAdapter.getSavedItemPosition()).getQuantity());
     }
+
     public Edible.Unit getEntryUnit() {
         return this.ingredients.get(this.recyclerViewAdapter.getSavedItemPosition()).getQuantityUnits();
     }
