@@ -31,11 +31,10 @@ public class RVARecipeBook extends RecyclerViewAdapter {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-
         ViewHolder viewHolder = null;
         View view = null;
 
-        if (viewType == FragmentType.recipeModify.ordinal()) {
+        if (viewType == FragmentType.recipeSelect.ordinal()) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_recipe_book_card_context, viewGroup, false);
         } else {
 
@@ -55,7 +54,7 @@ public class RVARecipeBook extends RecyclerViewAdapter {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        if (super.getViewType() == FragmentType.recipeModify.ordinal()) {
+        if (super.getViewType() == FragmentType.recipeSelect.ordinal()) {
             setCardSelectionListeners(viewHolder, position);
         } else {
             setRecipeData(viewHolder, position);

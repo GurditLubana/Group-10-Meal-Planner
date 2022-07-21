@@ -13,7 +13,7 @@ public interface FragToRecipeBook {
 
     void addEntry(int position);
 
-    public void editItem();
+    public void loadEditorView();
 
     void showIngredientContextUI(int position);
 
@@ -40,8 +40,4 @@ public interface FragToRecipeBook {
     public EntryMode getEntryMode();
 
     public void addToMealDiary();
-
-    public boolean getDetails();
-
-    public void showDetails();
 }

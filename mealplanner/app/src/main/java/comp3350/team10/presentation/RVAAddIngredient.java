@@ -13,31 +13,28 @@ import java.util.ArrayList;
 import comp3350.team10.R;
 import comp3350.team10.objects.Edible;
 
-
 public class RVAAddIngredient extends RecyclerViewAdapter {
     private FragToRecipeBook sendToRecipeBook; // interface to pass data to recipeBook
-    private float ingredientScale = 0.5f;
+    private float addBtnScale = 0.5f;
     private Context context;
 
     public RVAAddIngredient(ArrayList<Edible> dataSet) {
         super(dataSet);
     }
 
-    @Override
+
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = null;
         ViewHolder viewHolder = null;
+        View view = null;
+
         this.context = viewGroup.getContext();
 
         if (viewType == FragmentType.diaryModify.ordinal()) {
-            view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.fragment_diary_card_context, viewGroup, false);
-            System.out.println("this is working!");
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card_context, viewGroup, false);
         } else if (viewType == FragmentType.diaryAdd.ordinal()) {
-            view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.fragment_diary_add_log, viewGroup, false);
-                            view.setScaleX(ingredientScale);
-        view.setScaleY(ingredientScale);
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_add_log, viewGroup, false);
+            view.setScaleX(addBtnScale);
+            view.setScaleY(addBtnScale);
         } else {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card,
                     viewGroup, false);
@@ -47,12 +44,12 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
             view.findViewById(R.id.itemUnitBox).setVisibility(view.GONE);
         }
 
-
         context = view.getContext();
         if (context instanceof FragToRecipeBook) {
             this.sendToRecipeBook = (FragToRecipeBook) context;
         }
         viewHolder = new ViewHolder(view);
+
         return viewHolder;
     }
 
@@ -70,17 +67,11 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
 
     private void setDiaryEntryData(ViewHolder viewHolder, final int position) {
         TextView itemName = viewHolder.getView().findViewById(R.id.itemNameBox);
-        TextView itemQty = viewHolder.getView().findViewById(R.id.itemQtyBox);
-        TextView itemUnit = viewHolder.getView().findViewById(R.id.itemUnitBox);
-        TextView itemCals = viewHolder.getView().findViewById(R.id.itemCalsBox);
         ImageView itemImage = viewHolder.getView().findViewById(R.id.itemImage);
         Edible currentItem = super.getDataSet().get(position);
         Bitmap image = null;
 
         itemName.setText(currentItem.getName());
-        itemQty.setText(String.format("%3.2f", currentItem.getQuantity()));
-        itemUnit.setText(currentItem.getUnit().toString());
-        itemCals.setText(String.format("%3d", (int) currentItem.getCalories()));
         image = super.getBitmapFromFile(this.context, currentItem.getPhoto());
 
         if (image != null) {
@@ -132,9 +123,8 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                         if (sendToRecipeBook != null) {
-                            sendToRecipeBook.editItem();
+                            sendToRecipeBook.loadEditorView();
                         }
                     }
                 });
@@ -146,7 +136,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
                     @Override
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
-                        System.out.println(sendToRecipeBook);
+
                         if (sendToRecipeBook != null) {
                             sendToRecipeBook.addEntry(position);
                         }

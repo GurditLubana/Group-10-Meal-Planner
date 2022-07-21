@@ -17,7 +17,7 @@ import comp3350.team10.objects.Edible;
 
 public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipeBook.ViewHolder> {
     public enum FragmentType {
-        noType, diaryAdd, diaryModify, recipeModify
+        noType, diaryAdd, diaryModify, recipeSelect
     }
 
     private ArrayList<Edible> localDataSet; // the list Recyclerview renders
@@ -32,8 +32,8 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
             result = FragmentType.diaryAdd.ordinal();
         } else if (identifier.equals(FragmentType.diaryModify.name())) {
             result = FragmentType.diaryModify.ordinal();
-        } else if (identifier.equals(FragmentType.recipeModify.name())) {
-            result = FragmentType.recipeModify.ordinal();
+        } else if (identifier.equals(FragmentType.recipeSelect.name())) {
+            result = FragmentType.recipeSelect.ordinal();
         } else {
             result = FragmentType.noType.ordinal();
         }

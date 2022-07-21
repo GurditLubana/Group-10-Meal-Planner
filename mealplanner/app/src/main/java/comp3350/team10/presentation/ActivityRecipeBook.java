@@ -31,28 +31,26 @@ import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
 
 public class ActivityRecipeBook extends AppCompatActivity implements FragToRecipeBook {
-    private ActivityResultLauncher<Intent> pickIngredient;
-    private final static int TITLE_COLOR = Color.WHITE;        //The title color of the acitivty
-    private final static String TITLE_CONTENT = "MealPlanner"; //The title content of the activity
+    private final  static String RECIPE_SELECT_CARD = "recipeSelect";   //Card name used to display the selected recipe card
+    private final static String TITLE_CONTENT = "MealPlanner";          //The title content of the activity
+    private final static int TITLE_COLOR = Color.WHITE;                 //The title color of the acitivty
 
     private Animation fabOpen, fabClose, rotateForward, rotateBackward; //Animations for floating buttons
     private FloatingActionButton openFab, editFab, addFab;              //Floating buttons
+    private boolean modMenuIsOpen;                                      //If the add recipes button is toggled
 
-    private RVARecipeBook recyclerViewAdapter;      // Houses the logic for a recycle view with recipes
-    private RecyclerView recipeRecyclerView;        // Houses a recycle view for recipes
-    private RecipeBookOps opExec;                   // Buisness logic for RecipeBook
-    private Toolbar toolbar;                        // app title
-    private ArrayList<Edible> data;                 // The data for the recipe book
-    private Edible modifyUICard;
+    private ActivityResultLauncher<Intent> pickIngredient;  //Activity used to select an ingredient when adding a recipe
+    private Edible selectedUICard;                          //For display when a card is selected
+    private Toolbar toolbar;                                //Header
+    private EntryMode mode;                                 //The type of dialog to show
+    private int currTab;                                    //The tab that is currently displayed
 
-    private final String RECIPEMODIFYCARD = "recipeModify";
-
-    private boolean modMenuIsOpen;                  // Represents whether the menu to add/edit recipes is toggled on
-    private int savedItemPosition;                  // Saves the position of an item for temporary removal
-    private Edible savedItem;                       // Saves the item for temporary removal
-    private int currTab;                            // The tab that is currently displayed
-    private EntryMode mode;                         // The type of dialog to show
-    private boolean detailsFlag = false;            // flag to show detailed recipes
+    private RVARecipeBook recyclerViewAdapter;              //Houses the logic for a recycle view with recipes
+    private RecyclerView recipeRecyclerView;                //Houses a recycle view for recipes
+    private ArrayList<Edible> data;                         //The data for the recipe book
+    private RecipeBookOps opExec;                           //Buisness logic for RecipeBook
+    private int savedItemPosition;                          //Saves the position of an item for temporary removal
+    private Edible savedItem;                               //Saves the item for temporary removal
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +58,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         setContentView(R.layout.activity_recipe_book);
         this.modMenuIsOpen = false;
         this.currTab = 0;
+
         this.initToolbar();
         this.initUICardObjects();
         this.initLiveData();
@@ -70,10 +69,10 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     private void initToolbar() {
-        View object = findViewById(R.id.toolbar);
+        View toolbar = findViewById(R.id.toolbar);
 
-        if (object instanceof Toolbar) {
-            this.toolbar = (Toolbar) object;
+        if (toolbar instanceof Toolbar) {
+            this.toolbar = (Toolbar) toolbar;
             this.toolbar.setTitleTextColor(TITLE_COLOR);
             this.toolbar.setTitle(TITLE_CONTENT);
             this.toolbar.setElevation(0);
@@ -176,10 +175,10 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     private void initUICardObjects() {
         this.savedItemPosition = -1;
-        this.modifyUICard = new Edible();
+        this.selectedUICard = new Edible();
 
         try {
-            this.modifyUICard.setName(RECIPEMODIFYCARD);
+            this.selectedUICard.setName(RECIPE_SELECT_CARD);
         } catch (Exception e) {
             System.out.println(e);
 
@@ -206,6 +205,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     public void showContextUI(int position) {
         int otherPosition = -1;
+
         if (position >= 0 && position != this.savedItemPosition) {
             if (this.savedItem == null) {
                 saveItem(position);
@@ -215,10 +215,11 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                 this.recyclerViewAdapter.notifyItemChanged(otherPosition);
             }
             this.data.remove(position);
-            this.data.add(position, modifyUICard);
+            this.data.add(position, selectedUICard);
         } else {
             restoreSaved();
         }
+
         this.recyclerViewAdapter.notifyItemChanged(position);
         this.recyclerViewAdapter.notifyDataSetChanged();
     }
@@ -251,7 +252,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         int dbkey = -1;
 
         if (this.savedItem != null) {
-            dbkey = this.savedItem.getDbkey();  //this is against all
+            dbkey = this.savedItem.getDbkey();
             isCustom = this.savedItem.getIsCustom();
         }
 
@@ -268,34 +269,33 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         }
     }
 
-    public void removeItem(int position) {
+    private FragmentRecipeBookDialogs getAddRecipeFragment() {
         FragmentManager fm = getSupportFragmentManager();
-        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
+        return (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
+    }
 
-        addRecipe.removeItem(position);
+    public void removeItem(int position) {
+        getAddRecipeFragment().removeItem(position);
     }
 
     public String getEntryQty() {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
-        return addRecipe.getEntryQty();
+        return getAddRecipeFragment().getEntryQty();
     }
 
     public Edible.Unit getEntryUnit() {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
-        return addRecipe.getEntryUnit();
+        return getAddRecipeFragment().getEntryUnit();
     }
 
     public void editEntry(Double value, String unit, boolean isSubstitute) {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
-
-        addRecipe.editEntry(value, unit, isSubstitute);
+        getAddRecipeFragment().editEntry(value, unit, isSubstitute);
     }
 
-    public void editItem() {
-        loadEditorView();
+    public boolean getIsSubstitute() {
+        return getAddRecipeFragment().getIsChecked();
+    }
+
+    public void showIngredientContextUI(int position) {
+        getAddRecipeFragment().showContextUI(position);
     }
 
     public void addEntry(int pos) { //launch recipebook use ActivityResultLauncher to allow data passing
@@ -308,8 +308,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
-                        FragmentManager fm = getSupportFragmentManager();
-                        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
+                        FragmentRecipeBookDialogs addRecipe = getAddRecipeFragment();
                         Intent data;
                         Edible currEdible;
                         boolean isCustom;
@@ -324,13 +323,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                         }
                     }
                 });
-    }
-
-    public void showIngredientContextUI(int position) {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
-
-        addRecipe.showContextUI(position);
     }
 
     public void addDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,
@@ -369,41 +361,17 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         return intent.getStringExtra(key);
     }
 
-    @Override
-    public void showDetails() {
-        this.detailsFlag = true;
-        new FragmentRecipeBookDialogs().show(getSupportFragmentManager(), FragmentRecipeBookDialogs.TAG);
-    }
-
-    @Override
-    public boolean getDetails() {
-        boolean result = this.detailsFlag;
-        this.detailsFlag = false;
-
-        return result;
-    }
-
-    private void loadEditorView() {
+    public void loadEditorView() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
         FragmentModEntryDialogs editorView = new FragmentModEntryDialogs();
         Bundle args = new Bundle();
 
         if(addRecipe.isModdingDrinkIngredients()) {
-            args.putString("type", "recipeBook");
-        }
-        else {
-            args.putString("type", "DRINK_INGREDIENT");
+            args.putString("type", EntryMode.DRINK_INGREDIENT.toString());
         }
 
         editorView.setArguments(args);
         editorView.show(fm, FragmentModEntryDialogs.TAG);
-    }
-
-    public boolean getIsSubstitute() {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
-
-        return addRecipe.getIsChecked();
     }
 }
