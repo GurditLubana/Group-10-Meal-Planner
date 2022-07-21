@@ -306,8 +306,8 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     
     public void setEntryQty(Double amount, String unit) {
-        Edible savedItem = this.recyclerViewAdapter.getSavedItem();
         int savedPosition = this.recyclerViewAdapter.getSavedItemPosition();
+        Edible savedItem = this.recyclerViewAdapter.getSavedItem();
         EdibleLog selectedItem;
 
         try {
@@ -317,7 +317,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                 selectedItem.setUnit(Edible.Unit.valueOf(unit));
                 selectedItem.setCalories();
                 this.currLog.removeItem(savedPosition);
-                this.currLog.addEdibleToLog(savedItem);
+                this.currLog.addEdibleToLog(savedPosition, selectedItem);
                 this.recyclerViewAdapter.showContextUI(-1, null);
                 this.opExec.logChangedUpdateDB();
                 this.updateLiveData();
