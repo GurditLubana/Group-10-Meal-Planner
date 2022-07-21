@@ -278,6 +278,22 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
 ---
 <br>
 
+
+### 2022 July 15
+    Attendees:  
+    - Dane  
+    - Josef   
+    - Zhao  
+    - Manraj
+
+    Topic: Retrospective activity
+    ----- 
+    Discussions: We reviewed Iter3, generated our retrospective activity and discussed task distribution
+    -----
+    Rationale: Iter3 retrospective activity
+---
+<br>
+
 <br>
 
 # Dev tasks Iter 2 
@@ -2076,7 +2092,6 @@ Duration: 2 hrs
    - Broke down iter3 task into smaller dev tasks
    - Updated availability in availability sheet
 
-
 ### 2022-07-18
      Dev:
       - Zhou
@@ -2084,6 +2099,14 @@ Duration: 4 hrs
    Tasks:
    - review course video and make to U5 40 and submit to the github
 
+### 2022-07-18
+     Dev:
+      - Dane
+Duration: 7 hrs
+   Tasks:
+   - created a recycler view for ingredients
+   - adjust size of add button in recycler view
+   - created function to grab ingredients from receipe book
 
 ### 2022-07-19
      Dev:
@@ -2091,3 +2114,41 @@ Duration: 4 hrs
 Duration: 4 hrs
    Tasks:
    - review course video and make rest of all U5 note and  submit to the github
+
+### 2022-07-19
+     Dev:
+      - Dane
+Duration: 8 hrs
+   Tasks:
+   - adjusted recycler view to add drinks without ingredients
+   - added the select functionality to adding ingredients in the add recipe dialog
+   - added a check against adding duplicate ingredients
+   - when preparedEdible's with ingredients are added, it loads their ingredients instead
+   - Refactored recipebook activity and RVAAddIngredients
+
+### 2022-07-20
+     Dev:
+      - Dane
+Duration: 12 hrs
+   Tasks:
+   - moved ingredient recycler view into the addRecipeDialog fragment
+   - added functionality for activity to talk with fragment (needs a tag)
+   - fixed bug where actions taken with a selected ingredient didnt work as intended (delete, back and modify)
+   - modified UI to include a isSubstitute checkbox
+   - refactored modDialog
+   - refactored recipeActivity
+   - refactored addRecipeDialog
+   - refactored RVA adapter (duplicate code everyplace that has a recycler view)
+
+### 2022-07-21
+     Dev:
+      - Dane
+Duration: start at 1
+   Tasks:
+   - further refacotred RVA adapter
+   - removed drink slider code
+   - removed dead fragment code (auto generated)
+   - merged ingredients into test branch
+   - submitted pull request with detailed discription
+   - fixed broken unit tests
+   - fixed a bug where you could get ingredients to jump tabs by selecting swapping tabs then selecting again
