@@ -85,9 +85,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
             public void onClick(View view) {
                 int position = viewHolder.getAbsoluteAdapterPosition();
 
-                if (sendToRecipeBook != null) {
-                    sendToRecipeBook.showIngredientContextUI(position);
-                }
+                showContextUI(position, getModEntryCard());
             }
         });
     }
@@ -99,9 +97,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
-                        if (sendToRecipeBook != null) {
-                            sendToRecipeBook.showIngredientContextUI(position);
-                        }
+                        showContextUI(position, getModEntryCard());
                     }
                 });
 

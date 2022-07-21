@@ -460,8 +460,4 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.recyclerViewAdapter.removeItem(position);
         this.ingredients.remove(position);
     }
-
-    public void showContextUI(int position) {
-        this.recyclerViewAdapter.showContextUI(position, this.recyclerViewAdapter.getModEntryCard());
-    }
 }
