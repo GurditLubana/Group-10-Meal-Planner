@@ -367,35 +367,35 @@ Estimate: 1 hour
   Actual: 6 hour  
      Dev: Dane  
 
-- ##### Task 08  
+- ##### Task 10  
    Title: UserDBInterface 
     Desc: write hsql access methods   
 Estimate: 1 hour  
   Actual: 1 hour  
      Dev: Dane  
 
-- ##### Task 09  
+- ##### Task 11  
    Title: Save DB state 
     Desc: methods to trigger saving the DB to file 
 Estimate: 5 mins  
   Actual: 5 mins  
      Dev: Dane  
 
-- ##### Task 10  
+- ##### Task 12  
    Title: Images from filesystem 
     Desc: Set database to load images from the device based on string paths 
 Estimate: 1 day  
   Actual: 1 day  
      Dev: Josef  
 
-- ##### Task 11  
+- ##### Task 13  
    Title: HSQL design
     Desc: Plan the database design 
 Estimate: 1 day  
   Actual: 1 day  
      Dev: Dane   
 
-- ##### Task 12  
+- ##### Task 14  
    Title: Default edible image
     Desc: Setup a default image if a image from the datbase does not exist 
 Estimate: 1 hour  
@@ -2143,12 +2143,16 @@ Duration: 12 hrs
 ### 2022-07-21
      Dev:
       - Dane
-Duration: start at 1
+Duration: 4 hrs
    Tasks:
-   - further refacotred RVA adapter
+   - further refactored RVA adapter
    - removed drink slider code
    - removed dead fragment code (auto generated)
    - merged ingredients into test branch
    - submitted pull request with detailed discription
    - fixed broken unit tests
    - fixed a bug where you could get ingredients to jump tabs by selecting swapping tabs then selecting again
+   - entered historic dev entries and group meeting from the 15th
+   - generated the retrospective report from the meeting we had on the 15th
+   - read through devlog entries from iter2 to generate statistics for future comparison
+   - discussed integration testing with Gurdit
