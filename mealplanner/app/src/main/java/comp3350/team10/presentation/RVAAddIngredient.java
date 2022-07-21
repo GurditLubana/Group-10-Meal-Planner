@@ -11,15 +11,20 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import comp3350.team10.R;
+import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.Edible;
 
 public class RVAAddIngredient extends RecyclerViewAdapter {
     private FragToRecipeBook sendToRecipeBook; // interface to pass data to recipeBook
     private float addBtnScale = 0.5f;
+    Edible modEdible;
     private Context context;
 
     public RVAAddIngredient(ArrayList<Edible> dataSet) {
         super(dataSet);
+
+        modEdible = new Edible();
+        modEdible.setName(Constant.DIARY_SELECT_CARD);
     }
 
 
@@ -88,7 +93,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
                 int position = viewHolder.getAbsoluteAdapterPosition();
 
                 if (sendToRecipeBook != null) {
-                    sendToRecipeBook.showIngredientContextUI(position);
+                    sendToRecipeBook.showIngredientContextUI(position, modEdible);
                 }
             }
         });
@@ -102,7 +107,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
                         if (sendToRecipeBook != null) {
-                            sendToRecipeBook.showIngredientContextUI(position);
+                            sendToRecipeBook.showIngredientContextUI(position, modEdible);
                         }
                     }
                 });

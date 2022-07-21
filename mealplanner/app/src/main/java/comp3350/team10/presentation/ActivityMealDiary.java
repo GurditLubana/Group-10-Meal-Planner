@@ -32,6 +32,7 @@ import java.util.Calendar;
 import comp3350.team10.R;
 import comp3350.team10.application.Main;
 import comp3350.team10.business.MealDiaryOps;
+import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
@@ -45,31 +46,26 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     private MealDiaryOps opExec;                //Business logic for MealDiary
     private DailyLog currLog;
     private Toolbar toolbar;                    //app title
-    private Edible addButton;
-    private Edible modifyLog;
-    private final String DIARYADDCARD = "diaryAdd";
-    private final String DIARYMODIFYCARD = "diaryModify";
+    private Edible addButton;   //need a more consistant way to do this
 
     private ArrayList<Edible> data;             //The data for the diary entries
-    private int savedItemPosition;              //Saves the position of an item for temporary removal
-    private Edible savedItem;                   //Saves the item for temporary removal
-    private EntryMode mode;                     //This tracks the type of input dialog when launched
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        addButton = new Edible();
+        addButton.setName(Constant.DIARY_ADD_CARD);
         setContentView(R.layout.activity_meal_diary);
         this.initToolbar();
         this.copyDatabaseToDevice();
         this.copyImagesToDevice();
         Main.startUp();
         this.opExec = new MealDiaryOps();
-        this.initUICardObjects();
         this.initLiveData();
         this.initRecyclerView();
         this.createActivityCallbackListener();
     }
+
 
     private void initToolbar() {
         this.toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -91,25 +87,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
             this.mealRecyclerView = (RecyclerView) view;
             this.mealRecyclerView.setAdapter(this.recyclerViewAdapter);
             this.mealRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        }
-    }
-
-    private void initUICardObjects() {
-        this.savedItemPosition = -1;
-        this.addButton = new Edible();
-        this.modifyLog = new Edible();
-
-        try {
-            this.addButton.setName(DIARYADDCARD);
-        } catch (Exception e) {
-            System.out.println(e);
-
-        }
-        try {
-            this.modifyLog.setName(DIARYMODIFYCARD);
-        } catch (Exception e) {
-            System.out.println(e);
-
         }
     }
 
@@ -216,47 +193,6 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         Main.shutDown();
     }
 
-    public void showContextUI(int position) {
-        int otherPosition = -1;
-
-        if (position >= 0 && position != this.savedItemPosition) {
-            if (this.savedItem == null) {
-                saveItem(position);
-            } else {
-                otherPosition = this.savedItemPosition;
-                swapSaved(position);
-                this.recyclerViewAdapter.notifyItemChanged(otherPosition);
-            }
-            this.data.remove(position);
-            this.data.add(position, modifyLog);
-        } else {
-            restoreSaved();
-        }
-        this.recyclerViewAdapter.notifyItemChanged(position);
-        this.recyclerViewAdapter.notifyDataSetChanged();
-    }
-
-    private void restoreSaved() {
-        if (savedItem != null) {
-            this.data.remove(this.savedItemPosition);
-            this.data.add(this.savedItemPosition, this.savedItem);
-            this.savedItemPosition = -1;
-            this.savedItem = null;
-        }
-    }
-
-    private void saveItem(int position) {
-        this.savedItemPosition = position;
-        this.savedItem = this.data.get(position);
-    }
-
-    private void swapSaved(int position) {
-        Edible temp = this.data.get(position);
-        restoreSaved();
-        this.savedItemPosition = position;
-        this.savedItem = temp;
-    }
-
     @Override
     public void selectDate() {
         MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker()
@@ -270,7 +206,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                 new MaterialPickerOnPositiveButtonClickListener() {
                     @Override
                     public void onPositiveButtonClick(Object selection) {
-                        restoreSaved();
+                        recyclerViewAdapter.restoreSaved();
                         Calendar selectedDate = Calendar.getInstance();
                         selectedDate.setTimeInMillis((Long) selection);
                         selectedDate.add(Calendar.DAY_OF_YEAR, 1);
@@ -283,14 +219,14 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public void prevDate() {
-        this.restoreSaved();
+        this.recyclerViewAdapter.restoreSaved();
         this.opExec.prevDate();
         this.updateLiveData();
     }
 
     @Override
     public void nextDate() {
-        this.restoreSaved();
+        this.recyclerViewAdapter.restoreSaved();
         this.opExec.nextDate();
         this.updateLiveData();
     }
@@ -323,8 +259,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     @Override
     public void removeItem(int pos) {
         if (pos >= 0 && pos < this.data.size()) {
-            this.savedItem = null;
-            this.savedItemPosition = -1;
+            this.recyclerViewAdapter.removeItem(pos);
             this.currLog.removeItem(pos);
             this.opExec.logChangedUpdateDB();
             this.updateLiveData();
@@ -363,27 +298,29 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     @Override
     public String getEntryQty() {
-        return String.valueOf(this.savedItem.getQuantity());
+        return String.valueOf(this.recyclerViewAdapter.getSavedItem().getQuantity());
     }
 
     @Override
     public Edible.Unit getEntryUnit() {
-        return this.savedItem.getUnit();
+        return this.recyclerViewAdapter.getSavedItem().getUnit();
     }
 
     @Override
     public void setEntryQty(Double amount, String unit) {
+        Edible savedItem = this.recyclerViewAdapter.getSavedItem();
+        int savedPosition = this.recyclerViewAdapter.getSavedItemPosition();
         EdibleLog selectedItem = null;
 
         try {
-            if (this.savedItem instanceof EdibleLog) {
-                selectedItem = (EdibleLog) this.savedItem;
+            if (savedItem instanceof EdibleLog) {
+                selectedItem = (EdibleLog) savedItem;
                 selectedItem.setQuantity(amount);
                 selectedItem.setUnit(Edible.Unit.valueOf(unit));
                 selectedItem.setCalories();
-                this.currLog.removeItem(this.savedItemPosition);
-                this.currLog.addEdibleToLog(this.savedItem);
-                this.showContextUI(-1);
+                this.currLog.removeItem(savedPosition);
+                this.currLog.addEdibleToLog(savedItem);
+                this.recyclerViewAdapter.showContextUI(-1, null);
                 this.opExec.logChangedUpdateDB();
                 this.updateLiveData();
             }
@@ -423,9 +360,5 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
         }
         this.updateLiveData();
-    }
-
-    public EntryMode getEntryMode() {
-        return this.mode;
     }
 }

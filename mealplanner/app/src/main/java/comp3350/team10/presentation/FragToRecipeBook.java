@@ -15,7 +15,7 @@ public interface FragToRecipeBook {
 
     public void loadEditorView();
 
-    void showIngredientContextUI(int position);
+    void showIngredientContextUI(int position, Edible replacementUI);
 
     Edible.Unit getEntryUnit();
 
@@ -23,7 +23,7 @@ public interface FragToRecipeBook {
 
     boolean getIsSubstitute();
 
-    public enum EntryMode {ADD_FOOD, ADD_MEAL, ADD_DRINK, DRINK_INGREDIENT}
+    public enum EntryMode {ADD_FOOD, ADD_MEAL, ADD_DRINK, INGREDIENT, DRINK_INGREDIENT}
 
     public void addDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,
                          boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, String photo, String instructions, ArrayList<DrinkIngredient> ingredients);
@@ -34,10 +34,6 @@ public interface FragToRecipeBook {
                         boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, String photo);
 
     public String getIntentExtra(String key);
-
-    public void showContextUI(int pos);
-
-    public EntryMode getEntryMode();
 
     public void addToMealDiary();
 }

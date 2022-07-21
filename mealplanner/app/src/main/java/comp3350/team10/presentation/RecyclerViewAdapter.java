@@ -13,15 +13,81 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import comp3350.team10.R;
+import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.Edible;
 
 public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipeBook.ViewHolder> {
+    private int savedItemPosition;                  //Saves the position of an item for temporary removal
+    private Edible savedItem;                       //Saves the item for temporary removal
+    private ArrayList<Edible> localDataSet; // the list Recyclerview renders
+    private int viewType;
     public enum FragmentType {
         noType, diaryAdd, diaryModify, recipeSelect
     }
 
-    private ArrayList<Edible> localDataSet; // the list Recyclerview renders
-    private int viewType;
+    public RecyclerViewAdapter(ArrayList<Edible> dataSet) {
+        this.savedItemPosition = -1;
+        this.localDataSet = dataSet;
+    }
+
+    public int getSavedItemPosition() {
+        return this.savedItemPosition;
+    }
+
+    public Edible getSavedItem() {
+        return this.savedItem;
+    }
+
+    public void removeItem(int position) {
+        if (position >= 0 && position < this.localDataSet.size()) {
+            this.savedItem = null;
+            this.savedItemPosition = -1;
+            this.localDataSet.remove(position);
+            this.notifyDataSetChanged();
+        }
+    }
+
+    public void showContextUI(int position, Edible replacementUI) {
+        int otherPosition = -1;
+
+        if (position >= 0 && position != this.savedItemPosition) {
+            if (this.savedItem == null) {
+                saveItem(position);
+            } else {
+                otherPosition = this.savedItemPosition;
+                swapSaved(position);
+                this.notifyItemChanged(otherPosition);
+            }
+            this.localDataSet.remove(position);
+            this.localDataSet.add(position, replacementUI); // this needs to be the other one
+        } else {
+            restoreSaved();
+        }
+        this.notifyItemChanged(position);
+        this.notifyDataSetChanged();
+    }
+
+    private void saveItem(int position) {
+        this.savedItemPosition = position;
+        this.savedItem = this.localDataSet.get(position);
+    }
+
+    private void swapSaved(int position) {
+        Edible temp = this.localDataSet.get(position);
+
+        restoreSaved();
+        this.savedItemPosition = position;
+        this.savedItem = temp;
+    }
+
+    public void restoreSaved() {
+        if (savedItem != null) {
+            this.localDataSet.remove(this.savedItemPosition);
+            this.localDataSet.add(this.savedItemPosition, this.savedItem);
+            this.savedItemPosition = -1;
+            this.savedItem = null;
+        }
+    }
 
     @Override
     public int getItemViewType(int pos) {
@@ -55,10 +121,6 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
         public FrameLayout getView() {
             return fragmentView;
         }
-    }
-
-    public RecyclerViewAdapter(ArrayList<Edible> dataSet) {
-        this.localDataSet = dataSet;
     }
 
     public void changeData(ArrayList<Edible> newData) {

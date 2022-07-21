@@ -24,10 +24,8 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,86 +40,82 @@ import comp3350.team10.objects.Ingredient;
 import comp3350.team10.objects.Meal;
 
 public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
-    private final String DIARYADDCARD = "diaryAdd";
-    private TextView labelName;              // Label of name field
-    private TextView labelCalories;          // Label of calories field
-    private TextView labelIngredients;       // Label of ingredients field
-    private EditText inputInstructions;      // input field for instructions
-    private EditText inputName;              // input field for item name
-    private EditText inputCalories;          // input field for item calories
-    private RecyclerView inputIngredients;       // input field for item ingredients
-    private Button btnChooseItemImage;       // Import a picture for the Edible item.
-    private CheckBox isAlcoholic;    // check if Edible item contains alcohol.
-    private CheckBox isSpicy;        // check if Edible item spicy.
-    private CheckBox isVegetarian;   // check if Edible item vegetarian.
-    private CheckBox isVegan;        // check if Edible item vegan.
-    private CheckBox isGlutenFree;          // check if Edible item glutenfree.
-    private ImageView EdibleItemImage;         // Image of the edible item.
-    private ImageView cameraIcon;              // The camera Icon in Add Edible interface.
-    private FragToRecipeBook send;             // Interface for communication with parent activity
-    private FragToRecipeBook.EntryMode mode;   // the type of dialog to show
-    public static String TAG = "AddRecipe";    // tag name of this fragment for reference in the fragment manager
-    private int calories;                      // value of calorie input
-    private int quantity;                      // value of quantity input
-    private String name;                       // value of name input
-    private String instructions;               // value of instructions input
-    private String photo;                      // value of ingredients input
-    private Edible.Unit unit;                  // value of units input
-    private static final int REQUEST_CODE = 1; // Request code for the edible's image
-    private RecyclerViewAdapter recyclerViewAdapter;
-    private RecyclerView ingredientRecyclerView;
+    public static String TAG = "AddRecipe";    //Tag name of this fragment (for reference)
+
+    private TextView labelName;         //Label of name field
+    private EditText inputName;         //Input field for item name
+    private String name;                //Value of name input
+    private EditText inputCalories;     //Input field for item calories
+    private int calories;               //Value of calorie input
+    private EditText inputInstructions; //Input field for instructions
+    private String instructions;        //Value of instructions input
+
+    private CheckBox isAlcoholic;    //Check if Edible item contains alcohol.
+    private CheckBox isSpicy;        //Check if Edible item spicy.
+    private CheckBox isVegetarian;   //Check if Edible item vegetarian.
+    private CheckBox isVegan;        //Check if Edible item vegan.
+    private CheckBox isGlutenFree;   //Check if Edible item glutenFree.
+
+    private int quantity;       //Value of quantity input
+    private String photo;       //Value of ingredients input
+    private Edible.Unit unit;   //Value of units input
+
+    private static final int REQUEST_CODE = 1;  //Request code for the edible's image
+    private Button btnChooseItemImage;          //Import a picture for the Edible item.
+    private ImageView EdibleItemImage;          //Image of the edible item.
+    private ImageView cameraIcon;               //The camera Icon in Add Edible interface.
+
+    private FragToRecipeBook send;              //Interface for communication with parent activity
+    private String mode;                        //The type of dialog to show
+    private ArrayList<Ingredient> ingredients;
     Edible addBtn;
 
-    private ArrayList<Ingredient> ingredients;
+    private RecyclerView inputIngredients;          //Input field for item ingredients
     private ArrayList<Edible> ingredientEdibles;
-    private Edible modifyLog;
-    private int savedItemPosition;              //Saves the position of an item for temporary removal
-    private Edible savedItem;                   //Saves the item for temporary removal
-    private final String DIARYMODIFYCARD = "diaryModify";
+    private RecyclerViewAdapter recyclerViewAdapter;
 
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.savedItemPosition = -1;
-        modifyLog = new Edible();
-        modifyLog.setName(DIARYMODIFYCARD);
+
+
         ingredients = new ArrayList<Ingredient>();
         this.ingredientEdibles = new ArrayList<Edible>();
 
         this.addBtn = new Edible();
-        this.addBtn.setName(DIARYADDCARD);
+        this.addBtn.setName(Constant.DIARY_ADD_CARD);
         this.ingredientEdibles.add(this.ingredientEdibles.size(), this.addBtn);
     }
 
+    public RecyclerViewAdapter getRecyclerViewAdapter() {
+        return this.recyclerViewAdapter;
+    }
 
     private void initRecyclerView(View view) {
         View recycler = view.findViewById(R.id.dialogRecipeIngredientsInput);
+        RecyclerView ingredientRecyclerView;
 
         if (recycler instanceof RecyclerView) {
             this.recyclerViewAdapter = new RVAAddIngredient(ingredientEdibles);
-            this.ingredientRecyclerView = (RecyclerView) recycler;
-            this.ingredientRecyclerView.setAdapter(this.recyclerViewAdapter);
-            this.ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+            ingredientRecyclerView = (RecyclerView) recycler;
+            ingredientRecyclerView.setAdapter(this.recyclerViewAdapter);
+            ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         }
     }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        Dialog dialog = null;
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_recipe_book_dialogs, null);
-
         Context context = view.getContext();
+        Bundle args = getArguments();
+        Dialog dialog = null;
 
+        this.initRecyclerView(view);
         super.setTitle(view.findViewById(R.id.dialogRecipeTitle));
         super.setInputQuantity(view.findViewById(R.id.dialogRecipeQuantityInput));
         super.setUnitSpinner(view.findViewById(R.id.dialogRecipeSpinner));
         super.setBtnOk(view.findViewById(R.id.dialogRecipeBtnOk));
         super.setBtnCancel(view.findViewById(R.id.dialogRecipeBtnCancel));
         this.labelName = view.findViewById(R.id.dialogRecipeNameLabel);
-        this.labelCalories = view.findViewById(R.id.dialogRecipeCaloriesLabel);
-        this.labelIngredients = view.findViewById(R.id.dialogRecipeIngredientsLabel);
         this.inputInstructions = view.findViewById(R.id.dialogRecipeInstructions);
         this.inputName = view.findViewById(R.id.dialogRecipeNameInput);
         this.inputCalories = view.findViewById(R.id.dialogRecipeCaloriesInput);
@@ -135,37 +129,41 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.isVegetarian = view.findViewById(R.id.isVegetarian);
         this.isVegan = view.findViewById(R.id.isVegan);
         this.photo = "photo.jpg";
-        this.initRecyclerView(view);
+        this.mode = args.getString("type");
 
         if (context != null && context instanceof FragToRecipeBook) {
-            this.send = (FragToRecipeBook) context;
-            this.mode = this.send.getEntryMode();
-            super.getInputQuantity().setHint("0 - 9999");
-            this.inputCalories.setHint("0 - 9999");
-            switch (mode) {
-                case ADD_FOOD:
-                    setFoodDialogFieldDefaults();
-                    break;
-                case ADD_MEAL:
-                    setMealDialogFieldDefaults();
-                    break;
-                case ADD_DRINK:
-                    setDrinkDialogFieldDefaults();
-                    break;
-            }
-            setSpinner();
-            setOnClickListeners();
+            setupAddRecipeDialog(context, FragToRecipeBook.EntryMode.valueOf(mode));
         }
 
-        builder.setView(view);
-        dialog = builder.create();
+        dialog = builder.setView(view).create();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         return dialog;
     }
 
+    private void setupAddRecipeDialog(Context context, FragToRecipeBook.EntryMode mode) {
+        super.getInputQuantity().setHint("0 - 9999");
+        this.inputCalories.setHint("0 - 9999");
+        this.send = (FragToRecipeBook) context;
+
+        switch (mode) {
+            case ADD_FOOD:
+                setFoodDialogFieldDefaults();
+                break;
+            case ADD_MEAL:
+                setMealDialogFieldDefaults();
+                break;
+            case ADD_DRINK:
+                setDrinkDialogFieldDefaults();
+                break;
+        }
+
+        setSpinner();
+        setOnClickListeners();
+    }
+
     public void editEntry(Double amount, String unit, boolean isSubstitute) {
-        Ingredient currItem = this.ingredients.get(savedItemPosition);
+        Ingredient currItem = this.ingredients.get(this.recyclerViewAdapter.getSavedItemPosition());
 
         currItem.setQuantity(amount);
         currItem.setQuantityUnit(Edible.Unit.valueOf(unit));
@@ -174,7 +172,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
             ((DrinkIngredient) currItem).setSubstitute(isSubstitute);
         }
 
-        this.showContextUI(-1);
+        this.recyclerViewAdapter.showContextUI(-1, null);
         this.recyclerViewAdapter.notifyDataSetChanged();
     }
 
@@ -184,7 +182,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.inputName.setHint("Food Name");
         this.inputInstructions.setVisibility(View.GONE);
         this.inputIngredients.setVisibility(View.GONE);
-        this.labelIngredients.setVisibility(View.GONE);
     }
 
     private void setMealDialogFieldDefaults() {
@@ -212,7 +209,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
             adapter = (ArrayAdapter) super.getUnitSpinner().getAdapter();
             super.getUnitSpinner().setSelection(adapter.getPosition(Edible.Unit.serving.name()));
         }
-
     }
 
     private void setOnClickListeners() {
@@ -220,8 +216,10 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         super.getBtnOk().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validateData()) {
-                    sendData();
+                FragToRecipeBook.EntryMode currMode = FragToRecipeBook.EntryMode.valueOf(mode);
+
+                if (validateData(currMode)) {
+                    sendData(currMode);
                     restIngredients();
                     dismiss();
                 }
@@ -239,10 +237,8 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.btnChooseItemImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (Build.VERSION.SDK_INT >= 23) {
                     try {
-
                         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
                             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
@@ -253,10 +249,8 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
                         e.printStackTrace();
                     }
                 }
-
             }
         });
-
     }
 
     private void restIngredients() {
@@ -293,18 +287,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
             }
     );
 
-    public void removeItem(int position) {
-        if (position >= 0 && position < this.ingredients.size()) {
-            this.savedItem = null;
-            this.savedItemPosition = -1;
-            this.ingredients.remove(position);
-            this.ingredientEdibles.remove(position);
-            this.recyclerViewAdapter.notifyDataSetChanged();
-        }
-    }
-
     private void openGallery() {
-
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         galleryIntentLauncher.launch(galleryIntent);
     }
@@ -315,24 +298,21 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) {
-
                         bitmap(result);
-
                     }
                 }
-            });
-
+            }
+    );
 
     private void bitmap(ActivityResult result) {
         Uri imageUri = result.getData().getData();
 
         EdibleItemImage.setImageURI(imageUri);
         cameraIcon.setVisibility(View.GONE);
-
     }
 
 
-    private boolean validateData() {
+    private boolean validateData(FragToRecipeBook.EntryMode mode) {
         int success = 0;
 
         if (check(this.inputName)) {
@@ -347,26 +327,14 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
             this.quantity = Integer.parseInt(super.getInputQuantity().getText().toString().trim());
             success += 1;
         }
-
-        if (this.mode != FragToRecipeBook.EntryMode.ADD_FOOD) {
-            if (true) { //check(this.inputIngredients)
-                //String[] tempIngredients = (this.inputIngredients.getText().toString().trim()).split(",");
-                //for (int i = 0; i < tempIngredients.length; i++) {
-                //    System.out.println(tempIngredients[i]);
-                //}
-
-                //this.ingredients = this.inputIngredients.getText().toString().trim();
-                success += 1;
-            }
-            if (check(this.inputInstructions)) {
-                this.instructions = this.inputInstructions.getText().toString().trim();
-                success += 1;
-            }
+        if (mode != FragToRecipeBook.EntryMode.ADD_FOOD && check(this.inputInstructions)) {
+            this.instructions = this.inputInstructions.getText().toString().trim();
+            success += 1;
         }
 
         this.unit = Edible.Unit.valueOf(super.getUnitSpinner().getSelectedItem().toString());
 
-        return (success == 3 || (this.mode != FragToRecipeBook.EntryMode.ADD_FOOD && success == 5));
+        return (mode == FragToRecipeBook.EntryMode.ADD_FOOD && success == 3 || (mode != FragToRecipeBook.EntryMode.ADD_FOOD && success == 4));
     }
 
     private boolean check(EditText view) {
@@ -397,7 +365,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         return result;
     }
 
-    private void sendData() {
+    private void sendData(FragToRecipeBook.EntryMode mode) {
         ArrayList<DrinkIngredient> drinkIngredients = new ArrayList<DrinkIngredient>();
 
         if (this.send != null && this.send instanceof FragToRecipeBook) {
@@ -428,44 +396,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         return drinkIngredients;
     }
 
-//    private void patchData() {
-//        this.mealIngredients = new ArrayList<>();
-//        this.drinkIngredients = new ArrayList<>();
-//        Ingredient ingredient;
-//        DrinkIngredient drinkIngredient;
-//
-//        ingredient = new Ingredient().init((new Edible()
-//                .initDetails(4, "Grain of Rice", "rice desc", 400, Edible.Unit.g)
-//                .initNutrition(400, 30, 20, 50)
-//                .initCategories(false, false, false, false, false)
-//                .initMetadata(false, "rice.jpg")), 1, Edible.Unit.cups);
-//        this.mealIngredients.add(ingredient);
-//
-//        ingredient = new Ingredient().init((new Edible()
-//                .initDetails(12, "Bologna", "Bologna desc", 1, Edible.Unit.tsp)
-//                .initNutrition(100, 30, 20, 50)
-//                .initCategories(false, false, false, false, false)
-//                .initMetadata(false, "bologna.jpg")), 1, Edible.Unit.cups);
-//        this.mealIngredients.add(ingredient);
-//
-//        drinkIngredient = new DrinkIngredient();
-//        drinkIngredient.setIngredient((new Edible()
-//                .initDetails(4, "Grain of Rice", "rice desc", 400, Edible.Unit.g)
-//                .initNutrition(400, 30, 20, 50)
-//                .initCategories(false, false, false, false, false)
-//                .initMetadata(false, "rice.jpg")));
-//        this.drinkIngredients.add(drinkIngredient);
-//
-//        drinkIngredient = new DrinkIngredient();
-//        drinkIngredient.setIngredient((new Edible()
-//                .initDetails(12, "Bologna", "Bologna desc", 1, Edible.Unit.tsp)
-//                .initNutrition(100, 30, 20, 50)
-//                .initCategories(false, false, false, false, false)
-//                .initMetadata(false, "bologna.jpg")));
-//        this.drinkIngredients.add(drinkIngredient);
-//
-//    }
-
     public void loadIngredients(Edible currEdible) {
         if(currEdible instanceof Meal) {
             for(Ingredient ingredient: ((Meal)currEdible).getIngredients()) {
@@ -486,17 +416,17 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         DrinkIngredient newIngredient = new DrinkIngredient();
 
         if(isUniqueIngredient(currEdible)) {
-            if (savedItem instanceof Drink) {
+            if (this.recyclerViewAdapter.getSavedItem() instanceof Drink) {
                 newIngredient.init(currEdible, quantity, unit);
                 newIngredient.setSubstitute(isSubstitute);
                 ingredients.add(newIngredient);
             } else { //needs a regular ingredient
-                ingredients.add(newIngredient.init(currEdible, quantity, unit)); //returns ingredient when inited
+                ingredients.add(newIngredient.init(currEdible, quantity, unit)); //returns ingredient when using init
             }
         }
     }
 
-    private boolean isUniqueIngredient(Edible newIngredient) { //change so dupes arent allowed
+    private boolean isUniqueIngredient(Edible newIngredient) {
         boolean alreadyAnIngredient = true;
         Edible currEdible;
 
@@ -512,65 +442,29 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         return alreadyAnIngredient;
     }
 
-    public void showContextUI(int position) {
-        int otherPosition = -1;
-
-        if (position >= 0 && position != this.savedItemPosition) {
-            if (this.savedItem == null) {
-                saveItem(position);
-            } else {
-                otherPosition = this.savedItemPosition;
-                swapSaved(position);
-                this.recyclerViewAdapter.notifyItemChanged(otherPosition);
-            }
-            this.ingredientEdibles.remove(position);
-            this.ingredientEdibles.add(position, modifyLog);
-        } else {
-            restoreSaved();
-        }
-        this.recyclerViewAdapter.notifyItemChanged(position);
-        this.recyclerViewAdapter.notifyDataSetChanged();
-    }
-
-    private void saveItem(int position) {
-        this.savedItemPosition = position;
-        this.savedItem = this.ingredientEdibles.get(position);
-    }
-
-    private void swapSaved(int position) {
-        Edible temp = this.ingredientEdibles.get(position);
-        restoreSaved();
-        this.savedItemPosition = position;
-        this.savedItem = temp;
-    }
-
-    private void restoreSaved() {
-        if (savedItem != null) {
-            this.ingredientEdibles.remove(this.savedItemPosition);
-            this.ingredientEdibles.add(this.savedItemPosition, this.savedItem);
-            this.savedItemPosition = -1;
-            this.savedItem = null;
-        }
-    }
-
     public String getEntryQty() {
-        return String.valueOf(this.ingredients.get(this.savedItemPosition).getQuantity());
+        return String.valueOf(this.ingredients.get(this.recyclerViewAdapter.getSavedItemPosition()).getQuantity());
     }
     public Edible.Unit getEntryUnit() {
-        return this.ingredients.get(this.savedItemPosition).getQuantityUnits();
-    }
-
-    public boolean isModdingDrinkIngredients() {
-        return this.savedItem instanceof Drink;
+        return this.ingredients.get(this.recyclerViewAdapter.getSavedItemPosition()).getQuantityUnits();
     }
 
     public boolean getIsChecked() {
         boolean isChecked = false;
 
-        if(this.ingredients.get(this.savedItemPosition) instanceof DrinkIngredient) {
-            isChecked = ((DrinkIngredient) this.ingredients.get(this.savedItemPosition)).getIsSubstitute();
+        if(this.ingredients.get(this.recyclerViewAdapter.getSavedItemPosition()) instanceof DrinkIngredient) {
+            isChecked = ((DrinkIngredient) this.ingredients.get(this.recyclerViewAdapter.getSavedItemPosition())).getIsSubstitute();
         }
 
         return isChecked;
+    }
+
+    public void removeItem(int position) {
+        this.recyclerViewAdapter.removeItem(position);
+        this.ingredients.remove(position);
+    }
+
+    public void showContextUI(int position, Edible replacementUI) {
+        this.recyclerViewAdapter.showContextUI(position, replacementUI); //this is probably broken
     }
 }

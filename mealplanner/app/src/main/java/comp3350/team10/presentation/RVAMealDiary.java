@@ -11,15 +11,23 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import comp3350.team10.R;
+import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.Edible;
 
 
 public class RVAMealDiary extends RecyclerViewAdapter {
     private FragToMealDiary sendToMealDiary; // interface to pass data to mealdiary
     private Context context;
+    private Edible addLog;
+    private Edible modifyLog;
 
     public RVAMealDiary(ArrayList<Edible> dataSet) {
         super(dataSet);
+
+        addLog = new Edible();
+        addLog.setName(Constant.DIARY_ADD_CARD);
+        modifyLog = new Edible();
+        modifyLog.setName(Constant.DIARY_SELECT_CARD);
     }
 
     @Override
@@ -29,11 +37,9 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         this.context = viewGroup.getContext();
 
         if (viewType == FragmentType.diaryModify.ordinal()) {
-            view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.fragment_diary_card_context, viewGroup, false);
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card_context, viewGroup, false);
         } else if (viewType == FragmentType.diaryAdd.ordinal()) {
-            view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.fragment_diary_add_log, viewGroup, false);
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_add_log, viewGroup, false);
         } else {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card,
                     viewGroup, false);
@@ -89,7 +95,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
                 int position = viewHolder.getAbsoluteAdapterPosition();
 
                 if (sendToMealDiary != null) {
-                    sendToMealDiary.showContextUI(position);
+                    showContextUI(position, modifyLog);
                 }
             }
         });
@@ -103,7 +109,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
                         if (sendToMealDiary != null) {
-                            sendToMealDiary.showContextUI(position);
+                            showContextUI(position, modifyLog);
                         }
                     }
                 });
