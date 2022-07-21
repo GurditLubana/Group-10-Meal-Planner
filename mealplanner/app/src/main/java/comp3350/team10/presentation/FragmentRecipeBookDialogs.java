@@ -51,11 +51,11 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private EditText inputCalories;          // input field for item calories
     private RecyclerView inputIngredients;       // input field for item ingredients
     private Button btnChooseItemImage;       // Import a picture for the Edible item.
-    private CheckBox isAlcoholicCheckBox;    // check if Edible item contains alcohol.
-    private CheckBox isSpicyCheckBox;        // check if Edible item spicy.
-    private CheckBox isVegetarianCheckBox;   // check if Edible item vegetarian.
-    private CheckBox isVeganCheckBox;        // check if Edible item vegan.
-    private CheckBox isGluteenFree;          // check if Edible item glutenfree.
+    private CheckBox isAlcoholic;    // check if Edible item contains alcohol.
+    private CheckBox isSpicy;        // check if Edible item spicy.
+    private CheckBox isVegetarian;   // check if Edible item vegetarian.
+    private CheckBox isVegan;        // check if Edible item vegan.
+    private CheckBox isGlutenFree;          // check if Edible item glutenfree.
     private ImageView EdibleItemImage;         // Image of the edible item.
     private ImageView cameraIcon;              // The camera Icon in Add Edible interface.
     private FragToRecipeBook send;             // Interface for communication with parent activity
@@ -68,8 +68,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private String photo;                      // value of ingredients input
     private Edible.Unit unit;                  // value of units input
     private static final int REQUEST_CODE = 1; // Request code for the edible's image
-    ArrayList<Ingredient> mealIngredients;
-    ArrayList<DrinkIngredient> drinkIngredients;
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView ingredientRecyclerView;
     Edible addBtn;
@@ -131,12 +129,11 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.btnChooseItemImage = view.findViewById(R.id.dialogRecipePhotoBtn);
         this.EdibleItemImage = view.findViewById(R.id.dialogRecipePhoto);
         this.cameraIcon = view.findViewById(R.id.dialogRecipePhotoIcon);
-        this.isAlcoholicCheckBox = view.findViewById(R.id.isAlcoholic);
-        this.isSpicyCheckBox = view.findViewById(R.id.isSpicy);
-        this.isGluteenFree = view.findViewById(R.id.isGluteenFree);
-        this.isVegetarianCheckBox = view.findViewById(R.id.isVegetarian);
-        this.isVeganCheckBox = view.findViewById(R.id.isVegan);
-        this.isGluteenFree = view.findViewById(R.id.isGluteenFree);
+        this.isAlcoholic = view.findViewById(R.id.isAlcoholic);
+        this.isSpicy = view.findViewById(R.id.isSpicy);
+        this.isGlutenFree = view.findViewById(R.id.isGluteenFree);
+        this.isVegetarian = view.findViewById(R.id.isVegetarian);
+        this.isVegan = view.findViewById(R.id.isVegan);
         this.photo = "photo.jpg";
         this.initRecyclerView(view);
 
@@ -165,6 +162,20 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         return dialog;
+    }
+
+    public void editEntry(Double amount, String unit, boolean isSubstitute) {
+        Ingredient currItem = this.ingredients.get(savedItemPosition);
+
+        currItem.setQuantity(amount);
+        currItem.setQuantityUnit(Edible.Unit.valueOf(unit));
+
+        if(currItem instanceof DrinkIngredient) {
+            ((DrinkIngredient) currItem).setSubstitute(isSubstitute);
+        }
+
+        this.showContextUI(-1);
+        this.recyclerViewAdapter.notifyDataSetChanged();
     }
 
     private void setFoodDialogFieldDefaults() {
@@ -387,59 +398,73 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     }
 
     private void sendData() {
-        this.patchData();
+        ArrayList<DrinkIngredient> drinkIngredients = new ArrayList<DrinkIngredient>();
+
         if (this.send != null && this.send instanceof FragToRecipeBook) {
             switch (mode) {
                 case ADD_FOOD:
-                    this.send.addFood(this.name, this.name, this.quantity, this.unit, this.calories, this.calories,this.calories, this.calories, false, false, false, false, false, this.photo);
+                    this.send.addFood(this.name, this.name, this.quantity, this.unit, this.calories, this.calories,this.calories, this.calories, this.isAlcoholic.isChecked(), this.isSpicy.isChecked(), this.isVegan.isChecked(), this.isVegetarian.isChecked(), this.isGlutenFree.isChecked(), this.photo);
                     break;
                 case ADD_MEAL:
-                    this.send.addMeal(this.name, this.name, this.quantity, this.unit, this.photo, this.instructions, this.mealIngredients);
+                    this.send.addMeal(this.name, this.name, this.quantity, this.unit, this.photo, this.instructions, this.ingredients);
                     break;
                 case ADD_DRINK:
-                    this.send.addDrink(this.name, this.name, this.quantity, this.unit, this.calories, this.calories,this.calories, this.calories, false, false, false, false, false, this.photo, this.instructions, this.drinkIngredients);
+                    drinkIngredients = this.readDrinkIngredients();
+                    this.send.addDrink(this.name, this.name, this.quantity, this.unit, this.calories, this.calories,this.calories, this.calories, this.isAlcoholic.isChecked(), this.isSpicy.isChecked(), this.isVegan.isChecked(), this.isVegetarian.isChecked(), this.isGlutenFree.isChecked(), this.photo, this.instructions, drinkIngredients);
                     break;
             }
         }
     }
 
-    private void patchData() {
-        this.mealIngredients = new ArrayList<>();
-        this.drinkIngredients = new ArrayList<>();
-        Ingredient ingredient;
-        DrinkIngredient drinkIngredient;
+    private ArrayList<DrinkIngredient> readDrinkIngredients() {
+        ArrayList<DrinkIngredient> drinkIngredients = new ArrayList<DrinkIngredient>();
 
-        ingredient = new Ingredient().init((new Edible()
-                .initDetails(4, "Grain of Rice", "rice desc", 400, Edible.Unit.g)
-                .initNutrition(400, 30, 20, 50)
-                .initCategories(false, false, false, false, false)
-                .initMetadata(false, "rice.jpg")), 1, Edible.Unit.cups);
-        this.mealIngredients.add(ingredient);
+        for(Ingredient currIngredient: this.ingredients) {
+            if(currIngredient instanceof DrinkIngredient) {
+                drinkIngredients.add((DrinkIngredient)currIngredient);
+            }
+        }
 
-        ingredient = new Ingredient().init((new Edible()
-                .initDetails(12, "Bologna", "Bologna desc", 1, Edible.Unit.tsp)
-                .initNutrition(100, 30, 20, 50)
-                .initCategories(false, false, false, false, false)
-                .initMetadata(false, "bologna.jpg")), 1, Edible.Unit.cups);
-        this.mealIngredients.add(ingredient);
-
-        drinkIngredient = new DrinkIngredient();
-        drinkIngredient.setIngredient((new Edible()
-                .initDetails(4, "Grain of Rice", "rice desc", 400, Edible.Unit.g)
-                .initNutrition(400, 30, 20, 50)
-                .initCategories(false, false, false, false, false)
-                .initMetadata(false, "rice.jpg")));
-        this.drinkIngredients.add(drinkIngredient);
-
-        drinkIngredient = new DrinkIngredient();
-        drinkIngredient.setIngredient((new Edible()
-                .initDetails(12, "Bologna", "Bologna desc", 1, Edible.Unit.tsp)
-                .initNutrition(100, 30, 20, 50)
-                .initCategories(false, false, false, false, false)
-                .initMetadata(false, "bologna.jpg")));
-        this.drinkIngredients.add(drinkIngredient);
-
+        return drinkIngredients;
     }
+
+//    private void patchData() {
+//        this.mealIngredients = new ArrayList<>();
+//        this.drinkIngredients = new ArrayList<>();
+//        Ingredient ingredient;
+//        DrinkIngredient drinkIngredient;
+//
+//        ingredient = new Ingredient().init((new Edible()
+//                .initDetails(4, "Grain of Rice", "rice desc", 400, Edible.Unit.g)
+//                .initNutrition(400, 30, 20, 50)
+//                .initCategories(false, false, false, false, false)
+//                .initMetadata(false, "rice.jpg")), 1, Edible.Unit.cups);
+//        this.mealIngredients.add(ingredient);
+//
+//        ingredient = new Ingredient().init((new Edible()
+//                .initDetails(12, "Bologna", "Bologna desc", 1, Edible.Unit.tsp)
+//                .initNutrition(100, 30, 20, 50)
+//                .initCategories(false, false, false, false, false)
+//                .initMetadata(false, "bologna.jpg")), 1, Edible.Unit.cups);
+//        this.mealIngredients.add(ingredient);
+//
+//        drinkIngredient = new DrinkIngredient();
+//        drinkIngredient.setIngredient((new Edible()
+//                .initDetails(4, "Grain of Rice", "rice desc", 400, Edible.Unit.g)
+//                .initNutrition(400, 30, 20, 50)
+//                .initCategories(false, false, false, false, false)
+//                .initMetadata(false, "rice.jpg")));
+//        this.drinkIngredients.add(drinkIngredient);
+//
+//        drinkIngredient = new DrinkIngredient();
+//        drinkIngredient.setIngredient((new Edible()
+//                .initDetails(12, "Bologna", "Bologna desc", 1, Edible.Unit.tsp)
+//                .initNutrition(100, 30, 20, 50)
+//                .initCategories(false, false, false, false, false)
+//                .initMetadata(false, "bologna.jpg")));
+//        this.drinkIngredients.add(drinkIngredient);
+//
+//    }
 
     public void loadIngredients(Edible currEdible) {
         if(currEdible instanceof Meal) {
@@ -526,5 +551,26 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
             this.savedItemPosition = -1;
             this.savedItem = null;
         }
+    }
+
+    public String getEntryQty() {
+        return String.valueOf(this.ingredients.get(this.savedItemPosition).getQuantity());
+    }
+    public Edible.Unit getEntryUnit() {
+        return this.ingredients.get(this.savedItemPosition).getQuantityUnits();
+    }
+
+    public boolean isModdingDrinkIngredients() {
+        return this.savedItem instanceof Drink;
+    }
+
+    public boolean getIsChecked() {
+        boolean isChecked = false;
+
+        if(this.ingredients.get(this.savedItemPosition) instanceof DrinkIngredient) {
+            isChecked = ((DrinkIngredient) this.ingredients.get(this.savedItemPosition)).getIsSubstitute();
+        }
+
+        return isChecked;
     }
 }

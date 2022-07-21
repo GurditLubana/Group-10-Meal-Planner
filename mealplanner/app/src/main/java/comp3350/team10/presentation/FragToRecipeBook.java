@@ -9,11 +9,19 @@ import comp3350.team10.objects.Ingredient;
 public interface FragToRecipeBook {
     void removeItem(int position);
 
-    void editItem();
+    void editEntry(Double value, String unit, boolean isSubstitute);
 
     void addEntry(int position);
 
+    public void editItem();
+
     void showIngredientContextUI(int position);
+
+    Edible.Unit getEntryUnit();
+
+    String getEntryQty();
+
+    boolean getIsSubstitute();
 
     public enum EntryMode {ADD_FOOD, ADD_MEAL, ADD_DRINK}
 

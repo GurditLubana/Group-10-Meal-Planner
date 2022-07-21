@@ -279,10 +279,27 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         addRecipe.removeItem(position);
     }
 
+    public String getEntryQty() {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
+        return addRecipe.getEntryQty();
+    }
+
+    public Edible.Unit getEntryUnit() {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
+        return addRecipe.getEntryUnit();
+    }
+
+    public void editEntry(Double value, String unit, boolean isSubstitute) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
+
+        addRecipe.editEntry(value, unit, isSubstitute);
+    }
+
     public void editItem() {
         loadEditorView();
-    //FragmentManager fm = getSupportFragmentManager();
-        //        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
     }
 
     public void addEntry(int pos) { //launch recipebook use ActivityResultLauncher to allow data passing
@@ -312,8 +329,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                     }
                 });
     }
-    
-
 
     public void showIngredientContextUI(int position) {
         FragmentManager fm = getSupportFragmentManager();
@@ -373,13 +388,26 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     private void loadEditorView() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
         FragmentDiaryDialogs editorView = new FragmentDiaryDialogs();
         Bundle args = new Bundle();
 
-        args.putString("type", "recipeBook");
-        args.putBoolean("isDrinkIngredient", false);
+        if(addRecipe.isModdingDrinkIngredients()) {
+            args.putString("type", "recipeBook");
+        }
+        else {
+            args.putString("type", "DRINK_INGREDIENT");
+        }
+
         editorView.setArguments(args);
-        editorView.show(fragmentManager, FragmentDiaryDialogs.TAG);
+        editorView.show(fm, FragmentDiaryDialogs.TAG);
+    }
+
+    public boolean getIsSubstitute() {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
+
+        return addRecipe.getIsChecked();
     }
 }
