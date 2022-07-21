@@ -9,15 +9,14 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import comp3350.team10.R;
 import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.Edible;
 
-public class FragmentDiaryDialogs extends FragmentDialogCommon {
-    public static final String TAG = "ModEntryDialog";  //Tag name of this fragment (for reference in the fragment manager)
+public class FragmentModEntryDialogs extends FragmentDialogCommon {
+    public static final String TAG = "ModEntryDialogs";  //Tag name of this fragment (for reference in the fragment manager)
 
     private FragToRecipeBook sendToRecipes;     //Interface used for communication with the RecipeBook activity
     private FragToMealDiary sendToDiary;        //Interface used for communication with the MealDiary activity
@@ -28,7 +27,7 @@ public class FragmentDiaryDialogs extends FragmentDialogCommon {
 
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_diary_dialogs, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_mod_entry_dialogs, null);
         Context context = view.getContext();
         Bundle args = getArguments();
 

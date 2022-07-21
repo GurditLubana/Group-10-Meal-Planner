@@ -36,6 +36,4 @@ public interface FragToMealDiary {
     public String getGoalCalories();
 
     public void setGoalCalories(Double value);
-
-    public EntryMode getEntryMode();
 }

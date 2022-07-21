@@ -295,32 +295,29 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         this.updateLiveData();
     }
 
-    private void loadEditorView() {
+    private void loadEditorView(String intentTag) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentDiaryDialogs editorView = new FragmentDiaryDialogs();
+        FragmentModEntryDialogs editorView = new FragmentModEntryDialogs();
         Bundle args = new Bundle();
 
-        args.putString("type", "mealDiary");
+        args.putString("type", intentTag);
         editorView.setArguments(args);
-        editorView.show(fragmentManager, FragmentDiaryDialogs.TAG);
+        editorView.show(fragmentManager, FragmentModEntryDialogs.TAG);
     }
 
     @Override
     public void editItem() { //launch dialog fragment
-        this.loadEditorView();
-        this.mode = EntryMode.EDIT_QTY;
+        this.loadEditorView(EntryMode.EDIT_QTY.toString());
     }
 
     @Override
     public void showGoalEntryDialog() { //launch dialog fragment
-        this.loadEditorView();
-        this.mode = EntryMode.GOAL_CALORIE;
+        this.loadEditorView(EntryMode.GOAL_CALORIE.toString());
     }
 
     @Override
     public void showExerciseEntryDialog() { //launch dialog fragment
-        this.loadEditorView();
-        this.mode = EntryMode.ACTUAL_EXERCISE;
+        this.loadEditorView(EntryMode.ACTUAL_EXERCISE.toString());
     }
 
     @Override

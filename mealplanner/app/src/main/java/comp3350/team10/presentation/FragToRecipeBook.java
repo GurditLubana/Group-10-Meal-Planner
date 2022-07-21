@@ -23,7 +23,7 @@ public interface FragToRecipeBook {
 
     boolean getIsSubstitute();
 
-    public enum EntryMode {ADD_FOOD, ADD_MEAL, ADD_DRINK}
+    public enum EntryMode {ADD_FOOD, ADD_MEAL, ADD_DRINK, DRINK_INGREDIENT}
 
     public void addDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,
                          boolean spicy, boolean vegan, boolean vegetarian, boolean glutenFree, String photo, String instructions, ArrayList<DrinkIngredient> ingredients);

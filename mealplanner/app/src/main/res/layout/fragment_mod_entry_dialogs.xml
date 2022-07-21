@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="450dp"
     android:layout_height="300dp"
-    tools:context=".presentation.FragmentDiaryDialogs">
+    tools:context=".presentation.FragmentModEntryDialogs">
 
     <androidx.cardview.widget.CardView
         android:layout_width="450dp"

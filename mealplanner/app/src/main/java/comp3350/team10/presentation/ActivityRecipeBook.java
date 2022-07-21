@@ -1,7 +1,6 @@
 package comp3350.team10.presentation;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,13 +25,10 @@ import java.util.ArrayList;
 
 import comp3350.team10.R;
 import comp3350.team10.application.Main;
-import comp3350.team10.business.MealDiaryOps;
 import comp3350.team10.business.RecipeBookOps;
-import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
-import comp3350.team10.objects.Meal;
 
 public class ActivityRecipeBook extends AppCompatActivity implements FragToRecipeBook {
     private ActivityResultLauncher<Intent> pickIngredient;
@@ -390,7 +386,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private void loadEditorView() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentRecipeBookDialogs addRecipe = (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
-        FragmentDiaryDialogs editorView = new FragmentDiaryDialogs();
+        FragmentModEntryDialogs editorView = new FragmentModEntryDialogs();
         Bundle args = new Bundle();
 
         if(addRecipe.isModdingDrinkIngredients()) {
@@ -401,7 +397,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         }
 
         editorView.setArguments(args);
-        editorView.show(fm, FragmentDiaryDialogs.TAG);
+        editorView.show(fm, FragmentModEntryDialogs.TAG);
     }
 
     public boolean getIsSubstitute() {
