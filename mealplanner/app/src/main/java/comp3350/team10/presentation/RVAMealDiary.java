@@ -18,16 +18,9 @@ import comp3350.team10.objects.Edible;
 public class RVAMealDiary extends RecyclerViewAdapter {
     private FragToMealDiary sendToMealDiary; // interface to pass data to mealdiary
     private Context context;
-    private Edible addLog;
-    private Edible modifyLog;
 
     public RVAMealDiary(ArrayList<Edible> dataSet) {
         super(dataSet);
-
-        addLog = new Edible();
-        addLog.setName(Constant.DIARY_ADD_CARD);
-        modifyLog = new Edible();
-        modifyLog.setName(Constant.DIARY_SELECT_CARD);
     }
 
     @Override
@@ -95,7 +88,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
                 int position = viewHolder.getAbsoluteAdapterPosition();
 
                 if (sendToMealDiary != null) {
-                    showContextUI(position, modifyLog);
+                    showContextUI(position, getModEntryCard());
                 }
             }
         });
@@ -109,7 +102,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
                         if (sendToMealDiary != null) {
-                            showContextUI(position, modifyLog);
+                            showContextUI(position, getModEntryCard());
                         }
                     }
                 });

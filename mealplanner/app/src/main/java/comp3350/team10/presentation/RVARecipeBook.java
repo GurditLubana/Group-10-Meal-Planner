@@ -19,16 +19,9 @@ import comp3350.team10.objects.Edible;
 public class RVARecipeBook extends RecyclerViewAdapter {
     private FragToRecipeBook sendToRecipeBook;          // interface to pass data to recipebook
     private Context context;
-    private Edible modifyLog;
-    private Edible selectedRecipe;
 
     public RVARecipeBook(ArrayList<Edible> dataSet) {
         super(dataSet);
-
-        modifyLog = new Edible();
-        modifyLog.setName(Constant.DIARY_SELECT_CARD);
-        selectedRecipe = new Edible();
-        selectedRecipe.setName(Constant.RECIPE_SELECT_CARD);
     }
 
     @Override
@@ -69,7 +62,7 @@ public class RVARecipeBook extends RecyclerViewAdapter {
             @Override
             public void onClick(View view) {
                 if (sendToRecipeBook != null) {
-                    showContextUI(position, selectedRecipe);
+                    showContextUI(position, getSelectedRecipeCard());
                 }
             }
         });
@@ -104,7 +97,7 @@ public class RVARecipeBook extends RecyclerViewAdapter {
             public void onClick(View view) {
                 if (sendToRecipeBook != null) {
                     sendToRecipeBook.addToMealDiary();
-                }//add a thing in here to add to other thing
+                }
             }
         });
 
@@ -123,7 +116,7 @@ public class RVARecipeBook extends RecyclerViewAdapter {
                 int position = viewHolder.getAbsoluteAdapterPosition();
 
                 if (sendToRecipeBook != null) {
-                    showContextUI(position, modifyLog);
+                    showContextUI(position, getModEntryCard());
                 }
             }
         });

@@ -17,17 +17,37 @@ import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.Edible;
 
 public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipeBook.ViewHolder> {
+    public enum FragmentType {noType, diaryAdd, diaryModify, recipeSelect}
+
+    private ArrayList<Edible> localDataSet; // the list Recyclerview renders
     private int savedItemPosition;                  //Saves the position of an item for temporary removal
     private Edible savedItem;                       //Saves the item for temporary removal
-    private ArrayList<Edible> localDataSet; // the list Recyclerview renders
     private int viewType;
-    public enum FragmentType {
-        noType, diaryAdd, diaryModify, recipeSelect
-    }
+
+    private Edible modEntryCard;
+    private Edible selectedRecipeCard;
 
     public RecyclerViewAdapter(ArrayList<Edible> dataSet) {
-        this.savedItemPosition = -1;
         this.localDataSet = dataSet;
+        this.savedItemPosition = -1;
+        this.savedItem = null;
+
+        this.loadUICards();
+    }
+
+    private void loadUICards() {
+        this.modEntryCard = new Edible();
+        this.selectedRecipeCard = new Edible();
+
+        this.modEntryCard.setName(Constant.DIARY_SELECT_CARD);
+        this.selectedRecipeCard.setName(Constant.RECIPE_SELECT_CARD);
+    }
+    public Edible getModEntryCard() {
+        return this.modEntryCard;
+    }
+
+    public Edible getSelectedRecipeCard() {
+        return this.selectedRecipeCard;
     }
 
     public int getSavedItemPosition() {

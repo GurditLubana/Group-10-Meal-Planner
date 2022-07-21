@@ -17,14 +17,10 @@ import comp3350.team10.objects.Edible;
 public class RVAAddIngredient extends RecyclerViewAdapter {
     private FragToRecipeBook sendToRecipeBook; // interface to pass data to recipeBook
     private float addBtnScale = 0.5f;
-    Edible modEdible;
     private Context context;
 
     public RVAAddIngredient(ArrayList<Edible> dataSet) {
         super(dataSet);
-
-        modEdible = new Edible();
-        modEdible.setName(Constant.DIARY_SELECT_CARD);
     }
 
 
@@ -93,7 +89,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
                 int position = viewHolder.getAbsoluteAdapterPosition();
 
                 if (sendToRecipeBook != null) {
-                    sendToRecipeBook.showIngredientContextUI(position, modEdible);
+                    sendToRecipeBook.showIngredientContextUI(position);
                 }
             }
         });
@@ -107,7 +103,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
                         if (sendToRecipeBook != null) {
-                            sendToRecipeBook.showIngredientContextUI(position, modEdible);
+                            sendToRecipeBook.showIngredientContextUI(position);
                         }
                     }
                 });

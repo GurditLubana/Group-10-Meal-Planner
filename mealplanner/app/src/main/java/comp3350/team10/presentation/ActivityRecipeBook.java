@@ -234,8 +234,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         return getAddRecipeFragment().getIsChecked();
     }
 
-    public void showIngredientContextUI(int position, Edible replacementUI) {
-        getAddRecipeFragment().showContextUI(position, replacementUI);
+    public void showIngredientContextUI(int position) {
+        getAddRecipeFragment().showContextUI(position);
     }
 
     public void addEntry(int pos) { //launch recipebook use ActivityResultLauncher to allow data passing

@@ -68,7 +68,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private FragToRecipeBook send;              //Interface for communication with parent activity
     private String mode;                        //The type of dialog to show
     private ArrayList<Ingredient> ingredients;
-    Edible addBtn;
+    Edible addButton;
 
     private RecyclerView inputIngredients;          //Input field for item ingredients
     private ArrayList<Edible> ingredientEdibles;
@@ -80,9 +80,9 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         ingredients = new ArrayList<Ingredient>();
         this.ingredientEdibles = new ArrayList<Edible>();
 
-        this.addBtn = new Edible();
-        this.addBtn.setName(Constant.DIARY_ADD_CARD);
-        this.ingredientEdibles.add(this.ingredientEdibles.size(), this.addBtn);
+        this.addButton = new Edible();
+        this.addButton.setName(Constant.DIARY_ADD_CARD);
+        this.ingredientEdibles.add(this.ingredientEdibles.size(), this.addButton);
     }
 
 
@@ -262,8 +262,8 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
             ingredientEdibles.add(currIngredient.getIngredient());
         }
 
-        if(!ingredientEdibles.contains(this.addBtn)) {
-            ingredientEdibles.add(this.addBtn);
+        if(!ingredientEdibles.contains(this.addButton)) {
+            ingredientEdibles.add(this.addButton);
         }
 
         recyclerViewAdapter.changeData(ingredientEdibles);
@@ -460,7 +460,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.ingredients.remove(position);
     }
 
-    public void showContextUI(int position, Edible replacementUI) {
-        this.recyclerViewAdapter.showContextUI(position, replacementUI);
+    public void showContextUI(int position) {
+        this.recyclerViewAdapter.showContextUI(position, this.recyclerViewAdapter.getModEntryCard());
     }
 }

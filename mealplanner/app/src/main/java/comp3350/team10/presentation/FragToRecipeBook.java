@@ -15,7 +15,7 @@ public interface FragToRecipeBook {
 
     public void loadEditorView();
 
-    void showIngredientContextUI(int position, Edible replacementUI);
+    void showIngredientContextUI(int position);
 
     Edible.Unit getEntryUnit();
 
