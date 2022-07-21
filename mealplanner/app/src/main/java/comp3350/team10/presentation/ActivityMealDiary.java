@@ -373,7 +373,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
                 selectedItem.setUnit(Edible.Unit.valueOf(unit));
                 selectedItem.setCalories();
                 this.currLog.removeItem(this.savedItemPosition);
-                this.currLog.addEdibleToLog(this.savedItem);
+                this.currLog.addEdibleToLog(this.savedItemPosition, this.savedItem);
                 this.showContextUI(-1);
                 this.opExec.logChangedUpdateDB();
                 this.updateLiveData();

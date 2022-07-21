@@ -91,7 +91,7 @@ public class MealDiaryOps {
 
         try {
             foundEdible = new EdibleLog(newItem).init(newItem.getQuantity(), newItem.getUnit());
-            this.currLog.addEdibleToLog(foundEdible);
+            this.currLog.addEdibleToLog(-1, foundEdible);
             this.logChangedUpdateDB();
         } catch (Exception e) {
             System.out.println(e);

@@ -121,13 +121,15 @@ public class TestStoryViewRecipes {
     public void user_can_see_food_recipe_details() { //TODO detailed view
         onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(0));
         onView(withId(R.id.recipeRecyclerView))
-                .perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Apple"))), click());
+                .perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Apple"))));
+        onView(withId(R.id.recipeRecyclerView))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.cardView2)));
         onView(withId(R.id.recipeRecyclerView))
                 .perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
         onView(withId(R.id.recipeRecyclerView))
-                .perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Cracker"))), click());
+                .perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Cracker"))));
         onView(withId(R.id.recipeRecyclerView))
-                .perform(RecyclerViewActions.scrollToPosition(2), click());
+                .perform(RecyclerViewActions.actionOnItemAtPosition(2, clickChildViewWithId(R.id.cardView2)));
         onView(withId(R.id.recipeRecyclerView))
                 .perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Grain of Rice"))));
         onView(withId(R.id.recipeRecyclerView))
@@ -140,9 +142,13 @@ public class TestStoryViewRecipes {
         onView(withId(R.id.recipeRecyclerView))
                 .perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 67"))), click());
         onView(withId(R.id.recipeRecyclerView))
-                .perform(RecyclerViewActions.scrollToPosition(2), click());
+                .perform(RecyclerViewActions.actionOnItemAtPosition(2, clickChildViewWithId(R.id.cardView2)));
         onView(withId(R.id.recipeRecyclerView))
-                .perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))), click());
+                .perform(RecyclerViewActions.actionOnItemAtPosition(2, clickChildViewWithId(R.id.btnBackRecipe)));
+        onView(withId(R.id.recipeRecyclerView))
+                .perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.recipeRecyclerView))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.cardView2)));
     }
 
     @Test
@@ -153,13 +159,17 @@ public class TestStoryViewRecipes {
         onView(withId(R.id.recipeRecyclerView))
                 .perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
         onView(withId(R.id.recipeRecyclerView))
-                .perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Tonic"))), click());
+                .perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Tonic"))));
         onView(withId(R.id.recipeRecyclerView))
-                .perform(RecyclerViewActions.scrollTo(hasDescendant(withText("White Rum"))), click());
+                .perform(RecyclerViewActions.actionOnItemAtPosition(2, clickChildViewWithId(R.id.cardView2)));
         onView(withId(R.id.recipeRecyclerView))
-                .perform(RecyclerViewActions.scrollToPosition(3), click());
+                .perform(RecyclerViewActions.scrollTo(hasDescendant(withText("White Rum"))));
         onView(withId(R.id.recipeRecyclerView))
-                .perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Mojito"))), click());
+                .perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.cardView2)));
+        onView(withId(R.id.recipeRecyclerView))
+                .perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Mojito"))));
+        onView(withId(R.id.recipeRecyclerView))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(4, clickChildViewWithId(R.id.cardView2)));
     }
 
     @Test

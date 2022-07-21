@@ -277,7 +277,7 @@ public class TestLogDBInterface {
             DailyLog empty = db.searchFoodLogByDate(0, newDate);
             assertEquals(0, empty.getEdibleList().size());
             try {
-                empty.addEdibleToLog(new EdibleLog(
+                empty.addEdibleToLog(-1, new EdibleLog(
                         new Edible()
                                 .initDetails(5, "Chicken", "desc", 20, Edible.Unit.tsp)
                                 .initNutrition(200, 25, 40, 35)

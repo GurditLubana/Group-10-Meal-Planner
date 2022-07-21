@@ -149,7 +149,7 @@ public class TestDailyLog {
                     System.out.println(e);
                 }
 
-                testLog.addEdibleToLog(newEdible);
+                testLog.addEdibleToLog(-1, newEdible);
                 assertEquals(prevListSize + 1, testLog.getEdibleList().size());
             }
         }
@@ -217,7 +217,7 @@ public class TestDailyLog {
                     System.out.println(e);
                 }
 
-                testLog.addEdibleToLog(newEdible);
+                testLog.addEdibleToLog(-1, newEdible);
                 assertEquals(1400, testLog.getCalorieGoal());
                 assertEquals(600, testLog.getExerciseGoal());
                 assertEquals(200, testLog.getExerciseActual());
@@ -243,7 +243,7 @@ public class TestDailyLog {
                     System.out.println(e);
                 }
 
-                testLog.addEdibleToLog(newEdible);
+                testLog.addEdibleToLog(-1, newEdible);
                 testLog.removeItem(prevListSize);
                 testLog.updateProgress();
                 assertEquals(1400, testLog.getCalorieGoal());
@@ -380,7 +380,7 @@ public class TestDailyLog {
                     System.out.println(e);
                 }
 
-                testLog.addEdibleToLog(newEdible);
+                testLog.addEdibleToLog(-1, newEdible);
                 assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testLog.getDate().get(Calendar.DAY_OF_YEAR));
                 assertEquals(currDate.get(Calendar.YEAR), testLog.getDate().get(Calendar.YEAR));
                 assertEquals(currDate.get(Calendar.MONTH), testLog.getDate().get(Calendar.MONTH));
@@ -416,7 +416,7 @@ public class TestDailyLog {
                     System.out.println(e);
                 }
 
-                testLog.addEdibleToLog(newEdible);
+                testLog.addEdibleToLog(-1, newEdible);
                 testLog.removeItem(0);
                 testLog.updateProgress();
                 assertEquals(currDate.get(Calendar.DAY_OF_YEAR), testLog.getDate().get(Calendar.DAY_OF_YEAR));

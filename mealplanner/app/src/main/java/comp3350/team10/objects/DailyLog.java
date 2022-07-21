@@ -92,14 +92,18 @@ public class DailyLog {
         }
     }
 
-    public void addEdibleToLog(Edible newEdible) throws NullPointerException {
+    public void addEdibleToLog(int pos, Edible newEdible) throws NullPointerException {
         if (newEdible != null) {
-            this.edibleLog.add(newEdible);
+            if(pos>=0 && pos<edibleLog.size()){
+                this.edibleLog.add(pos, newEdible);
+            }
+            else {
+                this.edibleLog.add(newEdible);
+            }
             this.updateProgress();
         } else {
             throw new NullPointerException("DailyLog AddEdibleToLog requires an initialized Edible object");
         }
-
     }
 
     private void calculateEdibleCalories() {
