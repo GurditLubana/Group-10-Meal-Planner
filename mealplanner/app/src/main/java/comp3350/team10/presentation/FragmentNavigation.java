@@ -21,23 +21,6 @@ public class FragmentNavigation extends Fragment {
     ImageButton trendsButton = null;  // button to launch the long term charts screen
     ImageButton socialButton = null;  // button to launch the social screen
 
-    public FragmentNavigation() {
-    } //Required empty public constructor
-
-
-    public static FragmentNavigation newInstance() {
-        FragmentNavigation fragment = new FragmentNavigation();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_navigation, container, false);

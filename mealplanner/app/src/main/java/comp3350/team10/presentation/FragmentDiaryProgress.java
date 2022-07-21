@@ -25,26 +25,13 @@ public class FragmentDiaryProgress extends Fragment {
     private SimpleDateFormat day;                // date format for day
     private FragToMealDiary send;                // Interface to pass data to the parent activity
 
-    public FragmentDiaryProgress() {
-    }  //Required empty public constructor
-
-
-    public static FragmentDiaryProgress newInstance() {
-        FragmentDiaryProgress fragment = new FragmentDiaryProgress();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-
-        return fragment;
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mon = new SimpleDateFormat("MMM");
         this.day = new SimpleDateFormat("dd");
     }
 
-    @Override
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_diary_progress, container, false);
         setClickListeners(view);
@@ -63,7 +50,6 @@ public class FragmentDiaryProgress extends Fragment {
         TextView goalCalorie = (TextView) view.findViewById(R.id.goalCalorie);
 
         dateProgress.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 Context context = view.getContext();
 
@@ -75,7 +61,6 @@ public class FragmentDiaryProgress extends Fragment {
         });
 
         prevDateProgress.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 Context context = view.getContext();
 
@@ -87,7 +72,6 @@ public class FragmentDiaryProgress extends Fragment {
         });
 
         nextDateProgress.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 Context context = view.getContext();
 
@@ -99,7 +83,6 @@ public class FragmentDiaryProgress extends Fragment {
         });
 
         goalCalorie.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 Context context = view.getContext();
 
@@ -111,7 +94,6 @@ public class FragmentDiaryProgress extends Fragment {
         });
 
         exerciseProgress.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 Context context = view.getContext();
 
@@ -125,14 +107,12 @@ public class FragmentDiaryProgress extends Fragment {
 
     private void setObservers(View view) {
         mealDiaryLiveData.getActivityDate().observe(getViewLifecycleOwner(), new Observer<Calendar>() {
-            @Override
             public void onChanged(Calendar calendar) {
                 ((TextView) view.findViewById(R.id.dateProgress)).setText(mon.format(calendar.getTime()) + " " + day.format(calendar.getTime()));
             }
         });
 
         mealDiaryLiveData.getGoalCalories().observe(getViewLifecycleOwner(), new Observer<Double>() {
-            @Override
             public void onChanged(Double goalCalories) {
                 ((TextView) view.findViewById(R.id.goalCalorie)).setText(String.valueOf(goalCalories.intValue()));
             }

@@ -77,7 +77,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         ingredients = new ArrayList<Ingredient>();
         this.ingredientEdibles = new ArrayList<Edible>();
 
@@ -86,9 +85,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.ingredientEdibles.add(this.ingredientEdibles.size(), this.addBtn);
     }
 
-    public RecyclerViewAdapter getRecyclerViewAdapter() {
-        return this.recyclerViewAdapter;
-    }
 
     private void initRecyclerView(View view) {
         View recycler = view.findViewById(R.id.dialogRecipeIngredientsInput);
@@ -465,6 +461,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     }
 
     public void showContextUI(int position, Edible replacementUI) {
-        this.recyclerViewAdapter.showContextUI(position, replacementUI); //this is probably broken
+        this.recyclerViewAdapter.showContextUI(position, replacementUI);
     }
 }
