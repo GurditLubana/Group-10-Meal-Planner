@@ -106,7 +106,7 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
     }
 
     public EdibleLog findEdibleByKey(int dbkey, boolean isCustom) {
-        return this.recipeDB.findEdibleByKey(dbkey, isCustom);
+        return this.logDB.findEdibleByKey(dbkey, isCustom);
     }
 
     public void setExerciseActual(int userID, double newValue, Calendar date) {
@@ -141,5 +141,9 @@ public class DBSelector implements LogDBInterface, UserDBInterface, RecipeDBInte
 
     public void addDrinkToRecipeBook(Drink newDrink) {
         this.recipeDB.addDrinkToRecipeBook(newDrink);
+    }
+
+    public Edible findIngredientByKey(int key, boolean isCustom) {
+        return this.recipeDB.findIngredientByKey(key, isCustom);
     }
 }
