@@ -11,7 +11,8 @@ import comp3350.team10.R;
 
 public class FragmentDailyProgress extends Fragment {
 
-    public FragmentDailyProgress() {} //Required empty public constructor
+    public FragmentDailyProgress() {
+    } //Required empty public constructor
 
     public static FragmentDailyProgress newInstance() {
         FragmentDailyProgress fragment = new FragmentDailyProgress();

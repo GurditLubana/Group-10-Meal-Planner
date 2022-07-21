@@ -5,7 +5,7 @@ import comp3350.team10.persistence.SharedDB;
 import comp3350.team10.persistence.UserDBInterface;
 
 public class UserDataOps {
-    private UserDBInterface db;     
+    private UserDBInterface db;
     private User currUser;
 
     public UserDataOps() {

@@ -94,10 +94,9 @@ public class DailyLog {
 
     public void addEdibleToLog(int pos, Edible newEdible) throws NullPointerException {
         if (newEdible != null) {
-            if(pos>=0 && pos<edibleLog.size()){
+            if (pos >= 0 && pos < edibleLog.size()) {
                 this.edibleLog.add(pos, newEdible);
-            }
-            else {
+            } else {
                 this.edibleLog.add(newEdible);
             }
             this.updateProgress();

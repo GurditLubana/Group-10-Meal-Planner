@@ -97,7 +97,9 @@ public class DataFrame {
         return this.trendPointB;
     }
 
-    public double getAverage() { return this.average; }
+    public double getAverage() {
+        return this.average;
+    }
 
     public double getMaxVal() {
         return maxVal;

@@ -119,7 +119,7 @@ public class TestStoryAddMeals {
 
     @Test
     public void user_can_add_meal_entries_to_day_log() {
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             onView(isRoot()).perform(waitId(R.id.nextDateProgress, 5000));
             onView(ViewMatchers.withId(R.id.nextDateProgress)).perform(click());
         }
@@ -152,8 +152,55 @@ public class TestStoryAddMeals {
 
     }
 
-    private void seed_test_date(){
-        for(int i = 0; i < 6; i++) {
+    @Test
+    public void user_can_add_food_meal_drink_to_day_log() {
+        for (int i = 0; i < 5; i++) {
+            onView(isRoot()).perform(waitId(R.id.nextDateProgress, 5000));
+            onView(ViewMatchers.withId(R.id.nextDateProgress)).perform(click());
+        }
+        onView(withText("Oct 15")).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.goalCalorie)).check(ViewAssertions.matches(ViewMatchers.withText("666")));
+        onView(ViewMatchers.withId(R.id.foodConsumed)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
+        onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
+        onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("666")));
+
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnAddMeal)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(13, clickChildViewWithId(R.id.cardView2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(13, clickChildViewWithId(R.id.addToPlannerBtn2)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burrito"))));
+
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.btnAddMeal)));
+        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(1));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.cardView2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.addToPlannerBtn2)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(2, clickChildViewWithId(R.id.btnAddMeal)));
+        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(2));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(4, clickChildViewWithId(R.id.cardView2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(4, clickChildViewWithId(R.id.addToPlannerBtn2)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Mojito"))));
+
+        onView(withText("Oct 15")).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.goalCalorie)).check(ViewAssertions.matches(ViewMatchers.withText("666")));
+        onView(ViewMatchers.withId(R.id.foodConsumed)).check(ViewAssertions.matches(ViewMatchers.withText("600")));
+        onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
+        onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("66")));
+
+        onView(ViewMatchers.withId(R.id.prevDateProgress)).perform(click());
+        onView(withText("Oct 14")).check(matches(isDisplayed()));
+
+        onView(ViewMatchers.withId(R.id.nextDateProgress)).perform(click());
+        onView(withText("Oct 15")).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.goalCalorie)).check(ViewAssertions.matches(ViewMatchers.withText("666")));
+        onView(ViewMatchers.withId(R.id.foodConsumed)).check(ViewAssertions.matches(ViewMatchers.withText("600")));
+        onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
+        onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("66")));
+
+    }
+
+    private void seed_test_date() {
+        for (int i = 0; i < 6; i++) {
             onView(isRoot()).perform(waitId(R.id.nextDateProgress, 5000));
             onView(ViewMatchers.withId(R.id.nextDateProgress)).perform(click());
         }
@@ -216,8 +263,8 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("396")));
 
-        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnModifyMeal)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.btnModifyMeal)));
 
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("5"));
         Espresso.closeSoftKeyboard();
@@ -226,8 +273,8 @@ public class TestStoryAddMeals {
         onView(withId(R.id.inputUnit)).check(matches(withSpinnerText(containsString("tbsp"))));
         onView(ViewMatchers.withId(R.id.btnOk)).perform(click());
 
-        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnModifyMeal)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(2, clickChildViewWithId(R.id.btnModifyMeal)));
 
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("5"));
         Espresso.closeSoftKeyboard();
@@ -242,9 +289,29 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.nextDateProgress)).perform(click());
         onView(withText("Oct 16")).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.goalCalorie)).check(ViewAssertions.matches(ViewMatchers.withText("666")));
-        onView(ViewMatchers.withId(R.id.foodConsumed)).check(ViewAssertions.matches(ViewMatchers.withText("270")));
+        onView(ViewMatchers.withId(R.id.foodConsumed)).check(ViewAssertions.matches(ViewMatchers.withText("1498")));
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
-        onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("396")));
+        onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("832")));
+    }
+
+    @Test
+    public void user_can_set_new_calorie_goal() {
+        seed_test_date();
+
+
+    }
+
+    @Test
+    public void user_can_set_new_exercise_performed() {
+        seed_test_date();
+
+
+    }
+
+    @Test
+    public void user_can_remove_previously_logged_food() {
+        seed_test_date();
+
 
     }
 }

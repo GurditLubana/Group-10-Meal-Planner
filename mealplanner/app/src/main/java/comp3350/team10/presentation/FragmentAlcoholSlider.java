@@ -10,7 +10,8 @@ import androidx.fragment.app.Fragment;
 import comp3350.team10.R;
 
 public class FragmentAlcoholSlider extends Fragment {
-    public FragmentAlcoholSlider() {} //Required empty public constructor
+    public FragmentAlcoholSlider() {
+    } //Required empty public constructor
 
 
     public static FragmentAlcoholSlider newInstance() {

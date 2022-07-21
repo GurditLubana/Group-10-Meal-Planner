@@ -66,6 +66,7 @@ public class Utils {
             }
         };
     }
+
     @NonNull
     public static ViewAction selectTabAtPosition(final int position) {
         return new ViewAction() {
@@ -92,6 +93,7 @@ public class Utils {
             }
         };
     }
+
     public static ViewAction waitId(final int viewId, final long millis) {
         return new ViewAction() {
             @Override
@@ -132,6 +134,7 @@ public class Utils {
             }
         };
     }
+
     public static ViewAction clickChildViewWithId(final int id) {
         return new ViewAction() {
             @Override

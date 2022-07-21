@@ -10,7 +10,8 @@ import androidx.fragment.app.Fragment;
 import comp3350.team10.R;
 
 public class FragmentDiaryCardContext extends Fragment {
-    public FragmentDiaryCardContext() {} //Required empty public constructor
+    public FragmentDiaryCardContext() {
+    } //Required empty public constructor
 
 
     public static FragmentDiaryCardContext newInstance() {

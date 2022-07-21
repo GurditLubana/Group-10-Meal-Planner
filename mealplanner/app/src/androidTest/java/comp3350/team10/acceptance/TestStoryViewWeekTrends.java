@@ -35,10 +35,11 @@ public class TestStoryViewWeekTrends {
     public ActivityScenarioRule<ActivityMealDiary> activityRuleMeal = new ActivityScenarioRule<>(ActivityMealDiary.class);
 
     @Before
-    public void setup(){
+    public void setup() {
         onView(ViewMatchers.withId(R.id.dailyNav)).perform(click());
 
     }
+
     @Test
     public void test_DailyProgress_screen() {
         onView(ViewMatchers.withId(R.id.progressCircle)).check(matches(isDisplayed()));
@@ -52,6 +53,7 @@ public class TestStoryViewWeekTrends {
         onView(ViewMatchers.withId(R.id.chartsNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.socialNav)).check(matches(isDisplayed()));
     }
+
     @Test
     public void itemWithText_doesNotExist() {
         // Attempt to scroll to an item that contains the special text.

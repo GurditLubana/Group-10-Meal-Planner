@@ -7,7 +7,7 @@
         android:toDegrees="45"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:interpolator="@android:anim/linear_interpolator"/>
+        android:interpolator="@android:anim/linear_interpolator" />
 
 
 </set>

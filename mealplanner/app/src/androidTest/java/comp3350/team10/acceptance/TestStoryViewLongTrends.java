@@ -31,10 +31,11 @@ public class TestStoryViewLongTrends {
     //public ActivityScenarioRule<ActivityTrends> activityRule = new ActivityScenarioRule<>(ActivityTrends.class);
 
     @Before
-    public void setup(){
+    public void setup() {
         onView(ViewMatchers.withId(R.id.chartsNav)).perform(click());
 
     }
+
     @Test
     public void test_Trends_screen() {
         onView(ViewMatchers.withId(R.id.progressCircle)).check(matches(isDisplayed()));

@@ -340,13 +340,13 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         if (this.send != null && this.send instanceof FragToRecipeBook) {
             switch (mode) {
                 case ADD_FOOD:
-                    this.send.addFood(this.name, this.name, this.quantity, this.unit, this.calories, this.calories,this.calories, this.calories, false, false, false, false, false, this.photo);
+                    this.send.addFood(this.name, this.name, this.quantity, this.unit, this.calories, this.calories, this.calories, this.calories, false, false, false, false, false, this.photo);
                     break;
                 case ADD_MEAL:
                     this.send.addMeal(this.name, this.name, this.quantity, this.unit, this.photo, this.instructions, this.mealIngredients);
                     break;
                 case ADD_DRINK:
-                    this.send.addDrink(this.name, this.name, this.quantity, this.unit, this.calories, this.calories,this.calories, this.calories, false, false, false, false, false, this.photo, this.instructions, this.drinkIngredients);
+                    this.send.addDrink(this.name, this.name, this.quantity, this.unit, this.calories, this.calories, this.calories, this.calories, false, false, false, false, false, this.photo, this.instructions, this.drinkIngredients);
                     break;
             }
         }

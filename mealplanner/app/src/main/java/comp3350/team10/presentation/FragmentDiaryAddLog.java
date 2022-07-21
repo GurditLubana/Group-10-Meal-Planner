@@ -10,7 +10,8 @@ import androidx.fragment.app.Fragment;
 import comp3350.team10.R;
 
 public class FragmentDiaryAddLog extends Fragment {
-    public FragmentDiaryAddLog() {} //Required empty public constructor
+    public FragmentDiaryAddLog() {
+    } //Required empty public constructor
 
     public static FragmentDiaryAddLog newInstance() {
         FragmentDiaryAddLog fragment = new FragmentDiaryAddLog();

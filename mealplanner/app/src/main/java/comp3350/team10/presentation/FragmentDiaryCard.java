@@ -11,7 +11,8 @@ import androidx.fragment.app.Fragment;
 import comp3350.team10.R;
 
 public class FragmentDiaryCard extends Fragment {
-    public FragmentDiaryCard() {} //Required empty public constructor
+    public FragmentDiaryCard() {
+    } //Required empty public constructor
 
     public static FragmentDiaryCard newInstance() {
         FragmentDiaryCard fragment = new FragmentDiaryCard();
