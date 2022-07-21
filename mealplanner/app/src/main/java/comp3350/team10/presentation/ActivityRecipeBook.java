@@ -105,6 +105,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                     data = opExec.getDrinkRecipes();
                 }
 
+                recyclerViewAdapter.restoreSaved();
                 updateRVA();
             }
 
