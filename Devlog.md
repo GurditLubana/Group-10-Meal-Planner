@@ -2157,7 +2157,7 @@ Duration: 4 hrs
    - read through devlog entries from iter2 to generate statistics for future comparison
    - discussed integration testing with Gurdit
 
-### 2022-07-19
+### 2022-07-20
      Dev:
       - Zhou
 Duration: 3.5 hrs
