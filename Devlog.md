@@ -2156,3 +2156,10 @@ Duration: 4 hrs
    - generated the retrospective report from the meeting we had on the 15th
    - read through devlog entries from iter2 to generate statistics for future comparison
    - discussed integration testing with Gurdit
+
+### 2022-07-19
+     Dev:
+      - Zhou
+Duration: 3.5 hrs
+   Tasks:
+   - review course video U6 and make all U6 note and submit to the github floder
