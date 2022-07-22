@@ -2163,3 +2163,22 @@ Duration: 4 hrs
 Duration: 3.5 hrs
    Tasks:
    - review course video U6 and make all U6 note and submit to the github floder
+
+### 2022-07-20
+     Dev:
+      - Gurdit 
+Duration: 6 hrs
+   Tasks:
+   - Watched Yuja Videos
+   - Researched on integration tests.
+
+### 2022-07-21
+     Dev:
+      - Gurdit
+Duration: 8 hrs
+   Tasks:
+   - Started writing Integration tests
+   - Added some tests in businessPersistanceSeamTests class.
+   - created DataAccessHsqldbtests.
+
+
