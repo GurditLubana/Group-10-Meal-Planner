@@ -21,24 +21,7 @@ public class FragmentNavigation extends Fragment {
     ImageButton trendsButton = null;  // button to launch the long term charts screen
     ImageButton socialButton = null;  // button to launch the social screen
 
-    public FragmentNavigation() {
-    } //Required empty public constructor
 
-
-    public static FragmentNavigation newInstance() {
-        FragmentNavigation fragment = new FragmentNavigation();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_navigation, container, false);
         mealButton = (ImageButton) view.findViewById(R.id.mealDiaryNav);
@@ -57,7 +40,7 @@ public class FragmentNavigation extends Fragment {
     private void setButtonClickListeners(View view) {
 
         mealButton.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View v) {
                 if (getActivity() != null && !(getActivity() instanceof ActivityMealDiary)) {
                     Intent intent = new Intent(getActivity().getApplicationContext(), ActivityMealDiary.class);
@@ -69,7 +52,7 @@ public class FragmentNavigation extends Fragment {
         });
 
         recipeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View v) {
                 if (getActivity() != null && !(getActivity() instanceof ActivityRecipeBook)) {
                     Intent intent = new Intent(getActivity(), ActivityRecipeBook.class);
@@ -82,7 +65,7 @@ public class FragmentNavigation extends Fragment {
         });
 
         dailyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View v) {
                 if (getActivity() != null && !(getActivity() instanceof ActivityDailyProgress)) {
                     Intent intent = new Intent(getActivity(), ActivityDailyProgress.class);
@@ -94,7 +77,7 @@ public class FragmentNavigation extends Fragment {
             }
         });
         trendsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View v) {
                 if (getActivity() != null && !(getActivity() instanceof ActivityTrends)) {
                     Intent intent = new Intent(getActivity(), ActivityTrends.class);

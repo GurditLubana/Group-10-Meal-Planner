@@ -278,6 +278,22 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
 ---
 <br>
 
+
+### 2022 July 15
+    Attendees:  
+    - Dane  
+    - Josef   
+    - Zhao  
+    - Manraj
+
+    Topic: Retrospective activity
+    ----- 
+    Discussions: We reviewed Iter3, generated our retrospective activity and discussed task distribution
+    -----
+    Rationale: Iter3 retrospective activity
+---
+<br>
+
 <br>
 
 # Dev tasks Iter 2 
@@ -351,35 +367,35 @@ Estimate: 1 hour
   Actual: 6 hour  
      Dev: Dane  
 
-- ##### Task 08  
+- ##### Task 10  
    Title: UserDBInterface 
     Desc: write hsql access methods   
 Estimate: 1 hour  
   Actual: 1 hour  
      Dev: Dane  
 
-- ##### Task 09  
+- ##### Task 11  
    Title: Save DB state 
     Desc: methods to trigger saving the DB to file 
 Estimate: 5 mins  
   Actual: 5 mins  
      Dev: Dane  
 
-- ##### Task 10  
+- ##### Task 12  
    Title: Images from filesystem 
     Desc: Set database to load images from the device based on string paths 
 Estimate: 1 day  
   Actual: 1 day  
      Dev: Josef  
 
-- ##### Task 11  
+- ##### Task 13  
    Title: HSQL design
     Desc: Plan the database design 
 Estimate: 1 day  
   Actual: 1 day  
      Dev: Dane   
 
-- ##### Task 12  
+- ##### Task 14  
    Title: Default edible image
     Desc: Setup a default image if a image from the datbase does not exist 
 Estimate: 1 hour  
@@ -2076,6 +2092,24 @@ Duration: 2 hrs
    - Broke down iter3 task into smaller dev tasks
    - Updated availability in availability sheet
 
+### 2022-07-16
+     Dev:
+      - Josef
+Duration: 4 hrs
+   Tasks:
+   - Set-up iter 3 testing classes
+   - Research acceptance test implementation
+   - added gradle dependencies
+
+### 2022-07-17
+     Dev:
+      - Josef
+Duration: 8 hrs
+   Tasks:
+   - Added acceptance tests Add Meals Story
+   - Added acceptance tests View Recipe Book Story
+   - Peer review Dane's pull request
+
 
 ### 2022-07-18
      Dev:
@@ -2084,6 +2118,14 @@ Duration: 4 hrs
    Tasks:
    - review course video and make to U5 40 and submit to the github
 
+### 2022-07-18
+     Dev:
+      - Dane
+Duration: 7 hrs
+   Tasks:
+   - created a recycler view for ingredients
+   - adjust size of add button in recycler view
+   - created function to grab ingredients from receipe book
 
 ### 2022-07-19
      Dev:
@@ -2091,3 +2133,112 @@ Duration: 4 hrs
 Duration: 4 hrs
    Tasks:
    - review course video and make rest of all U5 note and  submit to the github
+
+### 2022-07-19
+     Dev:
+      - Dane
+Duration: 8 hrs
+   Tasks:
+   - adjusted recycler view to add drinks without ingredients
+   - added the select functionality to adding ingredients in the add recipe dialog
+   - added a check against adding duplicate ingredients
+   - when preparedEdible's with ingredients are added, it loads their ingredients instead
+   - Refactored recipebook activity and RVAAddIngredients
+
+### 2022-07-20
+     Dev:
+      - Dane
+Duration: 12 hrs
+   Tasks:
+   - moved ingredient recycler view into the addRecipeDialog fragment
+   - added functionality for activity to talk with fragment (needs a tag)
+   - fixed bug where actions taken with a selected ingredient didnt work as intended (delete, back and modify)
+   - modified UI to include a isSubstitute checkbox
+   - refactored modDialog
+   - refactored recipeActivity
+   - refactored addRecipeDialog
+   - refactored RVA adapter (duplicate code everyplace that has a recycler view)
+
+### 2022-07-20
+     Dev:
+      - Josef
+Duration: 8 hrs
+   Tasks:
+   - Added acceptance tests Add Meals Story
+   - Added acceptance tests View Recipe Book Story
+   - Added acceptance tests Week Trends Story
+   - Added acceptance tests Long Trends Story
+   - Added acceptance test utility methods for recyclerview testing
+   - Fixed bug where DailyLog entries moved around after changing quantity
+
+### 2022-07-21
+     Dev:
+      - Dane
+Duration: 4 hrs
+   Tasks:
+   - further refactored RVA adapter
+   - removed drink slider code
+   - removed dead fragment code (auto generated)
+   - merged ingredients into test branch
+   - submitted pull request with detailed discription
+   - fixed broken unit tests
+   - fixed a bug where you could get ingredients to jump tabs by selecting swapping tabs then selecting again
+   - entered historic dev entries and group meeting from the 15th
+   - generated the retrospective report from the meeting we had on the 15th
+   - read through devlog entries from iter2 to generate statistics for future comparison
+   - discussed integration testing with Gurdit
+
+### 2022-07-20
+     Dev:
+      - Zhou
+Duration: 3.5 hrs
+   Tasks:
+   - review course video U6 and make all U6 note and submit to the github floder
+
+### 2022-07-20
+     Dev:
+      - Gurdit 
+Duration: 6 hrs
+   Tasks:
+   - Watched Yuja Videos
+   - Researched on integration tests.
+
+### 2022-07-21
+     Dev:
+      - Gurdit
+Duration: 8 hrs
+   Tasks:
+   - Started writing Integration tests
+   - Added some tests in businessPersistanceSeamTests class.
+   - created DataAccessHsqldbtests.
+### 2022-07-22
+     Dev:
+      - Zhou
+Duration: 1.5 hrs
+   Tasks:
+   - review course video U7 and make relative note
+### 2022-07-23
+     Dev:
+      - Zhou
+Duration: 2.5 hrs
+   Tasks:
+   - review course video rest of U7 and make relative note and upload
+
+
+### 2022-07-24
+     Dev:
+      - Josef
+Duration: 15 hrs
+   Tasks:
+   - Took notes from all Unit 5-9 videos for final iter3 refactoring
+   - Seeded static data for 2 years of daily log into hsql
+   - Started hsql integration testing
+   - Added verbosity to hsql exception statements
+
+   
+### 2022-07-25
+     Dev:
+      - Josef
+Duration:  hrs
+   Tasks:
+   - 

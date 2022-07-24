@@ -109,7 +109,7 @@ public class DailyLog {
         double calculatedCalories = 0;
 
         for (int i = 0; i < this.edibleLog.size(); i++) {
-            calculatedCalories += this.edibleLog.get(i).getCalories();
+            calculatedCalories += ((EdibleLog) this.edibleLog.get(i)).getCalories();
         }
 
         this.edibleCalories = calculatedCalories;

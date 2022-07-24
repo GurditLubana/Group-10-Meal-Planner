@@ -18,6 +18,7 @@ import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
 import comp3350.team10.objects.Meal;
+import comp3350.team10.persistence.SharedDB;
 
 public class TestRecipeBookOps {
 
@@ -29,14 +30,15 @@ public class TestRecipeBookOps {
 
         @BeforeEach
         void setup() {
-            Main.startUp();
+            SharedDB.start();
+            SharedDB.startStub();
             ops = new RecipeBookOps();
             testString = "dfhjdhsgsdjjkds\nidfdshf\ndfh";
         }
 
         @AfterEach
         void takedown() {
-            Main.shutDown();
+            SharedDB.close();
         }
 
         @Test
@@ -143,13 +145,14 @@ public class TestRecipeBookOps {
 
         @BeforeEach
         void setup() {
-            Main.startUp();
+            SharedDB.start();
+            SharedDB.startStub();
             ops = new RecipeBookOps();
         }
 
         @AfterEach
         void takedown() {
-            Main.shutDown();
+            SharedDB.close();
         }
 
         @Test
@@ -263,13 +266,14 @@ public class TestRecipeBookOps {
 
         @BeforeEach
         void setup() {
-            Main.startUp();
+            SharedDB.start();
+            SharedDB.startStub();
             ops = new RecipeBookOps();
         }
 
         @AfterEach
         void takedown() {
-            Main.shutDown();
+            SharedDB.close();
         }
 
         @Test
@@ -621,7 +625,8 @@ public class TestRecipeBookOps {
 
         @BeforeEach
         void setup() {
-            Main.startUp();
+            SharedDB.start();
+            SharedDB.startStub();
             ops = new RecipeBookOps();
             longTestString = "";
 
@@ -632,7 +637,7 @@ public class TestRecipeBookOps {
 
         @AfterEach
         void takedown() {
-            Main.shutDown();
+            SharedDB.close();
         }
 
         @Test
@@ -805,7 +810,8 @@ public class TestRecipeBookOps {
 
         @BeforeEach
         void setup() {
-            Main.startUp();
+            SharedDB.start();
+            SharedDB.startStub();
             ops = new RecipeBookOps();
             longTestString = "";
 
@@ -816,7 +822,7 @@ public class TestRecipeBookOps {
 
         @AfterEach
         void takedown() {
-            Main.shutDown();
+            SharedDB.close();
         }
 
         @Test

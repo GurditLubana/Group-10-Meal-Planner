@@ -1,5 +1,7 @@
 package comp3350.team10.persistence;
 
+import org.apache.commons.math3.stat.regression.SimpleRegression;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -37,7 +39,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     private final static int USER_ID = 0;       //Default user id
     private ArrayList<DailyLog> dbFoodLog;      //Logs
     private User currUser;                      //The current user
-    ArrayList<Integer[]> history;               //user history
+    //ArrayList<Integer[]> history;               //user history
 
     public DataAccessStub(String dbName) {
         this.calendar = Calendar.getInstance();
@@ -57,7 +59,9 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         //Load user data
         this.loadUser();
         this.loadFoodlog();
-        this.loadHistory();
+        //this.loadHistory();
+        //this.generateLogs();
+        //this.dumpStubtoDB();
     }
 
     private void loadUser() {
@@ -252,6 +256,34 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     }
 
     //This section implements RecipeDBInterface
+    public Edible findIngredientByKey(int key, boolean isCustom) {
+        Edible result = null;
+        System.out.println("key: " + key);
+
+        try {
+            for (int i = 0; i < this.dbRecipeFood.size() && result == null; i++) {
+                if (this.dbRecipeFood.get(i).getDbkey() == key) {
+                    result = this.dbRecipeFood.get(i).clone();
+                }
+            }
+            for (int i = 0; i < this.dbRecipeMeal.size() && result == null; i++) {
+                if (this.dbRecipeMeal.get(i).getDbkey() == key) {
+                    result = this.dbRecipeMeal.get(i).clone();
+                }
+            }
+            for (int i = 0; i < this.dbRecipeDrink.size() && result == null; i++) {
+                if (this.dbRecipeDrink.get(i).getDbkey() == key) {
+                    result = this.dbRecipeDrink.get(i).clone();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("findEdibleByKey error creating a new EdibleLog " + e);
+            result = null;
+        }
+
+        return result;
+    }
+
     public ArrayList<Edible> getFoodRecipes() {
         return getDeepCopy(this.dbRecipeFood);
     }
@@ -391,11 +423,30 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
     }
 
     public ArrayList<Double> getDataFrame(DataFrame.DataType dataType, int days) throws IllegalArgumentException {
+        Calendar today = (Calendar) this.calendar.clone();
+        today.set(Calendar.MONTH, 9);
+        today.set(Calendar.DAY_OF_MONTH, 10);
         ArrayList<Double> result = new ArrayList<>();
+        Double value = new Double(0);
         if (dataType != null) {
             if (days >= DataFrame.numDays[DataFrame.Span.Week.ordinal()]) {
                 for (int i = 0; i < days; i++) {
-                    result.add(this.history.get(i)[dataType.ordinal() + 1].doubleValue());
+                    today.add(Calendar.DAY_OF_YEAR, -1);
+                    switch (dataType.ordinal()) {
+                        case 0:
+                            value = searchFoodLogByDate(0, today).getEdibleCalories();
+                            break;
+                        case 1:
+                            value = searchFoodLogByDate(0, today).getCalorieNet();
+                            break;
+                        case 2:
+                            value = searchFoodLogByDate(0, today).getExerciseActual();
+                            break;
+                        default:
+                            value = 160.0;
+                    }
+
+                    result.add(value);
                 }
             } else {
                 throw new IllegalArgumentException("DB getDataFrame must be >= " + DataFrame.numDays[DataFrame.Span.Week.ordinal()]);
@@ -591,7 +642,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             ingredients.add(ingredient);
 
             this.dbRecipeMeal.add(new Meal()
-                    .initDetails(41, "Meal 2items", "desc", 10, Edible.Unit.ml)
+                    .initDetails(25, "Meal 2items", "desc", 10, Edible.Unit.ml)
                     .initNutrition(100, 30, 45, 25)
                     .initMetadata(false, "spaghetti.jpg")
             );
@@ -607,7 +658,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             ingredient = new Ingredient().init(this.dbRecipeFood.get(5 - OFFSET_FOOD), 1, Edible.Unit.cups);
             ingredients.add(ingredient);
             this.dbRecipeMeal.add(new Meal()
-                    .initDetails(42, "Meal 3items", "desc", 20, Edible.Unit.oz)
+                    .initDetails(26, "Meal 3items", "desc", 20, Edible.Unit.oz)
                     .initNutrition(200, 25, 40, 35)
                     .initMetadata(false, "lasagna.jpg")
             );
@@ -620,7 +671,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             ingredient = new Ingredient().init(this.dbRecipeFood.get(7 - OFFSET_FOOD), 1, Edible.Unit.cups);
             ingredients.add(ingredient);
             this.dbRecipeMeal.add(new Meal()
-                    .initDetails(43, "Meal 67", "desc", 30, Edible.Unit.cups)
+                    .initDetails(27, "Meal 67", "desc", 30, Edible.Unit.cups)
                     .initNutrition(300, 40, 50, 10)
                     .initMetadata(false, "salmon.jpg")
             );
@@ -633,7 +684,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             ingredient = new Ingredient().init(this.dbRecipeFood.get(9 - OFFSET_FOOD), 1, Edible.Unit.cups);
             ingredients.add(ingredient);
             this.dbRecipeMeal.add(new Meal()
-                    .initDetails(44, "Meal 89", "desc", 30, Edible.Unit.cups)
+                    .initDetails(28, "Meal 89", "desc", 30, Edible.Unit.cups)
                     .initNutrition(300, 40, 50, 10)
                     .initMetadata(false, "chickenfingers.jpg")
             );
@@ -646,7 +697,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             ingredient = new Ingredient().init(this.dbRecipeFood.get(11 - OFFSET_FOOD), 1, Edible.Unit.cups);
             ingredients.add(ingredient);
             this.dbRecipeMeal.add(new Meal()
-                    .initDetails(45, "Meal 1011", "desc", 30, Edible.Unit.cups)
+                    .initDetails(29, "Meal 1011", "desc", 30, Edible.Unit.cups)
                     .initNutrition(300, 40, 50, 10)
                     .initMetadata(false, "ribsmash.jpg")
             );
@@ -659,7 +710,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             ingredient = new Ingredient().init(this.dbRecipeFood.get(13 - OFFSET_FOOD), 1, Edible.Unit.cups);
             ingredients.add(ingredient);
             this.dbRecipeMeal.add(new Meal()
-                    .initDetails(46, "Meal 1213", "desc", 30, Edible.Unit.cups)
+                    .initDetails(30, "Meal 1213", "desc", 30, Edible.Unit.cups)
                     .initNutrition(300, 40, 50, 10)
                     .initMetadata(false, "hotdog.jpg")
             );
@@ -674,151 +725,151 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 
         try {
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(1, "Apple", "Newton's Bane", 100, Edible.Unit.g)
+                    .initDetails(0, "Apple", "Newton's Bane", 100, Edible.Unit.g)
                     .initNutrition(100, 30, 45, 25)
                     .initCategories(true, false, false, false, false)
                     .initMetadata(false, "apple.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(2, "Pear", "This shape bad", 200, Edible.Unit.g)
+                    .initDetails(1, "Pear", "This shape bad", 200, Edible.Unit.g)
                     .initNutrition(200, 25, 40, 35)
                     .initCategories(false, false, false, false, true)
                     .initMetadata(false, "pear.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(3, "Cracker", "crack desc", 300, Edible.Unit.g)
+                    .initDetails(2, "Cracker", "crack desc", 300, Edible.Unit.g)
                     .initNutrition(300, 40, 50, 10)
                     .initCategories(false, false, true, true, false)
                     .initMetadata(false, "cracker.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(4, "Grain of Rice", "rice desc", 400, Edible.Unit.g)
+                    .initDetails(3, "Grain of Rice", "rice desc", 400, Edible.Unit.g)
                     .initNutrition(400, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "rice.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(5, "Walnut", "not a floor nut", 1, Edible.Unit.tbsp)
-                    .initNutrition(100, 30, 20, 50)
-                    .initCategories(false, false, false, false, false)
+                    .initDetails(4, "Walnut", "not a floor nut", 1, Edible.Unit.tbsp)
+                    .initNutrition(100, 30, 45, 25)
+                    .initCategories(true, false, false, false, false)
                     .initMetadata(false, "walnut.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(6, "Molasse", "Molasse desc", 1, Edible.Unit.oz)
+                    .initDetails(5, "Molasse", "Molasse desc", 1, Edible.Unit.oz)
                     .initNutrition(100, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "molasse.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(7, "Cereal", "Cereal desc", 1, Edible.Unit.ml)
+                    .initDetails(6, "Cereal", "Cereal desc", 1, Edible.Unit.ml)
                     .initNutrition(100, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "cereal.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(8, "Nutella", "Nutella desc", 1, Edible.Unit.serving)
+                    .initDetails(7, "Nutella", "Nutella desc", 1, Edible.Unit.serving)
                     .initNutrition(100, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "nutella.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(9, "Steak", "Steak desc", 1, Edible.Unit.cups)
+                    .initDetails(8, "Steak", "Steak desc", 1, Edible.Unit.cups)
                     .initNutrition(100, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "steak.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(10, "Banana", "Banana desc", 1, Edible.Unit.liter)
+                    .initDetails(9, "Banana", "Banana desc", 1, Edible.Unit.liter)
                     .initNutrition(100, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "banana.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(11, "Burger", "Burger desc", 1, Edible.Unit.tsp)
+                    .initDetails(10, "Burger", "Burger desc", 1, Edible.Unit.tsp)
                     .initNutrition(100, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "burger.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(12, "Bologna", "Bologna desc", 1, Edible.Unit.tsp)
+                    .initDetails(11, "Bologna", "Bologna desc", 1, Edible.Unit.tsp)
                     .initNutrition(100, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "bologna.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(13, "Berry", "Berry desc", 100, Edible.Unit.g)
+                    .initDetails(12, "Berry", "Berry desc", 100, Edible.Unit.g)
                     .initNutrition(100, 30, 45, 25)
                     .initCategories(true, false, false, false, false)
                     .initMetadata(false, "berry.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(14, "Burrito", "Burrito desc", 200, Edible.Unit.g)
+                    .initDetails(13, "Burrito", "Burrito desc", 200, Edible.Unit.g)
                     .initNutrition(200, 25, 40, 35)
                     .initCategories(false, false, false, false, true)
                     .initMetadata(false, "burrito.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(15, "Bean", "Bean desc", 300, Edible.Unit.g)
+                    .initDetails(14, "Bean", "Bean desc", 300, Edible.Unit.g)
                     .initNutrition(300, 40, 50, 10)
                     .initCategories(false, false, true, true, false)
                     .initMetadata(false, "bean.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(16, "Broccoli", "Broccoli desc", 400, Edible.Unit.g)
+                    .initDetails(15, "Broccoli", "Broccoli desc", 400, Edible.Unit.g)
                     .initNutrition(400, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "broccoli.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(17, "Biscotti", "Biscotti desc", 1, Edible.Unit.tbsp)
+                    .initDetails(16, "Biscotti", "Biscotti desc", 1, Edible.Unit.tbsp)
                     .initNutrition(100, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "biscotti.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(18, "Bun", "Bun desc", 1, Edible.Unit.oz)
+                    .initDetails(17, "Bun", "Bun desc", 1, Edible.Unit.oz)
                     .initNutrition(100, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "bun.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(19, "Risotto", "Risotto desc", 1, Edible.Unit.ml)
+                    .initDetails(18, "Risotto", "Risotto desc", 1, Edible.Unit.ml)
                     .initNutrition(100, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "risotto.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(20, "Ham", "Ham desc", 1, Edible.Unit.serving)
+                    .initDetails(19, "Ham", "Ham desc", 1, Edible.Unit.serving)
                     .initNutrition(100, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "ham.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(21, "Pizza", "Pizza desc", 1, Edible.Unit.cups)
+                    .initDetails(20, "Pizza", "Pizza desc", 1, Edible.Unit.cups)
                     .initNutrition(100, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "pizza.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(22, "Potatoes", "Potatoes desc", 1, Edible.Unit.liter)
+                    .initDetails(21, "Potatoes", "Potatoes desc", 1, Edible.Unit.liter)
                     .initNutrition(100, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "potatoes.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(23, "Carrot", "Carrot desc", 1, Edible.Unit.tsp)
+                    .initDetails(22, "Carrot", "Carrot desc", 1, Edible.Unit.tsp)
                     .initNutrition(100, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "carrot.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(24, "Mint", "Mint desc", 1, Edible.Unit.tsp)
+                    .initDetails(23, "Mint", "Mint desc", 1, Edible.Unit.tsp)
                     .initNutrition(100, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "mint.jpg")
             );
             this.dbRecipeFood.add(new Edible()
-                    .initDetails(25, "Lime", "Lime desc", 1, Edible.Unit.serving)
+                    .initDetails(24, "Lime", "Lime desc", 1, Edible.Unit.serving)
                     .initNutrition(50, 30, 20, 50)
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "lime.jpg")
@@ -829,11 +880,53 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         }
     }
 
-    private void loadHistory() {
+//    private void loadHistory() {
+//        Calendar today = (Calendar) this.calendar.clone();
+//        today.set(Calendar.MONTH, 9);
+//        today.set(Calendar.DAY_OF_MONTH, 10);
+//        this.history = new ArrayList<>();
+//        Integer[] data = null;
+//        int calorieConsumed = 1200;
+//        int exerciseCalories = 600;
+//        int calorieGoal = 2000;
+//        int weight = 200;
+//        int offsetExercise = 0;
+//        int offsetActual = 0;
+//        int offsetWeight = 0;
+//        int offsetGoal = 0;
+//
+//        for (int i = 0; i < DataFrame.numDays[DataFrame.Span.All.ordinal()]; i++) {
+//
+//            offsetActual = ThreadLocalRandom.current().nextInt(-200 + i, 400 + i);
+//            offsetGoal = ThreadLocalRandom.current().nextInt(-200, 200);
+//            offsetExercise = ThreadLocalRandom.current().nextInt(-200, 200);
+//            offsetWeight = ThreadLocalRandom.current().nextInt(-1 - (i % 29), 5);
+//            today.add(Calendar.DAY_OF_YEAR, -i);
+//            data = new Integer[5];
+//
+//            data[0] = new Integer(calendarToInt(today));
+//            data[1] = new Integer(calorieGoal + offsetGoal);
+//            data[2] = new Integer(calorieConsumed + offsetActual);
+//            data[3] = new Integer(exerciseCalories + offsetExercise);
+//            data[4] = new Integer(weight + offsetWeight);
+//            history.add(data);
+//        }
+//    }
+
+    private void generateLogs() {
+        //generate a moving window of actual exercise
+        //generate a moving window of acceptable calories
+        //generate a daily log and store in daily logs
+        //set static calorie goal
+        //randomly select a target for a day
+        // randomly select a book
+        // randomly select an item
+        // check item calorie value, then modify amount such that it is 1/4 of target
+        //
         Calendar today = (Calendar) this.calendar.clone();
         today.set(Calendar.MONTH, 9);
-        today.set(Calendar.DAY_OF_MONTH, 10);
-        this.history = new ArrayList<>();
+        today.set(Calendar.DAY_OF_MONTH, 2);
+        //this.history = new ArrayList<>();
         Integer[] data = null;
         int calorieConsumed = 1200;
         int exerciseCalories = 600;
@@ -843,23 +936,109 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         int offsetActual = 0;
         int offsetWeight = 0;
         int offsetGoal = 0;
+        int exerciseStart = 200;
+        int exerciseEnd = 100;
+        int calStart = 1600;
+        int calEnd = 2500;
+        int foodKey = 0;
+        double newQuant = 0;
+        EdibleLog currEdibleLog;
+        SimpleRegression regEx = new SimpleRegression(true);
+        SimpleRegression regCal = new SimpleRegression(true);
+        regEx.addData(0, exerciseStart);
+        regEx.addData(DataFrame.numDays[DataFrame.Span.All.ordinal()], exerciseEnd);
+        regCal.addData(0, calStart);
+        regCal.addData(DataFrame.numDays[DataFrame.Span.All.ordinal()], calEnd);
 
+        ArrayList<Edible> logDay = null;
         for (int i = 0; i < DataFrame.numDays[DataFrame.Span.All.ordinal()]; i++) {
 
-            offsetActual = ThreadLocalRandom.current().nextInt(-200 + i, 400 + i);
-            offsetGoal = ThreadLocalRandom.current().nextInt(-200, 200);
-            offsetExercise = ThreadLocalRandom.current().nextInt(-200, 200);
+            offsetActual = ThreadLocalRandom.current().nextInt(-100 + (int) regCal.predict(i), 100 + (int) regCal.predict(i));
+            offsetGoal = ThreadLocalRandom.current().nextInt(-20, 20);
+            offsetExercise = ThreadLocalRandom.current().nextInt(-10 + (int) regEx.predict(i), 10 + (int) regEx.predict(i));
             offsetWeight = ThreadLocalRandom.current().nextInt(-1 - (i % 29), 5);
-            today.add(Calendar.DAY_OF_YEAR, -i);
-            data = new Integer[5];
+            today.add(Calendar.DAY_OF_YEAR, -1);
+//            data = new Integer[5];
+//
+//            data[0] = new Integer(calendarToInt(today));
+//            data[1] = new Integer(calorieGoal + offsetGoal);
+//            data[2] = new Integer(calorieConsumed + offsetActual);
+//            data[3] = new Integer(exerciseCalories + offsetExercise);
+//            data[4] = new Integer(weight + offsetWeight);
+//            history.add(data);
+            try {
 
-            data[0] = new Integer(calendarToInt(today));
-            data[1] = new Integer(calorieGoal + offsetGoal);
-            data[2] = new Integer(calorieConsumed + offsetActual);
-            data[3] = new Integer(exerciseCalories + offsetExercise);
-            data[4] = new Integer(weight + offsetWeight);
-            history.add(data);
+                today = (Calendar) this.calendar.clone();
+                today.add(Calendar.DAY_OF_YEAR, -i);
+                logDay = new ArrayList<Edible>();
+                foodKey = ThreadLocalRandom.current().nextInt(0, this.dbRecipeFood.size());
+                logDay.add(new EdibleLog(this.dbRecipeFood.get(foodKey)).init(10, Edible.Unit.ml));
+                currEdibleLog = ((EdibleLog) logDay.get(0));
+                while (currEdibleLog.getCalories() < (((float) offsetActual) / 3.5)) {
+                    newQuant = currEdibleLog.getQuantity() + 1;
+                    currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
+                }
+                while (currEdibleLog.getCalories() > (((float) offsetActual) / 2.5)) {
+                    newQuant = currEdibleLog.getQuantity() - 1;
+                    if (newQuant == 0) {
+                        currEdibleLog = currEdibleLog.init(1, Edible.Unit.g);
+                        break;
+                    } else {
+                        currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
+                    }
+                }
+
+                foodKey = ThreadLocalRandom.current().nextInt(0, this.dbRecipeFood.size());
+                logDay.add(new EdibleLog(this.dbRecipeFood.get(foodKey)).init(20, Edible.Unit.oz));
+                currEdibleLog = ((EdibleLog) logDay.get(1));
+                while (currEdibleLog.getCalories() < (((float) offsetActual) / 3.5)) {
+                    newQuant = currEdibleLog.getQuantity() + 1;
+                    currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
+                }
+                while (((EdibleLog) logDay.get(1)).getCalories() > (((float) offsetActual) / 2.5)) {
+                    newQuant = currEdibleLog.getQuantity() - 1;
+                    if (newQuant == 0) {
+                        currEdibleLog = currEdibleLog.init(1, Edible.Unit.g);
+                        break;
+                    } else {
+                        currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
+                    }
+                }
+
+
+                foodKey = ThreadLocalRandom.current().nextInt(0, this.dbRecipeFood.size());
+                logDay.add(new EdibleLog(this.dbRecipeFood.get(foodKey)).init(30, Edible.Unit.cups));
+                currEdibleLog = ((EdibleLog) logDay.get(2));
+                while (currEdibleLog.getCalories() < (((float) offsetActual) / 3.5)) {
+                    newQuant = currEdibleLog.getQuantity() + 1;
+                    currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
+                }
+                while (currEdibleLog.getCalories() > (((float) offsetActual) / 2.5)) {
+                    newQuant = currEdibleLog.getQuantity() - 1;
+                    if (newQuant == 0) {
+                        currEdibleLog = currEdibleLog.init(1, Edible.Unit.g);
+                        break;
+                    } else {
+                        currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
+                    }
+                }
+
+
+                this.dbFoodLog.add(new DailyLog().init(today, logDay, 2100, 600, offsetExercise));
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
+        this.sortDBFoodLog();
+    }
+
+    private void dumpStubtoDB() {
+        HSqlDB hsql = new HSqlDB();
+        for (int i = 0; i < this.dbFoodLog.size(); i++) {
+            hsql.replaceLog(0, this.dbFoodLog.get(i).clone());
+        }
+        hsql.save();
+        hsql.close();
     }
 
 }

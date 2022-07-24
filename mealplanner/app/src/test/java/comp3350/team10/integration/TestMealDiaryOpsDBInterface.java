@@ -57,7 +57,8 @@ public class TestMealDiaryOpsDBInterface {
 
         @BeforeEach
         void setup() {
-            Main.startUp();
+            SharedDB.start();
+            SharedDB.startStub();
             ops = new MealDiaryOps();
             currDate = Calendar.getInstance();
             testDate = Calendar.getInstance();
@@ -65,7 +66,7 @@ public class TestMealDiaryOpsDBInterface {
 
         @AfterEach
         void shutdown() {
-            Main.shutDown();
+            SharedDB.close();
         }
 
 
@@ -81,7 +82,8 @@ public class TestMealDiaryOpsDBInterface {
 
         @BeforeEach
         void setup() {
-            Main.startUp();
+            SharedDB.start();
+            SharedDB.startStub();
             ops = new MealDiaryOps();
             currDate = Calendar.getInstance();
             testDate = Calendar.getInstance();
@@ -89,7 +91,7 @@ public class TestMealDiaryOpsDBInterface {
 
         @AfterEach
         void shutdown() {
-            Main.shutDown();
+            SharedDB.close();
         }
 
 
@@ -105,7 +107,8 @@ public class TestMealDiaryOpsDBInterface {
 
         @BeforeEach
         void setup() {
-            Main.startUp();
+            SharedDB.start();
+            SharedDB.startStub();
             ops = new MealDiaryOps();
             currDate = Calendar.getInstance();
             testDate = Calendar.getInstance();
@@ -113,7 +116,7 @@ public class TestMealDiaryOpsDBInterface {
 
         @AfterEach
         void shutdown() {
-            Main.shutDown();
+            SharedDB.close();
         }
 
 
