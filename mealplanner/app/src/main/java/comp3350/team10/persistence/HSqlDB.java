@@ -931,8 +931,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             ResultSet results = getUser.executeQuery();
 
             results.next();
-            //System.out.println("Get USER ID");
-            //System.out.println(results.getString("NAME"));
             currUser = new User().init(results.getInt("USERID"), results.getString("NAME"), results.getInt("HEIGHT"),
                     results.getInt("WEIGHT"), results.getInt("CALORIEGOAL"), results.getInt("EXERCISEGOAL"));
         } catch (Exception e) {
@@ -944,11 +942,15 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
 
     public void setHeight(int userID, int newHeight) {
         try {
+            if (newHeight >= 1 && newHeight <= Constant.ENTRY_MAX_VALUE) {
             PreparedStatement setHeight = currConn.prepareStatement("Update User SET Height = ? WHERE UserID = ?");
 
             setHeight.setInt(1, newHeight);
             setHeight.setInt(2, userID);
-            setHeight.executeQuery();
+            setHeight.executeUpdate();
+            } else {
+                throw new IllegalArgumentException("HSqlDB setHeight requires values " + 1 + "<= value <=" + Constant.ENTRY_MAX_VALUE);
+            }
         } catch (Exception e) {
             System.out.println("HSqlDB setHeight " + e);
 
@@ -957,11 +959,15 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
 
     public void setWeight(int userID, int newWeight) {
         try {
+            if (newWeight >= 1 && newWeight <= Constant.ENTRY_MAX_VALUE) {
             PreparedStatement setWeight = currConn.prepareStatement("Update User SET Weight = ? WHERE UserID = ?");
 
             setWeight.setInt(1, newWeight);
             setWeight.setInt(2, userID);
-            setWeight.executeQuery();
+            setWeight.executeUpdate();
+            } else {
+                throw new IllegalArgumentException("HSqlDB setWeight requires values " + 1 + "<= value <=" + Constant.ENTRY_MAX_VALUE);
+            }
         } catch (Exception e) {
             System.out.println("HSqlDB setWeight " + e);
 

@@ -913,132 +913,124 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
 //        }
 //    }
 
-    private void generateLogs() {
-        //generate a moving window of actual exercise
-        //generate a moving window of acceptable calories
-        //generate a daily log and store in daily logs
-        //set static calorie goal
-        //randomly select a target for a day
-        // randomly select a book
-        // randomly select an item
-        // check item calorie value, then modify amount such that it is 1/4 of target
-        //
-        Calendar today = (Calendar) this.calendar.clone();
-        today.set(Calendar.MONTH, 9);
-        today.set(Calendar.DAY_OF_MONTH, 2);
-        //this.history = new ArrayList<>();
-        Integer[] data = null;
-        int calorieConsumed = 1200;
-        int exerciseCalories = 600;
-        int calorieGoal = 2000;
-        int weight = 200;
-        int offsetExercise = 0;
-        int offsetActual = 0;
-        int offsetWeight = 0;
-        int offsetGoal = 0;
-        int exerciseStart = 200;
-        int exerciseEnd = 100;
-        int calStart = 1600;
-        int calEnd = 2500;
-        int foodKey = 0;
-        double newQuant = 0;
-        EdibleLog currEdibleLog;
-        SimpleRegression regEx = new SimpleRegression(true);
-        SimpleRegression regCal = new SimpleRegression(true);
-        regEx.addData(0, exerciseStart);
-        regEx.addData(DataFrame.numDays[DataFrame.Span.All.ordinal()], exerciseEnd);
-        regCal.addData(0, calStart);
-        regCal.addData(DataFrame.numDays[DataFrame.Span.All.ordinal()], calEnd);
-
-        ArrayList<Edible> logDay = null;
-        for (int i = 0; i < DataFrame.numDays[DataFrame.Span.All.ordinal()]; i++) {
-
-            offsetActual = ThreadLocalRandom.current().nextInt(-100 + (int) regCal.predict(i), 100 + (int) regCal.predict(i));
-            offsetGoal = ThreadLocalRandom.current().nextInt(-20, 20);
-            offsetExercise = ThreadLocalRandom.current().nextInt(-10 + (int) regEx.predict(i), 10 + (int) regEx.predict(i));
-            offsetWeight = ThreadLocalRandom.current().nextInt(-1 - (i % 29), 5);
-            today.add(Calendar.DAY_OF_YEAR, -1);
-//            data = new Integer[5];
+//    private void generateLogs() {
+//        //generate a moving window of actual exercise
+//        //generate a moving window of acceptable calories
+//        //generate a daily log and store in daily logs
+//        //set static calorie goal
+//        //randomly select a target for a day
+//        // randomly select a book
+//        // randomly select an item
+//        // check item calorie value, then modify amount such that it is 1/4 of target
+//        //
+//        Calendar today = (Calendar) this.calendar.clone();
+//        today.set(Calendar.MONTH, 9);
+//        today.set(Calendar.DAY_OF_MONTH, 2);
+//        //this.history = new ArrayList<>();
+//        Integer[] data = null;
+//        int calorieConsumed = 1200;
+//        int exerciseCalories = 600;
+//        int calorieGoal = 2000;
+//        int weight = 200;
+//        int offsetExercise = 0;
+//        int offsetActual = 0;
+//        int offsetWeight = 0;
+//        int offsetGoal = 0;
+//        int exerciseStart = 200;
+//        int exerciseEnd = 100;
+//        int calStart = 1600;
+//        int calEnd = 2500;
+//        int foodKey = 0;
+//        double newQuant = 0;
+//        EdibleLog currEdibleLog;
+//        SimpleRegression regEx = new SimpleRegression(true);
+//        SimpleRegression regCal = new SimpleRegression(true);
+//        regEx.addData(0, exerciseStart);
+//        regEx.addData(DataFrame.numDays[DataFrame.Span.All.ordinal()], exerciseEnd);
+//        regCal.addData(0, calStart);
+//        regCal.addData(DataFrame.numDays[DataFrame.Span.All.ordinal()], calEnd);
 //
-//            data[0] = new Integer(calendarToInt(today));
-//            data[1] = new Integer(calorieGoal + offsetGoal);
-//            data[2] = new Integer(calorieConsumed + offsetActual);
-//            data[3] = new Integer(exerciseCalories + offsetExercise);
-//            data[4] = new Integer(weight + offsetWeight);
-//            history.add(data);
-            try {
-
-                today = (Calendar) this.calendar.clone();
-                today.add(Calendar.DAY_OF_YEAR, -i);
-                logDay = new ArrayList<Edible>();
-                foodKey = ThreadLocalRandom.current().nextInt(0, this.dbRecipeFood.size());
-                logDay.add(new EdibleLog(this.dbRecipeFood.get(foodKey)).init(10, Edible.Unit.ml));
-                currEdibleLog = ((EdibleLog) logDay.get(0));
-                while (currEdibleLog.getCalories() < (((float) offsetActual) / 3.5)) {
-                    newQuant = currEdibleLog.getQuantity() + 1;
-                    currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
-                }
-                while (currEdibleLog.getCalories() > (((float) offsetActual) / 2.5)) {
-                    newQuant = currEdibleLog.getQuantity() - 1;
-                    if (newQuant == 0) {
-                        currEdibleLog = currEdibleLog.init(1, Edible.Unit.g);
-                        break;
-                    } else {
-                        currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
-                    }
-                }
-
-                foodKey = ThreadLocalRandom.current().nextInt(0, this.dbRecipeFood.size());
-                logDay.add(new EdibleLog(this.dbRecipeFood.get(foodKey)).init(20, Edible.Unit.oz));
-                currEdibleLog = ((EdibleLog) logDay.get(1));
-                while (currEdibleLog.getCalories() < (((float) offsetActual) / 3.5)) {
-                    newQuant = currEdibleLog.getQuantity() + 1;
-                    currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
-                }
-                while (((EdibleLog) logDay.get(1)).getCalories() > (((float) offsetActual) / 2.5)) {
-                    newQuant = currEdibleLog.getQuantity() - 1;
-                    if (newQuant == 0) {
-                        currEdibleLog = currEdibleLog.init(1, Edible.Unit.g);
-                        break;
-                    } else {
-                        currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
-                    }
-                }
-
-
-                foodKey = ThreadLocalRandom.current().nextInt(0, this.dbRecipeFood.size());
-                logDay.add(new EdibleLog(this.dbRecipeFood.get(foodKey)).init(30, Edible.Unit.cups));
-                currEdibleLog = ((EdibleLog) logDay.get(2));
-                while (currEdibleLog.getCalories() < (((float) offsetActual) / 3.5)) {
-                    newQuant = currEdibleLog.getQuantity() + 1;
-                    currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
-                }
-                while (currEdibleLog.getCalories() > (((float) offsetActual) / 2.5)) {
-                    newQuant = currEdibleLog.getQuantity() - 1;
-                    if (newQuant == 0) {
-                        currEdibleLog = currEdibleLog.init(1, Edible.Unit.g);
-                        break;
-                    } else {
-                        currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
-                    }
-                }
-
-
-                this.dbFoodLog.add(new DailyLog().init(today, logDay, 2100, 600, offsetExercise));
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-        this.sortDBFoodLog();
-    }
-
-    private void dumpStubtoDB() {
-        HSqlDB hsql = new HSqlDB();
-        for (int i = 0; i < this.dbFoodLog.size(); i++) {
-            hsql.replaceLog(0, this.dbFoodLog.get(i).clone());
-        }
-        hsql.save();
-        hsql.close();
-    }
+//        ArrayList<Edible> logDay = null;
+//        for (int i = 0; i < DataFrame.numDays[DataFrame.Span.All.ordinal()]; i++) {
+//
+//            offsetActual = ThreadLocalRandom.current().nextInt(-100 + (int) regCal.predict(i), 100 + (int) regCal.predict(i));
+//            offsetGoal = ThreadLocalRandom.current().nextInt(-20, 20);
+//            offsetExercise = ThreadLocalRandom.current().nextInt(-10 + (int) regEx.predict(i), 10 + (int) regEx.predict(i));
+//            offsetWeight = ThreadLocalRandom.current().nextInt(-1 - (i % 29), 5);
+//            today.add(Calendar.DAY_OF_YEAR, -1);
+//            try {
+//
+//                today = (Calendar) this.calendar.clone();
+//                today.add(Calendar.DAY_OF_YEAR, -i);
+//                logDay = new ArrayList<Edible>();
+//                foodKey = ThreadLocalRandom.current().nextInt(0, this.dbRecipeFood.size());
+//                logDay.add(new EdibleLog(this.dbRecipeFood.get(foodKey)).init(10, Edible.Unit.ml));
+//                currEdibleLog = ((EdibleLog) logDay.get(0));
+//                while (currEdibleLog.getCalories() < (((float) offsetActual) / 3.5)) {
+//                    newQuant = currEdibleLog.getQuantity() + 1;
+//                    currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
+//                }
+//                while (currEdibleLog.getCalories() > (((float) offsetActual) / 2.5)) {
+//                    newQuant = currEdibleLog.getQuantity() - 1;
+//                    if (newQuant == 0) {
+//                        currEdibleLog = currEdibleLog.init(1, Edible.Unit.g);
+//                        break;
+//                    } else {
+//                        currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
+//                    }
+//                }
+//
+//                foodKey = ThreadLocalRandom.current().nextInt(0, this.dbRecipeFood.size());
+//                logDay.add(new EdibleLog(this.dbRecipeFood.get(foodKey)).init(20, Edible.Unit.oz));
+//                currEdibleLog = ((EdibleLog) logDay.get(1));
+//                while (currEdibleLog.getCalories() < (((float) offsetActual) / 3.5)) {
+//                    newQuant = currEdibleLog.getQuantity() + 1;
+//                    currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
+//                }
+//                while (((EdibleLog) logDay.get(1)).getCalories() > (((float) offsetActual) / 2.5)) {
+//                    newQuant = currEdibleLog.getQuantity() - 1;
+//                    if (newQuant == 0) {
+//                        currEdibleLog = currEdibleLog.init(1, Edible.Unit.g);
+//                        break;
+//                    } else {
+//                        currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
+//                    }
+//                }
+//
+//
+//                foodKey = ThreadLocalRandom.current().nextInt(0, this.dbRecipeFood.size());
+//                logDay.add(new EdibleLog(this.dbRecipeFood.get(foodKey)).init(30, Edible.Unit.cups));
+//                currEdibleLog = ((EdibleLog) logDay.get(2));
+//                while (currEdibleLog.getCalories() < (((float) offsetActual) / 3.5)) {
+//                    newQuant = currEdibleLog.getQuantity() + 1;
+//                    currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
+//                }
+//                while (currEdibleLog.getCalories() > (((float) offsetActual) / 2.5)) {
+//                    newQuant = currEdibleLog.getQuantity() - 1;
+//                    if (newQuant == 0) {
+//                        currEdibleLog = currEdibleLog.init(1, Edible.Unit.g);
+//                        break;
+//                    } else {
+//                        currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
+//                    }
+//                }
+//
+//
+//                this.dbFoodLog.add(new DailyLog().init(today, logDay, 2100, 600, offsetExercise));
+//            } catch (Exception e) {
+//                System.out.println(e);
+//            }
+//        }
+//        this.sortDBFoodLog();
+//    }
+//
+//    private void dumpStubtoDB() {
+//        HSqlDB hsql = new HSqlDB();
+//        for (int i = 0; i < this.dbFoodLog.size(); i++) {
+//            hsql.replaceLog(0, this.dbFoodLog.get(i).clone());
+//        }
+//        hsql.save();
+//        hsql.close();
+//    }
 
 }
