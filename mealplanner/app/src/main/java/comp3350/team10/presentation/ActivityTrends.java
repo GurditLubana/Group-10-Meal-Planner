@@ -91,7 +91,7 @@ public class ActivityTrends extends AppCompatActivity {
                 } else {
                     data = opExec.getDataFrames(DataFrame.Span.All);
                 }
-
+                trendsRecyclerView.getLayoutManager().removeAllViews();
                 recyclerViewAdapter.changeDataSet(data);
                 recyclerViewAdapter.notifyDataSetChanged();
             }

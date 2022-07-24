@@ -940,6 +940,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         int calEnd = 2500;
         int foodKey = 0;
         double newQuant = 0;
+        EdibleLog currEdibleLog;
         SimpleRegression regEx = new SimpleRegression(true);
         SimpleRegression regCal = new SimpleRegression(true);
         regEx.addData(0, exerciseStart);
@@ -970,36 +971,57 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
                 logDay = new ArrayList<Edible>();
                 foodKey = ThreadLocalRandom.current().nextInt(0, this.dbRecipeFood.size());
                 logDay.add(new EdibleLog(this.dbRecipeFood.get(foodKey)).init(10, Edible.Unit.ml));
-                while(((EdibleLog) logDay.get(0)).getCalories() < (((float) offsetActual)/3.5)){
-                    newQuant = ((EdibleLog) logDay.get(0)).getQuantity() + 1;
-                    ((EdibleLog) logDay.get(0)).setQuantity(newQuant);
+                currEdibleLog = ((EdibleLog) logDay.get(0));
+                while(currEdibleLog.getCalories() < (((float) offsetActual)/3.5)){
+                    newQuant = currEdibleLog.getQuantity() + 1;
+                    currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
                 }
-                while(((EdibleLog) logDay.get(0)).getCalories() > (((float) offsetActual)/2.5)){
-                    newQuant = ((EdibleLog) logDay.get(0)).getQuantity() - 1;
-                    ((EdibleLog) logDay.get(0)).setQuantity(newQuant);
+                while(currEdibleLog.getCalories() > (((float) offsetActual)/2.5)){
+                    newQuant = currEdibleLog.getQuantity() - 1;
+                    if(newQuant == 0){
+                        currEdibleLog = currEdibleLog.init(1, Edible.Unit.oz);
+                        break;
+                    }
+                    else {
+                        currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
+                    }
                 }
 
                 foodKey = ThreadLocalRandom.current().nextInt(0, this.dbRecipeFood.size());
                 logDay.add(new EdibleLog(this.dbRecipeFood.get(foodKey)).init(20, Edible.Unit.oz));
-                while(((EdibleLog) logDay.get(1)).getCalories() < (((float) offsetActual)/3.5)){
-                    newQuant = ((EdibleLog) logDay.get(1)).getQuantity() + 1;
-                    ((EdibleLog) logDay.get(1)).setQuantity(newQuant);
+                currEdibleLog = ((EdibleLog) logDay.get(1));
+                while(currEdibleLog.getCalories() < (((float) offsetActual)/3.5)){
+                    newQuant = currEdibleLog.getQuantity() + 1;
+                    currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
                 }
                 while(((EdibleLog) logDay.get(1)).getCalories() > (((float) offsetActual)/2.5)){
-                    newQuant = ((EdibleLog) logDay.get(1)).getQuantity() - 1;
-                    ((EdibleLog) logDay.get(1)).setQuantity(newQuant);
+                    newQuant = currEdibleLog.getQuantity() - 1;
+                    if(newQuant == 0){
+                        currEdibleLog = currEdibleLog.init(1, Edible.Unit.oz);
+                        break;
+                    }
+                    else {
+                        currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
+                    }
                 }
 
 
                 foodKey = ThreadLocalRandom.current().nextInt(0, this.dbRecipeFood.size());
                 logDay.add(new EdibleLog(this.dbRecipeFood.get(foodKey)).init(30, Edible.Unit.cups));
-                while(((EdibleLog) logDay.get(2)).getCalories() < (((float) offsetActual)/3.5)){
-                    newQuant = ((EdibleLog) logDay.get(2)).getQuantity() + 1;
-                    ((EdibleLog) logDay.get(0)).setQuantity(newQuant);
+                currEdibleLog = ((EdibleLog) logDay.get(2));
+                while(currEdibleLog.getCalories() < (((float) offsetActual)/3.5)){
+                    newQuant = currEdibleLog.getQuantity() + 1;
+                    currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
                 }
-                while(((EdibleLog) logDay.get(2)).getCalories() > (((float) offsetActual)/2.5)){
-                    newQuant = ((EdibleLog) logDay.get(2)).getQuantity() - 1;
-                    ((EdibleLog) logDay.get(0)).setQuantity(newQuant);
+                while(currEdibleLog.getCalories() > (((float) offsetActual)/2.5)){
+                    newQuant = currEdibleLog.getQuantity() - 1;
+                    if(newQuant == 0){
+                        currEdibleLog = currEdibleLog.init(1, Edible.Unit.oz);
+                        break;
+                    }
+                    else {
+                        currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
+                    }
                 }
 
 
