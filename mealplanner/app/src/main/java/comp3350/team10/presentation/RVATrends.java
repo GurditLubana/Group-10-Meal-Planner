@@ -28,7 +28,7 @@ public class RVATrends extends RecyclerViewAdapter {
         this.dataSet = dataSet;
     }
 
-    
+
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = null;
         ViewHolder viewHolder;
@@ -43,7 +43,7 @@ public class RVATrends extends RecyclerViewAdapter {
         return viewHolder;
     }
 
-    
+
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         if (context instanceof ActivityTrends) {
             setTrendData(viewHolder, position);
@@ -52,12 +52,12 @@ public class RVATrends extends RecyclerViewAdapter {
         }
     }
 
-    
+
     public int getItemCount() {
         return this.dataSet.size();
     }
 
-    
+
     public int getItemViewType(int pos) {
         return 0;
     }
@@ -100,8 +100,8 @@ public class RVATrends extends RecyclerViewAdapter {
         graph.getViewport().setMaxX(1);
         graph.getViewport().setMinX(chartMin);
         graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setMaxY(dataFrame.getMaxVal()+(dataFrame.getMaxVal()*0.05));
-        graph.getViewport().setMinY(dataFrame.getMinVal()-(dataFrame.getMaxVal()*0.05));
+        graph.getViewport().setMaxY(dataFrame.getMaxVal() + (dataFrame.getMaxVal() * 0.05));
+        graph.getViewport().setMinY(dataFrame.getMinVal() - (dataFrame.getMaxVal() * 0.05));
     }
 
     private void setDailyData(ViewHolder viewHolder, int position) {

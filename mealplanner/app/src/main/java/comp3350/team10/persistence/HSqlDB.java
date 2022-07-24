@@ -70,7 +70,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
                 currConn.close();
             }
         } catch (Exception e) {
-            System.out.println("HSqlDB Close " +  e);
+            System.out.println("HSqlDB Close " + e);
         }
     }
 
@@ -110,10 +110,9 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         EdibleLog edible = this.findEdibleByKey(key, isCustom);
         Edible currEdible = null;
 
-        if(this.isMeal(key, isCustom)) {
+        if (this.isMeal(key, isCustom)) {
             currEdible = new Meal();
-        }
-        else if(this.isDrink(key, isCustom)) {
+        } else if (this.isDrink(key, isCustom)) {
             currEdible = new Drink();
         }
 
@@ -122,11 +121,10 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         currEdible.initCategories(edible.getIsAlcoholic(), edible.getIsSpicy(), edible.getIsVegan(), edible.getIsVegetarian(), edible.getIsGlutenFree());
         currEdible.initMetadata(edible.getIsCustom(), edible.getPhoto());
 
-        if(currEdible instanceof Meal) {
+        if (currEdible instanceof Meal) {
             ((Meal) currEdible).setInstructions(this.getInstructions(currEdible));
             ((Meal) currEdible).setIngredients(this.getMealIngredients(currEdible));
-        }
-        else if(currEdible instanceof Drink) {
+        } else if (currEdible instanceof Drink) {
             ((Drink) currEdible).setInstructions(this.getInstructions(currEdible));
             ((Drink) currEdible).setIngredients(this.getDrinkIngredients(currEdible));
         }
@@ -734,8 +732,8 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
                 checkIfMeal.setInt(1, dbkey);
                 results = checkIfMeal.executeQuery();
             }
-            
-            if(results.next()) {
+
+            if (results.next()) {
                 found = true;
             }
 
@@ -761,8 +759,8 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
                 checkIfDrink.setInt(1, dbkey);
                 results = checkIfDrink.executeQuery();
             }
-            
-            if(results.next()) {
+
+            if (results.next()) {
                 found = true;
             }
 
@@ -1013,7 +1011,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
     }
 
-    public ArrayList<Double> getDataFrame(DataFrame.DataType dataType, int days) throws IllegalArgumentException{
+    public ArrayList<Double> getDataFrame(DataFrame.DataType dataType, int days) throws IllegalArgumentException {
         Calendar today = Calendar.getInstance();
         today.set(Calendar.MONTH, 9);
         today.set(Calendar.DAY_OF_MONTH, 10);
@@ -1023,7 +1021,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             if (days >= DataFrame.numDays[DataFrame.Span.Week.ordinal()]) {
                 for (int i = 0; i < days; i++) {
                     today.add(Calendar.DAY_OF_YEAR, -1);
-                    switch (dataType.ordinal()){
+                    switch (dataType.ordinal()) {
                         case 0:
                             value = searchFoodLogByDate(0, today).getEdibleCalories();
                             break;
@@ -1043,10 +1041,10 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
                     result.add(value);
                 }
             } else {
-                throw new IllegalArgumentException("DB getDataFrame must be >= " + DataFrame.numDays[DataFrame.Span.Week.ordinal()]);
+                throw new IllegalArgumentException("HSqlDB getDataFrame must be >= " + DataFrame.numDays[DataFrame.Span.Week.ordinal()]);
             }
         } else {
-            throw new IllegalArgumentException("DB getDataFrame dataType cannot be null");
+            throw new IllegalArgumentException("HSqlDB getDataFrame dataType cannot be null");
         }
 
         return result;

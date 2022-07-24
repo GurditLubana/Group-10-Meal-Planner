@@ -140,11 +140,11 @@ public class TestDailyLog {
                 Edible newEdible = null;
 
                 try {
-                    newEdible = new Edible()
+                    newEdible = (new EdibleLog(new Edible()
                             .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
                             .initNutrition(400, 30, 20, 50)
                             .initCategories(false, false, false, false, false)
-                            .initMetadata(false, "photo.jpg");
+                            .initMetadata(false, "photo.jpg")).init(40.0, Edible.Unit.tbsp));
                 } catch (Exception e) {
                     System.out.println(e);
                 }
@@ -208,11 +208,11 @@ public class TestDailyLog {
                 Edible newEdible = null;
 
                 try {
-                    newEdible = new Edible()
+                    newEdible = (new EdibleLog(new Edible()
                             .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
                             .initNutrition(350, 30, 20, 50)
                             .initCategories(false, false, false, false, false)
-                            .initMetadata(false, "photo.jpg");
+                            .initMetadata(false, "photo.jpg")).init(40.0, Edible.Unit.tbsp));
                 } catch (Exception e) {
                     System.out.println(e);
                 }
@@ -234,11 +234,11 @@ public class TestDailyLog {
                 Edible newEdible = null;
 
                 try {
-                    newEdible = new Edible()
+                    newEdible = (new EdibleLog(new Edible()
                             .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
                             .initNutrition(350, 30, 20, 50)
                             .initCategories(false, false, false, false, false)
-                            .initMetadata(false, "photo.jpg");
+                            .initMetadata(false, "photo.jpg")).init(40.0, Edible.Unit.tbsp));
                 } catch (Exception e) {
                     System.out.println(e);
                 }
@@ -371,11 +371,11 @@ public class TestDailyLog {
                 }
 
                 try {
-                    newEdible = new Edible()
+                    newEdible = (new EdibleLog(new Edible()
                             .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
                             .initNutrition(200, 30, 20, 50)
                             .initCategories(false, false, false, false, false)
-                            .initMetadata(false, "photo.jpg");
+                            .initMetadata(false, "photo.jpg")).init(40.0, Edible.Unit.tbsp));
                 } catch (Exception e) {
                     System.out.println(e);
                 }
@@ -407,11 +407,11 @@ public class TestDailyLog {
                 }
 
                 try {
-                    newEdible = new Edible()
+                    newEdible = (new EdibleLog(new Edible()
                             .initDetails(7, "Rabbit", "desc", 40.0, Edible.Unit.tbsp)
                             .initNutrition(200, 30, 20, 50)
                             .initCategories(false, false, false, false, false)
-                            .initMetadata(false, "photo.jpg");
+                            .initMetadata(false, "photo.jpg")).init(40.0, Edible.Unit.tbsp));
                 } catch (Exception e) {
                     System.out.println(e);
                 }

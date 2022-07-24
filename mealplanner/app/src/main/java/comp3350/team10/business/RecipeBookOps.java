@@ -29,7 +29,7 @@ public class RecipeBookOps {
         return db.getMealRecipes();
     }
 
-    public Edible findIngredient(int dbkey, boolean isCustom){
+    public Edible findIngredient(int dbkey, boolean isCustom) {
         return this.db.findIngredientByKey(dbkey, isCustom);
     }
 

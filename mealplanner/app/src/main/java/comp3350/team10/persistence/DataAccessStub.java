@@ -432,7 +432,7 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             if (days >= DataFrame.numDays[DataFrame.Span.Week.ordinal()]) {
                 for (int i = 0; i < days; i++) {
                     today.add(Calendar.DAY_OF_YEAR, -1);
-                    switch (dataType.ordinal()){
+                    switch (dataType.ordinal()) {
                         case 0:
                             value = searchFoodLogByDate(0, today).getEdibleCalories();
                             break;
@@ -974,17 +974,16 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
                 foodKey = ThreadLocalRandom.current().nextInt(0, this.dbRecipeFood.size());
                 logDay.add(new EdibleLog(this.dbRecipeFood.get(foodKey)).init(10, Edible.Unit.ml));
                 currEdibleLog = ((EdibleLog) logDay.get(0));
-                while(currEdibleLog.getCalories() < (((float) offsetActual)/3.5)){
+                while (currEdibleLog.getCalories() < (((float) offsetActual) / 3.5)) {
                     newQuant = currEdibleLog.getQuantity() + 1;
                     currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
                 }
-                while(currEdibleLog.getCalories() > (((float) offsetActual)/2.5)){
+                while (currEdibleLog.getCalories() > (((float) offsetActual) / 2.5)) {
                     newQuant = currEdibleLog.getQuantity() - 1;
-                    if(newQuant == 0){
+                    if (newQuant == 0) {
                         currEdibleLog = currEdibleLog.init(1, Edible.Unit.g);
                         break;
-                    }
-                    else {
+                    } else {
                         currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
                     }
                 }
@@ -992,17 +991,16 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
                 foodKey = ThreadLocalRandom.current().nextInt(0, this.dbRecipeFood.size());
                 logDay.add(new EdibleLog(this.dbRecipeFood.get(foodKey)).init(20, Edible.Unit.oz));
                 currEdibleLog = ((EdibleLog) logDay.get(1));
-                while(currEdibleLog.getCalories() < (((float) offsetActual)/3.5)){
+                while (currEdibleLog.getCalories() < (((float) offsetActual) / 3.5)) {
                     newQuant = currEdibleLog.getQuantity() + 1;
                     currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
                 }
-                while(((EdibleLog) logDay.get(1)).getCalories() > (((float) offsetActual)/2.5)){
+                while (((EdibleLog) logDay.get(1)).getCalories() > (((float) offsetActual) / 2.5)) {
                     newQuant = currEdibleLog.getQuantity() - 1;
-                    if(newQuant == 0){
+                    if (newQuant == 0) {
                         currEdibleLog = currEdibleLog.init(1, Edible.Unit.g);
                         break;
-                    }
-                    else {
+                    } else {
                         currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
                     }
                 }
@@ -1011,17 +1009,16 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
                 foodKey = ThreadLocalRandom.current().nextInt(0, this.dbRecipeFood.size());
                 logDay.add(new EdibleLog(this.dbRecipeFood.get(foodKey)).init(30, Edible.Unit.cups));
                 currEdibleLog = ((EdibleLog) logDay.get(2));
-                while(currEdibleLog.getCalories() < (((float) offsetActual)/3.5)){
+                while (currEdibleLog.getCalories() < (((float) offsetActual) / 3.5)) {
                     newQuant = currEdibleLog.getQuantity() + 1;
                     currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
                 }
-                while(currEdibleLog.getCalories() > (((float) offsetActual)/2.5)){
+                while (currEdibleLog.getCalories() > (((float) offsetActual) / 2.5)) {
                     newQuant = currEdibleLog.getQuantity() - 1;
-                    if(newQuant == 0){
+                    if (newQuant == 0) {
                         currEdibleLog = currEdibleLog.init(1, Edible.Unit.g);
                         break;
-                    }
-                    else {
+                    } else {
                         currEdibleLog = currEdibleLog.init(newQuant, currEdibleLog.getUnit());
                     }
                 }
@@ -1035,10 +1032,9 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
         this.sortDBFoodLog();
     }
 
-    private void dumpStubtoDB(){
+    private void dumpStubtoDB() {
         HSqlDB hsql = new HSqlDB();
-        for( int i = 0; i< this.dbFoodLog.size(); i++)
-        {
+        for (int i = 0; i < this.dbFoodLog.size(); i++) {
             hsql.replaceLog(0, this.dbFoodLog.get(i).clone());
         }
         hsql.save();

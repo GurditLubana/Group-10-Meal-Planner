@@ -45,6 +45,10 @@ public class TestLogDBInterface {
         SharedDB.close();
     }
 
+    public static void TestLogDBInterface() {
+
+    }
+
     @Nested
     @DisplayName("Simple Tests typical cases should pass")
     class caseSimple {
@@ -108,7 +112,7 @@ public class TestLogDBInterface {
         @Test
         @DisplayName("there should be recipes at db start")
         void dbConstructionRecipes() {
-            this.testEdible = db.findEdibleByKey(5, false);
+            this.testEdible = db.findEdibleByKey(4, false);
             assertTrue(this.testEdible instanceof EdibleLog);
             assertEquals("Walnut", this.testEdible.getName());
             assertEquals("not a floor nut", this.testEdible.getDescription());
@@ -294,7 +298,7 @@ public class TestLogDBInterface {
         @Test
         @DisplayName("We should be able to get the first item in the database")
         void getFirstItem() {
-            EdibleLog item = db.findEdibleByKey(1, false);
+            EdibleLog item = db.findEdibleByKey(0, false);
             assertEquals("Apple", item.getName());
         }
 

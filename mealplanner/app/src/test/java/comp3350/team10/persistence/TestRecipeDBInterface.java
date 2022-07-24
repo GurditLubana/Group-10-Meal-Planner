@@ -79,7 +79,7 @@ public class TestRecipeDBInterface {
                     .initMetadata(false, "photo.jpg");
 
             this.testMeal = (Meal) new Meal()
-                    .initDetails(41, "Meal 1011", "desc", 30, Edible.Unit.cups)
+                    .initDetails(26, "Meal 1011", "desc", 30, Edible.Unit.cups)
                     .initNutrition(300, 40, 50, 10)
                     .initMetadata(false, "ribsmash.jpg");
             this.testMeal.setIngredients(ingredients);
@@ -234,7 +234,7 @@ public class TestRecipeDBInterface {
             assertEquals(7, drinkRecipeCount);
             assertEquals(100, db.getNextKey());
 
-            Edible item = db.findIngredientByKey(2, false);
+            Edible item = db.findIngredientByKey(1, false);
             assertEquals("Pear", item.getName());
 
             db.addFoodToRecipeBook(this.testEdible);
@@ -338,7 +338,7 @@ public class TestRecipeDBInterface {
         @Test
         @DisplayName("We should be able to get the first item in the database")
         void getFirstItem() {
-            Edible item = db.findIngredientByKey(1, false);
+            Edible item = db.findIngredientByKey(0, false);
             assertEquals("Apple", item.getName());
         }
     }

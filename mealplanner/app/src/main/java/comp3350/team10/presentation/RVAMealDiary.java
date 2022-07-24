@@ -23,7 +23,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         super(dataSet);
     }
 
-    
+
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         ViewHolder viewHolder;
         View view;
@@ -45,7 +45,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
         return viewHolder;
     }
 
-    
+
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         if (super.getViewType() == FragmentType.diaryModify.ordinal()) {
             setDiaryContextListeners(viewHolder);
@@ -82,7 +82,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
 
     private void setDiaryEntryListeners(ViewHolder viewHolder) {
         viewHolder.getView().setOnClickListener(new View.OnClickListener() {
-            
+
             public void onClick(View view) {
                 int position = viewHolder.getAbsoluteAdapterPosition();
 
@@ -96,7 +96,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
     private void setDiaryContextListeners(ViewHolder viewHolder) {
         viewHolder.getView().findViewById(R.id.btnBackMealLog)
                 .setOnClickListener(new View.OnClickListener() {
-                    
+
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
@@ -108,7 +108,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
 
         viewHolder.getView().findViewById(R.id.btnDeleteMeal)
                 .setOnClickListener(new View.OnClickListener() {
-                    
+
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
@@ -120,7 +120,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
 
         viewHolder.getView().findViewById(R.id.btnModifyMeal)
                 .setOnClickListener(new View.OnClickListener() {
-                    
+
                     public void onClick(View view) {
 
                         if (sendToMealDiary != null) {
@@ -133,7 +133,7 @@ public class RVAMealDiary extends RecyclerViewAdapter {
     private void setDiaryAddListeners(ViewHolder viewHolder) {
         viewHolder.getView().findViewById(R.id.btnAddMeal)
                 .setOnClickListener(new View.OnClickListener() {
-                    
+
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 

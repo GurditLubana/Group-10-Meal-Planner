@@ -23,7 +23,7 @@ public class RVARecipeBook extends RecyclerViewAdapter {
         super(dataSet);
     }
 
-    
+
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         ViewHolder viewHolder;
         View view;
@@ -43,7 +43,7 @@ public class RVARecipeBook extends RecyclerViewAdapter {
         return viewHolder;
     }
 
-    
+
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
         if (super.getViewType() == FragmentType.recipeSelect.ordinal()) {
@@ -56,7 +56,7 @@ public class RVARecipeBook extends RecyclerViewAdapter {
 
     private void setCardListeners(ViewHolder viewHolder, int position) {
         viewHolder.getView().findViewById(R.id.cardView2).setOnClickListener(new View.OnClickListener() {
-            
+
             public void onClick(View view) {
                 if (sendToRecipeBook != null) {
                     showContextUI(position, getSelectedRecipeCard());
@@ -88,7 +88,7 @@ public class RVARecipeBook extends RecyclerViewAdapter {
         String launcher = "";
 
         addButton.setOnClickListener(new View.OnClickListener() {
-            
+
             public void onClick(View view) {
                 if (sendToRecipeBook != null) {
                     sendToRecipeBook.addToMealDiary();
@@ -106,7 +106,7 @@ public class RVARecipeBook extends RecyclerViewAdapter {
         }
 
         backButton.setOnClickListener(new View.OnClickListener() {
-            
+
             public void onClick(View view) {
                 int position = viewHolder.getAbsoluteAdapterPosition();
 

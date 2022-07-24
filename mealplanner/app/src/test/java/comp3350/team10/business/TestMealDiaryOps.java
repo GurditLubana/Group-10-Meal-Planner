@@ -151,7 +151,9 @@ public class TestMealDiaryOps {
 
         @BeforeEach
         void setup() {
-            Main.startUp();
+
+            SharedDB.start();
+            SharedDB.startStub();
             ops = new MealDiaryOps();
             currDate = Calendar.getInstance();
             testDate = Calendar.getInstance();
@@ -159,7 +161,7 @@ public class TestMealDiaryOps {
 
         @AfterEach
         void shutdown() {
-            Main.shutDown();
+            SharedDB.close();
         }
 
         @Test
@@ -259,7 +261,9 @@ public class TestMealDiaryOps {
 
         @BeforeEach
         void setup() {
-            Main.startUp();
+
+            SharedDB.start();
+            SharedDB.startStub();
             ops = new MealDiaryOps();
             currDate = Calendar.getInstance();
             testDate = Calendar.getInstance();
@@ -267,7 +271,7 @@ public class TestMealDiaryOps {
 
         @AfterEach
         void shutdown() {
-            Main.shutDown();
+            SharedDB.close();
         }
 
         @Test
@@ -314,7 +318,7 @@ public class TestMealDiaryOps {
             DailyLog currLog = ops.getCurrLog();
 
             int prevLogSize = currLog.getEdibleList().size();
-            ops.addByKey(1, false);
+            ops.addByKey(0, false);
             assertEquals(prevLogSize + 1, currLog.getEdibleList().size());
             assertEquals(currLog.getEdibleList().get(0).getName(), "Apple");
             assertEquals(currLog.getEdibleList().get(1).getName(), "Pear");
@@ -330,7 +334,7 @@ public class TestMealDiaryOps {
             DailyLog currLog = ops.getCurrLog();
 
             int prevLogSize = currLog.getEdibleList().size();
-            ops.addByKey(1, false);
+            ops.addByKey(0, false);
             assertEquals(prevLogSize + 1, currLog.getEdibleList().size());
             assertEquals(currLog.getEdibleList().get(0).getName(), "Apple");
             assertEquals(currLog.getEdibleList().get(1).getName(), "Pear");
@@ -339,7 +343,7 @@ public class TestMealDiaryOps {
             assertEquals((int) currLog.getCalorieNet(), 1626);
             assertEquals((int) currLog.getEdibleCalories(), 374);
 
-            ops.addByKey(1, false);
+            ops.addByKey(0, false);
             assertEquals(prevLogSize + 2, currLog.getEdibleList().size());
             assertEquals(currLog.getEdibleList().get(0).getName(), "Apple");
             assertEquals(currLog.getEdibleList().get(1).getName(), "Pear");
@@ -361,7 +365,9 @@ public class TestMealDiaryOps {
 
         @BeforeEach
         void setup() {
-            Main.startUp();
+
+            SharedDB.start();
+            SharedDB.startStub();
             ops = new MealDiaryOps();
             currDate = Calendar.getInstance();
             testDate = Calendar.getInstance();
@@ -369,7 +375,7 @@ public class TestMealDiaryOps {
 
         @AfterEach
         void shutdown() {
-            Main.shutDown();
+            SharedDB.close();
         }
 
         @Test
@@ -404,7 +410,7 @@ public class TestMealDiaryOps {
         @Test
         @DisplayName("object construction should fail if the db isn't started")
         void noDB() {
-            Main.shutDown();
+            SharedDB.close();
             assertThrows(NullPointerException.class, () -> {
                 ops = new MealDiaryOps();
             });

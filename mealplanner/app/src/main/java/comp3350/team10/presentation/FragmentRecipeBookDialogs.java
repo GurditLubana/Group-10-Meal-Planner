@@ -164,7 +164,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         currItem.setQuantity(amount);
         currItem.setQuantityUnit(Edible.Unit.valueOf(unit));
 
-        if(currItem instanceof DrinkIngredient) {
+        if (currItem instanceof DrinkIngredient) {
             ((DrinkIngredient) currItem).setSubstitute(isSubstitute);
         }
 
@@ -206,7 +206,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
 
     private void setOnClickListeners() {
         super.getBtnOk().setOnClickListener(new View.OnClickListener() {
-            
+
             public void onClick(View view) {
                 FragToRecipeBook.EntryMode currMode = FragToRecipeBook.EntryMode.valueOf(mode);
 
@@ -219,7 +219,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         });
 
         super.getBtnCancel().setOnClickListener(new View.OnClickListener() {
-            
+
             public void onClick(View view) {
                 restIngredients();
                 dismiss();
@@ -227,14 +227,14 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         });
 
         this.btnChooseItemImage.setOnClickListener(new View.OnClickListener() {
-            
+
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= 23) {
                     try {
                         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
                             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
-                        } else {    
+                        } else {
                             openGallery();
                         }
                     } catch (Exception e) {
@@ -249,16 +249,16 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.ingredients.clear();
     }
 
-    
+
     public void onResume() {
         super.onResume();
 
         this.ingredientEdibles = new ArrayList<Edible>();
-        for(Ingredient currIngredient: this.ingredients) { //build a list based on edibles from ingredients
+        for (Ingredient currIngredient : this.ingredients) { //build a list based on edibles from ingredients
             ingredientEdibles.add(currIngredient.getIngredient());
         }
 
-        if(!ingredientEdibles.contains(this.addButton)) {
+        if (!ingredientEdibles.contains(this.addButton)) {
             ingredientEdibles.add(this.addButton);
         }
 
@@ -268,7 +268,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(),
             new ActivityResultCallback<Boolean>() {
-                
+
                 public void onActivityResult(Boolean result) {
                     if (result) {
                         openGallery();
@@ -287,7 +287,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     ActivityResultLauncher<Intent> galleryIntentLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
-                
+
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         bitmap(result);
@@ -367,14 +367,14 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         if (this.send != null && this.send instanceof FragToRecipeBook) {
             switch (mode) {
                 case ADD_FOOD:
-                    this.send.addFood(this.name, this.name, this.quantity, this.unit, this.calories, this.calories,this.calories, this.calories, this.isAlcoholic.isChecked(), this.isSpicy.isChecked(), this.isVegan.isChecked(), this.isVegetarian.isChecked(), this.isGlutenFree.isChecked(), this.photo);
+                    this.send.addFood(this.name, this.name, this.quantity, this.unit, this.calories, this.calories, this.calories, this.calories, this.isAlcoholic.isChecked(), this.isSpicy.isChecked(), this.isVegan.isChecked(), this.isVegetarian.isChecked(), this.isGlutenFree.isChecked(), this.photo);
                     break;
                 case ADD_MEAL:
                     this.send.addMeal(this.name, this.name, this.quantity, this.unit, this.photo, this.instructions, this.ingredients);
                     break;
                 case ADD_DRINK:
                     drinkIngredients = this.readDrinkIngredients();
-                    this.send.addDrink(this.name, this.name, this.quantity, this.unit, this.calories, this.calories,this.calories, this.calories, this.isAlcoholic.isChecked(), this.isSpicy.isChecked(), this.isVegan.isChecked(), this.isVegetarian.isChecked(), this.isGlutenFree.isChecked(), this.photo, this.instructions, drinkIngredients);
+                    this.send.addDrink(this.name, this.name, this.quantity, this.unit, this.calories, this.calories, this.calories, this.calories, this.isAlcoholic.isChecked(), this.isSpicy.isChecked(), this.isVegan.isChecked(), this.isVegetarian.isChecked(), this.isGlutenFree.isChecked(), this.photo, this.instructions, drinkIngredients);
                     break;
             }
         }
@@ -383,9 +383,9 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private ArrayList<DrinkIngredient> readDrinkIngredients() {
         ArrayList<DrinkIngredient> drinkIngredients = new ArrayList<DrinkIngredient>();
 
-        for(Ingredient currIngredient: this.ingredients) {
-            if(currIngredient instanceof DrinkIngredient) {
-                drinkIngredients.add((DrinkIngredient)currIngredient);
+        for (Ingredient currIngredient : this.ingredients) {
+            if (currIngredient instanceof DrinkIngredient) {
+                drinkIngredients.add((DrinkIngredient) currIngredient);
             }
         }
 
@@ -393,17 +393,15 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     }
 
     public void loadIngredients(Edible currEdible) {
-        if(currEdible instanceof Meal) {
-            for(Ingredient ingredient: ((Meal)currEdible).getIngredients()) {
+        if (currEdible instanceof Meal) {
+            for (Ingredient ingredient : ((Meal) currEdible).getIngredients()) {
                 addIngredient(ingredient.getIngredient(), ingredient.getQuantity(), ingredient.getQuantityUnits(), false);
             }
-        }
-        else if(currEdible instanceof Drink && ((Drink) currEdible).getIngredients().size() > 0) {
-            for(DrinkIngredient ingredient: ((Drink)currEdible).getIngredients()) {
+        } else if (currEdible instanceof Drink && ((Drink) currEdible).getIngredients().size() > 0) {
+            for (DrinkIngredient ingredient : ((Drink) currEdible).getIngredients()) {
                 addIngredient(ingredient.getIngredient(), ingredient.getQuantity(), ingredient.getQuantityUnits(), ingredient.getIsSubstitute());
             }
-        }
-        else {
+        } else {
             addIngredient(currEdible, currEdible.getQuantity(), currEdible.getUnit(), false);
         }
     }
@@ -411,7 +409,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     private void addIngredient(Edible currEdible, double quantity, Edible.Unit unit, boolean isSubstitute) {
         DrinkIngredient newIngredient = new DrinkIngredient();
 
-        if(isUniqueIngredient(currEdible)) {
+        if (isUniqueIngredient(currEdible)) {
             if (this.recyclerViewAdapter.getSavedItem() instanceof Drink) {
                 newIngredient.init(currEdible, quantity, unit);
                 newIngredient.setSubstitute(isSubstitute);
@@ -426,7 +424,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         boolean alreadyAnIngredient = true;
         Edible currEdible;
 
-        for(Ingredient currIngredient: this.ingredients) {
+        for (Ingredient currIngredient : this.ingredients) {
             currEdible = currIngredient.getIngredient();
 
             if (currEdible.getDbkey() == newIngredient.getDbkey() && currEdible.getIsCustom() == newIngredient.getIsCustom()) {
@@ -449,7 +447,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     public boolean getIsChecked() {
         boolean isChecked = false;
 
-        if(this.ingredients.get(this.recyclerViewAdapter.getSavedItemPosition()) instanceof DrinkIngredient) {
+        if (this.ingredients.get(this.recyclerViewAdapter.getSavedItemPosition()) instanceof DrinkIngredient) {
             isChecked = ((DrinkIngredient) this.ingredients.get(this.recyclerViewAdapter.getSavedItemPosition())).getIsSubstitute();
         }
 
