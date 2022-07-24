@@ -17,6 +17,7 @@ public class MealDiaryOps {
     private Calendar logDate;           //The date the planner is set to
     private LogDBInterface db;          //Accesses the database
     private UserDataOps opUser;         //Business logic for handling the app's user
+    private int userID;
 
     public MealDiaryOps() throws NullPointerException {
         this.db = DBSelector.getLogDB();
@@ -26,6 +27,7 @@ public class MealDiaryOps {
 
         if (db != null) {
             this.opUser = new UserDataOps();
+            this.userID = this.opUser.getUserID();
             this.dateChangedUpdateList();
         } else {
             throw new NullPointerException("MealDiaryOps requires an initialized database in SharedDB");
@@ -68,7 +70,7 @@ public class MealDiaryOps {
 
     private void dateChangedUpdateList() {
         this.logChangedUpdateDB();
-        this.currLog = this.db.searchFoodLogByDate(opUser.getUser().getUserID(), this.logDate);
+        this.currLog = this.db.searchFoodLogByDate(this.userID, this.logDate);
     }
 
     public DailyLog getCurrLog() {
@@ -77,7 +79,7 @@ public class MealDiaryOps {
 
     public void logChangedUpdateDB() {
         if (this.currLog != null) {
-            this.db.replaceLog(opUser.getUser().getUserID(), this.currLog);
+            this.db.replaceLog(this.userID, this.currLog);
         }
     }
 

@@ -28,7 +28,8 @@ public class TestTrendsOps {
         @BeforeEach
         void setup() {
             try {
-                DBSelector.start(new DataAccessStub());;
+                DBSelector.start(new DataAccessStub());
+                ;
                 ops = new TrendsOps();
             } catch (Exception e) {
                 System.out.println(e);
@@ -178,7 +179,8 @@ public class TestTrendsOps {
         @BeforeEach
         void setup() {
             try {
-                DBSelector.start(new DataAccessStub());;
+                DBSelector.start(new DataAccessStub());
+                ;
                 db = DBSelector.getLogDB();
                 trendsOps = new TrendsOps();
             } catch (Exception e) {
@@ -318,7 +320,8 @@ public class TestTrendsOps {
         @Test
         @DisplayName("Requesting a null span should fail")
         void testNullRequest() {
-            DBSelector.start(new DataAccessStub());;
+            DBSelector.start(new DataAccessStub());
+            ;
             ops = new TrendsOps();
 
             try {
@@ -332,7 +335,8 @@ public class TestTrendsOps {
         @Test
         @DisplayName("Requesting an invalid index of DataFrame List.")
         void testOutOfBoundRequest() {
-            DBSelector.start(new DataAccessStub());;
+            DBSelector.start(new DataAccessStub());
+            ;
             ops = new TrendsOps();
 
             try {

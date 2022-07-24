@@ -10,30 +10,29 @@ public class UserDataOps {
 
     public UserDataOps() {
         this.db = DBSelector.getUserDB();
-        this.currUser = db.getUser();
+        this.currUser = db.getUser(0);
     }
 
-    public User getUser() {
+    public User getUser(int id) throws IllegalArgumentException {
+        try {
+            this.currUser = db.getUser(id);
+        } catch (IllegalArgumentException e) {
+            System.out.println("UserDataOps the user does not exist " + e);
+            System.exit(1);
+        }
         return this.currUser;
     }
 
-    public void updateHeight(int newHeight) {
-        currUser.setHeight(newHeight);
-        this.db.setHeight(this.currUser.getUserID(), newHeight);
+    public void updateUser() {
+        try {
+            this.db.updateUser(this.currUser);
+        } catch (IllegalArgumentException e) {
+            System.out.println("UserDataOps the user is invalid " + e);
+            System.exit(1);
+        }
     }
 
-    public void updateWeight(int newWeight) {
-        currUser.setWeight(newWeight);
-        this.db.setWeight(this.currUser.getUserID(), newWeight);
-    }
-
-    public void updateCalorieGoal(double newCalorieGoal) {
-        currUser.setCalorieGoal(newCalorieGoal);
-        this.db.setCalorieGoal(this.currUser.getUserID(), newCalorieGoal);
-    }
-
-    public void updateExerciseGoal(double newExerciseGoal) {
-        currUser.setExerciseGoal(newExerciseGoal);
-        this.db.setExerciseGoal(this.currUser.getUserID(), newExerciseGoal);
+    public int getUserID() {
+        return this.currUser.getUserID();
     }
 }

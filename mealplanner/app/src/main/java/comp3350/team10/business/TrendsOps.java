@@ -18,7 +18,6 @@ public class TrendsOps {
         }
     }
 
-
     public ArrayList<DataFrame> getDataFrames(DataFrame.Span span) throws NullPointerException {
         ArrayList<DataFrame> dataFrames;
         DataFrame dataFrame = null;

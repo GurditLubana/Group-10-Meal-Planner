@@ -12,7 +12,8 @@ public class TestUserDBInterfaceHsql extends TestUserDBInterface {
     @Override
     @BeforeEach
     void setup() {
-        DBSelector.start(new HSqlDB());;
+        DBSelector.start(new HSqlDB());
+        ;
         super.db = DBSelector.getUserDB();
     }
 

@@ -19,7 +19,7 @@ public class User {
     }
 
 
-    public User init(int userID, String name, int height, int weight, int calorieGoal, int exerciseGoal) throws IllegalArgumentException {
+    public User init(int userID, String name, int height, int weight, double calorieGoal, double exerciseGoal) throws IllegalArgumentException {
         this.setUserID(userID);
         this.setName(name);
         this.setHeight(height);
@@ -28,6 +28,12 @@ public class User {
         this.setExerciseGoal(exerciseGoal);
 
         return this;
+    }
+
+    public User clone() {
+        User copy = new User();
+        copy.init(this.userID, this.name, this.height, this.weight, this.calorieGoal, this.exerciseGoal);
+        return copy;
     }
 
     private void setUserID(int newUserID) throws IllegalArgumentException {
@@ -40,7 +46,7 @@ public class User {
 
     public void setName(String newName) throws IllegalArgumentException {
 
-        if (newName != null && !newName.equals("") && newName.length() <= Constant.ENTRY_MAX_VALUE) {
+        if (Validator.validStringInput(newName)) {
             this.name = newName;
         } else {
             throw new IllegalArgumentException("User's Name can't be null or empty");
@@ -50,26 +56,26 @@ public class User {
 
     public void setHeight(int newHeight) throws IllegalArgumentException {
 
-        if (newHeight > Constant.ENTRY_MIN_VALUE && newHeight <= Constant.ENTRY_MAX_VALUE) {
+        if (Validator.atLeastOne(newHeight)) {
             this.height = newHeight;
         } else {
-            throw new IllegalArgumentException("New Height requires values " + Constant.ENTRY_MIN_VALUE + "<= value <= " + Constant.ENTRY_MAX_VALUE);
+            throw new IllegalArgumentException("New Height requires values " + 1 + "<= value <= " + Constant.ENTRY_MAX_VALUE);
         }
 
     }
 
     public void setWeight(int newWeight) throws IllegalArgumentException {
 
-        if (newWeight > Constant.ENTRY_MIN_VALUE && newWeight <= Constant.ENTRY_MAX_VALUE) {
+        if (Validator.atLeastOne(newWeight)) {
             this.weight = newWeight;
         } else {
-            throw new IllegalArgumentException("New Weight requires values " + Constant.ENTRY_MIN_VALUE + "<= value <= " + Constant.ENTRY_MAX_VALUE);
+            throw new IllegalArgumentException("New Weight requires values " + 1 + "<= value <= " + Constant.ENTRY_MAX_VALUE);
         }
     }
 
     public void setCalorieGoal(double newCalorieGoal) throws IllegalArgumentException {
 
-        if (newCalorieGoal >= Constant.ENTRY_MIN_VALUE && newCalorieGoal <= Constant.ENTRY_MAX_VALUE) {
+        if (Validator.atLeastZero(newCalorieGoal)) {
             this.calorieGoal = newCalorieGoal;
         } else {
             throw new IllegalArgumentException("New Weight requires values " + Constant.ENTRY_MIN_VALUE + "<= value <= " + Constant.ENTRY_MAX_VALUE);
@@ -79,8 +85,7 @@ public class User {
 
     public void setExerciseGoal(double newExerciseGoal) throws IllegalArgumentException {
 
-        if (newExerciseGoal >= Constant.ENTRY_MIN_VALUE && newExerciseGoal <= Constant.ENTRY_MAX_VALUE) {
-
+        if (Validator.atLeastZero(newExerciseGoal)) {
             this.exerciseGoal = newExerciseGoal;
         } else {
             throw new IllegalArgumentException("New Weight requires values " + Constant.ENTRY_MIN_VALUE + "<= value <= " + Constant.ENTRY_MAX_VALUE);

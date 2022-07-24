@@ -2,38 +2,23 @@ package comp3350.team10.objects;
 
 public class Validator {
 
-    static boolean validStringInput(String inputString){
-        boolean isValid = false;
-
-
-        return isValid;
+    public static boolean validStringInput(String inputString) {
+        return (inputString != null && inputString.length() > Constant.ENTRY_MIN_VALUE && inputString.length() <= Constant.ENTRY_MAX_VALUE);
     }
 
-    static boolean validAtLeastZero(int inputNumber){
-        boolean isValid = false;
-
-
-        return isValid;
+    public static boolean atLeastZero(int inputNumber) {
+        return (inputNumber >= Constant.ENTRY_MIN_VALUE && inputNumber <= Constant.ENTRY_MAX_VALUE);
     }
 
-    static boolean validAtLeastOne(int inputNumber){
-        boolean isValid = false;
-
-
-        return isValid;
+    public static boolean atLeastOne(int inputNumber) {
+        return (inputNumber > Constant.ENTRY_MIN_VALUE && inputNumber <= Constant.ENTRY_MAX_VALUE);
     }
 
-    static boolean validAtLeastZero(double inputNumber){
-        boolean isValid = false;
-
-
-        return isValid;
+    public static boolean atLeastZero(double inputNumber) {
+        return (inputNumber >= Constant.ENTRY_MIN_VALUE && inputNumber <= Constant.ENTRY_MAX_VALUE);
     }
 
-    static boolean validAtLeastOne(double inputNumber){
-        boolean isValid = false;
-
-
-        return isValid;
+    public static boolean atLeastOne(double inputNumber) {
+        return (inputNumber > Constant.ENTRY_MIN_VALUE && inputNumber <= Constant.ENTRY_MAX_VALUE);
     }
 }

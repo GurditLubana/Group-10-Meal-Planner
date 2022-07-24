@@ -34,7 +34,8 @@ public class TestRecipeDBInterface {
 
     @BeforeEach
     void setup() {
-        DBSelector.start(new DataAccessStub());;
+        DBSelector.start(new DataAccessStub());
+        ;
         db = DBSelector.getRecipeDB();
         this.foodRecipeCount = db.getFoodRecipes().size();
         this.mealRecipeCount = db.getMealRecipes().size();
@@ -126,7 +127,7 @@ public class TestRecipeDBInterface {
         }
 
         @AfterEach
-        void removeTestData(){
+        void removeTestData() {
             DataAccess hsql = DBSelector.getSharedDB();
             hsql.removeTestData();
         }
@@ -229,7 +230,7 @@ public class TestRecipeDBInterface {
         }
 
         @AfterEach
-        void removeTestData(){
+        void removeTestData() {
             DataAccess hsql = DBSelector.getSharedDB();
             hsql.removeTestData();
         }
@@ -281,7 +282,7 @@ public class TestRecipeDBInterface {
         }
 
         @AfterEach
-        void removeTestData(){
+        void removeTestData() {
             DataAccess hsql = DBSelector.getSharedDB();
             hsql.removeTestData();
         }

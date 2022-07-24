@@ -14,7 +14,8 @@ public class TestLogDBInterfaceHsql extends TestLogDBInterface {
     @Override
     @BeforeEach
     void setup() {
-        DBSelector.start(new HSqlDB());;
+        DBSelector.start(new HSqlDB());
+        ;
         super.db = DBSelector.getLogDB();
         super.currDate = Calendar.getInstance();
         super.currDate.set(Calendar.MONTH, 9);

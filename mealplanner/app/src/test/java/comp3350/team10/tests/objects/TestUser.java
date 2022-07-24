@@ -13,16 +13,26 @@ import org.junit.jupiter.api.Test;
 import comp3350.team10.objects.User;
 
 public class TestUser {
+    private User user;
+    private StringBuilder longTestString;
+
+    @BeforeEach
+    void setup() {
+        user = new User();
+        longTestString = new StringBuilder();
+        longTestString.setLength(10001);
+        longTestString.setCharAt(0, 'a');
+        longTestString.setCharAt(9999, 'y');
+        longTestString.setCharAt(10000, 'z');
+    }
 
     @Nested
     @DisplayName("Simple Tests")
     class simpleTests {
-        private User user;
         private String testString;
 
         @BeforeEach
         void setup() {
-            user = new User();
             testString = "testString";
         }
 
@@ -132,14 +142,6 @@ public class TestUser {
     @Nested
     @DisplayName("Complex test cases")
     class ComplexTestCases {
-        private User user;
-
-
-        @BeforeEach
-        void setup() {
-            user = new User();
-        }
-
         @Test
         @DisplayName("Complex Test cases for user's ID")
         void testSetID() {
@@ -276,12 +278,6 @@ public class TestUser {
     @Nested
     @DisplayName("Empty tests")
     class EmptyTests {
-        private User user;
-
-        @BeforeEach
-        void setup() {
-            user = new User();
-        }
 
         @Test
         @DisplayName("Tests setting an empty or null name")
@@ -326,17 +322,13 @@ public class TestUser {
     @Nested
     @DisplayName("Edge case tests")
     class EdgeTestCases {
-        private User user;
         private String largeTestString;
 
         @BeforeEach
         void setup() {
             user = new User();
-            largeTestString = "";
-
-            for (int i = 0; i < 9999; i++) {
-                largeTestString = largeTestString + "a";
-            }
+            longTestString.setLength(9999);
+            largeTestString = longTestString.toString();
         }
 
         @Test
@@ -493,18 +485,6 @@ public class TestUser {
     @Nested
     @DisplayName("Invalid tests")
     class InvalidTestCases {
-        private User user;
-        private String longTestString;
-
-        @BeforeEach
-        void setup() {
-            user = new User();
-            longTestString = "";
-
-            for (int i = 0; i < 10000; i++) {
-                longTestString = longTestString + "a";
-            }
-        }
 
         @Test
         @DisplayName("Tests setting an invalid user ID")
@@ -521,14 +501,14 @@ public class TestUser {
         @DisplayName("Tests setting an invalid user's name")
         void testSetName() {
             try {
-                user.setName(longTestString);
+                user.setName(longTestString.toString());
                 fail("User name is too long. should throw IllegalArgumentException");
             } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);
             }
 
             try {
-                user.init(5, longTestString, 5, 5, 5, 5);
+                user.init(5, longTestString.toString(), 5, 5, 5, 5);
                 fail("User name is too long. should throw IllegalArgumentException");
             } catch (Exception e) {
                 assertTrue(e instanceof IllegalArgumentException);

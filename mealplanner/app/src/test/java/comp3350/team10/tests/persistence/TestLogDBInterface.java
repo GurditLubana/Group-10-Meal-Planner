@@ -160,7 +160,7 @@ public class TestLogDBInterface {
             assertEquals(0, testLog.getProgressExcess());
             assertEquals(50, testLog.getProgressBar());
             assertEquals(700, testLog.getCalorieNet());
-            db.replaceLog(0, new DailyLog().init(newDate, new ArrayList<>(),0,0,0));
+            db.replaceLog(0, new DailyLog().init(newDate, new ArrayList<>(), 0, 0, 0));
         }
 
         @Test
@@ -177,7 +177,7 @@ public class TestLogDBInterface {
             testLog = db.searchFoodLogByDate(0, testDate);
             assertEquals(1234, testLog.getCalorieGoal());
 
-            db.replaceLog(0, new DailyLog().init(testDate, new ArrayList<>(),0,0,0));
+            db.replaceLog(0, new DailyLog().init(testDate, new ArrayList<>(), 0, 0, 0));
         }
 
 //        @Test
@@ -209,7 +209,7 @@ public class TestLogDBInterface {
             testLog = db.searchFoodLogByDate(0, testDate);
             assertEquals(1234, testLog.getExerciseActual());
 
-            db.replaceLog(0, new DailyLog().init(testDate, new ArrayList<>(),0,0,0));
+            db.replaceLog(0, new DailyLog().init(testDate, new ArrayList<>(), 0, 0, 0));
         }
     }
 
@@ -228,7 +228,7 @@ public class TestLogDBInterface {
             db.replaceLog(0, empty);
             assertEquals(0, db.searchFoodLogByDate(0, testDate).getEdibleList().size());
 
-            db.replaceLog(0, new DailyLog().init(testDate, new ArrayList<>(),0,0,0));
+            db.replaceLog(0, new DailyLog().init(testDate, new ArrayList<>(), 0, 0, 0));
         }
 
         @Test
@@ -236,7 +236,7 @@ public class TestLogDBInterface {
         void addToAnEmptyLog() {
             Calendar newDate = (Calendar) testDate.clone();
             newDate.add(Calendar.DAY_OF_YEAR, 1);
-            db.replaceLog(0, new DailyLog().init(newDate, new ArrayList<>(),0,0,0));
+            db.replaceLog(0, new DailyLog().init(newDate, new ArrayList<>(), 0, 0, 0));
             DailyLog empty = db.searchFoodLogByDate(0, newDate);
             assertEquals(0, empty.getEdibleList().size());
             try {
@@ -253,7 +253,7 @@ public class TestLogDBInterface {
             db.replaceLog(0, empty);
             assertEquals(1, db.searchFoodLogByDate(0, newDate).getEdibleList().size());
 
-            db.replaceLog(0, new DailyLog().init(newDate, new ArrayList<>(),0,0,0));
+            db.replaceLog(0, new DailyLog().init(newDate, new ArrayList<>(), 0, 0, 0));
         }
 
         @Test
@@ -358,7 +358,7 @@ public class TestLogDBInterface {
             assertNull(db.findEdibleByKey(-1, true));
             assertNull(db.findEdibleByKey(999999, true));
 
-            db.replaceLog(0, new DailyLog().init(testDate, new ArrayList<>(),0,0,0));
+            db.replaceLog(0, new DailyLog().init(testDate, new ArrayList<>(), 0, 0, 0));
         }
 
         @Test
@@ -390,7 +390,7 @@ public class TestLogDBInterface {
                 ArrayList<Double> result = db.getDataFrame(null, 7);
             });
 
-            db.replaceLog(0, new DailyLog().init(testDate, new ArrayList<>(),0,0,0));
+            db.replaceLog(0, new DailyLog().init(testDate, new ArrayList<>(), 0, 0, 0));
         }
 
         @Test
@@ -417,7 +417,7 @@ public class TestLogDBInterface {
                 ArrayList<Double> result = db.getDataFrame(DataFrame.DataType.ConsumedCalories, -7);
             });
 
-            db.replaceLog(0, new DailyLog().init(testDate, new ArrayList<>(),0,0,0));
+            db.replaceLog(0, new DailyLog().init(testDate, new ArrayList<>(), 0, 0, 0));
         }
     }
 }

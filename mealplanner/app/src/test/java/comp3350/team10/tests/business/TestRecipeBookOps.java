@@ -31,7 +31,8 @@ public class TestRecipeBookOps {
 
         @BeforeEach
         void setup() {
-            DBSelector.start(new DataAccessStub());;
+            DBSelector.start(new DataAccessStub());
+            ;
             ops = new RecipeBookOps();
             testString = "dfhjdhsgsdjjkds\nidfdshf\ndfh";
         }
@@ -145,7 +146,8 @@ public class TestRecipeBookOps {
 
         @BeforeEach
         void setup() {
-            DBSelector.start(new DataAccessStub());;
+            DBSelector.start(new DataAccessStub());
+            ;
             ops = new RecipeBookOps();
         }
 
@@ -265,7 +267,8 @@ public class TestRecipeBookOps {
 
         @BeforeEach
         void setup() {
-            DBSelector.start(new DataAccessStub());;
+            DBSelector.start(new DataAccessStub());
+            ;
             ops = new RecipeBookOps();
         }
 
@@ -623,7 +626,8 @@ public class TestRecipeBookOps {
 
         @BeforeEach
         void setup() {
-            DBSelector.start(new DataAccessStub());;
+            DBSelector.start(new DataAccessStub());
+            ;
             ops = new RecipeBookOps();
             longTestString = "";
 
@@ -806,7 +810,9 @@ public class TestRecipeBookOps {
         private String longTestString;
 
         @BeforeEach
-        void setup() {DBSelector.start(new DataAccessStub());;
+        void setup() {
+            DBSelector.start(new DataAccessStub());
+            ;
             ops = new RecipeBookOps();
             longTestString = "";
 

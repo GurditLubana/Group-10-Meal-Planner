@@ -29,7 +29,8 @@ public class TestDBInterfaceHsql {
 
     @BeforeEach
     void setup() {
-        DBSelector.start(new DataAccessStub());;
+        DBSelector.start(new DataAccessStub());
+        ;
         this.db = DBSelector.getLogDB();
         this.currDate = Calendar.getInstance();
         this.currDate.set(Calendar.MONTH, 9);

@@ -545,7 +545,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                     log = new DailyLog().init(date, edibleLog, results.getInt("CalorieGoal"), results.getInt("EXERCISEGOAL"),
                             exerciseActual);
                 } else {
-                    currUser = this.getUser();
+                    currUser = this.getUser(userID);
                     log = new DailyLog().init(date, new ArrayList<Edible>(), currUser.getCalorieGoal(), currUser.getExerciseGoal(), 0);
                     this.addLog(currUser.getUserID(), log);
 
@@ -845,17 +845,29 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         }
     }
 
-    public int getTestKey(String itemName){
+    public int getTestKey(String itemName) {
         return 1;
     }
 
     public void removeTestData() {
         try {
-            PreparedStatement deleteTestEntries = currConn.prepareStatement("DELETE FROM CUSTOMEDIBLE WHERE Name LIKE = ? AND UserID = ?");
+            String[] customTables = {"CUSTOMEDIBLE", "CUSTOMFOOD", "CUSTOMMEAL", "CUSTOMDRINK"};
+            String[] builtinTables = {"EDIBLE", "FOOD", "MEAL", "DRINK", "MEALINGREDIENT", "DRINKINGREDIENT"};
 
-            deleteTestEntries.setString(1, "Test%");
-            deleteTestEntries.setInt(2, 0);
-            deleteTestEntries.executeUpdate();
+            PreparedStatement deleteTestEntriesCustom = currConn.prepareStatement("DELETE FROM ? WHERE UserID = ?");
+            PreparedStatement deleteTestEntriesBuiltin = currConn.prepareStatement("DELETE FROM ? WHERE NAME LIKE ?");
+
+            for (int i = 0; i < customTables.length; i++) {
+                deleteTestEntriesCustom.setString(1, customTables[i]);
+                deleteTestEntriesCustom.setInt(2, 1);
+                deleteTestEntriesCustom.executeUpdate();
+            }
+            for (int i = 0; i < builtinTables.length; i++) {
+                deleteTestEntriesBuiltin.setString(1, builtinTables[i]);
+                deleteTestEntriesBuiltin.setString(2, "Test%");
+                deleteTestEntriesBuiltin.executeUpdate();
+            }
+
         } catch (Exception e) {
             System.out.println("HSqlDB deleteLog " + e);
         }
@@ -930,23 +942,31 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
             PreparedStatement addUser = currConn.prepareStatement("INSERT * INTO User (Name, Height, Weight) VALUES (?, ?, ?)");
 
             addUser.setString(1, name);
-            addUser.setInt(1, height);
-            addUser.setInt(1, weight);
+            addUser.setInt(2, height);
+            addUser.setInt(3, weight);
             addUser.executeQuery();
         } catch (Exception e) {
             System.out.println("HSqlDB addUser " + e);
         }
     }
 
-    public User getUser() {
+    public User getUser(int userID) throws IllegalArgumentException {
         User currUser = null;
         try {
-            PreparedStatement getUser = currConn.prepareStatement("SELECT * FROM USER");
+            PreparedStatement getUser = currConn.prepareStatement("SELECT * FROM USER Where USERID = ?");
+            getUser.setInt(1, userID);
             ResultSet results = getUser.executeQuery();
 
-            results.next();
-            currUser = new User().init(results.getInt("USERID"), results.getString("NAME"), results.getInt("HEIGHT"),
-                    results.getInt("WEIGHT"), results.getInt("CALORIEGOAL"), results.getInt("EXERCISEGOAL"));
+            if (results.next()) {
+                currUser = new User().init(results.getInt("USERID"), results.getString("NAME"), results.getInt("HEIGHT"),
+                        results.getInt("WEIGHT"), results.getInt("CALORIEGOAL"), results.getInt("EXERCISEGOAL"));
+            } else {
+                throw new IllegalArgumentException("HSqlDB GetUser User does not exist " + userID);
+
+            }
+
+        } catch (IllegalArgumentException e) {
+            throw e;
         } catch (Exception e) {
             System.out.println("HSqlDB GetUser " + e);
         }
@@ -954,34 +974,46 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         return currUser;
     }
 
-    public void setHeight(int userID, int newHeight) {
+    public void updateUser(User user) throws IllegalArgumentException {
         try {
-            if (newHeight >= 1 && newHeight <= Constant.ENTRY_MAX_VALUE) {
+            if (user != null) {
+                User exists = getUser(user.getUserID());
+                this.setHeight(user);
+                this.setWeight(user);
+                this.setCalorieGoal(user);
+                ;
+                this.setExerciseGoal(user);
+            } else {
+
+                throw new IllegalArgumentException("DB updateUser was given an uninitialized User object");
+            }
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
+
+    }
+
+    private void setHeight(User user) {
+        try {
             PreparedStatement setHeight = currConn.prepareStatement("Update User SET Height = ? WHERE UserID = ?");
 
-            setHeight.setInt(1, newHeight);
-            setHeight.setInt(2, userID);
+            setHeight.setInt(1, user.getHeight());
+            setHeight.setInt(2, user.getUserID());
             setHeight.executeUpdate();
-            } else {
-                throw new IllegalArgumentException("HSqlDB setHeight requires values " + 1 + "<= value <=" + Constant.ENTRY_MAX_VALUE);
-            }
         } catch (Exception e) {
             System.out.println("HSqlDB setHeight " + e);
 
         }
     }
 
-    public void setWeight(int userID, int newWeight) {
+    private void setWeight(User user) {
         try {
-            if (newWeight >= 1 && newWeight <= Constant.ENTRY_MAX_VALUE) {
+
             PreparedStatement setWeight = currConn.prepareStatement("Update User SET Weight = ? WHERE UserID = ?");
 
-            setWeight.setInt(1, newWeight);
-            setWeight.setInt(2, userID);
+            setWeight.setInt(1, user.getWeight());
+            setWeight.setInt(2, user.getUserID());
             setWeight.executeUpdate();
-            } else {
-                throw new IllegalArgumentException("HSqlDB setWeight requires values " + 1 + "<= value <=" + Constant.ENTRY_MAX_VALUE);
-            }
         } catch (Exception e) {
             System.out.println("HSqlDB setWeight " + e);
 
@@ -1053,21 +1085,12 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
     }
 
 
-    public void setCalorieGoal(int userID, double goal) throws IllegalArgumentException {
+    private void setCalorieGoal(User user) {
         try {
-            if (userID == 0) {
-                if (goal >= Constant.ENTRY_MIN_VALUE && goal <= Constant.ENTRY_MAX_VALUE) {
-                    PreparedStatement setCalorieGoal = currConn.prepareStatement("UPDATE USER SET CalorieGoal = ? WHERE UserID = ?");
-                    setCalorieGoal.setInt(1, userID);
-                    setCalorieGoal.setInt(2, (int) goal);
-                    setCalorieGoal.executeUpdate();
-
-                } else {
-                    throw new IllegalArgumentException("HSqlDB setExerciseActual requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
-                }
-            } else {
-                throw new IllegalArgumentException("HSqlDB setExerciseGoal userID must exist");
-            }
+            PreparedStatement setCalorieGoal = currConn.prepareStatement("UPDATE USER SET CalorieGoal = ? WHERE UserID = ?");
+            setCalorieGoal.setInt(1, (int) user.getCalorieGoal());
+            setCalorieGoal.setInt(2, user.getUserID());
+            setCalorieGoal.executeUpdate();
         } catch (IllegalArgumentException e) {
             throw e;
         } catch (Exception e) {
@@ -1075,23 +1098,14 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         }
     }
 
-    public void setExerciseGoal(int userID, double goal) throws IllegalArgumentException {
+    private void setExerciseGoal(User user) {
         try {
-            if (userID == 0) {
-                if (goal >= Constant.ENTRY_MIN_VALUE && goal <= Constant.ENTRY_MAX_VALUE) {
-                    PreparedStatement setExerciseGoal = currConn.prepareStatement("UPDATE USER SET ExerciseGoal = ? WHERE UserID = ?");
-                    setExerciseGoal.setInt(1, userID);
-                    setExerciseGoal.setInt(2, (int) goal);
-                    setExerciseGoal.executeUpdate();
+            PreparedStatement setExerciseGoal = currConn.prepareStatement("UPDATE USER SET ExerciseGoal = ? WHERE UserID = ?");
+            setExerciseGoal.setInt(1, (int) user.getExerciseGoal());
+            setExerciseGoal.setInt(2, user.getUserID());
+            setExerciseGoal.executeUpdate();
 
-                } else {
-                    throw new IllegalArgumentException("HSqlDB setExerciseGoal requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
-                }
-            } else {
-                throw new IllegalArgumentException("HSqlDB setExerciseGoal userID must exist");
-            }
-        } catch (IllegalArgumentException e) {
-            throw e;
+
         } catch (Exception e) {
             System.out.println("HSqlDB setExerciseGoal " + e);
         }

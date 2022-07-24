@@ -134,7 +134,13 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
 
     //This section implements UserDBInterface'
 
-    public User getUser() {
+    public User getUser(int userID) throws IllegalArgumentException {
+
+        try {
+            findUserByID(userID);
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
         return this.currUser;
     }
 
@@ -338,12 +344,26 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
 
     private User findUserByID(int userID) throws IllegalArgumentException {
         User result = null;
-        if (userID == this.currUser.getUserID()) {
+        if (userID == 0 || userID == 1) {
             result = this.currUser;
         } else {
             throw new IllegalArgumentException("DB findUserByID User does not exist");
         }
         return result;
+    }
+
+    public void updateUser(User user) {
+        try {
+            if (user != null) {
+                User exists = findUserByID(user.getUserID());
+                exists = user;
+            } else {
+                throw new IllegalArgumentException("DB updateUser was given an uninitialized User object");
+            }
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
+
     }
 
     //This section implements DiaryDBInterface

@@ -29,7 +29,8 @@ public class TestMealDiaryOps {
 
         @BeforeEach
         void setup() {
-            DBSelector.start(new DataAccessStub());;
+            DBSelector.start(new DataAccessStub());
+            ;
             this.ops = new MealDiaryOps();
             this.currDate = Calendar.getInstance();
             this.currDate.set(Calendar.MONTH, 9);
@@ -151,8 +152,9 @@ public class TestMealDiaryOps {
         @BeforeEach
         void setup() {
 
-            DBSelector.start(new DataAccessStub());;
-            
+            DBSelector.start(new DataAccessStub());
+            ;
+
             ops = new MealDiaryOps();
             currDate = Calendar.getInstance();
             testDate = Calendar.getInstance();
@@ -261,8 +263,9 @@ public class TestMealDiaryOps {
         @BeforeEach
         void setup() {
 
-            DBSelector.start(new DataAccessStub());;
-            
+            DBSelector.start(new DataAccessStub());
+            ;
+
             ops = new MealDiaryOps();
             currDate = Calendar.getInstance();
             testDate = Calendar.getInstance();
@@ -365,7 +368,8 @@ public class TestMealDiaryOps {
         @BeforeEach
         void setup() {
 
-            DBSelector.start(new DataAccessStub());;
+            DBSelector.start(new DataAccessStub());
+            ;
             ops = new MealDiaryOps();
             currDate = Calendar.getInstance();
             testDate = Calendar.getInstance();

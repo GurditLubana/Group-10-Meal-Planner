@@ -27,7 +27,10 @@ public class DBSelector {
     }
 
     public static void close() {
-        db.close();
+        if (db != null) {
+            db.close();
+            db = null;
+        }
     }
 
     public static DataAccess getSharedDB() {
@@ -46,7 +49,7 @@ public class DBSelector {
         return db;
     }
 
-    public static void removeTestData(){
+    public static void removeTestData() {
         db.removeTestData();
     }
 }

@@ -22,8 +22,9 @@ public class TestMealDiaryOpsDBInterface {
 
         @BeforeEach
         void setup() {
-            DBSelector.start(new DataAccessStub());;
-            
+            DBSelector.start(new DataAccessStub());
+            ;
+
             //DBSelector.startHsql();
             this.ops = new MealDiaryOps();
             this.currDate = Calendar.getInstance();
@@ -50,8 +51,9 @@ public class TestMealDiaryOpsDBInterface {
 
         @BeforeEach
         void setup() {
-            DBSelector.start(new DataAccessStub());;
-            
+            DBSelector.start(new DataAccessStub());
+            ;
+
             ops = new MealDiaryOps();
             currDate = Calendar.getInstance();
             testDate = Calendar.getInstance();
@@ -75,8 +77,9 @@ public class TestMealDiaryOpsDBInterface {
 
         @BeforeEach
         void setup() {
-            DBSelector.start(new DataAccessStub());;
-            
+            DBSelector.start(new DataAccessStub());
+            ;
+
             ops = new MealDiaryOps();
             currDate = Calendar.getInstance();
             testDate = Calendar.getInstance();
@@ -100,8 +103,9 @@ public class TestMealDiaryOpsDBInterface {
 
         @BeforeEach
         void setup() {
-            DBSelector.start(new DataAccessStub());;
-            
+            DBSelector.start(new DataAccessStub());
+            ;
+
             ops = new MealDiaryOps();
             currDate = Calendar.getInstance();
             testDate = Calendar.getInstance();

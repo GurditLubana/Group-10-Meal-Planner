@@ -12,7 +12,8 @@ public class TestRecipeDBInterfaceHsql extends TestRecipeDBInterface {
     @Override
     @BeforeEach
     void setup() {
-        DBSelector.start(new HSqlDB());;
+        DBSelector.start(new HSqlDB());
+        ;
         super.db = DBSelector.getRecipeDB();
         super.foodRecipeCount = db.getFoodRecipes().size();
         super.mealRecipeCount = db.getMealRecipes().size();
