@@ -1,5 +1,6 @@
 package comp3350.team10.integration;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import comp3350.team10.business.MealDiaryOps;
 import comp3350.team10.business.RecipeBookOps;
 import comp3350.team10.business.TrendsOps;
+import comp3350.team10.business.UserDataOps;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.DataFrame;
 import comp3350.team10.objects.DrinkIngredient;
@@ -260,6 +262,8 @@ public class BusinessPersistenceSeamTest
 
 		}
 	}
+
+
 
 
 	@Nested
@@ -521,6 +525,121 @@ public class BusinessPersistenceSeamTest
 			compareWith.setData(db.getDataFrame(DataFrame.DataType.Weight, 7));
 			assertEquals((ops.getDataFrames(DataFrame.Span.Week)).get(3).getTrendPointB(), compareWith.getTrendPointB());
 		}
+
+
+		@Test
+		@DisplayName("instance creation should fail if db not started")
+		void testNoDB() {
+
+			SharedDB.close();
+			try {
+				ops = new TrendsOps();
+				fail("Should throw an exception, no database has been started at this point.");
+			} catch (Exception e) {
+				assertTrue(e instanceof NullPointerException);
+			}
+		}
 	}
 
+
+
+
+
+	@Nested
+	@DisplayName("Integration testing of User Ops to persistence")
+	class testUserOps {
+
+		private UserDataOps ops;
+
+
+		@BeforeEach
+		void setup() {
+
+			try {
+				SharedDB.start();
+				SharedDB.startStub();
+				ops = new UserDataOps();
+
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+
+		}
+
+		@AfterEach
+		void shutdown() {
+			SharedDB.close();
+		}
+
+
+		@Test
+		@DisplayName("Testing getUser")
+		public void testUserGetter() {
+
+			assertNotNull(ops.getUser());
+			assertEquals(ops.getUser(), SharedDB.getUserDB().getUser());
+		}
+
+		@Test
+		@DisplayName("Testing updateHeight")
+		public void testHeightUpdater() {
+
+			int previousHeight = ops.getUser().getHeight();
+			ops.updateHeight(200);
+			assertNotEquals(previousHeight, ops.getUser().getHeight());
+			assertEquals(200, ops.getUser().getHeight());
+		}
+
+		@Test
+		@DisplayName("Testing updateWeight")
+		public void testWeightUpdater() {
+			int previousWeight = ops.getUser().getWeight();
+			ops.updateWeight(55);
+			assertNotEquals(previousWeight, ops.getUser().getWeight());
+			assertEquals(55, ops.getUser().getWeight());
+		}
+
+		@Test
+		@DisplayName("Testing calorieGoal")
+		public void testCalorieGoalUpdater() {
+
+			double previousCalrorieGoal = ops.getUser().getCalorieGoal();
+			ops.updateCalorieGoal(260.05);
+			assertNotEquals(previousCalrorieGoal, ops.getUser().getCalorieGoal());
+			assertEquals(260.05, ops.getUser().getCalorieGoal());
+		}
+
+		@Test
+		@DisplayName("Testing exerciseGoal")
+		public void testExerciseGoalUpdater() {
+
+			double previousExerciseGoalUpdater = ops.getUser().getExerciseGoal();
+			ops.updateExerciseGoal(500.99);
+			assertNotEquals(previousExerciseGoalUpdater, ops.getUser().getExerciseGoal());
+			assertEquals(500.99, ops.getUser().getExerciseGoal());
+		}
+
+
+		@Test
+		@DisplayName("instance creation should fail if db not started")
+		void testNoDB() {
+
+			SharedDB.close();
+
+			try {
+				ops = new UserDataOps();
+				ops.getUser().getHeight();
+				fail("Should throw an exception, no database has been started at this point.");
+			} catch (Exception e) {
+				assertTrue(e instanceof NullPointerException);
+			}
+		}
+//		@Test
+//		@DisplayName("Testing userID  ")
+//		void testUserId()
+//		{
+//
+//		}
+
 	}
+}
