@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import comp3350.team10.application.Main;
+import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.DataFrame;
 import comp3350.team10.objects.Drink;
@@ -524,31 +525,37 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
     }
 
-    public DailyLog searchFoodLogByDate(int userID, Calendar date) {
+    public DailyLog searchFoodLogByDate(int userID, Calendar date) throws IllegalArgumentException {
         DailyLog log = null;
         try {
-            PreparedStatement findLog = currConn.prepareStatement("SELECT * FROM HISTORY INNER JOIN USER ON USER.USERID = HISTORY.USERID WHERE USERID = ? AND DATE = ?");
-            ResultSet results;
-            int exerciseActual;
-            ArrayList<Edible> edibleLog;
-            User currUser = null;
+            if (userID == 0 && date != null) {
+                PreparedStatement findLog = currConn.prepareStatement("SELECT * FROM HISTORY INNER JOIN USER ON USER.USERID = HISTORY.USERID WHERE USERID = ? AND DATE = ?");
+                ResultSet results;
+                int exerciseActual;
+                ArrayList<Edible> edibleLog;
+                User currUser = null;
 
-            findLog.setInt(1, userID);
-            String hi = this.convertDateToString(date);
-            findLog.setString(2, hi);
-            results = findLog.executeQuery();
+                findLog.setInt(1, userID);
+                String hi = this.convertDateToString(date);
+                findLog.setString(2, hi);
+                results = findLog.executeQuery();
 
-            if (results.next()) {
-                edibleLog = this.getEdibleLog(results.getInt("HISTORYID"));
-                exerciseActual = this.getExerciseActual(results.getInt("HISTORYID"));
-                log = new DailyLog().init(date, edibleLog, results.getInt("CalorieGoal"), results.getInt("EXERCISEGOAL"),
-                        exerciseActual);
+                if (results.next()) {
+                    edibleLog = this.getEdibleLog(results.getInt("HISTORYID"));
+                    exerciseActual = this.getExerciseActual(results.getInt("HISTORYID"));
+                    log = new DailyLog().init(date, edibleLog, results.getInt("CalorieGoal"), results.getInt("EXERCISEGOAL"),
+                            exerciseActual);
+                } else {
+                    currUser = this.getUser();
+                    log = new DailyLog().init(date, new ArrayList<Edible>(), currUser.getCalorieGoal(), currUser.getExerciseGoal(), 0);
+                    this.addLog(currUser.getUserID(), log);
+
+                }
             } else {
-                currUser = this.getUser();
-                log = new DailyLog().init(date, new ArrayList<Edible>(), currUser.getCalorieGoal(), currUser.getExerciseGoal(), 0);
-                this.addLog(currUser.getUserID(), log);
-
+                throw new IllegalArgumentException();
             }
+        } catch (IllegalArgumentException e) {
+            throw e;
         } catch (Exception e) {
             System.out.println("HSqlDB SearchFoodLogByDate " + e);
 
@@ -772,9 +779,13 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         return found;
     }
 
-    public void replaceLog(int userID, DailyLog newLog) {
-        this.deleteLog(userID, newLog.getDate());
-        this.addLog(userID, newLog);
+    public void replaceLog(int userID, DailyLog newLog) throws IllegalArgumentException {
+        if (userID == 0 && newLog != null) {
+            this.deleteLog(userID, newLog.getDate());
+            this.addLog(userID, newLog);
+        } else {
+            throw new IllegalArgumentException("HSqlDB replaceLog userID must exist and log cannot be null");
+        }
     }
 
     public void addLog(int userID, DailyLog newLog) {
@@ -835,34 +846,45 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
     }
 
-    public void setExerciseActual(int userID, double newExercise, Calendar date) {
+    public void setExerciseActual(int userID, double newExercise, Calendar date) throws IllegalArgumentException {
         try {
-            ResultSet results;
-            int id = 0;
-            String dateString = this.convertDateToString(date);
-            PreparedStatement getId = currConn.prepareStatement("SELECT * FROM History WHERE Date = ?");
-            PreparedStatement checkExists = currConn.prepareStatement("SELECT * FROM History INNER JOIN WorkoutHistory ON WorkoutHistory.HISTORYID = HISTORY.HISTORYID WHERE Date = ?");
-            PreparedStatement update = currConn.prepareStatement("UPDATE WorkoutHistory SET ExerciseActual = ? WHERE HistoryID = ?");
-            PreparedStatement insert = currConn.prepareStatement("INSERT INTO WorkoutHistory VALUES (?, ?)");
+            if (userID == 0 && date != null) {
+                if (newExercise >= Constant.ENTRY_MIN_VALUE && newExercise <= Constant.ENTRY_MAX_VALUE) {
+                    ResultSet results;
+                    int id = 0;
+                    String dateString = this.convertDateToString(date);
+                    PreparedStatement getId = currConn.prepareStatement("SELECT * FROM History WHERE Date = ?");
+                    PreparedStatement checkExists = currConn.prepareStatement("SELECT * FROM History INNER JOIN WorkoutHistory ON WorkoutHistory.HISTORYID = HISTORY.HISTORYID WHERE Date = ?");
+                    PreparedStatement update = currConn.prepareStatement("UPDATE WorkoutHistory SET ExerciseActual = ? WHERE HistoryID = ?");
+                    PreparedStatement insert = currConn.prepareStatement("INSERT INTO WorkoutHistory VALUES (?, ?)");
 
-            getId.setString(1, dateString);
-            results = getId.executeQuery();
-            results.next();
-            id = results.getInt("HISTORYID");
+                    getId.setString(1, dateString);
+                    results = getId.executeQuery();
+                    results.next();
+                    id = results.getInt("HISTORYID");
 
-            checkExists.setString(1, dateString);
-            results = checkExists.executeQuery();
+                    checkExists.setString(1, dateString);
+                    results = checkExists.executeQuery();
 
-            if (results.next()) {
-                update.setDouble(1, newExercise);
-                update.setInt(2, id);
-                update.executeUpdate();
+                    if (results.next()) {
+                        update.setDouble(1, newExercise);
+                        update.setInt(2, id);
+                        update.executeUpdate();
+                    } else {
+                        insert.setInt(1, id);
+                        insert.setDouble(2, newExercise);
+                        insert.executeUpdate();
+                    }
+                    results.close();
+
+                } else {
+                    throw new IllegalArgumentException("HSqlDB setExerciseActual requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
+                }
             } else {
-                insert.setInt(1, id);
-                insert.setDouble(2, newExercise);
-                insert.executeUpdate();
+                throw new IllegalArgumentException("HSqlDB setExerciseActual userID must exist and date cannot be null");
             }
-            results.close();
+        } catch (IllegalArgumentException e) {
+            throw e;
         } catch (Exception e) {
             System.out.println("HSqlDB SetExerciseActual " + e);
         }
@@ -959,53 +981,97 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         return calendarDate;
     }
 
-    public void setLogCalorieGoal(int userID, double goal, Calendar date) {
+    public void setLogCalorieGoal(int userID, double goal, Calendar date) throws IllegalArgumentException {
         try {
-            PreparedStatement setCalorieGoal = currConn.prepareStatement("UPDATE History SET CalorieGoal = ? " +
-                    "WHERE UserID = ? AND Date = ?");
+            if (userID == 0 && date != null) {
+                if (goal >= Constant.ENTRY_MIN_VALUE && goal <= Constant.ENTRY_MAX_VALUE) {
+                    PreparedStatement setCalorieGoal = currConn.prepareStatement("UPDATE History SET CalorieGoal = ? " +
+                            "WHERE UserID = ? AND Date = ?");
 
-            setCalorieGoal.setDouble(1, goal);
-            setCalorieGoal.setInt(2, userID);
-            setCalorieGoal.setString(3, this.convertDateToString(date));
-            setCalorieGoal.executeUpdate();
+                    setCalorieGoal.setDouble(1, goal);
+                    setCalorieGoal.setInt(2, userID);
+                    setCalorieGoal.setString(3, this.convertDateToString(date));
+                    setCalorieGoal.executeUpdate();
+
+                } else {
+                    throw new IllegalArgumentException("HSqlDB setLogCalorieGoal requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
+                }
+            } else {
+                throw new IllegalArgumentException("HSqlDB setExerciseActual userID must exist and date cannot be null");
+            }
+        } catch (IllegalArgumentException e) {
+            throw e;
         } catch (Exception e) {
             System.out.println("HSqlDB setLogCalorieGoal " + e);
 
         }
     }
 
-    public void setLogExerciseGoal(int userID, double goal, Calendar date) {
+    public void setLogExerciseGoal(int userID, double goal, Calendar date) throws IllegalArgumentException {
         try {
-            PreparedStatement setExerciseGoal = currConn.prepareStatement("UPDATE History SET ExerciseGoal = ? " +
-                    "WHERE UserID = ? AND Date = ?");
+            if (userID == 0 && date != null) {
+                if (goal >= Constant.ENTRY_MIN_VALUE && goal <= Constant.ENTRY_MAX_VALUE) {
+                    PreparedStatement setExerciseGoal = currConn.prepareStatement("UPDATE History SET ExerciseGoal = ? " +
+                            "WHERE UserID = ? AND Date = ?");
 
-            setExerciseGoal.setDouble(1, goal);
-            setExerciseGoal.setInt(2, userID);
-            setExerciseGoal.setString(3, this.convertDateToString(date));
-            setExerciseGoal.executeUpdate();
+                    setExerciseGoal.setDouble(1, goal);
+                    setExerciseGoal.setInt(2, userID);
+                    setExerciseGoal.setString(3, this.convertDateToString(date));
+                    setExerciseGoal.executeUpdate();
+
+                } else {
+                    throw new IllegalArgumentException("HSqlDB setLogExerciseGoal requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
+                }
+            } else {
+                throw new IllegalArgumentException("HSqlDB setExerciseActual userID must exist and date cannot be null");
+            }
+        } catch (IllegalArgumentException e) {
+            throw e;
         } catch (Exception e) {
             System.out.println("HSqlDB setLogExerciseGoal " + e);
         }
     }
 
 
-    public void setCalorieGoal(int userID, double goal) {
+    public void setCalorieGoal(int userID, double goal) throws IllegalArgumentException {
         try {
-            PreparedStatement setCalorieGoal = currConn.prepareStatement("UPDATE USER SET CalorieGoal = ? WHERE UserID = ?");
-            setCalorieGoal.setInt(1, userID);
-            setCalorieGoal.setInt(2, (int) goal);
-            setCalorieGoal.executeUpdate();
+            if (userID == 0) {
+                if (goal >= Constant.ENTRY_MIN_VALUE && goal <= Constant.ENTRY_MAX_VALUE) {
+                    PreparedStatement setCalorieGoal = currConn.prepareStatement("UPDATE USER SET CalorieGoal = ? WHERE UserID = ?");
+                    setCalorieGoal.setInt(1, userID);
+                    setCalorieGoal.setInt(2, (int) goal);
+                    setCalorieGoal.executeUpdate();
+
+                } else {
+                    throw new IllegalArgumentException("HSqlDB setExerciseActual requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
+                }
+            } else {
+                throw new IllegalArgumentException("HSqlDB setExerciseGoal userID must exist");
+            }
+        } catch (IllegalArgumentException e) {
+            throw e;
         } catch (Exception e) {
             System.out.println("HSqlDB setCalorieGoal " + e);
         }
     }
 
-    public void setExerciseGoal(int userID, double goal) {
+    public void setExerciseGoal(int userID, double goal) throws IllegalArgumentException {
         try {
-            PreparedStatement setExerciseGoal = currConn.prepareStatement("UPDATE USER SET ExerciseGoal = ? WHERE UserID = ?");
-            setExerciseGoal.setInt(1, userID);
-            setExerciseGoal.setInt(2, (int) goal);
-            setExerciseGoal.executeUpdate();
+            if (userID == 0) {
+                if (goal >= Constant.ENTRY_MIN_VALUE && goal <= Constant.ENTRY_MAX_VALUE) {
+                    PreparedStatement setExerciseGoal = currConn.prepareStatement("UPDATE USER SET ExerciseGoal = ? WHERE UserID = ?");
+                    setExerciseGoal.setInt(1, userID);
+                    setExerciseGoal.setInt(2, (int) goal);
+                    setExerciseGoal.executeUpdate();
+
+                } else {
+                    throw new IllegalArgumentException("HSqlDB setExerciseGoal requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
+                }
+            } else {
+                throw new IllegalArgumentException("HSqlDB setExerciseGoal userID must exist");
+            }
+        } catch (IllegalArgumentException e) {
+            throw e;
         } catch (Exception e) {
             System.out.println("HSqlDB setExerciseGoal " + e);
         }

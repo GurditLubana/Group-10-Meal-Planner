@@ -750,8 +750,8 @@ public class DataAccessStub implements LogDBInterface, RecipeDBInterface, UserDB
             );
             this.dbRecipeFood.add(new Edible()
                     .initDetails(4, "Walnut", "not a floor nut", 1, Edible.Unit.tbsp)
-                    .initNutrition(100, 30, 20, 50)
-                    .initCategories(false, false, false, false, false)
+                    .initNutrition(100, 30, 45, 25)
+                    .initCategories(true, false, false, false, false)
                     .initMetadata(false, "walnut.jpg")
             );
             this.dbRecipeFood.add(new Edible()

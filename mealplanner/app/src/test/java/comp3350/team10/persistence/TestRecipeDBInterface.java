@@ -31,7 +31,6 @@ public class TestRecipeDBInterface {
     void setup() {
         SharedDB.start();
         SharedDB.startStub();
-        //SharedDB.startHsql();
         db = SharedDB.getRecipeDB();
         this.foodRecipeCount = db.getFoodRecipes().size();
         this.mealRecipeCount = db.getMealRecipes().size();

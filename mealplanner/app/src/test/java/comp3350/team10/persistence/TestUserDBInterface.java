@@ -18,7 +18,6 @@ public class TestUserDBInterface {
     void setup() {
         SharedDB.start();
         SharedDB.startStub();
-        //SharedDB.startHsql();
         this.db = SharedDB.getUserDB();
     }
 
