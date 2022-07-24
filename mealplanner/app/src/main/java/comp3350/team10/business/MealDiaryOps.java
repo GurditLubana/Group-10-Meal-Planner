@@ -7,8 +7,8 @@ import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
+import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.LogDBInterface;
-import comp3350.team10.persistence.SharedDB;
 
 public class MealDiaryOps {
     private final static Integer INCREMENT = 1; //Directional arrow increments
@@ -19,7 +19,7 @@ public class MealDiaryOps {
     private UserDataOps opUser;         //Business logic for handling the app's user
 
     public MealDiaryOps() throws NullPointerException {
-        this.db = SharedDB.getLogDB();
+        this.db = DBSelector.getLogDB();
         this.logDate = Calendar.getInstance();
         this.logDate.set(Calendar.MONTH, 9);
         this.logDate.set(Calendar.DAY_OF_MONTH, 10);
