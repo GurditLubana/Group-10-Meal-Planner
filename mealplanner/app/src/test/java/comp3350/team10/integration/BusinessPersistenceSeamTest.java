@@ -19,9 +19,11 @@ import comp3350.team10.business.MealDiaryOps;
 import comp3350.team10.business.RecipeBookOps;
 import comp3350.team10.business.TrendsOps;
 import comp3350.team10.objects.DailyLog;
+import comp3350.team10.objects.DataFrame;
 import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
+import comp3350.team10.persistence.LogDBInterface;
 import comp3350.team10.persistence.SharedDB;
 
 
@@ -101,7 +103,7 @@ public class BusinessPersistenceSeamTest
 			DailyLog currLog = ops.getCurrLog();
 
 			int prevLogSize = currLog.getEdibleList().size();
-			ops.addByKey(1, false);
+			ops.addByKey(0, false);
 			assertEquals(prevLogSize + 1, currLog.getEdibleList().size());
 			assertEquals(currLog.getEdibleList().get(0).getName(), "Apple");
 			assertEquals(currLog.getEdibleList().get(1).getName(), "Pear");
@@ -119,7 +121,7 @@ public class BusinessPersistenceSeamTest
 			DailyLog currLog = ops.getCurrLog();
 
 			int prevLogSize = currLog.getEdibleList().size();
-			ops.addByKey(1, false);
+			ops.addByKey(0, false);
 			assertEquals(prevLogSize + 1, currLog.getEdibleList().size());
 			assertEquals(currLog.getEdibleList().get(0).getName(), "Apple");
 			assertEquals(currLog.getEdibleList().get(1).getName(), "Pear");
@@ -128,7 +130,7 @@ public class BusinessPersistenceSeamTest
 			assertEquals((int) currLog.getCalorieNet(), 1626);
 			assertEquals((int) currLog.getEdibleCalories(), 374);
 
-			ops.addByKey(1, false);
+			ops.addByKey(0, false);
 			assertEquals(prevLogSize + 2, currLog.getEdibleList().size());
 			assertEquals(currLog.getEdibleList().get(0).getName(), "Apple");
 			assertEquals(currLog.getEdibleList().get(1).getName(), "Pear");
@@ -257,7 +259,6 @@ public class BusinessPersistenceSeamTest
 			assertNotNull(ops.getMealRecipes());
 
 		}
-
 	}
 
 
@@ -266,7 +267,8 @@ public class BusinessPersistenceSeamTest
 	class testTrendOps {
 
 		private TrendsOps ops;
-		private final String testString = "We'll use this string for description and instructions";
+		private LogDBInterface db;
+
 
 		@BeforeEach
 		void setup() {
@@ -275,6 +277,7 @@ public class BusinessPersistenceSeamTest
 				SharedDB.start();
 				SharedDB.startStub();
 				ops = new TrendsOps();
+				db = SharedDB.getLogDB();
 
 			} catch (Exception e) {
 				System.out.println(e);
@@ -285,6 +288,238 @@ public class BusinessPersistenceSeamTest
 		@AfterEach
 		void shutdown() {
 			SharedDB.close();
+		}
+
+
+		@Test
+		@DisplayName("get one week of data")
+		void getWeek() {
+			ArrayList<DataFrame> dataFrames = null;
+			try {
+				dataFrames = ops.getDataFrames(DataFrame.Span.Week);
+			} catch (Exception e) {
+				System.out.println(e);
+
+			}
+
+			assertEquals(DataFrame.DataType.values().length, dataFrames.size());
+			assertEquals(7, dataFrames.get(0).size());
+		}
+
+		@Test
+		@DisplayName("get one month of data")
+		void getMonth() {
+			ArrayList<DataFrame> dataFrames = null;
+
+			try {
+				dataFrames = ops.getDataFrames(DataFrame.Span.Month);
+			} catch (Exception e) {
+				System.out.println(e);
+
+			}
+
+			assertEquals(DataFrame.DataType.values().length, dataFrames.size());
+			assertEquals(28, dataFrames.get(0).size());
+		}
+
+		@Test
+		@DisplayName("get 3 month of data")
+		void getThreeMonth() {
+			ArrayList<DataFrame> dataFrames = null;
+			try {
+				dataFrames = ops.getDataFrames(DataFrame.Span.ThreeMonth);
+			} catch (Exception e) {
+				System.out.println(e);
+
+			}
+
+			assertEquals(DataFrame.DataType.values().length, dataFrames.size());
+			assertEquals(84, dataFrames.get(0).size());
+		}
+
+		@Test
+		@DisplayName("get 6 month of data")
+		void getSixMonth() {
+			ArrayList<DataFrame> dataFrames = null;
+			try {
+				dataFrames = ops.getDataFrames(DataFrame.Span.SixMonth);
+			} catch (Exception e) {
+				System.out.println(e);
+
+			}
+
+			assertEquals(DataFrame.DataType.values().length, dataFrames.size());
+			assertEquals(168, dataFrames.get(0).size());
+		}
+
+		@Test
+		@DisplayName("get one year of data")
+		void getYear() {
+			ArrayList<DataFrame> dataFrames = null;
+			try {
+				dataFrames = ops.getDataFrames(DataFrame.Span.Year);
+			} catch (Exception e) {
+				System.out.println(e);
+
+			}
+
+			assertEquals(DataFrame.DataType.values().length, dataFrames.size());
+			assertEquals(336, dataFrames.get(0).size());
+		}
+
+		@Test
+		@DisplayName("get 2 year of data")
+		void getAll() {
+			ArrayList<DataFrame> dataFrames = null;
+			try {
+				dataFrames = ops.getDataFrames(DataFrame.Span.All);
+			} catch (Exception e) {
+				System.out.println(e);
+
+			}
+
+			assertEquals(DataFrame.DataType.values().length, dataFrames.size());
+			assertEquals(672, dataFrames.get(0).size());
+		}
+
+
+		@Test
+		@DisplayName("Testing the return type of getDataFrames method")
+		void testGetDataFrames() {
+
+			assertTrue(ops.getDataFrames(DataFrame.Span.Month).get(0) instanceof DataFrame);
+			assertTrue(ops.getDataFrames(DataFrame.Span.Month).get(1) instanceof DataFrame);
+			assertTrue(ops.getDataFrames(DataFrame.Span.Month).get(2) instanceof DataFrame);
+			assertTrue(ops.getDataFrames(DataFrame.Span.Month).get(3) instanceof DataFrame);
+
+			assertEquals(ops.getDataFrames(DataFrame.Span.Week).size(), 4);
+		}
+
+		@Test
+		@DisplayName("Testing getSpan method")
+		void testGetSpan() {
+			assertEquals(DataFrame.Span.Week, ops.getDataFrames(DataFrame.Span.Week).get(0).getSpan());
+			assertEquals(DataFrame.Span.Month, ops.getDataFrames(DataFrame.Span.Month).get(1).getSpan());
+			assertEquals(DataFrame.Span.SixMonth, ops.getDataFrames(DataFrame.Span.SixMonth).get(2).getSpan());
+			assertEquals(DataFrame.Span.ThreeMonth, ops.getDataFrames(DataFrame.Span.ThreeMonth).get(3).getSpan());
+			assertEquals(DataFrame.Span.Year, ops.getDataFrames(DataFrame.Span.Year).get(1).getSpan());
+			assertEquals(DataFrame.Span.All, ops.getDataFrames(DataFrame.Span.All).get(0).getSpan());
+		}
+
+		@Test
+		@DisplayName("Testing getDataType method")
+		void testGetDataType() {
+
+			assertEquals(DataFrame.DataType.ConsumedCalories, ops.getDataFrames(DataFrame.Span.Month).get(0).getDataType());
+			assertEquals(DataFrame.DataType.NetCalories, ops.getDataFrames(DataFrame.Span.Week).get(1).getDataType());
+			assertEquals(DataFrame.DataType.ExerciseCalories, ops.getDataFrames(DataFrame.Span.SixMonth).get(2).getDataType());
+			assertEquals(DataFrame.DataType.Weight, ops.getDataFrames(DataFrame.Span.ThreeMonth).get(3).getDataType());
+
+		}
+
+		@Test
+		@DisplayName("Testing the value of average for all datatype.")
+		void testGetAverage() {
+			DataFrame compareWith = new DataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.Span.Month);
+
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 28));
+			assertEquals(ops.getDataFrames(DataFrame.Span.Month).get(2).getAverage(), compareWith.getAverage());
+
+
+			compareWith = new DataFrame(DataFrame.DataType.ConsumedCalories, DataFrame.Span.All);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.ConsumedCalories, 672));
+			assertEquals(ops.getDataFrames(DataFrame.Span.All).get(0).getAverage(), compareWith.getAverage());
+
+
+			compareWith = new DataFrame(DataFrame.DataType.NetCalories, DataFrame.Span.Year);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.NetCalories, 336));
+			assertEquals((ops.getDataFrames(DataFrame.Span.Year)).get(1).getAverage(), compareWith.getAverage());
+
+			compareWith = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.SixMonth);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.Weight, 168));
+			assertEquals((ops.getDataFrames(DataFrame.Span.SixMonth)).get(3).getAverage(), compareWith.getAverage());
+
+
+		}
+
+		@Test
+		@DisplayName("Testing the Maximum value for all datatype.")
+		void testGetMaxValue() {
+			DataFrame compareWith = new DataFrame(DataFrame.DataType.ConsumedCalories, DataFrame.Span.All);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.ConsumedCalories, 672));
+			assertEquals(ops.getDataFrames(DataFrame.Span.All).get(0).getMaxVal(), compareWith.getMaxVal());
+
+			compareWith = new DataFrame(DataFrame.DataType.NetCalories, DataFrame.Span.Year);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.NetCalories, 336));
+			assertEquals((ops.getDataFrames(DataFrame.Span.Year)).get(1).getMaxVal(), compareWith.getMaxVal());
+
+			compareWith = new DataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.Span.Month);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 28));
+			assertEquals(ops.getDataFrames(DataFrame.Span.Month).get(2).getMaxVal(), compareWith.getMaxVal());
+
+			compareWith = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.SixMonth);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.Weight, 168));
+			assertEquals((ops.getDataFrames(DataFrame.Span.SixMonth)).get(3).getMaxVal(), compareWith.getMaxVal());
+		}
+
+		@Test
+		@DisplayName("Testing the Progress value for all datatype")
+		void testGetProgress() {
+			DataFrame compareWith = new DataFrame(DataFrame.DataType.ConsumedCalories, DataFrame.Span.All);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.ConsumedCalories, 672));
+			assertEquals(ops.getDataFrames(DataFrame.Span.All).get(0).getProgress(), compareWith.getProgress());
+
+			compareWith = new DataFrame(DataFrame.DataType.NetCalories, DataFrame.Span.Year);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.NetCalories, 336));
+			assertEquals((ops.getDataFrames(DataFrame.Span.Year)).get(1).getProgress(), compareWith.getProgress());
+
+			compareWith = new DataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.Span.ThreeMonth);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 84));
+			assertEquals(ops.getDataFrames(DataFrame.Span.ThreeMonth).get(2).getProgress(), compareWith.getProgress());
+
+			compareWith = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.Week);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.Weight, 7));
+			assertEquals((ops.getDataFrames(DataFrame.Span.Week)).get(3).getProgress(), compareWith.getProgress());
+		}
+
+		@Test
+		@DisplayName("Testing the TrendPoint-A value of all datatype in a given span.")
+		void testGetTrendPointA() {
+			DataFrame compareWith = new DataFrame(DataFrame.DataType.ConsumedCalories, DataFrame.Span.All);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.ConsumedCalories, 672));
+			assertEquals(ops.getDataFrames(DataFrame.Span.All).get(0).getTrendPointA(), compareWith.getTrendPointA());
+
+			compareWith = new DataFrame(DataFrame.DataType.NetCalories, DataFrame.Span.Year);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.NetCalories, 336));
+			assertEquals((ops.getDataFrames(DataFrame.Span.Year)).get(1).getTrendPointA(), compareWith.getTrendPointA());
+
+			compareWith = new DataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.Span.ThreeMonth);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 84));
+			assertEquals(ops.getDataFrames(DataFrame.Span.ThreeMonth).get(2).getTrendPointA(), compareWith.getTrendPointA());
+
+			compareWith = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.Week);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.Weight, 7));
+			assertEquals((ops.getDataFrames(DataFrame.Span.Week)).get(3).getTrendPointA(), compareWith.getTrendPointA());
+		}
+
+		@Test
+		@DisplayName("Testing the TrendPoint-B value of all datatype in a given span.")
+		void testGetTrendPointB() {
+			DataFrame compareWith = new DataFrame(DataFrame.DataType.ConsumedCalories, DataFrame.Span.SixMonth);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.ConsumedCalories, 168));
+			assertEquals(ops.getDataFrames(DataFrame.Span.SixMonth).get(0).getTrendPointB(), compareWith.getTrendPointB());
+
+			compareWith = new DataFrame(DataFrame.DataType.NetCalories, DataFrame.Span.Month);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.NetCalories, 28));
+			assertEquals((ops.getDataFrames(DataFrame.Span.Month)).get(1).getTrendPointB(), compareWith.getTrendPointB());
+
+			compareWith = new DataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.Span.ThreeMonth);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 84));
+			assertEquals(ops.getDataFrames(DataFrame.Span.ThreeMonth).get(2).getTrendPointB(), compareWith.getTrendPointB());
+
+			compareWith = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.Week);
+			compareWith.setData(db.getDataFrame(DataFrame.DataType.Weight, 7));
+			assertEquals((ops.getDataFrames(DataFrame.Span.Week)).get(3).getTrendPointB(), compareWith.getTrendPointB());
 		}
 	}
 
