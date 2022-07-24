@@ -2180,5 +2180,16 @@ Duration: 8 hrs
    - Started writing Integration tests
    - Added some tests in businessPersistanceSeamTests class.
    - created DataAccessHsqldbtests.
-
+### 2022-07-22
+     Dev:
+      - Zhou
+Duration: 1.5 hrs
+   Tasks:
+   - review course video U7 and make relative note
+### 2022-07-23
+     Dev:
+      - Zhou
+Duration: 2.5 hrs
+   Tasks:
+   - review course video rest of U7 and make relative note and upload
 
