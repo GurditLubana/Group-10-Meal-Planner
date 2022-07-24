@@ -2092,6 +2092,25 @@ Duration: 2 hrs
    - Broke down iter3 task into smaller dev tasks
    - Updated availability in availability sheet
 
+### 2022-07-16
+     Dev:
+      - Josef
+Duration: 4 hrs
+   Tasks:
+   - Set-up iter 3 testing classes
+   - Research acceptance test implementation
+   - added gradle dependencies
+
+### 2022-07-17
+     Dev:
+      - Josef
+Duration: 8 hrs
+   Tasks:
+   - Added acceptance tests Add Meals Story
+   - Added acceptance tests View Recipe Book Story
+   - Peer review Dane's pull request
+
+
 ### 2022-07-18
      Dev:
       - Zhou
@@ -2139,6 +2158,18 @@ Duration: 12 hrs
    - refactored recipeActivity
    - refactored addRecipeDialog
    - refactored RVA adapter (duplicate code everyplace that has a recycler view)
+
+### 2022-07-20
+     Dev:
+      - Josef
+Duration: 8 hrs
+   Tasks:
+   - Added acceptance tests Add Meals Story
+   - Added acceptance tests View Recipe Book Story
+   - Added acceptance tests Week Trends Story
+   - Added acceptance tests Long Trends Story
+   - Added acceptance test utility methods for recyclerview testing
+   - Fixed bug where DailyLog entries moved around after changing quantity
 
 ### 2022-07-21
      Dev:
@@ -2193,3 +2224,21 @@ Duration: 2.5 hrs
    Tasks:
    - review course video rest of U7 and make relative note and upload
 
+
+### 2022-07-24
+     Dev:
+      - Josef
+Duration: 15 hrs
+   Tasks:
+   - Took notes from all Unit 5-9 videos for final iter3 refactoring
+   - Seeded static data for 2 years of daily log into hsql
+   - Started hsql integration testing
+   - Added verbosity to hsql exception statements
+
+   
+### 2022-07-25
+     Dev:
+      - Josef
+Duration:  hrs
+   Tasks:
+   - 
