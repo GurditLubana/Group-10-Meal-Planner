@@ -2209,20 +2209,33 @@ Duration: 6 hrs
 Duration: 8 hrs
    Tasks:
    - Started writing Integration tests
-   - Added some tests in businessPersistanceSeamTests class.
+   - Added some tests in businessPersistanceSeamTests class for subclass RecipeBookOps.
    - created DataAccessHsqldbtests.
+   
 ### 2022-07-22
      Dev:
       - Zhou
 Duration: 1.5 hrs
    Tasks:
    - review course video U7 and make relative note
+
+
+
 ### 2022-07-23
      Dev:
       - Zhou
 Duration: 2.5 hrs
    Tasks:
    - review course video rest of U7 and make relative note and upload
+
+### 2022-07-23
+     Dev:
+      - Gurdit
+Duration: 6 hrs
+   Tasks:
+   - Started writing Integration tests
+   - Added some tests in businessPersistanceSeamTests class for subclass MealDiaryOps.
+   -Added some "invalid Tests" for RecipeBookOps integration tests.
 
 
 ### 2022-07-24
@@ -2235,7 +2248,16 @@ Duration: 15 hrs
    - Started hsql integration testing
    - Added verbosity to hsql exception statements
 
-   
+### 2022-07-24
+     Dev:
+      - Gurdit Singh
+Duration: 4 hrs
+   Tasks:
+   - Added some invalid tests for MealDiaryOpsTest businessPersistanceSeamTests
+   - Added integration tests for TrendOps and UserDataOps
+   - A 30 minute meeting with Josef for feedback.
+
+
 ### 2022-07-25
      Dev:
       - Josef
