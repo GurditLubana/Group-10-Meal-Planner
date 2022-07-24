@@ -44,19 +44,19 @@ public class EdibleLog extends Edible {
     public void setQuantity(double newQuantity) throws IllegalArgumentException {
         if (newQuantity > 0 && newQuantity <= Constant.ENTRY_MAX_VALUE) {
             this.quantity = newQuantity;
+            this.setCalories();
         } else {
-            throw new IllegalArgumentException("Invalid log quantity");
+            throw new IllegalArgumentException("EdibleLog setQuantity Invalid log quantity " + newQuantity);
         }
     }
 
-    public void setCalories() throws Exception {
+    public void setCalories() {
         double newCalories = 0;
 
         try {
             newCalories = this.converter.convert(this.baseUnit, this.baseQuantity, this.baseCalories, this.unit, this.quantity);
         } catch (Exception e) {
             System.out.println(e);
-            throw e;
         }
 
         this.calories = newCalories;
@@ -65,8 +65,9 @@ public class EdibleLog extends Edible {
     public void setUnit(Edible.Unit newUnit) throws IllegalArgumentException {
         if (newUnit != null) {
             this.unit = newUnit;
+            this.setCalories();
         } else {
-            throw new IllegalArgumentException("Invalid log unit");
+            throw new IllegalArgumentException("EdibleLog setUnit Invalid log unit");
         }
     }
 
