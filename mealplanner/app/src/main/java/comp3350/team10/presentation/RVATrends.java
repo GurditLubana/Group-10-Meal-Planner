@@ -99,6 +99,9 @@ public class RVATrends extends RecyclerViewAdapter {
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMaxX(1);
         graph.getViewport().setMinX(chartMin);
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setMaxY(dataFrame.getMaxVal()+(dataFrame.getMaxVal()*0.05));
+        graph.getViewport().setMinY(dataFrame.getMinVal()-(dataFrame.getMaxVal()*0.05));
     }
 
     private void setDailyData(ViewHolder viewHolder, int position) {
