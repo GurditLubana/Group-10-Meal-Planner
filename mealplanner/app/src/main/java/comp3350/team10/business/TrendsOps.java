@@ -3,16 +3,16 @@ package comp3350.team10.business;
 import java.util.ArrayList;
 
 import comp3350.team10.objects.DataFrame;
+import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.LogDBInterface;
-import comp3350.team10.persistence.SharedDB;
 
 public class TrendsOps {
     private LogDBInterface db;
     private DataFrame.Span span;
 
     public TrendsOps() throws NullPointerException {
-        if (SharedDB.getSharedDB() != null) {
-            this.db = SharedDB.getLogDB();
+        if (DBSelector.getSharedDB() != null) {
+            this.db = DBSelector.getLogDB();
         } else {
             throw new NullPointerException("TrendsOps Database cannot be null");
         }

@@ -20,7 +20,7 @@ import comp3350.team10.objects.Ingredient;
 import comp3350.team10.objects.Meal;
 import comp3350.team10.objects.User;
 
-public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterface {
+public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, UserDBInterface {
     private final String dbPath = "jdbc:hsqldb:file:" + Main.getDBPathName() + ";shutdown=true"; // stored on disk mode
     private static final String SHUTDOWN_CMD = "shutdown compact";
     private static final String SAVE_CMD = "CHECKPOINT";
@@ -38,7 +38,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
             System.out.println("HSqlDB Constructor " + e);
         }
     }
-
 
     public void save() {
         try {
@@ -313,7 +312,7 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     }
 
     public int getNextKey() {
-        return 1;
+        return 100;
     }
 
     public void addFoodToRecipeBook(Edible newFood) {
@@ -846,6 +845,22 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
         }
     }
 
+    public int getTestKey(String itemName){
+        return 1;
+    }
+
+    public void removeTestData() {
+        try {
+            PreparedStatement deleteTestEntries = currConn.prepareStatement("DELETE FROM CUSTOMEDIBLE WHERE Name LIKE = ? AND UserID = ?");
+
+            deleteTestEntries.setString(1, "Test%");
+            deleteTestEntries.setInt(2, 0);
+            deleteTestEntries.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("HSqlDB deleteLog " + e);
+        }
+    }
+
     public void setExerciseActual(int userID, double newExercise, Calendar date) throws IllegalArgumentException {
         try {
             if (userID == 0 && date != null) {
@@ -924,7 +939,6 @@ public class HSqlDB implements LogDBInterface, RecipeDBInterface, UserDBInterfac
     }
 
     public User getUser() {
-        //System.out.println("YEs");
         User currUser = null;
         try {
             PreparedStatement getUser = currConn.prepareStatement("SELECT * FROM USER");
