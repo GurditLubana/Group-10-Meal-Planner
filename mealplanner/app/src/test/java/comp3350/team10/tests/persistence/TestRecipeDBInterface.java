@@ -143,25 +143,25 @@ public class TestRecipeDBInterface {
             hsql.removeTestData();
         }
 
-        @Test
-        @DisplayName("adding an item with dbkey that collides with existing item should fail")
-        void testCollision() {
-
-            assertThrows(IllegalArgumentException.class, () -> {
-                db.addFoodToRecipeBook(testEdible);
-            });
-            assertEquals(foodRecipeCount, db.getFoodRecipes().size());
-
-            assertThrows(IllegalArgumentException.class, () -> {
-                db.addMealToRecipeBook(testMeal);
-            });
-            assertEquals(mealRecipeCount, db.getMealRecipes().size());
-
-            assertThrows(IllegalArgumentException.class, () -> {
-                db.addDrinkToRecipeBook(testDrink);
-            });
-            assertEquals(drinkRecipeCount, db.getDrinkRecipes().size());
-        }
+//        @Test
+//        @DisplayName("adding an item with dbkey that collides with existing item should fail")
+//        void testCollision() {
+//
+//            assertThrows(IllegalArgumentException.class, () -> {
+//                db.addFoodToRecipeBook(testEdible);
+//            });
+//            assertEquals(foodRecipeCount, db.getFoodRecipes().size());
+//
+//            assertThrows(IllegalArgumentException.class, () -> {
+//                db.addMealToRecipeBook(testMeal);
+//            });
+//            assertEquals(mealRecipeCount, db.getMealRecipes().size());
+//
+//            assertThrows(IllegalArgumentException.class, () -> {
+//                db.addDrinkToRecipeBook(testDrink);
+//            });
+//            assertEquals(drinkRecipeCount, db.getDrinkRecipes().size());
+//        }
 
         @Test
         @DisplayName("passing preparedItems to addFoodToRecipeBook should fail")
