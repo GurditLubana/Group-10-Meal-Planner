@@ -193,42 +193,30 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
     public ArrayList<Edible> getMealRecipes() {
         ArrayList<Edible> mealList = new ArrayList<Edible>();
         try {
-            PreparedStatement getMeals = this.currConn.prepareStatement("SELECT * FROM Meal INNER JOIN Edible ON Meal.EdibleID = Edible.EdibleID");
-            PreparedStatement getCustomMeals = this.currConn.prepareStatement("SELECT * FROM CustomMeal INNER JOIN CustomEdible ON CustomEdible.CustomEdibleID = CustomMeal.CustomEdibleID");
+            String[][] params = { {"Meal", "Edible", "Meal.EdibleID = Edible.EdibleID"},
+                    {"CustomMeal","CustomEdible","CustomEdible.CustomEdibleID = CustomMeal.CustomEdibleID"}};
+            PreparedStatement getMeals;
             ResultSet results;
             Meal currMeal;
             Edible currEdible;
 
-            results = getCustomMeals.executeQuery();
+            for(int i = 0; i < 2; i++) {
+                getMeals = this.currConn.prepareStatement("SELECT * FROM " + params[i][0] + " INNER JOIN " + params[i][1] + " ON " + params[i][2]);
+                results = getMeals.executeQuery();
 
-            while (results.next()) {
-                currEdible = this.readEdible(results, true);
-                currMeal = new Meal();
-                currMeal.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
-                currMeal.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
-                currMeal.initNutrition(currEdible.getCalories(), currEdible.getProtein(), currEdible.getCarbs(), currEdible.getFat());
-                currMeal.initMetadata(true, currEdible.getPhoto());
-                currMeal.setIngredients(this.getMealIngredients(currMeal));
-                currMeal.setInstructions(this.getInstructions(currMeal));
-                mealList.add(currMeal);
+                while (results.next()) {
+                    currEdible = this.readEdible(results, true);
+                    currMeal = new Meal();
+                    currMeal.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
+                    currMeal.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
+                    currMeal.initNutrition(currEdible.getCalories(), currEdible.getProtein(), currEdible.getCarbs(), currEdible.getFat());
+                    currMeal.initMetadata(true, currEdible.getPhoto());
+                    currMeal.setIngredients(this.getMealIngredients(currMeal));
+                    currMeal.setInstructions(this.getInstructions(currMeal));
+                    mealList.add(currMeal);
+                }
+                results.close();
             }
-            results.close();
-
-            //Query regular
-            results = getMeals.executeQuery();
-
-            while (results.next()) {
-                currEdible = this.readEdible(results, false);
-                currMeal = new Meal();
-                currMeal.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
-                currMeal.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
-                currMeal.initNutrition(currEdible.getCalories(), currEdible.getProtein(), currEdible.getCarbs(), currEdible.getFat());
-                currMeal.initMetadata(false, currEdible.getPhoto());
-                currMeal.setIngredients(this.getMealIngredients(currMeal));
-                currMeal.setInstructions(this.getInstructions(currMeal));
-                mealList.add(currMeal);
-            }
-            results.close();
         } catch (Exception e) {
             System.out.println("HSqlDB GetMealRecipes " + e);
 
@@ -240,43 +228,30 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
     public ArrayList<Edible> getDrinkRecipes() {
         ArrayList<Edible> drinkList = new ArrayList<Edible>();
         try {
-            PreparedStatement getDrinks = this.currConn.prepareStatement("SELECT * FROM Drink INNER JOIN Edible ON Drink.EdibleID = Edible.EdibleID");
-            PreparedStatement getCustomDrinks = this.currConn.prepareStatement("SELECT * FROM CustomDrink INNER JOIN CustomEdible ON CustomEdible.CustomEdibleID = CustomDrink.CustomEdibleID");
+            String[][] params = { {"Drink", "Edible", "Drink.EdibleID = Edible.EdibleID"},
+                                  {"CustomDrink","CustomEdible","CustomEdible.CustomEdibleID = CustomDrink.CustomEdibleID"}};
+            PreparedStatement getDrinks;
             ResultSet results;
             Drink currDrink;
             Edible currEdible;
 
             //Query custom
-            results = getCustomDrinks.executeQuery();
-
-            while (results.next()) {
-                currEdible = this.readEdible(results, true);
-                currDrink = new Drink();
-                currDrink.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
-                currDrink.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
-                currDrink.initNutrition(currEdible.getCalories(), currEdible.getProtein(), currEdible.getCarbs(), currEdible.getFat());
-                currDrink.initMetadata(true, currEdible.getPhoto());
-                currDrink.setIngredients(this.getDrinkIngredients(currDrink));
-                currDrink.setInstructions(this.getInstructions(currDrink));
-                drinkList.add(currDrink);
+            for(int i = 0; i < 2; i++){
+                getDrinks = this.currConn.prepareStatement("SELECT * FROM " + params[i][0] + " INNER JOIN " + params[i][1] + " ON " + params[i][2] );
+                results = getDrinks.executeQuery();
+                while (results.next()) {
+                    currEdible = this.readEdible(results, true);
+                    currDrink = new Drink();
+                    currDrink.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
+                    currDrink.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
+                    currDrink.initNutrition(currEdible.getCalories(), currEdible.getProtein(), currEdible.getCarbs(), currEdible.getFat());
+                    currDrink.initMetadata(true, currEdible.getPhoto());
+                    currDrink.setIngredients(this.getDrinkIngredients(currDrink));
+                    currDrink.setInstructions(this.getInstructions(currDrink));
+                    drinkList.add(currDrink);
+                }
+                results.close();
             }
-            results.close();
-
-            //Query regular
-            results = getDrinks.executeQuery();
-
-            while (results.next()) {
-                currEdible = this.readEdible(results, false);
-                currDrink = new Drink();
-                currDrink.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
-                currDrink.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
-                currDrink.initNutrition(currEdible.getCalories(), currEdible.getProtein(), currEdible.getCarbs(), currEdible.getFat());
-                currDrink.initMetadata(false, currEdible.getPhoto());
-                currDrink.setIngredients(this.getDrinkIngredients(currDrink));
-                currDrink.setInstructions(this.getInstructions(currDrink));
-                drinkList.add(currDrink);
-            }
-            results.close();
         } catch (Exception e) {
             System.out.println("HSqlDB GetDrinkRecipes " + e);
 
@@ -288,18 +263,17 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
     private String getInstructions(Edible currEdible) {
         String instructions = "";
         try {
-            PreparedStatement getInstructions = this.currConn.prepareStatement("SELECT Instructions FROM Meal, Drink WHERE EdibleID = ?");
-            PreparedStatement getCustomInstructions = this.currConn.prepareStatement("SELECT Instructions FROM CustomMeal, CustomDrink WHERE CustomEdibleID = ?");
             ResultSet results;
-            getInstructions.setInt(1, currEdible.getDbkey());
             String foundInstructions;
-
-            if (currEdible.getIsCustom()) {
-                results = getCustomInstructions.executeQuery();
-            } else {
-                results = getInstructions.executeQuery();
+            boolean isCustom = currEdible.getIsCustom();
+            String table = "Meal, Drink";
+            if (isCustom) {
+                table = "CustomMeal, CustomDrink";
             }
+            PreparedStatement getInstructions = this.currConn.prepareStatement("SELECT Instructions FROM " + table + " WHERE EdibleID = ?");
 
+            getInstructions.setInt(1, currEdible.getDbkey());
+            results = getInstructions.executeQuery();
             results.next();
 
             foundInstructions = results.getString("Instructions");
@@ -608,10 +582,8 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
     private ArrayList<Edible> getEdibleLog(int historyID) {
         ArrayList<Edible> edibleLog = new ArrayList<Edible>();
         try {
-            PreparedStatement fineEdibles = currConn.prepareStatement("SELECT * FROM EdibleHistory " +
-                    "INNER JOIN EDIBLE ON Edible.EdibleID = EdibleHistory.EDIBLEID WHERE HistoryID = ?");
-            PreparedStatement findCustomEdibles = currConn.prepareStatement("SELECT * FROM EdibleHistory " +
-                    "INNER JOIN CUSTOMEDIBLE ON CUSTOMEDIBLE.CUSTOMEDIBLEID = EdibleHistory.CUSTOMEDIBLEID WHERE HistoryID = ?");
+            PreparedStatement fineEdibles = currConn.prepareStatement("SELECT * FROM EdibleHistory INNER JOIN EDIBLE ON Edible.EdibleID = EdibleHistory.EDIBLEID WHERE HistoryID = ?");
+            PreparedStatement findCustomEdibles = currConn.prepareStatement("SELECT * FROM EdibleHistory INNER JOIN CUSTOMEDIBLE ON CUSTOMEDIBLE.CUSTOMEDIBLEID = EdibleHistory.CUSTOMEDIBLEID WHERE HistoryID = ?");
             PreparedStatement getBase = currConn.prepareStatement("SELECT Unit, Quantity FROM Edible WHERE EdibleID = ?");
             PreparedStatement getCustomBase = currConn.prepareStatement("SELECT Unit, Quantity FROM CustomEdible WHERE CustomEdibleID = ?");
             ResultSet results;
