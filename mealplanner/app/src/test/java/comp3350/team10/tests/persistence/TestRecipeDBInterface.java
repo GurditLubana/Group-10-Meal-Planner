@@ -88,7 +88,7 @@ public class TestRecipeDBInterface {
         this.testMeal.setIngredients(ingredients);
 
         this.testDrink = (Drink) new Drink()
-                .initDetails(103, "Test Orange Juice", "OJ", 100, Edible.Unit.ml)
+                .initDetails(103, "Test Orange Juice", "desc", 100, Edible.Unit.ml)
                 .initNutrition(100, 30, 45, 25)
                 .initMetadata(false, "orangejuice.jpg");
     }
@@ -252,7 +252,7 @@ public class TestRecipeDBInterface {
 
             assertEquals(25, foodRecipeCount);
             assertEquals(7, mealRecipeCount);
-            assertEquals(7, drinkRecipeCount);
+            assertEquals(7,drinkRecipeCount);
             //assertEquals(100, db.getNextKey());
 
             Edible item = db.findIngredientByKey(1, false);
@@ -315,9 +315,9 @@ public class TestRecipeDBInterface {
             testMeal.setDescription("a new description");
             testDrink.setDescription("a new description");
 
-            assertEquals("old description", db.findIngredientByKey(testEdibleKey, false).getDescription());
-            assertEquals("old description", db.findIngredientByKey(testMealKey, false).getDescription());
-            assertEquals("old description", db.findIngredientByKey(testDrinkKey, false).getDescription());
+            assertEquals("desc", db.findIngredientByKey(testEdibleKey, false).getDescription());
+            assertEquals("desc", db.findIngredientByKey(testMealKey, false).getDescription());
+            assertEquals("desc", db.findIngredientByKey(testDrinkKey, false).getDescription());
         }
     }
 

@@ -195,6 +195,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         try {
             String[][] params = { {"Meal", "Edible", "Meal.EdibleID = Edible.EdibleID"},
                     {"CustomMeal","CustomEdible","CustomEdible.CustomEdibleID = CustomMeal.CustomEdibleID"}};
+            boolean[] isCustom = {false, true};
             PreparedStatement getMeals;
             ResultSet results;
             Meal currMeal;
@@ -205,7 +206,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                 results = getMeals.executeQuery();
 
                 while (results.next()) {
-                    currEdible = this.readEdible(results, true);
+                    currEdible = this.readEdible(results, isCustom[i]);
                     currMeal = new Meal();
                     currMeal.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
                     currMeal.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
@@ -230,6 +231,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         try {
             String[][] params = { {"Drink", "Edible", "Drink.EdibleID = Edible.EdibleID"},
                                   {"CustomDrink","CustomEdible","CustomEdible.CustomEdibleID = CustomDrink.CustomEdibleID"}};
+            boolean[] isCustom = {false, true};
             PreparedStatement getDrinks;
             ResultSet results;
             Drink currDrink;
@@ -240,7 +242,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                 getDrinks = this.currConn.prepareStatement("SELECT * FROM " + params[i][0] + " INNER JOIN " + params[i][1] + " ON " + params[i][2] );
                 results = getDrinks.executeQuery();
                 while (results.next()) {
-                    currEdible = this.readEdible(results, true);
+                    currEdible = this.readEdible(results, isCustom[i]);
                     currDrink = new Drink();
                     currDrink.initDetails(currEdible.getDbkey(), currEdible.getName(), currEdible.getDescription(), currEdible.getQuantity(), currEdible.getUnit());
                     currDrink.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
@@ -261,16 +263,16 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
     }
 
     private String getInstructions(Edible currEdible) {
-        String instructions = "";
+        String instructions = "none";
         try {
             ResultSet results;
             String foundInstructions;
             boolean isCustom = currEdible.getIsCustom();
-            String table = "Meal, Drink";
+            String table = "Meal, Drink WHERE EdibleID";
             if (isCustom) {
-                table = "CustomMeal, CustomDrink";
+                table = "CustomMeal, CustomDrink WHERE CUSTOMEdibleID";
             }
-            PreparedStatement getInstructions = this.currConn.prepareStatement("SELECT Instructions FROM " + table + " WHERE EdibleID = ?");
+            PreparedStatement getInstructions = this.currConn.prepareStatement("SELECT Instructions FROM " + table + " = ?");
 
             getInstructions.setInt(1, currEdible.getDbkey());
             results = getInstructions.executeQuery();
@@ -303,8 +305,9 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
             }
             PreparedStatement addFood = currConn.prepareStatement("INSERT INTO " + table + " Values (?)");
             edibleID = this.addEdible(newFood, isCustom);
+            newFood.setDBKey(edibleID);
             addFood.setInt(1, edibleID);
-            addFood.executeQuery();
+            addFood.executeUpdate();
         } catch (Exception e) {
             System.out.println("HSqlDB AddFoodToRecipeBook " + e);
 
@@ -319,26 +322,26 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
             if (isCustom) {
                 table = "CustomEdible";
             }
-            PreparedStatement addEdible = currConn.prepareStatement("INSERT INTO " + table + " (Name, Description, Quantity, " +
+            PreparedStatement addEdible = currConn.prepareStatement("INSERT INTO " + table + " (USERID, Name, Description, Quantity, " +
                     "Unit, Calories, Protein, Carbs, Fat, Photo, isAlcoholic, isSpicy, isVegan, isVegetarian, isGlutenFree) VALUES (" +
-                    "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             PreparedStatement getGeneratedKey = currConn.prepareStatement("SELECT * FROM " + table + " ORDER BY 1 DESC LIMIT 1");
             ResultSet results = null;
-
-            addEdible.setString(1, newEdible.getName());
-            addEdible.setString(2, newEdible.getDescription());
-            addEdible.setDouble(3, newEdible.getQuantity());
-            addEdible.setString(4, newEdible.getUnit().toString());
-            addEdible.setDouble(5, newEdible.getCalories());
-            addEdible.setInt(6, newEdible.getProtein());
-            addEdible.setInt(7, newEdible.getCarbs());
-            addEdible.setInt(8, newEdible.getFat());
-            addEdible.setString(9, newEdible.getPhoto());
-            addEdible.setBoolean(10, newEdible.getIsAlcoholic());
-            addEdible.setBoolean(11, newEdible.getIsSpicy());
-            addEdible.setBoolean(12, newEdible.getIsVegan());
-            addEdible.setBoolean(13, newEdible.getIsVegetarian());
-            addEdible.setBoolean(14, newEdible.getIsGlutenFree());
+            addEdible.setInt(1, 0);
+            addEdible.setString(2, newEdible.getName());
+            addEdible.setString(3, newEdible.getDescription());
+            addEdible.setDouble(4, newEdible.getQuantity());
+            addEdible.setString(5, newEdible.getUnit().toString());
+            addEdible.setDouble(6, newEdible.getCalories());
+            addEdible.setInt(7, newEdible.getProtein());
+            addEdible.setInt(8, newEdible.getCarbs());
+            addEdible.setInt(9, newEdible.getFat());
+            addEdible.setString(10, newEdible.getPhoto());
+            addEdible.setBoolean(11, newEdible.getIsAlcoholic());
+            addEdible.setBoolean(12, newEdible.getIsSpicy());
+            addEdible.setBoolean(13, newEdible.getIsVegan());
+            addEdible.setBoolean(14, newEdible.getIsVegetarian());
+            addEdible.setBoolean(15, newEdible.getIsGlutenFree());
             addEdible.executeUpdate();
 
             results = getGeneratedKey.executeQuery();
@@ -355,16 +358,17 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
     public int addMealToRecipeBook(Meal newMeal) {
         int edibleID = -1;
         try {
-            PreparedStatement addMeal = currConn.prepareStatement("INSERT INTO Meal VALUES (?, ?);", RETURN_GENERATED_KEYS);
-            PreparedStatement addCustomMeal = currConn.prepareStatement("INSERT INTO CustomMeal VALUES (?, ?);", RETURN_GENERATED_KEYS);
-            PreparedStatement addIngredient = currConn.prepareStatement("INSERT INTO MealIngredient (PreparedID, EdibleID, Quantity, Unit), VALUES (?, ?, ?, ?)");
-            PreparedStatement addCustomIngredientToMeal = currConn.prepareStatement("INSERT INTO MealIngredient (PreparedID, CustomEdibleID, Quantity, Unit), VALUES (?, ?, ?, ?)");
-            PreparedStatement addCustomIngredientToCustomMeal = currConn.prepareStatement("INSERT INTO MealIngredient (CustomPreparedID, CustomEdibleID, Quantity, Unit), VALUES (?, ?, ?, ?)");
+            PreparedStatement addMeal = currConn.prepareStatement("INSERT INTO Meal VALUES (?, ?)");
+            PreparedStatement addCustomMeal = currConn.prepareStatement("INSERT INTO CustomMeal VALUES (?, ?)");
+            PreparedStatement addIngredient = currConn.prepareStatement("INSERT INTO MealIngredient (PreparedID, EdibleID, Quantity, Unit) VALUES (?, ?, ?, ?)");
+            PreparedStatement addCustomIngredientToMeal = currConn.prepareStatement("INSERT INTO MealIngredient (PreparedID, CustomEdibleID, Quantity, Unit) VALUES (?, ?, ?, ?)");
+            PreparedStatement addCustomIngredientToCustomMeal = currConn.prepareStatement("INSERT INTO MealIngredient (PREPAREDCUSTOMID, CustomEdibleID, Quantity, Unit) VALUES (?, ?, ?, ?)");
 
-            Meal currMeal;
+            Edible currMeal;
             ArrayList<Ingredient> currIngredients;
             boolean isCustom = newMeal.getIsCustom();
             edibleID = this.addEdible(newMeal, isCustom);
+            newMeal.setDBKey(edibleID);
 
             if (isCustom) {
                 addCustomMeal.setInt(1, edibleID);
@@ -373,36 +377,36 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
 
                 currIngredients = newMeal.getIngredients();
                 for (int i = 0; i < currIngredients.size(); i++) {
-                    currMeal = (Meal) currIngredients.get(i).getIngredient();
+                    currMeal = currIngredients.get(i).getIngredient();
 
                     if (!currMeal.getIsCustom()) {
                         addCustomIngredientToMeal.setInt(1, edibleID);
                         addCustomIngredientToMeal.setInt(2, currMeal.getDbkey());
                         addCustomIngredientToMeal.setDouble(3, currMeal.getQuantity());
                         addCustomIngredientToMeal.setString(4, currMeal.getUnit().toString());
-                        addCustomIngredientToMeal.executeQuery();
+                        addCustomIngredientToMeal.executeUpdate();
                     } else {
                         addCustomIngredientToCustomMeal.setInt(1, edibleID);
                         addCustomIngredientToCustomMeal.setInt(2, currMeal.getDbkey());
                         addCustomIngredientToCustomMeal.setDouble(3, currMeal.getQuantity());
                         addCustomIngredientToCustomMeal.setString(4, currMeal.getUnit().toString());
-                        addCustomIngredientToCustomMeal.executeQuery();
+                        addCustomIngredientToCustomMeal.executeUpdate();
                     }
                 }
             } else {
                 addMeal.setInt(1, edibleID);
                 addMeal.setString(2, newMeal.getInstructions());
-                addMeal.executeQuery();
+                addMeal.executeUpdate();
 
                 currIngredients = newMeal.getIngredients();
                 for (int i = 0; i < currIngredients.size(); i++) {
-                    currMeal = (Meal) currIngredients.get(i).getIngredient();
+                    currMeal = currIngredients.get(i).getIngredient();
 
                     addIngredient.setInt(1, edibleID);
                     addIngredient.setInt(2, currMeal.getDbkey());
                     addIngredient.setDouble(3, currMeal.getQuantity());
                     addIngredient.setString(4, currMeal.getUnit().toString());
-                    addIngredient.executeQuery();
+                    addIngredient.executeUpdate();
                 }
             }
         } catch (Exception e) {
@@ -417,22 +421,20 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         try {
             PreparedStatement addDrink = currConn.prepareStatement("INSERT INTO Drink VALUES (?, ?)");
             PreparedStatement addCustomDrink = currConn.prepareStatement("INSERT INTO CustomDrink VALUES (?, ?)");
-            PreparedStatement addIngredient = currConn.prepareStatement("INSERT INTO DrinkIngredient (PreparedID, " +
-                    "EdibleID, Quantity, Unit, Substitute), VALUES (?, ?, ?, ?, ?)");
-            PreparedStatement addCustomIngredientToDrink = currConn.prepareStatement("INSERT INTO DrinkIngredient " +
-                    "(PreparedID, CustomEdibleID, Quantity, Unit, Substitute), VALUES (?, ?, ?, ?, ?)");
-            PreparedStatement addCustomIngredientToCustomDrink = currConn.prepareStatement("INSERT INTO DrinkIngredient " +
-                    "(CustomPreparedID, CustomEdibleID, Quantity, Unit, Substitute), VALUES (?, ?, ?, ?, ?)");
+            PreparedStatement addIngredient = currConn.prepareStatement("INSERT INTO DrinkIngredient (PreparedID, EdibleID, Quantity, Unit, Substitute) VALUES (?, ?, ?, ?, ?)");
+            PreparedStatement addCustomIngredientToDrink = currConn.prepareStatement("INSERT INTO DrinkIngredient (PreparedID, CustomEdibleID, Quantity, Unit, Substitute) VALUES (?, ?, ?, ?, ?)");
+            PreparedStatement addCustomIngredientToCustomDrink = currConn.prepareStatement("INSERT INTO DrinkIngredient (PREPAREDCUSTOMID, CustomEdibleID, Quantity, Unit, Substitute) VALUES (?, ?, ?, ?, ?)");
 
             DrinkIngredient currIngredient;
             ArrayList<Ingredient> currIngredients = new ArrayList<Ingredient>();
             boolean isCustom = newDrink.getIsCustom();
             edibleID = this.addEdible(newDrink, isCustom);
+            newDrink.setDBKey(edibleID);
 
             if (isCustom) {
                 addCustomDrink.setInt(1, edibleID);
                 addCustomDrink.setString(2, newDrink.getInstructions());
-                addCustomDrink.executeQuery();
+                addCustomDrink.executeUpdate();
 
                 for (int i = 0; i < newDrink.getIngredients().size(); i++) {
                     currIngredients.add((Ingredient) newDrink.getIngredients().get(i));
@@ -447,20 +449,20 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                         addCustomIngredientToDrink.setDouble(3, currIngredient.getQuantity());
                         addCustomIngredientToDrink.setString(4, currIngredient.getQuantityUnits().toString());
                         addCustomIngredientToDrink.setBoolean(5, currIngredient.getIsSubstitute());
-                        addCustomIngredientToDrink.executeQuery();
+                        addCustomIngredientToDrink.executeUpdate();
                     } else {
                         addCustomIngredientToCustomDrink.setInt(1, edibleID);
                         addCustomIngredientToCustomDrink.setInt(2, currIngredient.getIngredient().getDbkey());
                         addCustomIngredientToCustomDrink.setDouble(3, currIngredient.getQuantity());
                         addCustomIngredientToCustomDrink.setString(4, currIngredient.getQuantityUnits().toString());
                         addCustomIngredientToCustomDrink.setBoolean(5, currIngredient.getIsSubstitute());
-                        addCustomIngredientToCustomDrink.executeQuery();
+                        addCustomIngredientToCustomDrink.executeUpdate();
                     }
                 }
             } else {
                 addDrink.setInt(1, edibleID);
                 addDrink.setString(2, newDrink.getInstructions());
-                addDrink.executeQuery();
+                addDrink.executeUpdate();
 
                 for (int i = 0; i < newDrink.getIngredients().size(); i++) {
                     currIngredients.add((Ingredient) newDrink.getIngredients().get(i));
@@ -474,7 +476,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                     addIngredient.setDouble(3, currIngredient.getQuantity());
                     addIngredient.setString(4, currIngredient.getQuantityUnits().toString());
                     addIngredient.setBoolean(5, currIngredient.getIsSubstitute());
-                    addIngredient.executeQuery();
+                    addIngredient.executeUpdate();
                 }
             }
         } catch (Exception e) {
@@ -810,21 +812,14 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
 
     public void removeTestData() {
         try {
-            String[] customTables = {"CUSTOMEDIBLE", "CUSTOMFOOD", "CUSTOMMEAL", "CUSTOMDRINK"};
-            String[] builtinTables = {"EDIBLE", "FOOD", "MEAL", "DRINK", "MEALINGREDIENT", "DRINKINGREDIENT"};
+            String[] customTables = {"CUSTOMEDIBLE","EDIBLE"};
 
             PreparedStatement deleteTestEntriesCustom;
-            PreparedStatement deleteTestEntriesBuiltin;
 
             for (int i = 0; i < customTables.length; i++) {
                 deleteTestEntriesCustom = currConn.prepareStatement("DELETE FROM " + customTables[i] + " WHERE UserID = ?");
                 deleteTestEntriesCustom.setInt(1, 1);
                 deleteTestEntriesCustom.executeUpdate();
-            }
-            for (int i = 0; i < builtinTables.length; i++) {
-                deleteTestEntriesBuiltin = currConn.prepareStatement("DELETE FROM " + builtinTables[i] + " WHERE NAME LIKE ?");
-                deleteTestEntriesBuiltin.setString(1, "Test%");
-                deleteTestEntriesBuiltin.executeUpdate();
             }
 
         } catch (Exception e) {
