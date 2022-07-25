@@ -158,7 +158,7 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
     - Josef  
     - Manraj  
     - Gurdit  
-    - Zhao  
+    - Zhou  
 
     Topic: Iter1 requirements compared to our existing codebase, refactoring, testing and data sanitizing 
     ----- 
@@ -196,7 +196,7 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
     - Josef  
     - Manraj  
     - Gurdit  
-    - Zhao  
+    - Zhou  
 
     Topic: Iter1 requirements compared to our existing codebase, refactoring, testing and data sanitizing 
     ----- 
@@ -218,7 +218,7 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
     - Josef  
     - Manraj  
     - Gurdit  
-    - Zhao  
+    - Zhou  
 
     Topic: Iter1 requirements compared to our existing codebase, refactoring, testing and data sanitizing 
     ----- 
@@ -235,7 +235,7 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
     - Josef  
     - Manraj  
     - Gurdit  
-    - Zhao  
+    - Zhou  
 
     Topic: Iter1 requirements compared to our existing codebase, refactoring, testing and data sanitizing 
     ----- 
@@ -251,7 +251,7 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
     - Dane  
     - Josef  
     - Gurdit  
-    - Zhao  
+    - Zhou  
 
     Topic: Discussed Iter2 sprint to finish and what remains
     ----- 
@@ -1164,7 +1164,7 @@ Duration: 8hrs
       - Dane
       - Manraj
       - Josef
-      - Zhao
+      - Zhou
 Duration: 8hrs
    Tasks:
    - Agile software dev practices discussion
