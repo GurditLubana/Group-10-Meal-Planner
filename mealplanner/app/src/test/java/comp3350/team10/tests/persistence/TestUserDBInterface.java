@@ -20,7 +20,6 @@ public class TestUserDBInterface {
     @BeforeEach
     void setup() {
         DBSelector.start(new DataAccessStub());
-        ;
 
         this.db = DBSelector.getUserDB();
     }

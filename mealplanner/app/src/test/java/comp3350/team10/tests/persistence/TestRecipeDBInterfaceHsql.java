@@ -13,11 +13,14 @@ public class TestRecipeDBInterfaceHsql extends TestRecipeDBInterface {
     @BeforeEach
     void setup() {
         DBSelector.start(new HSqlDB());
-        ;
+
         super.db = DBSelector.getRecipeDB();
-        super.foodRecipeCount = db.getFoodRecipes().size();
-        super.mealRecipeCount = db.getMealRecipes().size();
-        super.drinkRecipeCount = db.getDrinkRecipes().size();
+        super.foodDB = db.getFoodRecipes();
+        super.mealDB = db.getMealRecipes();
+        super.drinkDB = db.getDrinkRecipes();
+        super.foodRecipeCount = super.foodDB.size();
+        super.mealRecipeCount = super.mealDB.size();
+        super.drinkRecipeCount = super.drinkDB.size();
     }
 
     @Override

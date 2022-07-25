@@ -13,7 +13,7 @@ public class TestUserDBInterfaceHsql extends TestUserDBInterface {
     @BeforeEach
     void setup() {
         DBSelector.start(new HSqlDB());
-        ;
+
         super.db = DBSelector.getUserDB();
     }
 

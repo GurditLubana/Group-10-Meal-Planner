@@ -302,11 +302,13 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
         return getDeepCopy(this.dbRecipeDrink);
     }
 
-    public void addFoodToRecipeBook(Edible newFood) throws IllegalArgumentException {
+    public int addFoodToRecipeBook(Edible newFood) throws IllegalArgumentException {
+        int newKey = -1;
         if (newFood != null) {
             if (!(newFood instanceof PreparedEdible)) {
                 if (findEdibleByKey(newFood.getDbkey(), false) == null) {
                     this.dbRecipeFood.add(newFood.clone());
+                    newKey = newFood.getDbkey();
                 } else {
                     throw new IllegalArgumentException("DB addFoodToRecipeBook cannot add duplicate dbkey");
                 }
@@ -316,30 +318,37 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
         } else {
             throw new IllegalArgumentException("DB addFoodToRecipeBook cannot be null");
         }
+        return newKey;
     }
 
-    public void addMealToRecipeBook(Meal newMeal) throws IllegalArgumentException {
+    public int addMealToRecipeBook(Meal newMeal) throws IllegalArgumentException {
+        int newKey = -1;
         if (newMeal != null) {
             if (findEdibleByKey(newMeal.getDbkey(), false) == null) {
                 this.dbRecipeMeal.add(newMeal.clone());
+                newKey = newMeal.getDbkey();
             } else {
                 throw new IllegalArgumentException("DB addFoodToRecipeBook cannot add duplicate dbkey");
             }
         } else {
             throw new IllegalArgumentException("DB addMealToRecipeBook cannot be null");
         }
+        return newKey;
     }
 
-    public void addDrinkToRecipeBook(Drink newDrink) throws IllegalArgumentException {
+    public int addDrinkToRecipeBook(Drink newDrink) throws IllegalArgumentException {
+        int newKey = -1;
         if (newDrink != null) {
             if (findEdibleByKey(newDrink.getDbkey(), false) == null) {
                 this.dbRecipeDrink.add(newDrink.clone());
+                newKey = newDrink.getDbkey();
             } else {
                 throw new IllegalArgumentException("DB addFoodToRecipeBook cannot add duplicate dbkey");
             }
         } else {
             throw new IllegalArgumentException("DB addDrinkToRecipeBook cannot be null");
         }
+        return newKey;
     }
 
     private User findUserByID(int userID) throws IllegalArgumentException {

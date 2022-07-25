@@ -24,10 +24,17 @@ import comp3350.team10.tests.persistence.DataAccessStub;
 public class TestRecipeDBInterface {
 
     RecipeDBInterface db;
+    ArrayList<Edible> foodDB;
+    ArrayList<Edible> mealDB;
+    ArrayList<Edible> drinkDB;
 
-    int foodRecipeCount;
-    int mealRecipeCount;
-    int drinkRecipeCount;
+    int foodRecipeCount = -1;
+    int mealRecipeCount = -1;
+    int drinkRecipeCount = -1;
+    int testEdibleKey = -1;
+    int testMealKey = -1;
+    int testDrinkKey = -1;
+
     Edible testEdible;
     Meal testMeal;
     Drink testDrink;
@@ -35,15 +42,19 @@ public class TestRecipeDBInterface {
     @BeforeEach
     void setup() {
         DBSelector.start(new DataAccessStub());
-        ;
         db = DBSelector.getRecipeDB();
-        this.foodRecipeCount = db.getFoodRecipes().size();
-        this.mealRecipeCount = db.getMealRecipes().size();
-        this.drinkRecipeCount = db.getDrinkRecipes().size();
+        this.foodDB = db.getFoodRecipes();
+        this.mealDB = db.getMealRecipes();
+        this.drinkDB = db.getDrinkRecipes();
+        this.foodRecipeCount = this.foodDB.size();
+        this.mealRecipeCount = this.mealDB.size();
+        this.drinkRecipeCount = this.drinkDB.size();
     }
 
     @AfterEach
     void shutdown() {
+        DataAccess dataAccess = DBSelector.getSharedDB();
+        dataAccess.removeTestData();
         DBSelector.close();
     }
 
@@ -51,33 +62,33 @@ public class TestRecipeDBInterface {
         ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
         Ingredient ingredient = null;
         ingredient = new Ingredient().init((new Edible()
-                .initDetails(4, "Grain of Rice", "rice desc", 400, Edible.Unit.g)
+                .initDetails(4, "Test Grain of Rice", "rice desc", 400, Edible.Unit.g)
                 .initNutrition(400, 30, 20, 50)
                 .initCategories(false, false, false, false, false)
                 .initMetadata(false, "rice.jpg")), 1, Edible.Unit.cups);
         ingredients.add(ingredient);
 
         ingredient = new Ingredient().init((new Edible()
-                .initDetails(12, "Bologna", "Bologna desc", 1, Edible.Unit.tsp)
+                .initDetails(12, "Test Bologna", "Bologna desc", 1, Edible.Unit.tsp)
                 .initNutrition(100, 30, 20, 50)
                 .initCategories(false, false, false, false, false)
                 .initMetadata(false, "bologna.jpg")), 1, Edible.Unit.cups);
         ingredients.add(ingredient);
 
         this.testEdible = new Edible()
-                .initDetails(101, "TestChicken", "desc", 20, Edible.Unit.tsp)
+                .initDetails(101, "Test TestChicken", "desc", 20, Edible.Unit.tsp)
                 .initNutrition(200, 25, 40, 35)
                 .initCategories(false, false, false, false, true)
                 .initMetadata(false, "photo.jpg");
 
         this.testMeal = (Meal) new Meal()
-                .initDetails(102, "TestMeal 1011", "desc", 30, Edible.Unit.cups)
+                .initDetails(102, "Test Meal 1011", "desc", 30, Edible.Unit.cups)
                 .initNutrition(300, 40, 50, 10)
                 .initMetadata(false, "ribsmash.jpg");
         this.testMeal.setIngredients(ingredients);
 
         this.testDrink = (Drink) new Drink()
-                .initDetails(103, "TestOrange Juice", "OJ", 100, Edible.Unit.ml)
+                .initDetails(103, "Test Orange Juice", "OJ", 100, Edible.Unit.ml)
                 .initNutrition(100, 30, 45, 25)
                 .initMetadata(false, "orangejuice.jpg");
     }
@@ -86,33 +97,33 @@ public class TestRecipeDBInterface {
         ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
         Ingredient ingredient = null;
         ingredient = new Ingredient().init((new Edible()
-                .initDetails(4, "Grain of Rice", "rice desc", 400, Edible.Unit.g)
+                .initDetails(4, "Test Grain of Rice", "rice desc", 400, Edible.Unit.g)
                 .initNutrition(400, 30, 20, 50)
                 .initCategories(false, false, false, false, false)
                 .initMetadata(false, "rice.jpg")), 1, Edible.Unit.cups);
         ingredients.add(ingredient);
 
         ingredient = new Ingredient().init((new Edible()
-                .initDetails(12, "Bologna", "Bologna desc", 1, Edible.Unit.tsp)
+                .initDetails(12, "Test Bologna", "Bologna desc", 1, Edible.Unit.tsp)
                 .initNutrition(100, 30, 20, 50)
                 .initCategories(false, false, false, false, false)
                 .initMetadata(false, "bologna.jpg")), 1, Edible.Unit.cups);
         ingredients.add(ingredient);
 
         this.testEdible = new Edible()
-                .initDetails(2, "Chicken", "desc", 20, Edible.Unit.tsp)
+                .initDetails(2, "Test Chicken", "desc", 20, Edible.Unit.tsp)
                 .initNutrition(200, 25, 40, 35)
                 .initCategories(false, false, false, false, true)
                 .initMetadata(false, "photo.jpg");
 
         this.testMeal = (Meal) new Meal()
-                .initDetails(26, "Meal 1011", "desc", 30, Edible.Unit.cups)
+                .initDetails(26, "Test Meal 1011", "desc", 30, Edible.Unit.cups)
                 .initNutrition(300, 40, 50, 10)
                 .initMetadata(false, "ribsmash.jpg");
         this.testMeal.setIngredients(ingredients);
 
         this.testDrink = (Drink) new Drink()
-                .initDetails(31, "Orange Juice", "OJ", 100, Edible.Unit.ml)
+                .initDetails(31, "Test Orange Juice", "OJ", 100, Edible.Unit.ml)
                 .initNutrition(100, 30, 45, 25)
                 .initMetadata(false, "orangejuice.jpg");
     }
@@ -240,7 +251,7 @@ public class TestRecipeDBInterface {
         void typicalValues() {
 
             assertEquals(25, foodRecipeCount);
-            assertEquals(6, mealRecipeCount);
+            assertEquals(7, mealRecipeCount);
             assertEquals(7, drinkRecipeCount);
             //assertEquals(100, db.getNextKey());
 
@@ -290,22 +301,23 @@ public class TestRecipeDBInterface {
         @Test
         @DisplayName("When we add an object to the database we should not be able to modify primitives")
         void testObjectSeparation() {
-            db.addFoodToRecipeBook(testEdible);
+
+            testEdibleKey = db.addFoodToRecipeBook(testEdible);
             assertEquals(foodRecipeCount, db.getFoodRecipes().size(), 1);
 
-            db.addMealToRecipeBook(testMeal);
+            testMealKey = db.addMealToRecipeBook(testMeal);
             assertEquals(mealRecipeCount, db.getMealRecipes().size(), 1);
 
-            db.addDrinkToRecipeBook(testDrink);
+            testDrinkKey = db.addDrinkToRecipeBook(testDrink);
             assertEquals(drinkRecipeCount, db.getDrinkRecipes().size(), 1);
 
             testEdible.setDescription("a new description");
             testMeal.setDescription("a new description");
             testDrink.setDescription("a new description");
 
-            assertEquals("old description", db.findIngredientByKey(101, false).getDescription());
-            assertEquals("old description", db.findIngredientByKey(102, false).getDescription());
-            assertEquals("old description", db.findIngredientByKey(103, false).getDescription());
+            assertEquals("old description", db.findIngredientByKey(testEdibleKey, false).getDescription());
+            assertEquals("old description", db.findIngredientByKey(testMealKey, false).getDescription());
+            assertEquals("old description", db.findIngredientByKey(testDrinkKey, false).getDescription());
         }
     }
 
