@@ -2236,6 +2236,21 @@ Duration: 6 hrs
    - Started writing Integration tests
    - Added some tests in businessPersistanceSeamTests class for subclass MealDiaryOps.
    -Added some "invalid Tests" for RecipeBookOps integration tests.
+   
+   ### 2022-07-24
+     Dev:
+      - Zhou
+Duration: 1 hrs
+   Tasks:
+   - review course video U8 and make relative note and upload
+
+
+   ### 2022-07-24
+     Dev:
+      - Zhou
+Duration: 1 hrs
+   Tasks:
+   - review course video first 2 U9 video and make relative note and upload
 
 
 ### 2022-07-24
@@ -2257,6 +2272,12 @@ Duration: 4 hrs
    - Added integration tests for TrendOps and UserDataOps
    - A 30 minute meeting with Josef for feedback.
 
+### 2022-07-25
+     Dev:
+      - Zhou
+Duration: 3 hrs
+   Tasks:
+   - review course video, rest of U9 and make relative note and upload
 
 ### 2022-07-25
      Dev:
