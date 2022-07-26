@@ -2260,7 +2260,7 @@ Duration: 15 hrs
    Tasks:
    - Took notes from all Unit 5-9 videos for final iter3 refactoring
    - Seeded static data for 2 years of daily log into hsql
-   - Started hsql integration testing
+   - Completed hsql integration testing
    - Added verbosity to hsql exception statements
 
 ### 2022-07-24
@@ -2282,6 +2282,8 @@ Duration: 3 hrs
 ### 2022-07-25
      Dev:
       - Josef
-Duration:  hrs
+Duration: 6 hrs
    Tasks:
-   - 
+   - Fixed acceptance tests
+   - added more acceptance tests
+   - added a validator class
