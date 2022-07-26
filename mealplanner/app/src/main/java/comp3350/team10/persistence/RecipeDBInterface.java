@@ -16,11 +16,11 @@ public interface RecipeDBInterface {
 
     public int getNextKey();
 
-    public void addFoodToRecipeBook(Edible newFood) throws IllegalArgumentException;
+    public int addFoodToRecipeBook(Edible newFood) throws IllegalArgumentException;
 
-    public void addMealToRecipeBook(Meal newMeal) throws IllegalArgumentException;
+    public int addMealToRecipeBook(Meal newMeal) throws IllegalArgumentException;
 
-    public void addDrinkToRecipeBook(Drink newDrink) throws IllegalArgumentException;
+    public int addDrinkToRecipeBook(Drink newDrink) throws IllegalArgumentException;
 
     public Edible findIngredientByKey(int key, boolean isCustom);
 }

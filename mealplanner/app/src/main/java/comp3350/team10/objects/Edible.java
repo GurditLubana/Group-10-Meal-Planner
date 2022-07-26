@@ -267,4 +267,18 @@ public class Edible {
 
         return copy;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Edible) {
+            int otherID = ((Edible) other).getDbkey();
+            return (this.edibleID == otherID);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.edibleID;
+    }
 }
