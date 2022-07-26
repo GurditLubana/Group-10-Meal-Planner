@@ -198,7 +198,7 @@ public class BusinessPersistenceSeamTest
 
 			int initialSize = ops.getFoodRecipes().size();
 
-			ops.addFood("Pan Cake", testString, 2, Edible.Unit.g, 350, 400, 74, 89,
+			ops.addFood("Test Pan Cake", testString, 2, Edible.Unit.g, 350, 400, 74, 89,
 					false, true, false, true, false, "photo");
 
 			assertEquals(initialSize + 1, ops.getFoodRecipes().size());
@@ -220,6 +220,7 @@ public class BusinessPersistenceSeamTest
 			ops.addMeal("Pan Cake", testString, 2, Edible.Unit.g, "photo", testString, ingredients);
 
 			assertEquals(initialSize + 1, ops.getMealRecipes().size());
+
 
 		}
 
