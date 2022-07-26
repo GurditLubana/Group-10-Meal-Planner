@@ -25,8 +25,11 @@ import comp3350.team10.objects.DataFrame;
 import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
+import comp3350.team10.objects.User;
 import comp3350.team10.persistence.DBSelector;
+import comp3350.team10.persistence.DataAccess;
 import comp3350.team10.persistence.LogDBInterface;
+import comp3350.team10.persistence.UserDBInterface;
 import comp3350.team10.tests.persistence.DataAccessStub;
 
 
@@ -61,6 +64,8 @@ public class BusinessPersistenceSeamTest
 
 		@AfterEach
 		void shutdown() {
+			LogDBInterface db = DBSelector.getLogDB();
+			db.replaceLog(0, new DailyLog().init(currDate, new ArrayList<>(), 0, 0, 0));
 			DBSelector.close();
 		}
 
@@ -189,6 +194,9 @@ public class BusinessPersistenceSeamTest
 
 		@AfterEach
 		void shutdown() {
+
+			DataAccess dataAccess = DBSelector.getSharedDB();
+			dataAccess.removeTestData();
 			DBSelector.close();
 		}
 
@@ -566,9 +574,20 @@ public class BusinessPersistenceSeamTest
 
 		@AfterEach
 		void shutdown() {
+			restoreDefault();
 			DBSelector.close();
 		}
 
+
+		void restoreDefault() {
+			UserDBInterface db = DBSelector.getUserDB();
+			User currUser = db.getUser(1);
+			currUser.setHeight(100);
+			currUser.setWeight(200);
+			currUser.setCalorieGoal(2000);
+			currUser.setExerciseGoal(600);
+			db.updateUser(currUser);
+		}
 
 		@Test
 		@DisplayName("Testing getUser")
