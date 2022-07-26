@@ -111,7 +111,7 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
         }
     }
 
-    
+
     public int getItemViewType(int pos) {
         String identifier = localDataSet.get(pos).getName();
         int result = -1;
@@ -150,7 +150,7 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
         this.notifyDataSetChanged();
     }
 
-    
+
     public int getItemCount() {
         return this.localDataSet.size();
     }

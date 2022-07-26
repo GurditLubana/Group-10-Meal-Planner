@@ -1,6 +1,6 @@
 package comp3350.team10.application;
 
-import comp3350.team10.persistence.SharedDB;
+import comp3350.team10.persistence.DBSelector;
 
 public class Main {
     private static final String dbName = "db";
@@ -9,18 +9,17 @@ public class Main {
 
 
     public static void startUp() {
-        SharedDB.start();
+        DBSelector.start();
     }
 
     public static void shutDown() {
-        SharedDB.close();
+        DBSelector.close();
     }
 
     public static void saveDB() {
-        SharedDB.saveDB();
+        DBSelector.save();
     }
-
-
+    
     public static String getDBPathName() {
         if (dbPathName == null)
             return dbName;

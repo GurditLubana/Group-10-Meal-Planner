@@ -20,6 +20,7 @@ public class DataFrame {
     private double average = 0.0;
     private double currVal = 0.0;
     private double maxVal = 0.0;
+    private double minVal = 999999999.0;
     private double progress = 0.0;
 
     public DataFrame(DataType dataType, Span span) throws NullPointerException {
@@ -54,6 +55,9 @@ public class DataFrame {
                         this.average += this.currVal;
                         if (this.currVal > this.maxVal) {
                             this.maxVal = this.currVal;
+                        }
+                        if (this.currVal < this.minVal) {
+                            this.minVal = this.currVal;
                         }
                     }
                 }
@@ -103,6 +107,10 @@ public class DataFrame {
 
     public double getMaxVal() {
         return maxVal;
+    }
+
+    public double getMinVal() {
+        return minVal;
     }
 
     public double getProgress() {

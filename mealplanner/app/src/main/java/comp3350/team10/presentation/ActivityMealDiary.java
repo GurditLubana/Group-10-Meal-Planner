@@ -50,7 +50,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     private ArrayList<Edible> data;             //The data for the diary entries
 
-    
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_diary);
@@ -94,7 +94,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
     private void createActivityCallbackListener() {
         this.pickMeal = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
-                    
+
                     public void onActivityResult(ActivityResult result) {
                         Intent data;
                         boolean isCustom;
@@ -184,14 +184,14 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
     }
 
-    
+
     protected void onDestroy() {
         super.onDestroy();
         Main.saveDB();
         Main.shutDown();
     }
 
-    
+
     public void selectDate() {
         MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
@@ -202,7 +202,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
         datePicker.addOnPositiveButtonClickListener(
                 new MaterialPickerOnPositiveButtonClickListener() {
-                    
+
                     public void onPositiveButtonClick(Object selection) {
                         recyclerViewAdapter.restoreSaved();
                         Calendar selectedDate = Calendar.getInstance();
@@ -215,14 +215,14 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         );
     }
 
-    
+
     public void prevDate() {
         this.recyclerViewAdapter.restoreSaved();
         this.opExec.prevDate();
         this.updateLiveData();
     }
 
-    
+
     public void nextDate() {
         this.recyclerViewAdapter.restoreSaved();
         this.opExec.nextDate();
@@ -239,22 +239,22 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         editorView.show(fragmentManager, FragmentModEntryDialogs.TAG);
     }
 
-    
+
     public void editItem() { //launch dialog fragment
         this.loadEditorView(EntryMode.EDIT_QTY.toString());
     }
 
-    
+
     public void showGoalEntryDialog() { //launch dialog fragment
         this.loadEditorView(EntryMode.GOAL_CALORIE.toString());
     }
 
-    
+
     public void showExerciseEntryDialog() { //launch dialog fragment
         this.loadEditorView(EntryMode.ACTUAL_EXERCISE.toString());
     }
 
-    
+
     public void removeItem(int pos) {
         if (pos >= 0 && pos < this.data.size()) {
             this.recyclerViewAdapter.removeItem(pos);
@@ -264,7 +264,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
     }
 
-    
+
     public void addEntry(int pos) { //launch recipebook use ActivityResultLauncher to allow data passing
         Intent intent = new Intent(this, ActivityRecipeBook.class);
         this.pickMeal.launch(intent);
@@ -294,17 +294,17 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
     }
 
-    
+
     public String getEntryQty() {
         return String.valueOf(this.recyclerViewAdapter.getSavedItem().getQuantity());
     }
 
-    
+
     public Edible.Unit getEntryUnit() {
         return this.recyclerViewAdapter.getSavedItem().getUnit();
     }
 
-    
+
     public void setEntryQty(Double amount, String unit) {
         int savedPosition = this.recyclerViewAdapter.getSavedItemPosition();
         Edible savedItem = this.recyclerViewAdapter.getSavedItem();
@@ -312,7 +312,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
         try {
             if (savedItem instanceof EdibleLog) {
-                selectedItem = (EdibleLog)savedItem;
+                selectedItem = (EdibleLog) savedItem;
                 selectedItem.setQuantity(amount);
                 selectedItem.setUnit(Edible.Unit.valueOf(unit));
                 selectedItem.setCalories();
@@ -327,12 +327,12 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
     }
 
-    
+
     public String getExerciseCalories() {
         return "" + opExec.getCurrLog().getExerciseActual();
     }
 
-    
+
     public void setExerciseCalories(Double value) {
         try {
             this.currLog.setExerciseActual(value);
@@ -343,12 +343,12 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         this.updateLiveData();
     }
 
-    
+
     public String getGoalCalories() {
         return "" + this.currLog.getCalorieGoal();
     }
 
-    
+
     public void setGoalCalories(Double value) {
         try {
             this.currLog.setCalorieGoal(value);

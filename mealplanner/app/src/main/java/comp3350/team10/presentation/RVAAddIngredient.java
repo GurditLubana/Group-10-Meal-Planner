@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import comp3350.team10.R;
-import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.Edible;
 
 public class RVAAddIngredient extends RecyclerViewAdapter {
@@ -51,7 +50,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
         return viewHolder;
     }
 
-    
+
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         if (super.getViewType() == FragmentType.diaryModify.ordinal()) {
             setDiaryContextListeners(viewHolder);
@@ -81,7 +80,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
 
     private void setDiaryEntryListeners(ViewHolder viewHolder) {
         viewHolder.getView().setOnClickListener(new View.OnClickListener() {
-            
+
             public void onClick(View view) {
                 int position = viewHolder.getAbsoluteAdapterPosition();
 
@@ -93,7 +92,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
     private void setDiaryContextListeners(ViewHolder viewHolder) {
         viewHolder.getView().findViewById(R.id.btnBackMealLog)
                 .setOnClickListener(new View.OnClickListener() {
-                    
+
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
@@ -103,7 +102,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
 
         viewHolder.getView().findViewById(R.id.btnDeleteMeal)
                 .setOnClickListener(new View.OnClickListener() {
-                    
+
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 
@@ -115,7 +114,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
 
         viewHolder.getView().findViewById(R.id.btnModifyMeal)
                 .setOnClickListener(new View.OnClickListener() {
-                    
+
                     public void onClick(View view) {
                         if (sendToRecipeBook != null) {
                             sendToRecipeBook.loadEditorView();
@@ -127,7 +126,7 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
     private void setDiaryAddListeners(ViewHolder viewHolder) {
         viewHolder.getView().findViewById(R.id.btnAddMeal)
                 .setOnClickListener(new View.OnClickListener() {
-                    
+
                     public void onClick(View view) {
                         int position = viewHolder.getAbsoluteAdapterPosition();
 

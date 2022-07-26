@@ -48,7 +48,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private ArrayList<Edible> data;                         //The data for the recipe book
     private RecipeBookOps opExec;                           //Buisness logic for RecipeBook
 
-    
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_book);
@@ -91,10 +91,10 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     private void setTabListeners() {
-        TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayout);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            
+
             public void onTabSelected(TabLayout.Tab tab) {
                 currTab = tab.getPosition();
                 if (currTab == 0) {
@@ -109,15 +109,17 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                 updateRVA();
             }
 
-            
-            public void onTabUnselected(TabLayout.Tab tab) {}
 
-            
-            public void onTabReselected(TabLayout.Tab tab) {}
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
         });
     }
 
-    
+
     protected void onDestroy() {
         super.onDestroy();
         Main.saveDB();
@@ -135,14 +137,14 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotatebackwards_button);
 
         this.openFab.setOnClickListener(new View.OnClickListener() {
-            
+
             public void onClick(View view) {
                 animateButton();
             }
         });
 
         this.editFab.setOnClickListener(new View.OnClickListener() {
-            
+
             public void onClick(View view) {
                 animateButton();
             }
@@ -188,7 +190,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         }
     }
 
-    
+
     public void addToMealDiary() {
         Intent intent = new Intent();
         boolean isCustom = false;
@@ -215,7 +217,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     private FragmentRecipeBookDialogs getAddRecipeFragment() {
         FragmentManager fm = getSupportFragmentManager();
-        return (FragmentRecipeBookDialogs)fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
+        return (FragmentRecipeBookDialogs) fm.findFragmentByTag(FragmentRecipeBookDialogs.TAG);
     }
 
     public void removeItem(int position) {
@@ -246,7 +248,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     private void createActivityCallbackListener() {
         this.pickIngredient = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
-                    
+
                     public void onActivityResult(ActivityResult result) {
                         FragmentRecipeBookDialogs addRecipe = getAddRecipeFragment();
                         Intent data;
@@ -291,7 +293,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         this.updateRVA();
     }
 
-    
+
     public String getIntentExtra(String key) {
         Intent intent = getIntent();
         return intent.getStringExtra(key);
@@ -302,10 +304,9 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         FragmentModEntryDialogs editorView = new FragmentModEntryDialogs();
         Bundle args = new Bundle();
 
-        if(this.currTab == 2) {
+        if (this.currTab == 2) {
             args.putString(Constant.DIALOG_TYPE, EntryMode.DRINK_INGREDIENT.toString());
-        }
-        else {
+        } else {
             args.putString(Constant.DIALOG_TYPE, EntryMode.INGREDIENT.toString());
         }
 

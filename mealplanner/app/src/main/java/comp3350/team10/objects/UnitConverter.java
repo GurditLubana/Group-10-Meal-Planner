@@ -6,15 +6,14 @@ public class UnitConverter {
     private Double calsPerGram = 0.0;   //The ratio of calories per unit
 
     public double convert(Edible.Unit prevUnit, double prevQuantity, double prevCalories, Edible.Unit newUnit, double newQuantity) throws IllegalArgumentException, Exception {
-        if (prevQuantity <= 0.0 || newQuantity <= 0) {
-            throw new IllegalArgumentException("UnitConverter convert quantity must be > 0");
-        }
-        if (prevCalories < 0) {
-            throw new IllegalArgumentException("UnitConverter convert base calories must be >= 0");
-        }
-        this.normalizeToPerGram(prevUnit, prevQuantity, prevCalories);
+
         try {
+            Validator.atLeastOne(prevQuantity, "UnitConverter prevQuantity");
+            Validator.atLeastOne(newQuantity, "UnitConverter newQuantity");
+            this.normalizeToPerGram(prevUnit, prevQuantity, prevCalories);
             return getNewCalories(newUnit, newQuantity);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
         } catch (Exception e) {
             throw new Exception("An exception occurred while converting " +
                     prevUnit + " " + prevQuantity + " to " + newUnit + " " + newQuantity + " " + e);
@@ -31,7 +30,7 @@ public class UnitConverter {
         try {
             result = newQuantity * this.calsPerGram * factor[newUnit.ordinal()];
         } catch (Exception e) {
-            throw e;
+            throw new Exception(e);
         }
 
         return result;

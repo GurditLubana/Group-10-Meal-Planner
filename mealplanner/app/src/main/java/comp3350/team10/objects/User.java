@@ -19,7 +19,7 @@ public class User {
     }
 
 
-    public User init(int userID, String name, int height, int weight, int calorieGoal, int exerciseGoal) throws IllegalArgumentException {
+    public User init(int userID, String name, int height, int weight, double calorieGoal, double exerciseGoal) throws IllegalArgumentException {
         this.setUserID(userID);
         this.setName(name);
         this.setHeight(height);
@@ -30,62 +30,66 @@ public class User {
         return this;
     }
 
+    public User clone() {
+        User copy = new User();
+        copy.init(this.userID, this.name, this.height, this.weight, this.calorieGoal, this.exerciseGoal);
+        return copy;
+    }
+
     private void setUserID(int newUserID) throws IllegalArgumentException {
-        if (newUserID >= 0) {
+        try {
+            Validator.atLeastZero(newUserID, "User newUserID");
             this.userID = newUserID;
-        } else {
-            throw new IllegalArgumentException("User ID must be > 0");
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
         }
     }
 
     public void setName(String newName) throws IllegalArgumentException {
-
-        if (newName != null && !newName.equals("") && newName.length() <= Constant.ENTRY_MAX_VALUE) {
+        try {
+            Validator.validStringInputatLeastOne(newName, "User setName");
             this.name = newName;
-        } else {
-            throw new IllegalArgumentException("User's Name can't be null or empty");
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
         }
-
     }
 
     public void setHeight(int newHeight) throws IllegalArgumentException {
-
-        if (newHeight > Constant.ENTRY_MIN_VALUE && newHeight <= Constant.ENTRY_MAX_VALUE) {
+        try {
+            Validator.atLeastOne(newHeight, "User setHeight");
             this.height = newHeight;
-        } else {
-            throw new IllegalArgumentException("New Height requires values " + Constant.ENTRY_MIN_VALUE + "<= value <= " + Constant.ENTRY_MAX_VALUE);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
         }
 
     }
 
     public void setWeight(int newWeight) throws IllegalArgumentException {
-
-        if (newWeight > Constant.ENTRY_MIN_VALUE && newWeight <= Constant.ENTRY_MAX_VALUE) {
+        try {
+            Validator.atLeastOne(newWeight, "User setWeight");
             this.weight = newWeight;
-        } else {
-            throw new IllegalArgumentException("New Weight requires values " + Constant.ENTRY_MIN_VALUE + "<= value <= " + Constant.ENTRY_MAX_VALUE);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
         }
     }
 
     public void setCalorieGoal(double newCalorieGoal) throws IllegalArgumentException {
-
-        if (newCalorieGoal >= Constant.ENTRY_MIN_VALUE && newCalorieGoal <= Constant.ENTRY_MAX_VALUE) {
+        try {
+            Validator.atLeastZero(newCalorieGoal, "User setCalorieGoal");
             this.calorieGoal = newCalorieGoal;
-        } else {
-            throw new IllegalArgumentException("New Weight requires values " + Constant.ENTRY_MIN_VALUE + "<= value <= " + Constant.ENTRY_MAX_VALUE);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
         }
     }
 
 
     public void setExerciseGoal(double newExerciseGoal) throws IllegalArgumentException {
-
-        if (newExerciseGoal >= Constant.ENTRY_MIN_VALUE && newExerciseGoal <= Constant.ENTRY_MAX_VALUE) {
-
+        try {
+            Validator.atLeastZero(newExerciseGoal, "User setExerciseGoal");
             this.exerciseGoal = newExerciseGoal;
-        } else {
-            throw new IllegalArgumentException("New Weight requires values " + Constant.ENTRY_MIN_VALUE + "<= value <= " + Constant.ENTRY_MAX_VALUE);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
         }
-
     }
 
     public String getName() {

@@ -1,33 +1,40 @@
 package comp3350.team10.acceptance;
 
-import org.junit.*;
-import org.junit.runner.RunWith;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.clearText;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
+import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.fail;
+import static comp3350.team10.utils.Utils.clickChildViewWithId;
+import static comp3350.team10.utils.Utils.selectTabAtPosition;
+import static comp3350.team10.utils.Utils.waitId;
 
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
 
-import static androidx.test.espresso.Espresso.*;
-import static androidx.test.espresso.action.ViewActions.*;
-import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
-import static androidx.test.espresso.matcher.ViewMatchers.*;
-import static androidx.test.espresso.assertion.ViewAssertions.*;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.fail;
-
-import static comp3350.team10.utils.Utils.*;
-
-import comp3350.team10.utils.Utils;
 import comp3350.team10.R;
+import comp3350.team10.persistence.DBSelector;
+import comp3350.team10.persistence.DataAccess;
 import comp3350.team10.presentation.ActivityMealDiary;
-import comp3350.team10.presentation.ActivityRecipeBook;
 
 @RunWith(AndroidJUnit4.class)
 public class TestStoryViewRecipes {
@@ -147,6 +154,31 @@ public class TestStoryViewRecipes {
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("Field cannot be empty")));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnCancel)).perform(scrollTo(), click());
+
+        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(1));
+
+        onView(isRoot()).perform(waitId(R.id.addButton, 5000));
+        onView(ViewMatchers.withId(R.id.addButton)).perform(click());
+
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("Field cannot be empty")));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnCancel)).perform(scrollTo(), click());
+
+        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(2));
+
+        onView(isRoot()).perform(waitId(R.id.addButton, 5000));
+        onView(ViewMatchers.withId(R.id.addButton)).perform(click());
+
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("Field cannot be empty")));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnCancel)).perform(scrollTo(), click());
+
+    }
+
+    public void cleanup() {
+        DataAccess hsql = DBSelector.getSharedDB();
+        hsql.removeTestData();
     }
 
     @Test
@@ -157,7 +189,7 @@ public class TestStoryViewRecipes {
         onView(isRoot()).perform(waitId(R.id.addButton, 5000));
         onView(ViewMatchers.withId(R.id.addButton)).perform(click());
 
-        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("McRib"));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test McRib"));
         onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("333"));
         onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("777"));
         Espresso.closeSoftKeyboard();
@@ -167,20 +199,9 @@ public class TestStoryViewRecipes {
         onView(withId(R.id.dialogRecipeSpinner)).check(matches(withSpinnerText(containsString("tbsp"))));
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("McRib"))));
-    }
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test McRib"))));
 
-    @Test
-    public void user_is_warned_invalid_add_meal_input() {
-        fail("TODO");
-        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(1));
-        onView(ViewMatchers.withId(R.id.openButton)).perform(click());
-
-        onView(isRoot()).perform(waitId(R.id.addButton, 5000));
-        onView(ViewMatchers.withId(R.id.addButton)).perform(click());
-
-        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("Field cannot be empty")));
+        cleanup();
     }
 
     @Test
@@ -203,19 +224,6 @@ public class TestStoryViewRecipes {
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("McRib"))));
-    }
-
-    @Test
-    public void user_is_warned_invalid_add_drinks_input() {
-        fail("TODO");
-        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(0));
-        onView(ViewMatchers.withId(R.id.openButton)).perform(click());
-
-        onView(isRoot()).perform(waitId(R.id.addButton, 5000));
-        onView(ViewMatchers.withId(R.id.addButton)).perform(click());
-
-        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("Field cannot be empty")));
     }
 
     @Test

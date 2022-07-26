@@ -7,14 +7,14 @@ import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
 import comp3350.team10.objects.Meal;
+import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.RecipeDBInterface;
-import comp3350.team10.persistence.SharedDB;
 
 public class RecipeBookOps {
     private RecipeDBInterface db;      //Access to the database
 
     public RecipeBookOps() {
-        this.db = SharedDB.getRecipeDB();
+        this.db = DBSelector.getRecipeDB();
     }
 
     public ArrayList<Edible> getFoodRecipes() {
@@ -29,7 +29,7 @@ public class RecipeBookOps {
         return db.getMealRecipes();
     }
 
-    public Edible findIngredient(int dbkey, boolean isCustom){
+    public Edible findIngredient(int dbkey, boolean isCustom) {
         return this.db.findIngredientByKey(dbkey, isCustom);
     }
 

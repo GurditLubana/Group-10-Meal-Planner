@@ -7,8 +7,8 @@ import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
+import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.LogDBInterface;
-import comp3350.team10.persistence.SharedDB;
 
 public class MealDiaryOps {
     private final static Integer INCREMENT = 1; //Directional arrow increments
@@ -17,15 +17,17 @@ public class MealDiaryOps {
     private Calendar logDate;           //The date the planner is set to
     private LogDBInterface db;          //Accesses the database
     private UserDataOps opUser;         //Business logic for handling the app's user
+    private int userID;
 
     public MealDiaryOps() throws NullPointerException {
-        this.db = SharedDB.getLogDB();
+        this.db = DBSelector.getLogDB();
         this.logDate = Calendar.getInstance();
         this.logDate.set(Calendar.MONTH, 9);
         this.logDate.set(Calendar.DAY_OF_MONTH, 10);
 
         if (db != null) {
             this.opUser = new UserDataOps();
+            this.userID = this.opUser.getUserID();
             this.dateChangedUpdateList();
         } else {
             throw new NullPointerException("MealDiaryOps requires an initialized database in SharedDB");
@@ -68,7 +70,7 @@ public class MealDiaryOps {
 
     private void dateChangedUpdateList() {
         this.logChangedUpdateDB();
-        this.currLog = this.db.searchFoodLogByDate(opUser.getUser().getUserID(), this.logDate);
+        this.currLog = this.db.searchFoodLogByDate(this.userID, this.logDate);
     }
 
     public DailyLog getCurrLog() {
@@ -77,7 +79,7 @@ public class MealDiaryOps {
 
     public void logChangedUpdateDB() {
         if (this.currLog != null) {
-            this.db.replaceLog(opUser.getUser().getUserID(), this.currLog);
+            this.db.replaceLog(this.userID, this.currLog);
         }
     }
 

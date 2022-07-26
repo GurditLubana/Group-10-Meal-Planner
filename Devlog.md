@@ -158,7 +158,7 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
     - Josef  
     - Manraj  
     - Gurdit  
-    - Zhao  
+    - Zhou  
 
     Topic: Iter1 requirements compared to our existing codebase, refactoring, testing and data sanitizing 
     ----- 
@@ -196,7 +196,7 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
     - Josef  
     - Manraj  
     - Gurdit  
-    - Zhao  
+    - Zhou  
 
     Topic: Iter1 requirements compared to our existing codebase, refactoring, testing and data sanitizing 
     ----- 
@@ -218,7 +218,7 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
     - Josef  
     - Manraj  
     - Gurdit  
-    - Zhao  
+    - Zhou  
 
     Topic: Iter1 requirements compared to our existing codebase, refactoring, testing and data sanitizing 
     ----- 
@@ -235,7 +235,7 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
     - Josef  
     - Manraj  
     - Gurdit  
-    - Zhao  
+    - Zhou  
 
     Topic: Iter1 requirements compared to our existing codebase, refactoring, testing and data sanitizing 
     ----- 
@@ -251,7 +251,7 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
     - Dane  
     - Josef  
     - Gurdit  
-    - Zhao  
+    - Zhou  
 
     Topic: Discussed Iter2 sprint to finish and what remains
     ----- 
@@ -1164,7 +1164,7 @@ Duration: 8hrs
       - Dane
       - Manraj
       - Josef
-      - Zhao
+      - Zhou
 Duration: 8hrs
    Tasks:
    - Agile software dev practices discussion
@@ -2092,6 +2092,25 @@ Duration: 2 hrs
    - Broke down iter3 task into smaller dev tasks
    - Updated availability in availability sheet
 
+### 2022-07-16
+     Dev:
+      - Josef
+Duration: 4 hrs
+   Tasks:
+   - Set-up iter 3 testing classes
+   - Research acceptance test implementation
+   - added gradle dependencies
+
+### 2022-07-17
+     Dev:
+      - Josef
+Duration: 8 hrs
+   Tasks:
+   - Added acceptance tests Add Meals Story
+   - Added acceptance tests View Recipe Book Story
+   - Peer review Dane's pull request
+
+
 ### 2022-07-18
      Dev:
       - Zhou
@@ -2140,6 +2159,18 @@ Duration: 12 hrs
    - refactored addRecipeDialog
    - refactored RVA adapter (duplicate code everyplace that has a recycler view)
 
+### 2022-07-20
+     Dev:
+      - Josef
+Duration: 8 hrs
+   Tasks:
+   - Added acceptance tests Add Meals Story
+   - Added acceptance tests View Recipe Book Story
+   - Added acceptance tests Week Trends Story
+   - Added acceptance tests Long Trends Story
+   - Added acceptance test utility methods for recyclerview testing
+   - Fixed bug where DailyLog entries moved around after changing quantity
+
 ### 2022-07-21
      Dev:
       - Dane
@@ -2156,3 +2187,103 @@ Duration: 7 hrs
    - generated the retrospective report from the meeting we had on the 15th
    - read through devlog entries from iter2 to generate statistics for future comparison
    - discussed integration testing with Gurdit
+
+### 2022-07-20
+     Dev:
+      - Zhou
+Duration: 3.5 hrs
+   Tasks:
+   - review course video U6 and make all U6 note and submit to the github floder
+
+### 2022-07-20
+     Dev:
+      - Gurdit 
+Duration: 6 hrs
+   Tasks:
+   - Watched Yuja Videos
+   - Researched on integration tests.
+
+### 2022-07-21
+     Dev:
+      - Gurdit
+Duration: 8 hrs
+   Tasks:
+   - Started writing Integration tests
+   - Added some tests in businessPersistanceSeamTests class for subclass RecipeBookOps.
+   - created DataAccessHsqldbtests.
+   
+### 2022-07-22
+     Dev:
+      - Zhou
+Duration: 1.5 hrs
+   Tasks:
+   - review course video U7 and make relative note
+
+
+
+### 2022-07-23
+     Dev:
+      - Zhou
+Duration: 2.5 hrs
+   Tasks:
+   - review course video rest of U7 and make relative note and upload
+
+### 2022-07-23
+     Dev:
+      - Gurdit
+Duration: 6 hrs
+   Tasks:
+   - Started writing Integration tests
+   - Added some tests in businessPersistanceSeamTests class for subclass MealDiaryOps.
+   -Added some "invalid Tests" for RecipeBookOps integration tests.
+   
+   ### 2022-07-24
+     Dev:
+      - Zhou
+Duration: 1 hrs
+   Tasks:
+   - review course video U8 and make relative note and upload
+
+
+   ### 2022-07-24
+     Dev:
+      - Zhou
+Duration: 1 hrs
+   Tasks:
+   - review course video first 2 U9 video and make relative note and upload
+
+
+### 2022-07-24
+     Dev:
+      - Josef
+Duration: 15 hrs
+   Tasks:
+   - Took notes from all Unit 5-9 videos for final iter3 refactoring
+   - Seeded static data for 2 years of daily log into hsql
+   - Completed hsql integration testing
+   - Added verbosity to hsql exception statements
+
+### 2022-07-24
+     Dev:
+      - Gurdit Singh
+Duration: 4 hrs
+   Tasks:
+   - Added some invalid tests for MealDiaryOpsTest businessPersistanceSeamTests
+   - Added integration tests for TrendOps and UserDataOps
+   - A 30 minute meeting with Josef for feedback.
+
+### 2022-07-25
+     Dev:
+      - Zhou
+Duration: 3 hrs
+   Tasks:
+   - review course video, rest of U9 and make relative note and upload
+
+### 2022-07-25
+     Dev:
+      - Josef
+Duration: 6 hrs
+   Tasks:
+   - Fixed acceptance tests
+   - added more acceptance tests
+   - added a validator class
