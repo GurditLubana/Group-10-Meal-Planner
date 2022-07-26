@@ -112,12 +112,12 @@ public class BusinessPersistenceSeamTest
 			int prevLogSize = currLog.getEdibleList().size();
 			ops.addByKey(0, false);
 			assertEquals(prevLogSize + 1, currLog.getEdibleList().size());
-			assertEquals(currLog.getEdibleList().get(0).getName(), "Apple");
-			assertEquals(currLog.getEdibleList().get(1).getName(), "Pear");
-			assertEquals(currLog.getEdibleList().get(2).getName(), "Cracker");
-			assertEquals(currLog.getEdibleList().get(3).getName(), "Apple");
-			assertEquals((int) currLog.getCalorieNet(), 1626);
-			assertEquals((int) currLog.getEdibleCalories(), 374);
+			assertEquals("Apple",currLog.getEdibleList().get(0).getName());
+			assertEquals("Pear", currLog.getEdibleList().get(1).getName());
+			assertEquals("Cracker",currLog.getEdibleList().get(2).getName());
+			assertEquals("Apple", currLog.getEdibleList().get(3).getName());
+			assertEquals(1626, (int) currLog.getCalorieNet());
+			assertEquals(374,(int) currLog.getEdibleCalories());
 		}
 
 		@Test
@@ -130,22 +130,21 @@ public class BusinessPersistenceSeamTest
 			int prevLogSize = currLog.getEdibleList().size();
 			ops.addByKey(0, false);
 			assertEquals(prevLogSize + 1, currLog.getEdibleList().size());
-			assertEquals(currLog.getEdibleList().get(0).getName(), "Apple");
-			assertEquals(currLog.getEdibleList().get(1).getName(), "Pear");
-			assertEquals(currLog.getEdibleList().get(2).getName(), "Cracker");
-			assertEquals(currLog.getEdibleList().get(3).getName(), "Apple");
-			assertEquals((int) currLog.getCalorieNet(), 1626);
-			assertEquals((int) currLog.getEdibleCalories(), 374);
+			assertEquals("Apple", currLog.getEdibleList().get(0).getName());
+			assertEquals("Pear",currLog.getEdibleList().get(1).getName());
+			assertEquals("Cracker",currLog.getEdibleList().get(2).getName());
+			assertEquals("Apple",currLog.getEdibleList().get(3).getName());
+			assertEquals(1626, (int) currLog.getCalorieNet());
+			assertEquals(374, (int) currLog.getEdibleCalories());
 
 			ops.addByKey(0, false);
 			assertEquals(prevLogSize + 2, currLog.getEdibleList().size());
-			assertEquals(currLog.getEdibleList().get(0).getName(), "Apple");
-			assertEquals(currLog.getEdibleList().get(1).getName(), "Pear");
-			assertEquals(currLog.getEdibleList().get(2).getName(), "Cracker");
-			assertEquals(currLog.getEdibleList().get(3).getName(), "Apple");
-			assertEquals(currLog.getEdibleList().get(4).getName(), "Apple");
-			assertEquals((int) currLog.getCalorieNet(), 1526);
-			assertEquals((int) currLog.getEdibleCalories(), 474);
+			assertEquals("Apple", currLog.getEdibleList().get(0).getName());
+			assertEquals("Pear",currLog.getEdibleList().get(1).getName());
+			assertEquals("Cracker",currLog.getEdibleList().get(2).getName());
+			assertEquals("Apple",currLog.getEdibleList().get(3).getName());
+			assertEquals(1526, (int) currLog.getCalorieNet());
+			assertEquals(474, (int) currLog.getEdibleCalories());
 		}
 
 
@@ -163,6 +162,8 @@ public class BusinessPersistenceSeamTest
 			catch (Exception e) {
 				assertTrue(e instanceof NullPointerException);
 			}
+
+			DBSelector.start(new DataAccessStub());
 
 		}
 	}
@@ -217,15 +218,15 @@ public class BusinessPersistenceSeamTest
 		@DisplayName("Tests adding a meal recipe ops")
 		void testAddMeals() {
 			int initialSize = ops.getMealRecipes().size();
-			Edible currEdible = new Edible().initDetails(5, "name", "description", 5, Edible.Unit.g)
+			Edible currEdible = new Edible().initDetails(5, "Test name", "description", 5, Edible.Unit.g)
 					.initNutrition(5, 5, 5, 5)
 					.initCategories(true, true, true, true, true)
-					.initMetadata(true, "photo");
+					.initMetadata(true, "Test photo");
 			Ingredient currIngredient = new Ingredient().init(currEdible, 5, Edible.Unit.cups);
 			ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
 			ingredients.add(currIngredient);
 
-			ops.addMeal("Pan Cake", testString, 2, Edible.Unit.g, "photo", testString, ingredients);
+			ops.addMeal("Test Pan Cake", testString, 2, Edible.Unit.g, "Test photo", testString, ingredients);
 
 			assertEquals(initialSize + 1, ops.getMealRecipes().size());
 
@@ -236,7 +237,7 @@ public class BusinessPersistenceSeamTest
 		@DisplayName("Tests adding a drink in recipe ops")
 		void testAddPreparedDrinks() {
 			int initialSize = ops.getDrinkRecipes().size();
-			Edible currEdible = new Edible().initDetails(5, "name", "description", 5, Edible.Unit.g)
+			Edible currEdible = new Edible().initDetails(5, "Test name", "description", 5, Edible.Unit.g)
 					.initNutrition(5, 5, 5, 5)
 					.initCategories(true, true, true, true, true)
 					.initMetadata(true, "photo");
@@ -244,7 +245,7 @@ public class BusinessPersistenceSeamTest
 			ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
 			ingredients.add(currIngredient);
 
-			ops.addPreparedDrink("Banana Smoothie", testString, 2, Edible.Unit.ml, "photo", testString, ingredients);
+			ops.addPreparedDrink("Test Banana Smoothie", testString, 2, Edible.Unit.ml, "photo", testString, ingredients);
 
 			assertEquals(initialSize + 1, ops.getDrinkRecipes().size());
 		}
@@ -254,7 +255,7 @@ public class BusinessPersistenceSeamTest
 		void testAddSimpleDrinks() {
 			int initialSize = ops.getDrinkRecipes().size();
 
-			ops.addSimpleDrink("Pepsi", testString, 2, Edible.Unit.ml, 350, 400, 74, 89,
+			ops.addSimpleDrink("Test Pepsi", testString, 2, Edible.Unit.ml, 350, 400, 74, 89,
 					false, true, false, true, false, "photo");
 			assertEquals(initialSize + 1, ops.getDrinkRecipes().size());
 		}
@@ -267,7 +268,6 @@ public class BusinessPersistenceSeamTest
 			assertNotNull(ops.getFoodRecipes());
 			assertNotNull(ops.getDrinkRecipes());
 			assertNotNull(ops.getMealRecipes());
-
 		}
 	}
 
@@ -379,7 +379,7 @@ public class BusinessPersistenceSeamTest
 		}
 
 		@Test
-		@DisplayName("get 2 year of data")
+		@DisplayName("Get 2 year of data")
 		void getAll() {
 			ArrayList<DataFrame> dataFrames = null;
 			try {
@@ -550,14 +550,11 @@ public class BusinessPersistenceSeamTest
 
 
 
-
-
 	@Nested
 	@DisplayName("Integration testing of User Ops to persistence")
 	class testUserOps {
 
 		private UserDataOps ops;
-
 
 		@BeforeEach
 		void setup() {
@@ -569,7 +566,6 @@ public class BusinessPersistenceSeamTest
 			} catch (Exception e) {
 				System.out.println(e);
 			}
-
 		}
 
 		@AfterEach
@@ -597,68 +593,63 @@ public class BusinessPersistenceSeamTest
 			assertEquals(ops.getUser(1), DBSelector.getUserDB().getUser(1));
 		}
 
-//		@Test
-//		@DisplayName("Testing updateHeight")
-//		public void testHeightUpdater() {
-//
-//			int previousHeight = ops.getUser().getHeight();
-//			ops.updateHeight(200);
-//			assertNotEquals(previousHeight, ops.getUser().getHeight());
-//			assertEquals(200, ops.getUser().getHeight());
-//		}
-//
-//		@Test
-//		@DisplayName("Testing updateWeight")
-//		public void testWeightUpdater() {
-//			int previousWeight = ops.getUser().getWeight();
-//			ops.updateWeight(55);
-//			assertNotEquals(previousWeight, ops.getUser().getWeight());
-//			assertEquals(55, ops.getUser().getWeight());
-//		}
-//
-//		@Test
-//		@DisplayName("Testing calorieGoal")
-//		public void testCalorieGoalUpdater() {
-//
-//			double previousCalrorieGoal = ops.getUser().getCalorieGoal();
-//			ops.updateCalorieGoal(260.05);
-//			assertNotEquals(previousCalrorieGoal, ops.getUser().getCalorieGoal());
-//			assertEquals(260.05, ops.getUser().getCalorieGoal());
-//		}
-//
-//		@Test
-//		@DisplayName("Testing exerciseGoal")
-//		public void testExerciseGoalUpdater() {
-//
-//			double previousExerciseGoalUpdater = ops.getUser().getExerciseGoal();
-//			ops.updateExerciseGoal(500.99);
-//			assertNotEquals(previousExerciseGoalUpdater, ops.getUser().getExerciseGoal());
-//			assertEquals(500.99, ops.getUser().getExerciseGoal());
-//		}
-//
-//
-//		@Test
-//		@DisplayName("instance creation should fail if db not started")
-//		void testNoDB() {
-//
-//			SharedDB.close();
-//
-//			try {
-//				ops = new UserDataOps();
-//				ops.getUser().getHeight();
-//				fail("Should throw an exception, no database has been started at this point.");
-//			} catch (Exception e) {
-//				assertTrue(e instanceof NullPointerException);
-//			}
-//		}
+		@Test
+		@DisplayName("Testing setHeight")
+		public void testHeightUpdater() {
+
+			int previousHeight = ops.getUser(1).getHeight();
+			ops.getUser(1).setHeight(200);
+			assertNotEquals(previousHeight, ops.getUser(1).getHeight());
+			assertEquals(200, ops.getUser(1).getHeight());
+		}
+
+		@Test
+		@DisplayName("Testing setWeight")
+		public void testWeightUpdater() {
+			int previousWeight = ops.getUser(1).getWeight();
+			ops.getUser(1).setWeight(55);
+			assertNotEquals(previousWeight, ops.getUser(1).getWeight());
+			assertEquals(55, ops.getUser(1).getWeight());
+		}
+
+		@Test
+		@DisplayName("Testing calorieGoal")
+		public void testCalorieGoalUpdater() {
+
+			double previousCalorieGoal = ops.getUser(1).getCalorieGoal();
+			ops.getUser(1).setCalorieGoal(260.05);
+			assertNotEquals(previousCalorieGoal, ops.getUser(1).getCalorieGoal());
+			assertEquals(260.05, ops.getUser(1).getCalorieGoal());
+		}
+
+		@Test
+		@DisplayName("Testing exerciseGoal")
+		public void testExerciseGoalUpdater() {
+
+			double previousExerciseGoalUpdater = ops.getUser(1).getExerciseGoal();
+			ops.getUser(1).setExerciseGoal(500.99);
+			assertNotEquals(previousExerciseGoalUpdater, ops.getUser(1).getExerciseGoal());
+			assertEquals(500.99, ops.getUser(1).getExerciseGoal());
+		}
 
 
-//		@Test
-//		@DisplayName("Testing userID  ")
-//		void testUserId()
-//		{
-//
-//		}
+		@Test
+		@DisplayName("instance creation should fail if db not started")
+		void testNoDB() {
+
+			DBSelector.close();
+
+			try {
+				ops = new UserDataOps();
+				ops.getUser(1).getHeight();
+				fail("Should throw an exception, no database has been started at this point.");
+			} catch (Exception e) {
+				assertTrue(e instanceof NullPointerException);
+			}
+
+			DBSelector.start(new DataAccessStub());
+		}
+
 
 	}
 }
