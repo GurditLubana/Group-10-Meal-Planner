@@ -42,35 +42,35 @@ import comp3350.team10.objects.Meal;
 public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     public static String TAG = "AddRecipe";    //Tag name of this fragment (for reference)
 
-    private TextView labelName;         //Label of name field
-    private EditText inputName;         //Input field for item name
-    private String name;                //Value of name input
-    private EditText inputCalories;     //Input field for item calories
-    private int calories;               //Value of calorie input
-    private EditText inputInstructions; //Input field for instructions
-    private String instructions;        //Value of instructions input
+    private TextView labelName;                //Label of name field
+    private EditText inputName;                //Input field for item name
+    private String name;                       //Value of name input
+    private EditText inputCalories;            //Input field for item calories
+    private int calories;                      //Value of calorie input
+    private EditText inputInstructions;        //Input field for instructions
+    private String instructions;               //Value of instructions input
 
-    private CheckBox isAlcoholic;    //Check if Edible item contains alcohol.
-    private CheckBox isSpicy;        //Check if Edible item spicy.
-    private CheckBox isVegetarian;   //Check if Edible item vegetarian.
-    private CheckBox isVegan;        //Check if Edible item vegan.
-    private CheckBox isGlutenFree;   //Check if Edible item glutenFree.
+    private CheckBox isAlcoholic;              //Check if Edible item contains alcohol.
+    private CheckBox isSpicy;                  //Check if Edible item spicy.
+    private CheckBox isVegetarian;             //Check if Edible item vegetarian.
+    private CheckBox isVegan;                  //Check if Edible item vegan.
+    private CheckBox isGlutenFree;             //Check if Edible item glutenFree.
 
-    private int quantity;       //Value of quantity input
-    private String photo;       //Value of ingredients input
-    private Edible.Unit unit;   //Value of units input
+    private int quantity;                      //Value of quantity input
+    private String photo;                      //Value of ingredients input
+    private Edible.Unit unit;                  //Value of units input
 
-    private static final int REQUEST_CODE = 1;  //Request code for the edible's image
-    private Button btnChooseItemImage;          //Import a picture for the Edible item.
-    private ImageView EdibleItemImage;          //Image of the edible item.
-    private ImageView cameraIcon;               //The camera Icon in Add Edible interface.
+    private static final int REQUEST_CODE = 1; //Request code for the edible's image
+    private Button btnChooseItemImage;         //Import a picture for the Edible item.
+    private ImageView EdibleItemImage;         //Image of the edible item.
+    private ImageView cameraIcon;              //The camera Icon in Add Edible interface.
 
-    private FragToRecipeBook send;              //Interface for communication with parent activity
-    private String mode;                        //The type of dialog to show
+    private FragToRecipeBook send;             //Interface for communication with parent activity
+    private String mode;                       //The type of dialog to show
     private ArrayList<Ingredient> ingredients;
     Edible addButton;
 
-    private RecyclerView inputIngredients;          //Input field for item ingredients
+    private RecyclerView inputIngredients;     //Input field for item ingredients
     private ArrayList<Edible> ingredientEdibles;
     private RecyclerViewAdapter recyclerViewAdapter;
 
