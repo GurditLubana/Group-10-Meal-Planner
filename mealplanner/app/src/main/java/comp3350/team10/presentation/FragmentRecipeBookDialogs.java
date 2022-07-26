@@ -338,7 +338,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         int intValue;
 
         value = view.getText().toString().trim();
-        if (value.length() == 0) {
+        if (value.length() == 0) { //is this too big?
             view.setError("Field cannot be empty");
             result = false;
         }

@@ -137,19 +137,13 @@ public class Edible {
     }
 
     public void setDescription(String newDescription) throws IllegalArgumentException {
-        if (newDescription != null && newDescription.length() <= Constant.ENTRY_MAX_VALUE) {
-            this.description = newDescription;
-        } else {
-            throw new IllegalArgumentException("Edible setDescription description cannot be null");
-        }
+        Validator.validStringInputatLeastZero(newDescription, "Edible class - setDescription");
+        this.description = newDescription;
     }
 
     public void setProtein(int newProtein) throws IllegalArgumentException {
-        if (newProtein <= Constant.ENTRY_MAX_VALUE && newProtein >= Constant.ENTRY_MIN_VALUE) {
-            this.protein = newProtein;
-        } else {
-            throw new IllegalArgumentException("Edible setProtein requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
-        }
+        Validator.atLeastZero(newProtein, "Edible class - setProtein");
+        this.protein = newProtein;
     }
 
     public int getProtein() {
@@ -161,11 +155,8 @@ public class Edible {
     }
 
     public void setFat(int newFat) throws IllegalArgumentException {
-        if (newFat <= Constant.ENTRY_MAX_VALUE && newFat >= Constant.ENTRY_MIN_VALUE) {
-            this.fat = newFat;
-        } else {
-            throw new IllegalArgumentException("Edible setFat requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
-        }
+        Validator.atLeastZero(newFat, "Edible class - setFat");
+        this.fat = newFat;
     }
 
     public int getFat() {
@@ -173,60 +164,41 @@ public class Edible {
     }
 
     public void setCarbs(int newCarbs) throws IllegalArgumentException {
-        if (newCarbs <= Constant.ENTRY_MAX_VALUE && newCarbs >= Constant.ENTRY_MIN_VALUE) {
-            this.carbs = newCarbs;
-        } else {
-            throw new IllegalArgumentException("Edible setCarbs requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
-        }
+        Validator.atLeastZero(newCarbs, "Edible class - setCarbs");
+        this.carbs = newCarbs;
     }
 
     public void setCalories(double newCalories) throws IllegalArgumentException {
-        if (newCalories >= Constant.ENTRY_MIN_VALUE) {
-            this.calories = newCalories;
-        } else {
-            throw new IllegalArgumentException("Edible setCalories requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
-        }
+        Validator.atLeastZero(newCalories, "Edible class - setCalories");
+        this.calories = newCalories;
     }
 
     public void setBaseUnit(Unit newUnit) throws IllegalArgumentException {
         if (newUnit != null) {
             this.baseUnit = newUnit;
         } else {
-            throw new IllegalArgumentException("Edible setBaseUnit cannot be null");
+            throw new IllegalArgumentException("Unit cannot be null: Edible class - setBaseUnit");
         }
     }
 
     public void setBaseQuantity(double newQuantity) throws IllegalArgumentException {
-        if (newQuantity <= Constant.ENTRY_MAX_VALUE && newQuantity > Constant.ENTRY_MIN_VALUE) {
-
-            this.baseQuantity = newQuantity;
-        } else {
-            throw new IllegalArgumentException("Edible setBaseQuantity requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
-        }
+        Validator.atLeastOne(newQuantity, "Edible class - setBaseQuantity");
+        this.baseQuantity = newQuantity;
     }
 
     public void setDBKey(int dbkey) throws IllegalArgumentException {
-        if (dbkey >= 0) {
-            this.edibleID = dbkey;
-        } else {
-            throw new IllegalArgumentException("Edible setDBkey cannot be negative");
-        }
+        Validator.atLeastZero(dbkey, "Edible class - setDBKey");
+        this.edibleID = dbkey;
     }
 
-    public void setName(String name) throws IllegalArgumentException {
-        if (name != null && !name.equals("") && name.length() <= Constant.ENTRY_MAX_VALUE) {
-            this.name = name;
-        } else {
-            throw new IllegalArgumentException("Edible setName cannot be null or empty");
-        }
+    public void setName(String newName) throws IllegalArgumentException {
+        Validator.validStringInputatLeastOne(newName, "Edible class - setName");
+        this.name = newName;
     }
 
-    public void setPhoto(String filename) throws IllegalArgumentException {
-        if (filename != null && !filename.equals("") && filename.length() <= Constant.ENTRY_MAX_VALUE) {
-            this.photo = filename;
-        } else {
-            throw new IllegalArgumentException("Edible setPhoto cannot be null or empty");
-        }
+    public void setPhoto(String newFilename) throws IllegalArgumentException {
+        Validator.validStringInputatLeastOne(newFilename, "Edible class - setPhoto");
+        this.photo = newFilename;
     }
 
     public String getDescription() {
@@ -275,10 +247,5 @@ public class Edible {
             return (this.edibleID == otherID);
         }
         return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.edibleID;
     }
 }
