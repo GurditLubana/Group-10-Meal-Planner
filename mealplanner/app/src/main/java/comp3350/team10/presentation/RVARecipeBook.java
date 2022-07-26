@@ -12,7 +12,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import comp3350.team10.R;
-import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.Edible;
 
 public class RVARecipeBook extends RecyclerViewAdapter {

@@ -16,7 +16,6 @@ import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
-import comp3350.team10.tests.persistence.DataAccessStub;
 
 public class TestDailyLog {
 

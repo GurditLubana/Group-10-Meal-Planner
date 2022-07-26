@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 
 import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.HSqlDB;
-import comp3350.team10.tests.persistence.DataAccessStub;
 
 public class TestRecipeDBInterfaceHsql extends TestRecipeDBInterface {
 

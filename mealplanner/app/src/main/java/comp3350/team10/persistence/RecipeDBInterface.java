@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.Edible;
-import comp3350.team10.objects.EdibleLog;
 import comp3350.team10.objects.Meal;
 
 public interface RecipeDBInterface {

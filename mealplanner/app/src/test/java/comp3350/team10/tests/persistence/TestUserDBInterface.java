@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import comp3350.team10.objects.User;
 import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.UserDBInterface;
-import comp3350.team10.tests.persistence.DataAccessStub;
 
 public class TestUserDBInterface {
     UserDBInterface db;

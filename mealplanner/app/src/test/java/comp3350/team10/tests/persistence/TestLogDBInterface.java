@@ -23,7 +23,6 @@ import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
 import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.LogDBInterface;
-import comp3350.team10.tests.persistence.DataAccessStub;
 
 public class TestLogDBInterface {
     LogDBInterface db;

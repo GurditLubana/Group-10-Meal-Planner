@@ -1,7 +1,5 @@
 package comp3350.team10.persistence;
 
-import static java.sql.Statement.RETURN_GENERATED_KEYS;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -113,7 +111,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         Edible currEdible = null;
         try {
             EdibleLog edible = this.findEdibleByKey(key, isCustom);
-            if(edible != null) {
+            if (edible != null) {
                 if (this.isMeal(key, isCustom)) {
                     currEdible = new Meal();
                 } else if (this.isDrink(key, isCustom)) {
@@ -1104,7 +1102,6 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         if (dataType != null) {
             if (days >= DataFrame.numDays[DataFrame.Span.Week.ordinal()]) {
                 for (int i = 0; i < days; i++) {
-                    today.add(Calendar.DAY_OF_YEAR, -1);
                     switch (dataType.ordinal()) {
                         case 0:
                             value = searchFoodLogByDate(0, today).getEdibleCalories();
@@ -1123,6 +1120,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                     }
 
                     result.add(value);
+                    today.add(Calendar.DAY_OF_YEAR, -1);
                 }
             } else {
                 throw new IllegalArgumentException("HSqlDB getDataFrame must be >= " + DataFrame.numDays[DataFrame.Span.Week.ordinal()]);

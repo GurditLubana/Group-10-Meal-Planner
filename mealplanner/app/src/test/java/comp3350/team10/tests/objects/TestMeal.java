@@ -17,7 +17,6 @@ import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
 import comp3350.team10.objects.Meal;
-import comp3350.team10.tests.persistence.DataAccessStub;
 
 public class TestMeal {
 

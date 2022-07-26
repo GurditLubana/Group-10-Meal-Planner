@@ -19,7 +19,6 @@ import comp3350.team10.objects.Meal;
 import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.DataAccess;
 import comp3350.team10.persistence.RecipeDBInterface;
-import comp3350.team10.tests.persistence.DataAccessStub;
 
 public class TestRecipeDBInterface {
 
@@ -252,7 +251,7 @@ public class TestRecipeDBInterface {
 
             assertEquals(25, foodRecipeCount);
             assertEquals(7, mealRecipeCount);
-            assertEquals(7,drinkRecipeCount);
+            assertEquals(7, drinkRecipeCount);
             //assertEquals(100, db.getNextKey());
 
             Edible item = db.findIngredientByKey(1, false);
