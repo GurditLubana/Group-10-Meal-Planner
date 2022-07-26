@@ -2143,7 +2143,7 @@ Duration: 12 hrs
 ### 2022-07-21
      Dev:
       - Dane
-Duration: 4 hrs
+Duration: 7 hrs
    Tasks:
    - further refactored RVA adapter
    - removed drink slider code
