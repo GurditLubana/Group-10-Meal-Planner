@@ -16,14 +16,14 @@ public class Drink extends PreparedEdible {
         if (newIngredients != null && !newIngredients.contains(null)) {
             this.ingredients = newIngredients;
         } else {
-            throw new IllegalArgumentException("Invalid drink ingredients");
+            throw new IllegalArgumentException("Invalid drink ingredients: Drink - setIngredients");
         }
     }
 
     public void readIngredientData() throws IllegalArgumentException {
         ArrayList<Ingredient> temp = new ArrayList<Ingredient>();
 
-        //Downcast to ingredients because ArrayLists are finiky!
+        //Downcast to ingredients because ArrayLists are finicky!
         for (int i = 0; i < this.ingredients.size(); i++) {
             temp.add(this.ingredients.get(i));
         }

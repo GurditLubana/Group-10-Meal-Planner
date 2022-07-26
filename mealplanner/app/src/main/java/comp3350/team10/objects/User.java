@@ -37,59 +37,34 @@ public class User {
     }
 
     private void setUserID(int newUserID) throws IllegalArgumentException {
-        try {
-            Validator.atLeastZero(newUserID, "User newUserID");
-            this.userID = newUserID;
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e);
-        }
+        Validator.atLeastZero(newUserID, "User - newUserID");
+        this.userID = newUserID;
     }
 
     public void setName(String newName) throws IllegalArgumentException {
-        try {
-            Validator.validStringInputatLeastOne(newName, "User setName");
-            this.name = newName;
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e);
-        }
+        Validator.validStringInputatLeastOne(newName, "User - setName");
+        this.name = newName;
     }
 
     public void setHeight(int newHeight) throws IllegalArgumentException {
-        try {
-            Validator.atLeastOne(newHeight, "User setHeight");
-            this.height = newHeight;
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e);
-        }
-
+        Validator.atLeastOne(newHeight, "User - setHeight");
+        this.height = newHeight;
     }
 
     public void setWeight(int newWeight) throws IllegalArgumentException {
-        try {
-            Validator.atLeastOne(newWeight, "User setWeight");
-            this.weight = newWeight;
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e);
-        }
+        Validator.atLeastOne(newWeight, "User - setWeight");
+        this.weight = newWeight;
     }
 
     public void setCalorieGoal(double newCalorieGoal) throws IllegalArgumentException {
-        try {
-            Validator.atLeastZero(newCalorieGoal, "User setCalorieGoal");
-            this.calorieGoal = newCalorieGoal;
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e);
-        }
+        Validator.atLeastZero(newCalorieGoal, "User - setCalorieGoal");
+        this.calorieGoal = newCalorieGoal;
     }
 
 
     public void setExerciseGoal(double newExerciseGoal) throws IllegalArgumentException {
-        try {
-            Validator.atLeastZero(newExerciseGoal, "User setExerciseGoal");
-            this.exerciseGoal = newExerciseGoal;
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e);
-        }
+        Validator.atLeastZero(newExerciseGoal, "User - setExerciseGoal");
+        this.exerciseGoal = newExerciseGoal;
     }
 
     public String getName() {

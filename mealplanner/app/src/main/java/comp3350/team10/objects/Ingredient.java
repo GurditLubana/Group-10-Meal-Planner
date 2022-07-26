@@ -45,18 +45,15 @@ public class Ingredient {
     }
 
     public void setQuantity(double newQuantity) throws IllegalArgumentException {
-        if (newQuantity > 0 && newQuantity <= Constant.ENTRY_MAX_VALUE) {
-            this.quantity = newQuantity;
-        } else {
-            throw new IllegalArgumentException("Invald ingredient quantity");
-        }
+        Validator.atLeastOne(newQuantity, "Ingredient - setQuantity");
+        this.quantity = newQuantity;
     }
 
     public void setQuantityUnit(Edible.Unit newUnit) throws IllegalArgumentException {
         if (newUnit != null) {
             this.quantityUnit = newUnit;
         } else {
-            throw new IllegalArgumentException("Invald ingredient unit");
+            throw new IllegalArgumentException("Invalid ingredient: Edible - setInstructions");
         }
     }
 

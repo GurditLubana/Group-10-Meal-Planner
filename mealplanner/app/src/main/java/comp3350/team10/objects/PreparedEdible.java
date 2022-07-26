@@ -13,11 +13,8 @@ public abstract class PreparedEdible extends Edible {
 
 
     public void setInstructions(String newInstructions) throws IllegalArgumentException {
-        if (newInstructions != null && newInstructions.length() <= Constant.ENTRY_MAX_VALUE) {
-            this.instructions = newInstructions;
-        } else {
-            throw new IllegalArgumentException("Invalid instructions");
-        }
+        Validator.validStringInputatLeastZero(newInstructions, "PreparedEdible - setInstructions");
+        this.instructions = newInstructions;
     }
 
     public String getInstructions() {

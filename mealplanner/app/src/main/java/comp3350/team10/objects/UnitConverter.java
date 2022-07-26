@@ -8,8 +8,8 @@ public class UnitConverter {
     public double convert(Edible.Unit prevUnit, double prevQuantity, double prevCalories, Edible.Unit newUnit, double newQuantity) throws IllegalArgumentException, Exception {
 
         try {
-            Validator.atLeastOne(prevQuantity, "UnitConverter prevQuantity");
-            Validator.atLeastOne(newQuantity, "UnitConverter newQuantity");
+            Validator.atLeastOne(prevQuantity, "UnitConverter - prevQuantity");
+            Validator.atLeastOne(newQuantity, "UnitConverter - newQuantity");
             this.normalizeToPerGram(prevUnit, prevQuantity, prevCalories);
             return getNewCalories(newUnit, newQuantity);
         } catch (IllegalArgumentException e) {

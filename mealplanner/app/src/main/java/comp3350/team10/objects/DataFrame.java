@@ -1,12 +1,10 @@
 package comp3350.team10.objects;
 
 import org.apache.commons.math3.stat.regression.SimpleRegression;
-
 import java.util.ArrayList;
 
 public class DataFrame {
     public enum DataType {ConsumedCalories, NetCalories, ExerciseCalories, Weight}
-
     public enum Span {Week, Month, ThreeMonth, SixMonth, Year, All}
 
     public static final int[] numDays = {7, 28, 84, 168, 336, 672};
@@ -30,10 +28,10 @@ public class DataFrame {
                 this.span = span;
                 this.data = new ArrayList<Double>();
             } else {
-                throw new NullPointerException("DataFrame Span cannot be null");
+                throw new NullPointerException("DataFrame Span cannot be null: DataFrame - constructor");
             }
         } else {
-            throw new NullPointerException("DataFrame DataType cannot be null");
+            throw new NullPointerException("DataFrame DataType cannot be null: DataFrame - constructor");
         }
     }
 
@@ -42,32 +40,31 @@ public class DataFrame {
         return this.size;
     }
 
-    public void setData(ArrayList<Double> data) throws NullPointerException {
-        if (data != null) {
-            this.size = data.size();
-            this.data = data;
-            this.regression = new SimpleRegression(true);
-            if (this.data.size() > 1) {
-                for (int i = 0; i < this.size; i++) {
-                    if (this.data.get(i) != null) {
-                        this.currVal = this.data.get(i);
-                        this.regression.addData(i - this.size, this.currVal);
-                        this.average += this.currVal;
-                        if (this.currVal > this.maxVal) {
-                            this.maxVal = this.currVal;
-                        }
-                        if (this.currVal < this.minVal) {
-                            this.minVal = this.currVal;
-                        }
+    public void setData(ArrayList<Double> data) throws IllegalArgumentException {
+        Validator.validArrayListNoNull(data, "DataFrame - setData");
+        this.size = data.size();
+        this.data = data;
+        this.regression = new SimpleRegression(true);
+
+        if (this.data.size() > 1) {
+            for (int i = 0; i < this.size; i++) {
+                if (this.data.get(i) != null) {
+                    this.currVal = this.data.get(i);
+                    this.regression.addData(i - this.size, this.currVal);
+                    this.average += this.currVal;
+                    if (this.currVal > this.maxVal) {
+                        this.maxVal = this.currVal;
+                    }
+                    if (this.currVal < this.minVal) {
+                        this.minVal = this.currVal;
                     }
                 }
-                this.average = this.average / this.size();
-                this.progress = this.average / this.maxVal;
             }
-            calculateTrend();
-        } else {
-            throw new NullPointerException("DataFrame ArrayList<Double> cannot be null");
+            this.average = this.average / this.size();
+            this.progress = this.average / this.maxVal;
         }
+
+        calculateTrend();
     }
 
     public ArrayList<Double> getData() {

@@ -46,6 +46,7 @@ public class DailyLog {
     public DailyLog clone() {
         DailyLog copy = new DailyLog();
         copy.init(this.date, getEdibleList(), this.calorieGoal, this.exerciseGoal, this.getExerciseActual());
+
         return copy;
     }
 
@@ -53,43 +54,31 @@ public class DailyLog {
         if (date != null) {
             this.date = date;
         } else {
-            throw new NullPointerException("DailyLog setDate cannot be null");
+            throw new NullPointerException("DailyLog setDate cannot be null: DailyLog - setDate");
         }
     }
 
     private void setEdibleList(ArrayList<Edible> newLog) throws NullPointerException {
-        if (newLog != null && newLog.size() >= 0 && !newLog.contains(null)) {
-            this.edibleLog = newLog;
-            this.updateProgress();
-        } else {
-            throw new NullPointerException("DailyLog setEdibleList must be initialized and cannot have null elements");
-        }
+        Validator.validArrayListNoNull(newLog, "DailyLog - setEdibleList");
+        this.edibleLog = newLog;
+        this.updateProgress();
     }
 
     public void setExerciseActual(double newExerciseActual) throws IllegalArgumentException {
-        if (newExerciseActual >= Constant.ENTRY_MIN_VALUE && newExerciseActual <= Constant.ENTRY_MAX_VALUE) {
-            this.exerciseActual = newExerciseActual;
-            this.updateProgress();
-        } else {
-            throw new IllegalArgumentException("DailyLog setExerciseActual requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
-        }
+        Validator.atLeastZero(newExerciseActual, "DailyLog - setExerciseActual");
+        this.exerciseActual = newExerciseActual;
+        this.updateProgress();
     }
 
     public void setCalorieGoal(double newCalorieGoal) throws IllegalArgumentException {
-        if (newCalorieGoal >= Constant.ENTRY_MIN_VALUE && newCalorieGoal <= Constant.ENTRY_MAX_VALUE) {
-            this.calorieGoal = newCalorieGoal;
-            this.updateProgress();
-        } else {
-            throw new IllegalArgumentException("DailyLog setCalorieGoal requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
-        }
+        Validator.atLeastZero(newCalorieGoal, "DailyLog - setCalorieGoal");
+        this.calorieGoal = newCalorieGoal;
+        this.updateProgress();
     }
 
     public void setExerciseGoal(double newExerciseGoal) throws IllegalArgumentException {
-        if (newExerciseGoal >= Constant.ENTRY_MIN_VALUE && newExerciseGoal <= Constant.ENTRY_MAX_VALUE) {
-            this.exerciseGoal = newExerciseGoal;
-        } else {
-            throw new IllegalArgumentException("DailyLog setExerciseGoal requires values " + Constant.ENTRY_MIN_VALUE + "<= value <=" + Constant.ENTRY_MAX_VALUE);
-        }
+        Validator.atLeastZero(newExerciseGoal, "DailyLog - setExerciseGoal");
+        this.exerciseGoal = newExerciseGoal;
     }
 
     public void addEdibleToLog(int pos, Edible newEdible) throws NullPointerException {
@@ -99,9 +88,10 @@ public class DailyLog {
             } else {
                 this.edibleLog.add(newEdible);
             }
+
             this.updateProgress();
         } else {
-            throw new NullPointerException("DailyLog AddEdibleToLog requires an initialized Edible object");
+            throw new NullPointerException("DailyLog AddEdibleToLog requires an initialized Edible object: DailyLog - addEdibleToLog");
         }
     }
 
@@ -165,7 +155,7 @@ public class DailyLog {
             this.edibleLog.remove(pos);
             this.updateProgress();
         } else {
-            throw new IllegalArgumentException("DailyLog removeItem position specified is out of bounds");
+            throw new IllegalArgumentException("DailyLog removeItem position specified is out of bounds: DailyLog - removeItem");
         }
     }
 
