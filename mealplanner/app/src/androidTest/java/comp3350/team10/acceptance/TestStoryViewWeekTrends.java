@@ -137,7 +137,7 @@ public class TestStoryViewWeekTrends {
     @Test
     public void user_can_skip_logs_and_still_see_good_charts(){
 
-        onView(ViewMatchers.withId(R.id.nextDateProgress)).perform(click()).perform(click()).perform(click());
+        onView(ViewMatchers.withId(R.id.nextDateProgress)).perform(click()).perform(click()).perform(click()); //oct 7
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.cardView2)));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.addToPlannerBtn2)));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.cardView2)));
