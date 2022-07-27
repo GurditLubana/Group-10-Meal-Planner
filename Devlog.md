@@ -2219,6 +2219,21 @@ Duration: 1.5 hrs
    Tasks:
    - review course video U7 and make relative note
 
+### 2022-07-22
+    Dev:
+    - Manraj
+Duration: 6 hrs
+    Tasks:
+    - 6 hours unit 5 remaining videos from 36-46.
+    - Learned about Solid Principles and the examples related to it.
+    - Learned about the Dependency Inversion principle and Decoupling
+    - Learned about how to split and divide the classes into hierarchy.
+    - Principles of good software design
+    - Cross-cutting concerns
+    - Bad programming practices and how can we recognize one?
+    - Design smells and anti-patterns.
+    - Refactoring and removing duplication 
+    - Researching on how to set the path for image from gallery when new item is added as food or Drink.
 
 
 ### 2022-07-23
