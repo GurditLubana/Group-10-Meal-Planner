@@ -3,6 +3,7 @@ package comp3350.team10.acceptance;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.pressKey;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -11,6 +12,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -21,10 +23,12 @@ import static comp3350.team10.utils.Utils.clickChildViewWithId;
 import static comp3350.team10.utils.Utils.selectTabAtPosition;
 import static comp3350.team10.utils.Utils.waitId;
 
+import android.view.KeyEvent;
 import android.view.View;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.assertion.ViewAssertions;
+import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -101,19 +105,65 @@ public class TestStoryAddMeals {
     @Test
     public void user_can_see_logs_further_out_with_date_picker() {
         onView(ViewMatchers.withId(R.id.dateProgress)).perform(click());
-        fail("TODO");
+        onView(ViewMatchers.withId(R.id.month_navigation_next))
+                .perform(click())
+                .perform(click())
+                .perform(click());
+        onView(ViewMatchers.withId(R.id.mtrl_picker_header_toggle)).perform(click());
+        onView(ViewMatchers.withId(R.id.mtrl_picker_text_input_date))
+                .perform(click())
+                .perform(pressKey(KeyEvent.KEYCODE_DEL))
+                .perform(pressKey(KeyEvent.KEYCODE_DEL))
+                .perform(pressKey(KeyEvent.KEYCODE_DEL))
+                .perform(pressKey(KeyEvent.KEYCODE_DEL))
+                .perform(pressKey(KeyEvent.KEYCODE_DEL))
+                .perform(pressKey(KeyEvent.KEYCODE_DEL))
+                .perform(pressKey(KeyEvent.KEYCODE_DEL))
+                .perform(pressKey(KeyEvent.KEYCODE_DEL));
+        onView(withId(R.id.mtrl_picker_text_input_date))
+                .perform(pressKey(KeyEvent.KEYCODE_8))
+                .perform(pressKey(KeyEvent.KEYCODE_SLASH))
+                .perform(pressKey(KeyEvent.KEYCODE_9))
+                .perform(pressKey(KeyEvent.KEYCODE_SLASH))
+                .perform(pressKey(KeyEvent.KEYCODE_2))
+                .perform(pressKey(KeyEvent.KEYCODE_2));
+        Espresso.closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.confirm_button)).perform(click());
 
-        onView(withText("Oct 09")).check(matches(isDisplayed()));
-        onView(ViewMatchers.withId(R.id.goalCalorie)).check(ViewAssertions.matches(ViewMatchers.withText("2000")));
-        onView(ViewMatchers.withId(R.id.foodConsumed)).check(ViewAssertions.matches(ViewMatchers.withText("600")));
-        onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
-        onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("1400")));
+        onView(withText("Aug 09")).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.goalCalorie)).check(ViewAssertions.matches(ViewMatchers.withText("2100")));
+        onView(ViewMatchers.withId(R.id.foodConsumed)).check(ViewAssertions.matches(ViewMatchers.withText("1721")));
+        onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("183")));
+        onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("561")));
 
-        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 2items"))));
-        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 3items"))));
-        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 67"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Potatoes"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Biscotti"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Ham"))));
 
-        onView(ViewMatchers.withId(R.id.nextDateProgress)).perform(click());
+        onView(ViewMatchers.withId(R.id.dateProgress)).perform(click());
+        onView(ViewMatchers.withId(R.id.mtrl_picker_header_toggle)).perform(click());
+        onView(ViewMatchers.withId(R.id.mtrl_picker_text_input_date))
+                .perform(click())
+                .perform(pressKey(KeyEvent.KEYCODE_DEL))
+                .perform(pressKey(KeyEvent.KEYCODE_DEL))
+                .perform(pressKey(KeyEvent.KEYCODE_DEL))
+                .perform(pressKey(KeyEvent.KEYCODE_DEL))
+                .perform(pressKey(KeyEvent.KEYCODE_DEL))
+                .perform(pressKey(KeyEvent.KEYCODE_DEL))
+                .perform(pressKey(KeyEvent.KEYCODE_DEL))
+                .perform(pressKey(KeyEvent.KEYCODE_DEL));
+        onView(withId(R.id.mtrl_picker_text_input_date))
+                .perform(pressKey(KeyEvent.KEYCODE_1))
+                .perform(pressKey(KeyEvent.KEYCODE_0))
+                .perform(pressKey(KeyEvent.KEYCODE_SLASH))
+                .perform(pressKey(KeyEvent.KEYCODE_1))
+                .perform(pressKey(KeyEvent.KEYCODE_0))
+                .perform(pressKey(KeyEvent.KEYCODE_SLASH))
+                .perform(pressKey(KeyEvent.KEYCODE_2))
+                .perform(pressKey(KeyEvent.KEYCODE_2));
+        Espresso.closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.confirm_button)).perform(click());
+
         onView(withText("Oct 10")).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.goalCalorie)).check(ViewAssertions.matches(ViewMatchers.withText("2000")));
         onView(ViewMatchers.withId(R.id.foodConsumed)).check(ViewAssertions.matches(ViewMatchers.withText("274")));

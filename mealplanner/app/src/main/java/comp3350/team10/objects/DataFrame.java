@@ -35,16 +35,15 @@ public class DataFrame {
         }
     }
 
-
     public int size() {
         return this.size;
     }
 
     public void setData(ArrayList<Double> data) throws IllegalArgumentException {
         Validator.validArrayListNoNull(data, "DataFrame - setData");
+        this.regression = new SimpleRegression(true);
         this.size = data.size();
         this.data = data;
-        this.regression = new SimpleRegression(true);
 
         if (this.data.size() > 1) {
             for (int i = 0; i < this.size; i++) {
