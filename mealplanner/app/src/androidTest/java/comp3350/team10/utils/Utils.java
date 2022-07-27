@@ -40,8 +40,7 @@ public class Utils {
             @Override
             protected boolean matchesSafely(final RecyclerView view) {
                 RecyclerView.ViewHolder viewHolder = view.findViewHolderForAdapterPosition(position);
-                if (viewHolder == null) {
-                    // has no item on such position
+                if (viewHolder == null) { // has no item on such position
                     return false;
                 }
                 return itemMatcher.matches(viewHolder.itemView);

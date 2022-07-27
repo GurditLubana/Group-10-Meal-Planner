@@ -165,7 +165,6 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.foodConsumed)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("2000")));
-
     }
 
     @Test
@@ -258,7 +257,6 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.nextDateProgress)).perform(click());
         onView(isRoot()).perform(waitId(R.id.prevDateProgress, 5000));
         onView(ViewMatchers.withId(R.id.prevDateProgress)).perform(click());
-
     }
 
     private void clear_test_date() {
@@ -744,6 +742,4 @@ public class TestStoryAddMeals {
 
         clear_test_date();
     }
-
-
 }

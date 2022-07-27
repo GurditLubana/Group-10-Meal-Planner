@@ -54,7 +54,6 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
             Class.forName("org.hsqldb.jdbcDriver").newInstance();
 
             currConn = DriverManager.getConnection(dbPath, "SA", "");
-            //System.out.println("Opened " + this.dbType + " database named " + this.dbName + " @dbPath " + this.dbPath);
         } catch (Exception e) {
             System.out.println("HSqlDB Open " + e);
         }
@@ -388,7 +387,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                 if (isCustom) {
                     addCustomMeal.setInt(1, edibleID);
                     addCustomMeal.setString(2, newMeal.getInstructions());
-                    addCustomMeal.executeQuery();
+                    addCustomMeal.executeUpdate();
 
                     currIngredients = newMeal.getIngredients();
                     for (int i = 0; i < currIngredients.size(); i++) {
