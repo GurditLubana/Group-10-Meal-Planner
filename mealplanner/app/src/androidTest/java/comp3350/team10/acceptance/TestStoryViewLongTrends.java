@@ -49,6 +49,7 @@ public class TestStoryViewLongTrends {
 
     @Test
     public void user_can_view_long_term_trend_charts() {
+        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(0));
         onView(ViewMatchers.withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("ConsumedCalories"))));
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("ConsumedCalories")))));
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("Week")))));
@@ -74,7 +75,7 @@ public class TestStoryViewLongTrends {
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("ExerciseCalories")))));
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("Month")))));
 
-        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(1));
+        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(2));
         onView(ViewMatchers.withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("ConsumedCalories"))));
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("ConsumedCalories")))));
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("ThreeMonth")))));
@@ -87,7 +88,7 @@ public class TestStoryViewLongTrends {
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("ExerciseCalories")))));
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("ThreeMonth")))));
 
-        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(1));
+        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(3));
         onView(ViewMatchers.withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("ConsumedCalories"))));
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("ConsumedCalories")))));
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("SixMonth")))));
@@ -100,7 +101,7 @@ public class TestStoryViewLongTrends {
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("ExerciseCalories")))));
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("SixMonth")))));
 
-        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(1));
+        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(4));
         onView(ViewMatchers.withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("ConsumedCalories"))));
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("ConsumedCalories")))));
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("Year")))));
@@ -113,7 +114,7 @@ public class TestStoryViewLongTrends {
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("ExerciseCalories")))));
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("Year")))));
 
-        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(1));
+        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(5));
         onView(ViewMatchers.withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("ConsumedCalories"))));
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("ConsumedCalories")))));
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("All")))));
@@ -125,6 +126,19 @@ public class TestStoryViewLongTrends {
         onView(ViewMatchers.withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("ExerciseCalories"))));
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("ExerciseCalories")))));
         onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("All")))));
+
+        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(2));
+        onView(ViewMatchers.withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("ConsumedCalories"))));
+        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("ConsumedCalories")))));
+        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("ThreeMonth")))));
+
+        onView(ViewMatchers.withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("NetCalories"))));
+        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("NetCalories")))));
+        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("ThreeMonth")))));
+
+        onView(ViewMatchers.withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("ExerciseCalories"))));
+        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("ExerciseCalories")))));
+        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("ThreeMonth")))));
 
     }
 }

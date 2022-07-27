@@ -71,6 +71,8 @@ public class RVATrends extends RecyclerViewAdapter {
         GraphView graph = (GraphView) viewHolder.getView().findViewById(R.id.graph);
         TextView title = viewHolder.getView().findViewById(R.id.trendsTitle);
         TextView span = viewHolder.getView().findViewById(R.id.trendsSpan);
+        TextView valueFirst = viewHolder.getView().findViewById(R.id.trendsValueFirst);
+        TextView valueLast = viewHolder.getView().findViewById(R.id.trendsValueLast);
         DataFrame dataFrame = this.dataSet.get(position);
         DataPoint[] dataPointArray = new DataPoint[dataFrame.size()];
         ArrayList<Double> dataArray = dataFrame.getData();
@@ -79,6 +81,8 @@ public class RVATrends extends RecyclerViewAdapter {
         for (int i = 0; i < dataArray.size(); i++) {
             dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
         }
+        valueFirst.setText(Integer.toString(dataArray.get(0).intValue()));
+        valueLast.setText(Integer.toString(dataArray.get(dataArray.size()-1).intValue()));
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPointArray);
         LineGraphSeries<DataPoint> seriesTrend = new LineGraphSeries<>(new DataPoint[]{
@@ -112,6 +116,8 @@ public class RVATrends extends RecyclerViewAdapter {
         GraphView graph = (GraphView) viewHolder.getView().findViewById(R.id.graph2);
         TextView progressPercent = viewHolder.getView().findViewById(R.id.progressPercentage);
         TextView title = viewHolder.getView().findViewById(R.id.dailyProgressTitle);
+        TextView valueFirst = viewHolder.getView().findViewById(R.id.dailyProgressValueFirst);
+        TextView valueLast = viewHolder.getView().findViewById(R.id.dailyProgressValueLast);
         CircularProgressIndicator progressCircle = viewHolder.getView().findViewById(R.id.progressCircle);
         viewHolder.getView().findViewById(R.id.graph);
         DataFrame dataFrame = this.dataSet.get(position);
@@ -124,6 +130,8 @@ public class RVATrends extends RecyclerViewAdapter {
         for (int i = 0; i < dataArray.size(); i++) {
             dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
         }
+        valueFirst.setText(Integer.toString(dataArray.get(0).intValue()));
+        valueLast.setText(Integer.toString(dataArray.get(dataArray.size()-1).intValue()));
 
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dataPointArray);
         if(dataFrame.getDataType().name() == "ConsumedCalories") {

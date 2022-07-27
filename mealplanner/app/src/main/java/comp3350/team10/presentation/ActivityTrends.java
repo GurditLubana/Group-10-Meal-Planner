@@ -26,6 +26,7 @@ public class ActivityTrends extends AppCompatActivity {
     private TrendsOps opExec;                     //Trends logic class
     private Toolbar toolbar;                      //app title
     private int currTab;                          //The tab that is currently displayed
+    TabLayout tabLayout;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class ActivityTrends extends AppCompatActivity {
         this.initData();
         this.initRecyclerView();
         this.setTabListeners();
+        this.tabLayout.getTabAt(2).select();
     }
 
 
@@ -73,7 +75,7 @@ public class ActivityTrends extends AppCompatActivity {
 
 
     private void setTabListeners() {
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 

@@ -22,16 +22,14 @@ public class DataFrame {
     private double maxVal = 0.0;
     private double minVal = 999999999.0;
     private double progress = 0.0;
-    private double goal = 0.0;
+    private double goal = 2000.0;
 
     public DataFrame(DataType dataType, Span span) throws NullPointerException {
         if (dataType != null && span != null) {
             this.dataType = dataType;
             this.span = span;
             this.data = new ArrayList<Double>();
-            if (dataType.name() == "ConsumedCalories") {
-                goal = 2100.0;
-            } else if (dataType.name() == "ExerciseCalories") {
+            if (dataType.name() == "ExerciseCalories") {
                 goal = 200.0;
             }
         } else {
@@ -63,12 +61,10 @@ public class DataFrame {
                     }
                 }
             }
-            if(this.dataType.name() == "NetCalories"){
-                this.progress = 0.50;
-            } else {
+
                 this.average = this.average / this.size();
                 this.progress = this.average / this.goal;
-            }
+
         }
 
         calculateTrend();

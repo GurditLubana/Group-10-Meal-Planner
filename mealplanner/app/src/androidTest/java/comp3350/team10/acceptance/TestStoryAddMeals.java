@@ -51,7 +51,7 @@ public class TestStoryAddMeals {
         onView(withText("Food")).check(matches(isDisplayed()));
         onView(withText("Exercise")).check(matches(isDisplayed()));
         onView(withText("Net")).check(matches(isDisplayed()));
-        onView(ViewMatchers.withId(R.id.trendsRecyclerView)).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.mealRecyclerView)).check(matches(isDisplayed()));
 
         onView(ViewMatchers.withId(R.id.mealDiaryNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.dailyNav)).check(matches(isDisplayed()));
@@ -67,9 +67,9 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("1726")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Apple"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Cracker"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Apple"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Cracker"))));
     }
 
     @Test
@@ -81,9 +81,9 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("201")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("1262")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Biscotti"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Bologna"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Walnut"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Biscotti"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Bologna"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Walnut"))));
 
         onView(ViewMatchers.withId(R.id.nextDateProgress)).perform(click());
         onView(withText("Oct 10")).check(matches(isDisplayed()));
@@ -92,9 +92,9 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("1726")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Apple"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Cracker"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Apple"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Cracker"))));
     }
 
     @Test
@@ -131,9 +131,9 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("183")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("561")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Potatoes"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Biscotti"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Ham"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Potatoes"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Biscotti"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Ham"))));
 
         onView(ViewMatchers.withId(R.id.dateProgress)).perform(click());
         onView(ViewMatchers.withId(R.id.mtrl_picker_header_toggle)).perform(click());
@@ -165,9 +165,9 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("1726")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Apple"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Cracker"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Apple"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Cracker"))));
     }
 
     @Test
@@ -182,11 +182,11 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("2000")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnAddMeal)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnAddMeal)));
         onView(withId(R.id.tabLayout)).perform(selectTabAtPosition(1), click());
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.cardView2)));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.addToPlannerBtn2)));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
 
         onView(withText("Oct 15")).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.goalCalorie)).check(ViewAssertions.matches(ViewMatchers.withText("2000")));
@@ -204,8 +204,8 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("1700")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnDeleteMeal)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnDeleteMeal)));
         onView(ViewMatchers.withId(R.id.goalCalorie)).check(ViewAssertions.matches(ViewMatchers.withText("2000")));
         onView(ViewMatchers.withId(R.id.foodConsumed)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
@@ -224,22 +224,22 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("2000")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnAddMeal)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnAddMeal)));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(12, clickChildViewWithId(R.id.cardView2)));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(12, clickChildViewWithId(R.id.addToPlannerBtn2)));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burrito"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burrito"))));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.btnAddMeal)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.btnAddMeal)));
         onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(1));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.cardView2)));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.addToPlannerBtn2)));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(2, clickChildViewWithId(R.id.btnAddMeal)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(2, clickChildViewWithId(R.id.btnAddMeal)));
         onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(2));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(4, clickChildViewWithId(R.id.cardView2)));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(4, clickChildViewWithId(R.id.addToPlannerBtn2)));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Mojito"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Mojito"))));
 
         onView(withText("Oct 15")).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.goalCalorie)).check(ViewAssertions.matches(ViewMatchers.withText("2000")));
@@ -258,8 +258,8 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("1500")));
 
         for (int i = 0; i < 3; i++) {
-            onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-            onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnDeleteMeal)));
+            onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+            onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnDeleteMeal)));
         }
 
     }
@@ -275,22 +275,22 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("2000")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnAddMeal)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnAddMeal)));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(9, clickChildViewWithId(R.id.cardView2)));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(9, clickChildViewWithId(R.id.addToPlannerBtn2)));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.btnAddMeal)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.btnAddMeal)));
         onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(1));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.cardView2)));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.addToPlannerBtn2)));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(2, clickChildViewWithId(R.id.btnAddMeal)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(2, clickChildViewWithId(R.id.btnAddMeal)));
         onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(2));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.cardView2)));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.addToPlannerBtn2)));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
         onView(withText("Oct 16")).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.goalCalorie)).check(ViewAssertions.matches(ViewMatchers.withText("2000")));
@@ -307,8 +307,8 @@ public class TestStoryAddMeals {
     private void clear_test_date() {
 
         for (int i = 0; i < 3; i++) {
-            onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-            onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnDeleteMeal)));
+            onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+            onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnDeleteMeal)));
         }
 
         onView(ViewMatchers.withId(R.id.goalCalorie)).perform(click());
@@ -337,8 +337,8 @@ public class TestStoryAddMeals {
     public void user_can_edit_meal_entries_in_day_log() {
         seed_test_date();
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnModifyMeal)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnModifyMeal)));
 
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("1"));
         Espresso.closeSoftKeyboard();
@@ -363,8 +363,8 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("480")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.btnModifyMeal)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.btnModifyMeal)));
 
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("100"));
         Espresso.closeSoftKeyboard();
@@ -377,8 +377,8 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("655")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(2, clickChildViewWithId(R.id.btnModifyMeal)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(2, clickChildViewWithId(R.id.btnModifyMeal)));
 
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("60"));
         Espresso.closeSoftKeyboard();
@@ -410,13 +410,13 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("1200")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
         onView(ViewMatchers.withId(R.id.goalCalorie)).perform(click());
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("4000"));
@@ -428,13 +428,13 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("3200")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
         onView(isRoot()).perform(waitId(R.id.nextDateProgress, 5000));
         onView(ViewMatchers.withId(R.id.nextDateProgress)).perform(click());
@@ -446,13 +446,13 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("3200")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
         clear_test_date();
     }
@@ -467,13 +467,13 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("1200")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
         onView(ViewMatchers.withId(R.id.exerciseProgress)).perform(click());
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("800"));
@@ -485,13 +485,13 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("800")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("2000")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
         onView(isRoot()).perform(waitId(R.id.nextDateProgress, 5000));
         onView(ViewMatchers.withId(R.id.nextDateProgress)).perform(click());
@@ -503,13 +503,13 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("800")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("2000")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
         clear_test_date();
     }
@@ -528,8 +528,8 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.prevDateProgress)).perform(click());
 
         for (int i = 0; i < 3; i++) {
-            onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-            onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnDeleteMeal)));
+            onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+            onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnDeleteMeal)));
         }
 
         onView(withText("Oct 16")).check(matches(isDisplayed()));
@@ -554,13 +554,13 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("1200")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
         onView(ViewMatchers.withId(R.id.goalCalorie)).perform(click());
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("0"));
@@ -572,13 +572,13 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("800")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
         onView(ViewMatchers.withId(R.id.goalCalorie)).perform(click());
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("1"));
@@ -590,13 +590,13 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("799")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
         onView(ViewMatchers.withId(R.id.goalCalorie)).perform(click());
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("10000"));
@@ -612,13 +612,13 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("9199")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
         clear_test_date();
     }
@@ -633,13 +633,13 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("1200")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
         onView(ViewMatchers.withId(R.id.exerciseProgress)).perform(click());
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("0"));
@@ -651,13 +651,13 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("1200")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
         onView(ViewMatchers.withId(R.id.exerciseProgress)).perform(click());
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("1"));
@@ -669,13 +669,13 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("1")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("1201")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
         onView(ViewMatchers.withId(R.id.exerciseProgress)).perform(click());
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("10000"));
@@ -691,13 +691,13 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("9999")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("11199")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
         clear_test_date();
     }
@@ -712,16 +712,16 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("1200")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("400")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnModifyMeal)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnModifyMeal)));
 
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("0"));
         Espresso.closeSoftKeyboard();
@@ -739,16 +739,16 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("480")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("1120")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("1120")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnModifyMeal)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnModifyMeal)));
 
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("10000"));
         Espresso.closeSoftKeyboard();
@@ -761,8 +761,8 @@ public class TestStoryAddMeals {
         Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.btnOk)).perform(click());
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnModifyMeal)));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnModifyMeal)));
 
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("1"));
         Espresso.closeSoftKeyboard();
@@ -777,13 +777,13 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.exerciseProgress)).check(ViewAssertions.matches(ViewMatchers.withText("0")));
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("480")));
 
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
-        onView(withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Meal 89"))));
+        onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka"))));
 
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("1120")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
-        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("1120")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("300")))));
+        onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("100")))));
 
         clear_test_date();
     }
