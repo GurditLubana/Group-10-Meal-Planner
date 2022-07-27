@@ -5,7 +5,10 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
+import static comp3350.team10.utils.Utils.atPosition;
 
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
@@ -46,12 +49,12 @@ public class TestStoryViewWeekTrends {
     @Test
     public void user_can_view_weekly_bar_charts() {
         onView(ViewMatchers.withId(R.id.progressrecyclerview)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("ConsumedCalories"))));
-        onView(ViewMatchers.withId(R.id.progressrecyclerview)).check(ViewAssertions.matches(ViewMatchers.withText("ConsumedCalories")));
+        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(0, hasDescendant(withText("52%")))));
 
         onView(ViewMatchers.withId(R.id.progressrecyclerview)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("NetCalories"))));
-        onView(ViewMatchers.withId(R.id.progressrecyclerview)).check(ViewAssertions.matches(ViewMatchers.withText("NetCalories")));
+        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(1, hasDescendant(withText("50%")))));
 
         onView(ViewMatchers.withId(R.id.progressrecyclerview)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("ExerciseCalories"))));
-        onView(ViewMatchers.withId(R.id.progressrecyclerview)).check(ViewAssertions.matches(ViewMatchers.withText("ExerciseCalories")));
+        onView(withId(R.id.trendsRecyclerView)).check(matches(atPosition(2, hasDescendant(withText("84%")))));
     }
 }

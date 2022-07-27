@@ -377,7 +377,7 @@ public class TestStoryViewRecipes {
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnModifyMeal)));
 
         //dialog pops up and rewrite quantity and
-        onView(withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(withId(R.id.inputQty)), click());
+        //onView(withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(withId(R.id.inputQty)), click());
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test2 sugar water"))));
 
 
