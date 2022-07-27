@@ -119,7 +119,7 @@ public class TestStoryViewRecipes {
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
-        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("bad food"));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test bad food"));
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
         onView(ViewMatchers.withId(R.id.dialogRecipeCaloriesInput)).perform(scrollTo(), click());
@@ -140,7 +140,7 @@ public class TestStoryViewRecipes {
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
-        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("bad meal"));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test bad meal"));
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
         onView(ViewMatchers.withId(R.id.dialogRecipeCaloriesInput)).perform(scrollTo(), click());
@@ -164,7 +164,7 @@ public class TestStoryViewRecipes {
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
-        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("bad drink"));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test bad drink"));
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
         onView(ViewMatchers.withId(R.id.dialogRecipeCaloriesInput)).perform(scrollTo(), click());
@@ -358,7 +358,7 @@ public class TestStoryViewRecipes {
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test2 sugar water"))));
 
         //add one where contents are modified
-        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("modDrink"));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test2 modDrink"));
         onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("0"));
         onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("1"));
         onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
