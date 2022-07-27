@@ -59,9 +59,6 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
         //Load user data
         this.loadUser();
         this.loadFoodlog();
-        //this.loadHistory();
-        //this.generateLogs();
-        //this.dumpStubtoDB();
     }
 
     private void loadUser() {
@@ -740,6 +737,15 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
             ingredients.clear();
             ingredient = new Ingredient().init(this.dbRecipeFood.get(12 - OFFSET_FOOD), 1, Edible.Unit.cups);
             ingredients.add(ingredient);
+
+            ingredient = new Ingredient().init(this.dbRecipeFood.get(13 - OFFSET_FOOD), 1, Edible.Unit.cups);
+            ingredients.add(ingredient);
+            this.dbRecipeMeal.add(new Meal()
+                    .initDetails(30, "Meal 1213", "desc", 30, Edible.Unit.cups)
+                    .initNutrition(300, 40, 50, 10)
+                    .initMetadata(false, "hotdog.jpg")
+            );
+            ((Meal) this.dbRecipeMeal.get(46 - OFFSET_MEAL)).setIngredients(ingredients);
 
             ingredient = new Ingredient().init(this.dbRecipeFood.get(13 - OFFSET_FOOD), 1, Edible.Unit.cups);
             ingredients.add(ingredient);

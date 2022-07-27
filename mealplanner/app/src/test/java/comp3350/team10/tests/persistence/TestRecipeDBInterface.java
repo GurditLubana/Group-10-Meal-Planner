@@ -142,26 +142,6 @@ public class TestRecipeDBInterface {
             hsql.removeTestData();
         }
 
-//        @Test
-//        @DisplayName("adding an item with dbkey that collides with existing item should fail")
-//        void testCollision() {
-//
-//            assertThrows(IllegalArgumentException.class, () -> {
-//                db.addFoodToRecipeBook(testEdible);
-//            });
-//            assertEquals(foodRecipeCount, db.getFoodRecipes().size());
-//
-//            assertThrows(IllegalArgumentException.class, () -> {
-//                db.addMealToRecipeBook(testMeal);
-//            });
-//            assertEquals(mealRecipeCount, db.getMealRecipes().size());
-//
-//            assertThrows(IllegalArgumentException.class, () -> {
-//                db.addDrinkToRecipeBook(testDrink);
-//            });
-//            assertEquals(drinkRecipeCount, db.getDrinkRecipes().size());
-//        }
-
         @Test
         @DisplayName("passing preparedItems to addFoodToRecipeBook should fail")
         void testWrongObjectType() {
@@ -249,7 +229,7 @@ public class TestRecipeDBInterface {
         @DisplayName("typical values should work")
         void typicalValues() {
             assertEquals(25, foodRecipeCount);
-            assertEquals(6, mealRecipeCount);
+            assertEquals(7, mealRecipeCount);
             assertEquals(7, drinkRecipeCount);
 
             Edible item = db.findIngredientByKey(1, false);
