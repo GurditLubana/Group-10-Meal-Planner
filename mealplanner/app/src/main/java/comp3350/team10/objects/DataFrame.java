@@ -49,7 +49,7 @@ public class DataFrame {
             for (int i = 0; i < this.size; i++) {
                 if (this.data.get(i) != null) {
                     this.currVal = this.data.get(i);
-                    this.regression.addData(i - this.size, this.currVal);
+                    this.regression.addData(i, this.currVal);
                     this.average += this.currVal;
                     if (this.currVal > this.maxVal) {
                         this.maxVal = this.currVal;

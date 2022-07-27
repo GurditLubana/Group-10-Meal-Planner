@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 import comp3350.team10.application.Main;
 import comp3350.team10.objects.Constant;
@@ -1120,6 +1121,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
 
                     result.add(value);
                     today.add(Calendar.DAY_OF_YEAR, -1);
+                    Collections.reverse(result);
                 }
             } else {
                 throw new IllegalArgumentException("HSqlDB getDataFrame must be >= " + DataFrame.numDays[DataFrame.Span.Week.ordinal()]);
