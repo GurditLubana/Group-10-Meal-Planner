@@ -4,7 +4,7 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
 import java.util.ArrayList;
 
 public class DataFrame {
-    public enum DataType {ConsumedCalories, NetCalories, ExerciseCalories, Weight}
+    public enum DataType {ConsumedCalories, NetCalories, ExerciseCalories}
     public enum Span {Week, Month, ThreeMonth, SixMonth, Year, All}
 
     public static final int[] numDays = {7, 28, 84, 168, 336, 672};

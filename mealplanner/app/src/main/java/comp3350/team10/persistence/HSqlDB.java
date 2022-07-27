@@ -1121,7 +1121,6 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
 
                     result.add(value);
                     today.add(Calendar.DAY_OF_YEAR, -1);
-                    Collections.reverse(result);
                 }
             } else {
                 throw new IllegalArgumentException("HSqlDB getDataFrame must be >= " + DataFrame.numDays[DataFrame.Span.Week.ordinal()]);
@@ -1129,6 +1128,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         } else {
             throw new IllegalArgumentException("HSqlDB getDataFrame dataType cannot be null");
         }
+        Collections.reverse(result);
 
         return result;
     }
