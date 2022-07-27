@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import comp3350.team10.R;
 import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.Edible;
+import comp3350.team10.objects.Validator;
 
 public class FragmentModEntryDialogs extends FragmentDialogCommon {
     public static final String TAG = "ModEntryDialogs";  //Tag name of this fragment (for reference in the fragment manager)
@@ -133,28 +134,29 @@ public class FragmentModEntryDialogs extends FragmentDialogCommon {
                 FragToMealDiary.EntryMode currMode = FragToMealDiary.EntryMode.valueOf(mode);
                 String enteredValue = getInputQuantity().getText().toString();
                 Double value;
-
-                if (!enteredValue.equals("")) {
+                try {
+                    Validator.validStringInputatLeastOne(enteredValue, "");
                     value = Double.parseDouble(enteredValue);
 
-                    if (value >= Constant.ENTRY_MIN_VALUE && value <= Constant.ENTRY_MAX_VALUE) {
-                        if (sendToDiary != null && sendToDiary instanceof FragToMealDiary) {
-                            switch (currMode) {
-                                case EDIT_QTY:
-                                    sendToDiary.setEntryQty(value, getUnitSpinner().getSelectedItem().toString());
-                                    break;
-                                case GOAL_CALORIE:
-                                    sendToDiary.setGoalCalories(value);
-                                    break;
-                                case ACTUAL_EXERCISE:
-                                    sendToDiary.setExerciseCalories(value);
-                                    break;
-                            }
-                            closeDialog();
+                    if (sendToDiary != null && sendToDiary instanceof FragToMealDiary) {
+                        switch (currMode) {
+                            case EDIT_QTY:
+                                Validator.atLeastOne(value, "");
+                                sendToDiary.setEntryQty(value, getUnitSpinner().getSelectedItem().toString());
+                                break;
+                            case GOAL_CALORIE:
+                                Validator.atLeastZero(value, "");
+                                sendToDiary.setGoalCalories(value);
+                                break;
+                            case ACTUAL_EXERCISE:
+                                Validator.atLeastZero(value, "");
+                                sendToDiary.setExerciseCalories(value);
+                                break;
                         }
-                    } else {
-                        getInputQuantity().setError("Invalid input must be between 0 and 9999 inclusive");
+                        closeDialog();
                     }
+                } catch (Exception e) {
+                    getInputQuantity().setError("Invalid input must be between 0 and 9999 inclusive");
                 }
             }
         });

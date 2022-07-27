@@ -133,7 +133,7 @@ public class TestStoryViewRecipes {
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Mojito"))));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(4, clickChildViewWithId(R.id.cardView2)));
     }
-    
+
     @Test
     public void user_is_warned_invalid_add_food_input() {
         onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(0));
