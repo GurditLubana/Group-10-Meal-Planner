@@ -27,7 +27,6 @@ public class TrendsOps {
             this.span = span;
 
             for (int i = 0; i < DataFrame.DataType.values().length; i++) {
-
                 dataFrame = getDataFromDB(DataFrame.DataType.values()[i]);
 
                 if (dataFrame != null) {

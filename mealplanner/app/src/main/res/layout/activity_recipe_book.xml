@@ -29,7 +29,7 @@
         android:id="@+id/cardView"
         android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:cardBackgroundColor="#ECECEC"
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,5 +1,7 @@
 package comp3350.team10.presentation;
 
+import static comp3350.team10.objects.Constant.TITLE_CONTENT;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -32,8 +34,6 @@ import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
 
 public class ActivityRecipeBook extends AppCompatActivity implements FragToRecipeBook {
-    private final static String TITLE_CONTENT = "MealPlanner";          //The title content of the activity
-    private final static int TITLE_COLOR = Color.WHITE;                 //The title color of the acitivty
 
     private Animation fabOpen, fabClose, rotateForward, rotateBackward; //Animations for floating buttons
     private FloatingActionButton openFab, editFab, addFab;              //Floating buttons
@@ -68,8 +68,8 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
         if (toolbar instanceof Toolbar) {
             this.toolbar = (Toolbar) toolbar;
-            this.toolbar.setTitleTextColor(TITLE_COLOR);
-            this.toolbar.setTitle(TITLE_CONTENT);
+            this.toolbar.setTitleTextColor(Color.parseColor(Constant.TITLE_COLOR));
+            this.toolbar.setTitle(Constant.TITLE_CONTENT);
             this.toolbar.setElevation(0);
         }
     }

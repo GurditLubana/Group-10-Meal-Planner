@@ -75,7 +75,7 @@ public class RVATrends extends RecyclerViewAdapter {
         double chartMin = -DataFrame.numDays[dataFrame.getSpan().ordinal()];
 
         for (int i = 0; i < dataArray.size(); i++) {
-            dataPointArray[i] = new DataPoint(i - dataArray.size(), dataArray.get(i).doubleValue());
+            dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
         }
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPointArray);
@@ -114,15 +114,21 @@ public class RVATrends extends RecyclerViewAdapter {
         ArrayList<Double> dataArray = dataFrame.getData();
         double chartMin = -DataFrame.numDays[dataFrame.getSpan().ordinal()];
         int progress = (int) (dataFrame.getProgress() * 100);
+        double goal = 0;
 
         for (int i = 0; i < dataArray.size(); i++) {
-            dataPointArray[i] = new DataPoint(i - dataArray.size(), dataArray.get(i).doubleValue());
+            dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
         }
 
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dataPointArray);
+        if(dataFrame.getDataType().name() == "ConsumedCalories") {
+            goal = 2100.0;
+        } else if (dataFrame.getDataType().name() == "ExerciseCalories") {
+            goal = 200.0;
+        }
         LineGraphSeries<DataPoint> seriesTrend = new LineGraphSeries<>(new DataPoint[]{
-                new DataPoint(chartMin - 1, dataFrame.getAverage()),
-                new DataPoint(1, dataFrame.getAverage())
+                new DataPoint(chartMin - 1, goal),
+                new DataPoint(1, goal)
         });
 
         series.setSpacing(5);

@@ -1,10 +1,12 @@
 package comp3350.team10.objects;
 
 import org.apache.commons.math3.stat.regression.SimpleRegression;
+
 import java.util.ArrayList;
 
 public class DataFrame {
-    public enum DataType {ConsumedCalories, NetCalories, ExerciseCalories, Weight}
+    public enum DataType {ConsumedCalories, NetCalories, ExerciseCalories}
+
     public enum Span {Week, Month, ThreeMonth, SixMonth, Year, All}
 
     public static final int[] numDays = {7, 28, 84, 168, 336, 672};
@@ -20,18 +22,20 @@ public class DataFrame {
     private double maxVal = 0.0;
     private double minVal = 999999999.0;
     private double progress = 0.0;
+    private double goal = 0.0;
 
     public DataFrame(DataType dataType, Span span) throws NullPointerException {
-        if (dataType != null) {
-            if (span != null) {
-                this.dataType = dataType;
-                this.span = span;
-                this.data = new ArrayList<Double>();
-            } else {
-                throw new NullPointerException("DataFrame Span cannot be null: DataFrame - constructor");
+        if (dataType != null && span != null) {
+            this.dataType = dataType;
+            this.span = span;
+            this.data = new ArrayList<Double>();
+            if (dataType.name() == "ConsumedCalories") {
+                goal = 2100.0;
+            } else if (dataType.name() == "ExerciseCalories") {
+                goal = 200.0;
             }
         } else {
-            throw new NullPointerException("DataFrame DataType cannot be null: DataFrame - constructor");
+            throw new NullPointerException("DataFrame input cannot be null: DataFrame - constructor");
         }
     }
 
@@ -49,7 +53,7 @@ public class DataFrame {
             for (int i = 0; i < this.size; i++) {
                 if (this.data.get(i) != null) {
                     this.currVal = this.data.get(i);
-                    this.regression.addData(i - this.size, this.currVal);
+                    this.regression.addData(i, this.currVal);
                     this.average += this.currVal;
                     if (this.currVal > this.maxVal) {
                         this.maxVal = this.currVal;
@@ -59,8 +63,12 @@ public class DataFrame {
                     }
                 }
             }
-            this.average = this.average / this.size();
-            this.progress = this.average / this.maxVal;
+            if(this.dataType.name() == "NetCalories"){
+                this.progress = 0.50;
+            } else {
+                this.average = this.average / this.size();
+                this.progress = this.average / this.goal;
+            }
         }
 
         calculateTrend();

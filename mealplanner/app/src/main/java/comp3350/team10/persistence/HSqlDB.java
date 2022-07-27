@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 import comp3350.team10.application.Main;
 import comp3350.team10.objects.Constant;
@@ -1127,6 +1128,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         } else {
             throw new IllegalArgumentException("HSqlDB getDataFrame dataType cannot be null");
         }
+        Collections.reverse(result);
 
         return result;
     }

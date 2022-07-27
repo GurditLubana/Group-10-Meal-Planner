@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import comp3350.team10.R;
 import comp3350.team10.application.Main;
 import comp3350.team10.business.TrendsOps;
+import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.DataFrame;
 
 public class ActivityTrends extends AppCompatActivity {
@@ -44,8 +45,8 @@ public class ActivityTrends extends AppCompatActivity {
 
     private void initToolbar() {
         this.toolbar = (Toolbar) findViewById(R.id.toolbar);
-        this.toolbar.setTitle("MealPlanner");
-        this.toolbar.setTitleTextColor(Color.WHITE);
+        this.toolbar.setTitleTextColor(Color.parseColor(Constant.TITLE_COLOR));
+        this.toolbar.setTitle(Constant.TITLE_CONTENT);
         this.toolbar.setElevation(0);
     }
 
