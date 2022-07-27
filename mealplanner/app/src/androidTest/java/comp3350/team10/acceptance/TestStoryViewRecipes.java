@@ -196,7 +196,6 @@ public class TestStoryViewRecipes {
 
     @Test
     public void user_can_add_meal() {
-        fail("TODO");
         onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(1));
         onView(ViewMatchers.withId(R.id.openButton)).perform(click());
 
@@ -210,16 +209,22 @@ public class TestStoryViewRecipes {
 
         onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
         onView(withText("tbsp")).inRoot(isPlatformPopup()).perform(click());
-        onView(withId(R.id.dialogRecipeSpinner)).check(matches(withSpinnerText(containsString("tbsp"))));
+        //onView(withId(R.id.dialogRecipeSpinner)).check(matches(withSpinnerText(containsString("tbsp"))));
 
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withId(R.id.imageView4))));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.cardView2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.addToPlannerBtn2)));
+        onView(withId(R.id.addIcon)).perform(click());
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test McRib"))));
     }
 
     @Test
     public void user_can_add_drinks() {
-        fail("TODO");
-        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(0));
+        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(2));
         onView(ViewMatchers.withId(R.id.openButton)).perform(click());
 
         onView(isRoot()).perform(waitId(R.id.addButton, 5000));

@@ -25,7 +25,6 @@
         <entry key="..\:/3350/Best-3350-Group-Project/mealplanner/app/src/main/res/layout/fragment_log_card.xml" value="0.10260416666666666" />
         <entry key="..\:/3350/Best-3350-Group-Project/mealplanner/app/src/main/res/layout/fragment_meal_diary_dialogs.xml" value="0.1932938856015779" />
         <entry key="..\:/3350/Best-3350-Group-Project/mealplanner/app/src/main/res/layout/fragment_meal_diary_edit.xml" value="0.35866013071895425" />
-        <entry key="..\:/3350/Best-3350-Group-Project/mealplanner/app/src/main/res/layout/fragment_mod_entry_dialogs.xml" value="0.25625" />
         <entry key="..\:/3350/Best-3350-Group-Project/mealplanner/app/src/main/res/layout/fragment_modify_log.xml" value="0.5140625" />
         <entry key="..\:/3350/Best-3350-Group-Project/mealplanner/app/src/main/res/layout/fragment_navigation.xml" value="0.3402777777777778" />
         <entry key="..\:/3350/Best-3350-Group-Project/mealplanner/app/src/main/res/layout/fragment_on_card_selection.xml" value="0.5411458333333333" />
@@ -91,5 +90,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1956521739130435" />
+      </ProjectState>
+    </option>
   </component>
 </project>
