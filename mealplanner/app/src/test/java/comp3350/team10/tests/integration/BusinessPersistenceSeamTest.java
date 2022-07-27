@@ -424,7 +424,6 @@ public class BusinessPersistenceSeamTest
 			assertEquals(DataFrame.DataType.ConsumedCalories, ops.getDataFrames(DataFrame.Span.Month).get(0).getDataType());
 			assertEquals(DataFrame.DataType.NetCalories, ops.getDataFrames(DataFrame.Span.Week).get(1).getDataType());
 			assertEquals(DataFrame.DataType.ExerciseCalories, ops.getDataFrames(DataFrame.Span.SixMonth).get(2).getDataType());
-			assertEquals(DataFrame.DataType.Weight, ops.getDataFrames(DataFrame.Span.ThreeMonth).get(3).getDataType());
 
 		}
 
@@ -446,10 +445,6 @@ public class BusinessPersistenceSeamTest
 			compareWith.setData(db.getDataFrame(DataFrame.DataType.NetCalories, 336));
 			assertEquals((ops.getDataFrames(DataFrame.Span.Year)).get(1).getAverage(), compareWith.getAverage());
 
-			compareWith = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.SixMonth);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.Weight, 168));
-			assertEquals((ops.getDataFrames(DataFrame.Span.SixMonth)).get(3).getAverage(), compareWith.getAverage());
-
 
 		}
 
@@ -467,10 +462,6 @@ public class BusinessPersistenceSeamTest
 			compareWith = new DataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.Span.Month);
 			compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 28));
 			assertEquals(ops.getDataFrames(DataFrame.Span.Month).get(2).getMaxVal(), compareWith.getMaxVal());
-
-			compareWith = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.SixMonth);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.Weight, 168));
-			assertEquals((ops.getDataFrames(DataFrame.Span.SixMonth)).get(3).getMaxVal(), compareWith.getMaxVal());
 		}
 
 		@Test
@@ -487,10 +478,6 @@ public class BusinessPersistenceSeamTest
 			compareWith = new DataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.Span.ThreeMonth);
 			compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 84));
 			assertEquals(ops.getDataFrames(DataFrame.Span.ThreeMonth).get(2).getProgress(), compareWith.getProgress());
-
-			compareWith = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.Week);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.Weight, 7));
-			assertEquals((ops.getDataFrames(DataFrame.Span.Week)).get(3).getProgress(), compareWith.getProgress());
 		}
 
 		@Test
@@ -507,10 +494,6 @@ public class BusinessPersistenceSeamTest
 			compareWith = new DataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.Span.ThreeMonth);
 			compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 84));
 			assertEquals(ops.getDataFrames(DataFrame.Span.ThreeMonth).get(2).getTrendPointA(), compareWith.getTrendPointA());
-
-			compareWith = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.Week);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.Weight, 7));
-			assertEquals((ops.getDataFrames(DataFrame.Span.Week)).get(3).getTrendPointA(), compareWith.getTrendPointA());
 		}
 
 		@Test
@@ -527,10 +510,6 @@ public class BusinessPersistenceSeamTest
 			compareWith = new DataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.Span.ThreeMonth);
 			compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 84));
 			assertEquals(ops.getDataFrames(DataFrame.Span.ThreeMonth).get(2).getTrendPointB(), compareWith.getTrendPointB());
-
-			compareWith = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.Week);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.Weight, 7));
-			assertEquals((ops.getDataFrames(DataFrame.Span.Week)).get(3).getTrendPointB(), compareWith.getTrendPointB());
 		}
 
 

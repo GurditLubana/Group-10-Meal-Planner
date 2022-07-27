@@ -345,7 +345,6 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
                 break;
             }
         }
-
         return alreadyAnIngredient;
     }
 

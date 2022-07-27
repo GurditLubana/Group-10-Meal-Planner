@@ -141,9 +141,8 @@ public class TestTrendsOps {
             assertTrue(ops.getDataFrames(DataFrame.Span.Month).get(0) instanceof DataFrame);
             assertTrue(ops.getDataFrames(DataFrame.Span.Month).get(1) instanceof DataFrame);
             assertTrue(ops.getDataFrames(DataFrame.Span.Month).get(2) instanceof DataFrame);
-            assertTrue(ops.getDataFrames(DataFrame.Span.Month).get(3) instanceof DataFrame);
 
-            assertEquals(ops.getDataFrames(DataFrame.Span.Week).size(), 4);
+            assertEquals(ops.getDataFrames(DataFrame.Span.Week).size(), 3);
         }
 
         @Test
@@ -152,7 +151,6 @@ public class TestTrendsOps {
             assertEquals(DataFrame.Span.Week, ops.getDataFrames(DataFrame.Span.Week).get(0).getSpan());
             assertEquals(DataFrame.Span.Month, ops.getDataFrames(DataFrame.Span.Month).get(1).getSpan());
             assertEquals(DataFrame.Span.SixMonth, ops.getDataFrames(DataFrame.Span.SixMonth).get(2).getSpan());
-            assertEquals(DataFrame.Span.ThreeMonth, ops.getDataFrames(DataFrame.Span.ThreeMonth).get(3).getSpan());
             assertEquals(DataFrame.Span.Year, ops.getDataFrames(DataFrame.Span.Year).get(1).getSpan());
             assertEquals(DataFrame.Span.All, ops.getDataFrames(DataFrame.Span.All).get(0).getSpan());
         }
@@ -164,7 +162,6 @@ public class TestTrendsOps {
             assertEquals(DataFrame.DataType.ConsumedCalories, ops.getDataFrames(DataFrame.Span.Month).get(0).getDataType());
             assertEquals(DataFrame.DataType.NetCalories, ops.getDataFrames(DataFrame.Span.Week).get(1).getDataType());
             assertEquals(DataFrame.DataType.ExerciseCalories, ops.getDataFrames(DataFrame.Span.SixMonth).get(2).getDataType());
-            assertEquals(DataFrame.DataType.Weight, ops.getDataFrames(DataFrame.Span.ThreeMonth).get(3).getDataType());
 
         }
     }
@@ -211,11 +208,6 @@ public class TestTrendsOps {
             compareWith.setData(db.getDataFrame(DataFrame.DataType.NetCalories, 336));
             assertEquals((trendsOps.getDataFrames(DataFrame.Span.Year)).get(1).getAverage(), compareWith.getAverage());
 
-            compareWith = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.SixMonth);
-            compareWith.setData(db.getDataFrame(DataFrame.DataType.Weight, 168));
-            assertEquals((trendsOps.getDataFrames(DataFrame.Span.SixMonth)).get(3).getAverage(), compareWith.getAverage());
-
-
         }
 
         @Test
@@ -233,9 +225,6 @@ public class TestTrendsOps {
             compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 28));
             assertEquals(trendsOps.getDataFrames(DataFrame.Span.Month).get(2).getMaxVal(), compareWith.getMaxVal());
 
-            compareWith = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.SixMonth);
-            compareWith.setData(db.getDataFrame(DataFrame.DataType.Weight, 168));
-            assertEquals((trendsOps.getDataFrames(DataFrame.Span.SixMonth)).get(3).getMaxVal(), compareWith.getMaxVal());
         }
 
         @Test
@@ -253,9 +242,6 @@ public class TestTrendsOps {
             compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 84));
             assertEquals(trendsOps.getDataFrames(DataFrame.Span.ThreeMonth).get(2).getProgress(), compareWith.getProgress());
 
-            compareWith = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.Week);
-            compareWith.setData(db.getDataFrame(DataFrame.DataType.Weight, 7));
-            assertEquals((trendsOps.getDataFrames(DataFrame.Span.Week)).get(3).getProgress(), compareWith.getProgress());
         }
 
         @Test
@@ -273,9 +259,6 @@ public class TestTrendsOps {
             compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 84));
             assertEquals(trendsOps.getDataFrames(DataFrame.Span.ThreeMonth).get(2).getTrendPointA(), compareWith.getTrendPointA());
 
-            compareWith = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.Week);
-            compareWith.setData(db.getDataFrame(DataFrame.DataType.Weight, 7));
-            assertEquals((trendsOps.getDataFrames(DataFrame.Span.Week)).get(3).getTrendPointA(), compareWith.getTrendPointA());
         }
 
         @Test
@@ -293,9 +276,6 @@ public class TestTrendsOps {
             compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 84));
             assertEquals(trendsOps.getDataFrames(DataFrame.Span.ThreeMonth).get(2).getTrendPointB(), compareWith.getTrendPointB());
 
-            compareWith = new DataFrame(DataFrame.DataType.Weight, DataFrame.Span.Week);
-            compareWith.setData(db.getDataFrame(DataFrame.DataType.Weight, 7));
-            assertEquals((trendsOps.getDataFrames(DataFrame.Span.Week)).get(3).getTrendPointB(), compareWith.getTrendPointB());
         }
     }
 
