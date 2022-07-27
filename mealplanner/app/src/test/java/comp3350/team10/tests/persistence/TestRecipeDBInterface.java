@@ -155,7 +155,6 @@ public class TestRecipeDBInterface {
                 db.addFoodToRecipeBook(testDrink);
             });
             assertEquals(foodRecipeCount, db.getFoodRecipes().size());
-
         }
 
         @Test

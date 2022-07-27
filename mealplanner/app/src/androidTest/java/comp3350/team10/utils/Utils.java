@@ -8,6 +8,7 @@ import static androidx.test.internal.util.Checks.checkNotNull;
 import static org.hamcrest.Matchers.allOf;
 
 import android.view.View;
+import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +28,21 @@ import java.util.concurrent.TimeoutException;
 
 
 public class Utils {
+
+    public static Matcher<View> matchesDate(final int year, final int month, final int day) {
+        return new BoundedMatcher<View, DatePicker>(DatePicker.class) {
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("matches date:");
+            }
+
+            @Override
+            protected boolean matchesSafely(DatePicker item) {
+                return (year == item.getYear() && month == item.getMonth() && day == item.getDayOfMonth());
+            }
+        };
+    }
 
     public static Matcher<View> atPosition(final int position, @NonNull final Matcher<View> itemMatcher) {
         checkNotNull(itemMatcher);
