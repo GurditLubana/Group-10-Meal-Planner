@@ -190,7 +190,6 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         }
     }
 
-
     public void addToMealDiary() {
         Intent intent = new Intent();
         boolean isCustom = false;
@@ -247,24 +246,24 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
     private void createActivityCallbackListener() {
         this.pickIngredient = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
+            new ActivityResultCallback<ActivityResult>() {
 
-                    public void onActivityResult(ActivityResult result) {
-                        FragmentRecipeBookDialogs addRecipe = getAddRecipeFragment();
-                        Intent data;
-                        Edible currEdible;
-                        boolean isCustom;
-                        int dbkey;
+                public void onActivityResult(ActivityResult result) {
+                    FragmentRecipeBookDialogs addRecipe = getAddRecipeFragment();
+                    Intent data;
+                    Edible currEdible;
+                    boolean isCustom;
+                    int dbkey;
 
-                        if (result.getResultCode() == Activity.RESULT_OK) {
-                            data = result.getData();
-                            dbkey = data.getExtras().getInt("DBKEY"); //rva recipe book
-                            isCustom = data.getExtras().getBoolean("isCustom");
-                            currEdible = opExec.findIngredient(dbkey, isCustom);
-                            addRecipe.loadIngredients(currEdible);
-                        }
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        data = result.getData();
+                        dbkey = data.getExtras().getInt("DBKEY"); //rva recipe book
+                        isCustom = data.getExtras().getBoolean("isCustom");
+                        currEdible = opExec.findIngredient(dbkey, isCustom);
+                        addRecipe.loadIngredients(currEdible);
                     }
-                });
+                }
+            });
     }
 
     public void addDrink(String name, String desc, int qty, Edible.Unit unit, int calories, int protein, int carbs, int fat, boolean alcoholic,

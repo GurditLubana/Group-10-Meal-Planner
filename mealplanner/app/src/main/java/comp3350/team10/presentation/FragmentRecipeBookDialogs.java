@@ -1,31 +1,15 @@
 package comp3350.team10.presentation;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,39 +22,37 @@ import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
 import comp3350.team10.objects.Meal;
+import comp3350.team10.objects.Validator;
 
 public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
     public static String TAG = "AddRecipe";    //Tag name of this fragment (for reference)
+    private static String defaultImage = "photo.jpeg";
 
-    private TextView labelName;         //Label of name field
-    private EditText inputName;         //Input field for item name
-    private String name;                //Value of name input
-    private EditText inputCalories;     //Input field for item calories
-    private int calories;               //Value of calorie input
-    private EditText inputInstructions; //Input field for instructions
-    private String instructions;        //Value of instructions input
+    private TextView labelName;                //Label of name field
+    private EditText inputName;                //Input field for item name
+    private String name;                       //Value of name input
+    private EditText inputCalories;            //Input field for item calories
+    private int calories;                      //Value of calorie input
+    private EditText inputInstructions;        //Input field for instructions
+    private String instructions;               //Value of instructions input
+    private EditText ingredientError;
 
-    private CheckBox isAlcoholic;    //Check if Edible item contains alcohol.
-    private CheckBox isSpicy;        //Check if Edible item spicy.
-    private CheckBox isVegetarian;   //Check if Edible item vegetarian.
-    private CheckBox isVegan;        //Check if Edible item vegan.
-    private CheckBox isGlutenFree;   //Check if Edible item glutenFree.
+    private CheckBox isAlcoholic;              //Check if Edible item contains alcohol.
+    private CheckBox isSpicy;                  //Check if Edible item spicy.
+    private CheckBox isVegetarian;             //Check if Edible item vegetarian.
+    private CheckBox isVegan;                  //Check if Edible item vegan.
+    private CheckBox isGlutenFree;             //Check if Edible item glutenFree.
 
-    private int quantity;       //Value of quantity input
-    private String photo;       //Value of ingredients input
-    private Edible.Unit unit;   //Value of units input
+    private int quantity;                      //Value of quantity input
+    private String photo;                      //Value of ingredients input
+    private Edible.Unit unit;                  //Value of units input
 
-    private static final int REQUEST_CODE = 1;  //Request code for the edible's image
-    private Button btnChooseItemImage;          //Import a picture for the Edible item.
-    private ImageView EdibleItemImage;          //Image of the edible item.
-    private ImageView cameraIcon;               //The camera Icon in Add Edible interface.
-
-    private FragToRecipeBook send;              //Interface for communication with parent activity
-    private String mode;                        //The type of dialog to show
+    private FragToRecipeBook send;             //Interface for communication with parent activity
+    private String mode;                       //The type of dialog to show
     private ArrayList<Ingredient> ingredients;
     Edible addButton;
 
-    private RecyclerView inputIngredients;          //Input field for item ingredients
+    private RecyclerView inputIngredients;     //Input field for item ingredients
     private ArrayList<Edible> ingredientEdibles;
     private RecyclerViewAdapter recyclerViewAdapter;
 
@@ -117,15 +99,13 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.inputName = view.findViewById(R.id.dialogRecipeNameInput);
         this.inputCalories = view.findViewById(R.id.dialogRecipeCaloriesInput);
         this.inputIngredients = view.findViewById(R.id.dialogRecipeIngredientsInput);
-        this.btnChooseItemImage = view.findViewById(R.id.dialogRecipePhotoBtn);
-        this.EdibleItemImage = view.findViewById(R.id.dialogRecipePhoto);
-        this.cameraIcon = view.findViewById(R.id.dialogRecipePhotoIcon);
+        this.ingredientError = view.findViewById(R.id.ingredientError);
         this.isAlcoholic = view.findViewById(R.id.isAlcoholic);
         this.isSpicy = view.findViewById(R.id.isSpicy);
         this.isGlutenFree = view.findViewById(R.id.isGluteenFree);
         this.isVegetarian = view.findViewById(R.id.isVegetarian);
         this.isVegan = view.findViewById(R.id.isVegan);
-        this.photo = "photo.jpg";
+        this.photo = defaultImage;
 
         if (context != null && context instanceof FragToRecipeBook) {
             setupAddRecipeDialog(context, FragToRecipeBook.EntryMode.valueOf(mode));
@@ -219,28 +199,9 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         });
 
         super.getBtnCancel().setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View view) {
                 restIngredients();
                 dismiss();
-            }
-        });
-
-        this.btnChooseItemImage.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= 23) {
-                    try {
-                        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
-                            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
-                        } else {
-                            openGallery();
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
             }
         });
     }
@@ -265,100 +226,52 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         recyclerViewAdapter.changeData(ingredientEdibles);
     }
 
-    private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
-            new ActivityResultContracts.RequestPermission(),
-            new ActivityResultCallback<Boolean>() {
-
-                public void onActivityResult(Boolean result) {
-                    if (result) {
-                        openGallery();
-                    } else {
-                        Toast.makeText(getContext(), "Please allow read external storage permission", Toast.LENGTH_LONG);
-                    }
-                }
-            }
-    );
-
-    private void openGallery() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        galleryIntentLauncher.launch(galleryIntent);
-    }
-
-    ActivityResultLauncher<Intent> galleryIntentLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        bitmap(result);
-                    }
-                }
-            }
-    );
-
-    private void bitmap(ActivityResult result) {
-        Uri imageUri = result.getData().getData();
-
-        EdibleItemImage.setImageURI(imageUri);
-        cameraIcon.setVisibility(View.GONE);
-    }
-
-
     private boolean validateData(FragToRecipeBook.EntryMode mode) {
-        boolean validPreparedEdible;
-        boolean validEdible;
-        int success = 0;
-
-        if (check(this.inputName)) {
-            this.name = this.inputName.getText().toString().trim();
-            success += 1;
-        }
-        if (check(this.inputCalories)) {
-            this.calories = Integer.parseInt(this.inputCalories.getText().toString().trim());
-            success += 1;
-        }
-        if (check(super.getInputQuantity())) {
-            this.quantity = Integer.parseInt(super.getInputQuantity().getText().toString().trim());
-            success += 1;
-        }
-        if (mode != FragToRecipeBook.EntryMode.ADD_FOOD && check(this.inputInstructions)) {
-            this.instructions = this.inputInstructions.getText().toString().trim();
-            success += 1;
-        }
-
-        this.unit = Edible.Unit.valueOf(super.getUnitSpinner().getSelectedItem().toString());
-        validPreparedEdible = (mode != FragToRecipeBook.EntryMode.ADD_FOOD && success == 4);
-        validEdible = (mode == FragToRecipeBook.EntryMode.ADD_FOOD && success == 3);
-
-        return (validPreparedEdible || validEdible);
-    }
-
-    private boolean check(EditText view) {
-        boolean result = true;
-        String value;
+        boolean validInput = true;
+        EditText view = null;
+        String dataValue;
         int intValue;
 
-        value = view.getText().toString().trim();
-        if (value.length() == 0) {
-            view.setError("Field cannot be empty");
-            result = false;
-        }
-        if (result && (view == this.inputCalories)) {
-            intValue = Integer.parseInt(value);
-            if (intValue < Constant.ENTRY_MIN_VALUE || intValue > Constant.ENTRY_MAX_VALUE) {
-                view.setError("Must be between 0 and 9999 inclusive");
-                result = false;
+        try {
+            view = this.inputName;
+            dataValue = view.getText().toString().trim();
+            Validator.validStringInputatLeastOne(dataValue, "");
+            this.name = dataValue;
+
+            if (mode != FragToRecipeBook.EntryMode.ADD_FOOD) {
+                view = this.inputInstructions;
+                dataValue = view.getText().toString().trim();
+                Validator.validStringInputatLeastZero(dataValue, "");
+                this.instructions = dataValue;
             }
-        }
-        if (result && (view == super.getInputQuantity())) {
-            intValue = Integer.parseInt(value);
-            if (intValue < 1 || intValue > Constant.ENTRY_MAX_VALUE) {
-                view.setError("Must be between 1 and 9999 inclusive");
-                result = false;
+
+            view = this.inputCalories;
+            dataValue = view.getText().toString().trim();
+            Validator.validStringInputatLeastOne(dataValue, "");
+            intValue = Integer.parseInt(dataValue);
+            Validator.atLeastZero(intValue, "");
+            this.calories = intValue;
+
+            view = this.getInputQuantity();
+            dataValue = view.getText().toString().trim();
+            Validator.validStringInputatLeastOne(dataValue, "");
+            intValue = Integer.parseInt(dataValue);
+            Validator.atLeastOne(intValue, "");
+            this.quantity = intValue;
+
+            if(mode == FragToRecipeBook.EntryMode.ADD_MEAL) {
+                view = this.ingredientError;
+                Validator.validArrayListAtLeastOne(this.ingredients, "");
             }
+
+            this.unit = Edible.Unit.valueOf(super.getUnitSpinner().getSelectedItem().toString());
+        }
+        catch (Exception e) {
+            view.setError(e.toString().replaceAll("^.*(?=(input))", "").replace("string", ""));
+            validInput = false;
         }
 
-        return result;
+        return validInput;
     }
 
     private void sendData(FragToRecipeBook.EntryMode mode) {

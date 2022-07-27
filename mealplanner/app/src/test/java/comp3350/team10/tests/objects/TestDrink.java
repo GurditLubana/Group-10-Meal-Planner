@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
-import comp3350.team10.tests.persistence.DataAccessStub;
 
 public class TestDrink {
 

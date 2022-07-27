@@ -16,7 +16,6 @@ import comp3350.team10.objects.Constant;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
-import comp3350.team10.tests.persistence.DataAccessStub;
 
 public class TestDailyLog {
 
@@ -813,7 +812,7 @@ public class TestDailyLog {
             @Test
             @DisplayName("init null list")
             void testInitNullList() {
-                assertThrows(NullPointerException.class, () -> {
+                assertThrows(IllegalArgumentException.class, () -> {
                     testLog.init(currDate, null, 1400, 600, 200);
                 });
             }

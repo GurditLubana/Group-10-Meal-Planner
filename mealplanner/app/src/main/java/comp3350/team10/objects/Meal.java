@@ -13,11 +13,8 @@ public class Meal extends PreparedEdible {
 
 
     public void setIngredients(ArrayList<Ingredient> newIngredients) throws IllegalArgumentException {
-        if (newIngredients != null && !newIngredients.contains(null)) {
-            this.ingredients = newIngredients;
-        } else {
-            throw new IllegalArgumentException("Invalid meal ingredients");
-        }
+        Validator.validArrayListNoNull(newIngredients, "Meal - setIngredients");
+        this.ingredients = newIngredients;
     }
 
     public void readIngredientData() throws IllegalArgumentException {

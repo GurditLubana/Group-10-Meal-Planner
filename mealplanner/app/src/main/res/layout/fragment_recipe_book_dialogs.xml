@@ -62,38 +62,9 @@
                                     android:id="@+id/dialogRecipePhoto"
                                     android:layout_width="150dp"
                                     android:layout_height="150dp"
-                                    android:background="?colorSecondaryVariant"
+                                    android:background="@drawable/ic_eggplant"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
-
-                                <ImageView
-                                    android:id="@+id/dialogRecipePhotoIcon"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:elevation="10dp"
-                                    android:src="@drawable/baseline_photo_camera_white_48"
-                                    app:layout_constraintBottom_toBottomOf="@+id/dialogRecipePhoto"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="@+id/dialogRecipePhoto"
-                                    app:layout_constraintTop_toTopOf="@+id/dialogRecipePhoto" />
-
-                                <Button
-                                    android:id="@+id/dialogRecipePhotoBtn"
-                                    android:layout_width="147dp"
-                                    android:layout_height="49dp"
-                                    android:layout_weight="0.3"
-                                    android:background="?colorPrimary"
-                                    android:clickable="true"
-                                    android:gravity="center"
-                                    android:text="Take a photo"
-                                    android:textAlignment="gravity"
-                                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                                    android:textColor="?colorOnPrimary"
-                                    android:textSize="20dp"
-                                    android:visibility="visible"
-                                    app:layout_constraintEnd_toEndOf="@+id/dialogRecipePhoto"
-                                    app:layout_constraintStart_toStartOf="@+id/dialogRecipePhoto"
-                                    app:layout_constraintTop_toBottomOf="@+id/dialogRecipePhoto" />
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
                         </androidx.cardview.widget.CardView>
@@ -218,6 +189,24 @@
                         android:textColorHint="#E1E1E1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+                    <EditText
+                        android:id="@+id/ingredientError"
+                        android:layout_width="182dp"
+                        android:layout_height="55dp"
+                        android:layout_weight="0.7"
+                        android:background="?colorPrimary"
+                        android:backgroundTint="?colorPrimary"
+                        android:clickable="false"
+                        android:editable="false"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:padding="10dp"
+                        android:textColor="?colorOnPrimary"
+                        android:textColorHint="#E1E1E1"
+                        app:layout_constraintEnd_toStartOf="@+id/dialogRecipeIngredientsInput"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/dialogRecipeIngredientsLabel" />
 
                     <TextView
                         android:id="@+id/dialogRecipeNameLabel"

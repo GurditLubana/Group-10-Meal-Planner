@@ -7,7 +7,6 @@ import java.util.Calendar;
 
 import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.HSqlDB;
-import comp3350.team10.tests.persistence.DataAccessStub;
 
 public class TestLogDBInterfaceHsql extends TestLogDBInterface {
 

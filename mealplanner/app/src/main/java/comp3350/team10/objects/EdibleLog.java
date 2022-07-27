@@ -19,21 +19,24 @@ public class EdibleLog extends Edible {
         this.baseQuantity = edible.getQuantity();
         this.baseCalories = edible.getCalories();
 
+        this.initDetails(edible.getDbkey(), edible.getName(), edible.getDescription(), edible.getQuantity(), edible.getUnit());
+        this.initNutrition(edible.getCalories(), edible.getProtein(), edible.getCarbs(), edible.getFat());
+        this.initCategories(edible.getIsAlcoholic(), edible.getIsSpicy(), edible.getIsVegan(), edible.getIsVegetarian(), edible.getIsGlutenFree());
+        this.initMetadata(edible.getIsCustom(), edible.getPhoto());
+
         try {
-            this.initDetails(edible.getDbkey(), edible.getName(), edible.getDescription(), edible.getQuantity(), edible.getUnit());
-            this.initNutrition(edible.getCalories(), edible.getProtein(), edible.getCarbs(), edible.getFat());
-            this.initCategories(edible.getIsAlcoholic(), edible.getIsSpicy(), edible.getIsVegan(), edible.getIsVegetarian(), edible.getIsGlutenFree());
-            this.initMetadata(edible.getIsCustom(), edible.getPhoto());
             this.init(edible.getQuantity(), edible.getUnit());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("EdibleLog init failed " + e);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("EdibleLog init setCalories failed " + e);
+        }
+        catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
+        }
+        catch (Exception e) {
+            throw new IllegalArgumentException("Overflow occurred when calculating calories: EdibleLog - constructor");
         }
     }
 
 
-    public EdibleLog init(double quantity, Edible.Unit unit) throws IllegalArgumentException, Exception {
+    public EdibleLog init(double quantity, Edible.Unit unit) throws Exception {
         this.setQuantity(quantity);
         this.setUnit(unit);
         this.setCalories();
@@ -42,30 +45,19 @@ public class EdibleLog extends Edible {
     }
 
     public void setQuantity(double newQuantity) throws IllegalArgumentException {
-        if (newQuantity > 0 && newQuantity <= Constant.ENTRY_MAX_VALUE) {
-            this.quantity = newQuantity;
-        } else {
-            throw new IllegalArgumentException("EdibleLog setQuantity Invalid log quantity " + newQuantity);
-        }
+        Validator.atLeastOne(newQuantity, "EdibleLog - setQuantity");
+        this.quantity = newQuantity;
     }
 
-    public void setCalories() {
-        double newCalories = 0;
-
-        try {
-            newCalories = this.converter.convert(this.baseUnit, this.baseQuantity, this.baseCalories, this.unit, this.quantity);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        this.calories = newCalories;
+    public void setCalories() throws Exception {
+        this.calories = this.converter.convert(this.baseUnit, this.baseQuantity, this.baseCalories, this.unit, this.quantity);
     }
 
     public void setUnit(Edible.Unit newUnit) throws IllegalArgumentException {
         if (newUnit != null) {
             this.unit = newUnit;
         } else {
-            throw new IllegalArgumentException("EdibleLog setUnit Invalid log unit");
+            throw new IllegalArgumentException("Unit cannot be null: EdibleLog - setUnit");
         }
     }
 
@@ -82,16 +74,8 @@ public class EdibleLog extends Edible {
     }
 
     public EdibleLog clone() throws IllegalArgumentException {
-        EdibleLog copy = null;
-
-        try {
-            copy = new EdibleLog(this);
-            copy.initDetails(this.getDbkey(), this.getName(), this.getDescription(), super.getQuantity(), super.getUnit());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("EdibleLog clone failed " + e);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("EdibleLog init setCalories failed " + e);
-        }
+        EdibleLog copy = new EdibleLog(this);
+        copy.initDetails(this.getDbkey(), this.getName(), this.getDescription(), super.getQuantity(), super.getUnit());
 
         return copy;
     }

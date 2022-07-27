@@ -1,50 +1,48 @@
 package comp3350.team10.utils;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
-import org.junit.*;
-import org.junit.runner.RunWith;
+import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.internal.util.Checks.checkNotNull;
+import static org.hamcrest.Matchers.allOf;
+
+import android.view.View;
+import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.espresso.Espresso;
 import androidx.test.espresso.PerformException;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
-import androidx.test.espresso.assertion.ViewAssertions;
-import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.BoundedMatcher;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.espresso.util.HumanReadables;
 import androidx.test.espresso.util.TreeIterables;
-import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
-
-import static androidx.test.espresso.Espresso.*;
-import static androidx.test.espresso.action.ViewActions.*;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
-import static androidx.test.espresso.matcher.ViewMatchers.*;
-import static androidx.test.espresso.assertion.ViewAssertions.*;
-import static androidx.test.internal.util.Checks.checkNotNull;
-
-import static org.hamcrest.Matchers.*;
-
-import android.view.View;
-import android.widget.EditText;
 
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.concurrent.TimeoutException;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 
-import comp3350.team10.R;
-import comp3350.team10.presentation.ActivityMealDiary;
-import comp3350.team10.presentation.ActivityRecipeBook;
+import java.util.concurrent.TimeoutException;
 
 
 public class Utils {
+
+    public static Matcher<View> matchesDate(final int year, final int month, final int day) {
+        return new BoundedMatcher<View, DatePicker>(DatePicker.class) {
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("matches date:");
+            }
+
+            @Override
+            protected boolean matchesSafely(DatePicker item) {
+                return (year == item.getYear() && month == item.getMonth() && day == item.getDayOfMonth());
+            }
+        };
+    }
 
     public static Matcher<View> atPosition(final int position, @NonNull final Matcher<View> itemMatcher) {
         checkNotNull(itemMatcher);
@@ -58,8 +56,7 @@ public class Utils {
             @Override
             protected boolean matchesSafely(final RecyclerView view) {
                 RecyclerView.ViewHolder viewHolder = view.findViewHolderForAdapterPosition(position);
-                if (viewHolder == null) {
-                    // has no item on such position
+                if (viewHolder == null) { // has no item on such position
                     return false;
                 }
                 return itemMatcher.matches(viewHolder.itemView);

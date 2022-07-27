@@ -2174,7 +2174,7 @@ Duration: 8 hrs
 ### 2022-07-21
      Dev:
       - Dane
-Duration: 4 hrs
+Duration: 7 hrs
    Tasks:
    - further refactored RVA adapter
    - removed drink slider code
@@ -2236,6 +2236,21 @@ Duration: 6 hrs
    - Started writing Integration tests
    - Added some tests in businessPersistanceSeamTests class for subclass MealDiaryOps.
    -Added some "invalid Tests" for RecipeBookOps integration tests.
+   
+   ### 2022-07-24
+     Dev:
+      - Zhou
+Duration: 1 hrs
+   Tasks:
+   - review course video U8 and make relative note and upload
+
+
+   ### 2022-07-24
+     Dev:
+      - Zhou
+Duration: 1 hrs
+   Tasks:
+   - review course video first 2 U9 video and make relative note and upload
 
 
 ### 2022-07-24
@@ -2245,7 +2260,7 @@ Duration: 15 hrs
    Tasks:
    - Took notes from all Unit 5-9 videos for final iter3 refactoring
    - Seeded static data for 2 years of daily log into hsql
-   - Started hsql integration testing
+   - Completed hsql integration testing
    - Added verbosity to hsql exception statements
 
 ### 2022-07-24
@@ -2257,10 +2272,18 @@ Duration: 4 hrs
    - Added integration tests for TrendOps and UserDataOps
    - A 30 minute meeting with Josef for feedback.
 
+### 2022-07-25
+     Dev:
+      - Zhou
+Duration: 3 hrs
+   Tasks:
+   - review course video, rest of U9 and make relative note and upload
 
 ### 2022-07-25
      Dev:
       - Josef
-Duration:  hrs
+Duration: 6 hrs
    Tasks:
-   - 
+   - Fixed acceptance tests
+   - added more acceptance tests
+   - added a validator class
