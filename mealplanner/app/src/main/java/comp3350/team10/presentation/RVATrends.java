@@ -69,6 +69,8 @@ public class RVATrends extends RecyclerViewAdapter {
 
     private void setTrendData(ViewHolder viewHolder, int position) {
         GraphView graph = (GraphView) viewHolder.getView().findViewById(R.id.graph);
+        TextView title = viewHolder.getView().findViewById(R.id.trendsTitle);
+        TextView span = viewHolder.getView().findViewById(R.id.trendsSpan);
         DataFrame dataFrame = this.dataSet.get(position);
         DataPoint[] dataPointArray = new DataPoint[dataFrame.size()];
         ArrayList<Double> dataArray = dataFrame.getData();
@@ -89,6 +91,8 @@ public class RVATrends extends RecyclerViewAdapter {
         graph.addSeries(series);
         graph.addSeries(seriesTrend);
         graph.setTitle(dataFrame.getDataType().name());
+        title.setText(dataFrame.getDataType().name());
+        span.setText(dataFrame.getSpan().name());
         graph.setTitleTextSize(72);
         graph.setTitleColor(Color.WHITE);
         graph.getGridLabelRenderer().setPadding(40);
@@ -107,6 +111,7 @@ public class RVATrends extends RecyclerViewAdapter {
     private void setDailyData(ViewHolder viewHolder, int position) {
         GraphView graph = (GraphView) viewHolder.getView().findViewById(R.id.graph2);
         TextView progressPercent = viewHolder.getView().findViewById(R.id.progressPercentage);
+        TextView title = viewHolder.getView().findViewById(R.id.dailyProgressTitle);
         CircularProgressIndicator progressCircle = viewHolder.getView().findViewById(R.id.progressCircle);
         viewHolder.getView().findViewById(R.id.graph);
         DataFrame dataFrame = this.dataSet.get(position);
@@ -135,6 +140,7 @@ public class RVATrends extends RecyclerViewAdapter {
         series.setColor(Color.parseColor("#C3E0E5"));
         seriesTrend.setColor(Color.RED);
         graph.setTitle(dataFrame.getDataType().name());
+        title.setText(dataFrame.getDataType().name());
         graph.setTitleTextSize(72);
         graph.setTitleColor(Color.WHITE);
         graph.getGridLabelRenderer().setPadding(40);

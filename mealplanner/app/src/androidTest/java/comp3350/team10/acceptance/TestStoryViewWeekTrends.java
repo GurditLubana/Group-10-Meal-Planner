@@ -7,6 +7,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -32,26 +33,25 @@ public class TestStoryViewWeekTrends {
     }
 
     @Test
-    public void test_DailyProgress_screen() {
+    public void user_can_see_DailyProgress_screen() {
         onView(ViewMatchers.withId(R.id.progressCircle)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.progressPercentage)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.progressrecyclerview)).check(matches(isDisplayed()));
-        //onView(withText("ConsumedCalories")).check(matches(isDisplayed()));
-        //onView(withId(R.id.mealRecyclerView)).check(matches(atPosition(0, withText("Test Text"))));
         onView(ViewMatchers.withId(R.id.mealDiaryNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.dailyNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.recipeBookNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.chartsNav)).check(matches(isDisplayed()));
-        onView(ViewMatchers.withId(R.id.socialNav)).check(matches(isDisplayed()));
     }
 
     @Test
-    public void itemWithText_doesNotExist() {
-        // Attempt to scroll to an item that contains the special text.
-        onView(ViewMatchers.withId(R.id.progressrecyclerview))
-                // scrollTo will fail the test if no item matches.
-                .perform(RecyclerViewActions.scrollTo(
-                        hasDescendant(withText("%"))
-                ));
+    public void user_can_view_weekly_bar_charts() {
+        onView(ViewMatchers.withId(R.id.progressrecyclerview)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("ConsumedCalories"))));
+        onView(ViewMatchers.withId(R.id.progressrecyclerview)).check(ViewAssertions.matches(ViewMatchers.withText("ConsumedCalories")));
+
+        onView(ViewMatchers.withId(R.id.progressrecyclerview)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("NetCalories"))));
+        onView(ViewMatchers.withId(R.id.progressrecyclerview)).check(ViewAssertions.matches(ViewMatchers.withText("NetCalories")));
+
+        onView(ViewMatchers.withId(R.id.progressrecyclerview)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("ExerciseCalories"))));
+        onView(ViewMatchers.withId(R.id.progressrecyclerview)).check(ViewAssertions.matches(ViewMatchers.withText("ExerciseCalories")));
     }
 }

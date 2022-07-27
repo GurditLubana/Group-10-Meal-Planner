@@ -3,8 +3,12 @@ package comp3350.team10.acceptance;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import androidx.test.espresso.assertion.ViewAssertions;
+import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -22,7 +26,6 @@ public class TestStoryViewLongTrends {
 
     @Rule
     public ActivityScenarioRule<ActivityMealDiary> activityRule = new ActivityScenarioRule<>(ActivityMealDiary.class);
-    //public ActivityScenarioRule<ActivityTrends> activityRule = new ActivityScenarioRule<>(ActivityTrends.class);
 
     @Before
     public void setup() {
@@ -31,15 +34,27 @@ public class TestStoryViewLongTrends {
     }
 
     @Test
-    public void test_Trends_screen() {
+    public void user_can_see_Trends_screen() {
         onView(ViewMatchers.withId(R.id.progressCircle)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.progressPercentage)).check(matches(isDisplayed()));
-        onView(ViewMatchers.withId(R.id.mealRecyclerView)).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.trendsRecyclerView)).check(matches(isDisplayed()));
 
         onView(ViewMatchers.withId(R.id.mealDiaryNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.dailyNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.recipeBookNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.chartsNav)).check(matches(isDisplayed()));
-        onView(ViewMatchers.withId(R.id.socialNav)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void user_can_view_weekly_bar_charts() {
+        onView(ViewMatchers.withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("ConsumedCalories"))));
+        onView(ViewMatchers.withId(R.id.trendsRecyclerView)).check(ViewAssertions.matches(ViewMatchers.withText("ConsumedCalories")));
+
+        onView(ViewMatchers.withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("NetCalories"))));
+        onView(ViewMatchers.withId(R.id.trendsRecyclerView)).check(ViewAssertions.matches(ViewMatchers.withText("NetCalories")));
+
+        onView(ViewMatchers.withId(R.id.trendsRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("ExerciseCalories"))));
+        onView(ViewMatchers.withId(R.id.trendsRecyclerView)).check(ViewAssertions.matches(ViewMatchers.withText("ExerciseCalories")));
+
     }
 }

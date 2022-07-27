@@ -61,7 +61,7 @@ public class ActivityTrends extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        View object = findViewById(R.id.mealRecyclerView);
+        View object = findViewById(R.id.trendsRecyclerView);
 
         if (this.data != null && object instanceof RecyclerView) {
             this.trendsRecyclerView = (RecyclerView) object;

@@ -54,7 +54,6 @@ public class TestStoryViewRecipes {
         onView(ViewMatchers.withId(R.id.dailyNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.recipeBookNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.chartsNav)).check(matches(isDisplayed()));
-        onView(ViewMatchers.withId(R.id.socialNav)).check(matches(isDisplayed()));
     }
 
     @Test
