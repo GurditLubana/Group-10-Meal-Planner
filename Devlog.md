@@ -2287,3 +2287,15 @@ Duration: 6 hrs
    - Fixed acceptance tests
    - added more acceptance tests
    - added a validator class
+
+### 2022-07-27
+     Dev:
+      - Dane
+Duration: 6 hrs
+   Tasks:
+   - fixed unit tests
+   - added validator class usage to app
+   - refactored and added extra test cases to addRecipeDialog
+   - merged integrated tests and planned its refactor
+   - read up how expresso works and toyed with recorded testing
+   - wrote addRecipe acceptance tests

@@ -209,37 +209,63 @@ public class TestStoryViewRecipes {
 
         onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
         onView(withText("tbsp")).inRoot(isPlatformPopup()).perform(click());
-        //onView(withId(R.id.dialogRecipeSpinner)).check(matches(withSpinnerText(containsString("tbsp"))));
 
         onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withId(R.id.imageView4))));
         onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
         onView(withId(R.id.recipeRecyclerView)).perform(click());
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.cardView2)));
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.addToPlannerBtn2)));
-        onView(withId(R.id.addIcon)).perform(click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(2, clickChildViewWithId(R.id.cardView2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(2, clickChildViewWithId(R.id.addToPlannerBtn2)));
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test McRib"))));
+        cleanup();
     }
 
     @Test
-    public void user_can_add_drinks() {
+    public void user_can_add_simple_drinks() {
         onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(2));
         onView(ViewMatchers.withId(R.id.openButton)).perform(click());
 
         onView(isRoot()).perform(waitId(R.id.addButton, 5000));
         onView(ViewMatchers.withId(R.id.addButton)).perform(click());
 
-        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test McRib"));
-        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("333"));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test sugar water"));
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("5"));
         onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("777"));
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
         onView(withText("tbsp")).inRoot(isPlatformPopup()).perform(click());
-        onView(withId(R.id.dialogRecipeSpinner)).check(matches(withSpinnerText(containsString("tbsp"))));
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test McRib"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test sugar water"))));
+        cleanup();
+    }
+
+    @Test
+    public void user_can_add_complex_drinks() {
+        onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(2));
+        onView(ViewMatchers.withId(R.id.openButton)).perform(click());
+
+        onView(isRoot()).perform(waitId(R.id.addButton, 5000));
+        onView(ViewMatchers.withId(R.id.addButton)).perform(click());
+
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test2 sugar water"));
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("5"));
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("777"));
+        Espresso.closeSoftKeyboard();
+
+        onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
+        onView(withText("tbsp")).inRoot(isPlatformPopup()).perform(click());
+
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withId(R.id.imageView4))));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.cardView2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.addToPlannerBtn2)));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test2 sugar water"))));
+        cleanup();
     }
 }
