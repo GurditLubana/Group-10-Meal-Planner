@@ -248,11 +248,9 @@ public class TestRecipeDBInterface {
         @Test
         @DisplayName("typical values should work")
         void typicalValues() {
-
             assertEquals(25, foodRecipeCount);
-            assertEquals(7, mealRecipeCount);
+            assertEquals(6, mealRecipeCount);
             assertEquals(7, drinkRecipeCount);
-            //assertEquals(100, db.getNextKey());
 
             Edible item = db.findIngredientByKey(1, false);
             assertEquals("Pear", item.getName());

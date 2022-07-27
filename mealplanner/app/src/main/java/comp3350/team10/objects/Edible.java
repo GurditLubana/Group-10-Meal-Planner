@@ -169,7 +169,7 @@ public class Edible {
     }
 
     public void setCalories(double newCalories) throws IllegalArgumentException {
-        Validator.atLeastZero(newCalories, "Edible class - setCalories");
+        Validator.zeroAtMinimum(newCalories, "Edible class - setCalories");
         this.calories = newCalories;
     }
 

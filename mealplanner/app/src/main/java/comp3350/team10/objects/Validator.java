@@ -6,8 +6,7 @@ public class Validator {
 
     public static void validArrayListNoNull(ArrayList<?> inputArrayList, String locationMsg) {
         if (inputArrayList == null || inputArrayList.contains(null)) {
-            throw new IllegalArgumentException(locationMsg +
-                    ": input list cannot be null cannot have null elements");
+            throw new IllegalArgumentException(locationMsg + ": input list cannot be null cannot have null elements");
         }
     }
 
@@ -66,6 +65,13 @@ public class Validator {
                 || inputNumber > Constant.ENTRY_MAX_VALUE) {
             throw new IllegalArgumentException(locationMsg + ": received " + inputNumber +
                     " input requires value between " + Constant.ENTRY_MIN_VALUE + " and " + Constant.ENTRY_MAX_VALUE);
+        }
+    }
+
+    public static void zeroAtMinimum(double inputNumber, String locationMsg) {
+        if (inputNumber < Constant.ENTRY_MIN_VALUE) {
+            throw new IllegalArgumentException(locationMsg + ": received " + inputNumber +
+                    " input requires value greater than or equal to " + Constant.ENTRY_MIN_VALUE);
         }
     }
 }

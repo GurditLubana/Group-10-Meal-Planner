@@ -58,7 +58,7 @@ public class DailyLog {
         }
     }
 
-    private void setEdibleList(ArrayList<Edible> newLog) throws NullPointerException {
+    private void setEdibleList(ArrayList<Edible> newLog) throws IllegalArgumentException {
         Validator.validArrayListNoNull(newLog, "DailyLog - setEdibleList");
         this.edibleLog = newLog;
         this.updateProgress();

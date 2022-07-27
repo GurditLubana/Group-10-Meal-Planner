@@ -812,7 +812,7 @@ public class TestDailyLog {
             @Test
             @DisplayName("init null list")
             void testInitNullList() {
-                assertThrows(NullPointerException.class, () -> {
+                assertThrows(IllegalArgumentException.class, () -> {
                     testLog.init(currDate, null, 1400, 600, 200);
                 });
             }
