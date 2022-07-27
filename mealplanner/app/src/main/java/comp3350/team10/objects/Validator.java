@@ -23,7 +23,7 @@ public class Validator {
                 || inputString.length() <= Constant.ENTRY_MIN_VALUE
                 || inputString.length() > Constant.ENTRY_MAX_VALUE) {
             throw new IllegalArgumentException(locationMsg + ": received " + inputString +
-                    " input cannot be null and requires string length between " + Constant.ENTRY_MIN_VALUE + " and " + Constant.ENTRY_MAX_VALUE);
+                    " input cannot be null and requires string length between " + 1 + " and " + Constant.ENTRY_MAX_VALUE);
         }
     }
 

@@ -57,28 +57,6 @@ public class TestStoryViewRecipes {
         onView(ViewMatchers.withId(R.id.socialNav)).check(matches(isDisplayed()));
     }
 
-//    @Test
-//    public void method1() {
-//        onView(withId(R.id.recipeRecyclerView))
-//                .check(matches(atPosition(0, withText("Apple"))));
-//    }
-//
-//    @Test
-//    public void method2() {
-//        onView(withId(R.id.recipeRecyclerView))
-//                .check(matches(atPosition(0, hasDescendant(withText("Apple")))));
-//    }
-//
-//    @Test
-//    public void method3() {
-//        // Attempt to scroll to an item that contains the special text.
-//        onView(ViewMatchers.withId(R.id.recipeRecyclerView))
-//                // scrollTo will fail the test if no item matches.
-//                .perform(RecyclerViewActions.scrollTo(
-//                        hasDescendant(withText("Apple"))
-//                ));
-//    }
-
     @Test
     public void user_can_browse_recipes() {
         onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(0));
@@ -101,7 +79,6 @@ public class TestStoryViewRecipes {
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Mojito"))));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka OJ"))));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Vodka Tonic"))));
-
     }
 
     @Test
@@ -138,35 +115,73 @@ public class TestStoryViewRecipes {
     public void user_is_warned_invalid_add_food_input() {
         onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(0));
         onView(ViewMatchers.withId(R.id.openButton)).perform(click());
-
         onView(isRoot()).perform(waitId(R.id.addButton, 5000));
         onView(ViewMatchers.withId(R.id.addButton)).perform(click());
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("Field cannot be empty")));
+        onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("bad food"));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
+        onView(ViewMatchers.withId(R.id.dialogRecipeCaloriesInput)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("10000"));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input requires value between 0 and 9999")));
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("5"));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeQuantityInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(clearText(), typeText("10000"));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeQuantityInput)).check(matches(hasErrorText("input requires value between 0 and 9999")));
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnCancel)).perform(scrollTo(), click());
 
         onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(1));
-
         onView(isRoot()).perform(waitId(R.id.addButton, 5000));
         onView(ViewMatchers.withId(R.id.addButton)).perform(click());
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("Field cannot be empty")));
+        onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("bad meal"));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
+        onView(ViewMatchers.withId(R.id.dialogRecipeCaloriesInput)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("10000"));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input requires value between 0 and 9999")));
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("5"));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeQuantityInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(clearText(), typeText("10000"));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeQuantityInput)).check(matches(hasErrorText("input requires value between 0 and 9999")));
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(clearText(), typeText("5"));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.ingredientError)).check(matches(hasErrorText("input list cannot be null and requires length between 0 and 9999")));
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnCancel)).perform(scrollTo(), click());
 
         onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(2));
-
         onView(isRoot()).perform(waitId(R.id.addButton, 5000));
         onView(ViewMatchers.withId(R.id.addButton)).perform(click());
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("Field cannot be empty")));
+        onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("bad drink"));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
+        onView(ViewMatchers.withId(R.id.dialogRecipeCaloriesInput)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("10000"));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input requires value between 0 and 9999")));
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("5"));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeQuantityInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(clearText(), typeText("10000"));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeQuantityInput)).check(matches(hasErrorText("input requires value between 0 and 9999")));
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnCancel)).perform(scrollTo(), click());
-
     }
 
-    public void cleanup() {
+    private void cleanup() {
         DataAccess hsql = DBSelector.getSharedDB();
         hsql.removeTestData();
     }
@@ -175,21 +190,53 @@ public class TestStoryViewRecipes {
     public void user_can_add_food() {
         onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(0));
         onView(ViewMatchers.withId(R.id.openButton)).perform(click());
-
         onView(isRoot()).perform(waitId(R.id.addButton, 5000));
         onView(ViewMatchers.withId(R.id.addButton)).perform(click());
 
         onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test McRib"));
         onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("333"));
         onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("777"));
-        Espresso.closeSoftKeyboard();
-
         onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
         onView(withText("tbsp")).inRoot(isPlatformPopup()).perform(click());
         onView(withId(R.id.dialogRecipeSpinner)).check(matches(withSpinnerText(containsString("tbsp"))));
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test McRib"))));
+
+        onView(ViewMatchers.withId(R.id.addButton)).perform(click());
+
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Celery"));
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("0"));
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("1"));
+        onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
+        onView(withText("oz")).inRoot(isPlatformPopup()).perform(click());
+        onView(withId(R.id.dialogRecipeSpinner)).check(matches(withSpinnerText(containsString("oz"))));
+        onView(withId(R.id.isAlcoholic)).perform(click());
+        onView(withId(R.id.isSpicy)).perform(click());
+        onView(withId(R.id.isVegan)).perform(click());
+        onView(withId(R.id.isVegetarian)).perform(click());
+        onView(withId(R.id.isGluteenFree)).perform(click());
+
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test McRib"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Celery"))));
+
+        onView(ViewMatchers.withId(R.id.addButton)).perform(click());
+
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Something else"));
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("9999"));
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("9999"));
+        onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
+        onView(withText("tbsp")).inRoot(isPlatformPopup()).perform(click());
+        onView(withId(R.id.dialogRecipeSpinner)).check(matches(withSpinnerText(containsString("tbsp"))));
+        onView(withId(R.id.isAlcoholic)).perform(click());
+        onView(withId(R.id.isVegan)).perform(click());
+        onView(withId(R.id.isGluteenFree)).perform(click());
+
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test McRib"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Celery"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Something else"))));
 
         cleanup();
     }
@@ -218,6 +265,17 @@ public class TestStoryViewRecipes {
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(2, clickChildViewWithId(R.id.addToPlannerBtn2)));
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test McRib"))));
+
+        //add one where contents are modified
+
+        //add one where contents are removed
+
+        //add one with many
+
+        //add one where adds ingredients from Drink
+
+        //add one where adds ingredients from Meal
+
         cleanup();
     }
 
@@ -225,20 +283,54 @@ public class TestStoryViewRecipes {
     public void user_can_add_simple_drinks() {
         onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(2));
         onView(ViewMatchers.withId(R.id.openButton)).perform(click());
-
         onView(isRoot()).perform(waitId(R.id.addButton, 5000));
         onView(ViewMatchers.withId(R.id.addButton)).perform(click());
 
-        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test sugar water"));
-        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("5"));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Drink1"));
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("333"));
         onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("777"));
-        Espresso.closeSoftKeyboard();
-
         onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
         onView(withText("tbsp")).inRoot(isPlatformPopup()).perform(click());
+        onView(withId(R.id.dialogRecipeSpinner)).check(matches(withSpinnerText(containsString("tbsp"))));
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test sugar water"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Drink1"))));
+
+        onView(ViewMatchers.withId(R.id.addButton)).perform(click());
+
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Drink2"));
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("0"));
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("1"));
+        onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
+        onView(withText("oz")).inRoot(isPlatformPopup()).perform(click());
+        onView(withId(R.id.dialogRecipeSpinner)).check(matches(withSpinnerText(containsString("oz"))));
+        onView(withId(R.id.isAlcoholic)).perform(click());
+        onView(withId(R.id.isSpicy)).perform(click());
+        onView(withId(R.id.isVegan)).perform(click());
+        onView(withId(R.id.isVegetarian)).perform(click());
+        onView(withId(R.id.isGluteenFree)).perform(click());
+
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Drink1"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Drink2"))));
+
+        onView(ViewMatchers.withId(R.id.addButton)).perform(click());
+
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Something else"));
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("9999"));
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("9999"));
+        onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
+        onView(withText("tbsp")).inRoot(isPlatformPopup()).perform(click());
+        onView(withId(R.id.dialogRecipeSpinner)).check(matches(withSpinnerText(containsString("tbsp"))));
+        onView(withId(R.id.isAlcoholic)).perform(click());
+        onView(withId(R.id.isVegan)).perform(click());
+        onView(withId(R.id.isGluteenFree)).perform(click());
+
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Drink1"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Drink2"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Something else"))));
+
         cleanup();
     }
 
@@ -253,8 +345,6 @@ public class TestStoryViewRecipes {
         onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test2 sugar water"));
         onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("5"));
         onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("777"));
-        Espresso.closeSoftKeyboard();
-
         onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
         onView(withText("tbsp")).inRoot(isPlatformPopup()).perform(click());
 
@@ -262,10 +352,49 @@ public class TestStoryViewRecipes {
         onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
         onView(withId(R.id.recipeRecyclerView)).perform(click());
+
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.cardView2)));
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.addToPlannerBtn2)));
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test2 sugar water"))));
+
+        //add one where contents are modified
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("modDrink"));
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("0"));
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("1"));
+        onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
+        onView(withText("tbsp")).inRoot(isPlatformPopup()).perform(click());
+
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withId(R.id.imageView4))));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(click());
+
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.cardView2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.addToPlannerBtn2)));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
+        //click on edit
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnModifyMeal)));
+
+        //dialog pops up and rewrite quantity and
+        onView(withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(withId(R.id.inputQty)), click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test2 sugar water"))));
+
+
+
+        //add one where contents are removed
+
+        //add one with many
+
+        //add one where adds ingredients from Drink
+
+        //add one where adds ingredients from Meal
+
+        //add one where substitute is checked
+
         cleanup();
     }
 }
+
+//add testing for invalid ingredients

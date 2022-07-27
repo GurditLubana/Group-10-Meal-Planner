@@ -134,6 +134,7 @@ public class FragmentModEntryDialogs extends FragmentDialogCommon {
                 FragToMealDiary.EntryMode currMode = FragToMealDiary.EntryMode.valueOf(mode);
                 String enteredValue = getInputQuantity().getText().toString();
                 Double value;
+
                 try {
                     Validator.validStringInputatLeastOne(enteredValue, "");
                     value = Double.parseDouble(enteredValue);

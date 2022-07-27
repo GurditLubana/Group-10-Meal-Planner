@@ -266,8 +266,11 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
 
             this.unit = Edible.Unit.valueOf(super.getUnitSpinner().getSelectedItem().toString());
         }
+        catch(NumberFormatException e) {
+            view.setError("input must be inside the range of 1 - 9999");
+        }
         catch (Exception e) {
-            view.setError(e.toString().replaceAll("^.*(?=(input))", "").replace("string", ""));
+            view.setError(e.toString().replaceAll("^.*(?=(input))", "").replace("string ", ""));
             validInput = false;
         }
 
