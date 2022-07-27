@@ -48,7 +48,7 @@
         <entry key="..\:/Programs/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_navigation.xml" value="0.1956521739130435" />
         <entry key="..\:/Programs/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_recipe_book_card.xml" value="0.1956521739130435" />
         <entry key="..\:/Programs/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_recipe_book_card_context.xml" value="0.1956521739130435" />
-        <entry key="..\:/Programs/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_recipe_book_dialogs.xml" value="0.17" />
+        <entry key="..\:/Programs/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_recipe_book_dialogs.xml" value="0.21" />
         <entry key="..\:/Programs/Eat-Dix/mealplanner/app/src/main/res/layout/fragment_trend_chart.xml" value="0.1956521739130435" />
         <entry key="..\:/Programs/Eat-Dix/mealplanner/app/src/main/res/layout/spinner_unit_items.xml" value="0.1" />
         <entry key="..\:/Users/Manraj/Desktop/github files/Eat-Dix/mealplanner/app/src/main/res/drawable/baseline_add_circle_outline_24.xml" value="0.263" />
@@ -85,7 +85,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
