@@ -70,7 +70,7 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
 
     private void initToolbar() {
         this.toolbar = (Toolbar) findViewById(R.id.toolbar);
-        this.toolbar.setTitleTextColor(Integer.parseInt(Constant.TITLE_COLOR));
+        this.toolbar.setTitleTextColor(Color.parseColor(Constant.TITLE_COLOR));
         this.toolbar.setTitle(Constant.TITLE_CONTENT);
         this.toolbar.setElevation(0);
     }

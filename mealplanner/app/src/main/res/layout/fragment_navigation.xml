@@ -86,6 +86,7 @@
             android:scaleX="1.5"
             android:scaleY="1.5"
             android:src="@drawable/baseline_people_black_36"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

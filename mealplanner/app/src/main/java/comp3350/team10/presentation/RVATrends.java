@@ -75,7 +75,7 @@ public class RVATrends extends RecyclerViewAdapter {
         double chartMin = -DataFrame.numDays[dataFrame.getSpan().ordinal()];
 
         for (int i = 0; i < dataArray.size(); i++) {
-            dataPointArray[i] = new DataPoint(i - dataArray.size(), dataArray.get(i).doubleValue());
+            dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
         }
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPointArray);
@@ -116,7 +116,7 @@ public class RVATrends extends RecyclerViewAdapter {
         int progress = (int) (dataFrame.getProgress() * 100);
 
         for (int i = 0; i < dataArray.size(); i++) {
-            dataPointArray[i] = new DataPoint(i - dataArray.size(), dataArray.get(i).doubleValue());
+            dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
         }
 
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dataPointArray);

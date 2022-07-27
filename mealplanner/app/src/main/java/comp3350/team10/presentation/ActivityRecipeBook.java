@@ -68,7 +68,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
 
         if (toolbar instanceof Toolbar) {
             this.toolbar = (Toolbar) toolbar;
-            this.toolbar.setTitleTextColor(Integer.parseInt(Constant.TITLE_COLOR));
+            this.toolbar.setTitleTextColor(Color.parseColor(Constant.TITLE_COLOR));
             this.toolbar.setTitle(Constant.TITLE_CONTENT);
             this.toolbar.setElevation(0);
         }
