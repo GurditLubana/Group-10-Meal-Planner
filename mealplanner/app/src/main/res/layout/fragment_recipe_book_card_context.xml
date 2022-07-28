@@ -27,6 +27,7 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="97dp"
                 android:layout_marginBottom="40dp"
@@ -37,7 +38,7 @@
 
                 <Button
                     android:id="@+id/addToPlannerBtn2"
-                    android:layout_width="260dp"
+                    android:layout_width="97dp"
                     android:layout_height="97dp"
                     android:layout_marginRight="20dp"
                     android:layout_weight="1"
@@ -48,8 +49,7 @@
                     android:layout_width="97dp"
                     android:layout_height="97dp"
                     android:layout_weight="1"
-                    android:backgroundTint="?colorSecondary"
-                    android:visibility="gone" />
+                    android:backgroundTint="?colorSecondary" />
             </LinearLayout>
 
             <LinearLayout
@@ -63,7 +63,7 @@
 
                 <ImageView
                     android:id="@+id/addIcon"
-                    android:layout_width="147dp"
+                    android:layout_width="116dp"
                     android:layout_height="88dp"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
@@ -85,7 +85,6 @@
                     android:scaleX="0.8"
                     android:scaleY="0.8"
                     android:src="@android:drawable/ic_menu_view"
-                    android:visibility="gone"
                     app:srcCompat="@drawable/baseline_visibility_black_48"
                     app:tint="#000000" />
             </LinearLayout>
@@ -112,6 +111,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.159" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="116dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="8dp"
+                android:text="COMING SOON"
+                android:textColor="#FFB74D"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
