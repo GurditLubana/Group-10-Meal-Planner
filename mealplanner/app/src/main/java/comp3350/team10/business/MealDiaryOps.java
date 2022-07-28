@@ -34,7 +34,6 @@ public class MealDiaryOps {
         }
     }
 
-
     public void nextDate() {
         Calendar newDate = (Calendar) this.logDate.clone();
         newDate.add(Calendar.DAY_OF_YEAR, INCREMENT);
