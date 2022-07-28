@@ -30,23 +30,29 @@
                 android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="97dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="40dp"
+                android:divider="?attr/dividerVertical"
+                android:dividerPadding="5dp"
                 android:orientation="horizontal"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                app:layout_constraintBottom_toBottomOf="parent">
+                android:showDividers="middle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
                 <Button
                     android:id="@+id/addToPlannerBtn2"
-                    android:layout_width="97dp"
-                    android:layout_height="97dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:backgroundTint="?colorSecondary" />
+                    android:backgroundTint="?colorSecondary"
+                    android:paddingRight="5dp" />
 
                 <Button
                     android:id="@+id/viewBtn2"
-                    android:layout_width="97dp"
-                    android:layout_height="97dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:backgroundTint="?colorSecondary" />
             </LinearLayout>
@@ -55,10 +61,17 @@
                 android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="97dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="40dp"
+                android:divider="?attr/dividerVertical"
+                android:dividerPadding="5dp"
                 android:elevation="10dp"
                 android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent">
+                android:showDividers="middle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
                 <ImageView
                     android:id="@+id/addIcon"
@@ -66,7 +79,6 @@
                     android:layout_height="88dp"
                     android:layout_weight="1"
                     android:background="#00FFFFFF"
-                    android:elevation="10dp"
                     android:scaleX="0.8"
                     android:scaleY="0.8"
                     app:srcCompat="@drawable/baseline_add_circle_outline_black_36"
@@ -76,7 +88,6 @@
                     android:id="@+id/viewIcon"
                     android:layout_width="116dp"
                     android:layout_height="88dp"
-                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:background="#00FFFFFF"
                     android:elevation="10dp"
