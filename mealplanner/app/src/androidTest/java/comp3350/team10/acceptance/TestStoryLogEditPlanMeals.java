@@ -37,7 +37,7 @@ import comp3350.team10.R;
 import comp3350.team10.presentation.ActivityMealDiary;
 
 @RunWith(AndroidJUnit4.class)
-public class TestStoryAddMeals {
+public class TestStoryLogEditPlanMeals {
     @Rule
     public ActivityScenarioRule<ActivityMealDiary> activityRule = new ActivityScenarioRule<>(ActivityMealDiary.class);
 

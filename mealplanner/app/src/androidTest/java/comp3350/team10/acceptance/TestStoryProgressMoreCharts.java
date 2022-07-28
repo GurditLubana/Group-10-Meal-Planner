@@ -24,7 +24,7 @@ import comp3350.team10.R;
 import comp3350.team10.presentation.ActivityMealDiary;
 
 @RunWith(AndroidJUnit4.class)
-public class TestStoryViewLongTrends {
+public class TestStoryProgressMoreCharts {
 
     @Rule
     public ActivityScenarioRule<ActivityMealDiary> activityRule = new ActivityScenarioRule<>(ActivityMealDiary.class);

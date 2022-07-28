@@ -35,7 +35,7 @@ import comp3350.team10.persistence.DataAccess;
 import comp3350.team10.presentation.ActivityMealDiary;
 
 @RunWith(AndroidJUnit4.class)
-public class TestStoryViewRecipes {
+public class TestStoryAddRecipes {
 
     @Rule
     public ActivityScenarioRule<ActivityMealDiary> activityRule = new ActivityScenarioRule<>(ActivityMealDiary.class);

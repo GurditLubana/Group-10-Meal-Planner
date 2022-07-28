@@ -307,16 +307,9 @@ Fragments are reusable UI components that perform specific functions in activiti
 <br>
 
 # Patch notes
-## Iteration 2
+## Iteration 3
 ### Major changes:
-- All objects have been overhauled
-- Moved around logic and processing to comply with seperation of concern
-- Took persistance out of the presentation layers
-- Created around 500 new tests (based on objects buisness and persistance)
-- Trends and Daily progress are now functional (1st and 4th tabs)
-- Edibles in a log can now be modified without side effects (only affects the current edibleLog)
+- Moved stub to correct location, hsql is now default and stub is only usable by unit and integration test calsses
+
 
 ### Unresolved issues:
-- Adding images to new ingredients is not set up properly yet
-- Ingredients added to new meals and drinks are patched (not proper data)
-- UserDataOps is not entirely necessary right now because we did not get to implementing the logic to prompt user's for their data if it does not exist in the app

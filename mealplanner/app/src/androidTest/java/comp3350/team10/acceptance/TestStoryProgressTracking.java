@@ -29,7 +29,7 @@ import comp3350.team10.R;
 import comp3350.team10.presentation.ActivityMealDiary;
 
 @RunWith(AndroidJUnit4.class)
-public class TestStoryViewWeekTrends {
+public class TestStoryProgressTracking {
     @Rule
     public ActivityScenarioRule<ActivityMealDiary> activityRuleMeal = new ActivityScenarioRule<>(ActivityMealDiary.class);
 
