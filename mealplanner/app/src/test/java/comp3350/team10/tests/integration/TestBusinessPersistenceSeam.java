@@ -111,7 +111,7 @@ public class TestBusinessPersistenceSeam {
         }
 
         @Test
-        @DisplayName("We should be able to update the log and the changes reflected in the db")
+        @DisplayName("Tests updating and swapping logs in the db")
         public void testUpdateLogAndPushToDB() {
             this.setupTestLog();
             this.ops.setListDate(this.testDate);
@@ -161,7 +161,7 @@ public class TestBusinessPersistenceSeam {
         }
 
         @Test
-        @DisplayName("We should be able to see different logs using next date prev date")
+        @DisplayName("Tests incremental day log changes")
         void testNextDatePrevDate() {
             this.setupTestLog();
             for (int i = 0; i < 5; i++) {
@@ -200,9 +200,8 @@ public class TestBusinessPersistenceSeam {
         }
 
         @Test
-        @DisplayName("We should be able to add the first food item in the db to a DailyLog with an even number of entries")
+        @DisplayName("Tests adding the first food to a DailyLog with an even number of entries")
         void testAddingItemsToLogGetsAddedToDB() {
-
             this.setupTestLog();
             this.ops.setListDate(this.testDate);
             DailyLog testLog = this.ops.getCurrLog();
@@ -234,14 +233,12 @@ public class TestBusinessPersistenceSeam {
             assertEquals(dbLog.getProgressBar(), testLog.getProgressBar());
             assertEquals(dbLog.getProgressExcess(), testLog.getProgressExcess());
         }
-
     }
 
 
     @Nested
     @DisplayName("Integration testing of Recipe Book Ops to persistence")
     class testRecipeBookOps {
-
         private RecipeBookOps ops;
         private RecipeDBInterface db;
 
@@ -257,7 +254,6 @@ public class TestBusinessPersistenceSeam {
 
         @AfterEach
         void shutdown() {
-
             DataAccess dataAccess = DBSelector.getSharedDB();
             dataAccess.removeTestData();
             DBSelector.close();
@@ -439,20 +435,12 @@ public class TestBusinessPersistenceSeam {
         }
 
         @Test
-        @DisplayName("Tests getting an ingredient")
+        @DisplayName("Tests getting an edible as an ingredient")
         void typicalValues() {
             Edible item = db.findIngredientByKey(0,1, false);
             assertEquals("Pear", item.getName());
             assertFalse(item instanceof Meal);
             assertFalse(item instanceof Drink);
-            //INSERT INTO EDIBLE VALUES(35,0,'Mojito','The best',10,'ml',100,30,45,25,'mojito.jpg',FALSE,FALSE,FALSE,FALSE,FALSE)
-
-            item = db.findIngredientByKey(2,35, false);
-            assertEquals("Mojito", item.getName());
-            assertFalse(item instanceof Meal);
-            assertTrue(item instanceof Drink);
-            assertEquals(4, ((Drink) item).getIngredients().size());
-            assertEquals("none", ((Drink) item).getInstructions());
 
             item = db.findIngredientByKey(1, 25, false);
             assertEquals("Meal 2items", item.getName());
@@ -461,6 +449,12 @@ public class TestBusinessPersistenceSeam {
             assertEquals(2, ((Meal) item).getIngredients().size());
             assertEquals("step1", ((Meal) item).getInstructions());
 
+            item = db.findIngredientByKey(2,35, false);
+            assertEquals("Mojito", item.getName());
+            assertFalse(item instanceof Meal);
+            assertTrue(item instanceof Drink);
+            assertEquals(4, ((Drink) item).getIngredients().size());
+            assertEquals("none", ((Drink) item).getInstructions());
         }
     }
 
@@ -468,14 +462,11 @@ public class TestBusinessPersistenceSeam {
     @Nested
     @DisplayName("Integration testing of Trend Ops to persistence")
     class testTrendOps {
-
         private TrendsOps ops;
         private LogDBInterface db;
 
-
         @BeforeEach
         void setup() {
-
             try {
                 this.ops = new TrendsOps();
                 this.db = DBSelector.getLogDB();
@@ -664,8 +655,8 @@ public class TestBusinessPersistenceSeam {
         @Test
         @DisplayName("instance creation should fail if db not started")
         void testNoDB() {
-
             DBSelector.close();
+
             try {
                 ops = new TrendsOps();
                 fail("Should throw an exception, no database has been started at this point.");
@@ -678,7 +669,6 @@ public class TestBusinessPersistenceSeam {
     @Nested
     @DisplayName("Integration testing of User Ops to persistence")
     class testUserOps {
-
         private UserDataOps ops;
         private User dbUser;
         private UserDBInterface db;
@@ -701,7 +691,6 @@ public class TestBusinessPersistenceSeam {
             restoreDefault();
             DBSelector.close();
         }
-
 
         void restoreDefault() {
             UserDBInterface db = DBSelector.getUserDB();
@@ -728,7 +717,7 @@ public class TestBusinessPersistenceSeam {
         }
 
         @Test
-        @DisplayName("Testing setHeight")
+        @DisplayName("Test setting height")
         public void testHeightUpdater() {
             User testUser = this.ops.getUser(1);
 
@@ -745,7 +734,7 @@ public class TestBusinessPersistenceSeam {
         }
 
         @Test
-        @DisplayName("Testing setWeight")
+        @DisplayName("Test setting weight")
         public void testWeightUpdater() {
             User testUser = this.ops.getUser(1);
 
@@ -762,7 +751,7 @@ public class TestBusinessPersistenceSeam {
         }
 
         @Test
-        @DisplayName("Testing calorieGoal")
+        @DisplayName("Test setting calorieGoal")
         public void testCalorieGoalUpdater() {
             User testUser = this.ops.getUser(1);
 
@@ -779,7 +768,7 @@ public class TestBusinessPersistenceSeam {
         }
 
         @Test
-        @DisplayName("Testing exerciseGoal")
+        @DisplayName("Test setting exerciseGoal")
         public void testExerciseGoalUpdater() {
             User testUser = this.ops.getUser(1);
 
@@ -794,7 +783,5 @@ public class TestBusinessPersistenceSeam {
             assertEquals(this.dbUser.getName(), testUser.getName());
             assertEquals(this.dbUser.getWeight(), testUser.getWeight());
         }
-
-
     }
 }
