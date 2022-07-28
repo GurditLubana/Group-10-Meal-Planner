@@ -179,22 +179,6 @@ public class TestLogDBInterface {
             db.replaceLog(0, new DailyLog().init(testDate, new ArrayList<>(), 0, 0, 0));
         }
 
-//        @Test
-//        @DisplayName("we should be able to set a new exercise goal for specific logs")
-//        void dbSetANewExerciseGoal() {
-//
-//            setupTestLog();
-//            db.setLogExerciseGoal(0, 5000, testDate);
-//            testLog = db.searchFoodLogByDate(0, testDate);
-//            assertEquals(5000, testLog.getExerciseGoal());
-//
-//            db.setLogExerciseGoal(0, 1234, testDate);
-//            testLog = db.searchFoodLogByDate(0, testDate);
-//            assertEquals(1234, testLog.getExerciseGoal());
-//
-//            db.replaceLog(0, new DailyLog().init(testDate, new ArrayList<>(),0,0,0));
-//        }
-
         @Test
         @DisplayName("we should be able to set new exercise calories burned for specific logs")
         void dbSetANewExerciseCaloriesBurned() {
@@ -272,8 +256,6 @@ public class TestLogDBInterface {
             db.setLogCalorieGoal(0, Constant.ENTRY_MIN_VALUE, testDate);
             assertEquals(Constant.ENTRY_MIN_VALUE, db.searchFoodLogByDate(0, testDate).getCalorieGoal());
 
-            //db.setLogExerciseGoal(0, Constant.ENTRY_MIN_VALUE, testDate);
-            //assertEquals(Constant.ENTRY_MIN_VALUE, db.searchFoodLogByDate(0, testDate).getExerciseGoal());
         }
 
         @Test
@@ -285,9 +267,6 @@ public class TestLogDBInterface {
 
             db.setLogCalorieGoal(0, Constant.ENTRY_MAX_VALUE, testDate);
             assertEquals(Constant.ENTRY_MAX_VALUE, db.searchFoodLogByDate(0, testDate).getCalorieGoal());
-
-            //db.setLogExerciseGoal(0, Constant.ENTRY_MAX_VALUE, testDate);
-            //assertEquals(Constant.ENTRY_MAX_VALUE, db.searchFoodLogByDate(0, testDate).getExerciseGoal());
 
         }
 
