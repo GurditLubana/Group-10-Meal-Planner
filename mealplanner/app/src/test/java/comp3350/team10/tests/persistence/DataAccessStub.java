@@ -36,7 +36,7 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
     private final static int OFFSET_MEAL = 41;
 
     //User and History Database
-    private final static int USER_ID = 1;       //Default user id
+    private final static int USER_ID = 0;       //Default user id
     private ArrayList<DailyLog> dbFoodLog;      //Logs
     private User currUser;                      //The current user
     //ArrayList<Integer[]> history;               //user history
@@ -62,7 +62,7 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
     }
 
     private void loadUser() {
-        currUser = new User().init(USER_ID, "Test", 100, 200, 2000, 600);
+        currUser = new User().init(USER_ID, "Pablo Escabar", 100, 200, 2000, 600);
     }
 
     private Integer calendarToInt(Calendar date) {

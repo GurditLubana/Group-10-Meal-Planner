@@ -622,7 +622,6 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                     currUser = this.getUser(userID);
                     log = new DailyLog().init(date, new ArrayList<Edible>(), currUser.getCalorieGoal(), currUser.getExerciseGoal(), 0);
                     this.addLog(currUser.getUserID(), log);
-
                 }
             } else {
                 throw new IllegalArgumentException();

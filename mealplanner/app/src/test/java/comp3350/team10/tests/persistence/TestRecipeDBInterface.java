@@ -237,7 +237,7 @@ public class TestRecipeDBInterface {
         @Test
         @DisplayName("typical values should work")
         void typicalValues() {
-            assertEquals(25, foodRecipeCount);
+            assertEquals(26, foodRecipeCount);
             assertEquals(7, mealRecipeCount);
             assertEquals(7, drinkRecipeCount);
 

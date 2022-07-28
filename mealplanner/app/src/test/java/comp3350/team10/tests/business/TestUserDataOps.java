@@ -21,7 +21,7 @@ public class TestUserDataOps {
     void setup() {
         DBSelector.start(new DataAccessStub());;
         userOps = new UserDataOps();
-        userFromOPS = userOps.getUser(1);
+        userFromOPS = userOps.getUser(0);
     }
 
     @AfterEach
@@ -31,7 +31,7 @@ public class TestUserDataOps {
     }
 
     private void restoreDefault() {
-        userFromOPS.setName("Test");
+        userFromOPS.setName("Pablo Escabar");
         userFromOPS.setHeight(100);
         userFromOPS.setWeight(200);
         userFromOPS.setCalorieGoal(2000);
@@ -50,9 +50,9 @@ public class TestUserDataOps {
             assertEquals(200, userFromOPS.getWeight());
             assertEquals(2000, userFromOPS.getCalorieGoal());
             assertEquals(600, userFromOPS.getExerciseGoal());
-            assertEquals("Test", userFromOPS.getName());
-            assertEquals(1, userFromOPS.getUserID());
-            assertEquals(1, userOps.getUserID());
+            assertEquals("Pablo Escabar", userFromOPS.getName());
+            assertEquals(0, userFromOPS.getUserID());
+            assertEquals(0, userOps.getUserID());
         }
 
         @Test
@@ -62,14 +62,14 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getName(), "testString");
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getName(), "testString");
 
             userFromOPS.setName("A different name");
             assertEquals(userFromOPS.getName(), "A different name");
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getName(), "A different name");
         }
 
@@ -80,14 +80,14 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getHeight(), 5);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getHeight(), 5);
 
             userFromOPS.setHeight(10);
             assertEquals(userFromOPS.getHeight(), 10);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getHeight(), 10);
         }
 
@@ -98,14 +98,14 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getWeight(), 5);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getWeight(), 5);
 
             userFromOPS.setWeight(10);
             assertEquals(userFromOPS.getWeight(), 10);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getWeight(), 10);
         }
 
@@ -116,14 +116,14 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getCalorieGoal(), 5);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getCalorieGoal(), 5);
 
             userFromOPS.setCalorieGoal(10);
             assertEquals(userFromOPS.getCalorieGoal(), 10);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getCalorieGoal(), 10);
         }
 
@@ -134,14 +134,14 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getExerciseGoal(), 5);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getExerciseGoal(), 5);
 
             userFromOPS.setExerciseGoal(10);
             assertEquals(userFromOPS.getExerciseGoal(), 10);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getExerciseGoal(), 10);
         }
     }
@@ -158,63 +158,63 @@ public class TestUserDataOps {
             assertEquals("\t\t\t\t\tRomeo", userFromOPS.getName());
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getName(), "\t\t\t\t\tRomeo");
 
             userFromOPS.setName("\n\n\n\n Gurdit");
             assertEquals("\n\n\n\n Gurdit", userFromOPS.getName());
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getName(), "\n\n\n\n Gurdit");
 
             userFromOPS.setName("!!!!@#$$$%%%%%^");
             assertEquals("!!!!@#$$$%%%%%^", userFromOPS.getName());
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getName(), "!!!!@#$$$%%%%%^");
 
             userFromOPS.setName("12344");
             assertEquals(userFromOPS.getName(), "12344");
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getName(), "12344");
 
             userFromOPS.setName("               .         ");
             assertEquals(userFromOPS.getName(), "               .         ");
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getName(), "               .         ");
 
             userFromOPS.setName("Dane         ");
             assertEquals(userFromOPS.getName(), "Dane         ");
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getName(), "Dane         ");
 
             userFromOPS.setName("null");
             assertEquals(userFromOPS.getName(), "null");
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getName(), "null");
 
             userFromOPS.setName(",,,,,,    ");
             assertEquals(userFromOPS.getName(), ",,,,,,    ");
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getName(), ",,,,,,    ");
 
             userFromOPS.setName("\\\\\\");
             assertEquals(userFromOPS.getName(), "\\\\\\");
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getName(), "\\\\\\");
         }
 
@@ -225,14 +225,14 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getHeight(), 500);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getHeight(), 500);
 
             userFromOPS.setHeight(1000);
             assertEquals(userFromOPS.getHeight(), 1000);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getHeight(), 1000);
         }
 
@@ -243,14 +243,14 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getWeight(), 500);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getWeight(), 500);
 
             userFromOPS.setWeight(1000);
             assertEquals(userFromOPS.getWeight(), 1000);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getWeight(), 1000);
         }
 
@@ -261,14 +261,14 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getCalorieGoal(), 500);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getCalorieGoal(), 500);
 
             userFromOPS.setCalorieGoal(1000);
             assertEquals(userFromOPS.getCalorieGoal(), 1000);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getCalorieGoal(), 1000);
         }
 
@@ -279,14 +279,14 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getExerciseGoal(), 500);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getExerciseGoal(), 500);
 
             userFromOPS.setExerciseGoal(1000);
             assertEquals(userFromOPS.getExerciseGoal(), 1000);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getExerciseGoal(), 1000);
         }
     }
@@ -299,7 +299,7 @@ public class TestUserDataOps {
         @BeforeEach
         void setup() {
             userFromOPS = new User();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
 
             longTestString = new StringBuilder();
             longTestString.setLength(9999);
@@ -314,7 +314,7 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getName(), longTestString.toString());
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getName(), longTestString.toString());
         }
 
@@ -326,7 +326,7 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getName(), longTestString.toString());
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getName(), longTestString.toString());
         }
 
@@ -337,14 +337,14 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getHeight(), 1);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getHeight(), 1);
 
             userFromOPS.setHeight(9999);
             assertEquals(userFromOPS.getHeight(), 9999);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getHeight(), 9999);
         }
 
@@ -356,7 +356,7 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getHeight(), 5);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getHeight(), 5);
         }
 
@@ -367,14 +367,14 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getWeight(), 1);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getWeight(), 1);
 
             userFromOPS.setWeight(9999);
             assertEquals(userFromOPS.getWeight(), 9999);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getWeight(), 9999);
         }
 
@@ -386,7 +386,7 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getWeight(), 5);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getWeight(), 5);
         }
 
@@ -397,14 +397,14 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getCalorieGoal(), 0);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getCalorieGoal(), 0);
 
             userFromOPS.setCalorieGoal(9999);
             assertEquals(userFromOPS.getCalorieGoal(), 9999);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getCalorieGoal(), 9999);
         }
 
@@ -416,7 +416,7 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getCalorieGoal(), 5);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getCalorieGoal(), 5);
         }
 
@@ -427,14 +427,14 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getExerciseGoal(), 0);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getExerciseGoal(), 0);
 
             userFromOPS.setExerciseGoal(9999);
             assertEquals(userFromOPS.getExerciseGoal(), 9999);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getExerciseGoal(), 9999);
         }
 
@@ -446,7 +446,7 @@ public class TestUserDataOps {
             assertEquals(userFromOPS.getExerciseGoal(), 5);
 
             userOps.updateUser();
-            userFromOPS = userOps.getUser(1);
+            userFromOPS = userOps.getUser(0);
             assertEquals(userFromOPS.getExerciseGoal(), 5);
         }
     }

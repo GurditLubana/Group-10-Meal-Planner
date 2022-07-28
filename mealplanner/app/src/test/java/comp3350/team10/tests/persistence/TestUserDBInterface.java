@@ -270,11 +270,10 @@ public class TestUserDBInterface {
         @Test
         @DisplayName(" uninitialized user should fail")
         void testNonInit() {
-            User testUser = new User();
             User currUser;
 
             assertThrows(IllegalArgumentException.class, () -> {
-                db.updateUser(testUser);
+                db.updateUser(null);
             });
             currUser = db.getUser(1);
             assertEquals(100, currUser.getHeight());
