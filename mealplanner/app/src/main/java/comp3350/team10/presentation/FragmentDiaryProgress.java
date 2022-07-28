@@ -43,11 +43,11 @@ public class FragmentDiaryProgress extends Fragment {
     }
 
     private void setClickListeners(View view) {
-        ImageButton prevDateProgress = (ImageButton) view.findViewById(R.id.prevDateProgress);
-        ImageButton nextDateProgress = (ImageButton) view.findViewById(R.id.nextDateProgress);
-        TextView exerciseProgress = (TextView) view.findViewById(R.id.exerciseProgress);
-        TextView dateProgress = (TextView) view.findViewById(R.id.dateProgress);
-        TextView goalCalorie = (TextView) view.findViewById(R.id.goalCalorie);
+        ImageButton prevDateProgress = view.findViewById(R.id.prevDateProgress);
+        ImageButton nextDateProgress = view.findViewById(R.id.nextDateProgress);
+        TextView exerciseProgress = view.findViewById(R.id.exerciseProgress);
+        TextView dateProgress = view.findViewById(R.id.dateProgress);
+        TextView goalCalorie = view.findViewById(R.id.goalCalorie);
 
         dateProgress.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

@@ -67,7 +67,7 @@ public class RVATrends extends RecyclerViewAdapter {
     }
 
     private void setTrendData(ViewHolder viewHolder, int position) {
-        GraphView graph = (GraphView) viewHolder.getView().findViewById(R.id.graph);
+        GraphView graph = viewHolder.getView().findViewById(R.id.graph);
         TextView title = viewHolder.getView().findViewById(R.id.trendsTitle);
         TextView span = viewHolder.getView().findViewById(R.id.trendsSpan);
         TextView valueFirst = viewHolder.getView().findViewById(R.id.trendsValueFirst);
@@ -112,7 +112,7 @@ public class RVATrends extends RecyclerViewAdapter {
     }
 
     private void setDailyData(ViewHolder viewHolder, int position) {
-        GraphView graph = (GraphView) viewHolder.getView().findViewById(R.id.graph2);
+        GraphView graph = viewHolder.getView().findViewById(R.id.graph2);
         TextView progressPercent = viewHolder.getView().findViewById(R.id.progressPercentage);
         TextView title = viewHolder.getView().findViewById(R.id.dailyProgressTitle);
         TextView valueFirst = viewHolder.getView().findViewById(R.id.dailyProgressValueFirst);

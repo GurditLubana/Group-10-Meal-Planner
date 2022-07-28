@@ -24,9 +24,7 @@ public class Drink extends PreparedEdible {
         ArrayList<Ingredient> temp = new ArrayList<Ingredient>();
 
         //Downcast to ingredients because ArrayLists are finicky!
-        for (int i = 0; i < this.ingredients.size(); i++) {
-            temp.add(this.ingredients.get(i));
-        }
+        temp.addAll(this.ingredients);
 
         this.updateEdibleFromIngredients(temp);
     }

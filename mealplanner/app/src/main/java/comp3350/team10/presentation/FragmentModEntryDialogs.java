@@ -38,7 +38,7 @@ public class FragmentModEntryDialogs extends FragmentDialogCommon {
         super.setUnitSpinner(view.findViewById(R.id.inputUnit));
         super.setInputQuantity(view.findViewById(R.id.inputQty));
         this.unitText = view.findViewById(R.id.inputUnitText);
-        this.isSubstitute = (CheckBox) view.findViewById(R.id.isSubstitute);
+        this.isSubstitute = view.findViewById(R.id.isSubstitute);
         this.isSubstitute.setVisibility(View.INVISIBLE);
         this.mode = args.getString(Constant.DIALOG_TYPE);
 

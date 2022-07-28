@@ -89,7 +89,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
     }
 
     private void setTabListeners() {
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 

@@ -108,7 +108,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.isVegan = view.findViewById(R.id.isVegan);
         this.photo = defaultImage;
 
-        if (context != null && context instanceof FragToRecipeBook) {
+        if (context instanceof FragToRecipeBook) {
             setupAddRecipeDialog(context, FragToRecipeBook.EntryMode.valueOf(mode));
         }
 
