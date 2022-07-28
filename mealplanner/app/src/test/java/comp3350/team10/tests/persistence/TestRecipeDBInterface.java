@@ -241,7 +241,7 @@ public class TestRecipeDBInterface {
             assertEquals(7, mealRecipeCount);
             assertEquals(7, drinkRecipeCount);
 
-            Edible item = db.findIngredientByKey(0,1, false);
+            Edible item = db.findIngredientByKey(0, 1, false);
             assertEquals("Pear", item.getName());
 
             db.addFoodToRecipeBook(testEdible);
@@ -314,7 +314,7 @@ public class TestRecipeDBInterface {
         @Test
         @DisplayName("We should be able to get the first item in the database")
         void getFirstItem() {
-            Edible item = db.findIngredientByKey(0,0, false);
+            Edible item = db.findIngredientByKey(0, 0, false);
             assertEquals("Apple", item.getName());
         }
     }

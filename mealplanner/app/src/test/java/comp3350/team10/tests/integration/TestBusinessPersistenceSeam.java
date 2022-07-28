@@ -45,6 +45,7 @@ public class TestBusinessPersistenceSeam {
             System.out.println(e);
         }
     }
+
     @Nested
     @DisplayName("Integration testing of Meal diary Ops to persistence")
     class testMealDiaryOps {
@@ -73,7 +74,7 @@ public class TestBusinessPersistenceSeam {
         @AfterEach
         void shutdown() {
             LogDBInterface db = DBSelector.getLogDB();
-            db.replaceLog(0, new DailyLog().init(currDate, new ArrayList<>(), 0, 0, 0));
+            db.replaceLog(0, new DailyLog().init(testDate, new ArrayList<>(), 0, 0, 0));
             DBSelector.close();
         }
 
@@ -437,7 +438,7 @@ public class TestBusinessPersistenceSeam {
         @Test
         @DisplayName("Tests getting an edible as an ingredient")
         void typicalValues() {
-            Edible item = db.findIngredientByKey(0,1, false);
+            Edible item = db.findIngredientByKey(0, 1, false);
             assertEquals("Pear", item.getName());
             assertFalse(item instanceof Meal);
             assertFalse(item instanceof Drink);
@@ -449,7 +450,7 @@ public class TestBusinessPersistenceSeam {
             assertEquals(2, ((Meal) item).getIngredients().size());
             assertEquals("step1", ((Meal) item).getInstructions());
 
-            item = db.findIngredientByKey(2,35, false);
+            item = db.findIngredientByKey(2, 35, false);
             assertEquals("Mojito", item.getName());
             assertFalse(item instanceof Meal);
             assertTrue(item instanceof Drink);

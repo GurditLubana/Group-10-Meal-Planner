@@ -67,7 +67,7 @@ public class RVATrends extends RecyclerViewAdapter {
     }
 
     private void setTrendData(ViewHolder viewHolder, int position) {
-        GraphView graph = (GraphView) viewHolder.getView().findViewById(R.id.graph);
+        GraphView graph = viewHolder.getView().findViewById(R.id.graph);
         TextView title = viewHolder.getView().findViewById(R.id.trendsTitle);
         TextView span = viewHolder.getView().findViewById(R.id.trendsSpan);
         TextView valueFirst = viewHolder.getView().findViewById(R.id.trendsValueFirst);
@@ -78,10 +78,10 @@ public class RVATrends extends RecyclerViewAdapter {
         double chartMin = -DataFrame.numDays[dataFrame.getSpan().ordinal()];
 
         for (int i = 0; i < dataArray.size(); i++) {
-            dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
+            dataPointArray[i] = new DataPoint(i - dataArray.size(), dataArray.get(i).doubleValue());
         }
         valueFirst.setText(Integer.toString(dataArray.get(0).intValue()));
-        valueLast.setText(Integer.toString(dataArray.get(dataArray.size()-1).intValue()));
+        valueLast.setText(Integer.toString(dataArray.get(dataArray.size() - 1).intValue()));
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPointArray);
         LineGraphSeries<DataPoint> seriesTrend = new LineGraphSeries<>(new DataPoint[]{
@@ -112,7 +112,7 @@ public class RVATrends extends RecyclerViewAdapter {
     }
 
     private void setDailyData(ViewHolder viewHolder, int position) {
-        GraphView graph = (GraphView) viewHolder.getView().findViewById(R.id.graph2);
+        GraphView graph = viewHolder.getView().findViewById(R.id.graph2);
         TextView progressPercent = viewHolder.getView().findViewById(R.id.progressPercentage);
         TextView title = viewHolder.getView().findViewById(R.id.dailyProgressTitle);
         TextView valueFirst = viewHolder.getView().findViewById(R.id.dailyProgressValueFirst);
@@ -127,15 +127,15 @@ public class RVATrends extends RecyclerViewAdapter {
         double goal = 0;
 
         for (int i = 0; i < dataArray.size(); i++) {
-            dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
+            dataPointArray[i] = new DataPoint(i - dataArray.size(), dataArray.get(i).doubleValue());
         }
         valueFirst.setText(Integer.toString(dataArray.get(0).intValue()));
-        valueLast.setText(Integer.toString(dataArray.get(dataArray.size()-1).intValue()));
+        valueLast.setText(Integer.toString(dataArray.get(dataArray.size() - 1).intValue()));
 
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dataPointArray);
-        if(dataFrame.getDataType().name() == "ConsumedCalories") {
+        if (dataFrame.getDataType().name().equals("ConsumedCalories")) {
             goal = 2100.0;
-        } else if (dataFrame.getDataType().name() == "ExerciseCalories") {
+        } else if (dataFrame.getDataType().name().equals("ExerciseCalories")) {
             goal = 200.0;
         }
         LineGraphSeries<DataPoint> seriesTrend = new LineGraphSeries<>(new DataPoint[]{

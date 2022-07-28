@@ -40,7 +40,6 @@
                     android:id="@+id/addToPlannerBtn2"
                     android:layout_width="97dp"
                     android:layout_height="97dp"
-                    android:layout_marginRight="20dp"
                     android:layout_weight="1"
                     android:backgroundTint="?colorSecondary" />
 
@@ -65,7 +64,6 @@
                     android:id="@+id/addIcon"
                     android:layout_width="116dp"
                     android:layout_height="88dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:background="#00FFFFFF"
                     android:elevation="10dp"

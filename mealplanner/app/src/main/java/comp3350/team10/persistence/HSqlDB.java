@@ -175,7 +175,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
 
             ResultSet results;
 
-            if(currEdible.getIsCustom()) {
+            if (currEdible.getIsCustom()) {
                 getIngredientsForCustom.setInt(1, currEdible.getDbkey());
                 results = getIngredientsForCustom.executeQuery();
                 ingredients.addAll(processDrinkIngredients(results, false, true));
@@ -636,7 +636,8 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         }
         return log;
     }
-//drink ingredients
+
+    //drink ingredients
     private ArrayList<Ingredient> getMealIngredients(Edible currEdible) {   //save all as things without ingredients
         ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
 
@@ -674,8 +675,8 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                     "DRINKINGREDIENT.CUSTOMEDIBLEID WHERE DRINKINGREDIENT.CUSTOMEdibleID = ?");
 
             ResultSet results;
-                                                        //edible, quantity, unit
-            if(currEdible.getIsCustom()) {
+            //edible, quantity, unit
+            if (currEdible.getIsCustom()) {
                 getIngredientsForCustom.setInt(1, currEdible.getDbkey());
                 results = getIngredientsForCustom.executeQuery();
                 ingredients.addAll(processIngredients(results, false));
@@ -738,13 +739,12 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                 currIngredient = new DrinkIngredient();
                 currIngredient.init(currEdible, quantity, unit);
 
-                if(hasSubFlag) {
+                if (hasSubFlag) {
                     currIngredient.setSubstitute(ingredients.getBoolean("Substitute"));
                 }
                 list.add(currIngredient);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
 
@@ -766,13 +766,13 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                 currIngredient = new Ingredient().init(currEdible, quantity, unit);
                 list.add(currIngredient);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
 
         return list;
     }
+
     private ArrayList<Edible> getEdibleLog(int historyID) {
         ArrayList<Edible> edibleLog = new ArrayList<Edible>();
         try {
@@ -1065,8 +1065,8 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
             ResultSet results;
             Calendar date = currLog.getDate();
             String currDate = convertDateToString(date);
-            getHistoryID.setString(2, currDate);
             getHistoryID.setInt(1, userID);
+            getHistoryID.setString(2, currDate);
             results = getHistoryID.executeQuery();
 
             if (results.next()) {

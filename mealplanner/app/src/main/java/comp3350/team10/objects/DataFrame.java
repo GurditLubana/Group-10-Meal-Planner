@@ -29,7 +29,7 @@ public class DataFrame {
             this.dataType = dataType;
             this.span = span;
             this.data = new ArrayList<Double>();
-            if (dataType.name() == "ExerciseCalories") {
+            if (dataType.name().equals("ExerciseCalories")) {
                 goal = 200.0;
             }
         } else {
@@ -62,8 +62,8 @@ public class DataFrame {
                 }
             }
 
-                this.average = this.average / this.size();
-                this.progress = this.average / this.goal;
+            this.average = this.average / this.size();
+            this.progress = this.average / this.goal;
 
         }
 

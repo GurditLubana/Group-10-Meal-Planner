@@ -51,28 +51,27 @@
                 android:id="@+id/itemQtyBox"
                 android:layout_width="91dp"
                 android:layout_height="30dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="0.2"
                 android:text="0000"
                 android:textAlignment="textEnd"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="@+id/itemUnitBox"
-                app:layout_constraintEnd_toStartOf="@+id/itemUnitBox"
+                app:layout_constraintEnd_toStartOf="@+id/textView5"
                 app:layout_constraintTop_toTopOf="@+id/itemUnitBox" />
 
             <TextView
                 android:id="@+id/itemUnitBox"
                 android:layout_width="100dp"
                 android:layout_height="30dp"
-                android:layout_marginEnd="160dp"
                 android:layout_weight="0.2"
                 android:text=" cups"
                 android:textAlignment="textStart"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView5"
                 app:layout_constraintTop_toBottomOf="@+id/itemNameBox"
                 app:layout_constraintVertical_bias="0.555" />
 
@@ -124,6 +123,14 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/itemImage"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="73dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

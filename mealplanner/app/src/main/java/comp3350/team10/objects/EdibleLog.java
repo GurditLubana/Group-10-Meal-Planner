@@ -26,11 +26,9 @@ public class EdibleLog extends Edible {
 
         try {
             this.init(edible.getQuantity(), edible.getUnit());
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException("Overflow occurred when calculating calories: EdibleLog - constructor");
         }
     }

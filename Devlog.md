@@ -2387,6 +2387,14 @@ Duration: 3 hrs
    Tasks:
    - review course video, rest of U9 and make relative note and upload
 
+
+### 2022-07-27
+     Dev:
+      - Zhou
+Duration: 2.5 hrs
+   Tasks:
+   - review course video, U10 and make relative note and upload
+
 ### 2022-07-25
      Dev:
       - Josef
@@ -2408,6 +2416,27 @@ Duration: 6 hrs
    - read up how expresso works and toyed with recorded testing
    - wrote addRecipe acceptance tests
 
+   
+### 2022-07-26
+     Dev:
+      - Josef
+Duration: 12 hrs
+   Tasks:
+   - Bug Fixes
+   - Acceptance tests added
+
+
+### 2022-07-27
+     Dev:
+      - Josef
+Duration: 17 hrs
+   Tasks:
+   - Fixed and added integration tests
+   - added more acceptance tests
+   - unit test validator class
+   - business hsql integration
+
+
 ### 2022-07-27
      Dev:
       - Dane
@@ -2424,3 +2453,18 @@ Duration: 24 hrs
    - wrote userOps unit tests
    - fixed a bug where there were inconsistancies accross DBs and using an id that wasnt 0 caused crashing
    - fixed stub db - ingredients were getting overwritten
+
+   
+### 2022-07-28
+     Dev:
+      - Josef
+Duration: 6 hrs
+   Tasks:
+   - Fixed acceptance tests
+   - Fixed integration tests
+   - Fixed recipebook context
+   - adjust progress bar caloriegoal highlight
+   - Readme update
+   - Finalize project for iter3 submission
+
+

@@ -5,21 +5,16 @@ import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
-import static org.hamcrest.Matchers.containsString;
 import static comp3350.team10.utils.Utils.atPosition;
 import static comp3350.team10.utils.Utils.clickChildViewWithId;
 import static comp3350.team10.utils.Utils.waitId;
 
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -34,7 +29,7 @@ import comp3350.team10.R;
 import comp3350.team10.presentation.ActivityMealDiary;
 
 @RunWith(AndroidJUnit4.class)
-public class TestStoryViewWeekTrends {
+public class TestStoryProgressTracking {
     @Rule
     public ActivityScenarioRule<ActivityMealDiary> activityRuleMeal = new ActivityScenarioRule<>(ActivityMealDiary.class);
 
@@ -132,17 +127,5 @@ public class TestStoryViewWeekTrends {
         onView(ViewMatchers.withId(R.id.nextDateProgress)).perform(click());
         onView(isRoot()).perform(waitId(R.id.prevDateProgress, 5000));
         onView(ViewMatchers.withId(R.id.prevDateProgress)).perform(click());
-    }
-
-    @Test
-    public void user_can_skip_logs_and_still_see_good_charts(){
-
-        onView(ViewMatchers.withId(R.id.nextDateProgress)).perform(click()).perform(click()).perform(click()); //oct 7
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.cardView2)));
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.addToPlannerBtn2)));
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.cardView2)));
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.addToPlannerBtn2)));
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.cardView2)));
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(3, clickChildViewWithId(R.id.addToPlannerBtn2)));
     }
 }

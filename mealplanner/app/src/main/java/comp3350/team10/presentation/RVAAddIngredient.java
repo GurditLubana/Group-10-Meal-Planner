@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -15,7 +14,8 @@ import comp3350.team10.objects.Edible;
 
 public class RVAAddIngredient extends RecyclerViewAdapter {
     private FragToRecipeBook sendToRecipeBook;  //Interface to pass data to recipeBook
-    private float addBtnScale = 0.5f;           //Shrinks the button so it properly fits in the RV
+    private float addBtnScaleX = 0.5f;           //Shrinks the button so it properly fits in the RV
+    private float addBtnScaleY = 0.4f;           //Shrinks the button so it properly fits in the RV
     private Context context;                    //The current app's context
 
     public RVAAddIngredient(ArrayList<Edible> dataSet) {
@@ -31,14 +31,11 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card_context, viewGroup, false);
         } else if (viewType == FragmentType.diaryAdd.ordinal()) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_add_log, viewGroup, false);
-            view.setScaleX(addBtnScale);
-            view.setScaleY(addBtnScale);
+            view.setScaleX(addBtnScaleX);
+            view.setScaleY(addBtnScaleY);
         } else {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card, viewGroup, false);
-            view.findViewById(R.id.itemCalsBox).setVisibility(view.GONE);
-            view.findViewById(R.id.textView9).setVisibility(view.GONE);
-            view.findViewById(R.id.itemQtyBox).setVisibility(view.GONE);
-            view.findViewById(R.id.itemUnitBox).setVisibility(view.GONE);
+            view.findViewById(R.id.itemImage).setVisibility(view.GONE);
         }
 
         this.context = view.getContext();
@@ -63,19 +60,15 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
     }
 
     private void setDiaryEntryData(ViewHolder viewHolder, final int position) {
-        TextView itemName = viewHolder.getView().findViewById(R.id.itemNameBox);
-        ImageView itemImage = viewHolder.getView().findViewById(R.id.itemImage);
+        View view = viewHolder.getView();
+        TextView itemName = view.findViewById(R.id.itemNameBox);
+        TextView itemCals = view.findViewById(R.id.itemCalsBox);
+        TextView itemQty = view.findViewById(R.id.itemQtyBox);
         Edible currentItem = super.getDataSet().get(position);
-        Bitmap image;
 
         itemName.setText(currentItem.getName());
-        image = super.getBitmapFromFile(this.context, currentItem.getPhoto());
-
-        if (image != null) {
-            itemImage.setImageBitmap(image);
-        } else {
-            itemImage.setImageResource(R.drawable.ic_eggplant);
-        }
+        itemCals.setText(String.format("%3d", (int) currentItem.getCalories()));
+        itemQty.setText(String.format("%3.2f", currentItem.getQuantity()));
     }
 
     private void setDiaryEntryListeners(ViewHolder viewHolder) {

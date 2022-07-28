@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -107,7 +108,7 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
         this.isVegan = view.findViewById(R.id.isVegan);
         this.photo = defaultImage;
 
-        if (context != null && context instanceof FragToRecipeBook) {
+        if (context instanceof FragToRecipeBook) {
             setupAddRecipeDialog(context, FragToRecipeBook.EntryMode.valueOf(mode));
         }
 
@@ -259,17 +260,15 @@ public class FragmentRecipeBookDialogs extends FragmentDialogCommon {
             Validator.atLeastOne(intValue, "");
             this.quantity = intValue;
 
-            if(mode == FragToRecipeBook.EntryMode.ADD_MEAL) {
+            if (mode == FragToRecipeBook.EntryMode.ADD_MEAL) {
                 view = this.ingredientError;
                 Validator.validArrayListAtLeastOne(this.ingredients, "");
             }
 
             this.unit = Edible.Unit.valueOf(super.getUnitSpinner().getSelectedItem().toString());
-        }
-        catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             view.setError("input must be inside the range of 1 - 9999");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             view.setError(e.toString().replaceAll("^.*(?=(input))", "").replace("string ", ""));
             validInput = false;
         }

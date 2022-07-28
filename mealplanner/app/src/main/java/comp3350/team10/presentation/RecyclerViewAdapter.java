@@ -137,7 +137,7 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RVARecipe
         public ViewHolder(View view) {
             super(view);
 
-            fragmentView = (FrameLayout) view.findViewById(R.id.frame_container);
+            fragmentView = view.findViewById(R.id.frame_container);
         }
 
         public FrameLayout getView() {

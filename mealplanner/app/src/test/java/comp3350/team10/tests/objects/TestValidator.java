@@ -160,7 +160,7 @@ public class TestValidator {
             longTestString.setCharAt(10000, 'z');
 
             ArrayList<Integer> testArray = new ArrayList<>();
-            for(int i = 0; i <10001;i++) {
+            for (int i = 0; i < 10001; i++) {
                 testArray.add(new Integer(1));
             }
 

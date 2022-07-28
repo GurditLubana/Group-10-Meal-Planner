@@ -25,11 +25,11 @@ public class FragmentNavigation extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_navigation, container, false);
-        mealButton = (ImageButton) view.findViewById(R.id.mealDiaryNav);
-        dailyButton = (ImageButton) view.findViewById(R.id.dailyNav);
-        recipeButton = (ImageButton) view.findViewById(R.id.recipeBookNav);
-        trendsButton = (ImageButton) view.findViewById(R.id.chartsNav);
-        socialButton = (ImageButton) view.findViewById(R.id.socialNav);
+        mealButton = view.findViewById(R.id.mealDiaryNav);
+        dailyButton = view.findViewById(R.id.dailyNav);
+        recipeButton = view.findViewById(R.id.recipeBookNav);
+        trendsButton = view.findViewById(R.id.chartsNav);
+        socialButton = view.findViewById(R.id.socialNav);
 
 
         setButtonClickListeners(view);

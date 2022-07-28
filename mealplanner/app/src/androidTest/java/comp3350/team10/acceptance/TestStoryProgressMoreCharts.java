@@ -7,11 +7,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
 import static comp3350.team10.utils.Utils.atPosition;
 import static comp3350.team10.utils.Utils.selectTabAtPosition;
 
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -26,7 +24,7 @@ import comp3350.team10.R;
 import comp3350.team10.presentation.ActivityMealDiary;
 
 @RunWith(AndroidJUnit4.class)
-public class TestStoryViewLongTrends {
+public class TestStoryProgressMoreCharts {
 
     @Rule
     public ActivityScenarioRule<ActivityMealDiary> activityRule = new ActivityScenarioRule<>(ActivityMealDiary.class);
