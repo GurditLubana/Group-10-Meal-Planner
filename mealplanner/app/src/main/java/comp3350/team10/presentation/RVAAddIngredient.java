@@ -36,10 +36,6 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
         } else {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_diary_card, viewGroup, false);
             view.findViewById(R.id.itemImage).setVisibility(view.GONE);
-//            view.findViewById(R.id.itemCalsBox).setVisibility(view.GONE);
-//            view.findViewById(R.id.textView9).setVisibility(view.GONE);
-//            view.findViewById(R.id.itemQtyBox).setVisibility(view.GONE);
-//            view.findViewById(R.id.itemUnitBox).setVisibility(view.GONE);
         }
 
         this.context = view.getContext();
@@ -66,22 +62,13 @@ public class RVAAddIngredient extends RecyclerViewAdapter {
     private void setDiaryEntryData(ViewHolder viewHolder, final int position) {
         View view = viewHolder.getView();
         TextView itemName = view.findViewById(R.id.itemNameBox);
-        //ImageView itemImage = view.findViewById(R.id.itemImage);
         TextView itemCals = view.findViewById(R.id.itemCalsBox);
         TextView itemQty = view.findViewById(R.id.itemQtyBox);
         Edible currentItem = super.getDataSet().get(position);
-        Bitmap image;
 
         itemName.setText(currentItem.getName());
         itemCals.setText(String.format("%3d", (int) currentItem.getCalories()));
         itemQty.setText(String.format("%3.2f", currentItem.getQuantity()));
-//        image = super.getBitmapFromFile(this.context, currentItem.getPhoto());
-//
-//        if (image != null) {
-//            itemImage.setImageBitmap(image);
-//        } else {
-//            itemImage.setImageResource(R.drawable.ic_eggplant);
-//        }
     }
 
     private void setDiaryEntryListeners(ViewHolder viewHolder) {
