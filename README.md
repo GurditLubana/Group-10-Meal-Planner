@@ -9,7 +9,7 @@
 
 <hr>
 
-
+# The canonical copy of our database is in the top level of the extracted zip folder AND another copy under assets/db
 
 <h2>Contents</h2>
 
@@ -309,7 +309,10 @@ Fragments are reusable UI components that perform specific functions in activiti
 # Patch notes
 ## Iteration 3
 ### Major changes:
-- Moved stub to correct location, hsql is now default and stub is only usable by unit and integration test calsses
+- Moved stub to correct location, hsql is now default and stub is only usable by unit and integration test classes
+- add recipe interface now extracts ingredients from selected items when adding meals and drinks
 
 
 ### Unresolved issues:
+- sometimes there is delay before a field error shows up when adding meals which causes one of the acceptance tests to fail
+which cascades into the other ones also failing. user_is_warned_valid_add_food_input
