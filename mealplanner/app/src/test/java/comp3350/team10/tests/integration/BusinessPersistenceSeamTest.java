@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
@@ -22,13 +23,16 @@ import comp3350.team10.business.TrendsOps;
 import comp3350.team10.business.UserDataOps;
 import comp3350.team10.objects.DailyLog;
 import comp3350.team10.objects.DataFrame;
+import comp3350.team10.objects.Drink;
 import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.Ingredient;
+import comp3350.team10.objects.Meal;
 import comp3350.team10.objects.User;
 import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.DataAccess;
 import comp3350.team10.persistence.LogDBInterface;
+import comp3350.team10.persistence.RecipeDBInterface;
 import comp3350.team10.persistence.UserDBInterface;
 import comp3350.team10.tests.persistence.DataAccessStub;
 
@@ -164,7 +168,6 @@ public class BusinessPersistenceSeamTest
 			}
 
 			DBSelector.start(new DataAccessStub());
-
 		}
 	}
 
@@ -175,7 +178,7 @@ public class BusinessPersistenceSeamTest
 	class testRecipeBookOps {
 
 		private RecipeBookOps ops;
-		private final String testString = "We'll use this string for description and instructions";
+		private RecipeDBInterface db;
 
 		@BeforeEach
 		void setup() {
@@ -183,14 +186,13 @@ public class BusinessPersistenceSeamTest
 			try
 			{
 				DBSelector.start(new DataAccessStub());
-				ops = new RecipeBookOps();
+				this.ops = new RecipeBookOps();
+				this.db = DBSelector.getRecipeDB();
 			}
-
 			catch (Exception e)
 			{
 				System.out.println(e);
 			}
-
 		}
 
 		@AfterEach
@@ -202,41 +204,121 @@ public class BusinessPersistenceSeamTest
 		}
 
 		@Test
+		@DisplayName("Testing getters of RecipeBook Ops")
+		void testRecipeBookOpsGetters()
+		{
+			ArrayList<Edible> opsFoodRecipes = this.ops.getFoodRecipes();
+			ArrayList<Edible> opsMealRecipes = this.ops.getMealRecipes();
+			ArrayList<Edible> opsDrinkRecipes = this.ops.getDrinkRecipes();
+
+			ArrayList<Edible> dbFoodRecipes = this.db.getFoodRecipes();
+			ArrayList<Edible> dbMealRecipes = this.db.getMealRecipes();
+			ArrayList<Edible> dbDrinkRecipes = this.db.getDrinkRecipes();
+
+			assertEquals(dbFoodRecipes.size(), opsFoodRecipes.size());
+			for(int i = 0; i < dbFoodRecipes.size(); i++){
+				assertEquals(dbFoodRecipes.get(i).getDbkey(), opsFoodRecipes.get(i).getDbkey());
+			}
+
+			assertEquals(dbMealRecipes.size(), opsMealRecipes.size());
+			for(int i = 0; i < dbMealRecipes.size(); i++){
+				assertEquals(dbMealRecipes.get(i).getDbkey(), opsMealRecipes.get(i).getDbkey());
+			}
+
+			assertEquals(dbDrinkRecipes.size(), opsDrinkRecipes.size());
+			for(int i = 0; i < dbDrinkRecipes.size(); i++){
+				assertEquals(dbDrinkRecipes.get(i).getDbkey(), opsDrinkRecipes.get(i).getDbkey());
+			}
+		}
+
+		@Test
 		@DisplayName("Tests adding a food edible in meal diary ops")
 		void testAddFood() {
 
-			int initialSize = ops.getFoodRecipes().size();
+			ArrayList<Edible> dbFoodRecipes;
+			Edible testEdible;
 
-			ops.addFood("Test Pan Cake", testString, 2, Edible.Unit.g, 350, 400, 74, 89,
+			this.ops.addFood("Test Pan Cake", "Description", 2, Edible.Unit.g, 350, 400, 74, 89,
 					false, true, false, true, false, "photo");
 
-			assertEquals(initialSize + 1, ops.getFoodRecipes().size());
-
+			dbFoodRecipes = this.db.getFoodRecipes();
+			testEdible = dbFoodRecipes.get(dbFoodRecipes.size()-1);
+			assertEquals("Test Pan Cake", testEdible.getName());
+			assertEquals("Description", testEdible.getDescription());
+			assertEquals(2, testEdible.getQuantity());
+			assertEquals("g", testEdible.getUnit().name());
+			assertEquals(350, testEdible.getCalories());
+			assertEquals(400, testEdible.getProtein());
+			assertEquals(74, testEdible.getCarbs());
+			assertEquals(89, testEdible.getFat());
+			assertFalse(testEdible.getIsAlcoholic());
+			assertTrue(testEdible.getIsSpicy());
+			assertFalse(testEdible.getIsVegan());
+			assertTrue(testEdible.getIsVegetarian());
+			assertFalse(testEdible.getIsGlutenFree());
+			assertEquals("photo", testEdible.getPhoto());
 		}
 
 		@Test
 		@DisplayName("Tests adding a meal recipe ops")
 		void testAddMeals() {
-			int initialSize = ops.getMealRecipes().size();
-			Edible currEdible = new Edible().initDetails(5, "Test name", "description", 5, Edible.Unit.g)
-					.initNutrition(5, 5, 5, 5)
-					.initCategories(true, true, true, true, true)
-					.initMetadata(true, "Test photo");
-			Ingredient currIngredient = new Ingredient().init(currEdible, 5, Edible.Unit.cups);
+
+			ArrayList<Edible> dbMealRecipes;
+			Edible testEdible;
+
 			ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+			Edible food = new Edible().initDetails(1, "Test name", "description", 1, Edible.Unit.g)
+					.initNutrition(1, 1, 1, 1)
+					.initCategories(true, false, false, true, false)
+					.initMetadata(true, "photo");
+			Edible secondFood = new Edible().initDetails(1, "Test name", "description", 1, Edible.Unit.g)
+					.initNutrition(1, 1, 1, 1)
+					.initCategories(false, false, true, true, true)
+					.initMetadata(true, "photo");
+			Edible smallDrink = new Drink().initDetails(1, "Test drink", "description", 5, Edible.Unit.g)
+					.initNutrition(10, 10, 10, 10)
+					.initCategories(false, true, false, true, false)
+					.initMetadata(true, "photo");
+			Ingredient currIngredient = new Ingredient();
+
+			currIngredient.init(food, 1, Edible.Unit.cups);
 			ingredients.add(currIngredient);
 
-			ops.addMeal("Test Pan Cake", testString, 2, Edible.Unit.g, "Test photo", testString, ingredients);
+			currIngredient.init(secondFood, 1, Edible.Unit.ml);
+			ingredients.add(currIngredient);
 
-			assertEquals(initialSize + 1, ops.getMealRecipes().size());
+			currIngredient.init(smallDrink, 1, Edible.Unit.liter);
+			ingredients.add(currIngredient);
 
+			this.ops.addMeal("Test meal Pan Cake", "description", 2, Edible.Unit.g, "photo", "description", ingredients);
 
+			dbMealRecipes = this.db.getMealRecipes();
+			testEdible = dbMealRecipes.get(dbMealRecipes.size()-1);
+
+			assertEquals("Test meal Pan Cake", testEdible.getName());
+			assertEquals("description", testEdible.getDescription());
+			assertEquals(2, testEdible.getQuantity());
+			assertEquals("g", testEdible.getUnit().name());
+			assertEquals(30, testEdible.getCalories());
+			assertEquals(30, testEdible.getProtein());
+			assertEquals(30, testEdible.getCarbs());
+			assertEquals(30, testEdible.getFat());
+			assertFalse(testEdible.getIsAlcoholic());
+			assertTrue(testEdible.getIsSpicy());
+			assertFalse(testEdible.getIsVegan());
+			assertTrue(testEdible.getIsVegetarian());
+			assertFalse(testEdible.getIsGlutenFree());
+			assertTrue(testEdible.getIsCustom());
+			assertEquals(testEdible.getPhoto(), "photo");
 		}
 
 		@Test
 		@DisplayName("Tests adding a drink in recipe ops")
 		void testAddPreparedDrinks() {
-			int initialSize = ops.getDrinkRecipes().size();
+
+			ArrayList<Edible> dbDrinkRecipes;
+			Edible testEdible;
+
 			Edible currEdible = new Edible().initDetails(5, "Test name", "description", 5, Edible.Unit.g)
 					.initNutrition(5, 5, 5, 5)
 					.initCategories(true, true, true, true, true)
@@ -245,29 +327,56 @@ public class BusinessPersistenceSeamTest
 			ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
 			ingredients.add(currIngredient);
 
-			ops.addPreparedDrink("Test Banana Smoothie", testString, 2, Edible.Unit.ml, "photo", testString, ingredients);
+			this.ops.addPreparedDrink("Test Banana Smoothie", "Description", 20, Edible.Unit.ml, "photo", "Description", ingredients);
 
-			assertEquals(initialSize + 1, ops.getDrinkRecipes().size());
+			dbDrinkRecipes = this.db.getDrinkRecipes();
+			testEdible = dbDrinkRecipes.get(dbDrinkRecipes.size()-1);
+
+			assertEquals("Test Banana Smoothie", testEdible.getName());
+			assertEquals("Description", testEdible.getDescription());
+			assertEquals(20, testEdible.getQuantity());
+			assertEquals("ml", testEdible.getUnit().name());
+			assertEquals(5, testEdible.getCalories());
+			assertEquals(5, testEdible.getProtein());
+			assertEquals(5, testEdible.getCarbs());
+			assertEquals(5, testEdible.getFat());
+			assertTrue(testEdible.getIsAlcoholic());
+			assertTrue(testEdible.getIsSpicy());
+			assertTrue(testEdible.getIsVegan());
+			assertTrue(testEdible.getIsVegetarian());
+			assertTrue(testEdible.getIsGlutenFree());
+			assertTrue(testEdible.getIsCustom());
+			assertEquals(testEdible.getPhoto(), "photo");
 		}
 
 		@Test
 		@DisplayName("Tests adding a simple drink (without ingredients) in recipe ops")
 		void testAddSimpleDrinks() {
-			int initialSize = ops.getDrinkRecipes().size();
 
-			ops.addSimpleDrink("Test Pepsi", testString, 2, Edible.Unit.ml, 350, 400, 74, 89,
+			ArrayList<Edible> dbDrinkRecipes;
+			Edible testEdible;
+
+			this.ops.addSimpleDrink("Test Pepsi", "Description", 250, Edible.Unit.ml, 350, 400, 74, 89,
 					false, true, false, true, false, "photo");
-			assertEquals(initialSize + 1, ops.getDrinkRecipes().size());
-		}
 
-		@Test
-		@DisplayName("Testing getters of RecipeBook Ops")
-		void testRecipeBookOpsGetters()
-		{
-			assertNotNull(ops);
-			assertNotNull(ops.getFoodRecipes());
-			assertNotNull(ops.getDrinkRecipes());
-			assertNotNull(ops.getMealRecipes());
+			dbDrinkRecipes = this.db.getDrinkRecipes();
+			testEdible = dbDrinkRecipes.get(dbDrinkRecipes.size()-1);
+
+			assertEquals("Test Pepsi", testEdible.getName());
+			assertEquals("Description", testEdible.getDescription());
+			assertEquals(250, testEdible.getQuantity());
+			assertEquals("ml", testEdible.getUnit().name());
+			assertEquals(350, testEdible.getCalories());
+			assertEquals(400, testEdible.getProtein());
+			assertEquals(74, testEdible.getCarbs());
+			assertEquals(89, testEdible.getFat());
+			assertFalse(testEdible.getIsAlcoholic());
+			assertTrue(testEdible.getIsSpicy());
+			assertFalse(testEdible.getIsVegan());
+			assertTrue(testEdible.getIsVegetarian());
+			assertFalse(testEdible.getIsGlutenFree());
+			assertTrue(testEdible.getIsCustom());
+			assertEquals(testEdible.getPhoto(), "photo");
 		}
 	}
 
@@ -287,13 +396,11 @@ public class BusinessPersistenceSeamTest
 
 			try {
 				DBSelector.start(new DataAccessStub());
-				ops = new TrendsOps();
-				db = DBSelector.getLogDB();
-
+				this.ops = new TrendsOps();
+				this.db = DBSelector.getLogDB();
 			} catch (Exception e) {
 				System.out.println(e);
 			}
-
 		}
 
 		@AfterEach
@@ -303,215 +410,175 @@ public class BusinessPersistenceSeamTest
 
 
 		@Test
-		@DisplayName("get one week of data")
-		void getWeek() {
-			ArrayList<DataFrame> dataFrames = null;
-			try {
-				dataFrames = ops.getDataFrames(DataFrame.Span.Week);
-			} catch (Exception e) {
-				System.out.println(e);
-
-			}
-
-			assertEquals(DataFrame.DataType.values().length, dataFrames.size());
-			assertEquals(7, dataFrames.get(0).size());
-		}
-
-		@Test
-		@DisplayName("get one month of data")
-		void getMonth() {
-			ArrayList<DataFrame> dataFrames = null;
+		@DisplayName("Trends ops data getters work as expected")
+		void getDataFrame() {
+			ArrayList<DataFrame> opsDataFrames = null;
+			ArrayList<Double> dbDataFrame = null;
+			ArrayList<Double> opsConsumedCalories = null;
+			ArrayList<Double> opsNetCalories = null;
+			ArrayList<Double> opsExerciseCalories = null;
 
 			try {
-				dataFrames = ops.getDataFrames(DataFrame.Span.Month);
+				opsDataFrames = this.ops.getDataFrames(DataFrame.Span.Week);
+				opsConsumedCalories = opsDataFrames.get(0).getData();
+				opsNetCalories = opsDataFrames.get(1).getData();
+				opsExerciseCalories = opsDataFrames.get(2).getData();
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.ConsumedCalories, DataFrame.numDays[DataFrame.Span.Week.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsConsumedCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsConsumedCalories.get(i).intValue());
+				}
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.NetCalories, DataFrame.numDays[DataFrame.Span.Week.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsNetCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsNetCalories.get(i).intValue());
+				}
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.numDays[DataFrame.Span.Week.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsExerciseCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsExerciseCalories.get(i).intValue());
+				}
+
+				opsDataFrames = this.ops.getDataFrames(DataFrame.Span.Month);
+				opsConsumedCalories = opsDataFrames.get(0).getData();
+				opsNetCalories = opsDataFrames.get(1).getData();
+				opsExerciseCalories = opsDataFrames.get(2).getData();
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.ConsumedCalories, DataFrame.numDays[DataFrame.Span.Month.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsConsumedCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsConsumedCalories.get(i).intValue());
+				}
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.NetCalories, DataFrame.numDays[DataFrame.Span.Month.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsNetCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsNetCalories.get(i).intValue());
+				}
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.numDays[DataFrame.Span.Month.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsExerciseCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsExerciseCalories.get(i).intValue());
+				}
+
+				opsDataFrames = this.ops.getDataFrames(DataFrame.Span.ThreeMonth);
+				opsConsumedCalories = opsDataFrames.get(0).getData();
+				opsNetCalories = opsDataFrames.get(1).getData();
+				opsExerciseCalories = opsDataFrames.get(2).getData();
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.ConsumedCalories, DataFrame.numDays[DataFrame.Span.ThreeMonth.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsConsumedCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsConsumedCalories.get(i).intValue());
+				}
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.NetCalories, DataFrame.numDays[DataFrame.Span.ThreeMonth.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsNetCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsNetCalories.get(i).intValue());
+				}
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.numDays[DataFrame.Span.ThreeMonth.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsExerciseCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsExerciseCalories.get(i).intValue());
+				}
+
+				opsDataFrames = this.ops.getDataFrames(DataFrame.Span.SixMonth);
+				opsConsumedCalories = opsDataFrames.get(0).getData();
+				opsNetCalories = opsDataFrames.get(1).getData();
+				opsExerciseCalories = opsDataFrames.get(2).getData();
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.ConsumedCalories, DataFrame.numDays[DataFrame.Span.SixMonth.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsConsumedCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsConsumedCalories.get(i).intValue());
+				}
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.NetCalories, DataFrame.numDays[DataFrame.Span.SixMonth.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsNetCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsNetCalories.get(i).intValue());
+				}
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.numDays[DataFrame.Span.SixMonth.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsExerciseCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsExerciseCalories.get(i).intValue());
+				}
+
+				opsDataFrames = this.ops.getDataFrames(DataFrame.Span.Year);
+				opsConsumedCalories = opsDataFrames.get(0).getData();
+				opsNetCalories = opsDataFrames.get(1).getData();
+				opsExerciseCalories = opsDataFrames.get(2).getData();
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.ConsumedCalories, DataFrame.numDays[DataFrame.Span.Year.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsConsumedCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsConsumedCalories.get(i).intValue());
+				}
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.NetCalories, DataFrame.numDays[DataFrame.Span.Year.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsNetCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsNetCalories.get(i).intValue());
+				}
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.numDays[DataFrame.Span.Year.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsExerciseCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsExerciseCalories.get(i).intValue());
+				}
+
+				opsDataFrames = this.ops.getDataFrames(DataFrame.Span.All);
+				opsConsumedCalories = opsDataFrames.get(0).getData();
+				opsNetCalories = opsDataFrames.get(1).getData();
+				opsExerciseCalories = opsDataFrames.get(2).getData();
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.ConsumedCalories, DataFrame.numDays[DataFrame.Span.All.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsConsumedCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsConsumedCalories.get(i).intValue());
+				}
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.NetCalories, DataFrame.numDays[DataFrame.Span.All.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsNetCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsNetCalories.get(i).intValue());
+				}
+
+				dbDataFrame = this.db.getDataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.numDays[DataFrame.Span.All.ordinal()]);
+				assertEquals(dbDataFrame.size(), opsExerciseCalories.size());
+
+				for(int i = 0; i < dbDataFrame.size(); i++) {
+					assertEquals(dbDataFrame.get(i).intValue(), opsExerciseCalories.get(i).intValue());
+				}
+
 			} catch (Exception e) {
 				System.out.println(e);
-
 			}
-
-			assertEquals(DataFrame.DataType.values().length, dataFrames.size());
-			assertEquals(28, dataFrames.get(0).size());
 		}
-
-		@Test
-		@DisplayName("get 3 month of data")
-		void getThreeMonth() {
-			ArrayList<DataFrame> dataFrames = null;
-			try {
-				dataFrames = ops.getDataFrames(DataFrame.Span.ThreeMonth);
-			} catch (Exception e) {
-				System.out.println(e);
-
-			}
-
-			assertEquals(DataFrame.DataType.values().length, dataFrames.size());
-			assertEquals(84, dataFrames.get(0).size());
-		}
-
-		@Test
-		@DisplayName("get 6 month of data")
-		void getSixMonth() {
-			ArrayList<DataFrame> dataFrames = null;
-			try {
-				dataFrames = ops.getDataFrames(DataFrame.Span.SixMonth);
-			} catch (Exception e) {
-				System.out.println(e);
-
-			}
-
-			assertEquals(DataFrame.DataType.values().length, dataFrames.size());
-			assertEquals(168, dataFrames.get(0).size());
-		}
-
-		@Test
-		@DisplayName("get one year of data")
-		void getYear() {
-			ArrayList<DataFrame> dataFrames = null;
-			try {
-				dataFrames = ops.getDataFrames(DataFrame.Span.Year);
-			} catch (Exception e) {
-				System.out.println(e);
-
-			}
-
-			assertEquals(DataFrame.DataType.values().length, dataFrames.size());
-			assertEquals(336, dataFrames.get(0).size());
-		}
-
-		@Test
-		@DisplayName("Get 2 year of data")
-		void getAll() {
-			ArrayList<DataFrame> dataFrames = null;
-			try {
-				dataFrames = ops.getDataFrames(DataFrame.Span.All);
-			} catch (Exception e) {
-				System.out.println(e);
-
-			}
-
-			assertEquals(DataFrame.DataType.values().length, dataFrames.size());
-			assertEquals(672, dataFrames.get(0).size());
-		}
-
-
-		@Test
-		@DisplayName("Testing the return type of getDataFrames method")
-		void testGetDataFrames() {
-
-			assertTrue(ops.getDataFrames(DataFrame.Span.Month).get(0) instanceof DataFrame);
-			assertTrue(ops.getDataFrames(DataFrame.Span.Month).get(1) instanceof DataFrame);
-			assertTrue(ops.getDataFrames(DataFrame.Span.Month).get(2) instanceof DataFrame);
-			assertTrue(ops.getDataFrames(DataFrame.Span.Month).get(3) instanceof DataFrame);
-
-			assertEquals(ops.getDataFrames(DataFrame.Span.Week).size(), 4);
-		}
-
-		@Test
-		@DisplayName("Testing getSpan method")
-		void testGetSpan() {
-			assertEquals(DataFrame.Span.Week, ops.getDataFrames(DataFrame.Span.Week).get(0).getSpan());
-			assertEquals(DataFrame.Span.Month, ops.getDataFrames(DataFrame.Span.Month).get(1).getSpan());
-			assertEquals(DataFrame.Span.SixMonth, ops.getDataFrames(DataFrame.Span.SixMonth).get(2).getSpan());
-			assertEquals(DataFrame.Span.ThreeMonth, ops.getDataFrames(DataFrame.Span.ThreeMonth).get(3).getSpan());
-			assertEquals(DataFrame.Span.Year, ops.getDataFrames(DataFrame.Span.Year).get(1).getSpan());
-			assertEquals(DataFrame.Span.All, ops.getDataFrames(DataFrame.Span.All).get(0).getSpan());
-		}
-
-		@Test
-		@DisplayName("Testing getDataType method")
-		void testGetDataType() {
-
-			assertEquals(DataFrame.DataType.ConsumedCalories, ops.getDataFrames(DataFrame.Span.Month).get(0).getDataType());
-			assertEquals(DataFrame.DataType.NetCalories, ops.getDataFrames(DataFrame.Span.Week).get(1).getDataType());
-			assertEquals(DataFrame.DataType.ExerciseCalories, ops.getDataFrames(DataFrame.Span.SixMonth).get(2).getDataType());
-
-		}
-
-		@Test
-		@DisplayName("Testing the value of average for all datatype.")
-		void testGetAverage() {
-			DataFrame compareWith = new DataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.Span.Month);
-
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 28));
-			assertEquals(ops.getDataFrames(DataFrame.Span.Month).get(2).getAverage(), compareWith.getAverage());
-
-
-			compareWith = new DataFrame(DataFrame.DataType.ConsumedCalories, DataFrame.Span.All);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.ConsumedCalories, 672));
-			assertEquals(ops.getDataFrames(DataFrame.Span.All).get(0).getAverage(), compareWith.getAverage());
-
-
-			compareWith = new DataFrame(DataFrame.DataType.NetCalories, DataFrame.Span.Year);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.NetCalories, 336));
-			assertEquals((ops.getDataFrames(DataFrame.Span.Year)).get(1).getAverage(), compareWith.getAverage());
-
-
-		}
-
-		@Test
-		@DisplayName("Testing the Maximum value for all datatype.")
-		void testGetMaxValue() {
-			DataFrame compareWith = new DataFrame(DataFrame.DataType.ConsumedCalories, DataFrame.Span.All);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.ConsumedCalories, 672));
-			assertEquals(ops.getDataFrames(DataFrame.Span.All).get(0).getMaxVal(), compareWith.getMaxVal());
-
-			compareWith = new DataFrame(DataFrame.DataType.NetCalories, DataFrame.Span.Year);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.NetCalories, 336));
-			assertEquals((ops.getDataFrames(DataFrame.Span.Year)).get(1).getMaxVal(), compareWith.getMaxVal());
-
-			compareWith = new DataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.Span.Month);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 28));
-			assertEquals(ops.getDataFrames(DataFrame.Span.Month).get(2).getMaxVal(), compareWith.getMaxVal());
-		}
-
-		@Test
-		@DisplayName("Testing the Progress value for all datatype")
-		void testGetProgress() {
-			DataFrame compareWith = new DataFrame(DataFrame.DataType.ConsumedCalories, DataFrame.Span.All);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.ConsumedCalories, 672));
-			assertEquals(ops.getDataFrames(DataFrame.Span.All).get(0).getProgress(), compareWith.getProgress());
-
-			compareWith = new DataFrame(DataFrame.DataType.NetCalories, DataFrame.Span.Year);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.NetCalories, 336));
-			assertEquals((ops.getDataFrames(DataFrame.Span.Year)).get(1).getProgress(), compareWith.getProgress());
-
-			compareWith = new DataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.Span.ThreeMonth);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 84));
-			assertEquals(ops.getDataFrames(DataFrame.Span.ThreeMonth).get(2).getProgress(), compareWith.getProgress());
-		}
-
-		@Test
-		@DisplayName("Testing the TrendPoint-A value of all datatype in a given span.")
-		void testGetTrendPointA() {
-			DataFrame compareWith = new DataFrame(DataFrame.DataType.ConsumedCalories, DataFrame.Span.All);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.ConsumedCalories, 672));
-			assertEquals(ops.getDataFrames(DataFrame.Span.All).get(0).getTrendPointA(), compareWith.getTrendPointA());
-
-			compareWith = new DataFrame(DataFrame.DataType.NetCalories, DataFrame.Span.Year);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.NetCalories, 336));
-			assertEquals((ops.getDataFrames(DataFrame.Span.Year)).get(1).getTrendPointA(), compareWith.getTrendPointA());
-
-			compareWith = new DataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.Span.ThreeMonth);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 84));
-			assertEquals(ops.getDataFrames(DataFrame.Span.ThreeMonth).get(2).getTrendPointA(), compareWith.getTrendPointA());
-		}
-
-		@Test
-		@DisplayName("Testing the TrendPoint-B value of all datatype in a given span.")
-		void testGetTrendPointB() {
-			DataFrame compareWith = new DataFrame(DataFrame.DataType.ConsumedCalories, DataFrame.Span.SixMonth);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.ConsumedCalories, 168));
-			assertEquals(ops.getDataFrames(DataFrame.Span.SixMonth).get(0).getTrendPointB(), compareWith.getTrendPointB());
-
-			compareWith = new DataFrame(DataFrame.DataType.NetCalories, DataFrame.Span.Month);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.NetCalories, 28));
-			assertEquals((ops.getDataFrames(DataFrame.Span.Month)).get(1).getTrendPointB(), compareWith.getTrendPointB());
-
-			compareWith = new DataFrame(DataFrame.DataType.ExerciseCalories, DataFrame.Span.ThreeMonth);
-			compareWith.setData(db.getDataFrame(DataFrame.DataType.ExerciseCalories, 84));
-			assertEquals(ops.getDataFrames(DataFrame.Span.ThreeMonth).get(2).getTrendPointB(), compareWith.getTrendPointB());
-		}
-
 
 		@Test
 		@DisplayName("instance creation should fail if db not started")
@@ -527,20 +594,21 @@ public class BusinessPersistenceSeamTest
 		}
 	}
 
-
-
 	@Nested
 	@DisplayName("Integration testing of User Ops to persistence")
 	class testUserOps {
 
 		private UserDataOps ops;
+		private User dbUser;
 
 		@BeforeEach
 		void setup() {
 
 			try {
 				DBSelector.start(new DataAccessStub());
-				ops = new UserDataOps();
+				UserDBInterface db = DBSelector.getUserDB();
+				this.dbUser = db.getUser(1);
+				this.ops = new UserDataOps();
 
 			} catch (Exception e) {
 				System.out.println(e);
@@ -556,59 +624,90 @@ public class BusinessPersistenceSeamTest
 
 		void restoreDefault() {
 			UserDBInterface db = DBSelector.getUserDB();
-			User currUser = db.getUser(1);
-			currUser.setHeight(100);
-			currUser.setWeight(200);
-			currUser.setCalorieGoal(2000);
-			currUser.setExerciseGoal(600);
-			db.updateUser(currUser);
+			User dbUser = db.getUser(1);
+			dbUser.setHeight(100);
+			dbUser.setWeight(200);
+			dbUser.setCalorieGoal(2000);
+			dbUser.setExerciseGoal(600);
+			db.updateUser(dbUser);
 		}
+
 
 		@Test
 		@DisplayName("Testing getUser")
 		public void testUserGetter() {
+			User testUser = this.ops.getUser(1);
 
-			assertNotNull(ops.getUser(1));
-			assertEquals(ops.getUser(1), DBSelector.getUserDB().getUser(1));
+			assertEquals(this.dbUser.getUserID(), testUser.getUserID());
+			assertEquals(this.dbUser.getCalorieGoal(), testUser.getCalorieGoal());
+			assertEquals(this.dbUser.getExerciseGoal(), testUser.getExerciseGoal());
+			assertEquals(this.dbUser.getHeight(), testUser.getHeight());
+			assertEquals(this.dbUser.getName(), testUser.getName());
+			assertEquals(this.dbUser.getWeight(), testUser.getWeight());
 		}
 
 		@Test
 		@DisplayName("Testing setHeight")
 		public void testHeightUpdater() {
+			User testUser = this.ops.getUser(1);
 
-			int previousHeight = ops.getUser(1).getHeight();
-			ops.getUser(1).setHeight(200);
-			assertNotEquals(previousHeight, ops.getUser(1).getHeight());
-			assertEquals(200, ops.getUser(1).getHeight());
+			testUser.setHeight(321);
+			this.ops.updateUser();
+
+			assertEquals(this.dbUser.getUserID(), testUser.getUserID());
+			assertEquals(this.dbUser.getCalorieGoal(), testUser.getCalorieGoal());
+			assertEquals(this.dbUser.getExerciseGoal(), testUser.getExerciseGoal());
+			assertEquals(321, this.dbUser.getHeight());
+			assertEquals(this.dbUser.getName(), testUser.getName());
+			assertEquals(this.dbUser.getWeight(), testUser.getWeight());
 		}
 
 		@Test
 		@DisplayName("Testing setWeight")
 		public void testWeightUpdater() {
-			int previousWeight = ops.getUser(1).getWeight();
-			ops.getUser(1).setWeight(55);
-			assertNotEquals(previousWeight, ops.getUser(1).getWeight());
-			assertEquals(55, ops.getUser(1).getWeight());
+			User testUser = this.ops.getUser(1);
+
+			testUser.setWeight(155);
+			this.ops.updateUser();
+
+			assertEquals(this.dbUser.getUserID(), testUser.getUserID());
+			assertEquals(this.dbUser.getCalorieGoal(), testUser.getCalorieGoal());
+			assertEquals(this.dbUser.getExerciseGoal(), testUser.getExerciseGoal());
+			assertEquals(this.dbUser.getHeight(), testUser.getHeight());
+			assertEquals(this.dbUser.getName(), testUser.getName());
+			assertEquals(155, this.dbUser.getWeight());
 		}
 
 		@Test
 		@DisplayName("Testing calorieGoal")
 		public void testCalorieGoalUpdater() {
+			User testUser = this.ops.getUser(1);
 
-			double previousCalorieGoal = ops.getUser(1).getCalorieGoal();
-			ops.getUser(1).setCalorieGoal(260.05);
-			assertNotEquals(previousCalorieGoal, ops.getUser(1).getCalorieGoal());
-			assertEquals(260.05, ops.getUser(1).getCalorieGoal());
+			testUser.setCalorieGoal(1234);
+			this.ops.updateUser();
+
+			assertEquals(this.dbUser.getUserID(), testUser.getUserID());
+			assertEquals(1234, this.dbUser.getCalorieGoal());
+			assertEquals(this.dbUser.getExerciseGoal(), testUser.getExerciseGoal());
+			assertEquals(this.dbUser.getHeight(), testUser.getHeight());
+			assertEquals(this.dbUser.getName(), testUser.getName());
+			assertEquals(this.dbUser.getWeight(), testUser.getWeight());
 		}
 
 		@Test
 		@DisplayName("Testing exerciseGoal")
 		public void testExerciseGoalUpdater() {
+			User testUser = this.ops.getUser(1);
 
-			double previousExerciseGoalUpdater = ops.getUser(1).getExerciseGoal();
-			ops.getUser(1).setExerciseGoal(500.99);
-			assertNotEquals(previousExerciseGoalUpdater, ops.getUser(1).getExerciseGoal());
-			assertEquals(500.99, ops.getUser(1).getExerciseGoal());
+			testUser.setExerciseGoal(4321);
+			this.ops.updateUser();
+
+			assertEquals(this.dbUser.getUserID(), testUser.getUserID());
+			assertEquals(this.dbUser.getCalorieGoal(), testUser.getCalorieGoal());
+			assertEquals(4321, this.dbUser.getExerciseGoal());
+			assertEquals(this.dbUser.getHeight(), testUser.getHeight());
+			assertEquals(this.dbUser.getName(), testUser.getName());
+			assertEquals(this.dbUser.getWeight(), testUser.getWeight());
 		}
 
 
@@ -628,7 +727,5 @@ public class BusinessPersistenceSeamTest
 
 			DBSelector.start(new DataAccessStub());
 		}
-
-
 	}
 }
