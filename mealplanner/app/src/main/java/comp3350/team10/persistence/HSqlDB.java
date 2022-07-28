@@ -108,7 +108,10 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
     }
 
     public Edible findIngredientByKey(int key, boolean isCustom) {
+        ArrayList<DrinkIngredient> drinkIngredients = new ArrayList<DrinkIngredient>();
+        ArrayList<Ingredient> ingredients;
         Edible currEdible = null;
+
         try {
             EdibleLog edible = this.findEdibleByKey(key, isCustom);
             if (edible != null) {
@@ -130,7 +133,13 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                     ((Meal) currEdible).setIngredients(this.getMealIngredients(currEdible));
                 } else if (currEdible instanceof Drink) {
                     ((Drink) currEdible).setInstructions(this.getInstructions(currEdible));
-                    ((Drink) currEdible).setIngredients(this.getDrinkIngredients(currEdible));
+                    ingredients = this.getDrinkIngredients(currEdible);
+
+                    for(int i = 0; i <ingredients.size(); i++) {
+                        drinkIngredients.add((DrinkIngredient)ingredients.get(i));
+                    }
+
+                    ((Drink) currEdible).setIngredients(drinkIngredients);
                 }
             }
         } catch (IllegalArgumentException e) {
@@ -138,6 +147,55 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         }
 
         return currEdible;
+    }
+
+    private ArrayList<Ingredient> getDrinkIngredients(Edible currEdible) {   //save all as things without ingredients
+        ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+
+        try {
+            PreparedStatement getIngredients = currConn.prepareStatement("SELECT * FROM EDIBLE LEFT JOIN DrinkIngredient " +
+                    "ON Edible.EdibleID = DrinkIngredient.PreparedID LEFT JOIN DrinkIngredient on EDIBLE.EDIBLEID = " +
+                    "DrinkIngredient.EDIBLEID WHERE DrinkIngredient.EdibleID = ?");
+
+            PreparedStatement getCustomIngredients = currConn.prepareStatement("SELECT * FROM EDIBLE LEFT JOIN DrinkIngredient " +
+                    "ON EDIBLE.EdibleID = DrinkIngredient.PreparedID RIGHT JOIN CustomEdible on CUSTOMEDIBLE.CUSTOMEDIBLEID = " +
+                    "DrinkIngredient.CUSTOMEDIBLEID WHERE DrinkIngredient.CUSTOMEDIBLEID = ?");
+
+            PreparedStatement getIngredientsForCustom = currConn.prepareStatement("SELECT * FROM CUSTOMEDIBLE LEFT JOIN DrinkIngredient " +
+                    "ON CUSTOMEDIBLE.CUSTOMEDIBLEID = DrinkIngredient.PreparedCUSTOMID RIGHT JOIN Edible on EDIBLE.EDIBLEID = " +
+                    "DrinkIngredient.EDIBLEID WHERE DrinkIngredient.EdibleID = ?");
+
+            PreparedStatement getCustomIngredientsForCustom = currConn.prepareStatement("SELECT * FROM CUSTOMEDIBLE LEFT JOIN DrinkIngredient " +
+                    "ON CUSTOMEdible.CUSTOMEdibleID = DrinkIngredient.PreparedCustomID LEFT JOIN DrinkIngredient on CUSTOMEDIBLE.CUSTOMEDIBLEID = " +
+                    "DrinkIngredient.CUSTOMEDIBLEID WHERE DrinkIngredient.CUSTOMEdibleID = ?");
+            ResultSet results;
+
+            if(currEdible.getIsCustom()) {
+                getIngredientsForCustom.setInt(1, currEdible.getDbkey());
+                results = getIngredientsForCustom.executeQuery();
+                ingredients.addAll(processIngredients(results, false));
+                results.close();
+
+                getCustomIngredientsForCustom.setInt(1, currEdible.getDbkey());
+                results = getCustomIngredientsForCustom.executeQuery();
+                ingredients.addAll(processIngredients(results, true));
+                results.close();
+            } else {
+                getIngredients.setInt(1, currEdible.getDbkey());
+                results = getIngredients.executeQuery();
+                ingredients.addAll(processIngredients(results, false));
+                results.close();
+
+                getCustomIngredients.setInt(1, currEdible.getDbkey());
+                results = getCustomIngredients.executeQuery();
+                ingredients.addAll(processIngredients(results, true));
+                results.close();
+            }
+        } catch (Exception e) {
+            System.out.println("HSqlDB GetMealIngredients " + e);
+        }
+
+        return ingredients;
     }
 
     private Edible readEdible(ResultSet results, boolean isCustom) {
@@ -232,6 +290,9 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
 
     public ArrayList<Edible> getDrinkRecipes() {
         ArrayList<Edible> drinkList = new ArrayList<Edible>();
+        ArrayList<DrinkIngredient> drinkIngredients = new ArrayList<DrinkIngredient>();
+        ArrayList<Ingredient> ingredients;
+
         try {
             String[][] params = {{"Drink", "Edible", "Drink.EdibleID = Edible.EdibleID"},
                     {"CustomDrink", "CustomEdible", "CustomEdible.CustomEdibleID = CustomDrink.CustomEdibleID"}};
@@ -252,7 +313,14 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                     currDrink.initCategories(currEdible.getIsAlcoholic(), currEdible.getIsSpicy(), currEdible.getIsVegan(), currEdible.getIsVegetarian(), currEdible.getIsGlutenFree());
                     currDrink.initNutrition(currEdible.getCalories(), currEdible.getProtein(), currEdible.getCarbs(), currEdible.getFat());
                     currDrink.initMetadata(isCustom[i], currEdible.getPhoto());
-                    currDrink.setIngredients(this.getDrinkIngredients(currDrink));
+                    ingredients = this.getDrinkIngredients(currEdible);
+
+                    for(int j = 0; j <ingredients.size(); j++) {
+                        drinkIngredients.add((DrinkIngredient)ingredients.get(j));
+                    }
+
+                    currDrink.setIngredients(drinkIngredients);
+
                     currDrink.setInstructions(this.getInstructions(currDrink));
                     drinkList.add(currDrink);
                 }
@@ -552,47 +620,26 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         return log;
     }
 
-    private ArrayList<DrinkIngredient> getDrinkIngredients(Edible currEdible) { //
-        ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
-        try { //reference id and is custom attribute
-            PreparedStatement getIngredients = currConn.prepareStatement("SELECT * FROM DrinkIngredient INNER JOIN Edible " +
-                    "ON Edible.EdibleID = DrinkIngredient.EdibleID WHERE PreparedID = ? OR PreparedCustomID = ?");
-            ResultSet results;
-
-            DrinkIngredient currIngredient;
-            Edible.Unit unit;
-
-            getIngredients.setInt(1, currEdible.getDbkey());
-            getIngredients.setInt(2, currEdible.getDbkey());
-            results = getIngredients.executeQuery();
-
-            while (results.next()) {
-                unit = this.findUnit(results.getString("Unit"));
-                currIngredient = new DrinkIngredient();
-                currIngredient.init(currEdible, results.getInt("Quantity"), unit);
-                currIngredient.setSubstitute(results.getBoolean("Substitute"));
-                ingredients.add(currIngredient);
-            }
-        } catch (Exception e) {
-            System.out.println("HSqlDB GetDrinkIngredients " + e);
-
-        }
-
-        return ingredients;
-    }
-
     private ArrayList<Ingredient> getMealIngredients(Edible currEdible) {   //save all as things without ingredients
         ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
 
         try {
-            PreparedStatement getIngredients = currConn.prepareStatement("SELECT * FROM MealIngredient JOIN Edible " +
-                    "ON Edible.EdibleID = MealIngredient.PreparedID WHERE PreparedID = ?");
-            PreparedStatement getCustomIngredients = currConn.prepareStatement("SELECT * FROM MealIngredient JOIN CustomEdible " +
-                    "ON CustomEdible.CustomEdibleID = MealIngredient.PreparedCustomID WHERE PreparedCustomID = ?");
-            PreparedStatement getIngredientsForCustom = currConn.prepareStatement("SELECT * FROM MealIngredient JOIN Edible " +
-                    "ON Edible.EdibleID = MealIngredient.PreparedID WHERE PreparedID = ?");
-            PreparedStatement getCustomIngredientsForCustom = currConn.prepareStatement("SELECT * FROM MealIngredient JOIN CustomEdible " +
-                    "ON CustomEdible.CustomEdibleID = MealIngredient.PreparedCustomID WHERE PreparedCustomID = ?");
+            PreparedStatement getIngredients = currConn.prepareStatement("SELECT * FROM EDIBLE LEFT JOIN MEALINGREDIENT " +
+                    "ON Edible.EdibleID = MealIngredient.PreparedID LEFT JOIN MEALINGREDIENT on EDIBLE.EDIBLEID = " +
+                    "MEALINGREDIENT.EDIBLEID WHERE MEALINGREDIENT.EdibleID = ?");
+
+            PreparedStatement getCustomIngredients = currConn.prepareStatement("SELECT * FROM EDIBLE LEFT JOIN MEALINGREDIENT " +
+                    "ON EDIBLE.EdibleID = MealIngredient.PreparedID RIGHT JOIN CUSTOMEDIBLE on CUSTOMEDIBLE.CUSTOMEDIBLEID = " +
+                    "MEALINGREDIENT.CUSTOMEDIBLEID WHERE MEALINGREDIENT.CUSTOMEDIBLEID = ?");
+
+            PreparedStatement getIngredientsForCustom = currConn.prepareStatement("SELECT * FROM CUSTOMEDIBLE LEFT JOIN MEALINGREDIENT " +
+                    "ON CUSTOMEDIBLE.CUSTOMEDIBLEID = MealIngredient.PreparedCUSTOMID RIGHT JOIN Edible on EDIBLE.EDIBLEID = " +
+                    "MEALINGREDIENT.EDIBLEID WHERE MEALINGREDIENT.EdibleID = ?");
+
+            PreparedStatement getCustomIngredientsForCustom = currConn.prepareStatement("SELECT * FROM CUSTOMEDIBLE LEFT JOIN MEALINGREDIENT " +
+                    "ON CUSTOMEdible.CUSTOMEdibleID = MealIngredient.PreparedCustomID LEFT JOIN MEALINGREDIENT on CUSTOMEDIBLE.CUSTOMEDIBLEID = " +
+                    "MEALINGREDIENT.CUSTOMEDIBLEID WHERE MEALINGREDIENT.CUSTOMEdibleID = ?");
+
             ResultSet results;
                                                         //edible, quantity, unit
             if(currEdible.getIsCustom()) {
