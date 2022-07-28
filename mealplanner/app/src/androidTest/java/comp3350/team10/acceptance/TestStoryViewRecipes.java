@@ -54,7 +54,6 @@ public class TestStoryViewRecipes {
         onView(ViewMatchers.withId(R.id.dailyNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.recipeBookNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.chartsNav)).check(matches(isDisplayed()));
-        onView(ViewMatchers.withId(R.id.socialNav)).check(matches(isDisplayed()));
     }
 
     @Test
@@ -120,7 +119,7 @@ public class TestStoryViewRecipes {
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
-        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("bad food"));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test bad food"));
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
         onView(ViewMatchers.withId(R.id.dialogRecipeCaloriesInput)).perform(scrollTo(), click());
@@ -141,7 +140,7 @@ public class TestStoryViewRecipes {
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
-        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("bad meal"));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test bad meal"));
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
         onView(ViewMatchers.withId(R.id.dialogRecipeCaloriesInput)).perform(scrollTo(), click());
@@ -165,7 +164,7 @@ public class TestStoryViewRecipes {
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
-        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("bad drink"));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test bad drink"));
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
         onView(ViewMatchers.withId(R.id.dialogRecipeCaloriesInput)).perform(scrollTo(), click());
@@ -286,7 +285,7 @@ public class TestStoryViewRecipes {
         onView(isRoot()).perform(waitId(R.id.addButton, 5000));
         onView(ViewMatchers.withId(R.id.addButton)).perform(click());
 
-        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Drink1"));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test Drink1"));
         onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("333"));
         onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("777"));
         onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
@@ -294,11 +293,11 @@ public class TestStoryViewRecipes {
         onView(withId(R.id.dialogRecipeSpinner)).check(matches(withSpinnerText(containsString("tbsp"))));
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Drink1"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test Drink1"))));
 
         onView(ViewMatchers.withId(R.id.addButton)).perform(click());
 
-        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Drink2"));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test Drink2"));
         onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("0"));
         onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("1"));
         onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
@@ -311,12 +310,12 @@ public class TestStoryViewRecipes {
         onView(withId(R.id.isGluteenFree)).perform(click());
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Drink1"))));
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Drink2"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test Drink1"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test Drink2"))));
 
         onView(ViewMatchers.withId(R.id.addButton)).perform(click());
 
-        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Something else"));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test Something else"));
         onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("9999"));
         onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("9999"));
         onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
@@ -327,9 +326,9 @@ public class TestStoryViewRecipes {
         onView(withId(R.id.isGluteenFree)).perform(click());
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Drink1"))));
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Drink2"))));
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Something else"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test Drink1"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test Drink2"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test Something else"))));
 
         cleanup();
     }
@@ -361,7 +360,7 @@ public class TestStoryViewRecipes {
 
         onView(ViewMatchers.withId(R.id.addButton)).perform(click());
         //add one where contents are modified
-        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("modDrink"));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test2 modDrink"));
         onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("0"));
         onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("1"));
         onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
@@ -400,6 +399,8 @@ public class TestStoryViewRecipes {
         onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("777"));
         onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
         onView(withText("tbsp")).inRoot(isPlatformPopup()).perform(click());
+        //onView(withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(withId(R.id.inputQty)), click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test2 sugar water"))));
 
         onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withId(R.id.imageView4))));
         onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());

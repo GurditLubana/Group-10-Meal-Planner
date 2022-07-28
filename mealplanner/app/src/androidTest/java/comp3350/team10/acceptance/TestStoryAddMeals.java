@@ -4,7 +4,6 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.pressKey;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
@@ -24,17 +23,14 @@ import static comp3350.team10.utils.Utils.selectTabAtPosition;
 import static comp3350.team10.utils.Utils.waitId;
 
 import android.view.KeyEvent;
-import android.view.View;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.assertion.ViewAssertions;
-import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,7 +45,7 @@ public class TestStoryAddMeals {
 
     @Test
     public void user_can_see_main_activity() {
-        onView(withText("MealPlanner")).check(matches(isDisplayed()));
+        onView(withText("EaTen meal planner by Team10")).check(matches(isDisplayed()));
         onView(withText("Calories")).check(matches(isDisplayed()));
         onView(withText("Budget")).check(matches(isDisplayed()));
         onView(withText("Food")).check(matches(isDisplayed()));
@@ -61,7 +57,6 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.dailyNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.recipeBookNav)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.chartsNav)).check(matches(isDisplayed()));
-        onView(ViewMatchers.withId(R.id.socialNav)).check(matches(isDisplayed()));
     }
 
     @Test
@@ -230,8 +225,8 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("2000")));
 
         onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnAddMeal)));
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(12, clickChildViewWithId(R.id.cardView2)));
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(12, clickChildViewWithId(R.id.addToPlannerBtn2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(13, clickChildViewWithId(R.id.cardView2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(13, clickChildViewWithId(R.id.addToPlannerBtn2)));
         onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burrito"))));
 
         onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.btnAddMeal)));
@@ -281,8 +276,8 @@ public class TestStoryAddMeals {
         onView(ViewMatchers.withId(R.id.netCalories)).check(ViewAssertions.matches(ViewMatchers.withText("2000")));
 
         onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnAddMeal)));
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(9, clickChildViewWithId(R.id.cardView2)));
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(9, clickChildViewWithId(R.id.addToPlannerBtn2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(10, clickChildViewWithId(R.id.cardView2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(10, clickChildViewWithId(R.id.addToPlannerBtn2)));
         onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Burger"))));
 
         onView(withId(R.id.mealRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.btnAddMeal)));

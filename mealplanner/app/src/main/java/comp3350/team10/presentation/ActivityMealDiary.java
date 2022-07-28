@@ -184,13 +184,17 @@ public class ActivityMealDiary extends AppCompatActivity implements FragToMealDi
         }
     }
 
+    protected void onPause() {
+        super.onPause();
+        this.opExec.logChangedUpdateDB();
+        Main.saveDB();
+    }
 
     protected void onDestroy() {
         super.onDestroy();
         Main.saveDB();
         Main.shutDown();
     }
-
 
     public void selectDate() {
         MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker()

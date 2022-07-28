@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import androidx.fragment.app.Fragment;
 
 import comp3350.team10.R;
+import comp3350.team10.application.Main;
 
 public class FragmentNavigation extends Fragment {
     ImageButton mealButton = null;    // button to launch the diary screen
@@ -43,6 +44,7 @@ public class FragmentNavigation extends Fragment {
 
             public void onClick(View v) {
                 if (getActivity() != null && !(getActivity() instanceof ActivityMealDiary)) {
+                    Main.saveDB();
                     Intent intent = new Intent(getActivity().getApplicationContext(), ActivityMealDiary.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -55,6 +57,7 @@ public class FragmentNavigation extends Fragment {
 
             public void onClick(View v) {
                 if (getActivity() != null && !(getActivity() instanceof ActivityRecipeBook)) {
+                    Main.saveDB();
                     Intent intent = new Intent(getActivity(), ActivityRecipeBook.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -68,6 +71,7 @@ public class FragmentNavigation extends Fragment {
 
             public void onClick(View v) {
                 if (getActivity() != null && !(getActivity() instanceof ActivityDailyProgress)) {
+                    Main.saveDB();
                     Intent intent = new Intent(getActivity(), ActivityDailyProgress.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -80,6 +84,7 @@ public class FragmentNavigation extends Fragment {
 
             public void onClick(View v) {
                 if (getActivity() != null && !(getActivity() instanceof ActivityTrends)) {
+                    Main.saveDB();
                     Intent intent = new Intent(getActivity(), ActivityTrends.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
