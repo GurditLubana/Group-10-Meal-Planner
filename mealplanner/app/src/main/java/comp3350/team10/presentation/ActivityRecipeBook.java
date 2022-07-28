@@ -301,7 +301,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
         FragmentModEntryDialogs editorView = new FragmentModEntryDialogs();
         Bundle args = new Bundle();
 
-        if (this.currTab == 2) {
+        if (this.currTab == Constant.DRINK) {
             args.putString(Constant.DIALOG_TYPE, EntryMode.DRINK_INGREDIENT.toString());
         } else {
             args.putString(Constant.DIALOG_TYPE, EntryMode.INGREDIENT.toString());

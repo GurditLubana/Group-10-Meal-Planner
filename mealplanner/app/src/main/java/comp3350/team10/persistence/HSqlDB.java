@@ -102,14 +102,16 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
     }
 
     public Edible findIngredientByKey(int edibleType, int key, boolean isCustom) {
+        boolean createsDrink = edibleType == Constant.DRINK && this.isDrink(key, isCustom) || this.isMeal(key, isCustom);
+        boolean createsMeal = edibleType == Constant.MEAL && this.isDrink(key, isCustom) || this.isMeal(key, isCustom);
         Edible currEdible = null;
 
         try {
             EdibleLog edible = this.findEdibleByKey(key, isCustom);
             if (edible != null) {
-                if (edibleType == 1 && this.isDrink(key, isCustom) || this.isMeal(key, isCustom)) {
+                if (createsMeal) {
                     currEdible = new Meal();
-                } else if (edibleType == 2 && this.isDrink(key, isCustom) || this.isMeal(key, isCustom)) {
+                } else if (createsDrink) {
                     currEdible = new Drink();
                 } else {
                     currEdible = edible;
@@ -120,10 +122,10 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                 currEdible.initCategories(edible.getIsAlcoholic(), edible.getIsSpicy(), edible.getIsVegan(), edible.getIsVegetarian(), edible.getIsGlutenFree());
                 currEdible.initMetadata(edible.getIsCustom(), edible.getPhoto());
 
-                if (edibleType == 1 && this.isDrink(key, isCustom) || this.isMeal(key, isCustom)) {
+                if (createsMeal) {
                     ((Meal) currEdible).setInstructions(this.getInstructions(currEdible));
                     ((Meal) currEdible).setIngredients(this.getMealIngredients(currEdible));
-                } else if (edibleType == 2 && this.isDrink(key, isCustom) || this.isMeal(key, isCustom)) {
+                } else if (createsDrink) {
                     ((Drink) currEdible).setInstructions(this.getInstructions(currEdible));
                     ((Drink) currEdible).setIngredients(this.getDrinkIngredients(currEdible));
                 }
