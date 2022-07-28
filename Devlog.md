@@ -2387,6 +2387,14 @@ Duration: 3 hrs
    Tasks:
    - review course video, rest of U9 and make relative note and upload
 
+
+### 2022-07-27
+     Dev:
+      - Zhou
+Duration: 2.5 hrs
+   Tasks:
+   - review course video, U10 and make relative note and upload
+
 ### 2022-07-25
      Dev:
       - Josef
