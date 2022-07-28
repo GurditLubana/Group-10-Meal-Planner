@@ -78,10 +78,10 @@ public class RVATrends extends RecyclerViewAdapter {
         double chartMin = -DataFrame.numDays[dataFrame.getSpan().ordinal()];
 
         for (int i = 0; i < dataArray.size(); i++) {
-            dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
+            dataPointArray[i] = new DataPoint(i - dataArray.size(), dataArray.get(i).doubleValue());
         }
         valueFirst.setText(Integer.toString(dataArray.get(0).intValue()));
-        valueLast.setText(Integer.toString(dataArray.get(dataArray.size()-1).intValue()));
+        valueLast.setText(Integer.toString(dataArray.get(dataArray.size() - 1).intValue()));
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPointArray);
         LineGraphSeries<DataPoint> seriesTrend = new LineGraphSeries<>(new DataPoint[]{
@@ -127,13 +127,13 @@ public class RVATrends extends RecyclerViewAdapter {
         double goal = 0;
 
         for (int i = 0; i < dataArray.size(); i++) {
-            dataPointArray[i] = new DataPoint(i-dataArray.size(), dataArray.get(i).doubleValue());
+            dataPointArray[i] = new DataPoint(i - dataArray.size(), dataArray.get(i).doubleValue());
         }
         valueFirst.setText(Integer.toString(dataArray.get(0).intValue()));
-        valueLast.setText(Integer.toString(dataArray.get(dataArray.size()-1).intValue()));
+        valueLast.setText(Integer.toString(dataArray.get(dataArray.size() - 1).intValue()));
 
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dataPointArray);
-        if(dataFrame.getDataType().name() == "ConsumedCalories") {
+        if (dataFrame.getDataType().name() == "ConsumedCalories") {
             goal = 2100.0;
         } else if (dataFrame.getDataType().name() == "ExerciseCalories") {
             goal = 200.0;

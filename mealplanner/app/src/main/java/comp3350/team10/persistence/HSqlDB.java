@@ -175,7 +175,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
 
             ResultSet results;
 
-            if(currEdible.getIsCustom()) {
+            if (currEdible.getIsCustom()) {
                 getIngredientsForCustom.setInt(1, currEdible.getDbkey());
                 results = getIngredientsForCustom.executeQuery();
                 ingredients.addAll(processDrinkIngredients(results, false, true));
@@ -636,7 +636,8 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         }
         return log;
     }
-//drink ingredients
+
+    //drink ingredients
     private ArrayList<Ingredient> getMealIngredients(Edible currEdible) {   //save all as things without ingredients
         ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
 
@@ -674,8 +675,8 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                     "DRINKINGREDIENT.CUSTOMEDIBLEID WHERE DRINKINGREDIENT.CUSTOMEdibleID = ?");
 
             ResultSet results;
-                                                        //edible, quantity, unit
-            if(currEdible.getIsCustom()) {
+            //edible, quantity, unit
+            if (currEdible.getIsCustom()) {
                 getIngredientsForCustom.setInt(1, currEdible.getDbkey());
                 results = getIngredientsForCustom.executeQuery();
                 ingredients.addAll(processIngredients(results, false));
@@ -738,13 +739,12 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                 currIngredient = new DrinkIngredient();
                 currIngredient.init(currEdible, quantity, unit);
 
-                if(hasSubFlag) {
+                if (hasSubFlag) {
                     currIngredient.setSubstitute(ingredients.getBoolean("Substitute"));
                 }
                 list.add(currIngredient);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
 
@@ -766,13 +766,13 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                 currIngredient = new Ingredient().init(currEdible, quantity, unit);
                 list.add(currIngredient);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
 
         return list;
     }
+
     private ArrayList<Edible> getEdibleLog(int historyID) {
         ArrayList<Edible> edibleLog = new ArrayList<Edible>();
         try {
@@ -940,6 +940,52 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         }
     }
 
+    //
+//    private void updateLog(int userID, DailyLog newLog) {
+//        try {
+//            PreparedStatement getKey = currConn.prepareStatement("Select HISTORYID FROM HISTORY Where Date = ? AND USERID = ?");
+//            PreparedStatement addHistory = currConn.prepareStatement("UPDATE History SET CalorieGoal = ? , CalorieActual = ? Where Date = ? AND USERID = ?");
+//            PreparedStatement addEdibleHistory = currConn.prepareStatement("UPDATE EdibleHistory SET"
+//                    "INSERT INTO EdibleHistory (HistoryID, " +
+//                    "EdibleID, Quantity, Unit) VALUES (?, ?, ?, ?)");
+//            PreparedStatement addCustomEdibleHistory = currConn.prepareStatement("INSERT INTO EdibleHistory (HistoryID, " +
+//                    "CustomEdibleID, Quantity, Unit) VALUES (?, ?, ?, ?)");
+//
+//            ArrayList<Edible> edibles = newLog.getEdibleList();
+//            Edible currEdible;
+//            int historyID;
+//
+//            addHistory.setInt(1, userID);
+//            String hi = this.convertDateToString(newLog.getDate());
+//            addHistory.setString(2, hi);
+//            addHistory.setDouble(3, newLog.getCalorieGoal());
+//            addHistory.executeUpdate();
+//            historyID = getHistoryID(newLog, userID);
+//
+//            for (int i = 0; i < edibles.size(); i++) {
+//                currEdible = edibles.get(i);
+//                if (currEdible.getIsCustom()) {
+//                    addCustomEdibleHistory.setInt(1, historyID);
+//                    addCustomEdibleHistory.setInt(2, currEdible.getDbkey());
+//                    addCustomEdibleHistory.setDouble(3, currEdible.getQuantity());
+//                    addCustomEdibleHistory.setString(4, currEdible.getUnit().toString());
+//                    addCustomEdibleHistory.executeUpdate();
+//                } else {
+//                    addEdibleHistory.setInt(1, historyID);
+//                    addEdibleHistory.setInt(2, currEdible.getDbkey());
+//                    addEdibleHistory.setDouble(3, currEdible.getQuantity());
+//                    addEdibleHistory.setString(4, currEdible.getUnit().toString());
+//                    addEdibleHistory.executeUpdate();
+//                }
+//            }
+//
+//            if (newLog.getExerciseActual() >= 0) {
+//                this.setExerciseActual(userID, newLog.getExerciseActual(), newLog.getDate());
+//            }
+//        } catch (Exception e) {
+//            System.out.println("HSqlDB addLog " + e);
+//        }
+//    }
     public void addLog(int userID, DailyLog newLog) {
         try {
             PreparedStatement addHistory = currConn.prepareStatement("INSERT INTO History (UserID, Date, CalorieGoal, " +
@@ -1065,8 +1111,8 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
             ResultSet results;
             Calendar date = currLog.getDate();
             String currDate = convertDateToString(date);
-            getHistoryID.setString(2, currDate);
             getHistoryID.setInt(1, userID);
+            getHistoryID.setString(2, currDate);
             results = getHistoryID.executeQuery();
 
             if (results.next()) {

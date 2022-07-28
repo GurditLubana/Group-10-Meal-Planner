@@ -19,7 +19,7 @@ public class Main {
     public static void saveDB() {
         DBSelector.save();
     }
-    
+
     public static String getDBPathName() {
         if (dbPathName == null)
             return dbName;

@@ -19,7 +19,8 @@ public class TestUserDataOps {
 
     @BeforeEach
     void setup() {
-        DBSelector.start(new DataAccessStub());;
+        DBSelector.start(new DataAccessStub());
+        ;
         userOps = new UserDataOps();
         userFromOPS = userOps.getUser(0);
     }

@@ -62,8 +62,8 @@ public class DataFrame {
                 }
             }
 
-                this.average = this.average / this.size();
-                this.progress = this.average / this.goal;
+            this.average = this.average / this.size();
+            this.progress = this.average / this.goal;
 
         }
 
