@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import comp3350.team10.R;
 import comp3350.team10.objects.Edible;
 
-
 public class RVAMealDiary extends RecyclerViewAdapter {
     private FragToMealDiary sendToMealDiary; // interface to pass data to mealdiary
     private Context context;

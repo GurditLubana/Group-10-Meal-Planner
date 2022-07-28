@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import comp3350.team10.R;
 import comp3350.team10.objects.DataFrame;
 
-
 public class RVATrends extends RecyclerViewAdapter {
     ArrayList<DataFrame> dataSet;
     Context context;

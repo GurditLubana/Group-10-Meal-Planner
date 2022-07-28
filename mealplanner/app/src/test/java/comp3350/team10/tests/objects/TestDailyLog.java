@@ -98,7 +98,6 @@ public class TestDailyLog {
             assertEquals(newDate.get(Calendar.DAY_OF_YEAR), testLog.getDate().get(Calendar.DAY_OF_YEAR));
             assertEquals(newDate.get(Calendar.YEAR), testLog.getDate().get(Calendar.YEAR));
             assertEquals(newDate.get(Calendar.MONTH), testLog.getDate().get(Calendar.MONTH));
-            //assertEquals(edibleList, testLog.getEdibleList());
             assertEquals(1400, testLog.getCalorieGoal());
             assertEquals(600, testLog.getExerciseGoal());
             assertEquals(200, testLog.getExerciseActual());

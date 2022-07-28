@@ -1,6 +1,5 @@
 package comp3350.team10;
 
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

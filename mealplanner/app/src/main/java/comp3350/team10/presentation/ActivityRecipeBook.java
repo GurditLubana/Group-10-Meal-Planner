@@ -1,7 +1,5 @@
 package comp3350.team10.presentation;
 
-import static comp3350.team10.objects.Constant.TITLE_CONTENT;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;

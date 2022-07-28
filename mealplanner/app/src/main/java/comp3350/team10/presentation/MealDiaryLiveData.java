@@ -8,7 +8,6 @@ import java.util.Calendar;
 
 import comp3350.team10.objects.Edible;
 
-
 public class MealDiaryLiveData extends ViewModel {
 
     private MutableLiveData<Calendar> activityDate;             //The current date 
