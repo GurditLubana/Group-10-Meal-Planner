@@ -29,7 +29,7 @@ public class DataFrame {
             this.dataType = dataType;
             this.span = span;
             this.data = new ArrayList<Double>();
-            if (dataType.name() == "ExerciseCalories") {
+            if (dataType.name().equals("ExerciseCalories")) {
                 goal = 200.0;
             }
         } else {

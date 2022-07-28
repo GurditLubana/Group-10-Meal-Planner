@@ -2458,10 +2458,12 @@ Duration: 24 hrs
 ### 2022-07-28
      Dev:
       - Josef
-Duration: 4 hrs
+Duration: 6 hrs
    Tasks:
    - Fixed acceptance tests
    - Fixed integration tests
+   - Fixed recipebook context
+   - adjust progress bar caloriegoal highlight
    - Readme update
    - Finalize project for iter3 submission
 

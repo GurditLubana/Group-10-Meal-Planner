@@ -133,9 +133,9 @@ public class RVATrends extends RecyclerViewAdapter {
         valueLast.setText(Integer.toString(dataArray.get(dataArray.size() - 1).intValue()));
 
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dataPointArray);
-        if (dataFrame.getDataType().name() == "ConsumedCalories") {
+        if (dataFrame.getDataType().name().equals("ConsumedCalories")) {
             goal = 2100.0;
-        } else if (dataFrame.getDataType().name() == "ExerciseCalories") {
+        } else if (dataFrame.getDataType().name().equals("ExerciseCalories")) {
             goal = 200.0;
         }
         LineGraphSeries<DataPoint> seriesTrend = new LineGraphSeries<>(new DataPoint[]{
