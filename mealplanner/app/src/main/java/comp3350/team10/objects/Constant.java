@@ -14,7 +14,6 @@ public final class Constant {
     public final static String TITLE_CONTENT = "EaTen meal planner by Team10";  //The title content of the activity
     public final static String TITLE_COLOR = "#FFFFFF";                          //The title color of the acitivty
 
-    public final static int FOOD = 0;
     public final static int MEAL = 1;
     public final static int DRINK = 2;
 }
