@@ -1092,6 +1092,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
 
     public User getUser(int userID) throws IllegalArgumentException {
         User currUser = null;
+
         try {
             PreparedStatement getUser = currConn.prepareStatement("SELECT * FROM USER Where USERID = ?");
             getUser.setInt(1, userID);
@@ -1102,9 +1103,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                         results.getInt("WEIGHT"), results.getInt("CALORIEGOAL"), results.getInt("EXERCISEGOAL"));
             } else {
                 throw new IllegalArgumentException("HSqlDB GetUser User does not exist " + userID);
-
             }
-
         } catch (IllegalArgumentException e) {
             throw e;
         } catch (Exception e) {
@@ -1117,14 +1116,11 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
     public void updateUser(User user) throws IllegalArgumentException {
         try {
             if (user != null) {
-                User exists = getUser(user.getUserID());
                 this.setHeight(user);
                 this.setWeight(user);
                 this.setCalorieGoal(user);
-                ;
                 this.setExerciseGoal(user);
             } else {
-
                 throw new IllegalArgumentException("DB updateUser was given an uninitialized User object");
             }
         } catch (IllegalArgumentException e) {

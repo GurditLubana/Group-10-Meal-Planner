@@ -10,7 +10,7 @@ public class UserDataOps {
 
     public UserDataOps() {
         this.db = DBSelector.getUserDB();
-        this.currUser = db.getUser(0);
+        this.currUser = db.getUser(1);
     }
 
     public User getUser(int id) throws IllegalArgumentException {
