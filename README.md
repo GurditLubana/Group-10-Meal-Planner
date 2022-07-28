@@ -178,6 +178,11 @@ This class defines essential attributes and functionality for each instance of a
 
 <br>
 
+<h3>Validator</h3>
+Serves as a central source to validates generated values and sanitize user input 
+
+<br>
+
 <h3>Ingredient</h3>
 This class defines essential attributes and functionality for all edibles that appear as an ingredient in a meal
 
@@ -226,11 +231,6 @@ An interface that defines database operations in relation to its users data
 
 <h3>RecipeDBInterface</h3>
 An interface that defines database operations in relation to recipes
-
-<br>
-
-<h3>SharedDB</h3>
-This is a static class that allows the sharing of the active database accross all buisness classes
 
 <br>
 

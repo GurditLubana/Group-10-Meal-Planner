@@ -37,7 +37,7 @@
 
                 <Button
                     android:id="@+id/addToPlannerBtn2"
-                    android:layout_width="97dp"
+                    android:layout_width="260dp"
                     android:layout_height="97dp"
                     android:layout_marginRight="20dp"
                     android:layout_weight="1"
@@ -48,7 +48,8 @@
                     android:layout_width="97dp"
                     android:layout_height="97dp"
                     android:layout_weight="1"
-                    android:backgroundTint="?colorSecondary" />
+                    android:backgroundTint="?colorSecondary"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
@@ -62,7 +63,7 @@
 
                 <ImageView
                     android:id="@+id/addIcon"
-                    android:layout_width="116dp"
+                    android:layout_width="147dp"
                     android:layout_height="88dp"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
@@ -84,6 +85,7 @@
                     android:scaleX="0.8"
                     android:scaleY="0.8"
                     android:src="@android:drawable/ic_menu_view"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/baseline_visibility_black_48"
                     app:tint="#000000" />
             </LinearLayout>

@@ -296,6 +296,99 @@ Zhihou Zhou- zhouz2@myumanitoba.ca
 
 <br>
 
+# Dev tasks Iter 3
+## Big story 1 : Adding meals and editing meals 
+As a user I would like to be able to add meals to the planner and recipe
+collection with the ability to update the plan with the actual meals that I
+ended up eating
+### Detailed story  
+As a user I would like to be able to add my own recipes and be able to
+modify any that already exist by adding or replacing ingredients. 
+
+- ##### Task 01  
+   Title: Android camera  
+    Desc: Ensure camera can be used to take pictures 
+Estimate: 1 hour  
+  Actual: 3 hours  
+     Dev: Dane 
+
+- ##### Task 02
+   Title: RVA addIngredients  
+    Desc: Add an RVA for ingredients (and remove duplicate code) for refactor 
+Estimate: 2 days  
+  Actual: 2 days  
+     Dev: Dane 
+
+- ##### Task 03
+   Title: Review objects for refactor   
+    Desc: Refactor objects before db schema generated  
+Estimate: 2 days  
+  Actual: 2 days  
+     Dev: Dane 
+
+- ##### Task 04
+   Title: Adding ingredients  
+    Desc: Modify recycler view to work take recipes from the book for ingredients (or its ingredients if it has any)
+Estimate: 1 days  
+  Actual: 2 days  
+     Dev: Dane 
+
+- ##### Task 05
+   Title: Remove ingredients   
+    Desc: Add the functionality to remove ingredients whilst creation a new edible
+Estimate: 2 hours  
+  Actual: 2 hours  
+     Dev: Dane 
+
+- ##### Task 06
+   Title: substitutes  
+    Desc: modify modRecipeDialog to take substitute flags into consideration
+Estimate: 1 hour  
+  Actual: 1 hour  
+     Dev: Dane 
+
+- ##### Task 07
+   Title: rescale and reuse components  
+    Desc: to save time learn how to scale components as needed in a RVA
+Estimate: 5 minutes  
+  Actual: 5 minutes
+     Dev: Dane 
+
+- ##### Task 08
+   Title: clear new entry and ingredients 
+    Desc: when canceling the creation of a new edible reset the app's state
+Estimate: 2 hours
+  Actual: 2 hours
+     Dev: Dane 
+
+## Big story 2 : Sufficient testing
+As a user I would like my app to work as expected for ease of use and a plesant experience
+
+- ##### Task 01  
+   Title: Unit testing  
+    Desc: Ensure unit testing covers all objects, buisness classes and the stub
+Estimate: 5 hour  
+  Actual: 5 hours  
+     Dev: Dane 
+
+- ##### Task 02
+   Title: Integration testing  
+    Desc: Ensure integration testing covers all projects seems and HSQL
+Estimate: 4 days  
+  Actual: 2 weeks  
+     Dev: Josef, Gurdit and Dane 
+
+- ##### Task 03
+   Title: Acceptance testing   
+    Desc: Ensure acceptance testing covers and validates a positive user experience based on their needs  
+Estimate: 7 days  
+  Actual: 7 days  
+     Dev: Josef and Dane 
+
+<br>
+<br>
+<br>
+
 # Dev tasks Iter 2 
 ## Big story 1 : Persistence
 As a user I would like to my app changes to be available when the app is restarted  
@@ -2303,7 +2396,7 @@ Duration: 6 hrs
    - added more acceptance tests
    - added a validator class
 
-### 2022-07-27
+### 2022-07-26
      Dev:
       - Dane
 Duration: 6 hrs
@@ -2314,3 +2407,20 @@ Duration: 6 hrs
    - merged integrated tests and planned its refactor
    - read up how expresso works and toyed with recorded testing
    - wrote addRecipe acceptance tests
+
+### 2022-07-27
+     Dev:
+      - Dane
+Duration: 24 hrs
+   Tasks:
+   - fixed unit tests
+   - fixed integrated tests
+   - generated acceptance tests for add recipe error and add recipe for edible, meal and drink
+   - solved an issue where HSQL was not returning ingredients properly
+   - removed dead code
+   - updated readme
+   - updated dev tasks in devlog
+   - updated app according to easy to fix iter2 feedback
+   - wrote userOps unit tests
+   - fixed a bug where there were inconsistancies accross DBs and using an id that wasnt 0 caused crashing
+   - fixed stub db - ingredients were getting overwritten
