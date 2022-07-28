@@ -597,8 +597,9 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
                     .initMetadata(false, "mojito.jpg")
             );
             ((Drink) this.dbRecipeDrink.get(35 - OFFSET_SOLO_DRINKS)).setIngredients(ingredients);
+            ((Drink) this.dbRecipeDrink.get(35 - OFFSET_SOLO_DRINKS)).setInstructions("none");
 
-            ingredients.clear();
+            ingredients = new ArrayList<DrinkIngredient>();
             ingredient = (DrinkIngredient) new DrinkIngredient().init(this.dbRecipeDrink.get(31 - OFFSET_SOLO_DRINKS), 1, Edible.Unit.oz);
             ingredients.add(ingredient);
 
@@ -612,7 +613,7 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
             );
             ((Drink) this.dbRecipeDrink.get(36 - OFFSET_SOLO_DRINKS)).setIngredients(ingredients);
 
-            ingredients.clear();
+            ingredients = new ArrayList<DrinkIngredient>();
             ingredient = (DrinkIngredient) new DrinkIngredient().init(this.dbRecipeDrink.get(33 - OFFSET_SOLO_DRINKS), 1, Edible.Unit.oz);
             ingredients.add(ingredient);
 
@@ -678,8 +679,9 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
                     .initMetadata(false, "spaghetti.jpg")
             );
             ((Meal) this.dbRecipeMeal.get(41 - OFFSET_MEAL)).setIngredients(ingredients);
+            ((Meal) this.dbRecipeMeal.get(41 - OFFSET_MEAL)).setInstructions("step1");
 
-            ingredients.clear();
+            ingredients = new ArrayList<Ingredient>();
             ingredient = new Ingredient().init(this.dbRecipeFood.get(3 - OFFSET_FOOD), 1, Edible.Unit.cups);
             ingredients.add(ingredient);
 
@@ -695,7 +697,7 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
             );
             ((Meal) this.dbRecipeMeal.get(42 - OFFSET_MEAL)).setIngredients(ingredients);
 
-            ingredients.clear();
+            ingredients = new ArrayList<Ingredient>();
             ingredient = new Ingredient().init(this.dbRecipeFood.get(6 - OFFSET_FOOD), 1, Edible.Unit.cups);
             ingredients.add(ingredient);
 
@@ -708,7 +710,7 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
             );
             ((Meal) this.dbRecipeMeal.get(43 - OFFSET_MEAL)).setIngredients(ingredients);
 
-            ingredients.clear();
+            ingredients = new ArrayList<Ingredient>();
             ingredient = new Ingredient().init(this.dbRecipeFood.get(8 - OFFSET_FOOD), 1, Edible.Unit.cups);
             ingredients.add(ingredient);
 
@@ -721,7 +723,7 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
             );
             ((Meal) this.dbRecipeMeal.get(44 - OFFSET_MEAL)).setIngredients(ingredients);
 
-            ingredients.clear();
+            ingredients = new ArrayList<Ingredient>();
             ingredient = new Ingredient().init(this.dbRecipeFood.get(10 - OFFSET_FOOD), 1, Edible.Unit.cups);
             ingredients.add(ingredient);
 
@@ -734,7 +736,7 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
             );
             ((Meal) this.dbRecipeMeal.get(45 - OFFSET_MEAL)).setIngredients(ingredients);
 
-            ingredients.clear();
+            ingredients = new ArrayList<Ingredient>();
             ingredient = new Ingredient().init(this.dbRecipeFood.get(12 - OFFSET_FOOD), 1, Edible.Unit.cups);
             ingredients.add(ingredient);
 

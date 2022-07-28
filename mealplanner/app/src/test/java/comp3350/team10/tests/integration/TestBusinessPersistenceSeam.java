@@ -25,6 +25,7 @@ import comp3350.team10.objects.DrinkIngredient;
 import comp3350.team10.objects.Edible;
 import comp3350.team10.objects.EdibleLog;
 import comp3350.team10.objects.Ingredient;
+import comp3350.team10.objects.Meal;
 import comp3350.team10.objects.User;
 import comp3350.team10.persistence.DBSelector;
 import comp3350.team10.persistence.DataAccess;
@@ -79,6 +80,7 @@ public class TestBusinessPersistenceSeam {
         void setupTestLog() {
             ArrayList<Edible> edibleList = new ArrayList<Edible>();
             DailyLog testLog = new DailyLog();
+
             try {
                 edibleList.add(new EdibleLog(
                         new Edible()
@@ -434,6 +436,31 @@ public class TestBusinessPersistenceSeam {
             assertFalse(testEdible.getIsGlutenFree());
             assertTrue(testEdible.getIsCustom());
             assertEquals(testEdible.getPhoto(), "photo");
+        }
+
+        @Test
+        @DisplayName("Tests getting an ingredient")
+        void typicalValues() {
+            Edible item = db.findIngredientByKey(0,1, false);
+            assertEquals("Pear", item.getName());
+            assertFalse(item instanceof Meal);
+            assertFalse(item instanceof Drink);
+            //INSERT INTO EDIBLE VALUES(35,0,'Mojito','The best',10,'ml',100,30,45,25,'mojito.jpg',FALSE,FALSE,FALSE,FALSE,FALSE)
+
+            item = db.findIngredientByKey(2,35, false);
+            assertEquals("Mojito", item.getName());
+            assertFalse(item instanceof Meal);
+            assertTrue(item instanceof Drink);
+            assertEquals(4, ((Drink) item).getIngredients().size());
+            assertEquals("none", ((Drink) item).getInstructions());
+
+            item = db.findIngredientByKey(1, 25, false);
+            assertEquals("Meal 2items", item.getName());
+            assertTrue(item instanceof Meal);
+            assertFalse(item instanceof Drink);
+            assertEquals(2, ((Meal) item).getIngredients().size());
+            assertEquals("step1", ((Meal) item).getInstructions());
+
         }
     }
 
