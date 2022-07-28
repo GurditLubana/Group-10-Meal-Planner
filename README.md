@@ -5,12 +5,12 @@
 
 ### Eaten is a meal planning app, that aims to help its users reach their health goals through curated recipes, automated calorie counting and progress tracking thats easy to read and share with your loved ones.
 <br>
-</div>
 
 <hr>
 
 # The canonical copy of our database is in the top level of the extracted zip folder AND another copy under assets/db
 
+</div>
 <h2>Contents</h2>
 
 [Documentation](#team-10)
@@ -82,6 +82,9 @@ This feature is a separate screen the recipe book. This screen can be accessed b
 
 ## Users can add new food, drink, or meal items to the database
 This feature can be accessed from the recipe book. Users can click the floating action button then the plus icon to show a new item entry screen. users can add food by selecting the food tab then the action button. Similarly users can click the meal tab or the drinks tab then the action button to add items to those lists. Users can enter food details and add the item using the OK button. The user is notified visually if input does not meet the app requirements.
+
+## Users can add new drink, or meals with ingredients to the database
+This feature can be accessed from the recipe book. Users can click the floating action button then the plus icon to show a new item entry screen. users can add food by selecting the food tab then the action button. Similarly users can click the meal tab or the drinks tab then the action button to add items to those lists. In this tab there is recycler view with the familiar add button. Clicking this add button will navigate the user to the recipe book. If a recipe is selected that contains its own ingredients, the individual ingredients are added in place of that recipe. Once added these ingredients can be further modified or removed to meet the user's goals. The user is notified visually if input does not meet the app requirements.
 
 ## Users can flag new recipes for pre defined categories and dietary restrictions
 This feature can be accessed from the recipe book when adding a new recipe. Users can select up to 5 flags to further describe the recipe they are adding. Flags consist of alcoholic, spicy, vegan, vegetarian and gluten free
@@ -310,12 +313,10 @@ Fragments are reusable UI components that perform specific functions in activiti
 ## Iteration 3
 ### Major changes:
 - All objects have been overhauled
-- Moved around logic and processing to comply with seperation of concern
+- Moved around logic and processing including data validation to comply with seperation of concern/don't repeat yourself
 - Took persistance out of the presentation layers
-- Created around 500 new tests (based on objects buisness and persistance)
-- Trends and Daily progress are now functional (1st and 4th tabs)
+- Added new unit, integration and acceptance tests
+- All tabs are now functional
 - Edibles in a log can now be modified without side effects (only affects the current edibleLog)
 - Moved stub to correct location, hsql is now default and stub is only usable by unit and integration test calsses
-
-
-### Unresolved issues:
+- Fixed ingredient patching
