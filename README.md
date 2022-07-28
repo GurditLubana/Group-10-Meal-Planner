@@ -3,7 +3,7 @@
 
 <br>
 
-### Eaten is a meal planning app, that aims to help its users reach their health goals through curated recipes, automated calorie counting and progress tracking thats easy to read and share with your loved ones. 
+### Eaten is a meal planning app, that aims to help its users reach their health goals through curated recipes, automated calorie counting and progress tracking thats easy to read and share with your loved ones.
 <br>
 </div>
 
@@ -80,19 +80,19 @@ This feature is on the meal diary screen. Users can click on arrows on the top c
 ## Users can browse food, drink and meal databases  
 This feature is a separate screen the recipe book. This screen can be accessed by clicking on the book icon on the bottom navigation bar. Users are presented a scrolling list of cards with item images, names, and calories. Users can switch between lists by selecting the desired tab in the middle of the screen.  
 
-## Users can add new food, drink, or meal items to the database 
-This feature can be accessed from the recipe book. Users can click the floating action button then the plus icon to show a new item entry screen. users can add food by selecting the food tab then the action button. Similarly users can click the meal tab or the drinks tab then the action button to add items to those lists. Users can enter food details and add the item using the OK button. The user is notified visually if input does not meet the app requirements. 
+## Users can add new food, drink, or meal items to the database
+This feature can be accessed from the recipe book. Users can click the floating action button then the plus icon to show a new item entry screen. users can add food by selecting the food tab then the action button. Similarly users can click the meal tab or the drinks tab then the action button to add items to those lists. Users can enter food details and add the item using the OK button. The user is notified visually if input does not meet the app requirements.
 
 ## Users can flag new recipes for pre defined categories and dietary restrictions
 This feature can be accessed from the recipe book when adding a new recipe. Users can select up to 5 flags to further describe the recipe they are adding. Flags consist of alcoholic, spicy, vegan, vegetarian and gluten free
 
-## Users can see goal progress for the week 
-This feature can be accessed from the daily progress activity screen. User's can scroll through 4 different bar charts corresponding to their calorie intake, net calories, burnt calories and weight. This can be accessed via the leftmost nav button. 
+## Users can see goal progress for the week
+This feature can be accessed from the daily progress activity screen. User's can scroll through 4 different bar charts corresponding to their calorie intake, net calories, burnt calories and weight. This can be accessed via the leftmost nav button.
 
-## Users can see long term trend charts of their goal progress with trendlines 
-This feature is in the trends activity screen. User's can scroll through 4 different graphs corresponding to their calorie intake, net calories, burnt calories and weight. Results have the option to span the previous week, month, last 3 months, last 6 months and year. This can be accessed via the fourth nav button from the left. 
+## Users can see long term trend charts of their goal progress with trendlines
+This feature is in the trends activity screen. User's can scroll through 4 different graphs corresponding to their calorie intake, net calories, burnt calories and weight. Results have the option to span the previous week, month, last 3 months, last 6 months and year. This can be accessed via the fourth nav button from the left.
 
-## User data is persistent between startups 
+## User data is persistent between startups
 This can be enabled in the DBSelector class by commenting the appropriate lines in the constructor lines 23-28
 
 <br>
@@ -117,7 +117,7 @@ Main handles database and device related maintenance and path handling
 
 #
 ## Business
-Business classes handle program logic related to their activities. 
+Business classes handle program logic related to their activities.
 
 <br>
 
@@ -127,7 +127,7 @@ The meal diary ops class handles logic and operations related to the main app ac
 <br>
 
 <h3>RecipeBookOps</h3>
-The recipe book ops handles logic and operations related to the recipe book and curated recipe functionality. This class handles the retrieval and storage of food, drink, and meal recipeto and from persistence classes. 
+The recipe book ops handles logic and operations related to the recipe book and curated recipe functionality. This class handles the retrieval and storage of food, drink, and meal recipeto and from persistence classes.
 
 <br>
 
@@ -179,7 +179,7 @@ This class defines essential attributes and functionality for each instance of a
 <br>
 
 <h3>Validator</h3>
-Serves as a central source to validates generated values and sanitize user input 
+Serves as a central source to validates generated values and sanitize user input
 
 <br>
 
@@ -240,7 +240,7 @@ This class provides methods that allow the retrieval and storage of data into a 
 <br>
 
 <h3>HSQLDB</h3>
-This class provides methods that allow the retrieval and storage of data into a HSQL database (persists through restarts). It is worth mentioning, most tables have a "custom" counterpart.  This will be more relevant in future updates to accomodate a user's desire to add their own recipes and acts as a seperation between the provided curated recipes and the recipes users may add. 
+This class provides methods that allow the retrieval and storage of data into a HSQL database (persists through restarts). It is worth mentioning, most tables have a "custom" counterpart.  This will be more relevant in future updates to accomodate a user's desire to add their own recipes and acts as a seperation between the provided curated recipes and the recipes users may add.
 
 <br>
 
@@ -309,10 +309,13 @@ Fragments are reusable UI components that perform specific functions in activiti
 # Patch notes
 ## Iteration 3
 ### Major changes:
-- Moved stub to correct location, hsql is now default and stub is only usable by unit and integration test classes
-- add recipe interface now extracts ingredients from selected items when adding meals and drinks
+- All objects have been overhauled
+- Moved around logic and processing to comply with seperation of concern
+- Took persistance out of the presentation layers
+- Created around 500 new tests (based on objects buisness and persistance)
+- Trends and Daily progress are now functional (1st and 4th tabs)
+- Edibles in a log can now be modified without side effects (only affects the current edibleLog)
+- Moved stub to correct location, hsql is now default and stub is only usable by unit and integration test calsses
 
 
 ### Unresolved issues:
-- sometimes there is delay before a field error shows up when adding meals which causes one of the acceptance tests to fail
-which cascades into the other ones also failing. user_is_warned_valid_add_food_input
