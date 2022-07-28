@@ -916,6 +916,12 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
                     .initCategories(false, false, false, false, false)
                     .initMetadata(false, "lime.jpg")
             );
+            this.dbRecipeFood.add(new Edible()
+                    .initDetails(24, "different lime", "Lime desc", 1, Edible.Unit.serving)
+                    .initNutrition(50, 30, 20, 50)
+                    .initCategories(false, false, false, false, false)
+                    .initMetadata(false, "lime.jpg")
+            );
         } catch (Exception e) {
             System.out.println("DataAccessStub loadFoodRecipes failed " + e);
 
