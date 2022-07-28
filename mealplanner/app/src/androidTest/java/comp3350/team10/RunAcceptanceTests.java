@@ -10,9 +10,9 @@ import comp3350.team10.acceptance.TestStoryProgressTracking;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+        TestStoryAddRecipes.class,
         TestStoryLogEditPlanMeals.class,
         TestStoryProgressMoreCharts.class,
-        TestStoryAddRecipes.class,
         TestStoryProgressTracking.class
 })
 

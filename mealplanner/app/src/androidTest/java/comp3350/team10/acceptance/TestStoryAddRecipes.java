@@ -19,6 +19,7 @@ import static comp3350.team10.utils.Utils.clickChildViewWithId;
 import static comp3350.team10.utils.Utils.selectTabAtPosition;
 import static comp3350.team10.utils.Utils.waitId;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -88,18 +89,30 @@ public class TestStoryAddRecipes {
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
         onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test bad food"));
+        Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(ViewMatchers.withId(R.id.dialogRecipeTitle)).perform(scrollTo());
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo());
         onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
         onView(ViewMatchers.withId(R.id.dialogRecipeCaloriesInput)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("10000"));
+        Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(ViewMatchers.withId(R.id.dialogRecipeTitle)).perform(scrollTo());
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo());
         onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input requires value between 0 and 9999")));
         onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("5"));
+        Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.dialogRecipeQuantityInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
+        onView(ViewMatchers.withId(R.id.dialogRecipeTitle)).perform(scrollTo());
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo());
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo()).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
         onView(withId(R.id.dialogRecipeQuantityInput)).perform(clearText(), typeText("10000"));
+        Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.dialogRecipeQuantityInput)).check(matches(hasErrorText("input requires value between 0 and 9999")));
+        onView(ViewMatchers.withId(R.id.dialogRecipeTitle)).perform(scrollTo());
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo());
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo()).check(matches(hasErrorText("input requires value between 0 and 9999")));
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnCancel)).perform(scrollTo(), click());
 
         onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(1));
@@ -107,23 +120,48 @@ public class TestStoryAddRecipes {
         onView(ViewMatchers.withId(R.id.addButton)).perform(click());
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
+        onView(withId(R.id.dialogRecipeNameInput)).perform(scrollTo()).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
         onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test bad meal"));
+        Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
+
+        onView(withId(R.id.isVegan)).perform(scrollTo(), click());
+        onView(withId(R.id.isVegetarian)).perform(scrollTo(), click());
+        onView(withId(R.id.isGluteenFree)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(scrollTo()).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
         onView(ViewMatchers.withId(R.id.dialogRecipeCaloriesInput)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("10000"));
+        Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input requires value between 0 and 9999")));
+
+        onView(withId(R.id.isVegan)).perform(scrollTo(), click());
+        onView(withId(R.id.isVegetarian)).perform(scrollTo(), click());
+        onView(withId(R.id.isGluteenFree)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(scrollTo()).check(matches(hasErrorText("input requires value between 0 and 9999")));
         onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("5"));
+        Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.dialogRecipeQuantityInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
+
+        onView(withId(R.id.isVegan)).perform(scrollTo(), click());
+        onView(withId(R.id.isVegetarian)).perform(scrollTo(), click());
+        onView(withId(R.id.isGluteenFree)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo()).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
         onView(withId(R.id.dialogRecipeQuantityInput)).perform(clearText(), typeText("10000"));
+        Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.dialogRecipeQuantityInput)).check(matches(hasErrorText("input requires value between 0 and 9999")));
+
+        onView(withId(R.id.isVegan)).perform(scrollTo(), click());
+        onView(withId(R.id.isVegetarian)).perform(scrollTo(), click());
+        onView(withId(R.id.isGluteenFree)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo()).check(matches(hasErrorText("input requires value between 0 and 9999")));
         onView(withId(R.id.dialogRecipeQuantityInput)).perform(clearText(), typeText("5"));
+        Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.ingredientError)).check(matches(hasErrorText("input list cannot be null and requires length between 0 and 9999")));
+
+        onView(withId(R.id.isVegan)).perform(scrollTo(), click());
+        onView(withId(R.id.isVegetarian)).perform(scrollTo(), click());
+        onView(withId(R.id.isGluteenFree)).perform(scrollTo(), click());
+        onView(withId(R.id.ingredientError)).perform(scrollTo()).check(matches(hasErrorText("input list cannot be null and requires length between 0 and 9999")));
         onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withId(R.id.imageView4))));
         onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
@@ -134,33 +172,61 @@ public class TestStoryAddRecipes {
         onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
         onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnModifyMeal)));
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("0"));
-        onView(withId(R.id.btnOk)).perform(click());
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.btnOk)).perform( click());
+
         onView(withId(R.id.inputQty)).check(matches(hasErrorText("Invalid input must be between 0 and 9999")));
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("10000"));
-        onView(withId(R.id.btnOk)).perform(click());
-        onView(withId(R.id.inputQty)).check(matches(hasErrorText("Invalid input must be between 0 and 9999")));
-        onView(withId(R.id.btnCancel)).perform(click());
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.btnOk)).perform( click());
 
-        onView(ViewMatchers.withId(R.id.dialogRecipeBtnCancel)).perform(scrollTo(), click());
+        onView(withId(R.id.inputQty)).check(matches(hasErrorText("Invalid input must be between 0 and 9999")));
+        onView(withId(R.id.btnCancel)).perform( click());
+
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnCancel)).perform( click());
         onView(ViewMatchers.withId(R.id.tabLayout)).perform(selectTabAtPosition(2));
         onView(isRoot()).perform(waitId(R.id.addButton, 5000));
         onView(ViewMatchers.withId(R.id.addButton)).perform(click());
 
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeNameInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
-        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("Test bad drink"));
+        //onView(withId(R.id.dialogRecipeNameInput)).perform(click());
+        onView(withId(R.id.dialogRecipeNameInput)).perform(scrollTo(), clearText(), typeText("Test bad drink"));
+        Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
+
+        onView(withId(R.id.isVegan)).perform(scrollTo(), click());
+        onView(withId(R.id.isVegetarian)).perform(scrollTo(), click());
+        onView(withId(R.id.isGluteenFree)).perform(scrollTo(), click());
+        onView(withId(R.id.isVegan)).perform(scrollTo(), click());
+        onView(withId(R.id.isVegetarian)).perform(scrollTo(), click());
+        onView(withId(R.id.isGluteenFree)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(scrollTo()).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
         onView(ViewMatchers.withId(R.id.dialogRecipeCaloriesInput)).perform(scrollTo(), click());
         onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("10000"));
+        Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.dialogRecipeCaloriesInput)).check(matches(hasErrorText("input requires value between 0 and 9999")));
+
+        onView(withId(R.id.isVegan)).perform(scrollTo(), click());
+        onView(withId(R.id.isVegetarian)).perform(scrollTo(), click());
+        onView(withId(R.id.isGluteenFree)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(scrollTo()).check(matches(hasErrorText("input requires value between 0 and 9999")));
         onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("5"));
+        Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.dialogRecipeQuantityInput)).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
+
+        onView(withId(R.id.isVegan)).perform(scrollTo(), click());
+        onView(withId(R.id.isVegetarian)).perform(scrollTo(), click());
+        onView(withId(R.id.isGluteenFree)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo()).check(matches(hasErrorText("input cannot be null and requires length between 1 and 9999")));
         onView(withId(R.id.dialogRecipeQuantityInput)).perform(clearText(), typeText("10000"));
+        Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
-        onView(withId(R.id.dialogRecipeQuantityInput)).check(matches(hasErrorText("input requires value between 0 and 9999")));
+
+        onView(withId(R.id.isVegan)).perform(scrollTo(), click());
+        onView(withId(R.id.isVegetarian)).perform(scrollTo(), click());
+        onView(withId(R.id.isGluteenFree)).perform(scrollTo(), click());
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo()).check(matches(hasErrorText("input requires value between 0 and 9999")));
         onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withId(R.id.imageView4))));
         onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
@@ -173,12 +239,17 @@ public class TestStoryAddRecipes {
         onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnModifyMeal)));
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("0"));
         onView(withId(R.id.btnOk)).perform(click());
+
         onView(withId(R.id.inputQty)).check(matches(hasErrorText("Invalid input must be between 0 and 9999")));
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("10000"));
-        onView(withId(R.id.btnOk)).perform(click());
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.btnOk)).perform( click());
+
         onView(withId(R.id.inputQty)).check(matches(hasErrorText("Invalid input must be between 0 and 9999")));
-        onView(withId(R.id.btnCancel)).perform(click());
-        onView(ViewMatchers.withId(R.id.dialogRecipeBtnCancel)).perform(scrollTo(), click());
+        onView(withId(R.id.btnCancel)).perform( click());
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnCancel)).perform( click());
+
+        cleanup();
     }
 
     private void cleanup() {
