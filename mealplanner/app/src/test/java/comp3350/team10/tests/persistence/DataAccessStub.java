@@ -259,7 +259,7 @@ public class DataAccessStub implements DataAccess, LogDBInterface, RecipeDBInter
     }
 
     //This section implements RecipeDBInterface
-    public Edible findIngredientByKey(int key, boolean isCustom) {
+    public Edible findIngredientByKey(int edibleType, int key, boolean isCustom) {
         Edible result = null;
         System.out.println("key: " + key);
 

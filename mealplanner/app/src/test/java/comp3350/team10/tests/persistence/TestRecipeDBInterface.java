@@ -202,10 +202,20 @@ public class TestRecipeDBInterface {
         void testBadDBkey() {
             final int testKey = db.getNextKey();
 
-            assertNull(db.findIngredientByKey(-1, false));
-            assertNull(db.findIngredientByKey(-1, true));
-            assertNull(db.findIngredientByKey(999999, true));
-            assertNull(db.findIngredientByKey(testKey, true));
+            assertNull(db.findIngredientByKey(0, -1, false));
+            assertNull(db.findIngredientByKey(0, -1, true));
+            assertNull(db.findIngredientByKey(0, 999999, true));
+            assertNull(db.findIngredientByKey(0, testKey, true));
+
+            assertNull(db.findIngredientByKey(1, -1, false));
+            assertNull(db.findIngredientByKey(1, -1, true));
+            assertNull(db.findIngredientByKey(1, 999999, true));
+            assertNull(db.findIngredientByKey(1, testKey, true));
+
+            assertNull(db.findIngredientByKey(2, -1, false));
+            assertNull(db.findIngredientByKey(2, -1, true));
+            assertNull(db.findIngredientByKey(2, 999999, true));
+            assertNull(db.findIngredientByKey(2, testKey, true));
         }
     }
 
@@ -231,7 +241,7 @@ public class TestRecipeDBInterface {
             assertEquals(7, mealRecipeCount);
             assertEquals(7, drinkRecipeCount);
 
-            Edible item = db.findIngredientByKey(1, false);
+            Edible item = db.findIngredientByKey(0,1, false);
             assertEquals("Pear", item.getName());
 
             db.addFoodToRecipeBook(testEdible);
@@ -291,9 +301,9 @@ public class TestRecipeDBInterface {
             testMeal.setDescription("a new description");
             testDrink.setDescription("a new description");
 
-            assertEquals("desc", db.findIngredientByKey(testEdibleKey, false).getDescription());
-            assertEquals("desc", db.findIngredientByKey(testMealKey, false).getDescription());
-            assertEquals("desc", db.findIngredientByKey(testDrinkKey, false).getDescription());
+            assertEquals("desc", db.findIngredientByKey(0, testEdibleKey, false).getDescription());
+            assertEquals("desc", db.findIngredientByKey(1, testMealKey, false).getDescription());
+            assertEquals("desc", db.findIngredientByKey(2, testDrinkKey, false).getDescription());
         }
     }
 
@@ -304,7 +314,7 @@ public class TestRecipeDBInterface {
         @Test
         @DisplayName("We should be able to get the first item in the database")
         void getFirstItem() {
-            Edible item = db.findIngredientByKey(0, false);
+            Edible item = db.findIngredientByKey(0,0, false);
             assertEquals("Apple", item.getName());
         }
     }
