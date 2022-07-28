@@ -107,9 +107,9 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         try {
             EdibleLog edible = this.findEdibleByKey(key, isCustom);
             if (edible != null) {
-                if (edibleType == 1) {
+                if (edibleType == 1 && this.isDrink(key, isCustom) || this.isMeal(key, isCustom)) {
                     currEdible = new Meal();
-                } else if (edibleType == 2) {
+                } else if (edibleType == 2 && this.isDrink(key, isCustom) || this.isMeal(key, isCustom)) {
                     currEdible = new Drink();
                 } else {
                     currEdible = edible;
@@ -120,10 +120,10 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
                 currEdible.initCategories(edible.getIsAlcoholic(), edible.getIsSpicy(), edible.getIsVegan(), edible.getIsVegetarian(), edible.getIsGlutenFree());
                 currEdible.initMetadata(edible.getIsCustom(), edible.getPhoto());
 
-                if (edibleType == 1) {
+                if (edibleType == 1 && this.isDrink(key, isCustom) || this.isMeal(key, isCustom)) {
                     ((Meal) currEdible).setInstructions(this.getInstructions(currEdible));
                     ((Meal) currEdible).setIngredients(this.getMealIngredients(currEdible));
-                } else if (edibleType == 2) {
+                } else if (edibleType == 2 && this.isDrink(key, isCustom) || this.isMeal(key, isCustom)) {
                     ((Drink) currEdible).setInstructions(this.getInstructions(currEdible));
                     ((Drink) currEdible).setIngredients(this.getDrinkIngredients(currEdible));
                 }

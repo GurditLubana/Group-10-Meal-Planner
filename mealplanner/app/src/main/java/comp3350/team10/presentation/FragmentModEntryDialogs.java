@@ -157,7 +157,7 @@ public class FragmentModEntryDialogs extends FragmentDialogCommon {
                         closeDialog();
                     }
                 } catch (Exception e) {
-                    getInputQuantity().setError("Invalid input must be between 0 and 9999 inclusive");
+                    getInputQuantity().setError("Invalid input must be between 0 and 9999");
                 }
             }
         });
@@ -175,16 +175,15 @@ public class FragmentModEntryDialogs extends FragmentDialogCommon {
                 String enteredValue = getInputQuantity().getText().toString();
                 Double value;
 
-                if (!enteredValue.equals("")) {
-                    value = Double.parseDouble(enteredValue);
-
-                    if (value >= Constant.ENTRY_MIN_VALUE && value <= Constant.ENTRY_MAX_VALUE) {
-                        if (sendToRecipes != null && sendToRecipes instanceof FragToRecipeBook) {
-                            sendToRecipes.editEntry(value, getUnitSpinner().getSelectedItem().toString(), isSubstitute.isChecked());
-                            closeDialog();
-                        }
-                    } else {
-                        getInputQuantity().setError("Invalid input must be between 0 and 9999 inclusive");
+                if (sendToRecipes != null && sendToRecipes instanceof FragToRecipeBook) {
+                    try {
+                        Validator.validStringInputatLeastOne(enteredValue, "");
+                        value = Double.parseDouble(enteredValue);
+                        Validator.atLeastOne(value, "");
+                        sendToRecipes.editEntry(value, getUnitSpinner().getSelectedItem().toString(), isSubstitute.isChecked());
+                        closeDialog();
+                    } catch (Exception e) {
+                        getInputQuantity().setError("Invalid input must be between 0 and 9999");
                     }
                 }
             }
