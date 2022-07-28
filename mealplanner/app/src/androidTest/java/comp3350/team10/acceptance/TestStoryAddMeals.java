@@ -602,7 +602,7 @@ public class TestStoryAddMeals {
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("10000"));
         Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.btnOk)).perform(click());
-        onView(withId(R.id.inputQty)).check(matches(hasErrorText("Invalid input must be between 0 and 9999 inclusive")));
+        onView(withId(R.id.inputQty)).check(matches(hasErrorText("Invalid input must be between 0 and 9999")));
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("9999"));
         Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.btnOk)).perform(click());
@@ -681,7 +681,7 @@ public class TestStoryAddMeals {
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("10000"));
         Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.btnOk)).perform(click());
-        onView(withId(R.id.inputQty)).check(matches(hasErrorText("Invalid input must be between 0 and 9999 inclusive")));
+        onView(withId(R.id.inputQty)).check(matches(hasErrorText("Invalid input must be between 0 and 9999")));
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("9999"));
         Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.btnOk)).perform(click());
@@ -729,7 +729,7 @@ public class TestStoryAddMeals {
         onView(withText("tbsp")).inRoot(isPlatformPopup()).perform(click());
         onView(withId(R.id.inputUnit)).check(matches(withSpinnerText(containsString("tbsp"))));
         onView(ViewMatchers.withId(R.id.btnOk)).perform(click());
-        onView(withId(R.id.inputQty)).check(matches(hasErrorText("Invalid input must be between 0 and 9999 inclusive")));
+        onView(withId(R.id.inputQty)).check(matches(hasErrorText("Invalid input must be between 0 and 9999")));
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("1"));
         Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.btnOk)).perform(click());
@@ -756,7 +756,7 @@ public class TestStoryAddMeals {
         onView(withText("tbsp")).inRoot(isPlatformPopup()).perform(click());
         onView(withId(R.id.inputUnit)).check(matches(withSpinnerText(containsString("tbsp"))));
         onView(ViewMatchers.withId(R.id.btnOk)).perform(click());
-        onView(withId(R.id.inputQty)).check(matches(hasErrorText("Invalid input must be between 0 and 9999 inclusive")));
+        onView(withId(R.id.inputQty)).check(matches(hasErrorText("Invalid input must be between 0 and 9999")));
         onView(withId(R.id.inputQty)).perform(clearText(), typeText("9999"));
         Espresso.closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.btnOk)).perform(click());
