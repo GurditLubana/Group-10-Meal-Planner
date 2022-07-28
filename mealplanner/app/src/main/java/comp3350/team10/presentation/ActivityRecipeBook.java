@@ -259,7 +259,7 @@ public class ActivityRecipeBook extends AppCompatActivity implements FragToRecip
                         data = result.getData();
                         dbkey = data.getExtras().getInt("DBKEY"); //rva recipe book
                         isCustom = data.getExtras().getBoolean("isCustom");
-                        currEdible = opExec.findIngredient(dbkey, isCustom);
+                        currEdible = opExec.findIngredient(currTab, dbkey, isCustom);
                         addRecipe.loadIngredients(currEdible);
                     }
                 }
