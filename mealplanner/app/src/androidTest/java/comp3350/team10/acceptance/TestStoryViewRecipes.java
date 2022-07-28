@@ -357,7 +357,9 @@ public class TestStoryViewRecipes {
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.addToPlannerBtn2)));
         onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
         onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test2 sugar water"))));
+        cleanup();
 
+        onView(ViewMatchers.withId(R.id.addButton)).perform(click());
         //add one where contents are modified
         onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("modDrink"));
         onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("0"));
@@ -375,18 +377,119 @@ public class TestStoryViewRecipes {
         onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
         onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
         //click on edit
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnModifyMeal)));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnModifyMeal)));
 
         //dialog pops up and rewrite quantity and
-        onView(withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(withId(R.id.inputQty)), click());
-        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Test2 sugar water"))));
+        onView(withId(R.id.inputQty)).perform(clearText(), typeText("11"));
 
+        onView(withId(R.id.inputUnit)).perform(click());
+        onView(withText("g")).inRoot(isPlatformPopup()).perform(click());
+        onView(withId(R.id.btnOk)).perform(click());
 
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(scrollTo());
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(isRoot()).perform(waitId(R.id.recipeRecyclerView, 5000));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("modDrink"))));
+        cleanup();
+        //test add duplicate
+        onView(ViewMatchers.withId(R.id.addButton)).perform(click());
+
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("dupeDrink"));
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("5"));
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("777"));
+        onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
+        onView(withText("tbsp")).inRoot(isPlatformPopup()).perform(click());
+
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withId(R.id.imageView4))));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(click());
+
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.cardView2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.addToPlannerBtn2)));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withId(R.id.imageView4))));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(click());
+
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.cardView2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.addToPlannerBtn2)));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("dupeDrink"))));
+        cleanup();
 
         //add one where contents are removed
+        onView(ViewMatchers.withId(R.id.addButton)).perform(click());
 
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("rmIngredientDrink"));
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("5"));
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("777"));
+        onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
+        onView(withText("tbsp")).inRoot(isPlatformPopup()).perform(click());
+
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withId(R.id.imageView4))));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(click());
+
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.cardView2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.addToPlannerBtn2)));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withId(R.id.imageView4))));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Apple"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(click());
+
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.cardView2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.addToPlannerBtn2)));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Apple"))));
+
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.btnDeleteMeal)));
+
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Apple"))));
+
+        //check there is only one item
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("rmIngredientDrink"))));
+        cleanup();
         //add one with many
+        onView(ViewMatchers.withId(R.id.addButton)).perform(click());
 
+        onView(withId(R.id.dialogRecipeNameInput)).perform(clearText(), typeText("multiIngredient"));
+        onView(withId(R.id.dialogRecipeCaloriesInput)).perform(clearText(), typeText("5"));
+        onView(withId(R.id.dialogRecipeQuantityInput)).perform(scrollTo(), clearText(), typeText("777"));
+        onView(withId(R.id.dialogRecipeSpinner)).perform(scrollTo(), click());
+        onView(withText("tbsp")).inRoot(isPlatformPopup()).perform(click());
+
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withId(R.id.imageView4))));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(click());
+
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.cardView2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildViewWithId(R.id.addToPlannerBtn2)));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withId(R.id.imageView4))));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Apple"))));
+        onView(withId(R.id.recipeRecyclerView)).perform(click());
+
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.cardView2)));
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildViewWithId(R.id.addToPlannerBtn2)));
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Apple"))));
+
+        onView(withId(R.id.dialogRecipeIngredientsInput)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Pear"))));
+        onView(ViewMatchers.withId(R.id.dialogRecipeBtnOk)).perform(scrollTo(), click());
+        onView(withId(R.id.recipeRecyclerView)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("multiIngredient"))));
+        cleanup();
         //add one where adds ingredients from Drink
 
         //add one where adds ingredients from Meal

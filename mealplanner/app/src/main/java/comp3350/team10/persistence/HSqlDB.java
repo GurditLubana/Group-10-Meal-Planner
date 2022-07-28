@@ -554,7 +554,7 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
 
     private ArrayList<DrinkIngredient> getDrinkIngredients(Edible currEdible) { //
         ArrayList<DrinkIngredient> ingredients = new ArrayList<DrinkIngredient>();
-        try {
+        try { //reference id and is custom attribute
             PreparedStatement getIngredients = currConn.prepareStatement("SELECT * FROM DrinkIngredient INNER JOIN Edible " +
                     "ON Edible.EdibleID = DrinkIngredient.EdibleID WHERE PreparedID = ? OR PreparedCustomID = ?");
             ResultSet results;
@@ -583,31 +583,68 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
 
     private ArrayList<Ingredient> getMealIngredients(Edible currEdible) {   //save all as things without ingredients
         ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+
         try {
-            PreparedStatement getIngredients = currConn.prepareStatement("SELECT * FROM MealIngredient INNER JOIN Edible " +
-                    "ON Edible.EdibleID = MealIngredient.EdibleID WHERE PreparedID = ? OR PreparedCustomID = ?");
+            PreparedStatement getIngredients = currConn.prepareStatement("SELECT * FROM MealIngredient JOIN Edible " +
+                    "ON Edible.EdibleID = MealIngredient.PreparedID WHERE PreparedID = ?");
+            PreparedStatement getCustomIngredients = currConn.prepareStatement("SELECT * FROM MealIngredient JOIN CustomEdible " +
+                    "ON CustomEdible.CustomEdibleID = MealIngredient.PreparedCustomID WHERE PreparedCustomID = ?");
+            PreparedStatement getIngredientsForCustom = currConn.prepareStatement("SELECT * FROM MealIngredient JOIN Edible " +
+                    "ON Edible.EdibleID = MealIngredient.PreparedID WHERE PreparedID = ?");
+            PreparedStatement getCustomIngredientsForCustom = currConn.prepareStatement("SELECT * FROM MealIngredient JOIN CustomEdible " +
+                    "ON CustomEdible.CustomEdibleID = MealIngredient.PreparedCustomID WHERE PreparedCustomID = ?");
             ResultSet results;
+                                                        //edible, quantity, unit
+            if(currEdible.getIsCustom()) {
+                getIngredientsForCustom.setInt(1, currEdible.getDbkey());
+                results = getIngredientsForCustom.executeQuery();
+                ingredients.addAll(processIngredients(results, false));
+                results.close();
 
-            Ingredient currIngredient;
-            Edible.Unit unit;
+                getCustomIngredientsForCustom.setInt(1, currEdible.getDbkey());
+                results = getCustomIngredientsForCustom.executeQuery();
+                ingredients.addAll(processIngredients(results, true));
+                results.close();
+            } else {
+                getIngredients.setInt(1, currEdible.getDbkey());
+                results = getIngredients.executeQuery();
+                ingredients.addAll(processIngredients(results, false));
+                results.close();
 
-            getIngredients.setInt(1, currEdible.getDbkey());
-            getIngredients.setInt(2, currEdible.getDbkey());
-            results = getIngredients.executeQuery();
-
-            while (results.next()) {
-                unit = this.findUnit(results.getString("Unit"));
-                currIngredient = new Ingredient().init(currEdible, results.getInt("Quantity"), unit);
-                ingredients.add(currIngredient);
+                getCustomIngredients.setInt(1, currEdible.getDbkey());
+                results = getCustomIngredients.executeQuery();
+                ingredients.addAll(processIngredients(results, true));
+                results.close();
             }
         } catch (Exception e) {
             System.out.println("HSqlDB GetMealIngredients " + e);
-
         }
 
         return ingredients;
     }
 
+    private ArrayList<Ingredient> processIngredients(ResultSet ingredients, boolean isCustom) {
+        ArrayList<Ingredient> list = new ArrayList<Ingredient>();
+        Ingredient currIngredient;
+        Edible currEdible;
+        int quantity;
+        Edible.Unit unit;
+
+        try {
+            while (ingredients.next()) {
+                currEdible = this.readEdible(ingredients, isCustom);
+                unit = this.findUnit(ingredients.getString("Unit"));
+                quantity = ingredients.getInt("Quantity");
+                currIngredient = new Ingredient().init(currEdible, quantity, unit);
+                list.add(currIngredient);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
     private ArrayList<Edible> getEdibleLog(int historyID) {
         ArrayList<Edible> edibleLog = new ArrayList<Edible>();
         try {
@@ -702,7 +739,6 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
             }
 
             if (results.next()) {
-
                 edibleLog = new EdibleLog(this.readEdible(results, isCustom));
             }
         } catch (Exception e) {
@@ -798,7 +834,6 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
 
             for (int i = 0; i < edibles.size(); i++) {
                 currEdible = edibles.get(i);
-                //System.out.println(currEdible.getName());
                 if (currEdible.getIsCustom()) {
                     addCustomEdibleHistory.setInt(1, historyID);
                     addCustomEdibleHistory.setInt(2, currEdible.getDbkey());
@@ -832,10 +867,6 @@ public class HSqlDB implements DataAccess, LogDBInterface, RecipeDBInterface, Us
         } catch (Exception e) {
             System.out.println("HSqlDB deleteLog " + e);
         }
-    }
-
-    public int getTestKey(String itemName) {
-        return 1;
     }
 
     public void removeTestData() {
