@@ -5,6 +5,8 @@ import org.junit.platform.suite.api.SelectPackages;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
 
+import comp3350.team10.tests.integration.TestBusinessPersistenceHsql;
+import comp3350.team10.tests.integration.TestBusinessPersistenceSeam;
 import comp3350.team10.tests.persistence.TestLogDBInterfaceHsql;
 import comp3350.team10.tests.persistence.TestRecipeDBInterfaceHsql;
 import comp3350.team10.tests.persistence.TestUserDBInterfaceHsql;
@@ -16,8 +18,9 @@ import comp3350.team10.tests.persistence.TestUserDBInterfaceHsql;
 @SelectClasses({
         TestLogDBInterfaceHsql.class,
         TestRecipeDBInterfaceHsql.class,
-        TestUserDBInterfaceHsql.class
-
+        TestUserDBInterfaceHsql.class,
+        TestBusinessPersistenceHsql.class,
+        TestBusinessPersistenceSeam.class,
 })
 
 public class RunIntegrationTests {
