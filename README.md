@@ -1,8 +1,8 @@
 <div align="center">
-<h1> <b>Comp 3350 Team 10 <br> EATEN</b> </h1>
-
+<h1> <b>EATEN</b> </h1>
+  
+[Vido Demonstration of the App](https://www.youtube.com/watch?v=3nHE2sbWfrg)
 <br>
-
 ### Eaten is a meal planning app, that aims to help its users reach their health goals through curated recipes, automated calorie counting and progress tracking thats easy to read and share with your loved ones.
 <br>
 
